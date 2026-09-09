@@ -33,3 +33,7 @@
 4. 同一切片完成后提供真实试玩入口与环境证据。Linux测试与Mac试玩分开记录；未经真人反馈不宣布角色讨喜或玩法有趣。
 
 无运行中的拆书代理或旧线程需要恢复。研究工作资料从此在 docs/research 内接续；SOURCE_BIBLE 的历史细证只按需查。已有公开历史中的 novel.txt 未清除，亦未强推历史。
+
+## 公网审阅已发布
+
+2026-09-09，用户要求公网访问并再次明确允许发布，当前运行环境权限已更新。已成功将 `docs/return-stone-design` 推送至 origin，包含设计提交 `3e02f78` 与历史拦截记录 `7963d9a`；上述未推送状态已过时。公开入口：[一次确认版设计](https://github.com/mekanuo/xian-ni-game/blob/docs/return-stone-design/design/REVIEW.md)。本次仅发布文档，没有获得完整玩法设计确认或实施游戏。

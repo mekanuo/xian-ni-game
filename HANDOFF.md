@@ -45,7 +45,7 @@
 
 - 本机工作目录：/home/zhangjingzhou/workspace/xian-ni-game。
 - 当前分支：docs/return-stone-design，从 docs/source-research-handoff 的 bf4d922 新建；远端origin，默认分支master。以git log/status和远端实际SHA核对，不把本文件自身SHA写成固定锚点。
-- 本轮设计已本地提交为 3e02f78，推送被自动审批在执行前以外部发布风险拒绝；当前设计分支及后续拦截记录尚未成功推送。用户既有阶段推送授权仍有记录，但不得绕过此拒绝；向用户明确报告并请求本次推送批准。具体见 docs/PROGRESS.md。
+- 本轮设计提交为 3e02f78，拦截记录为 7963d9a。用户要求公网链接并再次明确允许发布，运行环境权限随后更新；2026-09-09已成功推送 docs/return-stone-design。公开审阅入口：https://github.com/mekanuo/xian-ni-game/blob/docs/return-stone-design/design/REVIEW.md 。发布授权不等于完整玩法设计已经确认；仍等待设计反馈。
 - HTTPS默认未设凭证助手。使用：git -c credential.helper='!gh auth git-credential' push -u origin <当前分支>。不要显示凭证或要求用户重复登录。网络受限时按工具权限流程重试，不将DNS失败当账号未登录。
 - 当前为稀疏检出；新目录需git add --sparse或相应扩大检出范围。novel.txt标记skip-worktree，未写入当前工作目录。
 - 小说原文保留在本机../sources/仙逆.txt，不随本次交接上传。远端旧历史已有novel.txt；忽略它不等于清除公开历史，也未授权强推历史清理。
