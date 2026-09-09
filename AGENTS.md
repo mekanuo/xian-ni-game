@@ -2,6 +2,7 @@
 
 ## Scope
 
+- The user confirmed on 2026-09-09 that mekanuo/xian-ni-game is the repository to use and its existing content should be disregarded. Preserve history, but do not treat the legacy demonstration as an approved design or compatibility requirement.
 - Build a Chinese-language browser game grounded in the user's supplied Xian Ni novel. Do not import the gameplay or milestone assumptions of earlier projects.
 - The old smbb and starvein-companion-cards projects are sealed. Never modify them.
 - The player direction is an original cultivator intersecting Wang Lin's journey, not replacing his defining deeds, relationships, or unique possessions.

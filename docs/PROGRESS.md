@@ -4,6 +4,7 @@ Last verified: 2026-09-09. This file records evidence, not a product completion 
 
 ## Repository
 
+- User confirmation (2026-09-09): use mekanuo/xian-ni-game and disregard its existing content. New design is not constrained by the legacy demonstration; no force-push or historical deletion is implied.
 - GitHub: mekanuo/xian-ni-game, public, default branch master.
 - Existing baseline: 970b4b4affd339e99865e84090a0603fb8667f99, Initial playable Xian Ni browser game.
 - Working branch: docs/source-research-handoff. This branch starts from the existing history; it is not a replacement repository.
@@ -34,6 +35,7 @@ The supplied file has 2047 outer chapter numbers, with 2046-2047 repeating 2044-
 
 ## Still Unresolved
 
+- Local handoff commit d7e31d0 exists. Its push was denied by automatic approval before execution; it is not on the remote. Explicit permission for publication to this public repository has been requested. Continue local work without bypassing that denial.
 - No approved production gameplay specification or verified playable release in this checkpoint.
 - Raw novel exposure in the existing public repository needs a separate explicit remediation decision; do not silently change visibility or force-push history.
 - Research documents are local-only unless specifically committed and pushed. This handoff does not claim their wholesale remote backup.
