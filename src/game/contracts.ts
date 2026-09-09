@@ -41,6 +41,7 @@ export type GameAction =
   | { type: 'choose'; choiceId: string }
   | { type: 'pause'; value: boolean }
   | { type: 'select'; spell: Spell }
+  | { type: 'cancel' }
   | { type: 'release' }
   | { type: 'hold' }
   | { type: 'rest' }

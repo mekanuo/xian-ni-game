@@ -66,10 +66,46 @@ function pathfind(s:GameState,destination:Vec):Vec[]{
   const raw:Vec[]=[destination];for(let k=found;parents.get(k)!>=0;k=parents.get(k)!)raw.push({x:(k%cols)*step,y:Math.floor(k/cols)*step});raw.reverse();
   const smooth:Vec[]=[];let from=start;for(let i=0;i<raw.length;){let j=i;while(j+1<raw.length&&straight(from,raw[j+1]))j++;smooth.push(raw[j]);from=raw[j];i=j+1;}return smooth;
 }
-export function nearbyEntity(s:GameState):Entity|undefined{return entities(s).filter(e=>e.kind!=='enemy'&&e.kind!=='scenery'&&e.state!=='taken'&&dist(e,s.player)<=100&&clearLine(s,s.player,e,e.id)).sort((a,b)=>dist(a,s.player)-dist(b,s.player))[0];}
+function interactable(s:GameState,e:Entity|undefined):e is Entity {
+  return !!e&&e.kind!=='enemy'&&e.kind!=='scenery'&&!['taken','hidden','gone'].includes(e.state)&&!(e.id==='lamp'&&s.flags.lampFixed);
+}
+export function nearbyEntity(s:GameState):Entity|undefined{return entities(s).filter(e=>interactable(s,e)&&dist(e,s.player)<=100&&clearLine(s,s.player,e,e.id)).sort((a,b)=>dist(a,s.player)-dist(b,s.player))[0];}
+export function interactionPoint(s:GameState,targetId:string):Vec|undefined {
+  const target=entity(s,targetId);if(!interactable(s,target))return undefined;
+  const legal=(point:Vec)=>free(s,point)&&clearLine(s,point,target,target.id);
+  if(dist(s.player,target)<96&&legal(s.player))return {x:s.player.x,y:s.player.y};
+  const near=Math.atan2(s.player.y-target.y,s.player.x-target.x);
+  // Prefer the side facing the player, then work around the object. A short
+  // interaction radius leaves room for the movement arrival tolerance.
+  const turns=[0,1,-1,2,-2,3,-3,4,-4,5,-5,6,-6,7,-7,8];
+  for(const radius of [78,48,94])for(const turn of turns){
+    const angle=near+turn*Math.PI/8,point={x:target.x+Math.cos(angle)*radius,y:target.y+Math.sin(angle)*radius};
+    if(legal(point)&&pathfind(s,point).length)return point;
+  }
+  return undefined;
+}
+const pullRange=(s:GameState)=>s.ringStyle==='long'||s.flags.trialStyle==='long'?500:300;
+function pullPlacementReason(s:GameState,target:Entity,point:Vec,range:number):string|undefined {
+  if(!finitePoint(point))return '落点无效';
+  if(dist(s.player,point)>range+1)return '落点超出牵引范围';
+  if(!free(s,point,12,target.id)&&!(target.id==='board'&&dist(point,{x:1120,y:648})<45))return '落点被挡住，请选可站立的地面';
+  if(!clearLine(s,target,point,target.id))return '搬动路径有实物阻挡';
+  return undefined;
+}
+export function previewPullMove(s:GameState,point:Vec):CastPreview {
+  const target=s.player.pullId?entity(s,s.player.pullId):undefined,range=pullRange(s);
+  const fail=(reason:string):CastPreview=>({valid:false,reason,cost:0,range,target});
+  if(!finitePoint(point))return fail('落点无效');
+  if(s.defeated)return fail('先重试或撤回安全处');
+  if(s.dialogue)return fail('先结束交谈');
+  if(!target||!target.movable||!interactable(s,target))return fail('先牵住一件轻物');
+  if(s.player.hold>0)return fail('物件正在留势，当前可以步行或另施一术');
+  const reason=pullPlacementReason(s,target,point,range);if(reason)return fail(reason);
+  return {valid:true,reason:'点击调整落点，移到后放下或留势',cost:0,range,target};
+}
 export function previewCast(s:GameState,spell:Spell,targetId:string|undefined,point:Vec):CastPreview {
   const target=targetId?entity(s,targetId):undefined;
-  const range=spell==='pull'&&(s.ringStyle==='long'||s.flags.trialStyle==='long')?500:spell==='pull'?300:spell==='flame'?400:100;
+  const range=spell==='pull'?pullRange(s):spell==='flame'?400:100;
   const fail=(reason:string):CastPreview=>({valid:false,reason,cost:1,range,target});
   if(!finitePoint(point))return fail('落点无效');
   if(s.defeated)return fail('先重试或撤回安全处');
@@ -78,12 +114,10 @@ export function previewCast(s:GameState,spell:Spell,targetId:string|undefined,po
   if(s.player.pullId&&spell!=='pull'&&s.player.hold<=0)return fail('正牵着物件，先放下或留势');
   if(spell==='pull'){
     if(s.player.pullId)return fail('一次只能牵一件，先放下原物');
-    if(!target||!target.movable||target.state==='taken')return fail('只能牵带有提耳的轻物，不能牵人');
+    if(!target||!target.movable||!interactable(s,target))return fail('只能牵带有提耳的轻物，不能牵人');
     if(dist(s.player,target)>range+1)return fail(`目标超过${range/50}步牵引范围`);
     if(!clearLine(s,s.player,target,target.id))return fail('目标被实物遮住');
-    if(dist(s.player,point)>range+1)return fail('落点超出牵引范围');
-    if(!free(s,point,12,target.id)&&!(target.id==='board'&&dist(point,{x:1120,y:648})<45))return fail('落点被挡住，请选可站立的地面');
-    if(!clearLine(s,target,point,target.id))return fail('搬动路径有实物阻挡');
+    const reason=pullPlacementReason(s,target,point,range);if(reason)return fail(reason);
   }
   if(spell==='flame'){
     if(s.player.cooldown>0||s.flags.casting)return fail('火球正在准备或间隔中');
@@ -139,8 +173,8 @@ function choose(s:GameState,id:string):ActionResult {
   closeDialogue(s);return result(true);
 }
 function interact(s:GameState,id:string):ActionResult {
-  const e=entity(s,id);if(!e||dist(e,s.player)>105||!clearLine(s,s.player,e,e.id))return result(false,'先走近这个人或器物再互动');
-  if(e.state==='taken')return result(false,'已经收好了');
+  const e=entity(s,id);if(!interactable(s,e))return result(false,'这里已经没有可互动的人或器物');
+  if(dist(e,s.player)>105||!clearLine(s,s.player,e,e.id))return result(false,'先走近这个人或器物再互动');
   if(e.kind==='exit'){
     if(id==='to_workshop'&&!s.flags.tools)return result(false,'先取回小舟上的器具袋，修闸和试环会用到');
     if(id==='to_crossing'&&!s.flags.ringTrained)return result(false,'先取回自己的引环，亲手试稳一种用法再去石渡');
@@ -234,6 +268,7 @@ function objectChanged(s:GameState,e:Entity){
 function emitOnce(s:GameState,key:string,message:string){if(!s.flags[key]){s.flags[key]=true;emit(s,'change',message);}}
 export function act(s:GameState,a:GameAction):ActionResult {
   if(a.type==='select'){s.selected=a.spell;return result(true);}
+  if(a.type==='cancel'){if(s.pending?.type==='cast')s.pending=null;return result(true);}
   if(a.type==='pause'){
     if(!a.value&&(s.dialogue||s.defeated))return result(false,s.dialogue?'先结束交谈':'先选择重试或撤回');
     if(a.value&&s.dialogue)s.flags.dialogueWasPaused=true;
@@ -258,7 +293,7 @@ export function act(s:GameState,a:GameAction):ActionResult {
   if(s.paused){s.pending=clone(a);return result(true,'已指定待执行动作；恢复时重新检查');}
   if(a.type==='move'){
     if(!finitePoint(a.point))return result(false,'目的地无效');
-    if(s.player.pullId&&s.player.hold<=0){if(dist(s.player,a.point)>(s.ringStyle==='long'?500:300)||(!free(s,a.point,12,s.player.pullId)&&!(s.player.pullId==='board'&&dist(a.point,{x:1120,y:648})<45)))return result(false,'牵物落点超出范围或被挡住');s.player.pullPoint={...a.point};return result(true);}
+    if(s.player.pullId&&s.player.hold<=0){const preview=previewPullMove(s,a.point);if(!preview.valid)return result(false,preview.reason);s.player.pullPoint={...a.point};return result(true);}
     const path=pathfind(s,a.point);if(!path.length)return result(false,'这里不能安全直达，请沿可见道路分段移动');s.player.path=path;return result(true);
   }
   if(a.type==='interact')return interact(s,a.targetId);
@@ -461,6 +496,6 @@ function validAction(a:GameAction):boolean {
     case 'interact':return typeof a.targetId==='string';
     case 'choose':return typeof a.choiceId==='string';
     case 'pause':return typeof a.value==='boolean';
-    default:return ['release','hold','rest','heal','retry','retreat'].includes(a.type);
+    default:return ['cancel','release','hold','rest','heal','retry','retreat'].includes(a.type);
   }
 }
