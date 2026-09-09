@@ -13,5 +13,5 @@
 - 验证两条代表路径：药铺/长牵/共同登台/交涉修闸/返驿；修器/留势/补救药筐/山脊/返驿。相邻反例为独行不冒称同登台、未开闸不判修路。
 - 排除：联网账号、自由聊天、挂机等待、全书大地图、境界速升、继承王林专属功绩；原文不打包。
 - install: npm ci；buildOrExport: npm run build；start: npm run dev -- --host 0.0.0.0；modelCheck: npm test；verify: 白盒阶段未适用，正式阶段npm run verify。
-- engine: Phaser 3.90.0；runtime: Node22.22.0；packageManager: npm10.9.4；testedRuntime: NOT_AVAILABLE: 本轮尚未启动候选。
-- 当前限制：未实施；未有运行截图；Mac目标尚未实测；时长为设计目标，趣味须真人反馈。
+- engine: Phaser 3.90.0；runtime: Node22.22.0；packageManager: npm10.9.4；testedRuntime: Linux 6.6 / Chrome 150 headless / Playwright 1.58.2，1440×900。
+- 当前限制：M1真实渲染、移动/牵灯/暂停输入已验证，模型22项通过；完整浏览器通关与正式美术尚未验证；Mac目标尚未实测；时长为设计目标，趣味须真人反馈。

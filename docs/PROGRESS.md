@@ -1,3 +1,14 @@
+## 2026-09-09 M1：真实空间首个里程碑
+
+- 当前分支 feat/return-stone-v1，已由用户Goal批准实施与发布。
+- 新 TypeScript + Phaser 实现四地图与角色状态；22项确定性模型测试通过，两条渡路和返驿结局在模型层可达。
+- Chrome 150 / Linux / 1440×900实际创建角色、牵灯归架、暂停队列与恢复移动验证通过，证据 qa/evidence/m1-input.json 和 m1-input.png。
+- 标题与角色原创美术已接入；静态地景烘焙为纹理，环境仍为白盒形状，M3继续改善。
+- 修复表单快捷键捕获、标题帮助覆写自动存档、手动/自动档入口和放下后仍处于施术模式的实际输入问题。scripts/ui-regression.mjs / milestone-one.mjs 可在开发服务器启动后复放。
+- npm ci 使用仓库 .npmrc 的 legacy-peer-deps：绕开 npm 10 Arborist 对 Vitest 可选browser/devtools peer循环的空节点错误；显式Vite版本固定，完整npm audit为0。
+- npm run build通过。此处不是完整QA PASS；正式验证将用npm run verify从新局走到结局再重开，并部署仅dist内容至公网。
+- 下一步：浏览器完整通关、场景美术/反馈整合、生产包完整验证、公网部署与复查。Mac尚未实测。
+
 # 当前项目进度
 
 ## 当前执行：用户已批准并创建Goal

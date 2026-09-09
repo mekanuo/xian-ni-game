@@ -1,0 +1,73 @@
+{
+  "environment": {
+    "browser": "150.0.7871.114",
+    "os": "linux",
+    "viewport": "1440x900"
+  },
+  "inputs": [
+    "create profile",
+    "1, click lamp",
+    "click lamp stand",
+    "release",
+    "space pause",
+    "click destination while paused",
+    "space resume"
+  ],
+  "result": {
+    "scene": "home",
+    "time": 2.749999999999995,
+    "player": {
+      "x": 509.2595055599471,
+      "y": 759.7531685199824,
+      "hp": 4,
+      "mana": 5,
+      "facing": 0.3217505543966526,
+      "invulnerable": 0,
+      "cooldown": 0,
+      "ward": 0,
+      "wardFacing": 0,
+      "pullId": null,
+      "pullPoint": null,
+      "hold": 0,
+      "path": []
+    },
+    "flags": {
+      "eventSeq": 4,
+      "companion": "waiting",
+      "visited_home": true,
+      "wardCooldown": 0,
+      "lampFixed": true,
+      "platformOpen": false
+    },
+    "paused": false,
+    "pending": null,
+    "dialogue": null,
+    "events": [
+      {
+        "seq": 2,
+        "time": 0,
+        "type": "hint",
+        "text": "陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。"
+      },
+      {
+        "seq": 3,
+        "time": 0.55,
+        "type": "pull",
+        "text": "灵线牵住松脱的灯盏。点空地改变落点，按「放下」结束。",
+        "x": 430,
+        "y": 760,
+        "targetId": "lamp"
+      },
+      {
+        "seq": 4,
+        "time": 1.016666666666668,
+        "type": "change",
+        "text": "灯盏落回架上。陶七终于松开手，暖光照见留给你的碗。",
+        "x": 560,
+        "y": 620,
+        "targetId": "lamp"
+      }
+    ]
+  },
+  "errors": []
+}

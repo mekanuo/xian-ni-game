@@ -6,7 +6,7 @@
 
 **Architecture:** TypeScript确定性世界模型唯一裁决移动、施术、人物和进度；Phaser负责场景渲染与鼠标/键盘输入，DOM负责中文界面与对话。静态资源本地打包，存档全量序列化，暂停冻结逻辑时钟。
 
-**Tech Stack:** Phaser 3.90.0, Vite 7.1.7, TypeScript 5.9.3, Vitest 3.2.4, Playwright 1.58.2。
+**Tech Stack:** Phaser 3.90.0, Vite 7.3.6, TypeScript 5.9.3, Vitest 4.1.11, Playwright 1.58.2。
 
 **Spec:** design/GAME_DESIGN.md, design/ART_DIRECTION.md, design/SOURCE_SCOPE.md, design/DELIVERY.md。
 
@@ -93,3 +93,5 @@ expect(snapshot(loaded)).toBe(saved);
 - 使用独立实施分支 `feat/return-stone-v1`；各并行任务独占文件，主线程串行集成和Git操作。
 - 美术与规则可独立生产，但最终画面以已跑通白盒机位检验；不得以画面替代操作。
 - 本计划覆盖设计全部九节，具体可观察限制由QA实测回填；阶段进度写docs/PROGRESS，不因压缩上下文重新派完成任务。
+
+- 依赖安装核对发现旧版开发工具公告，实施前固定至Vite7.3.6/Vitest4.1.11；玩法与框架选择不变。
