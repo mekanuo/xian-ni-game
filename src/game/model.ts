@@ -476,6 +476,17 @@ export function snapshot(s:GameState):string{return JSON.stringify(s);}
 export function restore(json:string):GameState {
   if(typeof json!=='string'||json.length>2_000_000)throw Error('存档过大或格式无效');
   let s:GameState;try{s=JSON.parse(json);}catch{throw Error('存档不是有效的 JSON');}
+  // Version 1 saves predate the life entities.  Migrate only an exact legacy
+  // manifest; malformed or partially edited worlds remain rejected below.
+  if(s && s.contentVersion===undefined && s.worlds && typeof s.worlds==='object') {
+    const ids=['home','creek','workshop','crossing'] as SceneId[];
+    const legacyExact=ids.every(id=>Array.isArray(s.worlds[id])&&s.worlds[id].length===SCENES[id].entities.length);
+    if(legacyExact) {
+      for(const id of ids) s.worlds[id].push(...initialLifeEntities(id));
+      s.contentVersion=2;
+      s.life={repair:{stage:'unaccepted',softened:false,stopSet:false,latched:false,tested:false,method:null,testing:null},harvest:{stage:'unaccepted',sun:'unpicked',shade:'unpicked',picking:null,shared:false},clamp:'unowned',sachets:0,scent:null};
+    }
+  }
   const scenes=['home','creek','workshop','crossing'];
   if(!s||s.schema!==1||s.revision!=='return-stone-v1'||!scenes.includes(s.scene)||!s.profile||!['herbalist','tinker'].includes(s.profile.origin)||!['stay','travel'].includes(s.profile.wish)||typeof s.profile.name!=='string'||![0,1].includes(s.profile.appearance)||!s.player||!finitePoint(s.player)||!Number.isFinite(s.time)||s.time<0||!Number.isInteger(s.player.hp)||s.player.hp<0||s.player.hp>4||!Number.isInteger(s.player.mana)||s.player.mana<0||s.player.mana>6||!Array.isArray(s.player.path)||!s.player.path.every(finitePoint)||!s.worlds||!s.flags||Array.isArray(s.flags)||!Array.isArray(s.events)||!Array.isArray(s.projectiles)||!s.lastSafe||!scenes.includes(s.lastSafe.scene)||!finitePoint(s.lastSafe.point)||!['long','hold',null].includes(s.ringStyle)||!Number.isInteger(s.herbs)||s.herbs<0||s.herbs>2||typeof s.paused!=='boolean'||typeof s.ended!=='boolean'||typeof s.defeated!=='boolean')throw Error('存档版本或世界数据不匹配');
   for(const id of scenes as SceneId[]){
