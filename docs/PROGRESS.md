@@ -1,52 +1,33 @@
-# Current Project State
+# 当前项目进度
 
-Last verified: 2026-09-09. This file records evidence, not a product completion claim.
+2026-09-09更新。恢复先读 [HANDOFF](../HANDOFF.md)，再读[本轮设计审阅](../design/REVIEW.md)。旧版的等待拆书、待概念选择、研究尚未入库、推送未授权等状态已被本文件替代；历史可追溯，不需重读旧聊天。
 
-## New Session Handoff
+## 已核对的恢复基点
 
-Read ../HANDOFF.md before older entries. The user approved direction A and public pushes of non-sensitive project work; the first six documentation commits were successfully pushed. The user then paused implementation, discussed roleplaying depth, accepted that refinement, and requested continuation in a fresh session. Research is now copied into docs/research for this handoff; docs/ROLEPLAY_DIRECTION.md preserves the newest accepted product intent. No production gameplay has been built. This thread should stop after verified handoff push; the new session continues design from these files rather than loading old conversation history.
+- 工作目录 `/home/zhangjingzhou/workspace/xian-ni-game`，仓库 `mekanuo/xian-ni-game`。
+- 本轮进入时本地与远端 `docs/source-research-handoff` 同为 `bf4d922ac1ea72ad66691df0dbe344d1de8c926f`，工作区干净；远端master为 `970b4b4affd339e99865e84090a0603fb8667f99`。
+- 新建独立文档分支 `docs/return-stone-design`。小说原文仍在本机来源目录，稀疏检出仍排除旧小说文件；未改旧游戏代码或两个封版项目。
+- 用户已认可方向A及角色扮演修正，明确要求先提交完整设计做一次确认，之后实施；代码阶段/里程碑完成及时commit与push。
 
-## Latest Checkpoint
+## 本轮产物与真实状态
 
-- Full-book first-pass synthesis has closed its identified truncated-reading gaps. The final 561-577 report was read and integrated; the agent was closed. Remaining early provenance limitations and source contradictions are retained, not converted into a false full independent review claim.
-- Local commit dd0cc6b adds concepts/CONCEPT.md: three different concepts, official precedent references, source boundaries, rejection criteria, and a recommended spatial adventure direction A. This is a proposal awaiting user confirmation, not approved production design.
-- Local commit a25f633 records tooling in docs/ENVIRONMENT.md. No game implementation or browser acceptance was performed.
-- Supersedes the pending-agent and incomplete-first-pass notes below. Next action: user direction confirmation, then detailed design and selected-scene facts. Do not restart full-book research.
+| 项目 | 状态 |
+|---|---|
+| 全书首遍研究 | 前轮已收束，仓库资料在 docs/research；本轮只读设计入口及必要早期条目，不重做全书 |
+| 原作落点 | 恒岳失山门后的初期；只定点核25–28、53–55相关事实，并沿用31、48已有研究。时间张力、护符表现边界见 design/SOURCE_SCOPE.md |
+| 详细玩法 | design/GAME_DESIGN.md 候选：四处地方、六处境、两背景/心愿、三手段、两路成长、两核心NPC、两种地理结果、失败与存档、重放预期 |
+| 视听方向 | design/ART_DIRECTION.md 候选；二维斜俯视Q版、场景和功能反馈、音效与界面；尚无目标图或实际画面证据 |
+| 技术与阶段 | design/DELIVERY.md 建议 TypeScript + Phaser 静态网页，白盒→完整流程→视听→试玩修正；具体实施计划在批准后编写 |
+| 用户确认 | design/REVIEW.md 为一次整体审阅入口；尚未收到本轮详细规格确认 |
+| 代码/试玩 | 本轮未实施、未启动游戏测试，无经过验证的新试玩包 |
 
-## Repository
+本轮只进行文档链接、范围、状态与规则一致性审阅；文档验证不等于游戏可玩或有趣。Git本地提交与实际远端推送结果以本轮工具证据及实际SHA为准，不把准备推送写成已成功。
 
-- User confirmation (2026-09-09): use mekanuo/xian-ni-game and disregard its existing content. New design is not constrained by the legacy demonstration; no force-push or historical deletion is implied.
-- GitHub: mekanuo/xian-ni-game, public, default branch master.
-- Existing baseline: 970b4b4affd339e99865e84090a0603fb8667f99, Initial playable Xian Ni browser game.
-- Working branch: docs/source-research-handoff. This branch starts from the existing history; it is not a replacement repository.
-- The main source has a realm increment and log buttons; currency is a fixed 128 and the exploration message does not update a resource model. No runtime acceptance has been performed in this handoff.
-- Existing text such as the scene label and cultivation technique is not validated against the novel and is not approved design.
-- The legacy novel.txt is tracked remotely. Local sparse checkout excludes it; it has not thereby been deleted remotely or from history.
+## 接下来
 
-## Research
+1. 用户反馈到达后，修改指定内容或记录整体验收；不重开已认可的概念方向。
+2. 批准后写具体实施计划，以当前最大风险建立真实空间白盒；白盒必须含移动、暂停、施术、可比较做法、同伴现场行动、归来回响与恢复。
+3. 每阶段按改变范围验证、提交并推送，核对远端；不拖到所有美术齐全才保存代码。
+4. 同一切片完成后提供真实试玩入口与环境证据。Linux测试与Mac试玩分开记录；未经真人反馈不宣布角色讨喜或玩法有趣。
 
-The authoritative working research remains at ../xian-ni-research on the development machine. It is not automatically part of this Git commit.
-
-- PRODUCT_BRIEF.md: confirmed product constraints and undecided design scope.
-- analysis/SOURCE_BIBLE.md: cross-book design reading entry, facts, boundaries, and historical detail. Still marked incomplete pending final coverage closure.
-- analysis/_coverage.md: source-version anomalies and coverage states.
-- analysis/coverage-evidence-0026-0270.md and coverage-evidence-0271-0600.md: completed inventory distinguishing existing first-pass work from missing fine-grained proof.
-- analysis/fact-check-0521-0600.md: completed targeted corrections; not an 80-chapter full re-review.
-- analysis/verified-0581-0583.md: completed continuous reading of source lines 74094-74507 and a separate 95-96 token contradiction check.
-- analysis/verified-0561-0577.md: assigned final bounded gap check, not yet accepted at this checkpoint. Agent handle: 01a08449-5e49-7870-a214-a1ac899940bc. Reuse its result rather than redispatching.
-
-The supplied file has 2047 outer chapter numbers, with 2046-2047 repeating 2044-2045. End-of-book results are read and integrated. Earlier detailed provenance is uneven; existing first-pass work is neither discarded nor falsely certified as independent full review.
-
-## Next Checkpoints
-
-1. Read the pending 561-577 result, integrate actual corrections, and close its agent.
-2. Close the source coverage inventory and deliver a concise Source Bible, retaining explicit source conflicts and limits.
-3. Compare game concepts within confirmed constraints, recommend a concrete playable scope, and obtain design confirmation. Do not expand an unproven concept into the entire novel.
-4. Implement and verify the approved browser experience, including actual rendering, input, outcome, restart, and a user-accessible playtest.
-
-## Still Unresolved
-
-- Local handoff commit d7e31d0 exists. Its push was denied by automatic approval before execution; it is not on the remote. Explicit permission for publication to this public repository has been requested. Continue local work without bypassing that denial.
-- No approved production gameplay specification or verified playable release in this checkpoint.
-- Raw novel exposure in the existing public repository needs a separate explicit remediation decision; do not silently change visibility or force-push history.
-- Research documents are local-only unless specifically committed and pushed. This handoff does not claim their wholesale remote backup.
+无运行中的拆书代理或旧线程需要恢复。研究工作资料从此在 docs/research 内接续；SOURCE_BIBLE 的历史细证只按需查。已有公开历史中的 novel.txt 未清除，亦未强推历史。
