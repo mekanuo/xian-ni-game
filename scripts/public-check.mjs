@@ -22,6 +22,7 @@ point=await page.evaluate(()=>window.__XIAN_NI__.screenPoint(560,665));await pag
 evidence.input.push({action:'click pull, lamp, stand and release',state:await state()});
 const before=(await state()).player.x;await page.keyboard.down('d');await page.waitForTimeout(750);await page.keyboard.up('d');assert.ok((await state()).player.x>before+20);
 evidence.input.push({action:'keyboard D movement',state:await state()});
+await page.locator('[data-ui="observe"]').click();assert.equal(await page.locator('[data-ui="observe"]').getAttribute('aria-expanded'),'true');evidence.input.push({action:'open current encounter observation',text:await page.locator('#observation-content').textContent()});
 await page.screenshot({path:'qa/evidence/public-start.png'});evidence.visual='qa/evidence/public-start.png';assert.equal(evidence.errors.length,0);
 await page.close();
 const phoneContext=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,isMobile:true,hasTouch:true});
@@ -34,6 +35,7 @@ await phone.locator('[data-ui="spell:ward"]').tap();
 const wardPoint=await phone.evaluate(()=>{const p=window.__XIAN_NI__.inspect().player;return window.__XIAN_NI__.screenPoint(p.x+85,p.y-10);});
 await phone.touchscreen.tap(wardPoint.x,wardPoint.y);await phone.waitForFunction(()=>window.__XIAN_NI__.inspect().player.ward>0&&window.__XIAN_NI__.audio().effectCounts.ward>=1);
 evidence.mobile={device:'Chrome touch / DPR3 emulation, not a physical phone',dimensions:phoneDimensions,audio:await phone.evaluate(()=>window.__XIAN_NI__.audio()),input:'tap create, select ward, tap cast direction',visual:'qa/evidence/public-mobile.png'};
+await phone.locator('[data-ui="observe"]').tap();assert.equal(await phone.locator('[data-ui="observe"]').getAttribute('aria-expanded'),'true');evidence.mobile.observation=await phone.locator('#observation-content').textContent();
 await phone.screenshot({path:evidence.mobile.visual});await phoneContext.close();assert.equal(evidence.errors.length,0);
 await writeFile('qa/evidence/publication.json',JSON.stringify(evidence,null,2));console.log(JSON.stringify({url:base,sourceCommit:evidence.release.sourceCommit,resources:evidence.resources.length,browser:evidence.browser,input:'create, physical lamp repair, keyboard movement',errors:evidence.errors}));
 }finally{await browser.close();}

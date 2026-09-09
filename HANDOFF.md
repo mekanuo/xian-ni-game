@@ -1,37 +1,39 @@
-# 《仙逆：山门之外》首版交接
+# 《仙逆：山门之外》交接
 
-2026-09-09。先读本文件、AGENTS.md、docs/PROGRESS.md及git status/log。用户最新反馈为整体明显改善、细节仍多、当前先保留，并询问后续规划；随后回复“可以，交给你”，授权推进；本轮实施[0.2首章深化](design/PLAYABILITY_020.md)，0.3/0.4仍按路线顺序另行收敛。此前反馈为操作白线拉低质感；0.1.2 已上线并完成公网复查，移除瞄准长线/范围圈，牵物改淡青曲线、留势断开连接、手机抬手收起瞄准，详情见 [0.1.2 修订](design/QUALITY_PATCH_012.md)。此前0.1.1的高清渲染、手机布局、配乐、命中反馈继续保留。上轮 [改版目标图](design/QUALITY_REVISION.md)仍非实机，整套手绘资产重制未完成。不能把流程 PASS 当作用户认可品质；不重做小说研究或恢复旧发布拦截。
+2026-09-09。先读本文件、AGENTS.md、docs/PROGRESS.md及git status/log。用户认可0.1.2整体比此前好，细节暂时保留；后对后续路线回复“可以，交给你”。本轮已完成并发布 **0.2.0 首章玩法深化**。具体规格见[PLAYABILITY_020](design/PLAYABILITY_020.md)，后续顺序见[ROADMAP](design/ROADMAP.md)。不重读旧聊天、不重做全书研究、不续作两个封版项目。
 
 ## 交付入口
 
-- 公网试玩：https://mekanuo.github.io/xian-ni-game/ ，无需登录或安装。
-- 工作目录 /home/zhangjingzhou/workspace/xian-ni-game；源码分支feat/return-stone-v1；mekanuo/xian-ni-game默认master未改；gh-pages只放运行资源。
-- 恢复基点bf4d922，完整设计3e02f78，用户已一次确认并创建Goal批准美术、实现、测试与公网首版。
-- 历史M1 4b35f5c、M2 1982250、M3 3d5d5f1均已推送。当前0.1.2源码为034f8c1dfed087cc081c5d6c386c66d16f572fd2，发行分支提交2937aa4745cb4349a4203721c6c9b63a20b32288；线上release.json已经核对为0.1.2及该源码SHA。
-- 最后交付文档提交只更新记录/检查脚本，不改变运行包。以Git实际SHA核对最新说明，不把本文件自身SHA写成固定锚。
+- 公网：https://mekanuo.github.io/xian-ni-game/?v=0.2.0 ，无需账号或安装。
+- 工作目录/home/zhangjingzhou/workspace/xian-ni-game；源码分支feat/return-stone-v1；仓库mekanuo/xian-ni-game；master未改，gh-pages只放运行资源。
+- 恢复基点bf4d922，完整设计3e02f78；用户已确认原创小修士、空间冒险与角色扮演方向。首版Goal此前已完成，本轮没有另建Goal。
+- 0.2规则里程碑860bbb4、集成源码6c76f2c4d2d18bed62dab46a4da2e8c727dac085均已推送；发行提交00467b687ea03b7bd8af33dc8c39230fe9c6bf79，公网release.json核对为0.2.0及该源码SHA。
+- 最后交接提交只改文档、发布检查与证据，不改变运行包；其最新SHA以git log为准。
 
-## 已完成与验证范围
+## 当前实现
 
-- 四个相连场景、两种出身与心愿、引力术/火焰球/定向护符、长牵/留势实际训练、同行与补救、两条地理路线、风铃/地图/工位归来变化、存档和重开已实现。
-- 原创标题、四位主要人物、场景焦点、散修/山兽图集已接入，PNG洋红底由运行时色键处理；动画由原画翻转、摆动和状态效果组成。来源和限制见design/ASSET_LOG.md。
-- 0.1.2 npm run verify exit0，qa/verification.json六项PASS，35项模型/事件/真实Chrome WebAudio回归；手机DPR3横竖屏与旋屏触控、命中/挡击/受伤声画、菜单暂停恢复通过。完整鼠标流程亲试两种练法、同行登台、取风铃、山脊往返、共同地图、结局后继续和重开。
-- 0.1.2新截图aim-local.png、pull-qi.png、pull-mobile.png、hold-local.png、hold-ward-aim.png核对局部瞄准、淡青牵物、手机抬手及留势后切换护符方向提示。
-- 主渡及守卫/护符/同伴/补救边界有模型回归证据，不冒称主渡也已浏览器完整通关。
-- node scripts/public-check.mjs exit0：匿名线上7个运行文件哈希与已验证dist一致；桌面创建/归灯/移动，手机尺寸DPR3触控护符及实际音乐输出均通过，无pageerror。证据qa/evidence/publication.json、public-start.png、public-mobile.png。
-- Mac/Safari/触控板以及iPhone/Android真机扬声器均未实测；手机证据为Chrome触屏/DPR仿真。自然时长、用户主观趣味和打击感仍需试玩反馈。
+- 四场景、两种出身/心愿、引力术/火焰球/定向护符、长牵/留势实际训练、同行补救、主渡/山脊及归家布置、存档和重开。
+- 0.1.1高清画布、DPR3手机布局、持续合成配乐、逐事件命中反馈及暂停恢复；0.1.2取消瞄准白线/大范围圈、淡青牵物与留势脱手表现均保留。
+- 0.2可收起的“察看周围”（Q/触屏按钮），按附近场景与实际状态呈现方法；只读encounters.ts不给NPC制造见证、不改进度。
+- 0.2牵物落点轮廓、合法性和用途标记，32世界单位内辅助对齐；实际运动与消耗仍由model.ts裁决。失败施术保留重选，手机可收术，暂停待施术可取消而不扔下留势物件。
+- 点击人物/物件选择可达站位，绕障中只有canInteract成立才执行；修正恢复暂停施术后仍瞄准、同场景重开继承察看展开、安灯/修闸后提示仍要求重做等问题。
+- 原创人物/环境/敌方图集和程序材质已接入；人物仍以原画翻转、摆动及状态效果呈现。完整手绘建筑/角色与逐帧动画重制未完成，上轮quality-review/home-target.png仍是目标图而非实机。
 
-## 后续工作原则
+## 验证事实
 
-首版完成后按用户试玩反馈定位改动，不自行扩下一卷或另起研究Goal。每个后续里程碑仍及时提交推送。完整批准设计在design/REVIEW.md及其链接，研究资料在docs/research，不重复询问已锁定决定。
+- 最终npm run verify exit0，64项模型/导航/处境/反馈/真实Chrome音频测试；界面存档、DPR3横竖屏和旋屏、战斗音画、新交互/取消/重开检查均通过。
+- qa/verification.json六项PASS。两条隔离浏览器路线都真实新建→核心动作→实际归家结局→重开：山脊证据qa/evidence/run.json，主渡证据qa/evidence/main-route.json。没有注入进度。
+- 主渡新实跑包括先保护药筐再借板过桥、长牵试环、排水亲眼见证、交涉、安楔开闸和实际过河；山脊继续覆盖两种练法、同行登台与取风铃。没有穷举全部出身/失败组合，守卫/同伴边界另有模型回归。
+- 公网public-check exit0：7个运行文件SHA256与dist一致；桌面创建/牵灯/移动、手机DPR3护符、音乐输出与两端“察看周围”均通过，pageerror为空。证据qa/evidence/publication.json、public-start.png、public-mobile.png。
+- 手机仅Chrome触屏/DPR仿真；Mac/Safari、iPhone/Android真机声音、自然时长与主观趣味尚未验证。流程PASS不代表用户认可所有品质。
 
-先前workspace-write环境的automatic approval review拒绝过对外推送。后来恢复danger-full-access后已成功发布，此条仅为历史追溯，不是当前阻碍。Pages初次创建响应为空但GET与公网实测确认创建成功，脚本现以GET确认结果。
+## 后续与运行
 
-## 本地运行与发布
-
-- Node22/npm10，npm ci；npm run dev；npm run build；npm run verify。Phaser3.90、Vite7.3.6、Vitest4.1.11、Playwright1.58.2；Chrome默认/usr/bin/google-chrome。
-- .npmrc的legacy-peer-deps规避npm10处理Vitest可选peer时的空节点错误，显式Vite版本已固定。
-- 当前稀疏检出，新增目录用git add --sparse。Git凭证助手：git -c credential.helper='!gh auth git-credential' push origin feat/return-stone-v1，不显示凭证。
-- scripts/deploy-pages.mjs要求验证PASS和工作区clean，仅发布dist至gh-pages。线上版本由release.json核对；发布后运行public-check。
-- 规则仅由src/game/model.ts提交；scene处理输入与表现；__XIAN_NI__仅只读证据接口，不用于注入进度伪造通关。
-- 原文在本机../sources/仙逆.txt，不加进新提交或构建。旧历史novel.txt未重写删除。/tmp/xian-ni-first-playable.zip为本次同构建本机备份。
-- /home/zhangjingzhou/smbb与starvein-companion-cards永久封版，不读其旧历史或修改。
+- 用户已委托按路线继续；0.3成长和回驿生活、0.4下一段冒险尚未实施。先收敛具体成长用途与内容，再推进；不自动扩为全书大地图或境界速升。每个后续里程碑继续及时提交推送。
+- 已批准首章设计在design/REVIEW.md及链接；研究已存docs/research。玩家不替代王林，不获取其天逆、独占功绩或关系。
+- Node22/npm10；npm ci、npm run dev、npm run build、npm run verify。Phaser3.90、Vite7.3.6、Vitest4.1.11、Playwright1.58.2；Chrome路径/usr/bin/google-chrome。本轮临时开发/预览服务已关闭。
+- 稀疏检出，新文件用git add --sparse；Git凭证助手：git -c credential.helper='!gh auth git-credential' push origin feat/return-stone-v1。不要显示凭证。
+- deploy-pages要求验证PASS且工作区clean，仅发布dist到gh-pages；发布后核对release.json并运行public-check。
+- __XIAN_NI__只读证据接口；模型是唯一规则入口，存档结构仍为schema1/revision return-stone-v1。取消动作不会把新的待执行类型写入旧档。
+- 原文在本机../sources/仙逆.txt，不加入新提交/构建；仓库旧历史novel.txt未重写。/home/zhangjingzhou/smbb与starvein-companion-cards永久封版。
+- 先前发布审批拒绝已经解除，历史在PROGRESS；当前推送和公网发布成功，不恢复旧审批流程。

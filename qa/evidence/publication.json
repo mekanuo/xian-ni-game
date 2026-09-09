@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-09-09T09:38:13.852Z",
+  "checkedAt": "2026-09-09T10:21:00.052Z",
   "url": "https://mekanuo.github.io/xian-ni-game/",
   "release": {
     "game": "山门之外",
-    "version": "0.1.2",
-    "sourceCommit": "034f8c1dfed087cc081c5d6c386c66d16f572fd2",
-    "builtAt": "2026-09-09T09:37:19.159Z"
+    "version": "0.2.0",
+    "sourceCommit": "6c76f2c4d2d18bed62dab46a4da2e8c727dac085",
+    "builtAt": "2026-09-09T10:19:57.426Z"
   },
   "resources": [
     {
@@ -33,22 +33,22 @@
       "sha256": "58e23fb0b0d022eaf4afc7c934afa3df1f3fd8ce4cb01645b0c14d444471f75e"
     },
     {
-      "path": "assets/index-C4BEkKth.css",
+      "path": "assets/index-6hjUgiSs.css",
       "status": 200,
-      "bytes": 27738,
-      "sha256": "1cccd21c79c07c5d8effac5559e0763d529859e317bc57781e509270615959db"
+      "bytes": 30201,
+      "sha256": "012cc909a337ebcd0d900ccb3342c87501309789e96806af362c395409a547dc"
     },
     {
-      "path": "assets/index-I47SzGCm.js",
+      "path": "assets/index-DEjBtJp_.js",
       "status": 200,
-      "bytes": 1330195,
-      "sha256": "19722d1836479739427456fa8f53f6e4270727e03eb3fb4915dc8b7ce2bc1f0d"
+      "bytes": 1347468,
+      "sha256": "f27d85c6cea5db3377a0734bf6a55d24bc53bc3e79caaf251f0c3d0842725dbe"
     },
     {
       "path": "index.html",
       "status": 200,
       "bytes": 656,
-      "sha256": "35df88255e37a80da59e1447a36cbaabfde122ed8291712b861167d9587cb4c8"
+      "sha256": "3fd83a69793f79ad84fddcd1b81c7f7a40110a04ca475138ed7291bc2a47880c"
     }
   ],
   "browser": "150.0.7871.114",
@@ -140,6 +140,10 @@
         },
         "ended": false
       }
+    },
+    {
+      "action": "open current encounter observation",
+      "text": "灯下归处灯盏已经归架，暖光照着熟悉的院子。沿溪道取回自己的器具袋留意眼前的变化，也可以试自己的办法。"
     }
   ],
   "errors": [],
@@ -150,10 +154,10 @@
     "muted": false,
     "musicVolume": 0.55,
     "effectsVolume": 0.45,
-    "musicScheduled": 5,
-    "musicRms": 0.08392412261918308,
+    "musicScheduled": 4,
+    "musicRms": 0.015519916728609072,
     "effectsRms": 0,
-    "activeVoices": 8,
+    "activeVoices": 7,
     "lastEffect": "",
     "effectCounts": {},
     "error": "",
@@ -181,8 +185,8 @@
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
       "musicScheduled": 12,
-      "musicRms": 0.02298982407213722,
-      "effectsRms": 0.0035289121775631867,
+      "musicRms": 0.022862723538140912,
+      "effectsRms": 0.0035289121856099796,
       "activeVoices": 15,
       "lastEffect": "ward",
       "effectCounts": {
@@ -192,6 +196,7 @@
       "disposed": false
     },
     "input": "tap create, select ward, tap cast direction",
-    "visual": "qa/evidence/public-mobile.png"
+    "visual": "qa/evidence/public-mobile.png",
+    "observation": "松脱的灯盏陶七扶着灯架，灯盏落在一旁。选牵引，牵灯盏到架旁落点到位后按放下留意眼前的变化，也可以试自己的办法。"
   }
 }
