@@ -2,7 +2,7 @@ import type { GameAction, GameState, Profile, Spell } from './contracts';
 import { createGame, snapshot, restore, objective, nearbyEntity } from './model';
 import { SCENES } from './content';
 import type { Soundscape } from './audio';
-import { nearbyEncounter } from './encounters';
+import { nearbyEncounter, lifeObjective } from './encounters';
 
 const SAVE = 'xian-ni-return-stone-save-v1';
 const AUTO = 'xian-ni-return-stone-safe-v1';
@@ -96,9 +96,11 @@ export class GameUI {
     const s = this.hooks.get();
     if (this.screen==='journal') {
       const entries = s.events.filter(e=>e.text).slice(-50).reverse();
-      this.shell('行路记事',`<div class="journal-goal"><span>眼下要做</span><p>${esc(objective(s))}</p></div><div class="scroll-page">${entries.map(e=>`<article class="journal-entry"><span>${Math.floor(e.time/60).toString().padStart(2,'0')} · ${Math.floor(e.time%60).toString().padStart(2,'0')}</span><p>${esc(e.text)}</p></article>`).join('') || '<p>今日的路，从回石驿开始。</p>'}</div>`);
+      this.shell('行路记事',`<div class="journal-goal"><span>眼下要做</span><p>${esc(lifeObjective(s) || objective(s))}</p></div><div class="scroll-page">${entries.map(e=>`<article class="journal-entry"><span>${Math.floor(e.time/60).toString().padStart(2,'0')} · ${Math.floor(e.time%60).toString().padStart(2,'0')}</span><p>${esc(e.text)}</p></article>`).join('') || '<p>今日的路，从回石驿开始。</p>'}</div>`);
     } else if (this.screen==='bag') {
-      this.shell('随身之物',`<div class="inventory"><article><span class="item-glyph">◎</span><h3>${s.flags.ringOwned?'自己的引环':'引环还在工棚'}</h3><p>${s.ringStyle==='long'?'长牵：可将十步内的轻物牵到身边。':s.ringStyle==='hold'?'留势：牵住物件后，按 R 使它停留八秒。':'你攒工钱修好的普通法器，系着自己的旧绳。'}</p></article><article><span class="item-glyph">符</span><h3>护符·障</h3><p>向面前张开护持，挡一次正面攻击。侧后仍需留意。</p></article><article><span class="item-glyph">药</span><h3>伤药 · ${s.herbs}份</h3><p>就地恢复两格体力。</p>${this.button('使用伤药','heal','small-button')}</article>${s.flags.chime?'<article><span class="item-glyph">铃</span><h3>山间风铃</h3><p>从眺台带回的清响，可以挂在驿中窗边。</p></article>':''}</div><p class="muted">当前练法可在回石驿工位调整。打开行囊时，世界已暂停。</p>`);
+      const life=s.life;
+      const lifeCards=life&&['stay','travel'].includes(String(s.flags.endingWish))?`<article><span class="item-glyph">⌁</span><h3>控物环修器</h3><p>${life.repair.stage==='complete'?'挂扣已通过试压，压扣在'+(life.clamp==='bag'?'行囊中':life.clamp==='home'?'工位固定眼':'眺台侧托')+'.':life.repair.stage==='unaccepted'?'尚未接取陶七的修器活。':life.repair.tested?'回驿交还挂扣，领取一枚压扣。':'炉芯、钳口与压柄仍需亲手完成。'}</p></article><article><span class="item-glyph">叶</span><h3>采叶与晒架</h3><p>${life.harvest.stage==='complete'?'两束叶已分拣，避兽药囊还剩 '+life.sachets+' 份。':life.harvest.stage==='unaccepted'?'尚未接取许照的采叶活。':`向阳叶：${life.harvest.sun}；背阴叶：${life.harvest.shade}。`}</p></article>${life.sachets>0?this.button('放一份避兽药囊','use-sachet','small-button'):''}`:'';
+      this.shell('随身之物',`<div class="inventory"><article><span class="item-glyph">◎</span><h3>${s.flags.ringOwned?'控物环':'控物环还在工棚'}</h3><p>${s.ringStyle==='long'?'长牵：可将十步内的轻物牵到身边。':s.ringStyle==='hold'?'留势：牵住物件后，按 R 使它停留八秒。':'控物环（旧称引环）：辅助引力术的普通法器。'}</p></article><article><span class="item-glyph">符</span><h3>护符·障</h3><p>向面前张开护持，挡一次正面攻击。侧后仍需留意。</p></article><article><span class="item-glyph">药</span><h3>伤药 · ${s.herbs}份</h3><p>就地恢复两格体力。</p>${this.button('使用伤药','heal','small-button')}</article>${lifeCards}${s.flags.chime?'<article><span class="item-glyph">铃</span><h3>山间风铃</h3><p>从眺台带回的清响，可以挂在驿中窗边。</p></article>':''}</div><p class="muted">当前练法可在回石驿工位调整。打开行囊时，世界已暂停。</p>`);
     } else if (this.screen==='map') {
       const seen = s.scene;
       this.shell('山道小图',`<div class="route-map"><div class="map-place ${seen==='home'?'here':''}">回石驿<small>灯架 · 桌边 · 工位</small></div><i>⇄</i><div class="map-place ${seen==='creek'?'here':''}">雨中溪道<small>小舟 · 雨棚 · 眺台</small></div><div class="map-branches"><div class="map-place ${seen==='workshop'?'here':''}">旧工棚<small>林路 · 引环 · 试架</small></div><div class="map-place ${seen==='crossing'?'here':''}">石渡<small>主闸 · 低滩 · 山脊</small></div></div></div><p class="muted">沿路上的方向牌移动到出口，再按 E。小图只标记道路，不代你赶路。</p>`);
@@ -138,7 +140,7 @@ export class GameUI {
     else if (a==='observe') this.toggleObservation();
     else if (a.startsWith('spell:')) this.hooks.select(a.slice(6) as Spell);
     else if (a.startsWith('choice:')) { this.hooks.act({type:'choose',choiceId:a.slice(7)}); this.update(); }
-    else if (['release','hold','rest','heal','retry','retreat'].includes(a)) { this.hooks.act({type:a} as GameAction); this.update(); if (a==='heal') this.drawModal(); }
+    else if (['release','hold','rest','heal','retry','retreat','use-sachet'].includes(a)) { if(a==='use-sachet')this.close(); this.hooks.act({type:a} as GameAction); this.update(); if (a==='heal') this.drawModal(); }
     else if (a==='interact') { const near=nearbyEntity(this.hooks.get()); if (near) this.hooks.act({type:'interact',targetId:near.id}); }
     else this.open(a);
   }
