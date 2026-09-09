@@ -1,5 +1,7 @@
 # Xian Ni Web Game
 
+Read HANDOFF.md first in a new session. It supersedes historical pending approvals and points to the latest approved roleplay direction. Research is now preserved under docs/research; do not reload the old conversation or redo full-book analysis.
+
 ## Scope
 
 - The user confirmed on 2026-09-09 that mekanuo/xian-ni-game is the repository to use and its existing content should be disregarded. Preserve history, but do not treat the legacy demonstration as an approved design or compatibility requirement.
