@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-09-09T09:17:43.376Z",
+  "checkedAt": "2026-09-09T09:38:13.852Z",
   "url": "https://mekanuo.github.io/xian-ni-game/",
   "release": {
     "game": "山门之外",
-    "version": "0.1.1",
-    "sourceCommit": "dd3b71f2e8354387ce9a57608c9366de5f551dce",
-    "builtAt": "2026-09-09T09:16:55.224Z"
+    "version": "0.1.2",
+    "sourceCommit": "034f8c1dfed087cc081c5d6c386c66d16f572fd2",
+    "builtAt": "2026-09-09T09:37:19.159Z"
   },
   "resources": [
     {
@@ -39,16 +39,16 @@
       "sha256": "1cccd21c79c07c5d8effac5559e0763d529859e317bc57781e509270615959db"
     },
     {
-      "path": "assets/index-DkTnQXMX.js",
+      "path": "assets/index-I47SzGCm.js",
       "status": 200,
-      "bytes": 1329456,
-      "sha256": "8aebe20d72735a51561168fca00ab74a3e4b4fc576bc5de5ba602be020ed1959"
+      "bytes": 1330195,
+      "sha256": "19722d1836479739427456fa8f53f6e4270727e03eb3fb4915dc8b7ce2bc1f0d"
     },
     {
       "path": "index.html",
       "status": 200,
       "bytes": 656,
-      "sha256": "b91a70e8be385afa1e0a03a0a9b688645434dc175350f583e08df2d8391bb864"
+      "sha256": "35df88255e37a80da59e1447a36cbaabfde122ed8291712b861167d9587cb4c8"
     }
   ],
   "browser": "150.0.7871.114",
@@ -150,10 +150,10 @@
     "muted": false,
     "musicVolume": 0.55,
     "effectsVolume": 0.45,
-    "musicScheduled": 4,
-    "musicRms": 0.016014314719045394,
+    "musicScheduled": 5,
+    "musicRms": 0.08392412261918308,
     "effectsRms": 0,
-    "activeVoices": 7,
+    "activeVoices": 8,
     "lastEffect": "",
     "effectCounts": {},
     "error": "",
@@ -181,8 +181,8 @@
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
       "musicScheduled": 12,
-      "musicRms": 0.023177619138852388,
-      "effectsRms": 0.0035289121856099796,
+      "musicRms": 0.02298982407213722,
+      "effectsRms": 0.0035289121775631867,
       "activeVoices": 15,
       "lastEffect": "ward",
       "effectCounts": {

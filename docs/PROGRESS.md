@@ -2,7 +2,7 @@
 
 - 用户指出操作白线拉低质感。移除人物到指针的直线及施术全范围圆，改为目标附近的落点标记/护符短方向弧；实际牵物使用低透明度淡青曲线与细小流光，留势仅显示物件附近倒计时。
 - 手机抬手收起瞄准和悬停；低动效不移动流光，高对比增强提示。既有玩法规则不变，详见design/QUALITY_PATCH_012.md。
-- 真实鼠标选术/牵灯/移动/放下及DPR3触屏牵灯检查通过，截图qa/evidence/aim-local.png、pull-qi.png、pull-mobile.png。最终 npm run verify exit0：35项测试、界面/存档、手机触控/旋屏、战斗声画、完整通关和重开均通过；留势及切换护符截图hold-local.png、hold-ward-aim.png。公网部署结果随后补记。
+- 真实鼠标选术/牵灯/移动/放下及DPR3触屏牵灯检查通过，截图qa/evidence/aim-local.png、pull-qi.png、pull-mobile.png。最终 npm run verify exit0：35项测试、界面/存档、手机触控/旋屏、战斗声画、完整通关和重开均通过；留势及切换护符截图hold-local.png、hold-ward-aim.png。源码034f8c1已推送，gh-pages发布2937aa4；公网0.1.2核对7个运行资源哈希一致，匿名桌面牵灯/移动、DPR3手机触控护符及音乐输出通过，pageerror为空。发布证据qa/evidence/publication.json。
 
 ## 2026-09-09 M5：0.1.1 手机清晰度、配乐与命中反馈
 
