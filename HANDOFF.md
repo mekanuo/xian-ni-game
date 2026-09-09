@@ -1,6 +1,6 @@
 # 新会话入口：仙逆网页游戏
 
-本文件是2026-09-09最新交接，优先于旧进度中的等待、未创建仓库、未获推送许可等历史描述。不需要读取旧会话或两个封版游戏。本轮已从用户指定的 bf4d922 完成详细设计候选，当前等待一次整体确认，未实施。
+本文件是2026-09-09最新交接，优先于旧进度中的等待、未创建仓库、未获推送许可等历史描述。不需要读取旧会话或两个封版游戏。设计已完成并公开审阅；用户2026-09-09创建Goal，明确批准按该设计完成美术、实现、测试与公网首版。当前进入实施，最新状态优先读 docs/PROGRESS.md。
 
 ## 先读什么
 
@@ -44,7 +44,7 @@
 ## 保存、推送与来源
 
 - 本机工作目录：/home/zhangjingzhou/workspace/xian-ni-game。
-- 当前分支：docs/return-stone-design，从 docs/source-research-handoff 的 bf4d922 新建；远端origin，默认分支master。以git log/status和远端实际SHA核对，不把本文件自身SHA写成固定锚点。
+- 当前分支：feat/return-stone-v1，从设计分支 d55bf0b 新建；远端origin，默认分支master。以git log/status和远端实际SHA核对，不把本文件自身SHA写成固定锚点。
 - 本轮设计提交为 3e02f78，拦截记录为 7963d9a。用户要求公网链接并再次明确允许发布，运行环境权限随后更新；2026-09-09已成功推送 docs/return-stone-design。公开审阅入口：https://github.com/mekanuo/xian-ni-game/blob/docs/return-stone-design/design/REVIEW.md 。发布授权不等于完整玩法设计已经确认；仍等待设计反馈。
 - HTTPS默认未设凭证助手。使用：git -c credential.helper='!gh auth git-credential' push -u origin <当前分支>。不要显示凭证或要求用户重复登录。网络受限时按工具权限流程重试，不将DNS失败当账号未登录。
 - 当前为稀疏检出；新目录需git add --sparse或相应扩大检出范围。novel.txt标记skip-worktree，未写入当前工作目录。
