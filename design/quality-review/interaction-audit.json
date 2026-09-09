@@ -1,0 +1,19 @@
+{
+  "source": "e340438",
+  "url": "http://127.0.0.1:4191/",
+  "observations": [
+    {
+      "action": "new game",
+      "paused": false
+    },
+    {
+      "action": "open and close bag from running game",
+      "paused": true
+    },
+    {
+      "action": "leave conversation",
+      "paused": true,
+      "dialogue": null
+    }
+  ]
+}

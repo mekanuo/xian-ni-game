@@ -117,3 +117,7 @@ Keep all four characters exactly unchanged: same faces, same stone-blue player r
 `public/art/enemies.png`：1254×1254 RGB洋红底图集，延续内置 image_gen 原创生成方式。上一美术任务已生成文件；本轮读取当前文件并目视复核后接管渲染。顶部为灰衣和短褂普通散修，底部为獾形山兽及小山猪形山兽。需求摘要：斜俯视、朴素成年修士、灰褐衣物、动物约至玩家腰部、清楚轮廓、无文字。此处为需求摘要，不冒充缺失的工具逐字提示词。
 
 只读像素检查后的独立紧裁切帧（含边距）：灰衣[120,19,428,688]，短褂[734,66,458,628]，山獾[68,774,489,396]，山猪[690,784,493,385]。渲染时使用已有容差色键，不改源PNG；散修显示约82像素高，山兽约48像素高。伤害点、朝向、蓄势倾斜与退避透明度由真实状态控制。只有静态原画，没有宣称完整逐帧动画。
+
+## 用户试玩反馈后的质感目标（未接入游戏）
+
+2026-09-09，内置 imagegen 生成 [home-target.png](quality-review/home-target.png)，用途为 [改版审阅](QUALITY_REVISION.md) 的材质、层次与界面参考。完整生成提示词见 [image-prompt.txt](quality-review/image-prompt.txt)，未使用 CLI/API 回退。原始生成文件保留于 Codex generated_images，项目副本已存入 design/quality-review。未修改位图，未写入 public/art 或运行包。图中明确标为“改版目标图 · 非实机”；人物占屏偏大、多余灯架等偏差在修订方案中说明。真正可移动物体、动画、镜头与文字仍需分别实现和验证。
