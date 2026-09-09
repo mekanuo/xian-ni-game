@@ -221,7 +221,7 @@ export class WorldScene extends Phaser.Scene {
       if(hit&&hit.age<120)this.playerImage.setTintFill(0xffdfcd);else this.playerImage.clearTint();
     }
     this.playerHand.clear();
-    if(p.pullId||this.casting){this.playerHand.lineStyle(3,0xf0e4bb,.9);const side=Math.cos(p.facing)>0?1:-1;this.playerHand.lineBetween(side*15,-35,side*26,-42);}
+    if((p.pullId&&p.hold<=0)||this.casting){const side=Math.cos(p.facing)>0?1:-1;this.playerHand.fillStyle(0xa9c9b8,.2);this.playerHand.fillCircle(side*20,-36,6);}
     this.lastX=p.x;this.lastY=p.y;
     if(!this.cameraManual){
       const camera=this.cameras.main;const tx=p.x-camera.width/2,ty=p.y-camera.height/2-55;
@@ -498,8 +498,9 @@ export class WorldScene extends Phaser.Scene {
       }
       if(['defeated','retreated'].includes(e.state))r.container.setAlpha(.45);else r.container.setAlpha(1);
     }
-    const p=this.input.activePointer;this.hovered=this.entityAt({x:p.worldX,y:p.worldY});
-    if(!this.ui.blocked&&!this.state.dialogue&&(this.hovered||this.casting)){
+    const p=this.input.activePointer,pointerVisible=!p.wasTouch||p.isDown;
+    this.hovered=pointerVisible?this.entityAt({x:p.worldX,y:p.worldY}):undefined;
+    if(pointerVisible&&!this.ui.blocked&&!this.state.dialogue&&(this.hovered||this.casting)){
       let text=this.hovered?.name||'';
       if(this.state.player.pullId&&this.state.player.hold<=0&&this.state.selected==='pull'){text='点击地面调整落点\n按 Esc 放下；R 留势';}
       else if(this.casting){const preview=previewCast(this.state,this.state.selected,this.hovered?.id,{x:p.worldX,y:p.worldY});text=`${this.hovered?.name||'施术落点'}\n${preview.valid?'点击施术 · 灵力 '+preview.cost:preview.reason}`;}
@@ -518,13 +519,37 @@ export class WorldScene extends Phaser.Scene {
     if(this.hovered&&!this.ui.blocked&&!this.state.dialogue){
       const e=this.hovered;g.lineStyle(this.settings.contrast?3:1.5,0xf1e5aa,.85);g.strokeEllipse(e.x,e.y+4,Math.max(45,e.w+12),Math.max(18,e.h*.35));
     }
-    if(this.casting&&!this.ui.blocked&&!this.state.dialogue){
-      const mouse=this.input.activePointer;const preview=previewCast(this.state,this.state.selected,this.hovered?.id,{x:mouse.worldX,y:mouse.worldY});
-      g.lineStyle(1,preview.valid?0xe7e8b6:0xb56955,.3);g.strokeCircle(p.x,p.y,preview.range);
-      g.lineStyle(2,preview.valid?0xebf4cb:0xb96551,.8);g.lineBetween(p.x,p.y-28,mouse.worldX,mouse.worldY);
-      g.strokeEllipse(mouse.worldX,mouse.worldY,27,13);
+    const mouse=this.input.activePointer;
+    if(this.casting&&!(p.pullId&&this.state.selected==='pull')&&!this.ui.blocked&&!this.state.dialogue&&(!mouse.wasTouch||mouse.isDown)){
+      const preview=previewCast(this.state,this.state.selected,this.hovered?.id,{x:mouse.worldX,y:mouse.worldY});
+      const color=preview.valid?this.state.selected==='flame'?0xd5a167:0x9dbfac:0xb1836c;
+      g.lineStyle(this.settings.contrast?2:1.2,color,this.settings.contrast?.9:.65);
+      if(this.state.selected==='ward'){
+        const angle=Math.atan2(mouse.worldY-p.y,mouse.worldX-p.x);
+        g.beginPath();g.arc(p.x,p.y-15,48,angle-.45,angle+.45);g.strokePath();
+      }else{
+        // A small landing cue keeps attention on the target, without a screen-wide ruler.
+        g.strokeEllipse(mouse.worldX,mouse.worldY,20,9);
+        g.fillStyle(color,.7);g.fillCircle(mouse.worldX,mouse.worldY,1.5);
+      }
     }
-    if(p.pullId){const e=this.state.worlds[this.state.scene].find(e=>e.id===p.pullId);if(e){g.lineStyle(7,0xd0e8dc,.12);g.lineBetween(p.x,p.y-35,e.x,e.y-15);g.lineStyle(2,0xe3f8e4,.9);g.lineBetween(p.x,p.y-35,e.x,e.y-15);g.lineStyle(1,0x5e9b89,.8);g.strokeEllipse(e.x,e.y+6,e.w+15,20);if(p.hold>0){g.lineStyle(3,0xf0d18b);g.beginPath();g.arc(e.x,e.y-25,25,-Math.PI/2,-Math.PI/2+Math.PI*2*p.hold/8);g.strokePath();}}}
+    if(p.pullId){
+      const e=this.state.worlds[this.state.scene].find(e=>e.id===p.pullId);
+      if(e){
+        if(p.hold<=0){
+          const start={x:p.x+(e.x>=p.x?20:-20),y:p.y-36},end={x:e.x,y:e.y-15};
+          const bend=Math.min(34,Math.hypot(end.x-start.x,end.y-start.y)*.12);
+          const control={x:(start.x+end.x)/2,y:(start.y+end.y)/2-bend};
+          const along=(q:number)=>({x:(1-q)*(1-q)*start.x+2*(1-q)*q*control.x+q*q*end.x,y:(1-q)*(1-q)*start.y+2*(1-q)*q*control.y+q*q*end.y});
+          g.lineStyle(this.settings.contrast?1.8:1,0x95bfa9,this.settings.contrast?.7:.36);
+          g.beginPath();g.moveTo(start.x,start.y);
+          for(let i=1;i<=24;i++){const point=along(i/24);g.lineTo(point.x,point.y);}g.strokePath();
+          if(!this.settings.reduced){for(let i=0;i<3;i++){const q=(t*.35+i/3)%1,point=along(q);g.fillStyle(0xb7d1b9,Math.sin(q*Math.PI)*.45);g.fillCircle(point.x,point.y,1.4);}}
+        }
+        g.lineStyle(1,0x8db39e,.65);g.strokeEllipse(e.x,e.y+6,e.w+12,17);
+        if(p.hold>0){g.lineStyle(2,0xd1b477,.8);g.beginPath();g.arc(e.x,e.y-25,25,-Math.PI/2,-Math.PI/2+Math.PI*2*p.hold/8);g.strokePath();}
+      }
+    }
     if(p.ward>0){const a=p.wardFacing;g.fillStyle(0xd3c790,.15);g.slice(p.x,p.y-15,65,a-.8,a+.8,false);g.fillPath();g.lineStyle(4,0xf0d693,.85);g.beginPath();g.arc(p.x,p.y-15,65,a-.8,a+.8);g.strokePath();g.lineStyle(1,0xfcf0bb,.9);g.beginPath();g.arc(p.x,p.y-15,58,a-.8,a+.8);g.strokePath();}
     if(this.state.flags.casting){
       const q=1-Number(this.state.flags.castTime)/.5,hx=p.x+Math.cos(p.facing)*23,hy=p.y-27+Math.sin(p.facing)*12;
