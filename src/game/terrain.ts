@@ -50,8 +50,22 @@ function grass(ctx: CanvasRenderingContext2D, x: number, y: number, random: Rand
 }
 
 /** Baked Canvas2D brushwork. Caller owns pixel density; coordinates stay in world units. */
-export function paintTerrain(ctx: CanvasRenderingContext2D, map: SceneDefinition, homeGround?: CanvasImageSource): void {
-  if(map.id==='home'&&homeGround){ctx.drawImage(homeGround,0,0,map.width,map.height);return;}
+export function paintTerrain(ctx: CanvasRenderingContext2D, map: SceneDefinition, ground?: CanvasImageSource, waterTexture?: CanvasImageSource): void {
+  if (ground) {
+    ctx.save();
+    ctx.drawImage(ground, 0, 0, map.width, map.height);
+    // Painted land owns the composition. Only the actual water footprints are
+    // overlaid; bridges and other stateful crossings belong to the scene.
+    if (map.id === 'creek' || map.id === 'crossing') {
+      const random = randomFor(`${map.id}-water`);
+      for (const shape of map.ground) if (shape.type === 'water') {
+        paintWater(ctx, shape, random, waterTexture);
+        paintBank(ctx, map, shape, ground, random);
+      }
+    }
+    ctx.restore();
+    return;
+  }
   ctx.save();
   const random = randomFor(map.id), full = { x: 0, y: 0, w: map.width, h: map.height };
   ctx.fillStyle = color(map.palette.ground); ctx.fillRect(0, 0, full.w, full.h);
@@ -110,7 +124,7 @@ export function paintTerrain(ctx: CanvasRenderingContext2D, map: SceneDefinition
       for (let i = 0; i < 14; i++) wash(ctx, b.x + random() * b.w, b.y + random() * b.h, 25 + random() * 60, '#5678521c');
       ctx.restore(); continue;
     }
-    if (shape.type === 'water') paintWater(ctx, shape, random);
+    if (shape.type === 'water') paintWater(ctx, shape, random, waterTexture);
     else paintStone(ctx, shape, random);
   }
 
@@ -174,26 +188,108 @@ function paintStone(ctx: CanvasRenderingContext2D, shape: GroundShape, random: R
   ctx.restore();
 }
 
-function paintWater(ctx: CanvasRenderingContext2D, shape: GroundShape, random: Random): void {
+function paintBank(ctx: CanvasRenderingContext2D, map: SceneDefinition, shape: GroundShape, ground: CanvasImageSource, random: Random): void {
+  const points = shape.points;
+  let area = 0;
+  for (let i = 0; i < points.length; i += 2) {
+    const j = (i + 2) % points.length;
+    area += points[i] * points[j + 1] - points[j] * points[i + 1];
+  }
+  const inward = area >= 0 ? 1 : -1;
+  for (let i = 0; i < points.length; i += 2) {
+    const j = (i + 2) % points.length;
+    const dx = points[j] - points[i], dy = points[j + 1] - points[i + 1], length = Math.hypot(dx, dy);
+    if (!length) continue;
+    const tx = dx / length, ty = dy / length, nx = -ty * inward, ny = tx * inward;
+    const phase = random() * Math.PI * 2;
+    const edge = (distance: number) => 5.5 + Math.sin(distance / 29 + phase) * 2.4 + Math.sin(distance / 8.7 + phase * 2) * 1.6;
+    const point = (distance: number, inset: number): [number, number] => [points[i] + tx * distance + nx * inset, points[i + 1] + ty * distance + ny * inset];
+    // Re-use the original land at its exact world coordinates. Its outer edge
+    // disappears into the painting; only a small irregular wet lip enters the
+    // water footprint. Water itself never extends onto a walkable approach.
+    const shoreLip = (extra: number) => {
+      const path = new Path2D(); path.moveTo(...point(-3, -5)); path.lineTo(...point(length + 3, -5));
+      for (let d = length + 3; d > -3; d -= 5) path.lineTo(...point(d, edge(d) + extra));
+      path.lineTo(...point(-3, edge(-3) + extra)); path.closePath();
+      return path;
+    };
+    // A few units of submerged soil soften the colour change into deeper water.
+    // Both transparent shelves remain inside the blocked footprint.
+    for (const [extra, opacity] of [[6, .16], [3, .3]]) {
+      ctx.save(); ctx.clip(shoreLip(extra)); ctx.globalAlpha = opacity;
+      ctx.drawImage(ground, 0, 0, map.width, map.height); ctx.restore();
+    }
+    const lip = shoreLip(0);
+    ctx.save(); ctx.clip(lip);
+    ctx.drawImage(ground, 0, 0, map.width, map.height);
+    const a = point(0, -5), b = point(0, 11);
+    const wet = ctx.createLinearGradient(a[0], a[1], b[0], b[1]);
+    wet.addColorStop(0, '#49594b00'); wet.addColorStop(.28, '#4f5d4730');
+    wet.addColorStop(.67, '#3c51464e'); wet.addColorStop(1, '#45635312');
+    ctx.fillStyle = wet; ctx.fill(lip);
+    ctx.restore();
+
+    // Sparse angular fragments gather in unequal pockets, rather than a bead
+    // necklace or a continuous outline. They are low, ground-level detail.
+    for (let d = 7 + random() * 18; d < length - 5; d += 24 + random() * 38) {
+      const count = 1 + Math.floor(random() * 3);
+      for (let stone = 0; stone < count; stone++) {
+        const distance = Math.min(length - 3, d + stone * (3 + random() * 5));
+        const inset = edge(distance) - 2.5 - random() * 5;
+        const [x, y] = point(distance, inset), width = 1.8 + random() * 4.7, height = 1.2 + random() * 2.4;
+        ctx.save(); ctx.translate(x, y); ctx.rotate(random() * Math.PI);
+        const chip = pathOf([-width, -.1, -width * .52, -height, width * .35, -height * .8, width, height * .15, width * .45, height, -width * .55, height * .7]);
+        ctx.fillStyle = '#35483d50'; ctx.translate(.5, .8); ctx.fill(chip); ctx.translate(-.5, -.8);
+        ctx.fillStyle = ['#8c927bca', '#a4a68aca', '#737e6bd9', '#b5b298bf'][Math.floor(random() * 4)]; ctx.fill(chip);
+        ctx.fillStyle = '#d9d6b54a'; ctx.fill(pathOf([-width * .75, -.2, -width * .48, -height * .78, width * .24, -height * .58, width * .4, -.1]));
+        ctx.restore();
+      }
+      if (random() < .2) {
+        const [x, y] = point(d, -2.5); grass(ctx, x, y, random, .22);
+      }
+    }
+  }
+}
+
+function paintWater(ctx: CanvasRenderingContext2D, shape: GroundShape, random: Random, texture?: CanvasImageSource): void {
   const b = boundsOf(shape.points), path = pathOf(shape.points), vertical = b.h > b.w;
   ctx.save(); ctx.clip(path);
   const water = vertical ? ctx.createLinearGradient(b.x, 0, b.x + b.w, 0) : ctx.createLinearGradient(0, b.y, 0, b.y + b.h);
   water.addColorStop(0, '#8baba3'); water.addColorStop(.17, '#739b9b'); water.addColorStop(.55, '#698f98'); water.addColorStop(.86, '#789e9e'); water.addColorStop(1, '#99b3a6');
   ctx.fillStyle = water; ctx.fillRect(b.x, b.y, b.w, b.h);
+  if (texture) {
+    // Keep brushwork at a consistent world scale in both the narrow drainage
+    // channel and the tall river, instead of stretching a picture to each box.
+    const pattern = ctx.createPattern(texture, 'repeat');
+    if (pattern) {
+      pattern.setTransform(new DOMMatrix().scale(.65));
+      ctx.fillStyle = pattern; ctx.fillRect(b.x, b.y, b.w, b.h);
+      ctx.globalAlpha = .16; ctx.fillStyle = water; ctx.fillRect(b.x, b.y, b.w, b.h); ctx.globalAlpha = 1;
+    }
+  }
   for (let i = 0; i < b.w * b.h / 950; i++) {
     const x = b.x + random() * b.w, y = b.y + random() * b.h, width = 4 + random() * 25;
-    ctx.strokeStyle = random() > .35 ? '#e1eee439' : '#355e6b21'; ctx.lineWidth = .6 + random() * .8;
+    ctx.strokeStyle = random() > .35 ? '#d6e4d52b' : '#355e6b21'; ctx.lineWidth = .6 + random() * .8;
     ctx.beginPath(); ctx.moveTo(x, y); ctx.bezierCurveTo(x + width * .3, y - 1.8, x + width * .65, y + 1.5, x + width, y - .5); ctx.stroke();
   }
-  ctx.lineWidth = 7; ctx.strokeStyle = '#42675f48'; ctx.stroke(path);
-  ctx.lineWidth = 1.2; ctx.strokeStyle = '#d9e5ce8c'; ctx.stroke(path);
-  // Submerged pebbles interrupt the ruler-straight map boundary at a modest scale.
+  // Submerged silt is clipped inside the water; the painted-ground branch adds
+  // its matching irregular land lip afterwards.
+  let signedArea = 0;
+  for (let i = 0; i < shape.points.length; i += 2) {
+    const j = (i + 2) % shape.points.length;
+    signedArea += shape.points[i] * shape.points[j + 1] - shape.points[j] * shape.points[i + 1];
+  }
+  const inward = signedArea >= 0 ? 1 : -1;
   for (let i = 0; i < shape.points.length; i += 2) {
     const j = (i + 2) % shape.points.length, dx = shape.points[j] - shape.points[i], dy = shape.points[j + 1] - shape.points[i + 1], length = Math.hypot(dx, dy);
     if (!length) continue;
-    for (let d = 4; d < length; d += 12 + random() * 15) {
-      const inset = 2 + random() * 5, x = shape.points[i] + dx * d / length - dy / length * inset, y = shape.points[i + 1] + dy * d / length + dx / length * inset;
-      ellipse(ctx, x, y, 2 + random() * 5, 1.3 + random() * 2, '#a3b5a285');
+    const nx = -dy / length * inward, ny = dx / length * inward;
+    for (let d = 5; d < length; d += 13 + random() * 19) {
+      const inset = 1 + random() * 5, x = shape.points[i] + dx * d / length + nx * inset, y = shape.points[i + 1] + dy * d / length + ny * inset;
+      ctx.save(); ctx.translate(x, y); ctx.rotate(Math.atan2(dy, dx));
+      ellipse(ctx, 0, 0, 9 + random() * 12, 3 + random() * 5, '#8c9d7f30');
+      ellipse(ctx, 1, 0, 5 + random() * 7, 1.5 + random() * 2, '#405e541c');
+      ctx.restore();
     }
   }
   ctx.restore();

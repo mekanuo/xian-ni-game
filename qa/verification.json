@@ -34,6 +34,10 @@
         "exitCode": 0
       },
       {
+        "command": "node scripts/region-art-check.mjs",
+        "exitCode": 0
+      },
+      {
         "command": "node scripts/playthrough.mjs",
         "exitCode": 0
       },

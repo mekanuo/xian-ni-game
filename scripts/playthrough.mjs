@@ -1,6 +1,6 @@
 import {chromium} from '@playwright/test';
 import assert from 'node:assert/strict';
-import {writeFile,mkdir} from 'node:fs/promises';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
 const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
 const page=await browser.newPage({viewport:{width:1440,height:900}});
 const inputTrace=[],errors=[],observations={},started=Date.now();page.on('pageerror',e=>errors.push(e.message));
@@ -36,6 +36,12 @@ try{
  await walk(890,290);await pull('platform_ladder',1010,290);await walk(1180,230);await page.waitForFunction(()=>window.__XIAN_NI__.inspect().flags.platformShared===true,null,{timeout:10000});await interact('chime');assert.equal((await state()).flags.chime,true);log('shared-platform-and-chime',brief(await state()));
  await exit('to_crossing','crossing');await walk(320,170);await walk(680,170);await pull('ridge_rope',800,180);assert.equal((await state()).flags.ridgeOpen,true);await walk(1430,280);await interact('ridge_marker');assert.equal((await state()).flags.route,'ridge');
  await page.screenshot({path:'qa/evidence/ridge-outcome.png'});await walk(1050,220);await walk(680,170);await walk(320,170);await walk(400,900);await exit('to_creek','creek');await exit('to_home','home');await interact('table');await choose('travel');assert.equal((await state()).ended,true);const ending=brief(await state());observations.outcome={id:'return-to-table',inputs:['traverse ridge','return through creek','table travel choice'],state:{terminal:'designed-outcome',...ending}};
- await page.screenshot({path:'qa/evidence/return-home.png'});await page.getByRole('button',{name:'在驿中再坐一会儿',exact:true}).click();await page.screenshot({path:'qa/evidence/home-keepsakes.png'});observations.outcome.visual='qa/evidence/home-keepsakes.png';await page.locator('[data-ui="settings"]').click();await page.locator('[data-ui="restart"]').click();await page.getByRole('button',{name:'重新选择出身',exact:true}).click();await page.getByRole('button',{name:'去回石驿',exact:true}).click();const restart=brief(await state());assert.equal(restart.scene,'home');assert.equal(restart.ended,false);assert.equal(restart.flags.ringOwned,undefined);assert.equal(errors.length,0);observations.restart={id:'new-journey',inputs:['settings','restart','new profile'],state:{terminal:'initial-state',...restart}};
+ await page.screenshot({path:'qa/evidence/return-home.png'});await page.getByRole('button',{name:'在驿中再坐一会儿',exact:true}).click();await page.screenshot({path:'qa/evidence/home-keepsakes.png'});observations.outcome.visual='qa/evidence/home-keepsakes.png';await page.locator('[data-ui="settings"]').click();
+ await mkdir('qa/fixtures',{recursive:true});
+ const version=JSON.parse(await readFile('package.json','utf8')).version;
+ const exportWait=page.waitForEvent('download');await page.locator('[data-ui="export"]').click();
+ const exported=await exportWait;const fixture=`qa/fixtures/return-ridge-v${version}.json`;await exported.saveAs(fixture);
+ observations.exportedSave={fixture,version,method:'settings export after actual complete route',route:'ridge'};
+ await page.locator('[data-ui="restart"]').click();await page.getByRole('button',{name:'重新选择出身',exact:true}).click();await page.getByRole('button',{name:'去回石驿',exact:true}).click();const restart=brief(await state());assert.equal(restart.scene,'home');assert.equal(restart.ended,false);assert.equal(restart.flags.ringOwned,undefined);assert.equal(errors.length,0);observations.restart={id:'new-journey',inputs:['settings','restart','new profile'],state:{terminal:'initial-state',...restart}};
  await writeFile('qa/evidence/playthrough-draft.json',JSON.stringify({schemaVersion:1,runId:'ridge-return',environment:{browser:await browser.version(),platform:process.platform,viewport:'1440x900',url:process.env.GAME_URL||'http://127.0.0.1:4173/'},inputTrace,observations},null,2));console.log('COMPLETE',JSON.stringify(ending));
 }catch(e){console.error('FAIL',e);const s=await state().catch(()=>null);await page.screenshot({path:'qa/evidence/playthrough-failure.png'});await writeFile('qa/evidence/playthrough-failure.json',JSON.stringify({error:String(e),inputTrace,state:s?brief(s):null,errors},null,2));process.exitCode=1;}finally{await browser.close();}

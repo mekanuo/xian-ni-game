@@ -1,6 +1,6 @@
 import {chromium} from '@playwright/test';
 import assert from 'node:assert/strict';
-import {writeFile,mkdir,rm} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,rm} from 'node:fs/promises';
 await mkdir('qa/evidence',{recursive:true});
 await writeFile('qa/evidence/main-route.json',JSON.stringify({schemaVersion:1,status:'NOT_RUN',runId:'main-return'},null,2));
 const gameUrl=process.env.GAME_URL||'http://127.0.0.1:4191/';
@@ -50,7 +50,13 @@ try{
  await walk(1100,800);await walk(400,900);await exit('to_creek','creek');await exit('to_home','home');await interact('table');await choose('travel');
  const ending=await state();assert.equal(ending.ended,true);assert.equal(ending.flags.returned,true);assert.equal(ending.flags.endingWish,'travel');
  await page.screenshot({path:'qa/evidence/main-return.png'});observations.outcome={id:'main-route-home-ending',inputs:['walk back across repaired crossing','return through creek','table travel choice'],state:{terminal:'designed-outcome',...brief(ending)},visual:'qa/evidence/main-return.png'};
- await page.getByRole('button',{name:'在驿中再坐一会儿',exact:true}).click();await page.locator('[data-ui="settings"]').click();await page.locator('[data-ui="restart"]').click();await page.getByRole('button',{name:'重新选择出身',exact:true}).click();await page.getByRole('button',{name:'去回石驿',exact:true}).click();
+ await page.getByRole('button',{name:'在驿中再坐一会儿',exact:true}).click();await page.locator('[data-ui="settings"]').click();
+ await mkdir('qa/fixtures',{recursive:true});
+ const version=JSON.parse(await readFile('package.json','utf8')).version;
+ const exportWait=page.waitForEvent('download');await page.locator('[data-ui="export"]').click();
+ const exported=await exportWait;const fixture=`qa/fixtures/return-main-v${version}.json`;await exported.saveAs(fixture);
+ observations.exportedSave={fixture,version,method:'settings export after actual complete route',route:'main'};
+ await page.locator('[data-ui="restart"]').click();await page.getByRole('button',{name:'重新选择出身',exact:true}).click();await page.getByRole('button',{name:'去回石驿',exact:true}).click();
  const restarted=await state();assert.equal(restarted.scene,'home');assert.equal(restarted.ended,false);assert.equal(restarted.flags.gateOpen,undefined);assert.equal(restarted.flags.ringOwned,undefined);assert.equal(errors.length,0);
  observations.restart={id:'fresh-after-main-ending',inputs:['settings','restart','new profile'],state:{terminal:'initial-state',...brief(restarted)}};
  await writeFile('qa/evidence/main-route.json',JSON.stringify({schemaVersion:1,status:'PASS',runId:'main-return',environment:{browser:await browser.version(),platform:process.platform,viewport:'1440x900',url:gameUrl},inputTrace,observations,errors},null,2));await Promise.all(['qa/evidence/main-failure.json','qa/evidence/main-failure.png'].map(path=>rm(path,{force:true})));console.log('MAIN ROUTE COMPLETE',JSON.stringify(brief(ending)));

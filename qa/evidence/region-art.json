@@ -1,0 +1,608 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "runId": "region-art",
+  "environment": {
+    "browser": "150.0.7871.114",
+    "platform": "linux",
+    "viewport": "1440x900 DPR2 + 390x844 DPR3",
+    "url": "http://127.0.0.1:4187/",
+    "limitation": "Chrome emulation; not physical Mac or mobile. Visual capture is not a subjective quality verdict."
+  },
+  "inputTrace": [
+    {
+      "action": "new-game",
+      "detail": {
+        "scene": "home",
+        "time": 0.09999999999999999,
+        "player": {
+          "x": 360,
+          "y": 710,
+          "hp": 4,
+          "mana": 6,
+          "facing": 0,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "flags": {
+          "eventSeq": 2,
+          "companion": "waiting",
+          "visited_home": true,
+          "wardCooldown": 0
+        },
+        "ended": false,
+        "dialogue": null,
+        "events": [
+          {
+            "seq": 1,
+            "time": 0,
+            "type": "note",
+            "text": "行舟，凝气三层。先前攒钱修的引环，今日该去取了。"
+          },
+          {
+            "seq": 2,
+            "time": 0,
+            "type": "hint",
+            "text": "陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。"
+          }
+        ]
+      },
+      "wall": 10526
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1510,
+        "y": 710
+      },
+      "wall": 10938
+    },
+    {
+      "action": "capture",
+      "detail": {
+        "id": "home-road",
+        "scene": "home"
+      },
+      "wall": 63176
+    },
+    {
+      "action": "interact",
+      "detail": "to_creek",
+      "wall": 65793
+    },
+    {
+      "action": "scene",
+      "detail": "creek",
+      "wall": 67187
+    },
+    {
+      "action": "capture",
+      "detail": {
+        "id": "creek-return",
+        "scene": "creek"
+      },
+      "wall": 91857
+    },
+    {
+      "action": "interact",
+      "detail": "rope",
+      "wall": 94553
+    },
+    {
+      "action": "choice",
+      "detail": "fix",
+      "wall": 98816
+    },
+    {
+      "action": "interact",
+      "detail": "bag",
+      "wall": 102165
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 885,
+        "y": 555
+      },
+      "wall": 103908
+    },
+    {
+      "action": "pull",
+      "detail": {
+        "id": "basket",
+        "x": 1180,
+        "y": 520
+      },
+      "wall": 109494
+    },
+    {
+      "action": "pull",
+      "detail": {
+        "id": "board",
+        "x": 1120,
+        "y": 648
+      },
+      "wall": 116948
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1120,
+        "y": 735
+      },
+      "wall": 124643
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1120,
+        "y": 555
+      },
+      "wall": 129273
+    },
+    {
+      "action": "capture",
+      "detail": {
+        "id": "creek-shelter",
+        "scene": "creek"
+      },
+      "wall": 153974
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1500,
+        "y": 430
+      },
+      "wall": 156617
+    },
+    {
+      "action": "capture",
+      "detail": {
+        "id": "creek-workshop-road",
+        "scene": "creek"
+      },
+      "wall": 186753
+    },
+    {
+      "action": "interact",
+      "detail": "to_workshop",
+      "wall": 189530
+    },
+    {
+      "action": "scene",
+      "detail": "workshop",
+      "wall": 191257
+    },
+    {
+      "action": "capture",
+      "detail": {
+        "id": "workshop-entry",
+        "scene": "workshop"
+      },
+      "wall": 215503
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 320,
+        "y": 220
+      },
+      "wall": 218068
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1450,
+        "y": 220
+      },
+      "wall": 230188
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1410,
+        "y": 560
+      },
+      "wall": 250708
+    },
+    {
+      "action": "capture",
+      "detail": {
+        "id": "workshop-shed",
+        "scene": "workshop"
+      },
+      "wall": 278282
+    },
+    {
+      "action": "interact",
+      "detail": "ring",
+      "wall": 280917
+    },
+    {
+      "action": "interact",
+      "detail": "tao_work",
+      "wall": 282900
+    },
+    {
+      "action": "choice",
+      "detail": "long",
+      "wall": 285117
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1210,
+        "y": 600
+      },
+      "wall": 288556
+    },
+    {
+      "action": "pull",
+      "detail": {
+        "id": "trial",
+        "x": 1310,
+        "y": 600
+      },
+      "wall": 291364
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1450,
+        "y": 220
+      },
+      "wall": 300599
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 320,
+        "y": 220
+      },
+      "wall": 306627
+    },
+    {
+      "action": "interact",
+      "detail": "to_creek",
+      "wall": 328479
+    },
+    {
+      "action": "scene",
+      "detail": "creek",
+      "wall": 343531
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1510,
+        "y": 745
+      },
+      "wall": 343979
+    },
+    {
+      "action": "capture",
+      "detail": {
+        "id": "creek-crossing-road",
+        "scene": "creek"
+      },
+      "wall": 377932
+    },
+    {
+      "action": "interact",
+      "detail": "to_crossing",
+      "wall": 380545
+    },
+    {
+      "action": "scene",
+      "detail": "crossing",
+      "wall": 381924
+    },
+    {
+      "action": "capture",
+      "detail": {
+        "id": "crossing-entry",
+        "scene": "crossing"
+      },
+      "wall": 405759
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 650,
+        "y": 900
+      },
+      "wall": 408246
+    },
+    {
+      "action": "capture",
+      "detail": {
+        "id": "crossing-bank",
+        "scene": "crossing"
+      },
+      "wall": 437034
+    },
+    {
+      "action": "mobile-sign",
+      "detail": {
+        "name": "溪道 →",
+        "foot": {
+          "x": 330.9999801224349,
+          "y": 495.50002271240874
+        }
+      },
+      "wall": 464247
+    }
+  ],
+  "observations": {
+    "home-road": {
+      "scene": "home",
+      "player": {
+        "x": 1506.6662781398952,
+        "y": 710.9439392386786,
+        "hp": 4,
+        "mana": 6,
+        "facing": 0.0008232029173955725,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "visual": "qa/evidence/region-home-road.png",
+      "sign": {
+        "id": "to_creek",
+        "name": "溪道 →",
+        "foot": {
+          "x": 1279.8912797188477,
+          "y": 491.05933107639896
+        },
+        "scale": 1,
+        "visual": "qa/evidence/region-home-road-sign.png"
+      }
+    },
+    "creek-return": {
+      "scene": "creek",
+      "player": {
+        "x": 170,
+        "y": 760,
+        "hp": 4,
+        "mana": 6,
+        "facing": -0.15580596700962093,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "visual": "qa/evidence/region-creek-return.png",
+      "sign": {
+        "id": "to_home",
+        "name": "← 回石驿",
+        "foot": {
+          "x": 100.0000128772499,
+          "y": 571.059331076399
+        },
+        "scale": 1,
+        "visual": "qa/evidence/region-creek-return-sign.png"
+      }
+    },
+    "creek-shelter": {
+      "scene": "creek",
+      "player": {
+        "x": 1120.0002686155196,
+        "y": 556.5606690202686,
+        "hp": 4,
+        "mana": 4,
+        "facing": -1.5695953710440924,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "visual": "qa/evidence/region-creek-shelter.png"
+    },
+    "creek-workshop-road": {
+      "scene": "creek",
+      "player": {
+        "x": 1497.1681584655557,
+        "y": 431.58802943926366,
+        "hp": 4,
+        "mana": 4,
+        "facing": -0.31995985712221964,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "visual": "qa/evidence/region-creek-workshop-road.png",
+      "sign": {
+        "id": "to_workshop",
+        "name": "旧工棚 →",
+        "foot": {
+          "x": 1279.8912797188477,
+          "y": 370.000009720732
+        },
+        "scale": 1,
+        "visual": "qa/evidence/region-creek-workshop-road-sign.png"
+      }
+    },
+    "workshop-entry": {
+      "scene": "workshop",
+      "player": {
+        "x": 160,
+        "y": 740,
+        "hp": 4,
+        "mana": 4,
+        "facing": -0.40710409930417285,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "visual": "qa/evidence/region-workshop-entry.png",
+      "sign": {
+        "id": "to_creek",
+        "name": "← 溪道",
+        "foot": {
+          "x": 100.0000128772499,
+          "y": 649.0593320108906
+        },
+        "scale": 1,
+        "visual": "qa/evidence/region-workshop-entry-sign.png"
+      }
+    },
+    "workshop-shed": {
+      "scene": "workshop",
+      "player": {
+        "x": 1409.2022796767046,
+        "y": 560.1851853300366,
+        "hp": 4,
+        "mana": 4,
+        "facing": 1.6831692946649655,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "visual": "qa/evidence/region-workshop-shed.png"
+    },
+    "creek-crossing-road": {
+      "scene": "creek",
+      "player": {
+        "x": 1509.2784072127056,
+        "y": 745.0435857140069,
+        "hp": 4,
+        "mana": 3,
+        "facing": 1.7554782236918698,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "visual": "qa/evidence/region-creek-crossing-road.png",
+      "sign": {
+        "id": "to_crossing",
+        "name": "石渡 →",
+        "foot": {
+          "x": 1269.8912797188477,
+          "y": 621.059331076399
+        },
+        "scale": 1,
+        "visual": "qa/evidence/region-creek-crossing-road-sign.png"
+      }
+    },
+    "crossing-entry": {
+      "scene": "crossing",
+      "player": {
+        "x": 170,
+        "y": 830,
+        "hp": 4,
+        "mana": 3,
+        "facing": 0.5556478223357217,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "visual": "qa/evidence/region-crossing-entry.png",
+      "sign": {
+        "id": "to_creek",
+        "name": "← 溪道",
+        "foot": {
+          "x": 100.0000128772499,
+          "y": 661.059331076399
+        },
+        "scale": 1,
+        "visual": "qa/evidence/region-crossing-entry-sign.png"
+      }
+    },
+    "crossing-bank": {
+      "scene": "crossing",
+      "player": {
+        "x": 647.4790580570477,
+        "y": 900.5752097274002,
+        "hp": 4,
+        "mana": 3,
+        "facing": 0.1467454655249041,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "visual": "qa/evidence/region-crossing-bank.png"
+    },
+    "mobile": {
+      "visual": "qa/evidence/region-phone-road.png",
+      "viewport": "390x844 DPR3",
+      "player": {
+        "x": 1490.6666666666736,
+        "y": 710,
+        "hp": 4,
+        "mana": 6,
+        "facing": 0,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "sign": {
+        "name": "溪道 →",
+        "foot": {
+          "x": 330.9999801224349,
+          "y": 495.50002271240874
+        }
+      },
+      "inputs": [
+        "new profile using touch",
+        "hold D on emulated touch viewport",
+        "tap pause"
+      ]
+    }
+  },
+  "errors": []
+}

@@ -135,3 +135,20 @@ Keep all four characters exactly unchanged: same faces, same stone-blue player r
 - home-ground.png：1606×980，完整平面石驿地景；按1800×1100地图设计院路、廊前石板、石下苔痕和院外草地，纯平面且无实际立体障碍/可互动物。原始输出直接绘入2倍地面画布，未宣称2倍缓存增加源图细节。
 
 原始文件保留于 Codex generated_images/01a084b2-a8b4-7822-a1f7-3e44f442a5cf；最终图分别为 exec-b3bcab41-d867-41e3-8b20-9046e551d733.png、exec-ac979439-8131-4c0e-9a84-3902e8b59414.png、exec-332f31b2-420e-411a-a5b6-583b773701ad.png。原素材已目视检查；项目拷贝才是生产依赖。验证截图参见 qa/evidence/home-layout-*.png，主观观感仍待用户试玩反馈。
+
+
+## 0.2.2 三处山道与交互道具
+
+2026-09-09，均通过内置 image_gen 原创生成，原始 PNG 直接复制，未用脚本编辑位图、未读取密钥、未引用现成游戏素材。以下是需求摘要，非逐字提示词。图集仍为 RGB 洋红底，运行时容差色键与裁帧；地景为不带立体障碍的完整平面图。
+
+| 文件 | 需求摘要 | 原始生成文件标识 |
+|---|---|---|
+| creek-ground.png | 雨后草地、上下土路回环、中右棚前石坪、右上眺台地面；不烘焙舟/水/梯 | exec-cbcc1dd9-086a-45cc-8e4e-133054ca5bc1 |
+| workshop-ground.png | 暖土林路、上下双路、右侧工棚石坪，无棚体和互动道具 | exec-ec2c5557-8458-468c-9927-a96c9936ede0 |
+| crossing-ground.png | 浅矿石河岸、疏草、上脊下渡路径，河道预留平面土纹 | exec-84940951-15df-4e1a-be8f-de949e6b3681 |
+| water-surface.png | 细致青碧透明水纹、无岸线与桥，用实际水域裁切 | exec-10174bd6-a75f-4747-89f2-b66aeb07e420 |
+| region-architecture.png | 开放工棚、带木凳雨棚、空绞盘支架、低苔石墙 | exec-25f8f868-c0d3-47cd-8dee-8ea918a67637 |
+| journey-props.png | 舟/药筐/木板、梯/空字石碑/绳、试块/草堆/布袋 | exec-8fbb34ea-5720-4ea6-a514-b0e44f245bc1 |
+| detail-props.png | 空竹筐、铜牵扣、固定桩、窄木栏、蒲垫、棚边工具托盘 | exec-d9446556-be87-4d2c-b630-d7b451baa680 |
+
+原始文件均在本会话 generated_images/01a084b2-a8b4-7822-a1f7-3e44f442a5cf，项目副本是生产依赖；全部已用 view_image 检查。三张地景为 1606×980，四张水纹/图集为 1254×1254。路牌文字与少量状态记号是原生代码绘制，不是生成图中文字。裁帧与显示锚点见 scene.ts，近景及手机实机渲染证据见 qa/evidence/region-*。

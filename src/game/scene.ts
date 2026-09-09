@@ -8,11 +8,12 @@ import { display } from './display';
 import { Feedback } from './feedback';
 import { paintTerrain } from './terrain';
 import { inspectObject, placementAnchors } from './encounters';
+import { drawWayfinding, configureWayfindingLabel } from './wayfinding';
 
 const FONT = '"Noto Serif SC", "Songti SC", "Microsoft YaHei", serif';
 const COLORS = {ink:0x314b42,outline:0x42573e,stone:0x879887,stoneLight:0xb0baa6,wood:0x897755,woodLight:0xb4a17a,roof:0x576f68,leaf:0x628267};
 function seeded(seed: number) { return () => { seed=(seed*1664525+1013904223)>>>0;return seed/4294967296; }; }
-interface RenderEntity { container: Phaser.GameObjects.Container; art: Phaser.GameObjects.Graphics; image?: Phaser.GameObjects.Image; label: Phaser.GameObjects.Text; stateKey:string; }
+interface RenderEntity { propImage?:Phaser.GameObjects.Image; container: Phaser.GameObjects.Container; art: Phaser.GameObjects.Graphics; image?: Phaser.GameObjects.Image; label: Phaser.GameObjects.Text; stateKey:string; }
 
 export class WorldScene extends Phaser.Scene {
   public state!: GameState;
@@ -55,10 +56,12 @@ export class WorldScene extends Phaser.Scene {
     this.load.image('home-inn-source',new URL('art/home-inn.png',document.baseURI).href);
     this.load.image('home-props-source',new URL('art/home-props.png',document.baseURI).href);
     this.load.image('home-ground',new URL('art/home-ground.png',document.baseURI).href);
+    for(const key of ['creek-ground','workshop-ground','crossing-ground','water-surface'])this.load.image(key,new URL(`art/${key}.png`,document.baseURI).href);
+    for(const key of ['region-architecture','journey-props','detail-props'])this.load.image(`${key}-source`,new URL(`art/${key}.png`,document.baseURI).href);
     this.load.on('loaderror',(file:Phaser.Loader.File)=>{document.body.dataset.assetError=file.key;});
   }
   create(){
-    if(['title-source','characters-source','environment-source','enemies-source','home-inn-source','home-props-source','home-ground'].some(key=>!this.textures.exists(key))){
+    if(['title-source','characters-source','environment-source','enemies-source','home-inn-source','home-props-source','home-ground','creek-ground','workshop-ground','crossing-ground','water-surface','region-architecture-source','journey-props-source','detail-props-source'].some(key=>!this.textures.exists(key))){
       const root=document.querySelector('#interface')!;
       root.innerHTML='<div class="veil"><section class="paper modal-paper" role="alert"><h2>山道画卷尚未展开</h2><p>部分画面未能载入，重新连接后可以再试一次。</p><button class="primary" id="retry-assets">重新载入</button></section></div>';
       document.querySelector('#retry-assets')!.addEventListener('click',()=>window.location.reload());
@@ -72,6 +75,15 @@ export class WorldScene extends Phaser.Scene {
     const furnishings=this.keyAtlas('home-props');
     const furnitureFrames:Record<string,number[]>={table:[44,62,441,376],workbench:[541,89,453,342],herb_rack:[1053,54,450,391],return_cart:[15,581,482,339],room:[523,535,486,406],rest_home:[1044,671,468,259]};
     for(const [name,b] of Object.entries(furnitureFrames))furnishings?.add(name,0,b[0],b[1],b[2],b[3]);
+    const architecture=this.keyAtlas('region-architecture');
+    const architectureFrames:Record<string,number[]>={workshop:[20,145,683,335],shelter:[722,140,512,349],sluice:[69,624,521,493],parapet:[747,998,333,108]};
+    for(const [name,b] of Object.entries(architectureFrames))architecture?.add(name,0,b[0],b[1],b[2],b[3]);
+    const props=this.keyAtlas('journey-props');
+    const propFrames:Record<string,number[]>={boat:[12,118,405,175],basket:[466,78,312,256],board:[832,143,410,136],ladder:[135,394,159,411],stele:[484,423,277,360],rope:[845,487,379,265],trial:[60,842,306,356],straw:[430,852,388,347],bag:[865,891,352,263]};
+    for(const [name,b] of Object.entries(propFrames))props?.add(name,0,b[0],b[1],b[2],b[3]);
+    const details=this.keyAtlas('detail-props');
+    const detailFrames:Record<string,number[]>={decoy:[35,132,349,342],gate:[486,32,283,482],gate_slot:[932,20,276,536],fence:[82,570,248,644],rest:[426,735,399,305],shelter:[846,696,389,410]};
+    for(const [name,b] of Object.entries(detailFrames))details?.add(name,0,b[0],b[1],b[2],b[3]);
     const enemies=this.keyAtlas('enemies');
     if(enemies){const boxes=[[120,19,428,688],[734,66,458,628],[68,774,489,396],[690,784,493,385]];boxes.forEach((b,i)=>enemies.add(String(i),0,b[0],b[1],b[2],b[3]));}
     this.state=createGame({name:'行舟',origin:'herbalist',wish:'travel',appearance:0});
@@ -292,7 +304,12 @@ export class WorldScene extends Phaser.Scene {
     const terrainKey='terrain-detail';
     if(this.textures.exists(terrainKey))this.textures.remove(terrainKey);
     const terrain=this.textures.createCanvas(terrainKey,m.width*2,m.height*2)!;
-    const context=terrain.getContext();context.scale(2,2);paintTerrain(context,m,this.textures.get('home-ground').getSourceImage() as HTMLImageElement);terrain.refresh();
+    const context=terrain.getContext();context.scale(2,2);paintTerrain(context,m,this.textures.get(`${m.id}-ground`).getSourceImage() as HTMLImageElement,this.textures.get('water-surface').getSourceImage() as HTMLImageElement);
+    if(m.id==='crossing'&&this.state.flags.gateOpen){
+      const source=this.textures.get('crossing-ground').getSourceImage() as HTMLImageElement;
+      context.drawImage(source,1180/1800*source.width,650/1100*source.height,140/1800*source.width,210/1100*source.height,1180,650,140,210);
+    }
+    terrain.refresh();
     this.landscape.addAt(this.add.image(0,0,terrainKey).setOrigin(0).setScale(.5),0);
     // Vegetation belongs to edges and landmarks, with open lanes between groups.
     for(const [x,y] of [[70,90],[150,67],[490,48],[1210,75],[1660,65],[1740,135],[95,1025],[170,1010],[560,1050],[1430,1040],[1630,1010]])this.bush(g,x,y,26+rand()*24,rand);
@@ -306,11 +323,13 @@ export class WorldScene extends Phaser.Scene {
       if(m.id==='crossing'&&ob.x===1180)continue;
       if(m.id==='home'&&ob.y===240)continue;
       if(m.id==='home'&&ob.x===660){this.environmentProp('rocks',770,660,229,165);continue;}
-      if(m.id==='creek'){g.fillStyle(0x748e76,.7);g.fillRoundedRect(ob.x,ob.y,ob.w,ob.h,9);g.lineStyle(2,0xc2cdb0,.65);g.strokeRoundedRect(ob.x,ob.y,ob.w,ob.h,9);}
-      else if(m.id==='workshop'&&ob.w<40){g.fillStyle(0x776b50);g.fillRect(ob.x,ob.y,ob.w,ob.h);for(let y=ob.y;y<ob.y+ob.h;y+=25){g.lineStyle(2,0xad9c72);g.lineBetween(ob.x,y,ob.x+ob.w,y);}}
+      if(m.id==='creek'){
+        if(ob.y>=425)continue; // These obstacles are water, whose shoreline is already painted at its actual footprint.
+        this.parapet(ob.x,ob.y,ob.w,ob.h);
+      }
+      else if(m.id==='workshop'&&ob.w<40){const fence=this.add.image(ob.x+ob.w/2,ob.y+ob.h,'detail-props','fence').setOrigin(.5,1).setDisplaySize(ob.w+8,ob.h+15);this.landscape.add(fence);}
       else{this.landscapeRock(g,ob.x+ob.w/2,ob.y+ob.h/2,ob.w*.5,ob.h*.5);}
     }
-    if(m.id!=='home'){g.lineStyle(2,0x647e5d,.16);g.strokeRect(28,28,m.width-56,m.height-56);}
     // Bake immutable brushwork once; replaying thousands of paths every frame stalls software WebGL.
     const groundKey='ground-baked';
     if(this.textures.exists(groundKey))this.textures.remove(groundKey);
@@ -327,11 +346,15 @@ export class WorldScene extends Phaser.Scene {
     this.landscape.add(image);
     return image;
   }
+  private regionalProp(frame:string,x:number,y:number,w:number,h:number){
+    const image=this.add.image(x,y,'region-architecture',frame).setOrigin(.5,1).setDisplaySize(w,h);
+    this.landscape.add(image);return image;
+  }
+  private parapet(x:number,y:number,w:number,h:number){
+    if(w>=h){for(let left=x;left<x+w;left+=100)this.regionalProp('parapet',left+Math.min(100,x+w-left)/2,y+h,Math.min(100,x+w-left),42);}
+    else{for(let top=y;top<y+h;top+=90){const length=Math.min(90,y+h-top);this.regionalProp('parapet',x+w/2,top+length/2,length,w).setOrigin(.5).setAngle(90);}}
+  }
   private landscapeRock(g:Phaser.GameObjects.Graphics,x:number,y:number,rx:number,ry:number){
-    // A broken, mossy rubble edge covers the blocking footprint without a rectangular plinth.
-    this.polygon(g,[x-rx-3,y-ry+8,x-rx+17,y-ry-3,x+rx-13,y-ry+2,x+rx+4,y-ry+20,x+rx+2,y+ry-6,x+rx-16,y+ry+4,x-rx+10,y+ry+3,x-rx-3,y+ry-13],0x708275);
-    const rand=seeded(Math.round(x+y));
-    for(let i=0;i<16;i++){const a=i*Math.PI/8;this.rock(g,x+Math.cos(a)*rx*.93,y+Math.sin(a)*ry*.93,9+rand()*9,5+rand()*7);}
     if(!this.environmentProp('rocks',x,y+ry,rx*2.08,Math.max(ry*2,rx*1.5)))this.rock(g,x,y,rx,ry);
   }
   private bush(g:Phaser.GameObjects.Graphics,x:number,y:number,r:number,rand:()=>number){
@@ -392,35 +415,25 @@ export class WorldScene extends Phaser.Scene {
     }
   }
   private paintCreek(g:Phaser.GameObjects.Graphics,rand:()=>number){
-    if(!this.environmentProp('shelter',1080,605,366,280)){
-      this.roof(g,900,430,360,50);
-      g.fillStyle(0x857752);g.fillRect(916,480,7,95);g.fillRect(1240,480,7,95);
-    }
-    g.lineStyle(4,0xcbd4bc,.8);g.lineBetween(632,430,620,660);
-    for(let i=0;i<6;i++){g.fillStyle(0xbbc7ae);g.fillEllipse(653+i*25,697,35,19);}
+    this.regionalProp('shelter',1090,600,420,220);
     for(const [x,y] of [[450,200],[520,500],[850,210],[1580,130],[1720,580],[130,980]])this.bush(g,x,y,60,rand);
     // A low outcrop at the back of the lookout leaves the climb and chime interaction clear.
     this.environmentProp('rocks',1340,154,220,90)||this.rock(g,1340,137,145,32);
     g.lineStyle(2,0x6f855f,.55);for(let x=1120;x<1480;x+=50)g.lineBetween(x,316,x+35,316);
   }
   private paintWorkshop(g:Phaser.GameObjects.Graphics,rand:()=>number){
-    if(!this.environmentProp('shelter',1420,418,338,205))this.house(g,1160,365,485,85);
+    this.regionalProp('workshop',1400,435,535,248);
     for(const [x,y] of [[120,450],[420,380],[560,280],[800,310],[1110,230],[1700,730],[800,960],[1380,960]])this.bush(g,x,y,68,rand);
-    g.lineStyle(5,0x776c4c);for(let y=490;y<655;y+=37){g.lineBetween(1110,y,1170,y+4);g.lineBetween(1120,y-17,1120,y+20);}
     g.fillStyle(0x4c604d,.12);g.fillEllipse(800,723,340,70);
-    for(let i=0;i<9;i++){g.fillStyle(0xa7b89c,.8);g.fillEllipse(350+i*80,244,23,9);}
   }
   private paintCrossing(g:Phaser.GameObjects.Graphics,rand:()=>number){
 
-    g.fillStyle(0x627a6c);g.fillRect(1090,590,16,170);g.fillRect(1200,590,16,170);
-    g.fillStyle(0x948061);g.fillRect(1070,580,165,16);g.fillRect(1110,610,100,9);
-    for(let x=1100;x<1200;x+=19){g.lineStyle(3,0x5a6351);g.lineBetween(x,605,x,727);}
-    if(this.state.flags.gateOpen){
-      g.fillStyle(0xc9c8ae);g.fillRoundedRect(1175,660,151,182,9);
-      for(let y=680;y<840;y+=28){g.lineStyle(2,0x989f85,.55);g.lineBetween(1188,y,1310,y+3);}
-      g.fillStyle(0x7fa6a8);g.fillRect(1280,875,160,27);
+    this.regionalProp('sluice',1152,752,196,230);
+    if(this.state.flags.ridgeOpen){
+      for(let y=193;y<340;y+=24){const plank=this.add.image(1250,y,'journey-props','board').setDisplaySize(148,27);this.landscape.add(plank);}
+      g.lineStyle(3,0x72664b);g.lineBetween(1175,180,1325,180);g.lineBetween(1175,339,1325,339);
+      g.lineStyle(1,0xc2ac7e);g.lineBetween(1175,178,1325,178);g.lineBetween(1175,337,1325,337);
     }
-    if(this.state.flags.ridgeOpen){g.fillStyle(0xaa9470);g.fillRect(1170,229,163,55);for(let x=1170;x<1330;x+=16){g.lineStyle(2,0x715f46);g.lineBetween(x,232,x,280);}g.lineStyle(3,0xc1b28c);g.lineBetween(1155,224,1345,224);g.lineBetween(1155,288,1345,288);}
     for(const [x,y] of [[130,250],[350,350],[1650,400],[1730,670],[640,1040]])this.bush(g,x,y,55,rand);
     this.environmentProp('rocks',1500,1062,180,110)||this.rock(g,1500,1030,90,32);
     this.environmentProp('rocks',900,192,210,100)||this.rock(g,900,160,105,32);
@@ -436,9 +449,14 @@ export class WorldScene extends Phaser.Scene {
     }
     return container;
   }
+  private journeyFrame(e:Entity):string|undefined {
+    const frames:Record<string,string>={boat:'boat',basket:'basket',board:'board',shield_board:'board',platform_beam:'board',platform_ladder:'ladder',return_ladder:'ladder',ridge_rope:'ladder',rope:'rope',trial:'trial',straw:'straw',bag:'bag',marks:'stele',negotiator:'stele',far_bank:'stele',ridge_marker:'stele'};
+    return frames[e.type];
+  }
   private makeEntity(e:Entity){
     const art=this.add.graphics(),label=this.add.text(0,15,e.name,{fontFamily:FONT,fontSize:'12px',color:'#344d3d',backgroundColor:'#eaf0d9cc',padding:{x:6,y:3}}).setResolution(display.density).setOrigin(.5,0);
-    let container:Phaser.GameObjects.Container;let image:Phaser.GameObjects.Image|undefined;
+    if(e.kind==='exit')configureWayfindingLabel(label,e.name,display.density);
+    let container:Phaser.GameObjects.Container;let image:Phaser.GameObjects.Image|undefined;let propImage:Phaser.GameObjects.Image|undefined;
     if(e.kind==='npc'){
       container=this.makeCharacter(e.type,e.x,e.y,e.type==='tao'?2:3);
       image=container.list.find(o=>o instanceof Phaser.GameObjects.Image) as Phaser.GameObjects.Image|undefined;
@@ -453,20 +471,35 @@ export class WorldScene extends Phaser.Scene {
       const sizes:Record<string,[number,number]>={table:[142,78],workbench:[138,76],herb_rack:[112,85],return_cart:[156,91],room:[210,175],rest_home:[104,48]};
       sprite.setDisplaySize(...sizes[e.id]);
       container=this.add.container(e.x,e.y,[sprite,art,label]);
+    }else if(['decoy','gate','gate_slot','shelter'].includes(e.type)||e.kind==='rest'){
+      propImage=this.add.image(0,0,'detail-props',e.kind==='rest'?'rest':e.type).setOrigin(.5,1);
+      container=this.add.container(e.x,e.y,[propImage,art,label]);
+    }else if(e.type==='rock_source'){
+      propImage=this.add.image(0,0,'environment','rocks').setOrigin(.5,1);
+      container=this.add.container(e.x,e.y,[propImage,art,label]);
+    }else if(this.journeyFrame(e)){
+      propImage=this.add.image(0,0,'journey-props',this.journeyFrame(e)).setOrigin(.5,1);
+      container=this.add.container(e.x,e.y,[propImage,art,label]);
     }else{container=this.add.container(e.x,e.y,[art,label]);}
-    container.setDepth(e.y);const r={container,art,label,image,stateKey:''};this.renders.set(e.id,r);this.drawObject(e,art);return r;
+    container.setDepth(e.y);const r={container,art,label,image,propImage,stateKey:''};this.renders.set(e.id,r);this.drawObject(e,art);return r;
   }
   private drawObject(e:Entity,g:Phaser.GameObjects.Graphics){
     g.clear();const w=e.w,h=e.h;
-    if(e.kind==='npc')return;
-    if(this.state.scene==='home'&&this.textures.get('home-props').has(e.id)){this.drawHomeState(e,g);return;}
-    g.fillStyle(0x354d33,.16);g.fillEllipse(4,6,w*.95,Math.min(22,h*.4));
-    if(e.kind==='exit'){
-      g.fillStyle(0x7b7253);g.fillRect(-3,-45,6,48);
-      const right=e.name.includes('→');const pts=right?[-34,-50,30,-50,43,-36,30,-22,-34,-22]:[-43,-36,-30,-50,34,-50,34,-22,-30,-22];
-      this.polygon(g,pts,0xddd0a0);g.lineStyle(1,0x8e8960);g.strokePoints(pts.reduce<Phaser.Geom.Point[]>((a,n,i)=>{if(i%2===0)a.push(new Phaser.Geom.Point(n,pts[i+1]));return a;},[]),true);
+    if(e.type==='gate_slot'&&(e.state==='wedged'||e.state==='fixed')){
+      this.polygon(g,[-14,-38,15,-45,18,-38,-12,-31],0x987344);
+      g.lineStyle(1.5,0xc4a774);g.lineBetween(-12,-37,14,-43);
+      g.lineStyle(2,0x524e40);g.lineBetween(-9,-34,-7,-39);
+    }
+    if(e.kind==='npc'||e.type==='rock_source'||['decoy','gate','gate_slot','shelter'].includes(e.type)||(e.kind==='rest'&&this.state.scene!=='home'))return;
+    if(this.journeyFrame(e)){
+      if(['marks','negotiator','far_bank','ridge_marker'].includes(e.type)){
+        g.lineStyle(1.7,0xcfd4b8,.9);g.lineBetween(-10,-33,10,-38);g.lineBetween(-9,-25,8,-29);g.lineBetween(-6,-17,6,-19);
+      }
       return;
     }
+    if(this.state.scene==='home'&&this.textures.get('home-props').has(e.id)){this.drawHomeState(e,g);return;}
+    g.fillStyle(0x354d33,.16);g.fillEllipse(4,6,w*.95,Math.min(22,h*.4));
+    if(e.kind==='exit'){drawWayfinding(g,e.name);return;}
     if(e.kind==='rest'){g.fillStyle(0xa9b597);g.fillEllipse(0,0,w,25);g.lineStyle(2,0x72876a);g.strokeEllipse(0,0,w,25);g.fillStyle(0x768a65);g.fillEllipse(0,-4,w*.7,15);g.lineStyle(1,0xd2d7b0,.8);g.strokeEllipse(0,-4,w*.58,10);return;}
     if(e.kind==='enemy'){
       const top=e.type==='beast'?-60:-94;
@@ -503,7 +536,7 @@ export class WorldScene extends Phaser.Scene {
       case 'gate_slot':g.fillStyle(0x776d4f);g.fillRect(-14,-45,28,45);g.fillStyle(0xaa9870);g.fillEllipse(0,-45,30,12);g.lineStyle(4,0xd1bc81);g.lineBetween(-18,-28,18,-28);break;
       case 'chime':g.lineStyle(2,0xa09d73);g.lineBetween(0,-50,0,-24);g.fillStyle(0xb8b17b);g.fillTriangle(-10,-10,10,-10,0,-27);g.lineStyle(1,0x607665);g.lineBetween(0,-10,0,8);break;
       case 'herb_rack':g.lineStyle(5,0x8e7f53);g.lineBetween(-40,-36,-40,6);g.lineBetween(40,-36,40,6);g.lineBetween(-43,-29,43,-29);g.lineBetween(-43,-9,43,-9);g.lineStyle(6,this.state.flags.herbsWet?0x637568:0x6b8b4f);for(let i=-32;i<38;i+=14)g.lineBetween(i,-29,i+5,-16);if(this.state.flags.herbsRepaired){g.fillStyle(0xd5c69e);g.fillRect(-31,-6,62,13);g.lineStyle(3,0x8f995f);for(let x=-23;x<27;x+=12)g.lineBetween(x,-5,x+5,3);}break;
-      case 'shelter':g.fillStyle(0xadac84);g.fillEllipse(0,-3,55,24);g.fillStyle(0x867e56);g.fillRoundedRect(-24,-20,48,12,3);break;
+      case 'shelter':break;
       case 'return_cart':g.fillStyle(0x8e7952);g.fillRect(-48,-28,96,30);g.lineStyle(4,0x736848);g.strokeCircle(-32,0,13);g.strokeCircle(32,0,13);g.lineBetween(-44,-20,44,-20);g.lineBetween(42,-18,71,-26);break;
       case 'room':g.fillStyle(0x7a805c);g.fillRect(-33,-54,66,55);g.fillStyle(0x9f9a70);g.fillRect(-29,-51,28,50);g.fillStyle(0xc8b681);g.fillCircle(-5,-22,3);break;
       case 'marks':case 'far_bank':case 'ridge_marker':case 'negotiator':this.rock(g,0,-15,w*.5,h*.55);g.lineStyle(2,0xdce0bd);g.lineBetween(-10,-25,9,-31);g.lineBetween(-9,-18,7,-23);g.lineBetween(-7,-10,10,-16);break;
@@ -545,9 +578,21 @@ export class WorldScene extends Phaser.Scene {
       const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}`;
       if(r.stateKey!==key){r.stateKey=key;this.drawObject(e,r.art);}
       r.container.setPosition(e.x,e.y).setDepth(e.y+(e.kind==='npc'?100:0));
+      if(r.propImage){
+        const flat=['board','shield_board','platform_beam','boat'].includes(e.type);
+        r.propImage.setOrigin(.5,flat?.5:1).setPosition(0,flat?-e.h*.2:3);
+        r.propImage.setDisplaySize(e.w,Math.max(25,e.h));
+        if(e.type==='platform_beam')r.propImage.setDisplaySize(e.h,e.w).setAngle(90);
+        if(e.type==='gate')r.propImage.setDisplaySize(32,55);
+        if(e.type==='gate_slot')r.propImage.setDisplaySize(37,66);
+        if(e.type==='shelter')r.propImage.setDisplaySize(61,44);
+        if(e.state==='burned')r.propImage.setTint(0x524b3c).setAlpha(.65);
+        else if(e.state==='wet')r.propImage.setTint(0x77969b).setAlpha(1);
+        else r.propImage.clearTint().setAlpha(1);
+      }
       const near=Math.hypot(this.state.player.x-e.x,this.state.player.y-e.y)<180;
       r.label.setVisible(near||e.kind==='exit'||e.id==='ring');
-      r.label.setText(e.id==='lamp_stand'&&this.state.flags.lampFixed?'挂好的灯盏':e.name);r.label.setAlpha(e.kind==='enemy'?.8:1);
+      if(e.kind!=='exit')r.label.setText(e.id==='lamp_stand'&&this.state.flags.lampFixed?'挂好的灯盏':e.name);r.label.setAlpha(e.kind==='enemy'?.8:1);
       if(r.image){
         const hit=this.feedback.active.filter(f=>f.kind==='hit'&&f.targetId===e.id&&f.age<260).at(-1);
         const kick=hit&&!this.settings.reduced?Math.sin(Math.PI*hit.age/260)*13:0;
@@ -579,7 +624,7 @@ export class WorldScene extends Phaser.Scene {
     if(this.state.scene==='creek'||this.state.scene==='crossing'){
       for(const water of SCENES[this.state.scene].ground.filter(s=>s.type==='water')){
         const minx=water.points[0],maxx=water.points[2],miny=water.points[1],maxy=water.points[5];
-        g.lineStyle(2,0xd8e8d7,.32);for(let i=0;i<24;i++){const x=minx+((i*47+16)%(maxx-minx)),y=miny+(i*71+t*17)%(maxy-miny);if(this.state.flags.gateOpen&&this.state.scene==='crossing'&&y>650&&y<860)continue;g.lineBetween(x,y,Math.min(maxx,x+17),y+2);}
+        g.lineStyle(2,0xd8e8d7,.32);for(let i=0;i<24;i++){const x=minx+((i*47+16)%(maxx-minx)),y=miny+(i*71+t*17)%(maxy-miny);if(this.state.scene==='crossing'&&((this.state.flags.gateOpen&&y>648&&y<862)||(this.state.flags.ridgeOpen&&y>178&&y<342)))continue;if(this.state.scene==='creek'&&this.state.flags.shelterBridge&&x>1060&&x<1180&&y>612&&y<685)continue;g.lineBetween(x,y,Math.min(maxx,x+17),y+2);}
       }
     }
     if(this.hovered&&!this.ui.blocked&&!this.state.dialogue){
