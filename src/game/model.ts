@@ -1,4 +1,5 @@
 import { SCENES } from './content';
+import { initialLifeEntities, lifeEntityIds } from './life-content';
 import type { ActionResult, CastPreview, DialogueChoice, Entity, GameAction, GameState, Profile, SceneId, Spell, Vec } from './contracts';
 
 const clone = <T>(v: T): T => JSON.parse(JSON.stringify(v));
@@ -19,8 +20,8 @@ export function createGame(profile: Profile): GameState {
   if(!profile || !['herbalist','tinker'].includes(profile.origin) || !['stay','travel'].includes(profile.wish))throw Error('人物经历无效');
   const s:GameState={schema:1,revision:'return-stone-v1',profile:{...profile,name:profile.name.trim().slice(0,12)||'行舟'},scene:'home',time:0,
     player:{...SCENES.home.spawn,hp:4,mana:6,facing:0,invulnerable:0,cooldown:0,ward:0,wardFacing:0,pullId:null,pullPoint:null,hold:0,path:[]},
-    worlds:{home:clone(SCENES.home.entities),creek:clone(SCENES.creek.entities),workshop:clone(SCENES.workshop.entities),crossing:clone(SCENES.crossing.entities)},
-    flags:{eventSeq:0,companion:'waiting',visited_home:true},ringStyle:null,herbs:2,selected:'pull',paused:false,dialogue:null,events:[],projectiles:[],pending:null,ended:false,defeated:false,checkpoint:null,lastSafe:{scene:'home',point:{x:340,y:850}}};
+    worlds:{home:[...clone(SCENES.home.entities),...initialLifeEntities('home')],creek:[...clone(SCENES.creek.entities),...initialLifeEntities('creek')],workshop:[...clone(SCENES.workshop.entities),...initialLifeEntities('workshop')],crossing:[...clone(SCENES.crossing.entities),...initialLifeEntities('crossing')]},
+    flags:{eventSeq:0,companion:'waiting',visited_home:true},ringStyle:null,contentVersion:2,life:{repair:{stage:'unaccepted',softened:false,stopSet:false,latched:false,tested:false,method:null,testing:null},harvest:{stage:'unaccepted',sun:'unpicked',shade:'unpicked',picking:null,shared:false},clamp:'unowned',sachets:0,scent:null},herbs:2,selected:'pull',paused:false,dialogue:null,events:[],projectiles:[],pending:null,ended:false,defeated:false,checkpoint:null,lastSafe:{scene:'home',point:{x:340,y:850}}};
   for(const group of Object.values(s.worlds))for(const e of group){e.homeX=e.x;e.homeY=e.y;}
   emit(s,'note',`${s.profile.name}，凝气三层。先前攒钱修的引环，今日该去取了。`);
   emit(s,'hint','陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。');
@@ -478,8 +479,8 @@ export function restore(json:string):GameState {
   const scenes=['home','creek','workshop','crossing'];
   if(!s||s.schema!==1||s.revision!=='return-stone-v1'||!scenes.includes(s.scene)||!s.profile||!['herbalist','tinker'].includes(s.profile.origin)||!['stay','travel'].includes(s.profile.wish)||typeof s.profile.name!=='string'||![0,1].includes(s.profile.appearance)||!s.player||!finitePoint(s.player)||!Number.isFinite(s.time)||s.time<0||!Number.isInteger(s.player.hp)||s.player.hp<0||s.player.hp>4||!Number.isInteger(s.player.mana)||s.player.mana<0||s.player.mana>6||!Array.isArray(s.player.path)||!s.player.path.every(finitePoint)||!s.worlds||!s.flags||Array.isArray(s.flags)||!Array.isArray(s.events)||!Array.isArray(s.projectiles)||!s.lastSafe||!scenes.includes(s.lastSafe.scene)||!finitePoint(s.lastSafe.point)||!['long','hold',null].includes(s.ringStyle)||!Number.isInteger(s.herbs)||s.herbs<0||s.herbs>2||typeof s.paused!=='boolean'||typeof s.ended!=='boolean'||typeof s.defeated!=='boolean')throw Error('存档版本或世界数据不匹配');
   for(const id of scenes as SceneId[]){
-    const list=s.worlds[id];if(!Array.isArray(list)||list.length!==SCENES[id].entities.length)throw Error('存档缺少场景器物');
-    const ids=new Set<string>();for(const e of list){if(!e||!finitePoint(e)||typeof e.id!=='string'||ids.has(e.id)||!SCENES[id].entities.some(n=>n.id===e.id)||typeof e.state!=='string')throw Error('存档器物数据无效');ids.add(e.id);}
+    const list=s.worlds[id];const expectedIds=[...SCENES[id].entities.map(e=>e.id),...lifeEntityIds(id)];if(!Array.isArray(list)||list.length!==expectedIds.length)throw Error('存档缺少场景器物');
+    const ids=new Set<string>();for(const e of list){if(!e||!finitePoint(e)||typeof e.id!=='string'||ids.has(e.id)||!expectedIds.includes(e.id)||typeof e.state!=='string')throw Error('存档器物数据无效');ids.add(e.id);}
   }
   if(!['pull','flame','ward'].includes(s.selected)||Object.values(s.flags).some(v=>!['boolean','string','number'].includes(typeof v)||(typeof v==='number'&&!Number.isFinite(v))))throw Error('存档标记数据无效');
   if(s.pending&&!validAction(s.pending))throw Error('存档待执行动作无效');
