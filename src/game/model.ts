@@ -1,6 +1,10 @@
 import { SCENES } from './content';
+import { initialLifeEntities, lifeEntityIds } from './life-content';
+import { validateLife, validateManifest } from './save';
+import { lifeChoices, lifeChoose, lifeInteract, lifeFlameHit, lifePullReason, lifeTick, lifeInterrupt, lifeBeforeExit, lifeMaintainSupport, lifeUseSachet, lifeScentSource, lifeObjective } from './life';
 import type { ActionResult, CastPreview, DialogueChoice, Entity, GameAction, GameState, Profile, SceneId, Spell, Vec } from './contracts';
 
+const lifePorts={free,clearLine,emit,dialogue};
 const clone = <T>(v: T): T => JSON.parse(JSON.stringify(v));
 const dist = (a: Vec, b: Vec) => Math.hypot(a.x-b.x,a.y-b.y);
 const finitePoint = (p: Vec) => p && Number.isFinite(p.x) && Number.isFinite(p.y);
@@ -19,10 +23,10 @@ export function createGame(profile: Profile): GameState {
   if(!profile || !['herbalist','tinker'].includes(profile.origin) || !['stay','travel'].includes(profile.wish))throw Error('人物经历无效');
   const s:GameState={schema:1,revision:'return-stone-v1',profile:{...profile,name:profile.name.trim().slice(0,12)||'行舟'},scene:'home',time:0,
     player:{...SCENES.home.spawn,hp:4,mana:6,facing:0,invulnerable:0,cooldown:0,ward:0,wardFacing:0,pullId:null,pullPoint:null,hold:0,path:[]},
-    worlds:{home:clone(SCENES.home.entities),creek:clone(SCENES.creek.entities),workshop:clone(SCENES.workshop.entities),crossing:clone(SCENES.crossing.entities)},
-    flags:{eventSeq:0,companion:'waiting',visited_home:true},ringStyle:null,herbs:2,selected:'pull',paused:false,dialogue:null,events:[],projectiles:[],pending:null,ended:false,defeated:false,checkpoint:null,lastSafe:{scene:'home',point:{x:340,y:850}}};
+    worlds:{home:[...clone(SCENES.home.entities),...initialLifeEntities('home')],creek:[...clone(SCENES.creek.entities),...initialLifeEntities('creek')],workshop:[...clone(SCENES.workshop.entities),...initialLifeEntities('workshop')],crossing:[...clone(SCENES.crossing.entities),...initialLifeEntities('crossing')]},
+    flags:{eventSeq:0,companion:'waiting',visited_home:true},ringStyle:null,contentVersion:2,life:{repair:{stage:'unaccepted',softened:false,stopSet:false,latched:false,tested:false,method:null,testing:null},harvest:{stage:'unaccepted',sun:'unpicked',shade:'unpicked',picking:null,shared:false},clamp:'unowned',sachets:0,scent:null},herbs:2,selected:'pull',paused:false,dialogue:null,events:[],projectiles:[],pending:null,ended:false,defeated:false,checkpoint:null,lastSafe:{scene:'home',point:{x:340,y:850}}};
   for(const group of Object.values(s.worlds))for(const e of group){e.homeX=e.x;e.homeY=e.y;}
-  emit(s,'note',`${s.profile.name}，凝气三层。先前攒钱修的引环，今日该去取了。`);
+  emit(s,'note',`${s.profile.name}，凝气三层。先前攒钱修的控物环，今日该去取了。`);
   emit(s,'hint','陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。');
   checkpoint(s);return s;
 }
@@ -91,6 +95,7 @@ export function interactionPoint(s:GameState,targetId:string):Vec|undefined {
 const pullRange=(s:GameState)=>s.ringStyle==='long'||s.flags.trialStyle==='long'?500:300;
 function pullPlacementReason(s:GameState,target:Entity,point:Vec,range:number):string|undefined {
   if(!finitePoint(point))return '落点无效';
+  const lifeReason=lifePullReason(s,target,point);if(lifeReason)return lifeReason;
   if(dist(s.player,point)>range+1)return '落点超出牵引范围';
   if(!free(s,point,12,target.id)&&!(target.id==='board'&&dist(point,{x:1120,y:648})<45))return '落点被挡住，请选可站立的地面';
   if(!clearLine(s,target,point,target.id))return '搬动路径有实物阻挡';
@@ -142,6 +147,8 @@ function closeDialogue(s:GameState){s.dialogue=null;s.paused=Boolean(s.flags.dia
 function follow(s:GameState){s.flags.companion='following';emit(s,'relationship','许照收紧药篓背带，走到你身后。');}
 function choose(s:GameState,id:string):ActionResult {
   const d=s.dialogue;if(!d)return result(false,'当前没有交谈');if(id==='leave'){closeDialogue(s);return result(true);}if(id==='more'){const choices:DialogueChoice[]=JSON.parse(String(s.flags.dialogueRemainder||'[]'));dialogue(s,d.id,d.speaker,d.text,choices);return result(true);}const option=d.choices.find(c=>c.id===id);if(!option||option.disabled)return result(false,option?.disabled??'没有这个话题');
+  const beforeLife=JSON.stringify([s.life.repair.stage,s.life.harvest.stage]);
+  const handled=lifeChoose(s,id,lifePorts);if(handled){if(handled.ok){closeDialogue(s);if(beforeLife!==JSON.stringify([s.life.repair.stage,s.life.harvest.stage]))checkpoint(s);}return handled;}
   if(id==='invite'){follow(s);s.flags.invited=true;}
   else if(id==='wait'){s.flags.companion='waiting';emit(s,'relationship','你们约在溪道会合。许照会按自己的路程走。');}
   else if(id==='fix'){s.flags.boatSecured=true;entity(s,'boat')!.state='secured';emit(s,'change','你认出旧绳扣的受力处，徒手固定了小舟。');}
@@ -157,7 +164,7 @@ function choose(s:GameState,id:string):ActionResult {
   }
   else if(id==='long'||id==='hold'){
     s.flags.trialStyle=id;const trial=entity(s,'trial');if(trial){trial.x=trial.homeX!;trial.y=trial.homeY!;trial.state='idle';}
-    if(s.scene==='home'){s.ringStyle=id as 'long'|'hold';s.flags.trialStyle='';emit(s,'growth',`你在熟悉的工位把引环改练为${id==='long'?'长牵':'留势'}。`);}
+    if(s.scene==='home'){s.ringStyle=id as 'long'|'hold';s.flags.trialStyle='';emit(s,'growth',`你在熟悉的工位把控物环改练为${id==='long'?'长牵':'留势'}。`);}
     else emit(s,'hint',id==='long'?'陶七演示将灵线放长，又以短停展示留势。轮到你：站在试环站位，把远处木块牵近。':'陶七演示延长灵线和短暂停物。轮到你：走近木块，牵住后按「留势」，让物件自己停住。');
   }
   else if(id==='room'){s.flags.roomTalk=true;emit(s,'relationship','陶七说驿后空屋可整理。你约好归来自己定下练功角的位置。');}
@@ -171,7 +178,7 @@ function choose(s:GameState,id:string):ActionResult {
     if(d.id==='ending'){
       s.profile.wish=id;s.flags.endingWish=id;s.ended=true;if(id==='travel'&&s.flags.sharedJourney&&!s.flags.herbsWet&&s.flags.companion==='following'){s.flags.travelInvited=true;}
       const shared=s.flags.platformShared?'风铃响过你们一起看路的眺台。':s.flags.chime?'窗边风铃记着你独自登台的那阵风。':'山路的风从窗外经过。';
-      emit(s,'ending',id==='stay'?`你在桌边放下引环，亲手定好练功角的挂钩。${shared}明日有地方继续练。`:`你在桌上展开亲自走过的${s.flags.route==='main'?'低滩渡路':'山脊绕路'}。${shared}${s.flags.travelInvited?'许照在旁添了一笔，约好下次短途。':'你给自己的下一段行路留出空白。'}`);
+      emit(s,'ending',id==='stay'?`你在桌边放下控物环，亲手定好练功角的挂钩。${shared}明日有地方继续练。`:`你在桌上展开亲自走过的${s.flags.route==='main'?'低滩渡路':'山脊绕路'}。${shared}${s.flags.travelInvited?'许照在旁添了一笔，约好下次短途。':'你给自己的下一段行路留出空白。'}`);
     }else{s.profile.wish=id;emit(s,'note',id==='stay'?'你想先有个能安心练术的地方。':'你想练到能独自走远，也能照应同行。');}
   }
   closeDialogue(s);return result(true);
@@ -181,24 +188,25 @@ function interact(s:GameState,id:string):ActionResult {
   if(dist(e,s.player)>105||!clearLine(s,s.player,e,e.id))return result(false,'先走近这个人或器物再互动');
   if(e.kind==='exit'){
     if(id==='to_workshop'&&!s.flags.tools)return result(false,'先取回小舟上的器具袋，修闸和试环会用到');
-    if(id==='to_crossing'&&!s.flags.ringTrained)return result(false,'先取回自己的引环，亲手试稳一种用法再去石渡');
-    release(s);s.scene=e.targetScene!;s.player.x=e.targetSpawn!.x;s.player.y=e.targetSpawn!.y;s.player.path=[];s.player.ward=0;s.projectiles=[];s.flags.casting=false;s.pending=null;
+    if(id==='to_crossing'&&!s.flags.ringTrained)return result(false,'先取回自己的控物环，亲手试稳一种用法再去石渡');
+    release(s);lifeBeforeExit(s);s.scene=e.targetScene!;s.player.x=e.targetSpawn!.x;s.player.y=e.targetSpawn!.y;s.player.path=[];s.player.ward=0;s.projectiles=[];s.flags.casting=false;s.pending=null;
     s.flags[`visited_${s.scene}`]=true;const r=entities(s).find(e=>e.kind==='rest')!;s.lastSafe={scene:s.scene,point:{x:r.x,y:r.y}};
     for(const n of entities(s).filter(e=>e.type==='xu'))if(s.flags.companion==='following'){n.x=s.player.x+45;n.y=s.player.y+40;}
     if(s.scene==='home'&&s.flags.route){s.flags.returned=true;const cart=entity(s,'return_cart')!;cart.state=s.flags.gateOpen?'arrived':'ridge';cart.x=s.flags.gateOpen?1230:1380;emit(s,'return',s.flags.gateOpen?'木车已进了院，路上的人正沿你修开的低滩来。':'门后添了一块山脊路标，背架靠在熟悉的墙边。');}
     emit(s,'scene',SCENES[s.scene].title);checkpoint(s);return result(true);
   }
   if(e.kind==='rest')return rest(s);
+  const lifeAction=lifeInteract(s,e,lifePorts);if(lifeAction)return lifeAction;
   if(e.type==='tao'){
     if(s.scene==='workshop'){
-      if(!s.flags.ringOwned){dialogue(s,'tao','陶七','你的旧系绳还在台上的引环上。取回来，我扶好试架，让你把两种用法都看清。');return result(true);}
+      if(!s.flags.ringOwned){dialogue(s,'tao','陶七','你的旧系绳还在台上的控物环上。取回来，我扶好试架，让你把两种用法都看清。');return result(true);}
       dialogue(s,'trial','陶七',s.flags.ringTrained?'刚试过的手感还记得吧？第一次取舍可以马上重试另一种；往后回驿工位也能换。':'我先让灵线伸远，再让木块停住片刻。长牵省站位；留势多费一格却能腾手。选一种，亲手把木块试稳。',[{id:'long',label:'试长牵：站远一点，把木块牵近'},{id:'hold',label:'试留势：牵住木块后让它悬停'},{id:'room',label:'谈谈驿后的空屋'}]);
-    }else dialogue(s,'tao','陶七',s.flags.returned?`引环回到你手里了。${s.flags.lampFixed?'你安好的灯还亮着。':'灯架我已扶稳，桌边仍留着你的碗。'}${s.profile.origin==='tinker'?'你修过的灯架我放回工位了。':'你分好的药草在晒架上。'}`:'灯盏松了，帮我把它牵回架旁吧。你的引环已经修好，在旧工棚；溪道上先拿自己的器具袋。',[{id:'room',label:'我想看看驿后那间空屋'},{id:'stay',label:'眼下想有自己的修行处'},{id:'travel',label:'眼下想练出走远路的本领'}]);
+    }else dialogue(s,'tao','陶七',s.flags.returned?`控物环回到你手里了。${s.flags.lampFixed?'你安好的灯还亮着。':'灯架我已扶稳，桌边仍留着你的碗。'}${s.profile.origin==='tinker'?'你修过的灯架我放回工位了。':'你分好的药草在晒架上。'}`:'灯盏松了，帮我把它牵回架旁吧。你的控物环已经修好，在旧工棚；溪道上先拿自己的器具袋。',[...lifeChoices(s,e),{id:'room',label:'我想看看驿后那间空屋'},{id:'stay',label:'眼下想有自己的修行处'},{id:'travel',label:'眼下想练出走远路的本领'}]);
     return result(true);
   }
   if(e.type==='xu'){
     let text=s.flags.herbsWet?'许照抱着受潮药筐：“板一拿走，水全落到这里。先把导水板放回，再把药理好吧。”':s.flags.returned?`“你真走过那条${s.flags.route==='main'?'低滩':'山脊'}了。”${s.flags.platformShared?'她指着你们共同添过的眺台记号。':s.flags.platformVisited?'你提起独自看见的眺台，她点头说那里风大。':'她把自己的采药图摊在桌旁。'}`:'“我也要看看雨后的采药路。你要去取环，咱们可以顺路。”';
-    const options:DialogueChoice[]=[];
+    const options:DialogueChoice[]=lifeChoices(s,e);
     if(!s.flags.herbsWet)options.push({id:'invite',label:'一起走，我会留意你的候点'});
     options.push({id:'wait',label:'各自走，到溪道再会合'},{id:'route_talk',label:'问问山外的路'});
     if(s.scene==='crossing'&&s.flags.companion==='following'&&entities(s).some(n=>n.kind==='enemy'&&n.state!=='peaceful'&&n.state!=='retreated'))options.push({id:'danger',label:'请她到前方引开散修'});
@@ -215,8 +223,8 @@ function interact(s:GameState,id:string):ActionResult {
       options.push({id:'route_talk',label:'请她画一小段山外路线'});
       dialogue(s,'shelter','许照',s.flags.herbsWet?'水落进药筐，她先收起受潮的叶片。放回板、共同理好草药，还来得及。':'雨歇了。许照摊开药包，手背有一道先前割的伤。溪道的长路始终可走，不必拿药筐换近路。',options);break;
     }
-    case 'ring':s.flags.ringOwned=true;if(entities(s).some(n=>n.type==='xu'&&dist(n,s.player)<250))s.flags.xuRingKnown=true;e.state='taken';emit(s,'item','你解下熟悉的旧绳，把付钱修整的普通引环收回腰间。熟悉的重量落回手心，旧绳的结还在。');checkpoint(s);break;
-    case 'workbench':if(!s.flags.ringTrained)return result(false,'取回引环并在工棚亲试一次后，才知道怎样在这里换法');dialogue(s,'respec','修器工位','自己的引环，自己的手感。在驿中可以重新收束灵线。',[{id:'long',label:'改练长牵：10步，仍只牵一件'},{id:'hold',label:'改练留势：6步，追加一格停物8秒'}]);break;
+    case 'ring':s.flags.ringOwned=true;if(entities(s).some(n=>n.type==='xu'&&dist(n,s.player)<250))s.flags.xuRingKnown=true;e.state='taken';emit(s,'item','你解下熟悉的旧绳，把付钱修整的普通控物环收回腰间。熟悉的重量落回手心，旧绳的结还在。');checkpoint(s);break;
+    case 'workbench':if(!s.flags.ringTrained)return result(false,'取回控物环并在工棚亲试一次后，才知道怎样在这里换法');dialogue(s,'respec','修器工位','自己的控物环，自己的手感。在驿中可以重新收束灵线。',[...lifeChoices(s,e),{id:'long',label:'改练长牵：10步，仍只牵一件'},{id:'hold',label:'改练留势：6步，追加一格停物8秒'}]);break;
     case 'return_ladder':if(!inPlatform(s.player))return result(false,'先实际登上眺台');s.flags.platformReturn=true;s.flags.platformOpen=true;platformVisit(s);e.state='lowered';emit(s,'change','你徒手放下回程梯，入口已有稳固退路。灵力用尽也能走回。');break;
     case 'chime':if(!inPlatform(s.player))return result(false,'先走上眺台');platformVisit(s);s.flags.chime=true;e.state='taken';emit(s,'item','你收起旧檐风铃，想把它挂到驿中自己的窗边。');break;
     case 'marks':if(!inPlatform(s.player))return result(false,'先走上眺台');platformVisit(s);dialogue(s,'marks','采药记号',s.flags.platformShared?'许照蹲在石边，添上一道你们今日共同辨过的干路：“风朝这边时，下坡要看苔色。”':'石边刻着许照早先的采药记号。你独自辨认了方向，这还不是你们一起走过的路。');break;
@@ -225,9 +233,9 @@ function interact(s:GameState,id:string):ActionResult {
     case 'gate_slot':if(!s.flags.tools)return result(false,'需要自己的器具袋');if(s.player.pullId==='gate'&&s.player.hold<=0)return result(false,'正牵着闸扣，手腾不出来；先留势，或松手后预先安楔');s.flags.gateWedge=true;e.state='wedged';emit(s,'change','你用自己的扳钳把木楔安进闸槽。牵开闸扣时，它会卡住回弹。');if(s.flags.gatePulled)fixGate(s);break;
     case 'far_bank':if(!s.flags.gateOpen||s.player.x<1320)return result(false,'先实际修通并走过主渡');s.flags.route='main';s.flags.mainTraversed=true;if(companionPresent(s))s.flags.sharedJourney=true;emit(s,'route','你站到低滩彼岸，辨明了通向外界的路。现在可以沿原路亲自返驿。');break;
     case 'ridge_marker':if(!s.flags.ridgeOpen||s.player.x<1320)return result(false,'先放下绳梯并沿山脊走过来');if(!s.flags.mainTraversed)s.flags.route='ridge';s.flags.ridgeUsed=true;if(companionPresent(s))s.flags.sharedJourney=true;emit(s,'route','你在山脊彼端记下绕行路：人能过，木车仍得另找低滩。现在亲自返驿。');break;
-    case 'table':if(s.flags.returned&&s.flags.ringOwned&&s.flags.ringTrained&&s.flags.route)dialogue(s,'ending','你的桌边',`你带回自己的引环，也亲脚走过了${s.flags.route==='main'?'修通的主渡':'山脊绕行路'}。灯下的碗仍在，这次想怎样放下行囊？`,[{id:'stay',label:'放下引环，亲手定好练功角的挂钩'},{id:'travel',label:'摊开地图，定下下一次短途'}]);else dialogue(s,'table','你的桌边','碗旁压着半年前记下的工钱。引环是你慢慢攒来的，今日想把它拿回来。',[{id:'stay',label:'想有个自己的修行处'},{id:'travel',label:'想有本领走出去'}]);break;
+    case 'table':if(s.flags.returned&&s.flags.ringOwned&&s.flags.ringTrained&&s.flags.route)dialogue(s,'ending','你的桌边',`你带回自己的控物环，也亲脚走过了${s.flags.route==='main'?'修通的主渡':'山脊绕行路'}。灯下的碗仍在，这次想怎样放下行囊？`,[{id:'stay',label:'放下控物环，亲手定好练功角的挂钩'},{id:'travel',label:'摊开地图，定下下一次短途'}]);else dialogue(s,'table','你的桌边','碗旁压着半年前记下的工钱。控物环是你慢慢攒来的，今日想把它拿回来。',[{id:'stay',label:'想有个自己的修行处'},{id:'travel',label:'想有本领走出去'}]);break;
     case 'room':dialogue(s,'room','驿后空屋',s.flags.roomTalk?'你和陶七说好的空屋，窗边正好挂环，角落能摆一块练习木。':'屋中空着一角。可以先和陶七谈谈，归来再定眼下的心愿。');break;
-    case 'herb_rack':dialogue(s,'rack','晒药架',s.profile.origin==='herbalist'?'你此前分过的药草，已经按叶与根晾在不同层。熟悉的活计让这里有一点自己的样子。':'晾架上是你在药铺见过的草药。许照可以教你认出这次路上用得到的一种。');break;
+    case 'herb_rack':dialogue(s,'rack','晒药架',s.profile.origin==='herbalist'?'你此前分过的药草，已经按叶与根晾在不同层。熟悉的活计让这里有一点自己的样子。':'晾架上是你在药铺见过的草药。许照可以教你认出这次路上用得到的一种。',lifeChoices(s,e));break;
     default:dialogue(s,'inspect',e.name,e.hint??'这是路边熟悉的物件。可以继续走动察看。');
   }
   return result(true);
@@ -252,7 +260,8 @@ function release(s:GameState){
   if(!s.player.pullId)return;const e=entity(s,s.player.pullId);
   if(e){e.state='idle';objectChanged(s,e);if(e.id==='gate'&&!s.flags.gateWedge){e.x=e.homeX!;e.y=e.homeY!;s.flags.gatePulled=false;emit(s,'change','无楔的闸扣回弹，短暂排出的水重新漫上低滩。');}if(['decoy','shield_board','boat','board'].includes(e.id)&&!e.data?.noiseUsed&&dist(e,{x:e.homeX!,y:e.homeY!})>70){data(e).noiseUsed=true;for(const enemy of entities(s).filter(n=>n.kind==='enemy'&&n.state!=='retreated'&&n.state!=='peaceful'&&dist(n,e)<550)){data(enemy).lastX=e.x;data(enemy).lastY=e.y;data(enemy).seen=3;enemy.state='searching';}emit(s,'drop',`${e.name}落稳，声响留在实际落点。`,e);}}
   s.player.pullId=null;s.player.pullPoint=null;s.player.hold=0;
-  if(!s.flags.platformReturn&&!s.flags.platformLong)s.flags.platformOpen=false;
+  if(e)lifeMaintainSupport(s,e);
+  if(!s.flags.platformReturn&&!s.flags.platformLong&&s.life.clamp!=='lookout')s.flags.platformOpen=false;
 }
 function objectChanged(s:GameState,e:Entity){
   const moved=dist(e,{x:e.homeX!,y:e.homeY!});
@@ -272,7 +281,7 @@ function objectChanged(s:GameState,e:Entity){
 function emitOnce(s:GameState,key:string,message:string){if(!s.flags[key]){s.flags[key]=true;emit(s,'change',message);}}
 export function act(s:GameState,a:GameAction):ActionResult {
   if(a.type==='select'){s.selected=a.spell;return result(true);}
-  if(a.type==='cancel'){if(s.pending?.type==='cast')s.pending=null;return result(true);}
+  if(a.type==='cancel'){if(s.pending?.type==='cast'||s.pending?.type==='use-sachet')s.pending=null;return result(true);}
   if(a.type==='pause'){
     if(!a.value&&(s.dialogue||s.defeated))return result(false,s.dialogue?'先结束交谈':'先选择重试或撤回');
     if(a.value&&s.dialogue)s.flags.dialogueWasPaused=true;
@@ -282,7 +291,7 @@ export function act(s:GameState,a:GameAction):ActionResult {
   if(a.type==='retry'||a.type==='retreat'){
     if(!s.checkpoint)return result(false,'没有可恢复的落点');const prior=restore(s.checkpoint);const source=s.checkpoint;
     if(a.type==='retreat'){
-      const last=clone(s.lastSafe),current=clone(s);current.checkpoint=null;
+      lifeBeforeExit(s);const last=clone(s.lastSafe),current=clone(s);current.checkpoint=null;
       // Retreat preserves every settled object, resource and relationship fact, including false values.
       for(const enemy of current.worlds[current.scene].filter(e=>e.kind==='enemy'&&e.state!=='retreated'&&e.state!=='peaceful')){
         const initial=prior.worlds[current.scene].find(e=>e.id===enemy.id);if(initial)Object.assign(enemy,clone(initial));
@@ -298,8 +307,9 @@ export function act(s:GameState,a:GameAction):ActionResult {
   if(a.type==='move'){
     if(!finitePoint(a.point))return result(false,'目的地无效');
     if(s.player.pullId&&s.player.hold<=0){const preview=previewPullMove(s,a.point);if(!preview.valid)return result(false,preview.reason);s.player.pullPoint={...a.point};return result(true);}
-    const path=pathfind(s,a.point);if(!path.length)return result(false,'这里不能安全直达，请沿可见道路分段移动');s.player.path=path;return result(true);
+    const path=pathfind(s,a.point);if(!path.length)return result(false,'这里不能安全直达，请沿可见道路分段移动');lifeInterrupt(s);s.player.path=path;return result(true);
   }
+  if(a.type==='use-sachet'){const r=lifeUseSachet(s,lifePorts);if(r.ok)lifeInterrupt(s);return r;}
   if(a.type==='interact')return interact(s,a.targetId);
   if(a.type==='rest')return rest(s);
   if(a.type==='heal'){if(s.herbs<1||s.player.hp===4)return result(false,s.herbs<1?'伤药已用完':'体力充足，无须耗药');s.herbs--;s.player.hp=Math.min(4,s.player.hp+2);emit(s,'heal','用了一份伤药，恢复两格体力。');return result(true);}
@@ -316,7 +326,7 @@ export function act(s:GameState,a:GameAction):ActionResult {
   }
   if(a.type==='cast'){
     const p=previewCast(s,a.spell,a.targetId,a.point);if(!p.valid)return result(false,p.reason);
-    s.player.mana--;s.player.facing=Math.atan2(a.point.y-s.player.y,a.point.x-s.player.x);s.player.path=[];
+    lifeInterrupt(s);s.player.mana--;s.player.facing=Math.atan2(a.point.y-s.player.y,a.point.x-s.player.x);s.player.path=[];
     if(a.spell==='pull'){const e=p.target!;s.player.pullId=e.id;s.player.pullPoint={...a.point};s.player.hold=0;e.state='pulled';data(e).startDistance=dist(e,s.player);emit(s,'pull',`灵线牵住${e.name}。点空地改变落点，按「放下」结束。`,e);}
     else if(a.spell==='ward'){s.player.ward=6;s.player.wardFacing=s.player.facing;s.flags.wardCooldown=3;emit(s,'ward','护符在身前张开，侧后仍需留意。',s.player);}
     else{s.flags.casting=true;s.flags.castTime=.5;s.flags.castX=a.point.x;s.flags.castY=a.point.y;s.player.cooldown=1.5;emit(s,'cast','火焰在指前聚拢，半秒后飞出。',s.player);}
@@ -332,11 +342,13 @@ function hurt(s:GameState,source:Vec,reason:string){
   if(s.player.invulnerable>0)return;
   const angle=Math.atan2(source.y-s.player.y,source.x-s.player.x),diff=Math.atan2(Math.sin(angle-s.player.wardFacing),Math.cos(angle-s.player.wardFacing));
   if(s.player.ward>0&&Math.abs(diff)<Math.PI*.42){s.player.ward=0;emit(s,'block','正面的护符承住一次来袭，缺口随光弧散去。',s.player);return;}
-  s.player.hp--;s.player.invulnerable=1;emit(s,'hurt',reason,s.player);
+  lifeInterrupt(s);s.player.hp--;s.player.invulnerable=1;emit(s,'hurt',reason,s.player);
   if(s.player.hp<=0){s.defeated=true;s.paused=true;s.player.path=[];s.flags.defeatReason=reason;emit(s,'defeat',`${reason} 可以重试这一处境，或撤回最近安全落点。`);}
 }
 function enemyTick(s:GameState,e:Entity,dt:number){
   if(e.state==='retreated'||e.state==='peaceful')return;
+  const scent=lifeScentSource(s,e);
+  if(scent&&clearLine(s,e,scent)){const dx=e.x-scent.x,dy=e.y-scent.y;moveBody(s,e,{x:e.x+(Math.abs(dx)+Math.abs(dy)<1?100:dx*2),y:e.y+dy*2},125,dt,e.id);data(e).attack=0;e.state='searching';return;}
   const d=data(e),distance=dist(e,s.player),protectedWorkshop=s.scene==='workshop'&&s.player.x>1200,visible=!protectedWorkshop&&distance<300&&clearLine(s,e,s.player);
   if(protectedWorkshop&&e.type==='beast'){e.state='searching';d.lastX=e.homeX!;d.lastY=e.homeY!;d.attack=0;}
   if(visible){d.lastX=s.player.x;d.lastY=s.player.y;d.seen=3;if(e.state==='idle'||e.state==='searching'){e.state='alert';e.timer=1;emit(s,'alert',`${e.name}看见了你的动静。`,e);}}
@@ -388,6 +400,7 @@ function projectileTick(s:GameState,dt:number){
           if(clearLine(s,e,s.player)){data(e).lastX=s.player.x;data(e).lastY=s.player.y;}
           emit(s,'hit',e.hp===0?`${e.name}退出这场争夺，不再追来。`:`火球命中${e.name}，打断起手，抵抗少一格。`,e);p.life=0;break;
         }
+        if(lifeFlameHit(s,e,lifePorts)){p.life=0;break;}
         if(e.flammable&&e.state!=='burned'){e.state='burning';e.timer=12;emit(s,'fire',`${e.name}燃起一小片火，山兽避开这处。`,e);p.life=0;break;}
         if(['board','basket','boat'].includes(e.id)){emit(s,'steam',`${e.name}带着雨水，火球熄成一团白汽。`,e);p.life=0;break;}
       }
@@ -428,12 +441,12 @@ export function tick(s:GameState,dt:number,input:Vec):void {
 function stepTick(s:GameState,dt:number,input:Vec){
   s.time+=dt;const p=s.player;p.invulnerable=Math.max(0,p.invulnerable-dt);p.cooldown=Math.max(0,p.cooldown-dt);p.ward=Math.max(0,p.ward-dt);s.flags.wardCooldown=Math.max(0,Number(s.flags.wardCooldown??0)-dt);
   if(s.flags.casting){s.flags.castTime=Number(s.flags.castTime)-dt;if(Number(s.flags.castTime)<=0){s.flags.casting=false;spawnProjectile(s,p,{x:Number(s.flags.castX),y:Number(s.flags.castY)},'player',420);}}
-  if(finitePoint(input)&&(input.x||input.y)){p.path=[];const length=Math.hypot(input.x,input.y);const dest={x:p.x+input.x/length*100,y:p.y+input.y/length*100};p.facing=Math.atan2(input.y,input.x);moveBody(s,p,dest,p.pullId&&p.hold===0?85:160,dt);}
+  if(finitePoint(input)&&(input.x||input.y)){lifeInterrupt(s);p.path=[];const length=Math.hypot(input.x,input.y);const dest={x:p.x+input.x/length*100,y:p.y+input.y/length*100};p.facing=Math.atan2(input.y,input.x);moveBody(s,p,dest,p.pullId&&p.hold===0?85:160,dt);}
   else if(p.path.length){const target=p.path[0];p.facing=Math.atan2(target.y-p.y,target.x-p.x);moveBody(s,p,target,p.pullId&&p.hold===0?85:160,dt);if(dist(p,target)<3)p.path.shift();}
   if(p.pullId){
     const e=entity(s,p.pullId);
     if(!e){p.pullId=null;p.pullPoint=null;p.hold=0;}
-    else if(p.hold>0){p.hold=Math.max(0,p.hold-dt);if(p.hold===0){const beam=e.id==='platform_beam';release(s);if(beam&&!s.flags.platformReturn&&!s.flags.platformLong){if(p.x>1040&&p.x<1120&&p.y>210&&p.y<350){p.x=p.x<1080?1035:1125;hurt(s,e,'留势到期，倾梁落下擦伤了你；已退到安全一侧。');}e.x=e.homeX!;e.y=e.homeY!;}emit(s,'drop','留势到期，物件落稳。',e);}}
+    else if(p.hold>0){p.hold=Math.max(0,p.hold-dt);if(p.hold===0){const beam=e.id==='platform_beam';release(s);if(beam&&!s.flags.platformReturn&&!s.flags.platformLong&&s.life.clamp!=='lookout'){if(p.x>1040&&p.x<1120&&p.y>210&&p.y<350){p.x=p.x<1080?1035:1125;hurt(s,e,'留势到期，倾梁落下擦伤了你；已退到安全一侧。');}e.x=e.homeX!;e.y=e.homeY!;}emit(s,'drop','留势到期，物件落稳。',e);}}
     else if(dist(e,p)>(s.ringStyle==='long'||s.flags.trialStyle==='long'?520:320)||!clearLine(s,p,e,e.id)){release(s);emit(s,'hint','灵线因距离或遮挡断开，物件落在当前位置。');}
     else if(p.pullPoint){const destination=p.pullPoint;const d=dist(e,destination);if(d>.5){const amount=Math.min(d,220*dt),next={x:e.x+(destination.x-e.x)/d*amount,y:e.y+(destination.y-e.y)/d*amount};if(clearLine(s,e,next,e.id)){e.x=next.x;e.y=next.y;objectChanged(s,e);}else{release(s);emit(s,'hint','物件碰到实物，已停止牵动。');}}}
   }
@@ -455,37 +468,51 @@ function stepTick(s:GameState,dt:number,input:Vec){
       rock.state='warning';rock.timer=1;s.flags.ridgeRockClock=7;emit(s,'warning','山脊上方碎石松动！一息后落向正下方，朝上护持或移到两旁石地。',rock);
     }
   }
-  projectileTick(s,dt);companionTick(s,dt);
+  projectileTick(s,dt);companionTick(s,dt);lifeTick(s,dt,lifePorts);
   if(s.scene==='creek'&&inPlatform(p))platformVisit(s);
 }
 export function objective(s:GameState):string {
   if(s.defeated)return '观察来袭方向，重试这处境或撤回安全落点';
+  const life=lifeObjective(s);if(life)return life;
   if(s.ended)return '灯下已安顿好；仍可在走过的地方散步试术';
   if(s.flags.returned)return '和熟悉的人说说话，再到自己的桌边放环或摊图';
   if(s.flags.route)return '沿亲自走通的路，返回回石驿';
-  if(s.scene==='home')return !s.flags.lampFixed?'帮陶七安灯，走溪道取回自己的引环':!s.flags.tools?'灯已安好，沿溪道取回器具袋':!s.flags.ringOwned?'沿溪道去旧工棚，取回自己的引环':!s.flags.ringTrained?'回旧工棚，与陶七亲手试稳引环':'引环已试稳，可出发去石渡探路';
+  if(s.scene==='home')return !s.flags.lampFixed?'帮陶七安灯，走溪道取回自己的控物环':!s.flags.tools?'灯已安好，沿溪道取回器具袋':!s.flags.ringOwned?'沿溪道去旧工棚，取回自己的控物环':!s.flags.ringTrained?'回旧工棚，与陶七亲手试稳控物环':'控物环已试稳，可出发去石渡探路';
   if(!s.flags.tools)return '稳住浅滩小舟，取回自己的器具袋';
-  if(!s.flags.ringOwned)return '沿林路或上方小径进入旧工棚，取回引环';
+  if(!s.flags.ringOwned)return '沿林路或上方小径进入旧工棚，取回控物环';
   if(!s.flags.ringTrained)return '与陶七选一种用法，亲手在试架上试稳';
   if(s.scene==='creek')return '旧眺台有了新走法；也可直接去石渡试路';
   if(s.scene==='crossing')return s.flags.gateOpen?'低滩已露出，亲自走到彼岸路碑':s.flags.ridgeOpen?'绳梯已经放下，亲自走到山脊石标':'观察闸口与高处绳梯，选自己能走通的办法';
-  return '带着试稳的引环，回溪道再去石渡';
+  return '带着试稳的控物环，回溪道再去石渡';
 }
 export function snapshot(s:GameState):string{return JSON.stringify(s);}
 export function restore(json:string):GameState {
   if(typeof json!=='string'||json.length>2_000_000)throw Error('存档过大或格式无效');
   let s:GameState;try{s=JSON.parse(json);}catch{throw Error('存档不是有效的 JSON');}
+  // Version 1 saves predate the life entities.  Migrate only an exact legacy
+  // manifest; malformed or partially edited worlds remain rejected below.
+  if(s && s.contentVersion===undefined && s.worlds && typeof s.worlds==='object') {
+    const ids=['home','creek','workshop','crossing'] as SceneId[];
+    const legacyExact=ids.every(id=>Array.isArray(s.worlds[id])&&s.worlds[id].length===SCENES[id].entities.length);
+    if(legacyExact) {
+      for(const id of ids) s.worlds[id].push(...initialLifeEntities(id));
+      s.contentVersion=2;
+      s.life={repair:{stage:'unaccepted',softened:false,stopSet:false,latched:false,tested:false,method:null,testing:null},harvest:{stage:'unaccepted',sun:'unpicked',shade:'unpicked',picking:null,shared:false},clamp:'unowned',sachets:0,scent:null};
+    }
+  }
   const scenes=['home','creek','workshop','crossing'];
   if(!s||s.schema!==1||s.revision!=='return-stone-v1'||!scenes.includes(s.scene)||!s.profile||!['herbalist','tinker'].includes(s.profile.origin)||!['stay','travel'].includes(s.profile.wish)||typeof s.profile.name!=='string'||![0,1].includes(s.profile.appearance)||!s.player||!finitePoint(s.player)||!Number.isFinite(s.time)||s.time<0||!Number.isInteger(s.player.hp)||s.player.hp<0||s.player.hp>4||!Number.isInteger(s.player.mana)||s.player.mana<0||s.player.mana>6||!Array.isArray(s.player.path)||!s.player.path.every(finitePoint)||!s.worlds||!s.flags||Array.isArray(s.flags)||!Array.isArray(s.events)||!Array.isArray(s.projectiles)||!s.lastSafe||!scenes.includes(s.lastSafe.scene)||!finitePoint(s.lastSafe.point)||!['long','hold',null].includes(s.ringStyle)||!Number.isInteger(s.herbs)||s.herbs<0||s.herbs>2||typeof s.paused!=='boolean'||typeof s.ended!=='boolean'||typeof s.defeated!=='boolean')throw Error('存档版本或世界数据不匹配');
   for(const id of scenes as SceneId[]){
-    const list=s.worlds[id];if(!Array.isArray(list)||list.length!==SCENES[id].entities.length)throw Error('存档缺少场景器物');
-    const ids=new Set<string>();for(const e of list){if(!e||!finitePoint(e)||typeof e.id!=='string'||ids.has(e.id)||!SCENES[id].entities.some(n=>n.id===e.id)||typeof e.state!=='string')throw Error('存档器物数据无效');ids.add(e.id);}
+    const list=s.worlds[id];const expectedIds=[...SCENES[id].entities.map(e=>e.id),...lifeEntityIds(id)];if(!Array.isArray(list)||list.length!==expectedIds.length)throw Error('存档缺少场景器物');
+    const ids=new Set<string>();for(const e of list){if(!e||!finitePoint(e)||typeof e.id!=='string'||ids.has(e.id)||!expectedIds.includes(e.id)||typeof e.state!=='string')throw Error('存档器物数据无效');ids.add(e.id);}
   }
   if(!['pull','flame','ward'].includes(s.selected)||Object.values(s.flags).some(v=>!['boolean','string','number'].includes(typeof v)||(typeof v==='number'&&!Number.isFinite(v))))throw Error('存档标记数据无效');
   if(s.pending&&!validAction(s.pending))throw Error('存档待执行动作无效');
   if(s.events.some(e=>!e||!Number.isFinite(e.seq)||!Number.isFinite(e.time)||typeof e.text!=='string'||typeof e.type!=='string'))throw Error('存档事件数据无效');
   if(s.projectiles.some(p=>!finitePoint(p)||!Number.isFinite(p.vx)||!Number.isFinite(p.vy)||!Number.isFinite(p.life)||!['player','enemy'].includes(p.owner)))throw Error('存档投射物数据无效');
   if(s.dialogue&&(!Array.isArray(s.dialogue.choices)||typeof s.dialogue.text!=='string'))throw Error('存档对话无效');
+  validateManifest(s);
+  if(s.checkpoint!==null){ let nested: GameState; try{nested=restore(s.checkpoint);}catch{throw Error('存档恢复点无效');} if(nested.checkpoint!==null)throw Error('存档恢复点层级无效'); validateLife(nested.life); }
   if(s.checkpoint!==null&&typeof s.checkpoint!=='string')throw Error('存档恢复点无效');
   for(const key of ['facing','invulnerable','cooldown','ward','wardFacing','hold']as const)if(!Number.isFinite(s.player[key]))throw Error('存档术法状态无效');
   return s;

@@ -2,6 +2,42 @@ import type { Entity, GameState, Vec } from './contracts';
 
 export interface EncounterView { id: string; title: string; fact: string; options: string[] }
 
+export function lifeObjective(s: GameState): string | undefined {
+  if (!s.life || !['stay','travel'].includes(String(s.flags.endingWish))) return undefined;
+  const r=s.life.repair,h=s.life.harvest;
+  if (r.stage!=='complete') {
+    if (r.stage==='unaccepted') return '陶七和许照各有一件小事等你帮忙。';
+    if (!r.softened) return '把挂扣装到炉芯，用火焰软开旧胶。';
+    if (!r.latched) return '把活动钳口校到刻线，再用留势或止挡压紧。';
+    if (!r.tested) return '近身试压挂扣，确认它真的承得住。';
+    return '回石驿把试压通过的挂扣交还陶七。';
+  }
+  if (h.stage!=='complete') {
+    if (h.stage==='unaccepted') return '问许照要不要给晒架添两束路用叶。';
+    if (h.sun==='unpicked'||h.shade==='unpicked') return '沿溪道采回向阳叶和背阴叶，各留一束根。';
+    if (h.sun==='bag'||h.shade==='bag') return '回晒药架，把两束叶分到对应的上下层。';
+    return '回晒药架交付分拣好的叶片，收好两份避兽药囊。';
+  }
+  return '手艺与行囊已经备好；可继续试术，或在桌边歇一歇。';
+}
+
+function lifeDescription(s: GameState, e: Entity): string | undefined {
+  const l=s.life;if(!l)return undefined;
+  const r=l.repair,h=l.harvest;
+  switch(e.id){
+    case 'life_hearth': return r.stage==='unaccepted'?'炉芯还没有任务用途':r.softened?'旧胶已经软开，活动钳口可以校直':'把挂扣装进炉芯，再用火焰命中引火芯';
+    case 'life_jaw': return r.latched?'钳口已压紧，去压柄试承重':r.softened?'沿刻线把钳口牵到右侧，再用止挡或留势承住':'旧胶未软，先处理炉芯';
+    case 'life_press': return r.tested?'挂扣已通过试压':r.latched?'近身按压一息，确认挂扣承重':'钳口尚未压紧，不能试压';
+    case 'life_sun_leaf': return h.sun==='unpicked'?'向阳石边的一束嫩叶；剪上部，别拔根':h.sun==='bag'?'向阳叶在器具袋中，回晒架分层':'向阳叶已放在晒架上';
+    case 'life_shade_leaf': return h.shade==='unpicked'?'背阴窄段的一束叶；东侧干路可以安全靠近':h.shade==='bag'?'背阴叶在器具袋中，回晒架分层':'背阴叶已放在晒架上';
+    case 'life_home_eye': return l.clamp==='home'?'压扣固定在工位试件上':'工位的金属固定眼';
+    case 'life_practice': return l.clamp==='home'?'试件被压扣承住，可安全取回':'把物件移到固定眼再试压扣';
+    case 'life_lookout_eye': return l.clamp==='lookout'?'压扣承住倾梁，入口保持打开':'倾梁侧托的金属固定眼';
+    case 'life_scent': return l.scent?'药囊气味还会令附近山兽绕行片刻':'已经散尽的药囊布片';
+    default:return undefined;
+  }
+}
+
 const distance = (a: Vec,b: Vec) => Math.hypot(a.x-b.x,a.y-b.y);
 const object = (s: GameState,id: string) => s.worlds[s.scene].find(e=>e.id===id);
 const style = (s: GameState) => s.flags.trialStyle || s.ringStyle;
@@ -76,11 +112,23 @@ export function nearbyEncounter(s: GameState): EncounterView|undefined {
   if(s.scene==='home'&&near(['lamp_stand'],280))return s.flags.lampFixed
     ? view('home-lamp','灯下归处','灯盏已经归架，暖光照着熟悉的院子。',s.flags.returned?'到自己的桌边放环或摊图':!s.flags.tools?'沿溪道取回自己的器具袋':!s.flags.ringOwned?'去旧工棚取回自己的引环':!s.flags.ringTrained?'回旧工棚，与陶七亲手试环':'沿溪道去石渡，用引环试路')
     : view('home-lamp','松脱的灯盏','陶七扶着灯架，灯盏落在一旁。','选牵引，牵灯盏到架旁落点','到位后按放下');
+  if(s.scene==='home'&&s.life&&['stay','travel'].includes(String(s.flags.endingWish))){
+    const ids=['life_home_eye','life_practice'];
+    if(near(ids,220))return view('life-home','工位固定眼',lifeDescription(s,s.worlds.home.find(e=>ids.includes(e.id))!)||'压扣与试件的用途仍在记录中','察看压扣承物','回桌边听陶七和许照的安排');
+  }
   if(s.scene==='creek'){
     if(near(['platform_beam','platform_ladder','return_ladder','chime','marks'],180))return lookout(s);
+    if(near(['life_sun_leaf','life_shade_leaf'],150)){
+      const e=s.worlds.creek.find(e=>e.id.startsWith('life_')&&distance(s.player,e)<=150);
+      if(e)return view('life-leaf',e.name,lifeDescription(s,e)||'叶片仍在枝上','走近剪取一束叶','沿安全侧靠近');
+    }
     if(near(['board','basket','shelter'],235))return rainShelter(s);
   }
   if(s.scene==='workshop'){
+    if(s.life?.repair.stage!=='unaccepted'&&near(['life_hearth','life_jaw','life_press'],220)){
+      const e=s.worlds.workshop.find(e=>e.id.startsWith('life_')&&e.id!=='life_scent'&&distance(s.player,e)<=220);
+      if(e)return view('life-repair',e.name,lifeDescription(s,e)||'挂扣修器工序','察看当前工序','回驿交还挂扣');
+    }
     if(near(['tao_work','trial','ring','trial_mark'],210))return training(s);
     if(near(['decoy','straw','beast_a','beast_b'],250))return beasts(s);
   }
@@ -92,6 +140,7 @@ export function nearbyEncounter(s: GameState): EncounterView|undefined {
 }
 
 export function inspectObject(s: GameState,e: Entity): string {
+  const lifeText=lifeDescription(s,e);if(lifeText!==undefined)return lifeText;
   const f=s.flags;
   switch(e.id){
     case 'lamp':case 'lamp_stand':return f.lampFixed?'灯盏已归架，暖光照着院子':'牵灯盏到灯架旁，再放下';
@@ -119,6 +168,8 @@ export function placementAnchors(s: GameState): Array<Vec & {id:string;title:str
   const id=s.player.pullId;
   if(!id||s.player.hold>0||!object(s,id)?.movable)return [];
   switch(id){
+    case 'life_jaw':return s.life?.repair.softened && !s.life.repair.latched ? [{id:'life-jaw-rail',title:'钳口右侧刻线',x:1420,y:570}] : [];
+    case 'life_practice':return s.life?.clamp==='bag' ? [{id:'life-home-eye',title:'工位固定眼',x:1030,y:500}] : [];
     case 'lamp':return s.flags.lampFixed?[]:[{id:'lamp-stand',title:'灯架旁',x:560,y:665}];
     case 'basket':return [{id:'basket-shelter',title:'棚内干处',x:1180,y:520}];
     case 'board':return [{id:'board-bridge',title:'跨水落板处',x:1120,y:648},{id:'board-home',title:'导水板原位',x:945,y:510}];

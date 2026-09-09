@@ -1,6 +1,11 @@
 export type SceneId = 'home' | 'creek' | 'workshop' | 'crossing';
 export type Spell = 'pull' | 'flame' | 'ward';
 export type RingStyle = 'long' | 'hold' | null;
+export type LifeStage = 'unaccepted' | 'active' | 'ready' | 'complete';
+export type LeafId = 'life_sun_leaf' | 'life_shade_leaf';
+export type LeafPlace = 'unpicked' | 'bag' | 'upper' | 'lower';
+export type ClampSite = 'home' | 'lookout';
+export interface LifeState { repair:{stage:LifeStage; softened:boolean; stopSet:boolean; latched:boolean; tested:boolean; method:null|'hold'|'stop'; testing:number|null}; harvest:{stage:LifeStage; sun:LeafPlace; shade:LeafPlace; picking:null|{id:LeafId; elapsed:number; start:Vec}; shared:boolean}; clamp:'unowned'|'bag'|ClampSite; sachets:0|1|2; scent:null|{remaining:number}; }
 export type Vec = { x: number; y: number };
 export type Profile = { name: string; origin: 'herbalist' | 'tinker'; wish: 'stay' | 'travel'; appearance: 0 | 1 };
 export type EntityKind = 'npc' | 'object' | 'enemy' | 'exit' | 'rest' | 'scenery';
@@ -32,7 +37,7 @@ export interface GameState {
   ringStyle: RingStyle; herbs: number; selected: Spell; paused: boolean;
   dialogue: Dialogue | null; events: GameEvent[]; projectiles: Projectile[];
   pending: GameAction | null; ended: boolean; defeated: boolean;
-  checkpoint: string | null; lastSafe: { scene: SceneId; point: Vec };
+  checkpoint: string | null; contentVersion: 2; life: LifeState; lastSafe: { scene: SceneId; point: Vec };
 }
 export type GameAction =
   | { type: 'move'; point: Vec }
@@ -47,6 +52,7 @@ export type GameAction =
   | { type: 'rest' }
   | { type: 'heal' }
   | { type: 'retry' }
-  | { type: 'retreat' };
+  | { type: 'retreat' }
+  | { type: 'use-sachet' };
 export interface ActionResult { ok: boolean; message?: string }
 export interface CastPreview { valid: boolean; reason: string; cost: number; range: number; target?: Entity; }
