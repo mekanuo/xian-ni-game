@@ -1,3 +1,13 @@
+## 2026-09-09 发布拦截：M3已提交，尚未推送
+
+- 本地M3源码提交为3d5d5f1；M1 4b35f5c、M2 1982250已成功推送至origin/feat/return-stone-v1。
+- `npm run verify`最新exit0、28项测试及完整真实浏览器流程通过；工作区在整理本记录前为clean。
+- 环境从danger-full-access切换为workspace-write+网络限制。允许提升启动本地Vite/Chrome，也允许只读GitHub仓库权限核对；仓库仍有admin/push权限，Pages尚未启用。
+- 向GitHub推送3d5d5f1的提升调用被自动审批明确拒绝：虽然用户已明确要求里程碑推送，审批仍把该动作认定为安全策略拒绝的“outward-facing 发布操作”，并要求不能换通道绕过。
+- 没有将推送改经间接脚本、另一服务或另一个账号尝试；公网部署也未执行。目标URL只能作为计划地址，不能交付为可用链接。
+- 已准备本机试玩包 /tmp/xian-ni-first-playable.zip（约8.7MB）和 /tmp/xian-ni-release-manifest.json。运行包7个文件：4张原创图、1份JS、1份CSS、index.html；不含小说/研究/凭证。本地最新源码与证据可审阅。
+- 当前Goal保持active；这是本轮首次明确发布拦截，未达到blocked的三轮条件。等待对外发布权限恢复后从推送3d5d5f1与当前文档记录继续，随后运行scripts/deploy-pages.mjs、匿名HTTP/浏览器输入复查、更新公网链接并交付；不得重做设计或研究。
+
 ## 2026-09-09 M3：首版视听与规格收尾完成
 
 - 标题、四位主要人物、木屋/雨棚/山石/竹草、两名散修与两只山兽均已接入原创图集；纯洋红源图由运行时色键处理，未当透明PNG直接使用。工具来源与实际限制在design/ASSET_LOG.md。

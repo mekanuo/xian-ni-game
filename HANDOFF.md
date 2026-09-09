@@ -1,66 +1,34 @@
-# 当前完成点：M3首版候选已验证
+# 《仙逆：山门之外》当前交接
 
-2026-09-09，feat/return-stone-v1。M1 4b35f5c、M2 1982250均已成功推送；M3完整视听与规格收尾已完成，本次准备提交。qa/verification.json六项PASS，28项模型测试，含纯鼠标两种练法、实际同伴登台与风铃返驿。下一步只剩当前候选公网发布与匿名启动/输入复查，再更新交付链接并完成Goal。不要重做已完成设计、研究或要求重复授权。下方内容为历史交接，当前docs/PROGRESS.md优先。
+2026-09-09。先读本文件、AGENTS.md、docs/PROGRESS.md、git status/log。不要读取旧聊天、重做全书解析或接续封版项目。
 
-# 最新实施状态（2026-09-09）
+## 已批准范围
 
-用户已创建并批准Goal，持续完成《山门之外》首版；无需重新确认设计或发布授权。当前 feat/return-stone-v1，M1提交4b35f5c已成功推送，M2完整浏览器验证现已PASS并将提交。最新进度以docs/PROGRESS.md与qa/verification.json为准。M3敌方美术收尾、M4公网部署仍待完成；不要被下方历史待确认语句带回设计阶段。
+用户已确认design/REVIEW.md链接的完整设计，并明确创建Goal完成美术、游戏实现、测试和公网首版；每个里程碑及时推送Git。发布授权已经给过，不需要再次确认设计。目标是中文桌面网页、Mac浏览器优先、原创修士与回石驿切片；用户体验是空间冒险和角色扮演，不替代王林的独有功绩。
 
-# 新会话入口：仙逆网页游戏
+## 当前实际状态
 
-本文件是2026-09-09最新交接，优先于旧进度中的等待、未创建仓库、未获推送许可等历史描述。不需要读取旧会话或两个封版游戏。设计已完成并公开审阅；用户2026-09-09创建Goal，明确批准按该设计完成美术、实现、测试与公网首版。当前进入实施，最新状态优先读 docs/PROGRESS.md。
+- 工作目录 /home/zhangjingzhou/workspace/xian-ni-game，分支feat/return-stone-v1，沿用https://github.com/mekanuo/xian-ni-game.git，默认master未改。
+- 恢复基点bf4d922；设计提交3e02f78，文档分支docs/return-stone-design已推送，用户已批准实施。
+- M1 4b35f5c与M2 1982250已成功推送。M3美术、角色回应和完整流程收尾本地提交3d5d5f1，推送被新的自动审批拦截，不能说远端已有该提交。
+- 最新qa/verification.json为PASS，npm run verify exit0；28项模型测试；Linux Chrome150中真实创建、移动施术、两种练法均用鼠标亲试、同行登台、取风铃、山脊来回、返驿共同地图、结局后继续与重开。证据qa/evidence/run.json与截图。
+- 主渡及守卫/护符/同伴/补救边界有模型回归证据，不冒称主渡也已浏览器完整通关。Mac/Safari/触控板、自然时长和主观趣味未实测。
+- 原创标题、四位主要人物、场景焦点和敌方图集已接入；图源洋红底由运行时色键透明处理。美术来源与实际限制见design/ASSET_LOG.md。
+- 运行包dist只有页面、代码和4张图，不含小说全文。/tmp/xian-ni-first-playable.zip与release-manifest.json可供本机审阅。
 
-## 先读什么
+## 当前唯一交付阻碍
 
-1. 本文件、AGENTS.md、Git状态和最近提交。
-2. docs/ROLEPLAY_DIRECTION.md：用户最新认可的角色扮演重心。
-   随后先读 design/REVIEW.md 及链接的 GAME_DESIGN、ART_DIRECTION、SOURCE_SCOPE、DELIVERY：这是最新待确认方案；不要重新写一套详细设计。
-3. concepts/CONCEPT.md：已选择A方向；其中“待确认”是旧状态，由本交接覆盖。
-4. docs/research/analysis/SOURCE_BIBLE.md：先读前面的设计阅读入口，后面的历史细证按需查，不从头复读所有卡片。
-5. docs/research/analysis/_coverage.md：范围、重复结尾及证据局限。
+环境切换为网络沙箱后，本地端口启动先遇EPERM，提升运行测试已经通过。GitHub只读权限核对也通过，仓库仍有admin/push权限。
 
-## 产品与用户决策
+但Git推送提升调用被automatic approval review明确拒绝，理由为对外发布操作违反其安全策略，尽管它承认用户已要求里程碑推送；同时禁止绕道发布。不能改经node脚本、其他服务/账号绕过。本次还未启用Pages或推送gh-pages，没有已验证的公网链接。
 
-- 用户喜欢并读过《仙逆》，要求以已提供小说为依据开发网页游戏，简体中文优先，Mac浏览器是首要试玩环境。不是改为必须安装的端游，也不是旧宠物/卡牌项目续作。
-- 沿用mekanuo/xian-ni-game，明确忽略现有内容。旧React按钮演示不是玩法、设定或兼容性基线；不强推重写历史。
-- 已认可方向A：可暂停的空间冒险与战术修行。玩家是原创修士，与王林世界/经历交错，不替代王林核心功绩和关系。
-- 用户指出“角色扮演仍空洞”，随后认可修正：重点是有生活、追求、惯用做法和归属的修士，不是仙侠机关解谜合集。具体要求见ROLEPLAY_DIRECTION。
-- 首版约30–45分钟完整冒险是已提出的规划目标，不是实测时长或已承诺交付日期；不得以强制等待、刷材料凑时长。
-- Q版人物为视觉参考方向，保留原作情绪重量，不直接复制动漫素材或声称Q版自动获得授权。
-- 用户已经明确认可向这个公开仓库推送不含小说全文及敏感信息的新文档和代码。第一轮拦截已在最新认可后重试通过，文档分支已成功推送；不是仍等登录。
+Goal保持active，本轮是首次明确发布拦截，未达到三轮blocked条件。权限恢复后仅继续发布：推送当前分支→node scripts/deploy-pages.mjs（仅dist至gh-pages）→匿名HTTP与真实浏览器启动/移动复查→更新README/PROGRESS链接及版本→核对远端→交付并完成Goal。计划URL https://mekanuo.github.io/xian-ni-game/ 尚不能当可用链接。
 
-## 实际进度
+## 执行与保存
 
-- 全本首遍研究已收束，明确的截断范围已补齐。已有产物覆盖本地2047外层章号，2046–2047重复2044–2045。早期部分细证较弱、源内有矛盾，不冒称所有事实逐项独立审查或标准出版版无删节。
-- 最后一段561–577已实读3168行，581–583主线程已实读414行，均整合；所有研究Agent已关闭，没有应继续等待的后台任务。
-- 当前仓库docs/research保存研究资料的交接副本，包括原始分析稿、纠偏、覆盖表和SOURCE_BIBLE。带错误的历史稿保留追溯，最新纠偏优先；不要将其再次当权威读入。
-- 概念比较已完成，A已选。design 中完整玩法、美术、局部来源与技术交付候选已写成；待用户一次确认后再写具体实施计划并实现。不存在经过验证的当前试玩包。
-- 本轮设计名《山门之外》：恒岳失山门后的初期，原创回石驿与三处外景；药铺/修器背景、陶七/许照、引力术/火焰球/原创护符、长牵/留势成长、主渡/山脊结果。均以设计正文为准，不冒称用户已逐项认可。日期冲突和护符改编边界见 SOURCE_SCOPE。
-- 本机工具已核验：Node22.22.0、npm10.9.4、Chrome150、Godot4.7.1；GodotMaker和NovelToGame已安装。无需重新安装。引擎尚未锁定，不能因为已有Godot就擅自改目标平台。
-- 之前的Goal状态为blocked，用户批准后未有工具将其改回active。本次是转移到新会话继续，不要把旧Goal或旧线程自动恢复为另一个并行开发者。新会话使用自身正常任务/用户授权的Goal状态推进。
-
-## 新会话下一步
-
-用户要求先收敛完整设计供一次确认，再实施；每个代码阶段或里程碑及时推送Git。当前已完成候选文档阶段。
-
-1. 核对当前分支及本交接，不重新拉起拆书或重做三个概念。bf4d922 是本轮恢复基点，不再是最新设计提交。
-2. 读取 design/REVIEW.md；若用户尚未给出完整设计反馈，保持待确认；若已反馈，修对应节点，不重新问已锁事项。
-3. 完整设计只需一次确认。方向认可不冒充详细规格已经审过；技术建议为 TypeScript + Phaser 二维静态网页，确认覆盖技术与美术附件。
-4. 确认后按最大风险做真实空间白盒，再完成同一切片的视听与角色扮演内容。不要用文字状态机代替移动、施术与镜头验证。
-5. 用户能自行观察并找到办法、想成为这个修士、愿再见某个人，比系统数量重要。测试按变更范围做，里程碑再整体验证；不能把测试通过称为有趣。
-
-## 保存、推送与来源
-
-- 本机工作目录：/home/zhangjingzhou/workspace/xian-ni-game。
-- 当前分支：feat/return-stone-v1，从设计分支 d55bf0b 新建；远端origin，默认分支master。以git log/status和远端实际SHA核对，不把本文件自身SHA写成固定锚点。
-- 本轮设计提交为 3e02f78，拦截记录为 7963d9a。用户要求公网链接并再次明确允许发布，运行环境权限随后更新；2026-09-09已成功推送 docs/return-stone-design。公开审阅入口：https://github.com/mekanuo/xian-ni-game/blob/docs/return-stone-design/design/REVIEW.md 。发布授权不等于完整玩法设计已经确认；仍等待设计反馈。
-- HTTPS默认未设凭证助手。使用：git -c credential.helper='!gh auth git-credential' push -u origin <当前分支>。不要显示凭证或要求用户重复登录。网络受限时按工具权限流程重试，不将DNS失败当账号未登录。
-- 当前为稀疏检出；新目录需git add --sparse或相应扩大检出范围。novel.txt标记skip-worktree，未写入当前工作目录。
-- 小说原文保留在本机../sources/仙逆.txt，不随本次交接上传。远端旧历史已有novel.txt；忽略它不等于清除公开历史，也未授权强推历史清理。
-- 源文行号按SHA-256 a72a7fc68bcfb4f412b2f698f7b06c541fc3e3c0aad94165d1185a2c5e54d495对应版本。新机器需要精确原文时另获取用户文件，不从上下文猜。
-- 原研究目录../xian-ni-research与本机压缩快照仍保留，但从此以仓库交接副本接续新改动，避免双目录分叉。副本中的旧绝对路径/../路径按历史理解；事实文件在docs/research内部仍可定位。
-- 旧项目/home/zhangjingzhou/smbb、/home/zhangjingzhou/starvein-companion-cards永久封版，不修改、不重新读取其漫长历史。
-
-## 不要再重复的错误
-
-没有运行的任务不得说正在开发；子Agent输出要验关键事实，不按提交名称报完成。线程上限不等于模型容量不足；不为凑并发重复派任务。不要无限重跑全书或全套测试，不为文档格式扩张工作。不要以大段设定、日志按钮、术语面板替代玩家行动和人物生活。
+- npm ci、npm run dev、npm run build、npm run verify；Node22/npm10，Phaser3.90、Vite7.3.6、Vitest4.1.11、Playwright1.58.2。Chrome默认/usr/bin/google-chrome。
+- .npmrc使用legacy-peer-deps规避npm10的Vitest可选peer递归空节点错误；显式Vite依赖已固定。
+- 仍为稀疏检出，新增目录用git add --sparse。推送凭证助手为git -c credential.helper='!gh auth git-credential' push origin feat/return-stone-v1，不显示凭证。
+- 唯一规则器src/game/model.ts；scene只处理输入与表现；__XIAN_NI__仅只读证据接口。QA不可注入进度伪造通关。
+- 原研究资料在docs/research；来源边界在design/SOURCE_SCOPE.md，原文在本机../sources/仙逆.txt，不添加到新提交或运行包。旧历史中的novel.txt未重写删除。
+- /home/zhangjingzhou/smbb与starvein-companion-cards封版，永不修改或重读其历史。
