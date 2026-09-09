@@ -4,6 +4,8 @@
 
 ## 产物与来源
 
+环境道具新增记录见下文“M3 环境道具补齐”。
+
 | 文件 | 实际规格 | 用途与来源 |
 |---|---|---|
 | `public/art/title.png` | 1672 × 941，RGB PNG，无透明通道，约16:9 | 内置 image_gen 原创生成。回石驿标题插画：右侧暖灯驿舍、左侧浅色山景留白。 |
@@ -32,6 +34,38 @@
 - 透明请求及一次只改透明度的重试均输出RGB棋盘格，未成功提供真正alpha。最终通过内置工具把背景改为洋红，以便运行时键控；此限制已通知主线程。没有通过Python或其他脚本修改图像。
 - 图集纵向边缘留白较少，人物完整且未跨单元；若需多帧扩展，不能假设当前图集包含动作帧。
 - 未生成或替换完整地图；可行走区域与真实碰撞由场景代码绘制。此记录不代表可玩性、视听整合或人工体验验收通过。
+
+
+## M3 环境道具补齐
+
+`public/art/environment.png`：1254 × 1254，RGB PNG，内置 image_gen 原创生成。斜俯视木屋、竹席雨棚、湿山石和竹草灌木四组，完整轮廓、无字无人物。色彩延续石青瓦、米白墙、湿木棕和苔青。背景为洋红色，仍需运行时容差色键；实际左上RGB(237,12,240)，不是严格单一#FF00FF。没有调用API后备，没有脚本编辑像素。已通过本地view_image与只读像素检查。
+
+虽然构图为2×2，木屋最右轮廓到x=630，略越过几何四分格边界x=627；因此**使用以下独立帧，不采用等分裁切**，避免剪掉屋檐。这些帧包含约6px边距且互不重叠：
+
+| 帧名 | x | y | w | h |
+|---|---:|---:|---:|---:|
+| inn | 15 | 28 | 621 | 591 |
+| shelter | 654 | 109 | 584 | 510 |
+| rocks | 31 | 696 | 582 | 447 |
+| shrubs | 631 | 689 | 605 | 468 |
+
+实际非底色包围盒分别为(21,34,609,579)、(660,115,572,498)、(37,702,570,435)、(637,695,593,456)。房屋的门和台阶是绘画元素，通行入口、雨棚遮挡透明度以及山石碰撞仍须跟游戏几何一致；道具图像本身不证明这些行为已验证。竹草簇比目标“低矮”更高，可按场景比例缩放并避免遮挡输入对象。没有增加整张地图或改变真实地形。
+
+### 环境图集提示词（生成，最终采用）
+
+```text
+Use case: stylized-concept.
+Asset type: production environment prop sprite atlas for a 2D hand-painted Chinese cultivation adventure. Square canvas, exactly FOUR individual isolated props in a 2×2 equal quadrant grid.
+Style: original handpainted animation game art, crisp dark colored outlines and simple readable light/shadow planes matching chibi characters; muted stone-blue, ivory, wet timber brown, moss-green. Fixed three-quarter slightly top-down camera looking toward the front and right surfaces, coherent upper-left diffuse daylight. Clearly drawable silhouettes at reduced size, no photorealism, no 3D render.
+TOP LEFT quadrant: a compact section of a humble Chinese roadside inn, full complete exterior silhouette, timber beam structure, blue-grey curved tile roof, pale ivory plaster inset walls, modest front doorway and warm amber lantern, front and right side visible. Roof must remain fully inside quadrant. No written shop sign.
+TOP RIGHT quadrant: a freestanding small creekside rain shelter, four sturdy rough wooden posts and a sloped bamboo-mat roof, simple visible wooden cross braces, open beneath, full complete silhouette; no scenery or ground patch under it.
+BOTTOM LEFT quadrant: a single broad group of two or three damp rounded mountain rocks, blue-grey granite, chunky layered angular planes with subtle wet highlights and tiny moss patches, low enough not to hide characters.
+BOTTOM RIGHT quadrant: a low irregular clump of muted green shrubs and a few short bamboo shoots and tufts of pale grasses, lush but simple graphic leaves; full isolated vegetation silhouette.
+Layout: each object centered inside its exact equal quadrant with at least 8% clear gutter on all sides. Objects fill most of their individual cells but never overlap or cross cell boundaries. All four props drawn at a consistent perspective. No connecting landscape between the props, no ground planes or cast shadows outside their silhouettes.
+Background: one uniform pure saturated MAGENTA #FF00FF (RGB 255,0,255) solid chroma-key backdrop across all canvas empty areas. No gradient, no texture, no checkerboard, no white. Do not put any magenta inside the props.
+Constraints: no people, no characters, no text, no letters, no logos, no watermark, no grid lines, no borders, no extra props. Exactly four isolated objects, only these objects, complete uncut silhouettes.
+```
+
 
 ## 生成提示词
 
@@ -77,4 +111,3 @@ Use case: precise-object-edit.
 Edit the attached FOUR-character 2×2 game sprite atlas. Change ONLY the grey checkerboard background to one perfectly flat, solid, uniform saturated MAGENTA color #FF00FF (RGB 255,0,255), every background pixel the same flat magenta. This is a chroma-key production atlas, NOT a transparency preview. Do not leave any checkerboard, grey, white, gradients, lighting, texture, ground shadows or vignette in the background.
 Keep all four characters exactly unchanged: same faces, same stone-blue player robes, same brown handyman, same moss-green herbalist, all same poses, same full bodies, same dark outlines, same positions and same 1254×1254 canvas with equal 2×2 quadrant layout. Do NOT put any magenta into the characters. Preserve crisp clean dark outlines. Only replace the background and gaps between limbs with solid #FF00FF. No text, labels, logos or new elements.
 ```
-

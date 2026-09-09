@@ -38,12 +38,21 @@ export class WorldScene extends Phaser.Scene {
   private settings:Settings={reduced:false,contrast:false,large:false,volume:.45,music:.25};
   constructor(){super('world');}
   preload(){
+    this.load.image('title-source',new URL('art/title.png',document.baseURI).href);
     this.load.image('characters-source',new URL('art/characters.png',document.baseURI).href);
-    this.load.on('loaderror',()=>{document.body.dataset.assetError='character';});
+    this.load.image('environment-source',new URL('art/environment.png',document.baseURI).href);
+    this.load.on('loaderror',(file:Phaser.Loader.File)=>{document.body.dataset.assetError=file.key;});
   }
   create(){
+    if(['title-source','characters-source','environment-source'].some(key=>!this.textures.exists(key))){
+      const root=document.querySelector('#interface')!;
+      root.innerHTML='<div class="veil"><section class="paper modal-paper" role="alert"><h2>山道画卷尚未展开</h2><p>部分画面未能载入，重新连接后可以再试一次。</p><button class="primary" id="retry-assets">重新载入</button></section></div>';
+      document.querySelector('#retry-assets')!.addEventListener('click',()=>window.location.reload());
+      return;
+    }
     document.documentElement.style.setProperty('--title-image',`url("${new URL('art/title.png',document.baseURI).href}")`);
     this.keyCharacters();
+    this.keyEnvironment();
     this.state=createGame({name:'行舟',origin:'herbalist',wish:'travel',appearance:0});
     this.landscape=this.add.container(0,0);
     this.worldLabels=this.add.container(0,0).setDepth(15000);
@@ -72,9 +81,22 @@ export class WorldScene extends Phaser.Scene {
     }});
   }
   private keyCharacters(){
-    if(!this.textures.exists('characters-source'))return;
-    const source=this.textures.get('characters-source').getSourceImage() as HTMLImageElement;
-    const canvas=this.textures.createCanvas('characters',source.width,source.height);
+    const canvas=this.keyAtlas('characters');
+    if(!canvas)return;
+    const boxes=[[182,0,325,627],[771,0,317,627],[178,627,351,627],[754,627,327,627]];
+    boxes.forEach((b,i)=>canvas.add(String(i),0,b[0],b[1],b[2],b[3]));
+    document.documentElement.style.setProperty('--character-image',`url("${canvas.getCanvas().toDataURL()}")`);
+  }
+  private keyEnvironment(){
+    const canvas=this.keyAtlas('environment');
+    if(!canvas)return;
+    const frames:Record<string,number[]>={inn:[15,28,621,591],shelter:[654,109,584,510],rocks:[31,696,582,447],shrubs:[631,689,605,468]};
+    for(const [name,b] of Object.entries(frames))canvas.add(name,0,b[0],b[1],b[2],b[3]);
+  }
+  private keyAtlas(key:string){
+    if(!this.textures.exists(`${key}-source`))return;
+    const source=this.textures.get(`${key}-source`).getSourceImage() as HTMLImageElement;
+    const canvas=this.textures.createCanvas(key,source.width,source.height);
     if(!canvas)return;
     const ctx=canvas.getContext();ctx.drawImage(source,0,0);
     const image=ctx.getImageData(0,0,source.width,source.height);
@@ -85,9 +107,7 @@ export class WorldScene extends Phaser.Scene {
       else if(excess>40&&r>120&&b>120){image.data[i+3]=Math.round(255*(85-excess)/45);image.data[i]=Math.min(r,g+40);image.data[i+2]=Math.min(b,g+40);}
     }
     ctx.putImageData(image,0,0);canvas.refresh();
-    const boxes=[[182,0,325,627],[771,0,317,627],[178,627,351,627],[754,627,327,627]];
-    boxes.forEach((b,i)=>canvas.add(String(i),0,b[0],b[1],b[2],b[3]));
-    document.documentElement.style.setProperty('--character-image',`url("${canvas.getCanvas().toDataURL()}")`);
+    return canvas;
   }
   private replace(s:GameState){
     this.state=s;this.renderedScene='';this.groundVersion='';this.queuedInteract=null;this.casting=false;this.accumulator=0;
@@ -221,10 +241,10 @@ export class WorldScene extends Phaser.Scene {
       // All collision rectangles have visible geometry, never invisible walls.
       if(m.id==='crossing'&&ob.x===1180)continue;
       if(m.id==='home'&&ob.y===240)continue;
-      if(m.id==='home'&&ob.x===660){this.rock(g,ob.x+ob.w/2,ob.y+ob.h/2,ob.w*.48,ob.h*.5);continue;}
+      if(m.id==='home'&&ob.x===660){this.landscapeRock(g,ob.x+ob.w/2,ob.y+ob.h/2,ob.w*.5,ob.h*.5);continue;}
       if(m.id==='creek'){g.fillStyle(0x748e76,.7);g.fillRoundedRect(ob.x,ob.y,ob.w,ob.h,9);g.lineStyle(2,0xc2cdb0,.65);g.strokeRoundedRect(ob.x,ob.y,ob.w,ob.h,9);}
       else if(m.id==='workshop'&&ob.w<40){g.fillStyle(0x776b50);g.fillRect(ob.x,ob.y,ob.w,ob.h);for(let y=ob.y;y<ob.y+ob.h;y+=25){g.lineStyle(2,0xad9c72);g.lineBetween(ob.x,y,ob.x+ob.w,y);}}
-      else{this.rock(g,ob.x+ob.w/2,ob.y+ob.h/2,ob.w*.48,ob.h*.45);}
+      else{this.landscapeRock(g,ob.x+ob.w/2,ob.y+ob.h/2,ob.w*.5,ob.h*.5);}
     }
     g.lineStyle(2,0x647e5d,.16);g.strokeRect(28,28,m.width-56,m.height-56);
     // Bake immutable brushwork once; replaying thousands of paths every frame stalls software WebGL.
@@ -232,10 +252,30 @@ export class WorldScene extends Phaser.Scene {
     if(this.textures.exists(groundKey))this.textures.remove(groundKey);
     g.generateTexture(groundKey,m.width,m.height);
     this.landscape.remove(g,true);
-    this.landscape.add(this.add.image(0,0,groundKey).setOrigin(0));
+    // Keep the keyed prop images above the baked ground; only the brushwork is replaced.
+    this.landscape.addAt(this.add.image(0,0,groundKey).setOrigin(0),0);
     this.landscape.setDepth(-1000);
   }
+  private environmentProp(frame:string,x:number,y:number,width:number,height?:number){
+    if(!this.textures.exists('environment'))return;
+    const image=this.add.image(x,y,'environment',frame).setOrigin(.5,1);
+    image.setDisplaySize(width,height??width*image.height/image.width);
+    this.landscape.add(image);
+    return image;
+  }
+  private landscapeRock(g:Phaser.GameObjects.Graphics,x:number,y:number,rx:number,ry:number){
+    // The low stone plinth marks the entire blocking footprint, including the painted rock's inset corners.
+    g.fillStyle(0x919b90);g.fillRoundedRect(x-rx,y-ry,rx*2,ry*2,6);
+    // Small dressed stones make the rectangular collision edge read as a laid stone bed.
+    for(let xx=x-rx;xx<x+rx;xx+=24){
+      g.fillStyle(0xb2baaa);g.fillRoundedRect(xx,y-ry,Math.min(22,x+rx-xx),10,3);
+      g.fillStyle(0xa4ae9e);g.fillRoundedRect(xx,y+ry-10,Math.min(22,x+rx-xx),10,3);
+    }
+    for(let yy=y-ry+12;yy<y+ry-10;yy+=22){g.fillStyle(0xa8b1a3);g.fillRoundedRect(x-rx,yy,10,19,3);g.fillRoundedRect(x+rx-10,yy,10,19,3);}
+    if(!this.environmentProp('rocks',x,y+ry,rx*2.08,Math.max(ry*2,rx*1.5)))this.rock(g,x,y,rx,ry);
+  }
   private bush(g:Phaser.GameObjects.Graphics,x:number,y:number,r:number,rand:()=>number){
+    if(this.textures.exists('environment')){this.environmentProp('shrubs',x,y+r*.35,r*1.8)?.setFlipX(rand()>.5);return;}
     g.fillStyle(0x466542,.13);g.fillEllipse(x+8,y+14,r*2.1,r*.9);
     for(let i=0;i<7;i++){const a=i*.9;g.fillStyle([0x78976b,0x678765,0x89a779][i%3],.8);g.fillEllipse(x+Math.cos(a)*r*.48,y+Math.sin(a)*r*.21,r*(.9+rand()*.35),r*.65);}
     g.lineStyle(1,0xc1cd9c,.3);for(let i=0;i<5;i++)g.lineBetween(x-15+i*7,y-8,x-8+i*7,y-14);
@@ -262,13 +302,25 @@ export class WorldScene extends Phaser.Scene {
     this.roof(g,x-20,y-60,w+40,90);
   }
   private paintHome(g:Phaser.GameObjects.Graphics,rand:()=>number){
-    this.house(g,240,240,870,105);
-    // A low annex gives the empty room a readable threshold.
-    this.house(g,1210,275,180,75);
+    if(this.textures.exists('environment')){
+      // Two compact buildings flank a low covered gallery. Their continuous foundation is the actual obstacle.
+      g.fillStyle(0x899083);g.fillRect(240,240,870,95);
+      g.fillStyle(0xc4b698);g.fillRect(250,250,850,74);
+      g.fillStyle(0x786849);g.fillRect(240,322,870,13);
+      g.lineStyle(3,0x72654d);for(let x=250;x<1110;x+=44){g.lineBetween(x,265,x,322);g.lineBetween(x,282,Math.min(x+44,1110),282);}
+      this.environmentProp('inn',392,340,318,303);
+      this.environmentProp('inn',951,340,318,303);
+      this.roof(g,548,224,245,48);
+      // The accessible annex is an open canopy, so its art does not suggest an unmodelled solid building.
+      this.environmentProp('shelter',1280,355,196,171);
+    }else{
+      this.house(g,240,240,870,105);
+      this.house(g,1210,275,180,75);
+    }
     g.fillStyle(0x817a58);g.fillRect(242,344,865,7);
     g.lineStyle(2,0x74815e);for(let x=240;x<1590;x+=35){g.lineBetween(x,885,x,905);if(x<560||x>780)g.lineBetween(x,890,x+35,890);}
     for(const [x,y] of [[145,415],[1460,350],[1510,470],[138,920]])this.bush(g,x,y,55,rand);
-    this.rock(g,1510,930,78,30);
+    this.environmentProp('rocks',1510,960,156,100)||this.rock(g,1510,930,78,30);
     g.fillStyle(0xd2bea0);g.fillRoundedRect(280,600,220,30,7);
     g.lineStyle(1,0x9b997e,.5);for(let x=220;x<1190;x+=75)g.lineBetween(x,565,x+40,565);
     // Returning route states are painted where players remember them.
@@ -276,16 +328,19 @@ export class WorldScene extends Phaser.Scene {
     if(this.state.flags.ridgeUsed||this.state.flags.ridge_used){g.lineStyle(3,0x849b6b);g.lineBetween(1300,830,1440,970);}
   }
   private paintCreek(g:Phaser.GameObjects.Graphics,rand:()=>number){
-    this.roof(g,900,430,360,50);
-    g.fillStyle(0x857752);g.fillRect(916,480,7,95);g.fillRect(1240,480,7,95);
+    if(!this.environmentProp('shelter',1080,605,366,280)){
+      this.roof(g,900,430,360,50);
+      g.fillStyle(0x857752);g.fillRect(916,480,7,95);g.fillRect(1240,480,7,95);
+    }
     g.lineStyle(4,0xcbd4bc,.8);g.lineBetween(632,430,620,660);
     for(let i=0;i<6;i++){g.fillStyle(0xbbc7ae);g.fillEllipse(653+i*25,697,35,19);}
     for(const [x,y] of [[450,200],[520,500],[850,210],[1580,130],[1720,580],[130,980]])this.bush(g,x,y,60,rand);
-    this.rock(g,1340,137,145,32);
+    // A low outcrop at the back of the lookout leaves the climb and chime interaction clear.
+    this.environmentProp('rocks',1340,154,220,90)||this.rock(g,1340,137,145,32);
     g.lineStyle(2,0x6f855f,.55);for(let x=1120;x<1480;x+=50)g.lineBetween(x,316,x+35,316);
   }
   private paintWorkshop(g:Phaser.GameObjects.Graphics,rand:()=>number){
-    this.house(g,1160,365,485,85);
+    if(!this.environmentProp('shelter',1420,418,338,205))this.house(g,1160,365,485,85);
     for(const [x,y] of [[120,450],[420,380],[560,280],[800,310],[1110,230],[1700,730],[800,960],[1380,960]])this.bush(g,x,y,68,rand);
     g.lineStyle(5,0x776c4c);for(let y=490;y<655;y+=37){g.lineBetween(1110,y,1170,y+4);g.lineBetween(1120,y-17,1120,y+20);}
     g.fillStyle(0x4c604d,.12);g.fillEllipse(800,723,340,70);
@@ -303,7 +358,8 @@ export class WorldScene extends Phaser.Scene {
     }
     if(this.state.flags.ridgeOpen){g.fillStyle(0xaa9470);g.fillRect(1170,229,163,55);for(let x=1170;x<1330;x+=16){g.lineStyle(2,0x715f46);g.lineBetween(x,232,x,280);}g.lineStyle(3,0xc1b28c);g.lineBetween(1155,224,1345,224);g.lineBetween(1155,288,1345,288);}
     for(const [x,y] of [[130,250],[350,350],[1650,400],[1730,670],[640,1040]])this.bush(g,x,y,55,rand);
-    this.rock(g,1500,1030,90,32);this.rock(g,900,160,105,32);
+    this.environmentProp('rocks',1500,1062,180,110)||this.rock(g,1500,1030,90,32);
+    this.environmentProp('rocks',900,192,210,100)||this.rock(g,900,160,105,32);
   }
   private makeCharacter(type:string,x:number,y:number,frame:number){
     const container=this.add.container(x,y);

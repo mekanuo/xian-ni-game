@@ -29,7 +29,9 @@ export function createGame(profile: Profile): GameState {
 
 type Rect={x:number;y:number;w:number;h:number;flag?:string};
 function rectangles(s: GameState, ignoreId?: string): Rect[] {
-  const fixed=SCENES[s.scene].obstacles.filter(r=>!r.flag||!s.flags[r.flag]);
+  // The entrance collider represents this movable beam: ignore it only for the beam itself.
+  // Actor movement supplies no beam ID, so the entrance stays blocked until hold opens it.
+  const fixed=SCENES[s.scene].obstacles.filter(r=>(!r.flag||!s.flags[r.flag])&&!(ignoreId==='platform_beam'&&r.flag==='platformOpen'));
   const moving=entities(s).filter(e=>e.solid&&e.id!==ignoreId&&e.state!=='held'&&e.state!=='burned').map(e=>({x:e.x-e.w/2,y:e.y-e.h/2,w:e.w,h:e.h}));
   return [...fixed,...moving];
 }
@@ -174,7 +176,7 @@ function interact(s:GameState,id:string):ActionResult {
       options.push({id:'route_talk',label:'请她画一小段山外路线'});
       dialogue(s,'shelter','许照',s.flags.herbsWet?'水落进药筐，她先收起受潮的叶片。放回板、共同理好草药，还来得及。':'雨歇了。许照摊开药包，手背有一道先前割的伤。溪道的长路始终可走，不必拿药筐换近路。',options);break;
     }
-    case 'ring':s.flags.ringOwned=true;if(entities(s).some(n=>n.type==='xu'&&dist(n,s.player)<250))s.flags.xuRingKnown=true;e.state='taken';emit(s,'item','你解下熟悉的旧绳，把付钱修整的普通引环收回腰间。它不是天逆，也不是传承至宝。');checkpoint(s);break;
+    case 'ring':s.flags.ringOwned=true;if(entities(s).some(n=>n.type==='xu'&&dist(n,s.player)<250))s.flags.xuRingKnown=true;e.state='taken';emit(s,'item','你解下熟悉的旧绳，把付钱修整的普通引环收回腰间。熟悉的重量落回手心，旧绳的结还在。');checkpoint(s);break;
     case 'workbench':if(!s.flags.ringTrained)return result(false,'取回引环并在工棚亲试一次后，才知道怎样在这里换法');dialogue(s,'respec','修器工位','自己的引环，自己的手感。在驿中可以重新收束灵线。',[{id:'long',label:'改练长牵：10步，仍只牵一件'},{id:'hold',label:'改练留势：6步，追加一格停物8秒'}]);break;
     case 'return_ladder':if(!inPlatform(s.player))return result(false,'先实际登上眺台');s.flags.platformReturn=true;s.flags.platformOpen=true;platformVisit(s);e.state='lowered';emit(s,'change','你徒手放下回程梯，入口已有稳固退路。灵力用尽也能走回。');break;
     case 'chime':if(!inPlatform(s.player))return result(false,'先走上眺台');platformVisit(s);s.flags.chime=true;e.state='taken';emit(s,'item','你收起旧檐风铃，想把它挂到驿中自己的窗边。');break;

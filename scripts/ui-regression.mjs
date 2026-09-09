@@ -1,15 +1,32 @@
 import {chromium} from '@playwright/test';
 import assert from 'node:assert/strict';
 const b=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
-const p=await b.newPage({viewport:{width:1440,height:900}});
+const p=await b.newPage({viewport:{width:1280,height:720}});
 try{
-await p.goto('http://127.0.0.1:5173/');await p.getByRole('button',{name:'入 山',exact:true}).click();
+await p.goto(process.env.GAME_URL||'http://127.0.0.1:5173/');await p.getByRole('button',{name:'入 山',exact:true}).click();
 const input=p.getByRole('textbox',{name:'修士姓名'});await input.fill('');await input.pressSequentially('wang123',{delay:30});assert.equal(await input.inputValue(),'wang123');
 await p.getByRole('button',{name:'去回石驿',exact:true}).click();
 await p.waitForFunction(()=>localStorage.getItem('xian-ni-return-stone-safe-v1'));
+await p.mouse.click(640,155);await p.waitForTimeout(250);assert.equal(await p.evaluate(()=>window.__XIAN_NI__.inspect().paused),false,'An invisible pause control must not intercept world clicks');
 const before=await p.evaluate(()=>localStorage.getItem('xian-ni-return-stone-safe-v1'));
 await p.reload();await p.getByRole('button',{name:'行路须知',exact:true}).click();await p.waitForTimeout(1600);
 const after=await p.evaluate(()=>localStorage.getItem('xian-ni-return-stone-safe-v1'));
 assert.equal(after,before,'Title help must never overwrite an existing automatic save');
-console.log('UI regressions PASS');
+await p.getByRole('button',{name:'回到山外',exact:true}).click();
+await p.getByRole('button',{name:'继续前行',exact:true}).click();
+await p.locator('.action-dock [data-ui="pause"]').click();
+await p.locator('[data-ui="settings"]').click();await p.locator('[data-ui="save"]').click();
+await p.locator('[data-ui="close"]').click();await p.locator('.action-dock [data-ui="pause"]').click();
+const rest=await p.evaluate(()=>window.__XIAN_NI__.screenPoint(340,850));await p.mouse.click(rest.x,rest.y);
+await p.waitForFunction(before=>localStorage.getItem('xian-ni-return-stone-safe-v1')!==before,before,{timeout:10000});
+const newerAuto=await p.evaluate(()=>localStorage.getItem('xian-ni-return-stone-safe-v1'));
+await p.locator('[data-ui="settings"]').click();await p.locator('[data-ui="load-manual"]').click();await p.waitForTimeout(700);
+assert.equal(await p.evaluate(()=>localStorage.getItem('xian-ni-return-stone-safe-v1')),newerAuto,'Loading a manual save must preserve the automatic slot');
+await p.locator('[data-ui="settings"]').click();await p.locator('[data-ui="load-auto"]').click();
+assert.equal(await p.evaluate(()=>window.__XIAN_NI__.inspect().checkpoint),JSON.parse(newerAuto).checkpoint);
+await p.screenshot({path:'qa/evidence/ui-1280.png'});
+await p.route('**/art/environment.png',route=>route.abort());await p.reload();
+await p.getByRole('button',{name:'重新载入',exact:true}).waitFor();await p.unroute('**/art/environment.png');
+await p.getByRole('button',{name:'重新载入',exact:true}).click();await p.getByRole('button',{name:'入 山',exact:true}).waitFor();
+console.log('UI regressions PASS: typing, title-help preservation, same-place rest, independent slots, asset retry at 1280x720');
 }finally{await b.close();}

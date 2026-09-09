@@ -55,6 +55,22 @@ describe('deterministic spatial world', () => {
     for (const s of [a,b]) { act(s, { type: 'move', point: { x: 1000, y: 750 } }); run(s, 8); act(s, { type: 'cast', spell: 'ward', point: { x: 1300, y: 750 } }); run(s, 2); }
     expect(snapshot(a)).toBe(snapshot(b));
   });
+  it('two-click pull selects the blocked entrance beam, moves it outside and opens only after hold',()=>{
+    const s=readyRing('tinker','hold');walk(s,{x:1000,y:290});
+    const beam=object(s,'platform_beam'),origin={x:beam.x,y:beam.y};
+    expect(act(s,{type:'move',point:origin}).ok).toBe(false);
+    const selected=act(s,{type:'cast',spell:'pull',targetId:beam.id,point:origin});
+    expect(selected.ok,selected.message).toBe(true);
+    expect(s.player.pullId).toBe(beam.id);
+    expect(act(s,{type:'move',point:{x:1080,y:150}}).ok).toBe(false); // Adjacent stone wall remains solid to the beam.
+    expect(act(s,{type:'move',point:{x:980,y:285}}).ok).toBe(true);run(s,.6);
+    expect(beam.x).toBeLessThan(1000);expect(s.flags.platformOpen).not.toBe(true);
+    // Moving the beam alone does not let the player walk through the entrance.
+    for(let t=0;t<1;t+=.05)tick(s,.05,{x:1,y:0});
+    expect(s.player.x).toBeLessThan(1054);
+    expect(act(s,{type:'hold'}).ok).toBe(true);expect(s.flags.platformOpen).toBe(true);
+    walk(s,{x:1170,y:230});expect(s.flags.platformVisited).toBe(true);
+  });
   it('hold really frees the hand, pauses the remaining time and opens a reversible platform entrance',()=>{
     const s=readyRing('tinker','hold');walk(s,{x:1000,y:290});
     expect(act(s,{type:'cast',spell:'pull',targetId:'platform_beam',point:{x:980,y:285}}).ok).toBe(true);run(s,.6);

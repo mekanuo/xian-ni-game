@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 3,
+  "status": "PASS",
+  "verify": {
+    "command": "npm run verify",
+    "exitCode": 0,
+    "suites": [
+      {
+        "command": "npm run test",
+        "exitCode": 0
+      },
+      {
+        "command": "npm run build",
+        "exitCode": 0
+      },
+      {
+        "command": "node scripts/ui-regression.mjs",
+        "exitCode": 0
+      }
+    ]
+  },
+  "completeRun": {
+    "id": "ridge-return",
+    "cleanContext": true,
+    "terminal": "designed-outcome",
+    "restart": "initial-state",
+    "evidence": "qa/evidence/run.json"
+  },
+  "checks": {
+    "launch": "PASS",
+    "render": "PASS",
+    "input": "PASS",
+    "coreLoop": "PASS",
+    "outcome": "PASS",
+    "restart": "PASS"
+  },
+  "limitations": [
+    {
+      "scope": "target device",
+      "reason": "Automated evidence is Linux Chrome 150 at 1440×900. macOS Safari/Chrome and trackpad have not been tested."
+    },
+    {
+      "scope": "experience",
+      "reason": "Completion time, subjective enjoyment and long-term balance require player feedback; model tests separately cover the other crossing route and ring style."
+    }
+  ]
+}
