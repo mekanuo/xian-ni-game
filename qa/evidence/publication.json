@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-09-09T08:22:35.562Z",
+  "checkedAt": "2026-09-09T09:17:43.376Z",
   "url": "https://mekanuo.github.io/xian-ni-game/",
   "release": {
     "game": "山门之外",
-    "version": "0.1.0",
-    "sourceCommit": "218ce2b92630ecdc4cb1a0a094be9ddc8073e394",
-    "builtAt": "2026-09-09T08:20:47.726Z"
+    "version": "0.1.1",
+    "sourceCommit": "dd3b71f2e8354387ce9a57608c9366de5f551dce",
+    "builtAt": "2026-09-09T09:16:55.224Z"
   },
   "resources": [
     {
@@ -33,22 +33,22 @@
       "sha256": "58e23fb0b0d022eaf4afc7c934afa3df1f3fd8ce4cb01645b0c14d444471f75e"
     },
     {
-      "path": "assets/index-BQ1tR1Mt.css",
+      "path": "assets/index-C4BEkKth.css",
       "status": 200,
-      "bytes": 14163,
-      "sha256": "b6aff0f376f410c3d00ed59e8f8a5d71aa359fe6913de8c9f69157165b7d038b"
+      "bytes": 27738,
+      "sha256": "1cccd21c79c07c5d8effac5559e0763d529859e317bc57781e509270615959db"
     },
     {
-      "path": "assets/index-BqNKq5_N.js",
+      "path": "assets/index-DkTnQXMX.js",
       "status": 200,
-      "bytes": 1310322,
-      "sha256": "720ee04e7feab62dcae2b2e750136cfd8f27d8ab00ca9e50535e4f893522800c"
+      "bytes": 1329456,
+      "sha256": "8aebe20d72735a51561168fca00ab74a3e4b4fc576bc5de5ba602be020ed1959"
     },
     {
       "path": "index.html",
       "status": 200,
       "bytes": 656,
-      "sha256": "b5fbaf41381ac0292b1a8136167968dbda67005a64b974e39f22edb788af1827"
+      "sha256": "b91a70e8be385afa1e0a03a0a9b688645434dc175350f583e08df2d8391bb864"
     }
   ],
   "browser": "150.0.7871.114",
@@ -116,7 +116,7 @@
       "state": {
         "scene": "home",
         "player": {
-          "x": 405.33333333333366,
+          "x": 386.66666666666686,
           "y": 710,
           "hp": 4,
           "mana": 5,
@@ -143,5 +143,55 @@
     }
   ],
   "errors": [],
-  "visual": "qa/evidence/public-start.png"
+  "audio": {
+    "state": "running",
+    "requested": true,
+    "scene": "home",
+    "muted": false,
+    "musicVolume": 0.55,
+    "effectsVolume": 0.45,
+    "musicScheduled": 4,
+    "musicRms": 0.016014314719045394,
+    "effectsRms": 0,
+    "activeVoices": 7,
+    "lastEffect": "",
+    "effectCounts": {},
+    "error": "",
+    "disposed": false
+  },
+  "visual": "qa/evidence/public-start.png",
+  "mobile": {
+    "device": "Chrome touch / DPR3 emulation, not a physical phone",
+    "dimensions": {
+      "pixels": [
+        1170,
+        2532
+      ],
+      "css": [
+        390,
+        844
+      ],
+      "dpr": 3
+    },
+    "audio": {
+      "state": "running",
+      "requested": true,
+      "scene": "home",
+      "muted": false,
+      "musicVolume": 0.55,
+      "effectsVolume": 0.45,
+      "musicScheduled": 12,
+      "musicRms": 0.023177619138852388,
+      "effectsRms": 0.0035289121856099796,
+      "activeVoices": 15,
+      "lastEffect": "ward",
+      "effectCounts": {
+        "ward": 1
+      },
+      "error": "",
+      "disposed": false
+    },
+    "input": "tap create, select ward, tap cast direction",
+    "visual": "qa/evidence/public-mobile.png"
+  }
 }

@@ -4,7 +4,8 @@
 - 原创地面纹理与灯盏细节接入四场景，移除重复灯盏表现及紫色边缘残留；手机界面重排、安全区和触控尺寸、常驻声音状态/开关。
 - 原创八小节持续合成配乐、独立音乐/音效总线、手势解锁与后台恢复；真实命中/挡击/受伤逐事件播放，加入聚光、尾迹、冲击环、光屑、短退与受击闪色。低动效保留结果提示并取消镜头震动。
 - 修复菜单/交谈结束后的多余暂停；独立审阅发现“对话中按J开记事”会把临时暂停变成主动暂停，已用真实键盘复现并修正菜单重复发暂停动作。
-- 最终 `npm run verify` exit0：35项模型/事件/真实Chrome WebAudio测试、手机触控/旋屏、战斗声画、界面/存档、完整山脊通关及重开通过，六项PASS。当前准备提交推送与公网0.1.1发布，发布结果以随后记录为准。
+- 最终 `npm run verify` exit0：35项模型/事件/真实Chrome WebAudio测试、手机触控/旋屏、战斗声画、界面/存档、完整山脊通关及重开通过，六项PASS。源码dd3b71f已成功推送；gh-pages发行49d7df9已发布0.1.1。
+- `node scripts/public-check.mjs` exit0：公网release.json版本/源码、7个文件SHA256核对一致；匿名桌面创建/归灯/键盘移动、390×844 DPR3触控施术和音乐RMS输出通过，无pageerror。新证据qa/evidence/publication.json、public-start.png、public-mobile.png。公网入口仍为https://mekanuo.github.io/xian-ni-game/。
 - 证据新增qa/evidence/mobile-render.json、mobile-390.png、mobile-844.png、combat.json、combat-hit.png、combat-hurt.png。手机是Chrome触屏/DPR仿真；iPhone/Android真机声音、Safari和用户主观打击感未验证。上轮目标图的全套手绘建筑/角色重制仍未完成。
 
 ## 2026-09-09 用户试玩：画面与交互品质需要改版
