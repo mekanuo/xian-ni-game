@@ -1,6 +1,6 @@
 # 《仙逆：山门之外》交接
 
-2026-09-09。先读本文件、AGENTS.md、docs/PROGRESS.md及git status/log。用户认可0.1.2整体比此前好，细节暂时保留；后对后续路线回复“可以，交给你”。0.2.0首章玩法深化已发布；用户随后反馈Mac Mini上的石驿布局简陋且丑。当前 **0.2.1 回石驿场景修订** 已完成最终候选验证，待推送发布，规格见design/QUALITY_PATCH_021.md；不要在本次反馈修复前转去0.3。具体规格见[PLAYABILITY_020](design/PLAYABILITY_020.md)，后续顺序见[ROADMAP](design/ROADMAP.md)。不重读旧聊天、不重做全书研究、不续作两个封版项目。
+2026-09-09。先读本文件、AGENTS.md、docs/PROGRESS.md及git status/log。用户认可0.1.2整体比此前好，细节暂时保留；后对后续路线回复“可以，交给你”。0.2.0首章玩法深化已发布；用户随后反馈Mac Mini上的石驿布局简陋且丑。当前 **0.2.1 回石驿场景修订** 已完成最终候选验证并提交0265aea；推送被当前自动审批拒绝，公网仍为0.2.0，规格见design/QUALITY_PATCH_021.md；不要在本次反馈修复前转去0.3。具体规格见[PLAYABILITY_020](design/PLAYABILITY_020.md)，后续顺序见[ROADMAP](design/ROADMAP.md)。不重读旧聊天、不重做全书研究、不续作两个封版项目。
 
 ## 交付入口
 
@@ -8,7 +8,7 @@
 - 工作目录/home/zhangjingzhou/workspace/xian-ni-game；源码分支feat/return-stone-v1；仓库mekanuo/xian-ni-game；master未改，gh-pages只放运行资源。
 - 恢复基点bf4d922，完整设计3e02f78；用户已确认原创小修士、空间冒险与角色扮演方向。首版Goal此前已完成，本轮没有另建Goal。
 - 0.2规则里程碑860bbb4、集成源码6c76f2c4d2d18bed62dab46a4da2e8c727dac085均已推送；发行提交00467b687ea03b7bd8af33dc8c39230fe9c6bf79，公网release.json核对为0.2.0及该源码SHA。
-- 最后交接提交只改文档、发布检查与证据，不改变运行包；其最新SHA以git log为准。
+- 0.2.1本地代码提交0265aea；当前自动审批已拒绝外部Git推送，尚未推送/部署。本地包/tmp/xian-ni-0.2.1-playable.zip及哈希清单/tmp/xian-ni-0.2.1-manifest.json已备齐。权限恢复后继续推送、部署、公网核对。
 
 ## 当前实现
 
@@ -36,4 +36,4 @@
 - deploy-pages要求验证PASS且工作区clean，仅发布dist到gh-pages；发布后核对release.json并运行public-check。
 - __XIAN_NI__只读证据接口；模型是唯一规则入口，存档结构仍为schema1/revision return-stone-v1。取消动作不会把新的待执行类型写入旧档。
 - 原文在本机../sources/仙逆.txt，不加入新提交/构建；仓库旧历史novel.txt未重写。/home/zhangjingzhou/smbb与starvein-companion-cards永久封版。
-- 先前发布审批拒绝已经解除，历史在PROGRESS；当前推送和公网发布成功，不恢复旧审批流程。
+- 先前0.2.0发布曾成功；本次环境重新切换为workspace-write/网络受限，0.2.1推送遭新的自动审批明确拒绝。此为当前真实阻塞，不能按旧“拒绝已解除”记录重试或绕过。用户授权仍持续有效，待环境允许对外发布后续接。
