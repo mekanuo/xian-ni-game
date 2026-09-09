@@ -18,6 +18,10 @@
         "exitCode": 0
       },
       {
+        "command": "node scripts/home-layout-check.mjs",
+        "exitCode": 0
+      },
+      {
         "command": "node scripts/interaction-check.mjs",
         "exitCode": 0
       },

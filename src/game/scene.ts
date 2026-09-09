@@ -22,6 +22,7 @@ export class WorldScene extends Phaser.Scene {
   private impactLabels=new Map<number,Phaser.GameObjects.Text>();
   private stepClock=0;
   private landscape!: Phaser.GameObjects.Container;
+  private homeFacade?:Phaser.GameObjects.Image;
   private effects!: Phaser.GameObjects.Graphics;
   private worldLabels!: Phaser.GameObjects.Container;
   private hoverLabel!: Phaser.GameObjects.Text;
@@ -51,10 +52,13 @@ export class WorldScene extends Phaser.Scene {
     this.load.image('characters-source',new URL('art/characters.png',document.baseURI).href);
     this.load.image('enemies-source',new URL('art/enemies.png',document.baseURI).href);
     this.load.image('environment-source',new URL('art/environment.png',document.baseURI).href);
+    this.load.image('home-inn-source',new URL('art/home-inn.png',document.baseURI).href);
+    this.load.image('home-props-source',new URL('art/home-props.png',document.baseURI).href);
+    this.load.image('home-ground',new URL('art/home-ground.png',document.baseURI).href);
     this.load.on('loaderror',(file:Phaser.Loader.File)=>{document.body.dataset.assetError=file.key;});
   }
   create(){
-    if(['title-source','characters-source','environment-source','enemies-source'].some(key=>!this.textures.exists(key))){
+    if(['title-source','characters-source','environment-source','enemies-source','home-inn-source','home-props-source','home-ground'].some(key=>!this.textures.exists(key))){
       const root=document.querySelector('#interface')!;
       root.innerHTML='<div class="veil"><section class="paper modal-paper" role="alert"><h2>山道画卷尚未展开</h2><p>部分画面未能载入，重新连接后可以再试一次。</p><button class="primary" id="retry-assets">重新载入</button></section></div>';
       document.querySelector('#retry-assets')!.addEventListener('click',()=>window.location.reload());
@@ -63,6 +67,11 @@ export class WorldScene extends Phaser.Scene {
     document.documentElement.style.setProperty('--title-image',`url("${new URL('art/title.png',document.baseURI).href}")`);
     this.keyCharacters();
     this.keyEnvironment();
+    const inn=this.keyAtlas('home-inn');
+    inn?.add('facade',0,12,45,2026,635);
+    const furnishings=this.keyAtlas('home-props');
+    const furnitureFrames:Record<string,number[]>={table:[44,62,441,376],workbench:[541,89,453,342],herb_rack:[1053,54,450,391],return_cart:[15,581,482,339],room:[523,535,486,406],rest_home:[1044,671,468,259]};
+    for(const [name,b] of Object.entries(furnitureFrames))furnishings?.add(name,0,b[0],b[1],b[2],b[3]);
     const enemies=this.keyAtlas('enemies');
     if(enemies){const boxes=[[120,19,428,688],[734,66,458,628],[68,774,489,396],[690,784,493,385]];boxes.forEach((b,i)=>enemies.add(String(i),0,b[0],b[1],b[2],b[3]));}
     this.state=createGame({name:'行舟',origin:'herbalist',wish:'travel',appearance:0});
@@ -85,8 +94,8 @@ export class WorldScene extends Phaser.Scene {
     this.input.on('pointermove',(p:Phaser.Input.Pointer)=>{if(this.dragStart){this.cameraManual=true;this.cameras.main.scrollX=this.dragStart.cx-(p.x-this.dragStart.x)/this.cameras.main.zoom;this.cameras.main.scrollY=this.dragStart.cy-(p.y-this.dragStart.y)/this.cameras.main.zoom;}});
     window.addEventListener('blur',()=>{this.dispatch({type:'pause',value:true});this.keys&&Object.values(this.keys).forEach(k=>k.reset());});
     document.addEventListener('visibilitychange',()=>{if(document.hidden)this.dispatch({type:'pause',value:true});});
-    this.scale.on('resize',()=>{this.cameras.main.setZoom(display.density*display.worldScale);this.hoverLabel.setResolution(display.density);this.renders.forEach(r=>r.label.setResolution(display.density));this.center();});
-    this.cameras.main.setZoom(display.density*display.worldScale);
+    this.scale.on('resize',()=>{this.updateCameraScale();this.hoverLabel.setResolution(display.density);this.renders.forEach(r=>r.label.setResolution(display.density));this.center();});
+    this.updateCameraScale();
     this.events.once('shutdown',()=>this.soundscape.dispose());
     this.refreshScene();this.center();
     // Read-only runtime evidence. QA must operate through real input; no state setters.
@@ -146,7 +155,20 @@ export class WorldScene extends Phaser.Scene {
   }
   private cancelAim(){this.casting=false;this.queuedInteract=null;this.dispatch({type:'cancel'});}
   private select(spell:Spell){this.casting=true;this.queuedInteract=null;this.dispatch({type:'select',spell});this.ui?.notify({pull:'引力术：点轻物牵起，再点地面放下。',flame:'火焰球：对准干物或威胁，点击施术。',ward:'护符·障：朝需要保护的方向点击。'}[spell]);}
-  private center(){this.cameraManual=false;if(this.state)this.cameras.main.centerOn(this.state.player.x,this.state.player.y-65);}
+  private updateCameraScale(){
+    const width=this.scale.width/display.density,height=this.scale.height/display.density;
+    const homeDesktop=this.state.scene==='home'&&width>=1000;
+    const scale=homeDesktop?Math.min(1,height/900):display.worldScale;
+    // Cover the whole viewport even when it exceeds the map's native world dimensions.
+    this.cameras.main.setZoom(display.density*Math.max(scale,width/1800,height/1100));
+  }
+  private cameraLead(){
+    // Tall desktop views include the inn facade; shorter views keep the player above the controls.
+    if(this.state.scene!=='home'||this.scale.width/display.density<1000)return 55;
+    const height=this.scale.height/display.density,zoom=this.cameras.main.zoom/display.density;
+    return Math.min(190,Math.max(0,(height/2-135)/zoom));
+  }
+  private center(){this.cameraManual=false;if(this.state)this.cameras.main.centerOn(this.state.player.x,this.state.player.y-this.cameraLead());}
   private pointerDown(p:Phaser.Input.Pointer){
     if(this.ui?.blocked||this.state.dialogue||this.state.defeated)return;
     this.soundscape.start();
@@ -243,7 +265,7 @@ export class WorldScene extends Phaser.Scene {
     if((p.pullId&&p.hold<=0)||this.casting){const side=Math.cos(p.facing)>0?1:-1;this.playerHand.fillStyle(0xa9c9b8,.2);this.playerHand.fillCircle(side*20,-36,6);}
     this.lastX=p.x;this.lastY=p.y;
     if(!this.cameraManual){
-      const camera=this.cameras.main;const tx=p.x-camera.width/2,ty=p.y-camera.height/2-55;
+      const camera=this.cameras.main;const tx=p.x-camera.width/2,ty=p.y-camera.height/2-this.cameraLead();
       camera.scrollX=Phaser.Math.Linear(camera.scrollX,tx,this.settings.reduced?1:.1);
       camera.scrollY=Phaser.Math.Linear(camera.scrollY,ty,this.settings.reduced?1:.1);
     }
@@ -254,7 +276,7 @@ export class WorldScene extends Phaser.Scene {
     this.renders.forEach(r=>r.container.destroy());this.renders.clear();
     this.worldLabels.removeAll(true);
     this.feedback.active=[];this.impactLabels.forEach(label=>label.destroy());this.impactLabels.clear();
-    const map=SCENES[this.state.scene];this.cameras.main.setBounds(0,0,map.width,map.height);
+    const map=SCENES[this.state.scene];this.cameras.main.setBounds(0,0,map.width,map.height);this.updateCameraScale();
     this.paintLandscape();
     for(const e of this.state.worlds[this.state.scene])this.makeEntity(e);
     this.soundscape.setScene(this.state.scene);this.center();
@@ -263,13 +285,14 @@ export class WorldScene extends Phaser.Scene {
     g.fillStyle(color,alpha);g.beginPath();g.moveTo(points[0],points[1]);for(let i=2;i<points.length;i+=2)g.lineTo(points[i],points[i+1]);g.closePath();g.fillPath();
   }
   private paintLandscape(){
+    this.homeFacade?.destroy();this.homeFacade=undefined;
     this.landscape.removeAll(true);
     const m=SCENES[this.state.scene],g=this.add.graphics();this.landscape.add(g);
     const rand=seeded(['home','creek','workshop','crossing'].indexOf(m.id)*43+83);
     const terrainKey='terrain-detail';
     if(this.textures.exists(terrainKey))this.textures.remove(terrainKey);
     const terrain=this.textures.createCanvas(terrainKey,m.width*2,m.height*2)!;
-    const context=terrain.getContext();context.scale(2,2);paintTerrain(context,m);terrain.refresh();
+    const context=terrain.getContext();context.scale(2,2);paintTerrain(context,m,this.textures.get('home-ground').getSourceImage() as HTMLImageElement);terrain.refresh();
     this.landscape.addAt(this.add.image(0,0,terrainKey).setOrigin(0).setScale(.5),0);
     // Vegetation belongs to edges and landmarks, with open lanes between groups.
     for(const [x,y] of [[70,90],[150,67],[490,48],[1210,75],[1660,65],[1740,135],[95,1025],[170,1010],[560,1050],[1430,1040],[1630,1010]])this.bush(g,x,y,26+rand()*24,rand);
@@ -282,12 +305,12 @@ export class WorldScene extends Phaser.Scene {
       // All collision rectangles have visible geometry, never invisible walls.
       if(m.id==='crossing'&&ob.x===1180)continue;
       if(m.id==='home'&&ob.y===240)continue;
-      if(m.id==='home'&&ob.x===660){this.landscapeRock(g,ob.x+ob.w/2,ob.y+ob.h/2,ob.w*.5,ob.h*.5);continue;}
+      if(m.id==='home'&&ob.x===660){this.environmentProp('rocks',770,660,229,165);continue;}
       if(m.id==='creek'){g.fillStyle(0x748e76,.7);g.fillRoundedRect(ob.x,ob.y,ob.w,ob.h,9);g.lineStyle(2,0xc2cdb0,.65);g.strokeRoundedRect(ob.x,ob.y,ob.w,ob.h,9);}
       else if(m.id==='workshop'&&ob.w<40){g.fillStyle(0x776b50);g.fillRect(ob.x,ob.y,ob.w,ob.h);for(let y=ob.y;y<ob.y+ob.h;y+=25){g.lineStyle(2,0xad9c72);g.lineBetween(ob.x,y,ob.x+ob.w,y);}}
       else{this.landscapeRock(g,ob.x+ob.w/2,ob.y+ob.h/2,ob.w*.5,ob.h*.5);}
     }
-    g.lineStyle(2,0x647e5d,.16);g.strokeRect(28,28,m.width-56,m.height-56);
+    if(m.id!=='home'){g.lineStyle(2,0x647e5d,.16);g.strokeRect(28,28,m.width-56,m.height-56);}
     // Bake immutable brushwork once; replaying thousands of paths every frame stalls software WebGL.
     const groundKey='ground-baked';
     if(this.textures.exists(groundKey))this.textures.remove(groundKey);
@@ -339,27 +362,21 @@ export class WorldScene extends Phaser.Scene {
     this.roof(g,x-20,y-60,w+40,90);
   }
   private paintHome(g:Phaser.GameObjects.Graphics,rand:()=>number){
-    if(this.textures.exists('environment')){
-      // Two compact buildings flank a low covered gallery. Their continuous foundation is the actual obstacle.
-      g.fillStyle(0x899083);g.fillRect(240,240,870,95);
-      g.fillStyle(0xc4b698);g.fillRect(250,250,850,74);
-      g.fillStyle(0x786849);g.fillRect(240,322,870,13);
-      g.lineStyle(3,0x72654d);for(let x=250;x<1110;x+=44){g.lineBetween(x,265,x,322);g.lineBetween(x,282,Math.min(x+44,1110),282);}
-      this.environmentProp('inn',392,340,318,303);
-      this.environmentProp('inn',951,340,318,303);
-      this.roof(g,548,224,245,48);
-      // The accessible annex is an open canopy, so its art does not suggest an unmodelled solid building.
-      this.environmentProp('shelter',1280,355,196,171);
-    }else{
-      this.house(g,240,240,870,105);
-      this.house(g,1210,275,180,75);
+    // One continuous facade occupies the existing solid foundation, with an open working apron below.
+    if(this.textures.exists('home-inn')){
+      this.homeFacade=this.add.image(675,337,'home-inn','facade').setOrigin(.5,1).setDisplaySize(947,310).setDepth(435);
+    }else this.house(g,240,240,870,95);
+    // Planting belongs to the edges of the yard; the southern route stays visually open.
+    for(const [x,y,r] of [[174,335,67],[153,450,48],[1472,325,60],[1503,418,43],[163,960,75],[260,1000,64],[1515,1010,75],[1380,1040,57]])this.bush(g,x,y,r,rand);
+    this.environmentProp('rocks',1510,1030,156,100)||this.rock(g,1510,1000,78,30);
+    // Low broken rail sections frame the garden, rather than a ruler across the entire screen.
+    for(const [left,right,y] of [[120,250,910],[430,565,952],[1150,1300,987],[1520,1660,900]]){
+      for(let x=left;x<right;x+=48){
+        g.lineStyle(6,0x665d46);g.lineBetween(x,y-26,x,y+12);
+        g.lineStyle(2,0xb6a27d);g.lineBetween(x-2,y-26,x-2,y+9);
+        if(x+48<right){g.lineStyle(5,0x85765a);g.lineBetween(x,y-17,x+48,y-14);g.lineBetween(x,y+1,x+48,y+4);}
+      }
     }
-    g.fillStyle(0x817a58);g.fillRect(242,344,865,7);
-    g.lineStyle(2,0x74815e);for(let x=240;x<1590;x+=35){g.lineBetween(x,885,x,905);if(x<560||x>780)g.lineBetween(x,890,x+35,890);}
-    for(const [x,y] of [[145,415],[1460,350],[1510,470],[138,920]])this.bush(g,x,y,55,rand);
-    this.environmentProp('rocks',1510,960,156,100)||this.rock(g,1510,930,78,30);
-
-    g.lineStyle(1,0x9b997e,.5);for(let x=220;x<1190;x+=75)g.lineBetween(x,565,x+40,565);
     // Returning route states are painted where players remember them.
     if(this.state.flags.gateOpen){g.fillStyle(0xbcb18f);g.fillRoundedRect(1230,700,170,50,8);}
     if(this.state.flags.ridgeUsed||this.state.flags.ridge_used){g.lineStyle(3,0x849b6b);g.lineBetween(1300,830,1440,970);}
@@ -431,12 +448,18 @@ export class WorldScene extends Phaser.Scene {
       image=this.add.image(0,5,'enemies',String(frame)).setOrigin(.5,1);
       image.setScale((e.type==='beast'?48:82)/image.height);
       container=this.add.container(e.x,e.y,[art,image,label]);
+    }else if(this.state.scene==='home'&&this.textures.get('home-props').has(e.id)){
+      const sprite=this.add.image(0,7,'home-props',e.id).setOrigin(.5,1);
+      const sizes:Record<string,[number,number]>={table:[142,78],workbench:[138,76],herb_rack:[112,85],return_cart:[156,91],room:[210,175],rest_home:[104,48]};
+      sprite.setDisplaySize(...sizes[e.id]);
+      container=this.add.container(e.x,e.y,[sprite,art,label]);
     }else{container=this.add.container(e.x,e.y,[art,label]);}
     container.setDepth(e.y);const r={container,art,label,image,stateKey:''};this.renders.set(e.id,r);this.drawObject(e,art);return r;
   }
   private drawObject(e:Entity,g:Phaser.GameObjects.Graphics){
     g.clear();const w=e.w,h=e.h;
     if(e.kind==='npc')return;
+    if(this.state.scene==='home'&&this.textures.get('home-props').has(e.id)){this.drawHomeState(e,g);return;}
     g.fillStyle(0x354d33,.16);g.fillEllipse(4,6,w*.95,Math.min(22,h*.4));
     if(e.kind==='exit'){
       g.fillStyle(0x7b7253);g.fillRect(-3,-45,6,48);
@@ -485,6 +508,24 @@ export class WorldScene extends Phaser.Scene {
       case 'room':g.fillStyle(0x7a805c);g.fillRect(-33,-54,66,55);g.fillStyle(0x9f9a70);g.fillRect(-29,-51,28,50);g.fillStyle(0xc8b681);g.fillCircle(-5,-22,3);break;
       case 'marks':case 'far_bank':case 'ridge_marker':case 'negotiator':this.rock(g,0,-15,w*.5,h*.55);g.lineStyle(2,0xdce0bd);g.lineBetween(-10,-25,9,-31);g.lineBetween(-9,-18,7,-23);g.lineBetween(-7,-10,10,-16);break;
       default:this.rock(g,0,-10,w*.4,h*.4);
+    }
+  }
+  private drawHomeState(e:Entity,g:Phaser.GameObjects.Graphics){
+    // Only state-driven additions live here; the original furniture stays a single detailed sprite.
+    if(e.type==='table'&&this.state.flags.endingWish==='travel'){
+      g.fillStyle(0xe9dfb7);g.fillRoundedRect(-37,-55,72,20,2);g.lineStyle(1,0xa7a180);g.strokeRoundedRect(-37,-55,72,20,2);
+      g.lineStyle(2,0x718784);
+      const route=this.state.flags.route==='main'?[-30,-46,-9,-44,5,-50,29,-43]:[-30,-44,-18,-51,-8,-41,5,-50,18,-40,29,-45];
+      g.strokePoints(route.reduce<Phaser.Geom.Point[]>((points,n,i)=>{if(i%2===0)points.push(new Phaser.Geom.Point(n,route[i+1]));return points;},[]),false);
+      if(this.state.flags.travelInvited){g.lineStyle(2,0x889c5c);g.lineBetween(-25,-38,23,-38);}
+    }
+    if(e.type==='workbench'&&(this.state.flags.roomTalk||this.state.flags.endingWish==='stay')){
+      g.fillStyle(0x718977);g.fillRect(-22,-52,23,13);g.lineStyle(1,0xd5c794);g.lineBetween(-18,-48,-5,-48);
+      if(this.state.flags.endingWish==='stay'){g.lineStyle(3,0x8a7954);g.lineBetween(43,-38,43,-93);g.lineBetween(43,-93,28,-93);g.lineStyle(2,0xcab57a);g.lineBetween(28,-93,28,-83);g.strokeCircle(28,-76,7);}
+    }
+    if(e.type==='herb_rack'){
+      if(this.state.flags.herbsWet){g.fillStyle(0x426f75,.27);g.fillEllipse(0,-61,87,20);}
+      if(this.state.flags.herbsRepaired){g.fillStyle(0xd5c69e);g.fillRoundedRect(-34,-56,68,16,2);g.lineStyle(2,0x80965c);for(let x=-27;x<27;x+=10)g.lineBetween(x,-52,x+5,-44);}
     }
   }
   private lantern(g:Phaser.GameObjects.Graphics,x:number,y:number,lit:boolean){

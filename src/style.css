@@ -66,3 +66,9 @@ html,body{overscroll-behavior:none}button{touch-action:manipulation;-webkit-tap-
  #observation-content{max-height:calc(100dvh - 229px);padding-bottom:12px}
  #observation-content h3{font-size:16px}#observation-content p,#observation-content li{font-size:12px}
 }
+
+/* A quiet signboard keeps the place name readable over detailed roofs and foliage. */
+@media (min-width:1000px){
+  .location>span{display:none}
+  .location h2{display:table;margin:0 auto 5px;padding:5px 20px 7px;color:#f1e8cd;background:#294a43eb;border:1px solid #b8a47799;box-shadow:0 3px 15px #18372e24;text-shadow:none;font-size:24px;letter-spacing:.18em;border-radius:2px}
+}

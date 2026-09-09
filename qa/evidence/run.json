@@ -51,7 +51,7 @@
           }
         ]
       },
-      "wall": 8671
+      "wall": 6355
     },
     {
       "action": "pull",
@@ -60,52 +60,52 @@
         "x": 560,
         "y": 665
       },
-      "wall": 10390
+      "wall": 8132
     },
     {
       "action": "interact",
       "detail": "xu",
-      "wall": 19063
+      "wall": 16813
     },
     {
       "action": "choice",
       "detail": "invite",
-      "wall": 26830
+      "wall": 26509
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 29323
+      "wall": 29145
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 35038
+      "wall": 35172
     },
     {
       "action": "interact",
       "detail": "rope",
-      "wall": 35649
+      "wall": 35790
     },
     {
       "action": "choice",
       "detail": "fix",
-      "wall": 38996
+      "wall": 39166
     },
     {
       "action": "interact",
       "detail": "bag",
-      "wall": 41531
+      "wall": 41616
     },
     {
       "action": "interact",
       "detail": "to_workshop",
-      "wall": 43256
+      "wall": 43317
     },
     {
       "action": "scene",
       "detail": "workshop",
-      "wall": 58574
+      "wall": 58818
     },
     {
       "action": "walk",
@@ -113,7 +113,7 @@
         "x": 320,
         "y": 220
       },
-      "wall": 58880
+      "wall": 59163
     },
     {
       "action": "walk",
@@ -121,22 +121,22 @@
         "x": 1450,
         "y": 220
       },
-      "wall": 68210
+      "wall": 68031
     },
     {
       "action": "interact",
       "detail": "ring",
-      "wall": 82374
+      "wall": 82615
     },
     {
       "action": "interact",
       "detail": "tao_work",
-      "wall": 84833
+      "wall": 85112
     },
     {
       "action": "choice",
       "detail": "long",
-      "wall": 86585
+      "wall": 86983
     },
     {
       "action": "walk",
@@ -144,7 +144,7 @@
         "x": 1210,
         "y": 600
       },
-      "wall": 88633
+      "wall": 88940
     },
     {
       "action": "pull",
@@ -153,17 +153,17 @@
         "x": 1310,
         "y": 600
       },
-      "wall": 90804
+      "wall": 91301
     },
     {
       "action": "interact",
       "detail": "tao_work",
-      "wall": 96774
+      "wall": 97155
     },
     {
       "action": "choice",
       "detail": "hold",
-      "wall": 97799
+      "wall": 98175
     },
     {
       "action": "walk",
@@ -171,22 +171,22 @@
         "x": 1390,
         "y": 610
       },
-      "wall": 99716
+      "wall": 100204
     },
     {
       "action": "mouse-hold-training",
       "detail": "learned through visible button",
-      "wall": 110802
+      "wall": 111276
     },
     {
       "action": "interact",
       "detail": "tao_work",
-      "wall": 111427
+      "wall": 111709
     },
     {
       "action": "choice",
       "detail": "long",
-      "wall": 112545
+      "wall": 112856
     },
     {
       "action": "walk",
@@ -194,7 +194,7 @@
         "x": 1210,
         "y": 600
       },
-      "wall": 114457
+      "wall": 114775
     },
     {
       "action": "pull",
@@ -203,12 +203,12 @@
         "x": 1310,
         "y": 600
       },
-      "wall": 116218
+      "wall": 116507
     },
     {
       "action": "interact",
       "detail": "rest_workshop",
-      "wall": 123258
+      "wall": 123609
     },
     {
       "action": "walk",
@@ -216,7 +216,7 @@
         "x": 1450,
         "y": 220
       },
-      "wall": 126013
+      "wall": 126353
     },
     {
       "action": "walk",
@@ -224,17 +224,17 @@
         "x": 320,
         "y": 220
       },
-      "wall": 130546
+      "wall": 130655
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 144585
+      "wall": 145472
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 153930
+      "wall": 154979
     },
     {
       "action": "walk",
@@ -242,7 +242,7 @@
         "x": 890,
         "y": 290
       },
-      "wall": 154238
+      "wall": 155270
     },
     {
       "action": "pull",
@@ -251,7 +251,7 @@
         "x": 1010,
         "y": 290
       },
-      "wall": 161323
+      "wall": 162421
     },
     {
       "action": "walk",
@@ -259,24 +259,24 @@
         "x": 1180,
         "y": 230
       },
-      "wall": 166989
+      "wall": 168688
     },
     {
       "action": "interact",
       "detail": "chime",
-      "wall": 170756
+      "wall": 172440
     },
     {
       "action": "shared-platform-and-chime",
       "detail": {
         "scene": "creek",
-        "time": 99.69999999999563,
+        "time": 100.93333333332889,
         "player": {
-          "x": 1312.7607282346205,
-          "y": 198.5465913091094,
+          "x": 1312.945826296507,
+          "y": 198.62682570020647,
           "hp": 4,
           "mana": 5,
-          "facing": -0.23565718581909437,
+          "facing": -0.23718649594055552,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -316,41 +316,41 @@
         "events": [
           {
             "seq": 24,
-            "time": 94.29999999999593,
+            "time": 95.4333333333292,
             "type": "change",
             "text": "远处绳梯搭到入口，旧眺台的路打开了。"
           },
           {
             "seq": 25,
-            "time": 97.26666666666243,
+            "time": 98.59999999999569,
             "type": "place",
             "text": "你实际走上旧眺台，凹台里风轻了。"
           },
           {
             "seq": 26,
-            "time": 97.98333333332906,
+            "time": 99.31666666666231,
             "type": "relationship",
             "text": "许照和你一起登上眺台，在旧采药记号旁添了今日共同认出的路。"
           },
           {
             "seq": 27,
-            "time": 99.29999999999565,
+            "time": 100.53333333332891,
             "type": "item",
             "text": "你收起旧檐风铃，想把它挂到驿中自己的窗边。"
           }
         ]
       },
-      "wall": 172989
+      "wall": 174442
     },
     {
       "action": "interact",
       "detail": "to_crossing",
-      "wall": 173606
+      "wall": 175059
     },
     {
       "action": "scene",
       "detail": "crossing",
-      "wall": 187376
+      "wall": 188681
     },
     {
       "action": "walk",
@@ -358,7 +358,7 @@
         "x": 320,
         "y": 170
       },
-      "wall": 187722
+      "wall": 189005
     },
     {
       "action": "walk",
@@ -366,7 +366,7 @@
         "x": 680,
         "y": 170
       },
-      "wall": 198197
+      "wall": 199676
     },
     {
       "action": "pull",
@@ -375,7 +375,7 @@
         "x": 800,
         "y": 180
       },
-      "wall": 201702
+      "wall": 203196
     },
     {
       "action": "walk",
@@ -383,12 +383,12 @@
         "x": 1430,
         "y": 280
       },
-      "wall": 208178
+      "wall": 209646
     },
     {
       "action": "interact",
       "detail": "ridge_marker",
-      "wall": 219529
+      "wall": 220773
     },
     {
       "action": "walk",
@@ -396,7 +396,7 @@
         "x": 1050,
         "y": 220
       },
-      "wall": 221821
+      "wall": 222963
     },
     {
       "action": "walk",
@@ -404,7 +404,7 @@
         "x": 680,
         "y": 170
       },
-      "wall": 225537
+      "wall": 226826
     },
     {
       "action": "walk",
@@ -412,7 +412,7 @@
         "x": 320,
         "y": 170
       },
-      "wall": 229360
+      "wall": 230807
     },
     {
       "action": "walk",
@@ -420,37 +420,37 @@
         "x": 400,
         "y": 900
       },
-      "wall": 237521
+      "wall": 238600
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 245427
+      "wall": 247139
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 247530
+      "wall": 249239
     },
     {
       "action": "interact",
       "detail": "to_home",
-      "wall": 247869
+      "wall": 249564
     },
     {
       "action": "scene",
       "detail": "home",
-      "wall": 259332
+      "wall": 260955
     },
     {
       "action": "interact",
       "detail": "table",
-      "wall": 259680
+      "wall": 261294
     },
     {
       "action": "choice",
       "detail": "travel",
-      "wall": 264590
+      "wall": 266194
     }
   ],
   "observations": {
@@ -522,7 +522,7 @@
       ],
       "state": {
         "scene": "home",
-        "time": 1.1666666666666674,
+        "time": 1.1500000000000008,
         "player": {
           "x": 360,
           "y": 710,
@@ -563,7 +563,7 @@
           },
           {
             "seq": 3,
-            "time": 0.49999999999999994,
+            "time": 0.4666666666666666,
             "type": "pull",
             "text": "灵线牵住松脱的灯盏。点空地改变落点，按「放下」结束。",
             "x": 430,
@@ -572,7 +572,7 @@
           },
           {
             "seq": 4,
-            "time": 0.8000000000000008,
+            "time": 0.7833333333333341,
             "type": "change",
             "text": "灯盏落回架上。陶七终于松开手，暖光照见留给你的碗。",
             "x": 560,
@@ -588,12 +588,12 @@
         {
           "action": "interact",
           "detail": "tao_work",
-          "wall": 96774
+          "wall": 97155
         },
         {
           "action": "choice",
           "detail": "hold",
-          "wall": 97799
+          "wall": 98175
         },
         {
           "action": "walk",
@@ -601,22 +601,22 @@
             "x": 1390,
             "y": 610
           },
-          "wall": 99716
+          "wall": 100204
         },
         {
           "action": "mouse-hold-training",
           "detail": "learned through visible button",
-          "wall": 110802
+          "wall": 111276
         },
         {
           "action": "interact",
           "detail": "tao_work",
-          "wall": 111427
+          "wall": 111709
         },
         {
           "action": "choice",
           "detail": "long",
-          "wall": 112545
+          "wall": 112856
         },
         {
           "action": "walk",
@@ -624,7 +624,7 @@
             "x": 1210,
             "y": 600
           },
-          "wall": 114457
+          "wall": 114775
         },
         {
           "action": "pull",
@@ -633,12 +633,12 @@
             "x": 1310,
             "y": 600
           },
-          "wall": 116218
+          "wall": 116507
         }
       ],
       "state": {
         "scene": "workshop",
-        "time": 64.49999999999763,
+        "time": 65.03333333333093,
         "player": {
           "x": 1212.806466484438,
           "y": 599.2924686319171,
@@ -679,7 +679,7 @@
         "events": [
           {
             "seq": 17,
-            "time": 54.59999999999818,
+            "time": 54.9333333333315,
             "type": "hold",
             "text": "试环木块停住八秒，现在可以另施一术。",
             "x": 1440,
@@ -688,13 +688,13 @@
           },
           {
             "seq": 18,
-            "time": 59.299999999997915,
+            "time": 59.533333333331235,
             "type": "hint",
             "text": "陶七演示将灵线放长，又以短停展示留势。轮到你：站在试环站位，把远处木块牵近。"
           },
           {
             "seq": 19,
-            "time": 62.19999999999775,
+            "time": 62.63333333333106,
             "type": "pull",
             "text": "灵线牵住试环木块。点空地改变落点，按「放下」结束。",
             "x": 1530,
@@ -703,7 +703,7 @@
           },
           {
             "seq": 20,
-            "time": 62.83333333333105,
+            "time": 63.36666666666435,
             "type": "growth",
             "text": "远处木块稳稳到了手边。你亲手试成了长牵，灵线可达十步。"
           }
@@ -720,13 +720,13 @@
       "state": {
         "terminal": "designed-outcome",
         "scene": "home",
-        "time": 170.00000000002743,
+        "time": 170.90000000002814,
         "player": {
-          "x": 839.3884592686347,
-          "y": 439.24837973054963,
+          "x": 844.3929558916593,
+          "y": 441.0921416442955,
           "hp": 4,
           "mana": 4,
-          "facing": -2.7886022657628877,
+          "facing": -2.7886022657628873,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -777,25 +777,25 @@
         "events": [
           {
             "seq": 35,
-            "time": 153.20000000001406,
+            "time": 154.10000000001477,
             "type": "scene",
             "text": "雨后溪道"
           },
           {
             "seq": 36,
-            "time": 164.68333333335653,
+            "time": 165.65000000002397,
             "type": "return",
             "text": "门后添了一块山脊路标，背架靠在熟悉的墙边。"
           },
           {
             "seq": 37,
-            "time": 164.68333333335653,
+            "time": 165.65000000002397,
             "type": "scene",
             "text": "回石驿"
           },
           {
             "seq": 38,
-            "time": 170.00000000002743,
+            "time": 170.90000000002814,
             "type": "ending",
             "text": "你在桌上展开亲自走过的山脊绕路。风铃响过你们一起看路的眺台。许照在旁添了一笔，约好下次短途。"
           }

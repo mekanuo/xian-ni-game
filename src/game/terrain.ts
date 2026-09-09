@@ -50,7 +50,8 @@ function grass(ctx: CanvasRenderingContext2D, x: number, y: number, random: Rand
 }
 
 /** Baked Canvas2D brushwork. Caller owns pixel density; coordinates stay in world units. */
-export function paintTerrain(ctx: CanvasRenderingContext2D, map: SceneDefinition): void {
+export function paintTerrain(ctx: CanvasRenderingContext2D, map: SceneDefinition, homeGround?: CanvasImageSource): void {
+  if(map.id==='home'&&homeGround){ctx.drawImage(homeGround,0,0,map.width,map.height);return;}
   ctx.save();
   const random = randomFor(map.id), full = { x: 0, y: 0, w: map.width, h: map.height };
   ctx.fillStyle = color(map.palette.ground); ctx.fillRect(0, 0, full.w, full.h);

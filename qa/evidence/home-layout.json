@@ -1,0 +1,612 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "checkedAt": "2026-09-09T12:32:04.652Z",
+  "url": "http://127.0.0.1:4187/",
+  "mode": "visual-and-home-input",
+  "environment": {
+    "platform": "linux",
+    "limitation": "Linux Chrome viewport/DPR emulation; not physical Mac, Safari, or phone testing.",
+    "browser": "150.0.7871.114"
+  },
+  "devices": [
+    {
+      "id": "desktop-1440-dpr2",
+      "width": 1440,
+      "height": 900,
+      "dpr": 2,
+      "canvas": {
+        "width": 2828,
+        "height": 1768,
+        "cssWidth": 1439.78125,
+        "cssHeight": 900.109375
+      },
+      "screenshot": "qa/evidence/home-layout-desktop-1440-dpr2.png",
+      "player": {
+        "x": 360,
+        "y": 710,
+        "hp": 4,
+        "mana": 6,
+        "facing": 0,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "landmarks": {
+        "tao": {
+          "world": {
+            "x": 470,
+            "y": 660
+          },
+          "screen": {
+            "x": 470.0000128772499,
+            "y": 590.0593328491844
+          }
+        },
+        "lamp": {
+          "world": {
+            "x": 430,
+            "y": 760
+          },
+          "screen": {
+            "x": 430.0000128772499,
+            "y": 690.0593328491846
+          }
+        },
+        "lamp_stand": {
+          "world": {
+            "x": 560,
+            "y": 640
+          },
+          "screen": {
+            "x": 560.0000128772499,
+            "y": 570.0593328491844
+          }
+        },
+        "table": {
+          "world": {
+            "x": 760,
+            "y": 410
+          },
+          "screen": {
+            "x": 760.0000128772499,
+            "y": 340.05933284918444
+          }
+        },
+        "workbench": {
+          "world": {
+            "x": 1060,
+            "y": 430
+          },
+          "screen": {
+            "x": 1060.00001287725,
+            "y": 360.05933284918444
+          }
+        },
+        "herb_rack": {
+          "world": {
+            "x": 350,
+            "y": 420
+          },
+          "screen": {
+            "x": 350.0000128772499,
+            "y": 350.05933284918444
+          }
+        },
+        "room": {
+          "world": {
+            "x": 1280,
+            "y": 400
+          },
+          "screen": {
+            "x": 1280.00001287725,
+            "y": 330.05933284918444
+          }
+        }
+      }
+    },
+    {
+      "id": "desktop-1920-dpr1",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "canvas": {
+        "width": 1920,
+        "height": 1080,
+        "cssWidth": 1920,
+        "cssHeight": 1080
+      },
+      "screenshot": "qa/evidence/home-layout-desktop-1920-dpr1.png",
+      "player": {
+        "x": 360,
+        "y": 710,
+        "hp": 4,
+        "mana": 6,
+        "facing": 0,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "landmarks": {
+        "tao": {
+          "world": {
+            "x": 470,
+            "y": 660
+          },
+          "screen": {
+            "x": 501.3332799275744,
+            "y": 689.333303580683
+          }
+        },
+        "lamp": {
+          "world": {
+            "x": 430,
+            "y": 760
+          },
+          "screen": {
+            "x": 458.66661326090775,
+            "y": 795.9999702473497
+          }
+        },
+        "lamp_stand": {
+          "world": {
+            "x": 560,
+            "y": 640
+          },
+          "screen": {
+            "x": 597.3332799275744,
+            "y": 667.9999702473497
+          }
+        },
+        "table": {
+          "world": {
+            "x": 760,
+            "y": 410
+          },
+          "screen": {
+            "x": 810.6666132609078,
+            "y": 422.6666369140164
+          }
+        },
+        "workbench": {
+          "world": {
+            "x": 1060,
+            "y": 430
+          },
+          "screen": {
+            "x": 1130.6666132609075,
+            "y": 443.9999702473497
+          }
+        },
+        "herb_rack": {
+          "world": {
+            "x": 350,
+            "y": 420
+          },
+          "screen": {
+            "x": 373.3332799275744,
+            "y": 433.33330358068304
+          }
+        },
+        "room": {
+          "world": {
+            "x": 1280,
+            "y": 400
+          },
+          "screen": {
+            "x": 1365.3332799275743,
+            "y": 411.9999702473497
+          }
+        }
+      }
+    },
+    {
+      "id": "desktop-1280-dpr1",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1,
+      "canvas": {
+        "width": 1280,
+        "height": 720,
+        "cssWidth": 1280,
+        "cssHeight": 720
+      },
+      "screenshot": "qa/evidence/home-layout-desktop-1280-dpr1.png",
+      "player": {
+        "x": 360,
+        "y": 710,
+        "hp": 4,
+        "mana": 6,
+        "facing": 0,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "landmarks": {
+        "tao": {
+          "world": {
+            "x": 470,
+            "y": 660
+          },
+          "screen": {
+            "x": 375.9999923706056,
+            "y": 471.9999932050706
+          }
+        },
+        "lamp": {
+          "world": {
+            "x": 430,
+            "y": 760
+          },
+          "screen": {
+            "x": 343.9999923706056,
+            "y": 551.9999932050706
+          }
+        },
+        "lamp_stand": {
+          "world": {
+            "x": 560,
+            "y": 640
+          },
+          "screen": {
+            "x": 447.9999923706056,
+            "y": 455.9999932050706
+          }
+        },
+        "table": {
+          "world": {
+            "x": 760,
+            "y": 410
+          },
+          "screen": {
+            "x": 607.9999923706056,
+            "y": 271.9999932050706
+          }
+        },
+        "workbench": {
+          "world": {
+            "x": 1060,
+            "y": 430
+          },
+          "screen": {
+            "x": 847.9999923706055,
+            "y": 287.9999932050706
+          }
+        },
+        "herb_rack": {
+          "world": {
+            "x": 350,
+            "y": 420
+          },
+          "screen": {
+            "x": 279.9999923706056,
+            "y": 279.9999932050706
+          }
+        },
+        "room": {
+          "world": {
+            "x": 1280,
+            "y": 400
+          },
+          "screen": {
+            "x": 1023.9999923706055,
+            "y": 263.9999932050706
+          }
+        }
+      }
+    },
+    {
+      "id": "desktop-short-1920",
+      "width": 1920,
+      "height": 500,
+      "dpr": 1,
+      "canvas": {
+        "width": 1920,
+        "height": 500,
+        "cssWidth": 1920,
+        "cssHeight": 500
+      },
+      "screenshot": "qa/evidence/home-layout-desktop-short-1920.png",
+      "player": {
+        "x": 360,
+        "y": 710,
+        "hp": 4,
+        "mana": 6,
+        "facing": 0,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "landmarks": {
+        "tao": {
+          "world": {
+            "x": 470,
+            "y": 660
+          },
+          "screen": {
+            "x": 501.3332799275744,
+            "y": 311.66667250543804
+          }
+        },
+        "lamp": {
+          "world": {
+            "x": 430,
+            "y": 760
+          },
+          "screen": {
+            "x": 458.66661326090775,
+            "y": 418.3333391721047
+          }
+        },
+        "lamp_stand": {
+          "world": {
+            "x": 560,
+            "y": 640
+          },
+          "screen": {
+            "x": 597.3332799275744,
+            "y": 290.3333391721047
+          }
+        },
+        "table": {
+          "world": {
+            "x": 760,
+            "y": 410
+          },
+          "screen": {
+            "x": 810.6666132609078,
+            "y": 45.00000583877136
+          }
+        },
+        "workbench": {
+          "world": {
+            "x": 1060,
+            "y": 430
+          },
+          "screen": {
+            "x": 1130.6666132609075,
+            "y": 66.33333917210469
+          }
+        },
+        "herb_rack": {
+          "world": {
+            "x": 350,
+            "y": 420
+          },
+          "screen": {
+            "x": 373.3332799275744,
+            "y": 55.66667250543802
+          }
+        },
+        "room": {
+          "world": {
+            "x": 1280,
+            "y": 400
+          },
+          "screen": {
+            "x": 1365.3332799275743,
+            "y": 34.333339172104694
+          }
+        }
+      }
+    },
+    {
+      "id": "phone-390-dpr3",
+      "width": 390,
+      "height": 844,
+      "dpr": 3,
+      "touch": true,
+      "canvas": {
+        "width": 1170,
+        "height": 2532,
+        "cssWidth": 390,
+        "cssHeight": 844
+      },
+      "screenshot": "qa/evidence/home-layout-phone-390-dpr3.png",
+      "player": {
+        "x": 360,
+        "y": 710,
+        "hp": 4,
+        "mana": 6,
+        "facing": 0,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "landmarks": {
+        "tao": {
+          "world": {
+            "x": 470,
+            "y": 660
+          },
+          "screen": {
+            "x": 288.49999792435585,
+            "y": 470.00002271240874
+          }
+        },
+        "lamp": {
+          "world": {
+            "x": 430,
+            "y": 760
+          },
+          "screen": {
+            "x": 254.49999792435588,
+            "y": 555.0000227124087
+          }
+        },
+        "lamp_stand": {
+          "world": {
+            "x": 560,
+            "y": 640
+          },
+          "screen": {
+            "x": 364.9999979243559,
+            "y": 453.00002271240874
+          }
+        },
+        "table": {
+          "world": {
+            "x": 760,
+            "y": 410
+          },
+          "screen": {
+            "x": 534.9999979243559,
+            "y": 257.50002271240874
+          }
+        },
+        "workbench": {
+          "world": {
+            "x": 1060,
+            "y": 430
+          },
+          "screen": {
+            "x": 789.9999979243557,
+            "y": 274.50002271240874
+          }
+        },
+        "herb_rack": {
+          "world": {
+            "x": 350,
+            "y": 420
+          },
+          "screen": {
+            "x": 186.49999792435588,
+            "y": 266.00002271240874
+          }
+        },
+        "room": {
+          "world": {
+            "x": 1280,
+            "y": 400
+          },
+          "screen": {
+            "x": 976.9999979243557,
+            "y": 249.00002271240874
+          }
+        }
+      }
+    }
+  ],
+  "input": [
+    {
+      "device": "desktop-1440-dpr2",
+      "action": "Select pull, click lamp, move near stand anchor, release",
+      "result": {
+        "lampFixed": true,
+        "lamp": {
+          "id": "lamp",
+          "kind": "object",
+          "type": "lamp",
+          "name": "松脱的灯盏",
+          "x": 560,
+          "y": 665,
+          "w": 30,
+          "h": 40,
+          "state": "idle",
+          "movable": true,
+          "hint": "引力术牵到灯架旁，再放下",
+          "homeX": 430,
+          "homeY": 760,
+          "data": {
+            "startDistance": 86.02325267042627
+          }
+        }
+      }
+    },
+    {
+      "device": "desktop-1440-dpr2",
+      "action": "Click distant table and walk to reachable interaction point around courtyard stone",
+      "before": {
+        "x": 360,
+        "y": 710,
+        "hp": 4,
+        "mana": 5,
+        "facing": 0.6291552543321045,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "approach": {
+        "x": 364.26666666666665,
+        "y": 706.8,
+        "hp": 4,
+        "mana": 5,
+        "facing": -0.6435011087932843,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": [
+          {
+            "x": 697.6,
+            "y": 456.8
+          }
+        ]
+      },
+      "arrival": {
+        "x": 685.9808701088382,
+        "y": 464.5433326198248,
+        "hp": 4,
+        "mana": 5,
+        "facing": -0.5878384943436232,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "dialogue": "table"
+    },
+    {
+      "device": "desktop-short-1920",
+      "action": "Hold D to walk into the center; verify following camera keeps the feet clear of the toolbar",
+      "feet": {
+        "x": 950.0443910386808,
+        "y": 365.00000583877136
+      },
+      "dock": {
+        "x": 782.5390625,
+        "y": 401,
+        "width": 354.921875,
+        "height": 78
+      }
+    }
+  ],
+  "errors": []
+}
