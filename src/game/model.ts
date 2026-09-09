@@ -1,5 +1,6 @@
 import { SCENES } from './content';
 import { initialLifeEntities, lifeEntityIds } from './life-content';
+import { validateLife, validateManifest } from './save';
 import type { ActionResult, CastPreview, DialogueChoice, Entity, GameAction, GameState, Profile, SceneId, Spell, Vec } from './contracts';
 
 const clone = <T>(v: T): T => JSON.parse(JSON.stringify(v));
@@ -498,6 +499,8 @@ export function restore(json:string):GameState {
   if(s.events.some(e=>!e||!Number.isFinite(e.seq)||!Number.isFinite(e.time)||typeof e.text!=='string'||typeof e.type!=='string'))throw Error('存档事件数据无效');
   if(s.projectiles.some(p=>!finitePoint(p)||!Number.isFinite(p.vx)||!Number.isFinite(p.vy)||!Number.isFinite(p.life)||!['player','enemy'].includes(p.owner)))throw Error('存档投射物数据无效');
   if(s.dialogue&&(!Array.isArray(s.dialogue.choices)||typeof s.dialogue.text!=='string'))throw Error('存档对话无效');
+  validateManifest(s);
+  if(s.checkpoint!==null){ let nested: GameState; try{nested=restore(s.checkpoint);}catch{throw Error('存档恢复点无效');} if(nested.checkpoint!==null)throw Error('存档恢复点层级无效'); validateLife(nested.life); }
   if(s.checkpoint!==null&&typeof s.checkpoint!=='string')throw Error('存档恢复点无效');
   for(const key of ['facing','invulnerable','cooldown','ward','wardFacing','hold']as const)if(!Number.isFinite(s.player[key]))throw Error('存档术法状态无效');
   return s;
