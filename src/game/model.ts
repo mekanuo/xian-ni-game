@@ -124,8 +124,8 @@ function choose(s:GameState,id:string):ActionResult {
   else if(id==='room'){s.flags.roomTalk=true;emit(s,'relationship','陶七说驿后空屋可整理。你约好归来自己定下练功角的位置。');}
   else if(id==='route_talk'){s.flags.routeTalk=true;emit(s,'relationship','许照把山外两段短路画给你看，约好先试走石渡这一段。');}
   else if(id==='refuse'){s.flags.refusedDemand=true;emit(s,'note','你没有交出自己的法器。干地仍被看守，低滩与山脊都可另找办法。');}
-  else if(id==='offer'){s.flags.deal=true;for(const e of entities(s).filter(e=>e.kind==='enemy'))e.state='peaceful';emit(s,'note','你让散修回想刚才亲眼看见的排水。他们答应让出施术位置，通路仍要等你实际修成。');}
-  else if(id==='demonstrate'){s.flags.deal=true;for(const e of entities(s).filter(e=>e.kind==='enemy'))e.state='peaceful';emit(s,'note','你让他们看已露出的低滩。卡住入口已经失去意义，散修让开路。');}
+  else if(id==='offer'){s.flags.deal=true;for(const e of entities(s).filter(e=>e.kind==='enemy'&&e.state!=='retreated'))e.state='peaceful';emit(s,'note','你让散修回想刚才亲眼看见的排水。他们答应让出施术位置，通路仍要等你实际修成。');}
+  else if(id==='demonstrate'){s.flags.deal=true;for(const e of entities(s).filter(e=>e.kind==='enemy'&&e.state!=='retreated'))e.state='peaceful';emit(s,'note','你让他们看已露出的低滩。卡住入口已经失去意义，散修让开路。');}
   else if(id==='danger'){s.flags.companion='refused';emit(s,'relationship','许照摇头：“我可以接物、指路，不替你迎着术法冲。”她退到雨棚边候着。');}
   else if(id==='regroup'){follow(s);emit(s,'relationship','你等来袭散去，再招呼许照靠近。');}
   else if(id==='stay'||id==='travel'){
@@ -146,7 +146,7 @@ function interact(s:GameState,id:string):ActionResult {
     release(s);s.scene=e.targetScene!;s.player.x=e.targetSpawn!.x;s.player.y=e.targetSpawn!.y;s.player.path=[];s.player.ward=0;s.projectiles=[];s.flags.casting=false;s.pending=null;
     s.flags[`visited_${s.scene}`]=true;const r=entities(s).find(e=>e.kind==='rest')!;s.lastSafe={scene:s.scene,point:{x:r.x,y:r.y}};
     for(const n of entities(s).filter(e=>e.type==='xu'))if(s.flags.companion==='following'){n.x=s.player.x+45;n.y=s.player.y+40;}
-    if(s.scene==='home'&&s.flags.route){s.flags.returned=true;const cart=entity(s,'return_cart')!;cart.state=s.flags.route==='main'?'arrived':'ridge';cart.x=s.flags.route==='main'?1230:1380;emit(s,'return',s.flags.route==='main'?'木车已进了院，路上的人正沿你修开的低滩来。':'门后添了一块山脊路标，背架靠在熟悉的墙边。');}
+    if(s.scene==='home'&&s.flags.route){s.flags.returned=true;const cart=entity(s,'return_cart')!;cart.state=s.flags.gateOpen?'arrived':'ridge';cart.x=s.flags.gateOpen?1230:1380;emit(s,'return',s.flags.gateOpen?'木车已进了院，路上的人正沿你修开的低滩来。':'门后添了一块山脊路标，背架靠在熟悉的墙边。');}
     emit(s,'scene',SCENES[s.scene].title);checkpoint(s);return result(true);
   }
   if(e.kind==='rest')return rest(s);
@@ -182,10 +182,10 @@ function interact(s:GameState,id:string):ActionResult {
     case 'chime':if(!inPlatform(s.player))return result(false,'先走上眺台');platformVisit(s);s.flags.chime=true;e.state='taken';emit(s,'item','你收起旧檐风铃，想把它挂到驿中自己的窗边。');break;
     case 'marks':if(!inPlatform(s.player))return result(false,'先走上眺台');platformVisit(s);dialogue(s,'marks','采药记号',s.flags.platformShared?'许照蹲在石边，添上一道你们今日共同辨过的干路：“风朝这边时，下坡要看苔色。”':'石边刻着许照早先的采药记号。你独自辨认了方向，这还不是你们一起走过的路。');break;
     case 'gate':s.flags.gateObserved=true;dialogue(s,'gate_inspect','闸口牵扣','闸槽尚好。小幅牵开能示范排水；无楔松手就会回弹。可以先在下方固定桩安楔再牵，也可以留势时腾手安楔。');break;
-    case 'negotiator':dialogue(s,'negotiation','拦路散修','“水一涨，人人都要挤这条干地。留下法器，才好说话。”你看见闸槽还在，旁边也有高处旧绳梯。',[{id:'refuse',label:'法器是我自己攒钱买的，不交'},{id:'offer',label:'以刚才的排水示范，提出疏水换通行',...(!s.flags.gateDemonstrated?{disabled:'先让他们亲眼看见牵闸的小幅排水'}:{})},{id:'demonstrate',label:'让他们看已经露出的低滩',...(!s.flags.gateOpen?{disabled:'水路还未实际修通'}:{})}]);break;
+    case 'negotiator':dialogue(s,'negotiation','拦路散修','“水一涨，人人都要挤这条干地。留下法器，才好说话。”你看见闸槽还在，旁边也有高处旧绳梯。',[{id:'refuse',label:'法器是我自己攒钱买的，不交'},{id:'offer',label:'以刚才的排水示范，提出疏水换通行',...(!s.flags.gateDemonstrated?{disabled:'先让他们亲眼看见牵闸的小幅排水'}:{})},{id:'demonstrate',label:'让他们看已经露出的低滩',...(!s.flags.gateOpen||!s.flags.gateDemonstrated?{disabled:'需要让在场散修亲眼看见排水'}:{})}]);break;
     case 'gate_slot':if(!s.flags.tools)return result(false,'需要自己的器具袋');if(s.player.pullId==='gate'&&s.player.hold<=0)return result(false,'正牵着闸扣，手腾不出来；先留势，或松手后预先安楔');s.flags.gateWedge=true;e.state='wedged';emit(s,'change','你用自己的扳钳把木楔安进闸槽。牵开闸扣时，它会卡住回弹。');if(s.flags.gatePulled)fixGate(s);break;
     case 'far_bank':if(!s.flags.gateOpen||s.player.x<1320)return result(false,'先实际修通并走过主渡');s.flags.route='main';s.flags.mainTraversed=true;if(companionPresent(s))s.flags.sharedJourney=true;emit(s,'route','你站到低滩彼岸，辨明了通向外界的路。现在可以沿原路亲自返驿。');break;
-    case 'ridge_marker':if(!s.flags.ridgeOpen||s.player.x<1320)return result(false,'先放下绳梯并沿山脊走过来');s.flags.route=s.flags.gateOpen?'main':'ridge';s.flags.ridgeUsed=true;if(companionPresent(s))s.flags.sharedJourney=true;emit(s,'route','你在山脊彼端记下绕行路：人能过，木车仍得另找低滩。现在亲自返驿。');break;
+    case 'ridge_marker':if(!s.flags.ridgeOpen||s.player.x<1320)return result(false,'先放下绳梯并沿山脊走过来');if(!s.flags.mainTraversed)s.flags.route='ridge';s.flags.ridgeUsed=true;if(companionPresent(s))s.flags.sharedJourney=true;emit(s,'route','你在山脊彼端记下绕行路：人能过，木车仍得另找低滩。现在亲自返驿。');break;
     case 'table':if(s.flags.returned&&s.flags.ringOwned&&s.flags.ringTrained&&s.flags.route)dialogue(s,'ending','你的桌边',`你带回自己的引环，也亲脚走过了${s.flags.route==='main'?'修通的主渡':'山脊绕行路'}。灯下的碗仍在，这次想怎样放下行囊？`,[{id:'stay',label:'放下引环，亲手定好练功角的挂钩'},{id:'travel',label:'摊开地图，定下下一次短途'}]);else dialogue(s,'table','你的桌边','碗旁压着半年前记下的工钱。引环是你慢慢攒来的，今日想把它拿回来。',[{id:'stay',label:'想有个自己的修行处'},{id:'travel',label:'想有本领走出去'}]);break;
     case 'room':dialogue(s,'room','驿后空屋',s.flags.roomTalk?'你和陶七说好的空屋，窗边正好挂环，角落能摆一块练习木。':'屋中空着一角。可以先和陶七谈谈，归来再定眼下的心愿。');break;
     case 'herb_rack':dialogue(s,'rack','晒药架',s.profile.origin==='herbalist'?'你此前分过的药草，已经按叶与根晾在不同层。熟悉的活计让这里有一点自己的样子。':'晾架上是你在药铺见过的草药。许照可以教你认出这次路上用得到的一种。');break;
@@ -194,7 +194,7 @@ function interact(s:GameState,id:string):ActionResult {
   return result(true);
 }
 function companionPresent(s:GameState){return s.flags.companion==='following'&&entities(s).some(e=>e.type==='xu'&&dist(e,s.player)<150);}
-function fixGate(s:GameState){s.flags.gateOpen=true;s.flags.gateFixed=true;entity(s,'gate_slot')!.state='fixed';emitOnce(s,'gateFixedNote','木楔卡稳闸扣，水沿泄槽转向，主渡低滩露出连续白石。');for(const enemy of entities(s).filter(e=>e.kind==='enemy'))enemy.state='peaceful';}
+function fixGate(s:GameState){s.flags.gateOpen=true;s.flags.gateFixed=true;s.flags.mainRepaired=true;entity(s,'gate_slot')!.state='fixed';emitOnce(s,'gateFixedNote','木楔卡稳闸扣，水沿泄槽转向，主渡低滩露出连续白石。');if(s.flags.ridgeUsed)emitOnce(s,'laterMainRepair','先前走通的山脊仍在。后来修好的主渡也能运车了；这不改变你先走山脊的经历。');}
 function inPlatform(p:Vec){return p.x>1110&&p.x<1500&&p.y>100&&p.y<315;}
 function platformVisit(s:GameState){
   if(!s.flags.platformVisited){s.flags.platformVisited=true;emit(s,'place','你实际走上旧眺台，凹台里风轻了。');}
@@ -211,7 +211,7 @@ function trained(s:GameState,style:'long'|'hold'){
 }
 function release(s:GameState){
   if(!s.player.pullId)return;const e=entity(s,s.player.pullId);
-  if(e){e.state='idle';objectChanged(s,e);if(e.id==='gate'&&!s.flags.gateWedge){e.x=e.homeX!;e.y=e.homeY!;s.flags.gatePulled=false;emit(s,'change','无楔的闸扣回弹，短暂排出的水重新漫上低滩。散修已看见这次示范。');}if(['decoy','shield_board','boat','board'].includes(e.id)&&!e.data?.noiseUsed&&dist(e,{x:e.homeX!,y:e.homeY!})>70){data(e).noiseUsed=true;for(const enemy of entities(s).filter(n=>n.kind==='enemy'&&n.state!=='retreated'&&n.state!=='peaceful'&&dist(n,e)<550)){data(enemy).lastX=e.x;data(enemy).lastY=e.y;data(enemy).seen=3;enemy.state='searching';}emit(s,'drop',`${e.name}落稳，声响留在实际落点。`,e);}}
+  if(e){e.state='idle';objectChanged(s,e);if(e.id==='gate'&&!s.flags.gateWedge){e.x=e.homeX!;e.y=e.homeY!;s.flags.gatePulled=false;emit(s,'change','无楔的闸扣回弹，短暂排出的水重新漫上低滩。');}if(['decoy','shield_board','boat','board'].includes(e.id)&&!e.data?.noiseUsed&&dist(e,{x:e.homeX!,y:e.homeY!})>70){data(e).noiseUsed=true;for(const enemy of entities(s).filter(n=>n.kind==='enemy'&&n.state!=='retreated'&&n.state!=='peaceful'&&dist(n,e)<550)){data(enemy).lastX=e.x;data(enemy).lastY=e.y;data(enemy).seen=3;enemy.state='searching';}emit(s,'drop',`${e.name}落稳，声响留在实际落点。`,e);}}
   s.player.pullId=null;s.player.pullPoint=null;s.player.hold=0;
   if(!s.flags.platformReturn&&!s.flags.platformLong)s.flags.platformOpen=false;
 }
@@ -226,7 +226,7 @@ function objectChanged(s:GameState,e:Entity){
     if(moved>95&&s.flags.basketSafe)emitOnce(s,'shelterShared','你先安置好药筐再借板，许照伸手接住板端，近路留下了一段干燥落脚处。');
   }
   if(e.id==='platform_ladder'&&e.x<1090){s.flags.platformOpen=true;s.flags.platformLong=true;emitOnce(s,'ladderLowered','远处绳梯搭到入口，旧眺台的路打开了。');}
-  if(e.id==='gate'&&moved>75){s.flags.gatePulled=true;s.flags.gateDemonstrated=true;emitOnce(s,'gateHint','闸扣拉开，水短暂流向泄槽。没有木楔，松手就会回弹；散修已经看见排水的用处。');if(s.flags.gateWedge)fixGate(s);}
+  if(e.id==='gate'&&moved>75){s.flags.gatePulled=true;const witnesses=entities(s).filter(n=>n.kind==='enemy'&&n.type==='raider'&&n.state!=='retreated'&&dist(n,e)<300&&clearLine(s,n,e,e.id));if(witnesses.length){s.flags.gateDemonstrated=true;for(const witness of witnesses)data(witness).drainageSeen=true;}emitOnce(s,'gateHint','闸扣拉开，水短暂流向泄槽。没有木楔，松手就会回弹。');if(witnesses.length)emitOnce(s,'gateWitnessed','在场散修亲眼看见了排水，可以近处商量让出施术位置。');if(s.flags.gateWedge)fixGate(s);}
   if(e.id==='ridge_rope'&&e.x<1030&&moved>75){s.flags.ridgeOpen=true;emitOnce(s,'ridgeLadder','旧绳梯落在西岸。高处山脊出现连续可走的路。');}
   if(e.id==='trial'&&s.flags.trialStyle==='long'&&Number(e.data?.startDistance)>300&&moved>70)trained(s,'long');
 }
@@ -318,6 +318,22 @@ function enemyTick(s:GameState,e:Entity,dt:number){
   }
 }
 function spawnProjectile(s:GameState,from:Vec,to:Vec,owner:'player'|'enemy',speed:number){const angle=Math.atan2(to.y-from.y,to.x-from.x);const id=Number(s.flags.projectileSeq??0)+1;s.flags.projectileSeq=id;s.projectiles.push({id,x:from.x+Math.cos(angle)*24,y:from.y+Math.sin(angle)*24,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,life:owner==='player'?.92:1.6,owner});}
+// The directional shield has a physical front edge, so a ray aimed past the
+// player's body can still be stopped before it reaches someone behind them.
+function wardProtects(s:GameState,who:Vec,source:Vec){
+  const p=s.player;if(p.ward<=0||dist(p,who)>220)return false;
+  const nx=Math.cos(p.wardFacing),ny=Math.sin(p.wardFacing);
+  const front=(v:Vec)=>(v.x-p.x)*nx+(v.y-p.y)*ny;
+  const a=front(source),b=front(who);if(a<=b||a<20||b>55)return false;
+  const plane=Math.min(55,a),ratio=(a-plane)/(a-b);
+  const hit={x:source.x+(who.x-source.x)*ratio,y:source.y+(who.y-source.y)*ratio};
+  return Math.abs((hit.x-p.x)*-ny+(hit.y-p.y)*nx)<=48&&clearLine(s,p,hit);
+}
+function wardIntercepts(s:GameState,point:Vec,velocity:Vec){
+  const p=s.player;if(p.ward<=0)return false;
+  const nx=Math.cos(p.wardFacing),ny=Math.sin(p.wardFacing),dx=point.x-p.x,dy=point.y-p.y;
+  return velocity.x*nx+velocity.y*ny<0&&dx*nx+dy*ny>0&&Math.hypot(dx,dy)<=70&&Math.abs(dx*-ny+dy*nx)<=48;
+}
 function projectileTick(s:GameState,dt:number){
   for(const p of s.projectiles){
     const before={x:p.x,y:p.y};p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt;
@@ -336,6 +352,7 @@ function projectileTick(s:GameState,dt:number){
       }
       for(const e of entities(s).filter(e=>e.kind==='enemy'&&e.state==='idle'))if(dist(e,p)<260&&clearLine(s,e,p)){e.state='alert';e.timer=1;data(e).seen=3;data(e).lastX=before.x;data(e).lastY=before.y;}
     }else{
+      if(wardIntercepts(s,p,{x:p.vx,y:p.vy})){s.player.ward=0;p.life=0;emit(s,'block','护符前缘截住一次来袭，身后的同行者仍能前行。',s.player);continue;}
       if(dist(p,s.player)<24){hurt(s,{x:p.x-p.vx*.1,y:p.y-p.vy*.1},'飞石从护持未遮住的一侧击中，体力少了一格。');p.life=0;}
       const xu=entities(s).find(e=>e.type==='xu');if(xu&&s.flags.companion==='following'&&dist(p,xu)<24){s.flags.companion='sheltered';data(xu).sheltered=true;emit(s,'relationship','许照被来袭逼退，转到遮蔽处，暂时停下协作。');p.life=0;}
     }
@@ -349,7 +366,9 @@ function companionTick(s:GameState,dt:number){
     if(dist(xu,brace)<30&&dist(s.player,{x:535,y:640})<145){s.flags.boatCooperating=false;s.flags.boatSecured=true;s.flags.boatShared=true;entity(s,'boat')!.state='secured';emit(s,'relationship',s.profile.origin==='herbalist'?'你指出干燥踏点并稳住绳扣，许照压住船舷，小舟终于稳了。':'许照照着松扣的位置压住船舷，你把绳索绕回去，一起稳住小舟。');}return;
   }
   if(s.flags.companion==='following'){
-    if(!safeFromThreat(s,xu,140)||s.projectiles.some(p=>p.owner==='enemy'&&dist(p,xu)<150)){xu.state='waiting';return;}
+    const threatened=entities(s).some(e=>e.kind==='enemy'&&e.state!=='retreated'&&e.state!=='peaceful'&&dist(e,xu)<140&&clearLine(s,e,xu)&&!wardProtects(s,xu,e));
+    const incoming=s.projectiles.some(p=>p.owner==='enemy'&&dist(p,xu)<150&&!wardProtects(s,xu,p));
+    if(threatened||incoming){xu.state='waiting';return;}
     const behind={x:s.player.x-Math.cos(s.player.facing)*65,y:s.player.y-Math.sin(s.player.facing)*65};
     if(dist(xu,s.player)>85){
       if(clearLine(s,xu,behind)&&free(s,behind)){moveBody(s,xu,behind,145,dt,xu.id);}
@@ -384,6 +403,16 @@ function stepTick(s:GameState,dt:number,input:Vec){
   if(s.scene==='creek'){
     s.flags.rockClock=Math.max(0,Number(s.flags.rockClock??0)-dt);
     if(p.x>1340&&p.x<1430&&p.y>620&&p.y<720&&Number(s.flags.rockClock)===0){const rock=entity(s,'rock_source')!;s.flags.rockClock=4;spawnProjectile(s,rock,{x:p.x,y:p.y},'enemy',220);emit(s,'warning','上方碎石松动，正落向窄段！朝上护持，或退回下方长路。',rock);}
+  }
+  if(s.scene==='crossing'){
+    const rock=entity(s,'ridge_rock_source')!;
+    s.flags.ridgeRockClock=Math.max(0,Number(s.flags.ridgeRockClock??0)-dt);
+    if(rock.state==='warning'){
+      rock.timer=Math.max(0,(rock.timer??0)-dt);
+      if(rock.timer===0){rock.state='idle';spawnProjectile(s,rock,{x:1390,y:320},'enemy',220);emit(s,'drop','山脊碎石沿标明的窄段落下；两旁石地仍可避让。',rock);}
+    }else if(p.x>1350&&p.x<1420&&p.y>230&&p.y<325&&Number(s.flags.ridgeRockClock)===0){
+      rock.state='warning';rock.timer=1;s.flags.ridgeRockClock=7;emit(s,'warning','山脊上方碎石松动！一息后落向正下方，朝上护持或移到两旁石地。',rock);
+    }
   }
   projectileTick(s,dt);companionTick(s,dt);
   if(s.scene==='creek'&&inPlatform(p))platformVisit(s);

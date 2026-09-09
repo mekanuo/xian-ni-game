@@ -111,3 +111,9 @@ Use case: precise-object-edit.
 Edit the attached FOUR-character 2×2 game sprite atlas. Change ONLY the grey checkerboard background to one perfectly flat, solid, uniform saturated MAGENTA color #FF00FF (RGB 255,0,255), every background pixel the same flat magenta. This is a chroma-key production atlas, NOT a transparency preview. Do not leave any checkerboard, grey, white, gradients, lighting, texture, ground shadows or vignette in the background.
 Keep all four characters exactly unchanged: same faces, same stone-blue player robes, same brown handyman, same moss-green herbalist, all same poses, same full bodies, same dark outlines, same positions and same 1254×1254 canvas with equal 2×2 quadrant layout. Do NOT put any magenta into the characters. Preserve crisp clean dark outlines. Only replace the background and gaps between limbs with solid #FF00FF. No text, labels, logos or new elements.
 ```
+
+## M3 敌方角色补齐
+
+`public/art/enemies.png`：1254×1254 RGB洋红底图集，延续内置 image_gen 原创生成方式。上一美术任务已生成文件；本轮读取当前文件并目视复核后接管渲染。顶部为灰衣和短褂普通散修，底部为獾形山兽及小山猪形山兽。需求摘要：斜俯视、朴素成年修士、灰褐衣物、动物约至玩家腰部、清楚轮廓、无文字。此处为需求摘要，不冒充缺失的工具逐字提示词。
+
+只读像素检查后的独立紧裁切帧（含边距）：灰衣[120,19,428,688]，短褂[734,66,458,628]，山獾[68,774,489,396]，山猪[690,784,493,385]。渲染时使用已有容差色键，不改源PNG；散修显示约82像素高，山兽约48像素高。伤害点、朝向、蓄势倾斜与退避透明度由真实状态控制。只有静态原画，没有宣称完整逐帧动画。

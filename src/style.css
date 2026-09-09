@@ -4,3 +4,5 @@
 
 /* Hidden HUD controls must not intercept clicks on the world beneath them. */
 .pause-state:not(.shown),.nearby:not(.shown){visibility:hidden}.pause-state.shown,.nearby.shown{visibility:visible}
+
+.ending-copy{font-family:var(--serif);font-size:22px;line-height:1.95;max-width:650px}

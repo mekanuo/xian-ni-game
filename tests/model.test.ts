@@ -143,6 +143,37 @@ describe('deterministic spatial world', () => {
     s.projectiles.push({id:90,x:410,y:710,vx:-180,vy:0,owner:'enemy',life:1});run(s,.25);expect(s.player.hp).toBe(4);expect(s.player.ward).toBe(0);
     run(s,3);act(s,{type:'cast',spell:'ward',point:{x:800,y:710}});s.projectiles.push({id:91,x:310,y:710,vx:180,vy:0,owner:'enemy',life:1});run(s,.25);expect(s.player.hp).toBe(3);expect(s.player.ward).toBeGreaterThan(0);
   });
+  it('the ward intercepts an offset incoming projectile before it reaches Xu behind the player',()=>{
+    const s=createGame(profile);s.flags.companion='following';const xu=object(s,'xu');xu.x=260;xu.y=745;
+    act(s,{type:'cast',spell:'ward',point:{x:700,y:710}});
+    s.projectiles.push({id:92,x:470,y:745,vx:-180,vy:0,owner:'enemy',life:2});run(s,1);
+    expect(s.player.ward).toBe(0);expect(s.flags.companion).toBe('following');expect(s.projectiles).toHaveLength(0);
+  });
+  it('Xu advances behind a correctly oriented ward but waits when the same incoming ray is unprotected',()=>{
+    const make=()=>{const s=createGame(profile);s.flags.companion='following';const xu=object(s,'xu');xu.x=274;xu.y=740;s.projectiles.push({id:93,x:420,y:755,vx:-50,vy:0,owner:'enemy',life:2});return s;};
+    const bare=make();run(bare,.025);expect(object(bare,'xu').x).toBe(274);
+    const guarded=make();act(guarded,{type:'cast',spell:'ward',point:{x:700,y:710}});run(guarded,.025);expect(object(guarded,'xu').x).toBeGreaterThan(274);
+  });
+  it('ridge stones give a paused warning, then a real projectile that can be blocked or avoided without mana',()=>{
+    const s=readyRing();exit(s,'to_crossing','crossing');s.player.x=1390;s.player.y=280;s.flags.ridgeOpen=true;
+    const rock=s.worlds.crossing.find(e=>e.id==='ridge_rock_source');expect(rock).toBeDefined();run(s,.1);
+    expect(s.events.some(e=>e.type==='warning'&&e.targetId==='ridge_rock_source')).toBe(true);expect(s.projectiles).toHaveLength(0);
+    act(s,{type:'pause',value:true});const frozen=snapshot(s);run(s,3);expect(snapshot(s)).toBe(frozen);resume(s);
+    act(s,{type:'cast',spell:'ward',point:{x:1390,y:160}});run(s,1.6);expect(s.player.hp).toBe(4);expect(s.player.ward).toBe(0);
+    s.player.mana=0;walk(s,{x:1450,y:310});run(s,8);expect(s.player.hp).toBe(4);walk(s,{x:1050,y:310});expect(s.defeated).toBe(false);
+  });
+  it('repairing after the ridge ending updates the returning cart without inventing main-bank traversal',()=>{
+    const s=readyRing();exit(s,'to_crossing','crossing');s.flags.ridgeUsed=true;s.flags.route='ridge';s.flags.returned=true;s.ended=true;
+    s.flags.gateWedge=true;s.player.x=1020;s.player.y=790;cast(s,'gate',{x:1030,y:750});
+    expect(s.flags.gateOpen).toBe(true);expect(s.flags.mainTraversed).not.toBe(true);
+    walk(s,{x:400,y:900});exit(s,'to_creek','creek');exit(s,'to_home','home');
+    expect(object(s,'return_cart').state).toBe('arrived');expect(s.flags.ridgeUsed).toBe(true);expect(s.flags.route).toBe('ridge');
+  });
+  it('opening the gate preserves withdrawn and hostile guards; unseen drainage does not become witnessed knowledge',()=>{
+    const s=readyRing();exit(s,'to_crossing','crossing');const a=object(s,'raider_a'),b=object(s,'raider_b');
+    a.state='retreated';a.hp=0;b.x=170;b.y=170;b.state='chasing';s.flags.gateWedge=true;s.player.x=1020;s.player.y=790;
+    cast(s,'gate',{x:1030,y:750});expect(s.flags.gateOpen).toBe(true);expect(a.state).toBe('retreated');expect(b.state).not.toBe('peaceful');expect(s.flags.gateDemonstrated).not.toBe(true);
+  });
   it('every visible dialogue page has at most three valid responses',()=>{
     const s=createGame(profile);interact(s,'tao');expect(s.dialogue!.choices.length).toBeLessThanOrEqual(3);
     if(s.dialogue!.choices.some(c=>c.id==='more')){act(s,{type:'choose',choiceId:'more'});expect(s.dialogue!.choices.length).toBeLessThanOrEqual(3);}
