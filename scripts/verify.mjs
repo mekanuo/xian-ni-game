@@ -14,15 +14,23 @@ try{
  if(!ready)throw Error('Preview server failed to start');
  const regression=spawn(process.execPath,['scripts/ui-regression.mjs'],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
  const regressionExit=await new Promise(r=>regression.on('exit',r));report.verify.suites.push({command:'node scripts/ui-regression.mjs',exitCode:regressionExit});if(regressionExit!==0)throw Error('UI save/input regression failed');
- for(const script of ['mobile-render-check.mjs','combat-check.mjs']){
+ for(const script of ['interaction-check.mjs','mobile-render-check.mjs','combat-check.mjs']){
   const check=spawn(process.execPath,[`scripts/${script}`],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
   const code=await new Promise(r=>check.on('exit',r));report.verify.suites.push({command:`node scripts/${script}`,exitCode:code});if(code!==0)throw Error(`${script} failed`);
  }
- const child=spawn(process.execPath,['scripts/playthrough.mjs'],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
- const exit=await new Promise(r=>child.on('exit',r));if(exit!==0)throw Error('Browser complete run failed; see qa/evidence/playthrough-failure.json');
+ // Both routes have isolated browsers and distinct evidence files; the server is read-only.
+ const routes=await Promise.all(['playthrough.mjs','main-route-check.mjs'].map(async script=>{
+  const child=spawn(process.execPath,[`scripts/${script}`],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
+  const code=await new Promise(r=>child.on('exit',r));return {command:`node scripts/${script}`,exitCode:code};
+ }));
+ report.verify.suites.push(...routes);
+ if(routes.some(r=>r.exitCode!==0))throw Error('A complete browser route failed; see corresponding qa/evidence failure trace');
  const evidence=JSON.parse(await readFile('qa/evidence/playthrough-draft.json','utf8'));
  if(!keys.every(k=>evidence.observations[k]))throw Error('Incomplete browser evidence');
  await writeFile('qa/evidence/run.json',JSON.stringify(evidence,null,2));
+ const main=JSON.parse(await readFile('qa/evidence/main-route.json','utf8'));if(main.status!=='PASS'||!main.observations.outcome||!main.observations.restart)throw Error('Incomplete main crossing evidence');
+ report.additionalCompleteRuns=[{id:'main-return',cleanContext:true,terminal:'designed-outcome',restart:'initial-state',evidence:'qa/evidence/main-route.json'}];
+ report.limitations[1].reason='Natural play duration and subjective enjoyment require player feedback. Both ring styles, shared platform memory, protected-basket bridge, main crossing and ridge endings have real browser input evidence; guard/companion failure boundaries also have model regression evidence.';
  report.status='PASS';report.verify.exitCode=0;for(const k of keys)report.checks[k]='PASS';
 }catch(e){report.status='FAIL';report.verify.exitCode=1;report.limitations.push({scope:'build',reason:String(e)});report.checks.coreLoop='FAIL';console.error(e);process.exitCode=1;}
 finally{if(server?.pid)try{process.kill(-server.pid,'SIGTERM');}catch{}await publish();}

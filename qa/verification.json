@@ -18,11 +18,23 @@
         "exitCode": 0
       },
       {
+        "command": "node scripts/interaction-check.mjs",
+        "exitCode": 0
+      },
+      {
         "command": "node scripts/mobile-render-check.mjs",
         "exitCode": 0
       },
       {
         "command": "node scripts/combat-check.mjs",
+        "exitCode": 0
+      },
+      {
+        "command": "node scripts/playthrough.mjs",
+        "exitCode": 0
+      },
+      {
+        "command": "node scripts/main-route-check.mjs",
         "exitCode": 0
       }
     ]
@@ -49,7 +61,16 @@
     },
     {
       "scope": "experience",
-      "reason": "Natural play duration and subjective enjoyment require player feedback. Both ring styles, shared platform memory and the ridge ending have real browser input evidence; the main crossing outcome and guard/companion boundaries have model regression evidence."
+      "reason": "Natural play duration and subjective enjoyment require player feedback. Both ring styles, shared platform memory, protected-basket bridge, main crossing and ridge endings have real browser input evidence; guard/companion failure boundaries also have model regression evidence."
+    }
+  ],
+  "additionalCompleteRuns": [
+    {
+      "id": "main-return",
+      "cleanContext": true,
+      "terminal": "designed-outcome",
+      "restart": "initial-state",
+      "evidence": "qa/evidence/main-route.json"
     }
   ]
 }

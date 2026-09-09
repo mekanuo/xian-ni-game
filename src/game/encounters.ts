@@ -74,7 +74,7 @@ function crossing(s: GameState,ridge: boolean): EncounterView {
 export function nearbyEncounter(s: GameState): EncounterView|undefined {
   const near=(ids:string[],radius:number)=>s.worlds[s.scene].filter(e=>ids.includes(e.id)).some(e=>distance(s.player,e)<=radius);
   if(s.scene==='home'&&near(['lamp_stand'],280))return s.flags.lampFixed
-    ? view('home-lamp','灯下归处','灯盏已经归架，暖光照着熟悉的院子。',s.flags.returned?'到自己的桌边放环或摊图':'沿溪道取回自己的器具袋')
+    ? view('home-lamp','灯下归处','灯盏已经归架，暖光照着熟悉的院子。',s.flags.returned?'到自己的桌边放环或摊图':!s.flags.tools?'沿溪道取回自己的器具袋':!s.flags.ringOwned?'去旧工棚取回自己的引环':!s.flags.ringTrained?'回旧工棚，与陶七亲手试环':'沿溪道去石渡，用引环试路')
     : view('home-lamp','松脱的灯盏','陶七扶着灯架，灯盏落在一旁。','选牵引，牵灯盏到架旁落点','到位后按放下');
   if(s.scene==='creek'){
     if(near(['platform_beam','platform_ladder','return_ladder','chime','marks'],180))return lookout(s);

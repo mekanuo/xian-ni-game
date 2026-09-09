@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { act, createGame, interactionPoint, previewPullMove, snapshot, tick } from '../src/game/model';
+import { act, canInteract, createGame, interactionPoint, previewPullMove, snapshot, tick } from '../src/game/model';
 import type { GameState, Vec } from '../src/game/contracts';
 
 const profile = { name: '行舟', origin: 'tinker' as const, wish: 'travel' as const, appearance: 0 as const };
@@ -19,6 +19,30 @@ function pullingByWall() {
 }
 
 describe('reachable interaction standing points', () => {
+  it('keeps a nearby interaction queued until the player rounds the workshop wall', () => {
+    const s = createGame(profile); s.scene = 'workshop'; s.player.x = 1130; s.player.y = 490;
+    const decoy = object(s, 'decoy'); decoy.x = 1215; decoy.y = 500;
+    expect(Math.hypot(s.player.x - decoy.x, s.player.y - decoy.y)).toBeLessThan(96);
+    const point = interactionPoint(s, decoy.id);
+    expect(point).toBeDefined(); expect(point!.y).toBeGreaterThan(525);
+    expect(act(s, { type: 'move', point: point! }).ok).toBe(true);
+    tick(s, .05, { x: 0, y: 0 });
+    expect(Math.hypot(s.player.x - decoy.x, s.player.y - decoy.y)).toBeLessThan(96);
+    const before = snapshot(s);
+    expect(canInteract(s, decoy.id)).toBe(false); expect(snapshot(s)).toBe(before);
+    expect(s.player.path.length).toBeGreaterThan(0);
+    for (let i = 0; i < 300 && s.player.path.length; i++) tick(s, .05, { x: 0, y: 0 });
+    expect(canInteract(s, decoy.id)).toBe(true);
+    expect(act(s, { type: 'interact', targetId: decoy.id }).ok).toBe(true);
+  });
+  it('checks a current nearby target without accepting missing, taken or obstructed standing positions', () => {
+    const s = createGame(profile);
+    expect(canInteract(s, 'lamp')).toBe(true);
+    expect(canInteract(s, 'missing')).toBe(false);
+    object(s, 'lamp').state = 'taken'; expect(canInteract(s, 'lamp')).toBe(false);
+    const table = object(s, 'table'); table.y = 490; s.player.x = 760; s.player.y = 520;
+    expect(canInteract(s, table.id)).toBe(false);
+  });
   it('finds another side when the near-side approach lies inside the courtyard wall', () => {
     const s = createGame(profile), table = object(s, 'table');
     table.y = 490; s.player.x = 760; s.player.y = 750;

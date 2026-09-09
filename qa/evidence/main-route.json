@@ -1,0 +1,860 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "runId": "main-return",
+  "environment": {
+    "browser": "150.0.7871.114",
+    "platform": "linux",
+    "viewport": "1440x900",
+    "url": "http://127.0.0.1:4187/"
+  },
+  "inputTrace": [
+    {
+      "action": "new-game",
+      "detail": {
+        "scene": "home",
+        "time": 0.09999999999999999,
+        "player": {
+          "x": 360,
+          "y": 710,
+          "hp": 4,
+          "mana": 6,
+          "facing": 0,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "flags": {
+          "eventSeq": 2,
+          "companion": "waiting",
+          "visited_home": true,
+          "wardCooldown": 0
+        },
+        "ended": false,
+        "dialogue": null,
+        "events": [
+          {
+            "seq": 1,
+            "time": 0,
+            "type": "note",
+            "text": "行舟，凝气三层。先前攒钱修的引环，今日该去取了。"
+          },
+          {
+            "seq": 2,
+            "time": 0,
+            "type": "hint",
+            "text": "陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。"
+          }
+        ]
+      },
+      "wall": 8268
+    },
+    {
+      "action": "pull",
+      "detail": {
+        "id": "lamp",
+        "x": 560,
+        "y": 665
+      },
+      "wall": 8740
+    },
+    {
+      "action": "interact",
+      "detail": "xu",
+      "wall": 17380
+    },
+    {
+      "action": "choice",
+      "detail": "invite",
+      "wall": 26275
+    },
+    {
+      "action": "interact",
+      "detail": "to_creek",
+      "wall": 28770
+    },
+    {
+      "action": "scene",
+      "detail": "creek",
+      "wall": 34827
+    },
+    {
+      "action": "interact",
+      "detail": "rope",
+      "wall": 35434
+    },
+    {
+      "action": "choice",
+      "detail": "fix",
+      "wall": 38619
+    },
+    {
+      "action": "interact",
+      "detail": "bag",
+      "wall": 41108
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 885,
+        "y": 555
+      },
+      "wall": 42602
+    },
+    {
+      "action": "pull",
+      "detail": {
+        "id": "basket",
+        "x": 1180,
+        "y": 520
+      },
+      "wall": 46731
+    },
+    {
+      "action": "pull",
+      "detail": {
+        "id": "board",
+        "x": 1120,
+        "y": 648
+      },
+      "wall": 52178
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1120,
+        "y": 735
+      },
+      "wall": 58804
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1120,
+        "y": 555
+      },
+      "wall": 62293
+    },
+    {
+      "action": "cross-shelter-bridge",
+      "detail": {
+        "scene": "creek",
+        "time": 28.86666666666631,
+        "player": {
+          "x": 1125.1963466722075,
+          "y": 564.8418552175344,
+          "hp": 4,
+          "mana": 3,
+          "facing": -1.535356872602231,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "flags": {
+          "eventSeq": 13,
+          "companion": "following",
+          "visited_home": true,
+          "wardCooldown": 0,
+          "lampFixed": true,
+          "platformOpen": false,
+          "dialogueRemainder": "",
+          "invited": true,
+          "casting": false,
+          "visited_creek": true,
+          "rockClock": 0,
+          "boatSecured": true,
+          "tools": true,
+          "basketSafe": true,
+          "basketProtected": true,
+          "boardReturned": false,
+          "shelterBridge": true,
+          "shelterShared": true
+        },
+        "ended": false,
+        "dialogue": null,
+        "events": [
+          {
+            "seq": 10,
+            "time": 18.866666666666877,
+            "type": "change",
+            "text": "药筐已经在棚内，借导水板也不会淋湿它。"
+          },
+          {
+            "seq": 11,
+            "time": 21.866666666666706,
+            "type": "pull",
+            "text": "灵线牵住雨棚导水板。点空地改变落点，按「放下」结束。",
+            "x": 945,
+            "y": 510,
+            "targetId": "board"
+          },
+          {
+            "seq": 12,
+            "time": 22.716666666666658,
+            "type": "change",
+            "text": "你先安置好药筐再借板，许照伸手接住板端，近路留下了一段干燥落脚处。"
+          },
+          {
+            "seq": 13,
+            "time": 23.966666666666587,
+            "type": "drop",
+            "text": "雨棚导水板落稳，声响留在实际落点。",
+            "x": 1120,
+            "y": 648,
+            "targetId": "board"
+          }
+        ]
+      },
+      "wall": 64179
+    },
+    {
+      "action": "interact",
+      "detail": "to_workshop",
+      "wall": 64771
+    },
+    {
+      "action": "scene",
+      "detail": "workshop",
+      "wall": 70081
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 320,
+        "y": 220
+      },
+      "wall": 70382
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1450,
+        "y": 220
+      },
+      "wall": 79281
+    },
+    {
+      "action": "interact",
+      "detail": "ring",
+      "wall": 94502
+    },
+    {
+      "action": "interact",
+      "detail": "tao_work",
+      "wall": 96993
+    },
+    {
+      "action": "choice",
+      "detail": "long",
+      "wall": 98889
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1210,
+        "y": 600
+      },
+      "wall": 100943
+    },
+    {
+      "action": "pull",
+      "detail": {
+        "id": "trial",
+        "x": 1310,
+        "y": 600
+      },
+      "wall": 103104
+    },
+    {
+      "action": "interact",
+      "detail": "rest_workshop",
+      "wall": 108889
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1450,
+        "y": 220
+      },
+      "wall": 111754
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 320,
+        "y": 220
+      },
+      "wall": 116229
+    },
+    {
+      "action": "interact",
+      "detail": "to_creek",
+      "wall": 130674
+    },
+    {
+      "action": "scene",
+      "detail": "creek",
+      "wall": 139725
+    },
+    {
+      "action": "interact",
+      "detail": "to_crossing",
+      "wall": 140329
+    },
+    {
+      "action": "scene",
+      "detail": "crossing",
+      "wall": 148671
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 700,
+        "y": 900
+      },
+      "wall": 148987
+    },
+    {
+      "action": "pull",
+      "detail": {
+        "id": "gate",
+        "x": 1030,
+        "y": 750
+      },
+      "wall": 154111
+    },
+    {
+      "action": "interact",
+      "detail": "negotiator",
+      "wall": 159388
+    },
+    {
+      "action": "choice",
+      "detail": "offer",
+      "wall": 160937
+    },
+    {
+      "action": "interact",
+      "detail": "gate_slot",
+      "wall": 163097
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 950,
+        "y": 760
+      },
+      "wall": 167040
+    },
+    {
+      "action": "pull",
+      "detail": {
+        "id": "gate",
+        "x": 1030,
+        "y": 750
+      },
+      "wall": 168036
+    },
+    {
+      "action": "interact",
+      "detail": "gate",
+      "wall": 173480
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1420,
+        "y": 760
+      },
+      "wall": 176656
+    },
+    {
+      "action": "interact",
+      "detail": "far_bank",
+      "wall": 181390
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 1100,
+        "y": 800
+      },
+      "wall": 183978
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 400,
+        "y": 900
+      },
+      "wall": 186902
+    },
+    {
+      "action": "interact",
+      "detail": "to_creek",
+      "wall": 197539
+    },
+    {
+      "action": "scene",
+      "detail": "creek",
+      "wall": 200724
+    },
+    {
+      "action": "interact",
+      "detail": "to_home",
+      "wall": 201338
+    },
+    {
+      "action": "scene",
+      "detail": "home",
+      "wall": 218058
+    },
+    {
+      "action": "interact",
+      "detail": "table",
+      "wall": 218726
+    },
+    {
+      "action": "choice",
+      "detail": "travel",
+      "wall": 226192
+    }
+  ],
+  "observations": {
+    "shelter": {
+      "id": "protect-then-borrow",
+      "inputs": [
+        "pull basket into shelter",
+        "release basket",
+        "pull water board into bridge",
+        "release board"
+      ],
+      "state": {
+        "scene": "creek",
+        "time": 24.26666666666657,
+        "player": {
+          "x": 884.7501047609856,
+          "y": 554.3932803501847,
+          "hp": 4,
+          "mana": 3,
+          "facing": -0.6434665078455395,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "flags": {
+          "eventSeq": 13,
+          "companion": "following",
+          "visited_home": true,
+          "wardCooldown": 0,
+          "lampFixed": true,
+          "platformOpen": false,
+          "dialogueRemainder": "",
+          "invited": true,
+          "casting": false,
+          "visited_creek": true,
+          "rockClock": 0,
+          "boatSecured": true,
+          "tools": true,
+          "basketSafe": true,
+          "basketProtected": true,
+          "boardReturned": false,
+          "shelterBridge": true,
+          "shelterShared": true
+        },
+        "ended": false,
+        "dialogue": null,
+        "events": [
+          {
+            "seq": 10,
+            "time": 18.866666666666877,
+            "type": "change",
+            "text": "药筐已经在棚内，借导水板也不会淋湿它。"
+          },
+          {
+            "seq": 11,
+            "time": 21.866666666666706,
+            "type": "pull",
+            "text": "灵线牵住雨棚导水板。点空地改变落点，按「放下」结束。",
+            "x": 945,
+            "y": 510,
+            "targetId": "board"
+          },
+          {
+            "seq": 12,
+            "time": 22.716666666666658,
+            "type": "change",
+            "text": "你先安置好药筐再借板，许照伸手接住板端，近路留下了一段干燥落脚处。"
+          },
+          {
+            "seq": 13,
+            "time": 23.966666666666587,
+            "type": "drop",
+            "text": "雨棚导水板落稳，声响留在实际落点。",
+            "x": 1120,
+            "y": 648,
+            "targetId": "board"
+          }
+        ]
+      },
+      "visual": "qa/evidence/main-shelter.png"
+    },
+    "demonstration": {
+      "id": "witnessed-drainage",
+      "inputs": [
+        "pull gate from safe bank",
+        "release without wedge"
+      ],
+      "state": {
+        "scene": "crossing",
+        "time": 92.06666666666273,
+        "player": {
+          "x": 698.7416053706929,
+          "y": 899.8337969357519,
+          "hp": 4,
+          "mana": 5,
+          "facing": -0.5682761352675789,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "flags": {
+          "eventSeq": 25,
+          "companion": "following",
+          "visited_home": true,
+          "wardCooldown": 0,
+          "lampFixed": true,
+          "platformOpen": false,
+          "dialogueRemainder": "[{\"id\":\"room\",\"label\":\"谈谈驿后的空屋\"}]",
+          "invited": true,
+          "casting": false,
+          "visited_creek": true,
+          "rockClock": 0,
+          "boatSecured": true,
+          "tools": true,
+          "basketSafe": true,
+          "basketProtected": true,
+          "boardReturned": false,
+          "shelterBridge": true,
+          "shelterShared": true,
+          "visited_workshop": true,
+          "ringOwned": true,
+          "xuRingKnown": true,
+          "trialStyle": "",
+          "ringTrained": true,
+          "visited_crossing": true,
+          "ridgeRockClock": 0,
+          "gatePulled": false,
+          "gateDemonstrated": true,
+          "gateHint": true,
+          "gateWitnessed": true
+        },
+        "ended": false,
+        "dialogue": null,
+        "events": [
+          {
+            "seq": 22,
+            "time": 90.16666666666283,
+            "type": "pull",
+            "text": "灵线牵住闸口牵扣。点空地改变落点，按「放下」结束。",
+            "x": 1090,
+            "y": 650,
+            "targetId": "gate"
+          },
+          {
+            "seq": 23,
+            "time": 90.8166666666628,
+            "type": "change",
+            "text": "闸扣拉开，水短暂流向泄槽。没有木楔，松手就会回弹。"
+          },
+          {
+            "seq": 24,
+            "time": 90.8166666666628,
+            "type": "change",
+            "text": "在场散修亲眼看见了排水，可以近处商量让出施术位置。"
+          },
+          {
+            "seq": 25,
+            "time": 91.76666666666274,
+            "type": "change",
+            "text": "无楔的闸扣回弹，短暂排出的水重新漫上低滩。"
+          }
+        ]
+      }
+    },
+    "crossing": {
+      "id": "main-bank-on-foot",
+      "inputs": [
+        "negotiate drainage offer",
+        "install wooden wedge",
+        "pull gate open",
+        "walk across exposed bank",
+        "inspect far bank marker"
+      ],
+      "state": {
+        "scene": "crossing",
+        "time": 105.86666666666194,
+        "player": {
+          "x": 1418.7336836185161,
+          "y": 760.0032964339554,
+          "hp": 4,
+          "mana": 4,
+          "facing": -0.00545175897488765,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "flags": {
+          "eventSeq": 30,
+          "companion": "following",
+          "visited_home": true,
+          "wardCooldown": 0,
+          "lampFixed": true,
+          "platformOpen": false,
+          "dialogueRemainder": "",
+          "invited": true,
+          "casting": false,
+          "visited_creek": true,
+          "rockClock": 0,
+          "boatSecured": true,
+          "tools": true,
+          "basketSafe": true,
+          "basketProtected": true,
+          "boardReturned": false,
+          "shelterBridge": true,
+          "shelterShared": true,
+          "visited_workshop": true,
+          "ringOwned": true,
+          "xuRingKnown": true,
+          "trialStyle": "",
+          "ringTrained": true,
+          "visited_crossing": true,
+          "ridgeRockClock": 0,
+          "gatePulled": true,
+          "gateDemonstrated": true,
+          "gateHint": true,
+          "gateWitnessed": true,
+          "deal": true,
+          "gateWedge": true,
+          "gateOpen": true,
+          "gateFixed": true,
+          "mainRepaired": true,
+          "gateFixedNote": true,
+          "gateObserved": true,
+          "route": "main",
+          "mainTraversed": true,
+          "sharedJourney": true
+        },
+        "ended": false,
+        "dialogue": null,
+        "events": [
+          {
+            "seq": 27,
+            "time": 96.66666666666246,
+            "type": "change",
+            "text": "你用自己的扳钳把木楔安进闸槽。牵开闸扣时，它会卡住回弹。"
+          },
+          {
+            "seq": 28,
+            "time": 98.86666666666234,
+            "type": "pull",
+            "text": "灵线牵住闸口牵扣。点空地改变落点，按「放下」结束。",
+            "x": 1090,
+            "y": 650,
+            "targetId": "gate"
+          },
+          {
+            "seq": 29,
+            "time": 99.6166666666623,
+            "type": "change",
+            "text": "木楔卡稳闸扣，水沿泄槽转向，主渡低滩露出连续白石。"
+          },
+          {
+            "seq": 30,
+            "time": 105.36666666666197,
+            "type": "route",
+            "text": "你站到低滩彼岸，辨明了通向外界的路。现在可以沿原路亲自返驿。"
+          }
+        ]
+      },
+      "visual": "qa/evidence/main-crossing.png"
+    },
+    "outcome": {
+      "id": "main-route-home-ending",
+      "inputs": [
+        "walk back across repaired crossing",
+        "return through creek",
+        "table travel choice"
+      ],
+      "state": {
+        "terminal": "designed-outcome",
+        "scene": "home",
+        "time": 135.4666666666666,
+        "player": {
+          "x": 844.3929558916593,
+          "y": 441.0921416442955,
+          "hp": 4,
+          "mana": 4,
+          "facing": -2.7886022657628873,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "flags": {
+          "eventSeq": 34,
+          "companion": "following",
+          "visited_home": true,
+          "wardCooldown": 0,
+          "lampFixed": true,
+          "platformOpen": false,
+          "dialogueRemainder": "",
+          "invited": true,
+          "casting": false,
+          "visited_creek": true,
+          "rockClock": 0,
+          "boatSecured": true,
+          "tools": true,
+          "basketSafe": true,
+          "basketProtected": true,
+          "boardReturned": false,
+          "shelterBridge": true,
+          "shelterShared": true,
+          "visited_workshop": true,
+          "ringOwned": true,
+          "xuRingKnown": true,
+          "trialStyle": "",
+          "ringTrained": true,
+          "visited_crossing": true,
+          "ridgeRockClock": 0,
+          "gatePulled": true,
+          "gateDemonstrated": true,
+          "gateHint": true,
+          "gateWitnessed": true,
+          "deal": true,
+          "gateWedge": true,
+          "gateOpen": true,
+          "gateFixed": true,
+          "mainRepaired": true,
+          "gateFixedNote": true,
+          "gateObserved": true,
+          "route": "main",
+          "mainTraversed": true,
+          "sharedJourney": true,
+          "returned": true,
+          "endingWish": "travel",
+          "travelInvited": true
+        },
+        "ended": true,
+        "dialogue": null,
+        "events": [
+          {
+            "seq": 31,
+            "time": 118.16666666666124,
+            "type": "scene",
+            "text": "雨后溪道"
+          },
+          {
+            "seq": 32,
+            "time": 130.1666666666624,
+            "type": "return",
+            "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+          },
+          {
+            "seq": 33,
+            "time": 130.1666666666624,
+            "type": "scene",
+            "text": "回石驿"
+          },
+          {
+            "seq": 34,
+            "time": 135.4666666666666,
+            "type": "ending",
+            "text": "你在桌上展开亲自走过的低滩渡路。山路的风从窗外经过。许照在旁添了一笔，约好下次短途。"
+          }
+        ]
+      },
+      "visual": "qa/evidence/main-return.png"
+    },
+    "restart": {
+      "id": "fresh-after-main-ending",
+      "inputs": [
+        "settings",
+        "restart",
+        "new profile"
+      ],
+      "state": {
+        "terminal": "initial-state",
+        "scene": "home",
+        "time": 0.3,
+        "player": {
+          "x": 360,
+          "y": 710,
+          "hp": 4,
+          "mana": 6,
+          "facing": 0,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "flags": {
+          "eventSeq": 2,
+          "companion": "waiting",
+          "visited_home": true,
+          "wardCooldown": 0
+        },
+        "ended": false,
+        "dialogue": null,
+        "events": [
+          {
+            "seq": 1,
+            "time": 0,
+            "type": "note",
+            "text": "行舟，凝气三层。先前攒钱修的引环，今日该去取了。"
+          },
+          {
+            "seq": 2,
+            "time": 0,
+            "type": "hint",
+            "text": "陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。"
+          }
+        ]
+      }
+    }
+  },
+  "errors": []
+}

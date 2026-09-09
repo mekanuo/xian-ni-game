@@ -2,6 +2,7 @@ import type { GameAction, GameState, Profile, Spell } from './contracts';
 import { createGame, snapshot, restore, objective, nearbyEntity } from './model';
 import { SCENES } from './content';
 import type { Soundscape } from './audio';
+import { nearbyEncounter } from './encounters';
 
 const SAVE = 'xian-ni-return-stone-save-v1';
 const AUTO = 'xian-ni-return-stone-safe-v1';
@@ -15,6 +16,8 @@ export interface UiHooks {
   select: (s: Spell) => void;
   center: () => void;
   settings: (settings: Settings) => void;
+  aiming: () => boolean;
+  cancel: () => void;
 }
 export class GameUI {
   private root: HTMLElement;
@@ -22,6 +25,10 @@ export class GameUI {
   private hud: HTMLElement;
   private dialogues: HTMLElement;
   private notices: HTMLElement;
+  private observations: HTMLElement;
+  private observationOpen = false;
+  private observationKey = '';
+  private observationScene = '';
   private lastHud = '';
   private lastDialogue = '';
   private lastEvent = -1;
@@ -36,9 +43,10 @@ export class GameUI {
   public settings: Settings = { reduced: false, contrast: false, large: false, volume: .45, music: .55 };
   constructor(private hooks: UiHooks, private sound: Soundscape) {
     this.root = document.querySelector('#interface')!;
-    this.root.innerHTML = '<div id="hud"></div><div id="dialogues"></div><div id="notices" role="status" aria-live="polite"></div><div id="modal"></div>';
+    this.root.innerHTML = '<div id="hud"></div><div id="observations"></div><div id="dialogues"></div><div id="notices" role="status" aria-live="polite"></div><div id="modal"></div>';
     this.hud = document.querySelector('#hud')!; this.modal = document.querySelector('#modal')!;
     this.dialogues = document.querySelector('#dialogues')!; this.notices = document.querySelector('#notices')!;
+    this.observations = document.querySelector('#observations')!;
     try { const saved = JSON.parse(localStorage.getItem(SETTINGS) || '{}'); this.settings = {...this.settings, ...saved}; } catch { /* retain defaults */ }
     this.applySettings();
     this.root.addEventListener('click', e => this.click(e));
@@ -97,7 +105,7 @@ export class GameUI {
     } else if (this.screen==='settings') {
       this.shell('行止与声音',`<div class="settings-list"><label><span>音效</span><input data-setting="volume" type="range" min="0" max="1" step=".05" value="${this.settings.volume}" aria-label="音效音量"></label><label><span>背景音乐</span><input data-setting="music" type="range" min="0" max="1" step=".05" value="${this.settings.music}" aria-label="音乐音量"></label><label><span>减少雨线与镜头缓动</span><input data-setting="reduced" type="checkbox" ${this.settings.reduced?'checked':''}></label><label><span>高对比交互轮廓</span><input data-setting="contrast" type="checkbox" ${this.settings.contrast?'checked':''}></label><label><span>更大的对话文字</span><input data-setting="large" type="checkbox" ${this.settings.large?'checked':''}></label></div><div class="modal-actions">${this.button('保存此刻','save','primary')}${this.button('载入手动档','load-manual','secondary')}${this.button('载入自动档','load-auto','secondary')}${this.button('导出存档','export','secondary')}<label class="button secondary">导入存档<input id="import-save" type="file" accept="application/json,.json" hidden></label>${this.button('重新开始','restart','text-button')}</div>`);
     } else if (this.screen==='help') {
-      this.shell('行路须知',`<div class="help-grid"><p><kbd>点击地面 / W A S D</kbd><span>行走；点远处的人或物会先走近</span></p><p><kbd>下方术法 / 1 2 3</kbd><span>选术法，再点击目标施术</span></p><p><kbd>空格</kbd><span>暂停观察，再按继续</span></p><p><kbd>E</kbd><span>与近处的人、物互动</span></p><p><kbd>R</kbd><span>学会留势后，让牵住的物件停留</span></p><p><kbd>Esc / 右键</kbd><span>取消瞄准或放下牵物</span></p><p><kbd>回到身边 / C</kbd><span>镜头重新跟随你</span></p><p><kbd>J / I / M</kbd><span>记事 / 行囊 / 山道图</span></p></div><p class="muted">引力术牵住轻物后，点击可达地面放下。暂停时可预先指定一个动作。灵力不足时，退到歇脚处静息即可恢复。</p><div class="modal-actions">${this.button(!this.started?'回到山外':'继续前行',!this.started?'title':'resume','primary')}</div>`);
+      this.shell('行路须知',`<div class="help-grid"><p><kbd>点击地面 / W A S D</kbd><span>行走；点远处的人或物会先走近</span></p><p><kbd>下方术法 / 1 2 3</kbd><span>选术法，再点击目标施术</span></p><p><kbd>空格</kbd><span>暂停观察，再按继续</span></p><p><kbd>E</kbd><span>与近处的人、物互动</span></p><p><kbd>察看周围 / Q</kbd><span>展开眼前处境和可尝试的办法</span></p><p><kbd>R</kbd><span>学会留势后，让牵住的物件停留</span></p><p><kbd>Esc / 右键</kbd><span>取消瞄准或放下牵物</span></p><p><kbd>回到身边 / C</kbd><span>镜头重新跟随你</span></p><p><kbd>J / I / M</kbd><span>记事 / 行囊 / 山道图</span></p></div><p class="muted">引力术牵住轻物后，点击可达地面放下。暂停时可预先指定一个动作。灵力不足时，退到歇脚处静息即可恢复。</p><div class="modal-actions">${this.button(!this.started?'回到山外':'继续前行',!this.started?'title':'resume','primary')}</div>`);
     } else if (this.screen==='ending') {
       const ending=s.events.filter(e=>e.type==='ending').at(-1)?.text||'你带着自己的引环，回到了灯下。';
       this.shell('这一程，已有归处',`<p class="ending-copy">${esc(ending)}</p><p class="muted">${s.flags.chime?'窗前添了你带回的风铃。':''}${s.flags.gateOpen?'木车已经沿修通的低滩进院。':'驿后留下了你亲脚走过的山脊路标。'}</p><div class="modal-actions">${this.button('在驿中再坐一会儿','resume','primary')}${this.button('再走一程','restart','secondary')}</div>`);
@@ -126,6 +134,8 @@ export class GameUI {
     else if (a==='save') this.save();
     else if (a==='export') this.export();
     else if (a==='center') this.hooks.center();
+    else if (a==='cancel') this.hooks.cancel();
+    else if (a==='observe') this.toggleObservation();
     else if (a.startsWith('spell:')) this.hooks.select(a.slice(6) as Spell);
     else if (a.startsWith('choice:')) { this.hooks.act({type:'choose',choiceId:a.slice(7)}); this.update(); }
     else if (['release','hold','rest','heal','retry','retreat'].includes(a)) { this.hooks.act({type:a} as GameAction); this.update(); if (a==='heal') this.drawModal(); }
@@ -180,16 +190,33 @@ export class GameUI {
     if(key==='j')this.open('journal'); if(key==='i')this.open('bag'); if(key==='m')this.open('map');
     if(key==='Escape' && this.screen)this.close();
   }
+  toggleObservation() {
+    if(this.blocked||this.hooks.get().dialogue||this.hooks.get().defeated)return;
+    this.observationOpen=!this.observationOpen;
+    this.update();
+  }
+  resetObservation(){this.observationOpen=false;this.observationKey='';}
+  private updateObservation(s:GameState) {
+    if(this.observationScene!==s.scene){this.observationScene=s.scene;this.observationOpen=false;}
+    const encounter=nearbyEncounter(s);
+    const hidden=!this.started||this.blocked||Boolean(s.dialogue)||s.defeated||!encounter;
+    const key=JSON.stringify([hidden,this.observationOpen,encounter]);
+    if(key===this.observationKey)return;this.observationKey=key;
+    this.observations.classList.toggle('hidden',hidden);
+    this.observations.innerHTML=encounter?`<aside class="observation paper ${this.observationOpen?'expanded':''}" aria-label="眼前处境"><button class="observation-toggle" data-ui="observe" aria-expanded="${this.observationOpen}" aria-controls="observation-content"><span class="observation-mark" aria-hidden="true">◎</span><span>察看周围</span><kbd>Q</kbd><span class="observation-chevron" aria-hidden="true">${this.observationOpen?'−':'＋'}</span></button><div id="observation-content" ${this.observationOpen?'':'hidden'}><h3>${esc(encounter.title)}</h3><p>${esc(encounter.fact)}</p><ul>${encounter.options.map(option=>`<li>${esc(option)}</li>`).join('')}</ul><small>留意眼前的变化，也可以试自己的办法。</small></div></aside>`:'';
+  }
   update() {
     const s=this.hooks.get();
+    this.updateObservation(s);
     if (performance.now()-this.lastAudioCheck>400 || !this.lastAudioCheck) {
       const status=this.sound.inspect(); this.audioState=status.muted?'muted':status.state; this.lastAudioCheck=performance.now();
     }
     const near=nearbyEntity(s);
-    const hudKey=JSON.stringify([s.scene,s.player.hp,s.player.mana,s.selected,s.paused,s.ringStyle,Boolean(s.player.pullId),near?.id,objective(s),Boolean(s.dialogue),s.defeated,this.screen,s.flags.ringOwned,s.flags.trialStyle,this.audioState]);
+    const aiming=this.hooks.aiming();
+    const hudKey=JSON.stringify([s.scene,s.player.hp,s.player.mana,s.selected,s.paused,s.ringStyle,Boolean(s.player.pullId),near?.id,objective(s),Boolean(s.dialogue),s.defeated,this.screen,s.flags.ringOwned,s.flags.trialStyle,this.audioState,aiming]);
     if(hudKey!==this.lastHud) {
       this.lastHud=hudKey;
-      this.hud.innerHTML=`<div class="top-left paper hud-paper"><span class="name-mark">${esc(s.profile.name.slice(0,1))}</span><div><strong>${esc(s.profile.name)}</strong><span class="realm">凝气 · 三层</span><div class="resource hp" aria-label="体力 ${s.player.hp}/4"><span>体力</span>${[0,1,2,3].map(i=>`<i class="${i<s.player.hp?'full':''}"></i>`).join('')}</div><div class="resource mana" aria-label="灵力 ${s.player.mana}/6"><span>灵力</span>${[0,1,2,3,4,5].map(i=>`<i class="${i<s.player.mana?'full':''}"></i>`).join('')}</div></div></div><div class="location"><span>${SCENES[s.scene].subtitle}</span><h2>${SCENES[s.scene].title}</h2><p>${esc(objective(s))}</p></div><nav class="top-right">${this.button('山道','map')}${this.button('记事','journal')}${this.button('行囊','bag')}${this.button('设置','settings')}${this.audioButton()}</nav><div class="pause-state ${s.paused&&!s.dialogue&&!this.screen?'shown':''}">${this.button('Ⅱ 已暂停 · 点击继续','pause','paper')}</div><div class="bottom-left"><span>WASD / 点击 · 行走</span><span>空格 · 暂停　C · 回到身边</span>${this.button('回到身边','center','touch-center paper')}</div><div class="action-dock paper"><div class="spells">${(['pull','flame','ward'] as Spell[]).map((spell,i)=>`<button data-ui="spell:${spell}" class="spell ${s.selected===spell?'selected':''}" aria-pressed="${s.selected===spell}" title="${['牵引轻物；再点地面放下','点燃干物、打断敌人','向瞄准方向护持一次'][i]}"><kbd>${i+1}</kbd><span class="spell-symbol">${['引','焰','障'][i]}</span><span>${['引力术','火焰球','护符·障'][i]}</span></button>`).join('')}</div><div class="dock-divider"></div>${this.button(s.paused?'▶ 继续':'Ⅱ 暂停','pause','pause-button')}${s.player.pullId?this.button('放下','release','small-button'):''}${s.player.pullId&&(s.ringStyle==='hold'||s.flags.trialStyle==='hold')?this.button('R 留势','hold','small-button'):''}</div><div class="nearby ${near&&!s.dialogue&&!this.screen?'shown':''}">${near?this.button(`<kbd>E</kbd> ${esc(near.name)}`,'interact','paper'):''}</div><button class="help-toggle" data-ui="help" aria-label="操作帮助">?</button>`;
+      this.hud.innerHTML=`<div class="top-left paper hud-paper"><span class="name-mark">${esc(s.profile.name.slice(0,1))}</span><div><strong>${esc(s.profile.name)}</strong><span class="realm">凝气 · 三层</span><div class="resource hp" aria-label="体力 ${s.player.hp}/4"><span>体力</span>${[0,1,2,3].map(i=>`<i class="${i<s.player.hp?'full':''}"></i>`).join('')}</div><div class="resource mana" aria-label="灵力 ${s.player.mana}/6"><span>灵力</span>${[0,1,2,3,4,5].map(i=>`<i class="${i<s.player.mana?'full':''}"></i>`).join('')}</div></div></div><div class="location"><span>${SCENES[s.scene].subtitle}</span><h2>${SCENES[s.scene].title}</h2><p>${esc(objective(s))}</p></div><nav class="top-right">${this.button('山道','map')}${this.button('记事','journal')}${this.button('行囊','bag')}${this.button('设置','settings')}${this.audioButton()}</nav><div class="pause-state ${s.paused&&!s.dialogue&&!this.screen?'shown':''}">${this.button('Ⅱ 已暂停 · 点击继续','pause','paper')}</div><div class="bottom-left"><span>WASD / 点击 · 行走</span><span>空格 · 暂停　C · 回到身边</span>${this.button('回到身边','center','touch-center paper')}</div><div class="action-dock paper"><div class="spells">${(['pull','flame','ward'] as Spell[]).map((spell,i)=>`<button data-ui="spell:${spell}" class="spell ${s.selected===spell?'selected':''}" aria-pressed="${s.selected===spell}" title="${['牵引轻物；再点地面放下','点燃干物、打断敌人','向瞄准方向护持一次'][i]}"><kbd>${i+1}</kbd><span class="spell-symbol">${['引','焰','障'][i]}</span><span>${['引力术','火焰球','护符·障'][i]}</span></button>`).join('')}</div><div class="dock-divider"></div>${this.button(s.paused?'▶ 继续':'Ⅱ 暂停','pause','pause-button')}${aiming&&(!s.player.pullId||s.selected!=='pull')?this.button('收术','cancel','small-button'):''}${s.player.pullId?this.button('放下','release','small-button'):''}${s.player.pullId&&(s.ringStyle==='hold'||s.flags.trialStyle==='hold')?this.button('R 留势','hold','small-button'):''}</div><div class="nearby ${near&&!s.dialogue&&!this.screen?'shown':''}">${near?this.button(`<kbd>E</kbd> ${esc(near.name)}`,'interact','paper'):''}</div><button class="help-toggle" data-ui="help" aria-label="操作帮助">?</button>`;
       this.hud.classList.toggle('hidden',!this.started||this.isTitle);
       this.hud.classList.toggle('reading',Boolean(s.dialogue)||Boolean(s.defeated));
     }

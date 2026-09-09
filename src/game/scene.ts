@@ -1,12 +1,13 @@
 import Phaser from 'phaser';
 import type { Entity, GameAction, GameState, Spell, Vec } from './contracts';
-import { createGame, act, tick, nearbyEntity, previewCast, snapshot } from './model';
+import { createGame, act, tick, nearbyEntity, previewCast, previewPullMove, interactionPoint, canInteract, snapshot } from './model';
 import { SCENES } from './content';
 import { GameUI, type Settings } from './ui';
 import { Soundscape } from './audio';
 import { display } from './display';
 import { Feedback } from './feedback';
 import { paintTerrain } from './terrain';
+import { inspectObject, placementAnchors } from './encounters';
 
 const FONT = '"Noto Serif SC", "Songti SC", "Microsoft YaHei", serif';
 const COLORS = {ink:0x314b42,outline:0x42573e,stone:0x879887,stoneLight:0xb0baa6,wood:0x897755,woodLight:0xb4a17a,roof:0x576f68,leaf:0x628267};
@@ -38,6 +39,8 @@ export class WorldScene extends Phaser.Scene {
   private keys!: Record<string, Phaser.Input.Keyboard.Key>;
   private casting=false;
   private hovered?: Entity;
+  private pointerOverWorld=false;
+  private anchorLabels:Phaser.GameObjects.Text[]=[];
   private queuedInteract:string|null=null;
   private cameraManual=false;
   private dragStart: {x:number;y:number;cx:number;cy:number}|null=null;
@@ -68,8 +71,10 @@ export class WorldScene extends Phaser.Scene {
     this.effects=this.add.graphics().setDepth(12000);
     this.hoverLabel=this.add.text(0,0,'',{fontFamily:FONT,fontSize:'13px',color:'#f5f3df',backgroundColor:'#2d4944',padding:{x:12,y:8},align:'center'}).setResolution(display.density).setOrigin(.5,1).setDepth(25000).setVisible(false);
     this.player=this.makeCharacter('player',0,0,0);this.playerHand=this.add.graphics();this.player.add(this.playerHand);
-    this.keys=this.input.keyboard!.addKeys('W,A,S,D,UP,LEFT,DOWN,RIGHT,SPACE,ONE,TWO,THREE,E,R,C,J,I,M,ESC',false) as Record<string,Phaser.Input.Keyboard.Key>;
-    this.ui=new GameUI({get:()=>this.state,act:a=>this.dispatch(a),replace:s=>this.replace(s),select:s=>this.select(s),center:()=>this.center(),settings:s=>{this.settings=s;}},this.soundscape);
+    this.keys=this.input.keyboard!.addKeys('W,A,S,D,UP,LEFT,DOWN,RIGHT,SPACE,ONE,TWO,THREE,E,R,C,Q,J,I,M,ESC',false) as Record<string,Phaser.Input.Keyboard.Key>;
+    this.ui=new GameUI({get:()=>this.state,act:a=>this.dispatch(a),replace:s=>this.replace(s),select:s=>this.select(s),center:()=>this.center(),settings:s=>{this.settings=s;},aiming:()=>this.casting,cancel:()=>this.cancelAim()},this.soundscape);
+    window.addEventListener('pointermove',e=>{this.pointerOverWorld=e.target===this.game.canvas;});
+    window.addEventListener('pointerdown',e=>{this.pointerOverWorld=e.target===this.game.canvas;});
     window.addEventListener('keydown',e=>{
       const typing=['INPUT','TEXTAREA'].includes(document.activeElement?.tagName||'');
       if(!typing&&!this.ui.blocked&&[' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key))e.preventDefault();
@@ -124,17 +129,22 @@ export class WorldScene extends Phaser.Scene {
     return canvas;
   }
   private replace(s:GameState){
+    this.ui?.resetObservation();
     this.state=s;this.renderedScene='';this.groundVersion='';this.queuedInteract=null;this.casting=false;this.accumulator=0;
     this.feedback.reset(s.events.at(-1)?.seq??0);this.impactLabels.forEach(label=>label.destroy());this.impactLabels.clear();
     this.refreshScene();this.center();
   }
   private dispatch(a:GameAction){
+    const queuedCast=a.type==='pause'&&!a.value&&this.state.pending?.type==='cast'?this.state.pending:undefined;
     const result=act(this.state,a);
+    if(queuedCast&&result.ok&&(queuedCast.spell!=='pull'||!this.state.player.pullId))this.casting=false;
     if(!result.ok&&result.message)this.ui?.notify(result.message);
     if(a.type==='retry'||a.type==='retreat'){this.feedback.reset(this.state.events.at(-1)?.seq??0);this.renderedScene='';this.queuedInteract=null;this.refreshScene();this.center();}
     if(a.type==='interact'||a.type==='choose'||a.type==='release'||a.type==='hold')this.casting=false;
     this.ui?.update();
+    return result;
   }
+  private cancelAim(){this.casting=false;this.queuedInteract=null;this.dispatch({type:'cancel'});}
   private select(spell:Spell){this.casting=true;this.queuedInteract=null;this.dispatch({type:'select',spell});this.ui?.notify({pull:'引力术：点轻物牵起，再点地面放下。',flame:'火焰球：对准干物或威胁，点击施术。',ward:'护符·障：朝需要保护的方向点击。'}[spell]);}
   private center(){this.cameraManual=false;if(this.state)this.cameras.main.centerOn(this.state.player.x,this.state.player.y-65);}
   private pointerDown(p:Phaser.Input.Pointer){
@@ -147,24 +157,31 @@ export class WorldScene extends Phaser.Scene {
     const point={x:p.worldX,y:p.worldY};
     const entity=this.entityAt(point);
     if(this.state.player.pullId&&this.state.player.hold<=0&&this.state.selected==='pull'){
-      this.dispatch({type:'move',point});
+      this.dispatch({type:'move',point:this.pullLanding(point)});
       return;
     }
     if(this.casting){
-      this.dispatch({type:'cast',spell:this.state.selected,targetId:entity?.id,point});
-      if(this.state.selected!=='pull'||!this.state.player.pullId)this.casting=false;
+      const cast=this.dispatch({type:'cast',spell:this.state.selected,targetId:entity?.id,point});
+      if(cast.ok&&!this.state.paused&&(this.state.selected!=='pull'||!this.state.player.pullId))this.casting=false;
+      this.ui.update();
     }else if(entity&&entity.kind!=='scenery'){
       const d=Phaser.Math.Distance.Between(this.state.player.x,this.state.player.y,entity.x,entity.y);
-      if(d<100)this.dispatch({type:'interact',targetId:entity.id});
-      else{this.queuedInteract=entity.id;this.dispatch({type:'move',point:this.approachPoint(entity)});this.ui.notify(`走近${entity.name}后互动；也可用术法作用于它。`);}
+      this.queuedInteract=null;
+      if(entity.kind==='enemy'){this.ui.notify('留意对方起手；可选火焰球打断，或护符挡住来袭。');return;}
+      const destination=interactionPoint(this.state,entity.id);
+      if(!destination){this.ui.notify('暂时走不到它身边，先找一条可通行的路。');return;}
+      if(d<96&&Math.hypot(destination.x-this.state.player.x,destination.y-this.state.player.y)<1)this.dispatch({type:'interact',targetId:entity.id});
+      else{const moving=this.dispatch({type:'move',point:destination});if(moving.ok){this.queuedInteract=entity.id;this.ui.notify(`走近${entity.name}后互动；点别处可改变打算。`);}}
     }else{this.queuedInteract=null;this.dispatch({type:'move',point});}
   }
-  private approachPoint(e:Entity):Vec {
-    const dx=this.state.player.x-e.x,dy=this.state.player.y-e.y,d=Math.hypot(dx,dy)||1;
-    return {x:e.x+dx/d*74,y:e.y+dy/d*74};
+  private pullLanding(point:Vec):Vec {
+    const anchor=placementAnchors(this.state).filter(a=>Math.hypot(a.x-point.x,a.y-point.y)<=32).sort((a,b)=>Math.hypot(a.x-point.x,a.y-point.y)-Math.hypot(b.x-point.x,b.y-point.y))[0];
+    // A helper never snaps an otherwise legal click onto an invalid authored landing.
+    return anchor&&previewPullMove(this.state,anchor).valid?{x:anchor.x,y:anchor.y}:point;
   }
   private entityAt(p:Vec){
     return this.state.worlds[this.state.scene].filter(e=>!['taken','gone','hidden'].includes(e.state)&&e.kind!=='scenery'&&!(e.id==='lamp'&&this.state.flags.lampFixed))
+      .filter(e=>!this.casting||this.state.selected!=='pull'||Boolean(this.state.player.pullId)||e.movable)
       .map(e=>({e,d:Math.hypot(e.x-p.x,(e.y-p.y)*.9)}))
       .filter(({e,d})=>d<Math.max(34,Math.max(e.w,e.h)*.65)||Math.abs(e.x-p.x)<e.w*.6&&p.y<e.y&&p.y>e.y-e.h)
       .sort((a,b)=>a.d-b.d)[0]?.e;
@@ -182,6 +199,7 @@ export class WorldScene extends Phaser.Scene {
         if(just('SPACE'))this.dispatch({type:'pause',value:!this.state.paused});
         if(just('ONE'))this.select('pull');if(just('TWO'))this.select('flame');if(just('THREE'))this.select('ward');
         if(just('C'))this.center();
+        if(just('Q'))this.ui.toggleObservation();
         if(just('R'))this.dispatch({type:'hold'});
         if(just('E')){const e=nearbyEntity(this.state);if(e)this.dispatch({type:'interact',targetId:e.id});}
         input={x:Number(this.keys.D.isDown||this.keys.RIGHT.isDown)-Number(this.keys.A.isDown||this.keys.LEFT.isDown),y:Number(this.keys.S.isDown||this.keys.DOWN.isDown)-Number(this.keys.W.isDown||this.keys.UP.isDown)};
@@ -192,7 +210,8 @@ export class WorldScene extends Phaser.Scene {
     while(this.accumulator>=1/60){tick(this.state,1/60,input);this.accumulator-=1/60;}
     if(this.queuedInteract&&!this.state.paused&&!this.state.dialogue){
       const e=this.state.worlds[this.state.scene].find(e=>e.id===this.queuedInteract);
-      if(e&&Math.hypot(e.x-this.state.player.x,e.y-this.state.player.y)<96){this.queuedInteract=null;this.dispatch({type:'interact',targetId:e.id});}
+      if(e&&canInteract(this.state,e.id)){this.queuedInteract=null;this.dispatch({type:'interact',targetId:e.id});}
+      else if(!e||!this.state.player.path.length){this.queuedInteract=null;this.ui.notify('还没走到可互动的位置；请沿近处的路重新点选。');}
     }
     if(this.renderedScene!==this.state.scene)this.refreshScene();
     const ground=`${this.state.scene}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.platformOpen}:${this.state.flags.returned}:${this.state.flags.chime}:${this.state.flags.endingWish}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}`;
@@ -498,18 +517,24 @@ export class WorldScene extends Phaser.Scene {
       }
       if(['defeated','retreated'].includes(e.state))r.container.setAlpha(.45);else r.container.setAlpha(1);
     }
-    const p=this.input.activePointer,pointerVisible=!p.wasTouch||p.isDown;
+    const p=this.input.activePointer,pointerVisible=this.pointerOverWorld&&(!p.wasTouch||p.isDown);
     this.hovered=pointerVisible?this.entityAt({x:p.worldX,y:p.worldY}):undefined;
     if(pointerVisible&&!this.ui.blocked&&!this.state.dialogue&&(this.hovered||this.casting)){
       let text=this.hovered?.name||'';
-      if(this.state.player.pullId&&this.state.player.hold<=0&&this.state.selected==='pull'){text='点击地面调整落点\n按 Esc 放下；R 留势';}
+      let location={x:p.worldX,y:p.worldY},offset=25;
+      if(this.state.player.pullId&&this.state.player.hold<=0&&this.state.selected==='pull'){
+        location=this.pullLanding(location);const preview=previewPullMove(this.state,location);
+        offset=Math.min(100,Math.max(48,(preview.target?.h??30)+16));
+        text=this.state.player.pullId==='lamp'&&this.state.flags.lampFixed?'已归架 · 按放下收术':preview.valid?'点击调整 · 到位后放下':preview.reason;
+      }
       else if(this.casting){const preview=previewCast(this.state,this.state.selected,this.hovered?.id,{x:p.worldX,y:p.worldY});text=`${this.hovered?.name||'施术落点'}\n${preview.valid?'点击施术 · 灵力 '+preview.cost:preview.reason}`;}
-      else if(this.hovered){text+=`\n${this.hovered.hint||'走近后按 E 察看'}`;}
-      this.hoverLabel.setText(text).setPosition(p.worldX,p.worldY-25).setVisible(true);
+      else if(this.hovered){text+=`\n${inspectObject(this.state,this.hovered)||'走近后按 E 察看'}`;}
+      this.hoverLabel.setText(text).setPosition(location.x,location.y-offset).setVisible(true);
     }else this.hoverLabel.setVisible(false);
   }
   private drawEffects(){
     const g=this.effects,p=this.state.player,t=this.state.time;g.clear();
+    this.drawPlacement();
     if(this.state.scene==='creek'||this.state.scene==='crossing'){
       for(const water of SCENES[this.state.scene].ground.filter(s=>s.type==='water')){
         const minx=water.points[0],maxx=water.points[2],miny=water.points[1],maxy=water.points[5];
@@ -520,7 +545,7 @@ export class WorldScene extends Phaser.Scene {
       const e=this.hovered;g.lineStyle(this.settings.contrast?3:1.5,0xf1e5aa,.85);g.strokeEllipse(e.x,e.y+4,Math.max(45,e.w+12),Math.max(18,e.h*.35));
     }
     const mouse=this.input.activePointer;
-    if(this.casting&&!(p.pullId&&this.state.selected==='pull')&&!this.ui.blocked&&!this.state.dialogue&&(!mouse.wasTouch||mouse.isDown)){
+    if(this.casting&&!(p.pullId&&this.state.selected==='pull')&&this.pointerOverWorld&&!this.ui.blocked&&!this.state.dialogue&&(!mouse.wasTouch||mouse.isDown)){
       const preview=previewCast(this.state,this.state.selected,this.hovered?.id,{x:mouse.worldX,y:mouse.worldY});
       const color=preview.valid?this.state.selected==='flame'?0xd5a167:0x9dbfac:0xb1836c;
       g.lineStyle(this.settings.contrast?2:1.2,color,this.settings.contrast?.9:.65);
@@ -533,7 +558,7 @@ export class WorldScene extends Phaser.Scene {
         g.fillStyle(color,.7);g.fillCircle(mouse.worldX,mouse.worldY,1.5);
       }
     }
-    if(p.pullId){
+    if(p.pullId&&!(p.pullId==='lamp'&&this.state.flags.lampFixed)){
       const e=this.state.worlds[this.state.scene].find(e=>e.id===p.pullId);
       if(e){
         if(p.hold<=0){
@@ -575,6 +600,27 @@ export class WorldScene extends Phaser.Scene {
     if(this.state.player.path.length&&!this.casting){const end=this.state.player.path.at(-1)!;g.lineStyle(1,0xecedc4,.65);g.strokeEllipse(end.x,end.y,18,8);}
     if(this.state.scene==='creek'&&!this.settings.reduced){g.lineStyle(1,0xe5eee0,.22);const view=this.cameras.main.worldView;for(let i=0;i<35;i++){const x=(i*83+t*16)%view.width+view.x,y=(i*123+t*150)%view.height+view.y;g.lineBetween(x,y,x-4,y+13);}}
     this.drawImpactFeedback();
+  }
+  private drawPlacement(){
+    this.anchorLabels.forEach(label=>label.setVisible(false));
+    const p=this.state.player,mouse=this.input.activePointer,g=this.effects;
+    if(!p.pullId||p.hold>0||this.state.selected!=='pull'||this.ui.blocked||this.state.dialogue)return;
+    const e=this.state.worlds[this.state.scene].find(e=>e.id===p.pullId);
+    if(!e||(e.id==='lamp'&&this.state.flags.lampFixed))return;
+    placementAnchors(this.state).forEach((anchor,i)=>{
+      const valid=previewPullMove(this.state,anchor).valid,color=valid?0x91b198:0xb09473;
+      g.lineStyle(this.settings.contrast?2:1,color,valid?.75:.4);
+      g.strokeEllipse(anchor.x,anchor.y,34,13);g.lineBetween(anchor.x-5,anchor.y,anchor.x+5,anchor.y);
+      const label=this.anchorLabels[i]??(this.anchorLabels[i]=this.add.text(0,0,'',{fontFamily:FONT,fontSize:'12px',color:'#31574b',backgroundColor:'#eeeadd',padding:{x:6,y:4}}).setOrigin(.5,0).setDepth(14500));
+      label.setResolution(display.density).setText(anchor.title).setPosition(anchor.x,anchor.y+11).setAlpha(valid?.9:.6).setVisible(true);
+    });
+    if(!this.pointerOverWorld||(mouse.wasTouch&&!mouse.isDown))return;
+    const point=this.pullLanding({x:mouse.worldX,y:mouse.worldY}),preview=previewPullMove(this.state,point),color=preview.valid?0x94bdab:0xb57b60;
+    const width=Math.min(100,Math.max(30,e.w)),height=Math.min(64,Math.max(24,e.h));
+    g.fillStyle(color,.09);g.fillRoundedRect(point.x-width/2,point.y-height,width,height,4);
+    g.lineStyle(this.settings.contrast?2:1.3,color,.7);
+    for(const side of [-1,1]){const x=point.x+side*width/2;g.lineBetween(x,point.y-height,x-side*8,point.y-height);g.lineBetween(x,point.y-height,x,point.y-height+8);g.lineBetween(x,point.y,x-side*8,point.y);g.lineBetween(x,point.y,x,point.y-8);}
+    g.strokeEllipse(point.x,point.y+3,width,12);
   }
   private drawImpactFeedback(){
     const g=this.effects;

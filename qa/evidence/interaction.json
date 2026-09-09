@@ -1,0 +1,55 @@
+{
+  "checkedAt": "2026-09-09T10:12:01.609Z",
+  "input": [
+    {
+      "device": "mouse",
+      "actions": "invalid pull remains aiming; tap lamp; near-anchor drop snaps to stand; release",
+      "mana": 5
+    },
+    {
+      "device": "mouse",
+      "actions": "open/close observation; pause, queue flame, cancel, resume without casting"
+    },
+    {
+      "device": "mouse",
+      "actions": "resume queued ward once, next world click moves normally"
+    },
+    {
+      "device": "mouse",
+      "actions": "click distant table; walk around stone obstruction; interact once",
+      "player": {
+        "x": 683.7757354655973,
+        "y": 461.65801060301806,
+        "hp": 4,
+        "mana": 4,
+        "facing": -0.5956096490649873,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 2.516666666666679,
+        "wardFacing": -9.524304308191252e-11,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      }
+    },
+    {
+      "device": "touch",
+      "actions": "invalid pull remains aiming; tap lamp; near-anchor drop snaps to stand; release",
+      "mana": 5
+    },
+    {
+      "device": "touch",
+      "actions": "open/close observation; pause, queue flame, cancel, resume without casting"
+    },
+    {
+      "device": "touch",
+      "actions": "resume queued ward once, next world click moves normally"
+    }
+  ],
+  "errors": [],
+  "devices": [
+    "Linux Chrome mouse, 1280×720",
+    "Chrome DPR3 touch emulation, portrait and landscape"
+  ]
+}

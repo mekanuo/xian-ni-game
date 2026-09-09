@@ -70,10 +70,14 @@ function interactable(s:GameState,e:Entity|undefined):e is Entity {
   return !!e&&e.kind!=='enemy'&&e.kind!=='scenery'&&!['taken','hidden','gone'].includes(e.state)&&!(e.id==='lamp'&&s.flags.lampFixed);
 }
 export function nearbyEntity(s:GameState):Entity|undefined{return entities(s).filter(e=>interactable(s,e)&&dist(e,s.player)<=100&&clearLine(s,s.player,e,e.id)).sort((a,b)=>dist(a,s.player)-dist(b,s.player))[0];}
+export function canInteract(s:GameState,targetId:string):boolean {
+  const target=entity(s,targetId);
+  return interactable(s,target)&&dist(s.player,target)<96&&free(s,s.player)&&clearLine(s,s.player,target,target.id);
+}
 export function interactionPoint(s:GameState,targetId:string):Vec|undefined {
   const target=entity(s,targetId);if(!interactable(s,target))return undefined;
   const legal=(point:Vec)=>free(s,point)&&clearLine(s,point,target,target.id);
-  if(dist(s.player,target)<96&&legal(s.player))return {x:s.player.x,y:s.player.y};
+  if(canInteract(s,targetId))return {x:s.player.x,y:s.player.y};
   const near=Math.atan2(s.player.y-target.y,s.player.x-target.x);
   // Prefer the side facing the player, then work around the object. A short
   // interaction radius leaves room for the movement arrival tolerance.
@@ -216,7 +220,7 @@ function interact(s:GameState,id:string):ActionResult {
     case 'return_ladder':if(!inPlatform(s.player))return result(false,'先实际登上眺台');s.flags.platformReturn=true;s.flags.platformOpen=true;platformVisit(s);e.state='lowered';emit(s,'change','你徒手放下回程梯，入口已有稳固退路。灵力用尽也能走回。');break;
     case 'chime':if(!inPlatform(s.player))return result(false,'先走上眺台');platformVisit(s);s.flags.chime=true;e.state='taken';emit(s,'item','你收起旧檐风铃，想把它挂到驿中自己的窗边。');break;
     case 'marks':if(!inPlatform(s.player))return result(false,'先走上眺台');platformVisit(s);dialogue(s,'marks','采药记号',s.flags.platformShared?'许照蹲在石边，添上一道你们今日共同辨过的干路：“风朝这边时，下坡要看苔色。”':'石边刻着许照早先的采药记号。你独自辨认了方向，这还不是你们一起走过的路。');break;
-    case 'gate':s.flags.gateObserved=true;dialogue(s,'gate_inspect','闸口牵扣','闸槽尚好。小幅牵开能示范排水；无楔松手就会回弹。可以先在下方固定桩安楔再牵，也可以留势时腾手安楔。');break;
+    case 'gate':s.flags.gateObserved=true;dialogue(s,'gate_inspect','闸口牵扣',s.flags.gateOpen?'木楔已经固定闸口，水流沿泄槽退下，低滩可稳稳通行。':s.flags.gateWedge?'木楔已在导槽里。把闸扣牵向下方干地，楔子便会卡住回弹。':'闸槽尚好。小幅牵开能示范排水；无楔松手就会回弹。可以先在下方固定桩安楔再牵，也可以留势时腾手安楔。');break;
     case 'negotiator':dialogue(s,'negotiation','拦路散修','“水一涨，人人都要挤这条干地。留下法器，才好说话。”你看见闸槽还在，旁边也有高处旧绳梯。',[{id:'refuse',label:'法器是我自己攒钱买的，不交'},{id:'offer',label:'以刚才的排水示范，提出疏水换通行',...(!s.flags.gateDemonstrated?{disabled:'先让他们亲眼看见牵闸的小幅排水'}:{})},{id:'demonstrate',label:'让他们看已经露出的低滩',...(!s.flags.gateOpen||!s.flags.gateDemonstrated?{disabled:'需要让在场散修亲眼看见排水'}:{})}]);break;
     case 'gate_slot':if(!s.flags.tools)return result(false,'需要自己的器具袋');if(s.player.pullId==='gate'&&s.player.hold<=0)return result(false,'正牵着闸扣，手腾不出来；先留势，或松手后预先安楔');s.flags.gateWedge=true;e.state='wedged';emit(s,'change','你用自己的扳钳把木楔安进闸槽。牵开闸扣时，它会卡住回弹。');if(s.flags.gatePulled)fixGate(s);break;
     case 'far_bank':if(!s.flags.gateOpen||s.player.x<1320)return result(false,'先实际修通并走过主渡');s.flags.route='main';s.flags.mainTraversed=true;if(companionPresent(s))s.flags.sharedJourney=true;emit(s,'route','你站到低滩彼岸，辨明了通向外界的路。现在可以沿原路亲自返驿。');break;
@@ -459,7 +463,7 @@ export function objective(s:GameState):string {
   if(s.ended)return '灯下已安顿好；仍可在走过的地方散步试术';
   if(s.flags.returned)return '和熟悉的人说说话，再到自己的桌边放环或摊图';
   if(s.flags.route)return '沿亲自走通的路，返回回石驿';
-  if(s.scene==='home')return '帮陶七安灯，走溪道取回自己的引环';
+  if(s.scene==='home')return !s.flags.lampFixed?'帮陶七安灯，走溪道取回自己的引环':!s.flags.tools?'灯已安好，沿溪道取回器具袋':!s.flags.ringOwned?'沿溪道去旧工棚，取回自己的引环':!s.flags.ringTrained?'回旧工棚，与陶七亲手试稳引环':'引环已试稳，可出发去石渡探路';
   if(!s.flags.tools)return '稳住浅滩小舟，取回自己的器具袋';
   if(!s.flags.ringOwned)return '沿林路或上方小径进入旧工棚，取回引环';
   if(!s.flags.ringTrained)return '与陶七选一种用法，亲手在试架上试稳';
