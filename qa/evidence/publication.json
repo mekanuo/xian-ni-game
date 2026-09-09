@@ -1,0 +1,147 @@
+{
+  "checkedAt": "2026-09-09T08:22:35.562Z",
+  "url": "https://mekanuo.github.io/xian-ni-game/",
+  "release": {
+    "game": "山门之外",
+    "version": "0.1.0",
+    "sourceCommit": "218ce2b92630ecdc4cb1a0a094be9ddc8073e394",
+    "builtAt": "2026-09-09T08:20:47.726Z"
+  },
+  "resources": [
+    {
+      "path": "art/characters.png",
+      "status": 200,
+      "bytes": 1699126,
+      "sha256": "37b50db6122507a1d00fa1e7eb71468616208e77e1650f12ee06bbac728520f2"
+    },
+    {
+      "path": "art/enemies.png",
+      "status": 200,
+      "bytes": 1812944,
+      "sha256": "230a256f03ca9acc0b7db2a94f18ab160b3f10d4bda7143c802b70a974f27eee"
+    },
+    {
+      "path": "art/environment.png",
+      "status": 200,
+      "bytes": 2097047,
+      "sha256": "006719ddbd6b1a42673851aad8b4c06772bc6c68bcecbde8241d9a63369b04d9"
+    },
+    {
+      "path": "art/title.png",
+      "status": 200,
+      "bytes": 2788149,
+      "sha256": "58e23fb0b0d022eaf4afc7c934afa3df1f3fd8ce4cb01645b0c14d444471f75e"
+    },
+    {
+      "path": "assets/index-BQ1tR1Mt.css",
+      "status": 200,
+      "bytes": 14163,
+      "sha256": "b6aff0f376f410c3d00ed59e8f8a5d71aa359fe6913de8c9f69157165b7d038b"
+    },
+    {
+      "path": "assets/index-BqNKq5_N.js",
+      "status": 200,
+      "bytes": 1310322,
+      "sha256": "720ee04e7feab62dcae2b2e750136cfd8f27d8ab00ca9e50535e4f893522800c"
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 656,
+      "sha256": "b5fbaf41381ac0292b1a8136167968dbda67005a64b974e39f22edb788af1827"
+    }
+  ],
+  "browser": "150.0.7871.114",
+  "input": [
+    {
+      "action": "create profile on public site",
+      "state": {
+        "scene": "home",
+        "player": {
+          "x": 360,
+          "y": 710,
+          "hp": 4,
+          "mana": 6,
+          "facing": 0,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "flags": {
+          "eventSeq": 2,
+          "companion": "waiting",
+          "visited_home": true,
+          "wardCooldown": 0
+        },
+        "ended": false
+      }
+    },
+    {
+      "action": "click pull, lamp, stand and release",
+      "state": {
+        "scene": "home",
+        "player": {
+          "x": 360,
+          "y": 710,
+          "hp": 4,
+          "mana": 5,
+          "facing": 0.6202494859828215,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "flags": {
+          "eventSeq": 4,
+          "companion": "waiting",
+          "visited_home": true,
+          "wardCooldown": 0,
+          "lampFixed": true,
+          "platformOpen": false
+        },
+        "ended": false
+      }
+    },
+    {
+      "action": "keyboard D movement",
+      "state": {
+        "scene": "home",
+        "player": {
+          "x": 405.33333333333366,
+          "y": 710,
+          "hp": 4,
+          "mana": 5,
+          "facing": 0,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "flags": {
+          "eventSeq": 4,
+          "companion": "waiting",
+          "visited_home": true,
+          "wardCooldown": 0,
+          "lampFixed": true,
+          "platformOpen": false
+        },
+        "ended": false
+      }
+    }
+  ],
+  "errors": [],
+  "visual": "qa/evidence/public-start.png"
+}

@@ -20,6 +20,8 @@ run('git',['add','.'],root);run('git',['commit','-m',`Publish first playable ${s
 console.log(run('git',['-c','credential.helper=!gh auth git-credential','push','-u','origin','gh-pages'],root));
 let pages;try{pages=JSON.parse(run('gh',['api',`repos/${repo}/pages`]));}catch{
  const config=join(root,'pages-config.json');await writeFile(config,JSON.stringify({source:{branch:'gh-pages',path:'/'},build_type:'legacy'}));
- pages=JSON.parse(run('gh',['api',`repos/${repo}/pages`,'--method','POST','--input',config]));
+ // GitHub may create the site despite an empty creation response. Reconcile with GET.
+ try{run('gh',['api',`repos/${repo}/pages`,'--method','POST','--input',config]);}catch{}
+ pages=JSON.parse(run('gh',['api',`repos/${repo}/pages`]));
 }
 console.log(JSON.stringify({url:pages.html_url||'https://mekanuo.github.io/xian-ni-game/',sourceCommit,distributionCommit:run('git',['rev-parse','HEAD'],root)},null,2));

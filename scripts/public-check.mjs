@@ -1,0 +1,24 @@
+import {chromium} from '@playwright/test';
+import assert from 'node:assert/strict';
+import {readFile,readdir,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const base='https://mekanuo.github.io/xian-ni-game/';
+const evidence={checkedAt:new Date().toISOString(),url:base,release:null,resources:[],browser:null,input:[],errors:[]};
+const releaseResponse=await fetch(new URL('release.json',base));assert.equal(releaseResponse.status,200);evidence.release=await releaseResponse.json();
+async function files(dir){const list=[];for(const e of await readdir(dir,{withFileTypes:true})){const path=`${dir}/${e.name}`;if(e.isDirectory())list.push(...await files(path));else list.push(path);}return list;}
+const hash=b=>createHash('sha256').update(b).digest('hex');
+evidence.resources=await Promise.all((await files('dist')).map(async path=>{const relative=path.slice(5),response=await fetch(new URL(relative,base));assert.equal(response.status,200,relative);const bytes=Buffer.from(await response.arrayBuffer()),local=await readFile(path);assert.equal(hash(bytes),hash(local),`${relative} must match the tested production build`);return {path:relative,status:response.status,bytes:bytes.length,sha256:hash(bytes)};}));
+const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
+try{
+const page=await browser.newPage({viewport:{width:1440,height:900}});page.on('pageerror',e=>evidence.errors.push(e.message));evidence.browser=await browser.version();
+await page.goto(base);await page.getByRole('button',{name:'入 山',exact:true}).click();await page.getByRole('button',{name:'去回石驿',exact:true}).click();
+const state=()=>page.evaluate(()=>{const s=window.__XIAN_NI__.inspect();return {scene:s.scene,player:s.player,flags:s.flags,ended:s.ended};});
+evidence.input.push({action:'create profile on public site',state:await state()});
+await page.locator('[data-ui="spell:pull"]').click();let point=await page.evaluate(()=>window.__XIAN_NI__.screenPoint(430,760));await page.mouse.click(point.x,point.y);await page.waitForFunction(()=>window.__XIAN_NI__.inspect().player.pullId==='lamp');
+point=await page.evaluate(()=>window.__XIAN_NI__.screenPoint(560,665));await page.mouse.click(point.x,point.y);await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect(),e=s.worlds.home.find(e=>e.id==='lamp');return Math.hypot(e.x-560,e.y-665)<10;});await page.locator('[data-ui="release"]').click();assert.equal((await state()).flags.lampFixed,true);
+evidence.input.push({action:'click pull, lamp, stand and release',state:await state()});
+const before=(await state()).player.x;await page.keyboard.down('d');await page.waitForTimeout(750);await page.keyboard.up('d');assert.ok((await state()).player.x>before+20);
+evidence.input.push({action:'keyboard D movement',state:await state()});
+await page.screenshot({path:'qa/evidence/public-start.png'});evidence.visual='qa/evidence/public-start.png';assert.equal(evidence.errors.length,0);
+await writeFile('qa/evidence/publication.json',JSON.stringify(evidence,null,2));console.log(JSON.stringify({url:base,sourceCommit:evidence.release.sourceCommit,resources:evidence.resources.length,browser:evidence.browser,input:'create, physical lamp repair, keyboard movement',errors:evidence.errors}));
+}finally{await browser.close();}

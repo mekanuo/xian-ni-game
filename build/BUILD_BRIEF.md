@@ -14,4 +14,4 @@
 - 排除：联网账号、自由聊天、挂机等待、全书大地图、境界速升、继承王林专属功绩；原文不打包。
 - install: npm ci；buildOrExport: npm run build；start: npm run dev -- --host 0.0.0.0；modelCheck: npm test；verify: npm run verify。
 - engine: Phaser 3.90.0；runtime: Node22.22.0；packageManager: npm10.9.4；testedRuntime: Linux 6.6 / Chrome 150 headless / Playwright 1.58.2，1440×900。
-- 当前限制：首版完整候选六项浏览器验证通过，28项模型测试通过，见qa/verification.json；公网发布待M4；Mac目标尚未实测；自然游玩时长与趣味未验证。
+- 当前限制：首版完整候选六项浏览器验证通过，28项模型测试通过，见qa/verification.json；公网已部署且匿名HTTP资源哈希/浏览器输入复查通过：https://mekanuo.github.io/xian-ni-game/；Mac目标尚未实测；自然游玩时长与趣味未验证。

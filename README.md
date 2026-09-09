@@ -6,7 +6,9 @@
 
 ## 游玩
 
-公网入口将在本次首版部署完成后补入。目标为桌面浏览器，建议横屏 1280×720 以上。
+**公网试玩：https://mekanuo.github.io/xian-ni-game/**
+
+无需登录或安装。目标为桌面浏览器，建议横屏 1280×720 以上。
 
 - WASD／方向键或点击地面行走；点击近处人、物，或按 E 互动。
 - 1／2／3 选择引力术、火焰球、护符；再点击目标。
@@ -31,6 +33,8 @@ npm run verify
 ```
 
 `verify` 在 Linux Chrome 中运行真实鼠标键盘流程，覆盖启动、渲染、输入、核心循环、设计结果和重开；结果在 `qa/verification.json`，同一轮观察记录在 `qa/evidence/run.json`。Chrome 默认路径为 `/usr/bin/google-chrome`；可用 `CHROME_PATH` 指定执行文件。
+
+`node scripts/public-check.mjs` 另行核对公网资源哈希与匿名浏览器的创建、牵灯和移动；发布证据在 `qa/evidence/publication.json`。
 
 Mac Chrome／Safari 是目标环境，但本机的 Linux 证据不能代替 Mac 实测。30–45 分钟是设计目标，实际游玩时长与趣味仍需玩家反馈。
 

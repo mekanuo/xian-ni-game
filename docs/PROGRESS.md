@@ -1,3 +1,14 @@
+## 2026-09-09 M4：首版公网交付完成
+
+- 公网试玩：https://mekanuo.github.io/xian-ni-game/ ，无需登录或安装。
+- 环境恢复danger-full-access后，M3 3d5d5f1与拦截记录218ce2b已成功推送至origin/feat/return-stone-v1；旧审批拦截已经解除，不再等待用户重复许可。
+- 独立gh-pages发布提交d9217d070aed09e5deca975b7268620f7c335b7b，仅含运行包、.nojekyll、release.json；没有将源码研究或小说正文放入站点。release.json记录sourceCommit 218ce2b92630ecdc4cb1a0a094be9ddc8073e394（其玩法代码与3d5d5f1相同）。
+- Pages创建接口返回空响应导致CLI报解析错误；随后只读GET核对站点已存在、source=gh-pages、HTTPS启用、status=built。未重复创建；部署脚本已改为以GET确认创建结果。
+- `node scripts/public-check.mjs` exit0：匿名HTTP取得所有7个运行资源，逐一SHA-256与本机通过完整验证的dist一致；Linux Chrome150.0.7871.114实际公网创建人物、牵灯归架、键盘移动均成功，pageerror=[]。
+- 发布证据qa/evidence/publication.json与public-start.png；完整流程事实源仍为qa/verification.json、qa/evidence/run.json：28项模型回归及六项完整浏览器验证PASS，含两种鼠标练法、同伴登台、风铃、山脊来回、共同地图、继续与重开。
+- 本轮不扩建下一段故事，不读封版项目，不重做研究。Mac/Safari/触控板、自然游玩时长与主观趣味未实测，保留为明确交付限制。
+- 交付文档与发布脚本修正会形成最后文档/运维提交；它不改变已上线运行资源，无需为说明文字重新部署或重跑完整游戏测试。
+
 ## 2026-09-09 发布拦截：M3已提交，尚未推送
 
 - 本地M3源码提交为3d5d5f1；M1 4b35f5c、M2 1982250已成功推送至origin/feat/return-stone-v1。
