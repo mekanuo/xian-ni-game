@@ -1,3 +1,10 @@
+## 2026-09-09 M10：0.2.1 权限恢复与公网交付
+
+- 环境恢复danger-full-access、网络启用。沿用此前用户授权，0265aea与d9d033f已成功推送至origin/feat/return-stone-v1；没有重做已通过的美术/通关验证。
+- scripts/deploy-pages.mjs exit0；gh-pages发行7bc97deded737ba32d42f3768882ac76e99014b3，release.json记录0.2.1及sourceCommit d9d033f1ec6470b2f22b50a2555d2837406ad497。
+- scripts/public-check.mjs exit0：10个运行文件SHA256与已测试dist一致；匿名桌面创建/实际归灯/键盘移动、DPR3手机触控护符/音乐、两端察看周围通过，pageerror=[]。publication.json及public-start/public-mobile截图已更新。
+- 公网仍为https://mekanuo.github.io/xian-ni-game/，本轮入口可带?v=0.2.1。此前发布拦截已解除；最后文档/证据提交不改变运行包，不需要重新部署。
+
 ## 2026-09-09 0.2.1 发布被当前自动审批拦截
 
 - 完整修订与证据在本地提交0265aea；最终npm run verify exit0、64项测试、五种视口和两路归家重开均通过。

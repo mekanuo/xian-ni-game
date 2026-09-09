@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-09-09T10:21:00.052Z",
+  "checkedAt": "2026-09-09T13:37:56.575Z",
   "url": "https://mekanuo.github.io/xian-ni-game/",
   "release": {
     "game": "山门之外",
-    "version": "0.2.0",
-    "sourceCommit": "6c76f2c4d2d18bed62dab46a4da2e8c727dac085",
-    "builtAt": "2026-09-09T10:19:57.426Z"
+    "version": "0.2.1",
+    "sourceCommit": "d9d033f1ec6470b2f22b50a2555d2837406ad497",
+    "builtAt": "2026-09-09T13:36:16.384Z"
   },
   "resources": [
     {
@@ -27,28 +27,46 @@
       "sha256": "006719ddbd6b1a42673851aad8b4c06772bc6c68bcecbde8241d9a63369b04d9"
     },
     {
+      "path": "art/home-ground.png",
+      "status": 200,
+      "bytes": 3845100,
+      "sha256": "f7a57e8c8892e1f96e09b1cb743c3510984ec5e94b2e081dee200e186cb9ee0f"
+    },
+    {
+      "path": "art/home-inn.png",
+      "status": 200,
+      "bytes": 2660936,
+      "sha256": "0602547ab3fd1ff71fbb69d8e16e39ece7eb99e0d0c7552b4db75d5c61be4cff"
+    },
+    {
+      "path": "art/home-props.png",
+      "status": 200,
+      "bytes": 2309935,
+      "sha256": "d25b7db544aed2e8c0a979d520d0e690bc49ffa64059b296e39ff892dd5c9246"
+    },
+    {
       "path": "art/title.png",
       "status": 200,
       "bytes": 2788149,
       "sha256": "58e23fb0b0d022eaf4afc7c934afa3df1f3fd8ce4cb01645b0c14d444471f75e"
     },
     {
-      "path": "assets/index-6hjUgiSs.css",
+      "path": "assets/index-B_OocHnE.css",
       "status": 200,
-      "bytes": 30201,
-      "sha256": "012cc909a337ebcd0d900ccb3342c87501309789e96806af362c395409a547dc"
+      "bytes": 30486,
+      "sha256": "aa67c4e2291b950b076cc37231ca104a8af52347bf7012724f6840867ae86dce"
     },
     {
-      "path": "assets/index-DEjBtJp_.js",
+      "path": "assets/index-DjO9lHTX.js",
       "status": 200,
-      "bytes": 1347468,
-      "sha256": "f27d85c6cea5db3377a0734bf6a55d24bc53bc3e79caaf251f0c3d0842725dbe"
+      "bytes": 1350070,
+      "sha256": "0ab7cac3867a889b8ad14408ff71b410040dad2f73e7da17088ec079608aedb7"
     },
     {
       "path": "index.html",
       "status": 200,
       "bytes": 656,
-      "sha256": "3fd83a69793f79ad84fddcd1b81c7f7a40110a04ca475138ed7291bc2a47880c"
+      "sha256": "d322736b27dbe419158639e21a8e7e3f897a817e37d10dbfca4e4aec77843930"
     }
   ],
   "browser": "150.0.7871.114",
@@ -116,7 +134,7 @@
       "state": {
         "scene": "home",
         "player": {
-          "x": 386.66666666666686,
+          "x": 458.66666666666737,
           "y": 710,
           "hp": 4,
           "mana": 5,
@@ -154,10 +172,10 @@
     "muted": false,
     "musicVolume": 0.55,
     "effectsVolume": 0.45,
-    "musicScheduled": 4,
-    "musicRms": 0.015519916728609072,
+    "musicScheduled": 5,
+    "musicRms": 0.08405789219101076,
     "effectsRms": 0,
-    "activeVoices": 7,
+    "activeVoices": 8,
     "lastEffect": "",
     "effectCounts": {},
     "error": "",
@@ -185,8 +203,8 @@
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
       "musicScheduled": 12,
-      "musicRms": 0.022862723538140912,
-      "effectsRms": 0.0035289121856099796,
+      "musicRms": 0.018903755660712337,
+      "effectsRms": 0.0031642077615299915,
       "activeVoices": 15,
       "lastEffect": "ward",
       "effectCounts": {
