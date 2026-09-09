@@ -1,3 +1,7 @@
+## 0.2.2 公网已验证
+
+源码39e4aed已推送feat/return-stone-v1；发行7349f8c已推送gh-pages。public-check exit0，17运行文件SHA256与dist一致，桌面与DPR3手机实际输入/声音通过，pageerror为空。链接 https://mekanuo.github.io/xian-ni-game/?v=0.2.2 。0.3正在独立分支实现，不能把已发布0.2.2说成已有两个新委托。
+
 ## 0.2.2 完整候选验证通过
 
 2026-09-09：npm run verify exit0，64单测、home五视口、输入/存档/触屏/声音/战斗、region-art桌面三图与DPR3手机、主渡/山脊两条真实完整归家和重开均PASS。最终verify由自有4187生产预览服务运行，已关闭；早期4191开发服务中断造成的region失败已被完整最终实跑替代，不混写为游戏故障。新增真实设置导出 fixture return-main-v0.2.2 / return-ridge-v0.2.2，未注入状态。审阅P2水波覆盖桥面和安楔无反馈已修；建筑内凳前景分层保留为非阻塞限制。源码正准备提交发布。

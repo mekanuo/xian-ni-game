@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-09-09T13:37:56.575Z",
+  "checkedAt": "2026-09-09T15:32:11.497Z",
   "url": "https://mekanuo.github.io/xian-ni-game/",
   "release": {
     "game": "山门之外",
-    "version": "0.2.1",
-    "sourceCommit": "d9d033f1ec6470b2f22b50a2555d2837406ad497",
-    "builtAt": "2026-09-09T13:36:16.384Z"
+    "version": "0.2.2",
+    "sourceCommit": "39e4aedc2e65aba4816f437a7d18c48cdad834bf",
+    "builtAt": "2026-09-09T15:28:08.877Z"
   },
   "resources": [
     {
@@ -13,6 +13,24 @@
       "status": 200,
       "bytes": 1699126,
       "sha256": "37b50db6122507a1d00fa1e7eb71468616208e77e1650f12ee06bbac728520f2"
+    },
+    {
+      "path": "art/creek-ground.png",
+      "status": 200,
+      "bytes": 3613536,
+      "sha256": "73e657f6610659c908900e292d9c6f2aa276f711516f6f4995be441ee2403db4"
+    },
+    {
+      "path": "art/crossing-ground.png",
+      "status": 200,
+      "bytes": 3697306,
+      "sha256": "63845ee3c761e1ec1c1d57273eb18a399decf53148c1635770e096b96ef18d7b"
+    },
+    {
+      "path": "art/detail-props.png",
+      "status": 200,
+      "bytes": 1889361,
+      "sha256": "fc685245548231a1cea9836fd4ae1719c1d2834aadac9a514eae47adaba5c793"
     },
     {
       "path": "art/enemies.png",
@@ -45,10 +63,40 @@
       "sha256": "d25b7db544aed2e8c0a979d520d0e690bc49ffa64059b296e39ff892dd5c9246"
     },
     {
+      "path": "art/journey-props.png",
+      "status": 200,
+      "bytes": 2093674,
+      "sha256": "ecc72550eaadeccf903455cd83d589cc1ce298c04a42f79e7cfe8a7ef0820b04"
+    },
+    {
+      "path": "art/region-architecture.png",
+      "status": 200,
+      "bytes": 1728167,
+      "sha256": "4a726507e768ed9a01b0def0adaa797de695d004db4b0557884e0e2deef338b8"
+    },
+    {
       "path": "art/title.png",
       "status": 200,
       "bytes": 2788149,
       "sha256": "58e23fb0b0d022eaf4afc7c934afa3df1f3fd8ce4cb01645b0c14d444471f75e"
+    },
+    {
+      "path": "art/water-surface.png",
+      "status": 200,
+      "bytes": 2712587,
+      "sha256": "6fb7988ee59d46aa3ba9feac3ec1ccd2844f249b04c6b549e7e2e03c4a0434e9"
+    },
+    {
+      "path": "art/workshop-ground.png",
+      "status": 200,
+      "bytes": 3637210,
+      "sha256": "bedbd7d681e1cf7c4481696e3983b6638f6c8088f892c4a54759953b58f108c9"
+    },
+    {
+      "path": "assets/index-BCc5tWgp.js",
+      "status": 200,
+      "bytes": 1356788,
+      "sha256": "9727e313122f217da22c311e856fab4d6c0c1d873f3ba2a644a4a573f5048a0e"
     },
     {
       "path": "assets/index-B_OocHnE.css",
@@ -57,16 +105,10 @@
       "sha256": "aa67c4e2291b950b076cc37231ca104a8af52347bf7012724f6840867ae86dce"
     },
     {
-      "path": "assets/index-DjO9lHTX.js",
-      "status": 200,
-      "bytes": 1350070,
-      "sha256": "0ab7cac3867a889b8ad14408ff71b410040dad2f73e7da17088ec079608aedb7"
-    },
-    {
       "path": "index.html",
       "status": 200,
       "bytes": 656,
-      "sha256": "d322736b27dbe419158639e21a8e7e3f897a817e37d10dbfca4e4aec77843930"
+      "sha256": "172bdf03331986086b9a313a6483c5fe434b87e70db151628560bddda7b4f0e6"
     }
   ],
   "browser": "150.0.7871.114",
@@ -134,7 +176,7 @@
       "state": {
         "scene": "home",
         "player": {
-          "x": 458.66666666666737,
+          "x": 498.66666666666765,
           "y": 710,
           "hp": 4,
           "mana": 5,
@@ -173,7 +215,7 @@
     "musicVolume": 0.55,
     "effectsVolume": 0.45,
     "musicScheduled": 5,
-    "musicRms": 0.08405789219101076,
+    "musicRms": 0.08403802564546467,
     "effectsRms": 0,
     "activeVoices": 8,
     "lastEffect": "",
@@ -203,8 +245,8 @@
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
       "musicScheduled": 12,
-      "musicRms": 0.018903755660712337,
-      "effectsRms": 0.0031642077615299915,
+      "musicRms": 0.01746339897777433,
+      "effectsRms": 0.002822217618255884,
       "activeVoices": 15,
       "lastEffect": "ward",
       "effectCounts": {
