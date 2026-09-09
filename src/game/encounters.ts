@@ -125,7 +125,7 @@ export function nearbyEncounter(s: GameState): EncounterView|undefined {
     if(near(['board','basket','shelter'],235))return rainShelter(s);
   }
   if(s.scene==='workshop'){
-    if(near(['life_hearth','life_jaw','life_press'],220)){
+    if(s.life?.repair.stage!=='unaccepted'&&near(['life_hearth','life_jaw','life_press'],220)){
       const e=s.worlds.workshop.find(e=>e.id.startsWith('life_')&&e.id!=='life_scent'&&distance(s.player,e)<=220);
       if(e)return view('life-repair',e.name,lifeDescription(s,e)||'挂扣修器工序','察看当前工序','回驿交还挂扣');
     }
