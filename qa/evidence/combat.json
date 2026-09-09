@@ -1,0 +1,251 @@
+{
+  "environment": {
+    "browser": "150.0.7871.114",
+    "device": "Linux Chrome real input, not a phone speaker test"
+  },
+  "inputTrace": [
+    {
+      "action": "interact",
+      "detail": "to_creek",
+      "wall": 5428
+    },
+    {
+      "action": "scene",
+      "detail": "creek",
+      "wall": 18520
+    },
+    {
+      "action": "interact",
+      "detail": "rope",
+      "wall": 18841
+    },
+    {
+      "action": "choice",
+      "detail": "fix",
+      "wall": 21048
+    },
+    {
+      "action": "interact",
+      "detail": "bag",
+      "wall": 22353
+    },
+    {
+      "action": "interact",
+      "detail": "to_workshop",
+      "wall": 23574
+    },
+    {
+      "action": "scene",
+      "detail": "workshop",
+      "wall": 33535
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 430,
+        "y": 730
+      },
+      "wall": 33695
+    }
+  ],
+  "music": {
+    "state": "running",
+    "requested": true,
+    "scene": "home",
+    "muted": false,
+    "musicVolume": 0.55,
+    "effectsVolume": 0.45,
+    "musicScheduled": 8,
+    "musicRms": 0.01669489301179995,
+    "effectsRms": 0,
+    "activeVoices": 8,
+    "lastEffect": "",
+    "effectCounts": {},
+    "error": "",
+    "disposed": false
+  },
+  "hit": {
+    "audio": {
+      "state": "running",
+      "requested": true,
+      "scene": "workshop",
+      "muted": false,
+      "musicVolume": 0.55,
+      "effectsVolume": 0.45,
+      "musicScheduled": 84,
+      "musicRms": 0.016717442269872054,
+      "effectsRms": 0.007693041776219315,
+      "activeVoices": 12,
+      "lastEffect": "hit",
+      "effectCounts": {
+        "step": 50,
+        "change": 1,
+        "item": 1,
+        "alert": 1,
+        "cast": 1,
+        "hit": 1
+      },
+      "error": "",
+      "disposed": false
+    },
+    "feedback": {
+      "active": [
+        {
+          "seq": 9,
+          "kind": "hit",
+          "x": 640.7927963407658,
+          "y": 711.8168092598027,
+          "targetId": "beast_a",
+          "age": 0,
+          "life": 650,
+          "angle": -0.08585145051284232
+        }
+      ],
+      "recent": [
+        {
+          "seq": 4,
+          "kind": "change"
+        },
+        {
+          "seq": 8,
+          "kind": "cast"
+        },
+        {
+          "seq": 9,
+          "kind": "hit"
+        }
+      ]
+    },
+    "hp": 4
+  },
+  "block": {
+    "audio": {
+      "state": "running",
+      "requested": true,
+      "scene": "workshop",
+      "muted": false,
+      "musicVolume": 0.55,
+      "effectsVolume": 0.45,
+      "musicScheduled": 92,
+      "musicRms": 0.006542953412659076,
+      "effectsRms": 0.06758954959542075,
+      "activeVoices": 15,
+      "lastEffect": "block",
+      "effectCounts": {
+        "step": 50,
+        "change": 1,
+        "item": 1,
+        "alert": 1,
+        "cast": 1,
+        "hit": 1,
+        "ward": 1,
+        "block": 1
+      },
+      "error": "",
+      "disposed": false
+    },
+    "feedback": {
+      "active": [
+        {
+          "seq": 11,
+          "kind": "block",
+          "x": 429.1487952278503,
+          "y": 730.0315261026722,
+          "age": 0,
+          "life": 650,
+          "angle": 0
+        }
+      ],
+      "recent": [
+        {
+          "seq": 4,
+          "kind": "change"
+        },
+        {
+          "seq": 8,
+          "kind": "cast"
+        },
+        {
+          "seq": 9,
+          "kind": "hit"
+        },
+        {
+          "seq": 10,
+          "kind": "ward"
+        },
+        {
+          "seq": 11,
+          "kind": "block"
+        }
+      ]
+    }
+  },
+  "hurt": {
+    "audio": {
+      "state": "running",
+      "requested": true,
+      "scene": "workshop",
+      "muted": false,
+      "musicVolume": 0.55,
+      "effectsVolume": 0.45,
+      "musicScheduled": 95,
+      "musicRms": 0.027680849587336877,
+      "effectsRms": 0.02873944731422088,
+      "activeVoices": 11,
+      "lastEffect": "hurt",
+      "effectCounts": {
+        "step": 50,
+        "change": 1,
+        "item": 1,
+        "alert": 1,
+        "cast": 1,
+        "hit": 1,
+        "ward": 1,
+        "block": 1,
+        "hurt": 1
+      },
+      "error": "",
+      "disposed": false
+    },
+    "feedback": {
+      "active": [
+        {
+          "seq": 12,
+          "kind": "hurt",
+          "x": 429.1487952278503,
+          "y": 730.0315261026722,
+          "age": 0,
+          "life": 650,
+          "angle": 0
+        }
+      ],
+      "recent": [
+        {
+          "seq": 4,
+          "kind": "change"
+        },
+        {
+          "seq": 8,
+          "kind": "cast"
+        },
+        {
+          "seq": 9,
+          "kind": "hit"
+        },
+        {
+          "seq": 10,
+          "kind": "ward"
+        },
+        {
+          "seq": 11,
+          "kind": "block"
+        },
+        {
+          "seq": 12,
+          "kind": "hurt"
+        }
+      ]
+    }
+  },
+  "errors": []
+}

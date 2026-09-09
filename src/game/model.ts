@@ -96,13 +96,14 @@ export function previewCast(s:GameState,spell:Spell,targetId:string|undefined,po
   return {valid:true,reason:spell==='pull'?'牵住后点击落点，按放下落稳':spell==='flame'?'准备半秒后直线飞出':'挡住前方一次来袭，持续6秒',cost:1,range,target};
 }
 function dialogue(s:GameState,id:string,speaker:string,text:string,choices:DialogueChoice[]=[]){
+  if(!s.dialogue)s.flags.dialogueWasPaused=s.paused;
   s.flags.dialogueRemainder=choices.length>2?JSON.stringify(choices.slice(2)):'';
   s.dialogue={id,speaker,text,choices:[...choices.slice(0,2),choices.length>2?{id:'more',label:'还有些话想说…'}:{id:'leave',label:'先继续走走'}]};s.paused=true;s.player.path=[];s.pending=null;
 }
+function closeDialogue(s:GameState){s.dialogue=null;s.paused=Boolean(s.flags.dialogueWasPaused)||s.defeated;delete s.flags.dialogueWasPaused;}
 function follow(s:GameState){s.flags.companion='following';emit(s,'relationship','许照收紧药篓背带，走到你身后。');}
 function choose(s:GameState,id:string):ActionResult {
-  const d=s.dialogue;if(!d)return result(false,'当前没有交谈');if(id==='leave'){s.dialogue=null;return result(true);}if(id==='more'){const choices:DialogueChoice[]=JSON.parse(String(s.flags.dialogueRemainder||'[]'));dialogue(s,d.id,d.speaker,d.text,choices);return result(true);}const option=d.choices.find(c=>c.id===id);if(!option||option.disabled)return result(false,option?.disabled??'没有这个话题');
-  if(id==='leave'){s.dialogue=null;return result(true);}
+  const d=s.dialogue;if(!d)return result(false,'当前没有交谈');if(id==='leave'){closeDialogue(s);return result(true);}if(id==='more'){const choices:DialogueChoice[]=JSON.parse(String(s.flags.dialogueRemainder||'[]'));dialogue(s,d.id,d.speaker,d.text,choices);return result(true);}const option=d.choices.find(c=>c.id===id);if(!option||option.disabled)return result(false,option?.disabled??'没有这个话题');
   if(id==='invite'){follow(s);s.flags.invited=true;}
   else if(id==='wait'){s.flags.companion='waiting';emit(s,'relationship','你们约在溪道会合。许照会按自己的路程走。');}
   else if(id==='fix'){s.flags.boatSecured=true;entity(s,'boat')!.state='secured';emit(s,'change','你认出旧绳扣的受力处，徒手固定了小舟。');}
@@ -135,7 +136,7 @@ function choose(s:GameState,id:string):ActionResult {
       emit(s,'ending',id==='stay'?`你在桌边放下引环，亲手定好练功角的挂钩。${shared}明日有地方继续练。`:`你在桌上展开亲自走过的${s.flags.route==='main'?'低滩渡路':'山脊绕路'}。${shared}${s.flags.travelInvited?'许照在旁添了一笔，约好下次短途。':'你给自己的下一段行路留出空白。'}`);
     }else{s.profile.wish=id;emit(s,'note',id==='stay'?'你想先有个能安心练术的地方。':'你想练到能独自走远，也能照应同行。');}
   }
-  s.dialogue=null;return result(true);
+  closeDialogue(s);return result(true);
 }
 function interact(s:GameState,id:string):ActionResult {
   const e=entity(s,id);if(!e||dist(e,s.player)>105||!clearLine(s,s.player,e,e.id))return result(false,'先走近这个人或器物再互动');
@@ -235,6 +236,7 @@ export function act(s:GameState,a:GameAction):ActionResult {
   if(a.type==='select'){s.selected=a.spell;return result(true);}
   if(a.type==='pause'){
     if(!a.value&&(s.dialogue||s.defeated))return result(false,s.dialogue?'先结束交谈':'先选择重试或撤回');
+    if(a.value&&s.dialogue)s.flags.dialogueWasPaused=true;
     s.paused=a.value;if(!a.value&&s.pending){const next=s.pending;s.pending=null;const r=act(s,next);if(!r.ok)emit(s,'invalid',r.message??'待执行动作已不成立');return r;}return result(true);
   }
   if(a.type==='choose')return choose(s,a.choiceId);

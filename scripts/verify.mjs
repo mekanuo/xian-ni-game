@@ -14,6 +14,10 @@ try{
  if(!ready)throw Error('Preview server failed to start');
  const regression=spawn(process.execPath,['scripts/ui-regression.mjs'],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
  const regressionExit=await new Promise(r=>regression.on('exit',r));report.verify.suites.push({command:'node scripts/ui-regression.mjs',exitCode:regressionExit});if(regressionExit!==0)throw Error('UI save/input regression failed');
+ for(const script of ['mobile-render-check.mjs','combat-check.mjs']){
+  const check=spawn(process.execPath,[`scripts/${script}`],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
+  const code=await new Promise(r=>check.on('exit',r));report.verify.suites.push({command:`node scripts/${script}`,exitCode:code});if(code!==0)throw Error(`${script} failed`);
+ }
  const child=spawn(process.execPath,['scripts/playthrough.mjs'],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
  const exit=await new Promise(r=>child.on('exit',r));if(exit!==0)throw Error('Browser complete run failed; see qa/evidence/playthrough-failure.json');
  const evidence=JSON.parse(await readFile('qa/evidence/playthrough-draft.json','utf8'));

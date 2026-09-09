@@ -23,6 +23,14 @@ function readyRing(origin: 'tinker'|'herbalist'='tinker', style:'long'|'hold'='l
   interact(s,'rest_workshop');walk(s,{x:1450,y:220});walk(s,{x:320,y:220});exit(s,'to_creek','creek');return s;
 }
 describe('deterministic spatial world', () => {
+  it('resumes running play after dialogue but preserves an explicit pause during it',()=>{
+    const s=createGame(profile);interact(s,'tao');
+    act(s,{type:'choose',choiceId:'more'});act(s,{type:'choose',choiceId:'leave'});
+    expect(s.dialogue).toBe(null);expect(s.paused).toBe(false);
+    interact(s,'tao');act(s,{type:'pause',value:true});
+    act(s,{type:'choose',choiceId:'more'});act(s,{type:'choose',choiceId:'leave'});
+    expect(s.paused).toBe(true);
+  });
   it('invalid spell does not mutate anything or consume resources', () => {
     const s = createGame(profile), before = snapshot(s);
     expect(act(s, { type: 'cast', spell: 'pull', targetId: 'missing', point: { x: 0, y: 0 } }).ok).toBe(false);

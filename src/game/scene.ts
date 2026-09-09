@@ -4,6 +4,9 @@ import { createGame, act, tick, nearbyEntity, previewCast, snapshot } from './mo
 import { SCENES } from './content';
 import { GameUI, type Settings } from './ui';
 import { Soundscape } from './audio';
+import { display } from './display';
+import { Feedback } from './feedback';
+import { paintTerrain } from './terrain';
 
 const FONT = '"Noto Serif SC", "Songti SC", "Microsoft YaHei", serif';
 const COLORS = {ink:0x314b42,outline:0x42573e,stone:0x879887,stoneLight:0xb0baa6,wood:0x897755,woodLight:0xb4a17a,roof:0x576f68,leaf:0x628267};
@@ -14,6 +17,9 @@ export class WorldScene extends Phaser.Scene {
   public state!: GameState;
   private ui!: GameUI;
   private soundscape = new Soundscape();
+  private feedback=new Feedback();
+  private impactLabels=new Map<number,Phaser.GameObjects.Text>();
+  private stepClock=0;
   private landscape!: Phaser.GameObjects.Container;
   private effects!: Phaser.GameObjects.Graphics;
   private worldLabels!: Phaser.GameObjects.Container;
@@ -60,7 +66,7 @@ export class WorldScene extends Phaser.Scene {
     this.landscape=this.add.container(0,0);
     this.worldLabels=this.add.container(0,0).setDepth(15000);
     this.effects=this.add.graphics().setDepth(12000);
-    this.hoverLabel=this.add.text(0,0,'',{fontFamily:FONT,fontSize:'13px',color:'#f5f3df',backgroundColor:'#2d4944',padding:{x:12,y:8},align:'center'}).setOrigin(.5,1).setDepth(25000).setVisible(false);
+    this.hoverLabel=this.add.text(0,0,'',{fontFamily:FONT,fontSize:'13px',color:'#f5f3df',backgroundColor:'#2d4944',padding:{x:12,y:8},align:'center'}).setResolution(display.density).setOrigin(.5,1).setDepth(25000).setVisible(false);
     this.player=this.makeCharacter('player',0,0,0);this.playerHand=this.add.graphics();this.player.add(this.playerHand);
     this.keys=this.input.keyboard!.addKeys('W,A,S,D,UP,LEFT,DOWN,RIGHT,SPACE,ONE,TWO,THREE,E,R,C,J,I,M,ESC',false) as Record<string,Phaser.Input.Keyboard.Key>;
     this.ui=new GameUI({get:()=>this.state,act:a=>this.dispatch(a),replace:s=>this.replace(s),select:s=>this.select(s),center:()=>this.center(),settings:s=>{this.settings=s;}},this.soundscape);
@@ -71,16 +77,20 @@ export class WorldScene extends Phaser.Scene {
     this.input.mouse?.disableContextMenu();
     this.input.on('pointerdown',(p:Phaser.Input.Pointer)=>this.pointerDown(p));
     this.input.on('pointerup',()=>{this.dragStart=null;});
-    this.input.on('pointermove',(p:Phaser.Input.Pointer)=>{if(this.dragStart){this.cameraManual=true;this.cameras.main.scrollX=this.dragStart.cx-(p.x-this.dragStart.x);this.cameras.main.scrollY=this.dragStart.cy-(p.y-this.dragStart.y);}});
+    this.input.on('pointermove',(p:Phaser.Input.Pointer)=>{if(this.dragStart){this.cameraManual=true;this.cameras.main.scrollX=this.dragStart.cx-(p.x-this.dragStart.x)/this.cameras.main.zoom;this.cameras.main.scrollY=this.dragStart.cy-(p.y-this.dragStart.y)/this.cameras.main.zoom;}});
     window.addEventListener('blur',()=>{this.dispatch({type:'pause',value:true});this.keys&&Object.values(this.keys).forEach(k=>k.reset());});
     document.addEventListener('visibilitychange',()=>{if(document.hidden)this.dispatch({type:'pause',value:true});});
-    this.scale.on('resize',()=>this.center());
+    this.scale.on('resize',()=>{this.cameras.main.setZoom(display.density*display.worldScale);this.hoverLabel.setResolution(display.density);this.renders.forEach(r=>r.label.setResolution(display.density));this.center();});
+    this.cameras.main.setZoom(display.density*display.worldScale);
+    this.events.once('shutdown',()=>this.soundscape.dispose());
     this.refreshScene();this.center();
     // Read-only runtime evidence. QA must operate through real input; no state setters.
     Object.defineProperty(window,'__XIAN_NI__',{configurable:true,value:{
       inspect:()=>JSON.parse(snapshot(this.state)),
-      screenPoint:(x:number,y:number)=>({x:x-this.cameras.main.scrollX,y:y-this.cameras.main.scrollY}),
+      screenPoint:(x:number,y:number)=>{const c=this.cameras.main,o=c.getWorldPoint(0,0);return{x:(x-o.x)*c.zoom/display.density,y:(y-o.y)*c.zoom/display.density};},
       scene:()=>SCENES[this.state.scene],
+      audio:()=>this.soundscape.inspect(),
+      feedback:()=>({active:this.feedback.active.map(e=>({...e})),recent:this.feedback.recent.map(e=>({...e}))}),
     }});
   }
   private keyCharacters(){
@@ -108,18 +118,20 @@ export class WorldScene extends Phaser.Scene {
       const excess=Math.min(r-g,b-g);
       if(excess>85&&r>140&&b>140)image.data[i+3]=0;
       else if(excess>40&&r>120&&b>120){image.data[i+3]=Math.round(255*(85-excess)/45);image.data[i]=Math.min(r,g+40);image.data[i+2]=Math.min(b,g+40);}
+      else if(excess>18){image.data[i]=Math.min(r,g+16);image.data[i+2]=Math.min(b,g+16);}
     }
     ctx.putImageData(image,0,0);canvas.refresh();
     return canvas;
   }
   private replace(s:GameState){
     this.state=s;this.renderedScene='';this.groundVersion='';this.queuedInteract=null;this.casting=false;this.accumulator=0;
+    this.feedback.reset(s.events.at(-1)?.seq??0);this.impactLabels.forEach(label=>label.destroy());this.impactLabels.clear();
     this.refreshScene();this.center();
   }
   private dispatch(a:GameAction){
     const result=act(this.state,a);
     if(!result.ok&&result.message)this.ui?.notify(result.message);
-    if(a.type==='retry'||a.type==='retreat'){this.renderedScene='';this.queuedInteract=null;this.refreshScene();this.center();}
+    if(a.type==='retry'||a.type==='retreat'){this.feedback.reset(this.state.events.at(-1)?.seq??0);this.renderedScene='';this.queuedInteract=null;this.refreshScene();this.center();}
     if(a.type==='interact'||a.type==='choose'||a.type==='release'||a.type==='hold')this.casting=false;
     this.ui?.update();
   }
@@ -152,7 +164,7 @@ export class WorldScene extends Phaser.Scene {
     return {x:e.x+dx/d*74,y:e.y+dy/d*74};
   }
   private entityAt(p:Vec){
-    return this.state.worlds[this.state.scene].filter(e=>!['taken','gone','hidden'].includes(e.state)&&e.kind!=='scenery')
+    return this.state.worlds[this.state.scene].filter(e=>!['taken','gone','hidden'].includes(e.state)&&e.kind!=='scenery'&&!(e.id==='lamp'&&this.state.flags.lampFixed))
       .map(e=>({e,d:Math.hypot(e.x-p.x,(e.y-p.y)*.9)}))
       .filter(({e,d})=>d<Math.max(34,Math.max(e.w,e.h)*.65)||Math.abs(e.x-p.x)<e.w*.6&&p.y<e.y&&p.y>e.y-e.h)
       .sort((a,b)=>a.d-b.d)[0]?.e;
@@ -185,13 +197,29 @@ export class WorldScene extends Phaser.Scene {
     if(this.renderedScene!==this.state.scene)this.refreshScene();
     const ground=`${this.state.scene}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.platformOpen}:${this.state.flags.returned}:${this.state.flags.chime}:${this.state.flags.endingWish}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}`;
     if(ground!==this.groundVersion){this.groundVersion=ground;this.paintLandscape();}
+    this.feedback.advance(delta);
+    for(const event of this.feedback.ingest(this.state.events,this.state.player)){
+      if(this.ui.isTitle)continue;
+      this.soundscape.play(event.type);
+      if(['hit','hurt','block'].includes(event.type)&&!this.settings.reduced)this.cameras.main.shake(event.type==='hurt'?100:65,event.type==='hurt'?.0022:.0012,false);
+    }
     this.drawEntities(delta);this.drawEffects();
     const p=this.state.player;
     const moving=Math.hypot(p.x-this.lastX,p.y-this.lastY)>.01;
     if(moving)this.walking+=delta*.012;
+    if(moving&&!this.state.paused){this.stepClock+=delta;if(this.stepClock>340){this.stepClock=0;this.soundscape.play('step');}}else this.stepClock=250;
     this.player.setPosition(p.x,p.y+(!this.settings.reduced&&moving?Math.sin(this.walking*2)*1.8:0)).setDepth(p.y+100);
     const targetScale=this.textures.exists('characters')? .13 : 1;
-    if(this.playerImage){this.playerImage.setFrame(String(this.state.profile.appearance));this.playerImage.setFlipX(Math.cos(p.facing)<0);this.playerImage.setAngle(!this.settings.reduced&&moving?Math.sin(this.walking)*2:0);this.playerImage.setScale(targetScale);this.playerImage.setAlpha(p.invulnerable>0&&Math.sin(this.state.time*25)>0?.5:1);}
+    if(this.playerImage){
+      const hit=this.feedback.active.filter(e=>e.kind==='hurt'&&e.age<240).at(-1);
+      const kick=hit&&!this.settings.reduced?Math.sin(Math.PI*hit.age/240)*9:0;
+      const casting=Boolean(this.state.flags.casting);
+      this.playerImage.setFrame(String(this.state.profile.appearance)).setFlipX(Math.cos(p.facing)<0);
+      this.playerImage.setPosition(-Math.cos(p.facing)*kick,5-Math.sin(p.facing)*kick);
+      this.playerImage.setAngle(!this.settings.reduced?(hit?-kick*.8:casting?-7: moving?Math.sin(this.walking)*2:0):0);
+      this.playerImage.setScale(targetScale).setAlpha(p.invulnerable>0&&Math.sin(this.state.time*25)>0?.65:1);
+      if(hit&&hit.age<120)this.playerImage.setTintFill(0xffdfcd);else this.playerImage.clearTint();
+    }
     this.playerHand.clear();
     if(p.pullId||this.casting){this.playerHand.lineStyle(3,0xf0e4bb,.9);const side=Math.cos(p.facing)>0?1:-1;this.playerHand.lineBetween(side*15,-35,side*26,-42);}
     this.lastX=p.x;this.lastY=p.y;
@@ -206,6 +234,7 @@ export class WorldScene extends Phaser.Scene {
     this.renderedScene=this.state.scene;
     this.renders.forEach(r=>r.container.destroy());this.renders.clear();
     this.worldLabels.removeAll(true);
+    this.feedback.active=[];this.impactLabels.forEach(label=>label.destroy());this.impactLabels.clear();
     const map=SCENES[this.state.scene];this.cameras.main.setBounds(0,0,map.width,map.height);
     this.paintLandscape();
     for(const e of this.state.worlds[this.state.scene])this.makeEntity(e);
@@ -218,23 +247,13 @@ export class WorldScene extends Phaser.Scene {
     this.landscape.removeAll(true);
     const m=SCENES[this.state.scene],g=this.add.graphics();this.landscape.add(g);
     const rand=seeded(['home','creek','workshop','crossing'].indexOf(m.id)*43+83);
-    g.fillStyle(m.palette.ground);g.fillRect(0,0,m.width,m.height);
-    for(let i=0;i<2100;i++){const x=rand()*m.width,y=rand()*m.height;g.fillStyle(rand()>.5?0xd6dfbb:0x638461,.04+rand()*.06);g.fillEllipse(x,y,15+rand()*62,5+rand()*26);}
-    for(const s of m.ground){
-      const colors={path:m.palette.path,water:m.palette.water,grass:0x8eaa80,stone:0xc0c3b0,cliff:0x829084,floor:0xc1b997};
-      this.polygon(g,s.points,colors[s.type]);
-      if(s.type==='path'||s.type==='floor'||s.type==='stone'){
-        const xs=s.points.filter((_,i)=>i%2===0),ys=s.points.filter((_,i)=>i%2===1);
-        const minx=Math.min(...xs),maxx=Math.max(...xs),miny=Math.min(...ys),maxy=Math.max(...ys);
-        for(let i=0;i<(maxx-minx)*(maxy-miny)/220;i++){const x=minx+rand()*(maxx-minx),y=miny+rand()*(maxy-miny);g.fillStyle(rand()>.5?0xe4ddbc:0x928e70,.08+rand()*.12);g.fillEllipse(x,y,4+rand()*16,2+rand()*5);}
-        if(s.type==='floor'){g.lineStyle(1,0x8c8d71,.18);for(let x=minx+15;x<maxx;x+=38)g.lineBetween(x,miny,x,maxy);}
-      }
-      if(s.type==='water'){
-        g.lineStyle(3,0xd4ded2,.28);for(let j=0;j<30;j++){let x=s.points[0]+rand()*(s.points[2]-s.points[0]),y=s.points[1]+rand()*(s.points[5]-s.points[1]);g.lineBetween(x,y,x+12+rand()*24,y+2);}
-      }
-    }
-    // Ground-level borders and deliberate scenery occupy only non-walkway margins.
-    for(let i=0;i<34;i++){const x=50+i*52,y=i%2?995:65;this.bush(g,x,y,30+rand()*25,rand);}
+    const terrainKey='terrain-detail';
+    if(this.textures.exists(terrainKey))this.textures.remove(terrainKey);
+    const terrain=this.textures.createCanvas(terrainKey,m.width*2,m.height*2)!;
+    const context=terrain.getContext();context.scale(2,2);paintTerrain(context,m);terrain.refresh();
+    this.landscape.addAt(this.add.image(0,0,terrainKey).setOrigin(0).setScale(.5),0);
+    // Vegetation belongs to edges and landmarks, with open lanes between groups.
+    for(const [x,y] of [[70,90],[150,67],[490,48],[1210,75],[1660,65],[1740,135],[95,1025],[170,1010],[560,1050],[1430,1040],[1630,1010]])this.bush(g,x,y,26+rand()*24,rand);
     if(m.id==='home')this.paintHome(g,rand);
     if(m.id==='creek')this.paintCreek(g,rand);
     if(m.id==='workshop')this.paintWorkshop(g,rand);
@@ -253,10 +272,10 @@ export class WorldScene extends Phaser.Scene {
     // Bake immutable brushwork once; replaying thousands of paths every frame stalls software WebGL.
     const groundKey='ground-baked';
     if(this.textures.exists(groundKey))this.textures.remove(groundKey);
-    g.generateTexture(groundKey,m.width,m.height);
+    g.setScale(2);g.generateTexture(groundKey,m.width*2,m.height*2);
     this.landscape.remove(g,true);
     // Keep the keyed prop images above the baked ground; only the brushwork is replaced.
-    this.landscape.addAt(this.add.image(0,0,groundKey).setOrigin(0),0);
+    this.landscape.addAt(this.add.image(0,0,groundKey).setOrigin(0).setScale(.5),1);
     this.landscape.setDepth(-1000);
   }
   private environmentProp(frame:string,x:number,y:number,width:number,height?:number){
@@ -267,14 +286,10 @@ export class WorldScene extends Phaser.Scene {
     return image;
   }
   private landscapeRock(g:Phaser.GameObjects.Graphics,x:number,y:number,rx:number,ry:number){
-    // The low stone plinth marks the entire blocking footprint, including the painted rock's inset corners.
-    g.fillStyle(0x919b90);g.fillRoundedRect(x-rx,y-ry,rx*2,ry*2,6);
-    // Small dressed stones make the rectangular collision edge read as a laid stone bed.
-    for(let xx=x-rx;xx<x+rx;xx+=24){
-      g.fillStyle(0xb2baaa);g.fillRoundedRect(xx,y-ry,Math.min(22,x+rx-xx),10,3);
-      g.fillStyle(0xa4ae9e);g.fillRoundedRect(xx,y+ry-10,Math.min(22,x+rx-xx),10,3);
-    }
-    for(let yy=y-ry+12;yy<y+ry-10;yy+=22){g.fillStyle(0xa8b1a3);g.fillRoundedRect(x-rx,yy,10,19,3);g.fillRoundedRect(x+rx-10,yy,10,19,3);}
+    // A broken, mossy rubble edge covers the blocking footprint without a rectangular plinth.
+    this.polygon(g,[x-rx-3,y-ry+8,x-rx+17,y-ry-3,x+rx-13,y-ry+2,x+rx+4,y-ry+20,x+rx+2,y+ry-6,x+rx-16,y+ry+4,x-rx+10,y+ry+3,x-rx-3,y+ry-13],0x708275);
+    const rand=seeded(Math.round(x+y));
+    for(let i=0;i<16;i++){const a=i*Math.PI/8;this.rock(g,x+Math.cos(a)*rx*.93,y+Math.sin(a)*ry*.93,9+rand()*9,5+rand()*7);}
     if(!this.environmentProp('rocks',x,y+ry,rx*2.08,Math.max(ry*2,rx*1.5)))this.rock(g,x,y,rx,ry);
   }
   private bush(g:Phaser.GameObjects.Graphics,x:number,y:number,r:number,rand:()=>number){
@@ -324,7 +339,7 @@ export class WorldScene extends Phaser.Scene {
     g.lineStyle(2,0x74815e);for(let x=240;x<1590;x+=35){g.lineBetween(x,885,x,905);if(x<560||x>780)g.lineBetween(x,890,x+35,890);}
     for(const [x,y] of [[145,415],[1460,350],[1510,470],[138,920]])this.bush(g,x,y,55,rand);
     this.environmentProp('rocks',1510,960,156,100)||this.rock(g,1510,930,78,30);
-    g.fillStyle(0xd2bea0);g.fillRoundedRect(280,600,220,30,7);
+
     g.lineStyle(1,0x9b997e,.5);for(let x=220;x<1190;x+=75)g.lineBetween(x,565,x+40,565);
     // Returning route states are painted where players remember them.
     if(this.state.flags.gateOpen){g.fillStyle(0xbcb18f);g.fillRoundedRect(1230,700,170,50,8);}
@@ -360,7 +375,7 @@ export class WorldScene extends Phaser.Scene {
     for(let i=0;i<9;i++){g.fillStyle(0xa7b89c,.8);g.fillEllipse(350+i*80,244,23,9);}
   }
   private paintCrossing(g:Phaser.GameObjects.Graphics,rand:()=>number){
-    g.fillStyle(0x6e8580);g.fillRect(1180,0,9,1100);g.fillRect(1313,0,8,1100);
+
     g.fillStyle(0x627a6c);g.fillRect(1090,590,16,170);g.fillRect(1200,590,16,170);
     g.fillStyle(0x948061);g.fillRect(1070,580,165,16);g.fillRect(1110,610,100,9);
     for(let x=1100;x<1200;x+=19){g.lineStyle(3,0x5a6351);g.lineBetween(x,605,x,727);}
@@ -386,7 +401,7 @@ export class WorldScene extends Phaser.Scene {
     return container;
   }
   private makeEntity(e:Entity){
-    const art=this.add.graphics(),label=this.add.text(0,15,e.name,{fontFamily:FONT,fontSize:'11px',color:'#344d3d',backgroundColor:'#eaf0d9cc',padding:{x:6,y:3}}).setOrigin(.5,0);
+    const art=this.add.graphics(),label=this.add.text(0,15,e.name,{fontFamily:FONT,fontSize:'12px',color:'#344d3d',backgroundColor:'#eaf0d9cc',padding:{x:6,y:3}}).setResolution(display.density).setOrigin(.5,0);
     let container:Phaser.GameObjects.Container;let image:Phaser.GameObjects.Image|undefined;
     if(e.kind==='npc'){
       container=this.makeCharacter(e.type,e.x,e.y,e.type==='tao'?2:3);
@@ -417,8 +432,12 @@ export class WorldScene extends Phaser.Scene {
       return;
     }
     switch(e.type){
-      case 'lamp':g.fillStyle(e.state==='lit'?0xf3d68c:0xd9ba74);g.fillRoundedRect(-11,-35,22,26,4);g.lineStyle(2,0x82734f);g.strokeRoundedRect(-11,-35,22,26,4);g.lineBetween(-12,-35,12,-35);g.lineBetween(0,-35,0,-46);break;
-      case 'lamp_stand':g.lineStyle(7,0x817453);g.lineBetween(0,0,-4,-69);g.lineBetween(-5,-68,28,-66);g.lineStyle(2,0xc4b28a);g.lineBetween(-1,-66,1,-5);if(this.state.flags.lampFixed){g.fillStyle(0xe8bf65);g.fillRoundedRect(19,-67,20,25,3);g.fillStyle(0xf6d582,.16);g.fillCircle(29,-52,36);}break;
+      case 'lamp':this.lantern(g,0,-20,false);break;
+      case 'lamp_stand':
+        g.fillStyle(0x586a5c);g.fillEllipse(0,2,34,14);g.lineStyle(8,0x594b37);g.lineBetween(0,0,-4,-70);g.lineBetween(-6,-70,31,-68);
+        g.lineStyle(3,0xb29b71);g.lineBetween(-2,-5,-6,-72);g.lineBetween(-5,-73,31,-71);g.lineStyle(2,0xcbb78c);for(let yy=-65;yy<-52;yy+=3)g.lineBetween(-8,yy,2,yy-2);
+        g.lineStyle(2,0x554b35);g.lineBetween(29,-68,29,-53);
+        if(this.state.flags.lampFixed)this.lantern(g,29,-38,true);break;
       case 'table':case 'workbench':g.fillStyle(0x6a6549);g.fillRect(-w/2+9,-4,7,17);g.fillRect(w/2-16,-4,7,17);g.fillStyle(0x938360);g.fillRoundedRect(-w/2,-28,w,35,3);g.lineStyle(2,0xbdab7f);g.lineBetween(-w/2+5,-24,w/2-5,-24);g.fillStyle(0xe8e0b9);g.fillEllipse(-20,-15,22,10);g.fillStyle(0x93856a);g.fillEllipse(-20,-16,15,6);if(e.type==='workbench'){g.fillStyle(0x636f5b);g.fillRect(10,-24,16,15);g.lineStyle(3,0x8d7452);g.lineBetween(30,-20,48,-7);
         if(this.state.flags.roomTalk||this.state.flags.endingWish==='stay'){g.fillStyle(0x698471);g.fillRect(-47,-23,27,17);g.lineStyle(2,0xd2c49a);g.lineBetween(-40,-18,-28,-18);g.lineBetween(-34,-21,-34,-10);}
         if(this.state.flags.endingWish==='stay'){g.lineStyle(4,0x8a7954);g.lineBetween(37,-18,37,-61);g.lineBetween(37,-61,24,-61);g.lineStyle(3,0xbdae75);g.lineBetween(24,-61,24,-49);g.strokeCircle(24,-42,8);}
@@ -449,18 +468,34 @@ export class WorldScene extends Phaser.Scene {
       default:this.rock(g,0,-10,w*.4,h*.4);
     }
   }
+  private lantern(g:Phaser.GameObjects.Graphics,x:number,y:number,lit:boolean){
+    if(lit){for(let i=4;i>=1;i--){g.fillStyle(0xffcf78,.028);g.fillCircle(x,y,15+i*11);}}
+    g.fillStyle(0x66523b);g.fillEllipse(x,y+1,28,34);g.fillStyle(lit?0xf7ce78:0xd9bc87);g.fillEllipse(x,y,23,30);
+    g.fillStyle(lit?0xffe7a2:0xebd5a8,.85);g.fillEllipse(x-3,y-2,10,23);
+    g.lineStyle(1.2,0x84613b,.85);for(const dx of [-8,-3,3,8]){g.beginPath();g.moveTo(x+dx*.65,y-13);g.lineTo(x+dx,y);g.lineTo(x+dx*.65,y+13);g.strokePath();}
+    g.fillStyle(0x68513a);g.fillRoundedRect(x-10,y-17,20,5,2);g.fillRoundedRect(x-9,y+13,18,4,2);
+    g.lineStyle(1.5,0xb99b66);g.lineBetween(x-8,y-16,x+8,y-16);g.lineStyle(2,0x5d4e35);g.strokeEllipse(x,y-21,9,10);
+    g.lineStyle(1.5,0xb59056);g.lineBetween(x,y+17,x,y+27);g.fillStyle(0xa57743);g.fillEllipse(x,y+28,4,8);
+  }
   private drawEntities(delta:number){
     for(const e of this.state.worlds[this.state.scene]){
       const r=this.renders.get(e.id)||this.makeEntity(e);
-      const isGone=['taken','gone','hidden'].includes(e.state);
+      const isGone=['taken','gone','hidden'].includes(e.state)||(e.id==='lamp'&&Boolean(this.state.flags.lampFixed));
       r.container.setVisible(!isGone);if(isGone)continue;
       const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}`;
       if(r.stateKey!==key){r.stateKey=key;this.drawObject(e,r.art);}
       r.container.setPosition(e.x,e.y).setDepth(e.y+(e.kind==='npc'?100:0));
       const near=Math.hypot(this.state.player.x-e.x,this.state.player.y-e.y)<180;
       r.label.setVisible(near||e.kind==='exit'||e.id==='ring');
-      r.label.setText(e.name);r.label.setAlpha(e.kind==='enemy'?.8:1);
-      if(r.image){r.image.setFlipX(Math.cos(e.facing??0)<0);r.image.setAngle(!this.state.paused&&!this.settings.reduced?(e.state==='casting'?-4:['following','chasing','helping'].includes(e.state)?Math.sin(this.state.time*9)*1.5:0):0);}
+      r.label.setText(e.id==='lamp_stand'&&this.state.flags.lampFixed?'挂好的灯盏':e.name);r.label.setAlpha(e.kind==='enemy'?.8:1);
+      if(r.image){
+        const hit=this.feedback.active.filter(f=>f.kind==='hit'&&f.targetId===e.id&&f.age<260).at(-1);
+        const kick=hit&&!this.settings.reduced?Math.sin(Math.PI*hit.age/260)*13:0;
+        r.image.setPosition(hit?Math.cos(hit.angle)*kick:0,5+(hit?Math.sin(hit.angle)*kick:0));
+        r.image.setFlipX(Math.cos(e.facing??0)<0);
+        r.image.setAngle(!this.state.paused&&!this.settings.reduced?(hit?kick*.7:e.state==='casting'?-7:['following','chasing','helping'].includes(e.state)?Math.sin(this.state.time*9)*2:0):0);
+        if(hit&&hit.age<100)r.image.setTintFill(0xffe8b8);else r.image.clearTint();
+      }
       if(['defeated','retreated'].includes(e.state))r.container.setAlpha(.45);else r.container.setAlpha(1);
     }
     const p=this.input.activePointer;this.hovered=this.entityAt({x:p.worldX,y:p.worldY});
@@ -491,7 +526,17 @@ export class WorldScene extends Phaser.Scene {
     }
     if(p.pullId){const e=this.state.worlds[this.state.scene].find(e=>e.id===p.pullId);if(e){g.lineStyle(7,0xd0e8dc,.12);g.lineBetween(p.x,p.y-35,e.x,e.y-15);g.lineStyle(2,0xe3f8e4,.9);g.lineBetween(p.x,p.y-35,e.x,e.y-15);g.lineStyle(1,0x5e9b89,.8);g.strokeEllipse(e.x,e.y+6,e.w+15,20);if(p.hold>0){g.lineStyle(3,0xf0d18b);g.beginPath();g.arc(e.x,e.y-25,25,-Math.PI/2,-Math.PI/2+Math.PI*2*p.hold/8);g.strokePath();}}}
     if(p.ward>0){const a=p.wardFacing;g.fillStyle(0xd3c790,.15);g.slice(p.x,p.y-15,65,a-.8,a+.8,false);g.fillPath();g.lineStyle(4,0xf0d693,.85);g.beginPath();g.arc(p.x,p.y-15,65,a-.8,a+.8);g.strokePath();g.lineStyle(1,0xfcf0bb,.9);g.beginPath();g.arc(p.x,p.y-15,58,a-.8,a+.8);g.strokePath();}
-    for(const ball of this.state.projectiles){g.fillStyle(ball.owner==='player'?0xd6a068:0x9c7657,.15);g.fillCircle(ball.x,ball.y,19);g.fillStyle(ball.owner==='player'?0xe7a459:0xb48155,.8);g.fillCircle(ball.x,ball.y,8);g.fillStyle(0xffe7ad,.95);g.fillCircle(ball.x,ball.y,3);}
+    if(this.state.flags.casting){
+      const q=1-Number(this.state.flags.castTime)/.5,hx=p.x+Math.cos(p.facing)*23,hy=p.y-27+Math.sin(p.facing)*12;
+      g.fillStyle(0xf5a34c,.13+q*.12);g.fillCircle(hx,hy,14+q*15);g.lineStyle(1.5,0xffd08c,.8);g.strokeCircle(hx,hy,17-q*10);
+      g.fillStyle(0xffe6b0,.95);g.fillCircle(hx,hy,3+q*5);
+    }
+    for(const ball of this.state.projectiles){
+      const speed=Math.hypot(ball.vx,ball.vy),nx=ball.vx/speed,ny=ball.vy/speed;
+      for(let i=5;i>=1;i--){g.fillStyle(ball.owner==='player'?0xe57a35:0xb5a890,(6-i)*.045);g.fillCircle(ball.x-nx*i*5,ball.y-ny*i*5,Math.max(2,10-i));}
+      g.fillStyle(ball.owner==='player'?0xe9a251:0x9c8c73,.18);g.fillCircle(ball.x,ball.y,21);
+      g.fillStyle(ball.owner==='player'?0xf8ad4b:0xb49872,.95);g.fillCircle(ball.x,ball.y,9);g.fillStyle(0xfff1c7);g.fillEllipse(ball.x-nx*2,ball.y-ny*2,8,7);
+    }
     for(const e of this.state.worlds[this.state.scene]){
       if(e.id==='ridge_rock_source'&&e.state==='warning'){g.lineStyle(3,0xc18453,.95);g.strokeCircle(e.x,e.y-15,39);g.lineStyle(2,0xdbab69,.8);g.lineBetween(e.x,e.y+20,1390,320);g.strokeEllipse(1390,300,36,72);g.fillStyle(0xe9c383,.8);g.fillTriangle(e.x-5,e.y-63,e.x+5,e.y-63,e.x,e.y-53);}
       if(e.state==='burning'){for(let i=0;i<7;i++){g.fillStyle(i%2?0xf3cd83:0xd89858,.75);g.fillTriangle(e.x-29+i*9,e.y-6,e.x-17+i*9,e.y-6,e.x-21+i*9,e.y-23-Math.sin(t*7+i)*9);}}
@@ -503,6 +548,36 @@ export class WorldScene extends Phaser.Scene {
     const ending=this.state.events.filter(e=>e.type==='ending').at(-1);
     if(this.state.scene==='home'&&ending){const elapsed=t-ending.time;if(elapsed>=0&&elapsed<1.2&&!this.settings.reduced){const q=Math.min(1,elapsed/1.2),stay=this.state.flags.endingWish==='stay';const x=Phaser.Math.Linear(760,stay?1084:760,q),y=Phaser.Math.Linear(390,stay?388:390,q)-Math.sin(q*Math.PI)*65;g.lineStyle(3,0xe3cf91,.9);if(stay)g.strokeCircle(x,y,8);else{g.fillStyle(0xe9dfb7,.8);g.fillRect(x-35*q,y-14,70*q,30);}}}
     if(this.state.player.path.length&&!this.casting){const end=this.state.player.path.at(-1)!;g.lineStyle(1,0xecedc4,.65);g.strokeEllipse(end.x,end.y,18,8);}
-    if(this.state.scene==='creek'&&!this.settings.reduced){g.lineStyle(1,0xe5eee0,.22);const camera=this.cameras.main;for(let i=0;i<35;i++){const x=(i*83+t*16)%camera.width+camera.scrollX,y=(i*123+t*150)%camera.height+camera.scrollY;g.lineBetween(x,y,x-4,y+13);}}
+    if(this.state.scene==='creek'&&!this.settings.reduced){g.lineStyle(1,0xe5eee0,.22);const view=this.cameras.main.worldView;for(let i=0;i<35;i++){const x=(i*83+t*16)%view.width+view.x,y=(i*123+t*150)%view.height+view.y;g.lineBetween(x,y,x-4,y+13);}}
+    this.drawImpactFeedback();
+  }
+  private drawImpactFeedback(){
+    const g=this.effects;
+    for(const [seq,label] of this.impactLabels)if(!this.feedback.active.some(f=>f.seq===seq)){label.destroy();this.impactLabels.delete(seq);}
+    for(const f of this.feedback.active){
+      if(f.kind==='cast')continue;
+      const q=f.age/f.life,alpha=1-q,x=f.x,y=f.y-(f.kind==='impact'?0:25);
+      const striking=['hit','hurt','block','impact'].includes(f.kind);
+      const color=f.kind==='hurt'?0xf19576:f.kind==='block'||f.kind==='ward'?0xf5daa0:f.kind==='steam'?0xe4f3ed:['hit','fire','impact'].includes(f.kind)?0xffbd69:0xc6eddf;
+      if(striking||['steam','fire'].includes(f.kind)){
+        if(f.age<125){g.fillStyle(0xfff4d9,alpha*.85);g.fillCircle(x,y,Math.max(2,16*(1-f.age/125)));}
+        const spread=this.settings.reduced?15:15+q*48;
+        g.lineStyle(Math.max(1,3*(1-q)),color,alpha*.85);g.strokeEllipse(x,y,spread*2,spread*(f.kind==='block'?1.8:.8));
+        if(!this.settings.reduced){
+          for(let i=0;i<12;i++){
+            const a=f.angle+i*Math.PI*2/12+(f.seq%7)*.2,r=(18+(i%4)*8)*Math.sqrt(q)*2;
+            const px=x+Math.cos(a)*r,py=y+Math.sin(a)*r*.7+q*q*18;
+            if(f.kind==='steam'){g.fillStyle(color,alpha*.18);g.fillCircle(px,py-q*24,5+q*9);}
+            else{g.lineStyle(i%3?1.5:2.5,i%2?color:0xfff1ce,alpha);g.lineBetween(px,py,px+Math.cos(a)*(3+alpha*6),py+Math.sin(a)*(3+alpha*6));}
+          }
+        }
+      }else{g.lineStyle(1.5,color,alpha*.7);g.strokeEllipse(x,y+22,25+q*45,10+q*16);}
+      const caption:Record<string,string>={hit:'命中 · 打断',hurt:'−1',block:'挡下',steam:'湿物 · 熄灭',impact:'受阻'};
+      if(caption[f.kind]){
+        let label=this.impactLabels.get(f.seq);
+        if(!label){label=this.add.text(x,y-25,caption[f.kind],{fontFamily:'"PingFang SC", "Microsoft YaHei", sans-serif',fontSize:f.kind==='hurt'?'22px':'15px',fontStyle:'bold',color:f.kind==='hurt'?'#ffe0cc':'#fff4d5',stroke:'#334943',strokeThickness:4}).setResolution(display.density).setOrigin(.5).setDepth(26000);this.impactLabels.set(f.seq,label);}
+        label.setPosition(x,y-27-(this.settings.reduced?0:q*22)).setAlpha(Math.min(1,alpha*2));
+      }
+    }
   }
 }

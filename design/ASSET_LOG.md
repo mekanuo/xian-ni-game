@@ -121,3 +121,7 @@ Keep all four characters exactly unchanged: same faces, same stone-blue player r
 ## 用户试玩反馈后的质感目标（未接入游戏）
 
 2026-09-09，内置 imagegen 生成 [home-target.png](quality-review/home-target.png)，用途为 [改版审阅](QUALITY_REVISION.md) 的材质、层次与界面参考。完整生成提示词见 [image-prompt.txt](quality-review/image-prompt.txt)，未使用 CLI/API 回退。原始生成文件保留于 Codex generated_images，项目副本已存入 design/quality-review。未修改位图，未写入 public/art 或运行包。图中明确标为“改版目标图 · 非实机”；人物占屏偏大、多余灯架等偏差在修订方案中说明。真正可移动物体、动画、镜头与文字仍需分别实现和验证。
+
+## 0.1.1 代码绘制与声音
+
+`src/game/terrain.ts` 是原创 Canvas2D 地面绘制：固定随机种子与实际地形裁切，未编辑或放大已有位图作为新资产。场景灯盏、受击环与光屑由原生图形绘制，源 PNG 保持原样。`src/game/audio.ts` 包含原创八小节五声音阶旋律与合成声音，使用浏览器振荡器、噪声、包络及回声，不含第三方音乐、采样或演员模仿。原人物图集仍为静态图，短退/转身/闪光是状态驱动表现，不能写成全套逐帧角色动画。详情与验收边界见 [0.1.1 修订](QUALITY_PATCH_011.md)。

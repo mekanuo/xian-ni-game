@@ -30,10 +30,13 @@ export class GameUI {
   private endingShown = false;
   private started = false;
   private noticeTimer = 0;
-  public settings: Settings = { reduced: false, contrast: false, large: false, volume: .45, music: .25 };
+  private pauseBeforeMenu: boolean | null = null;
+  private lastAudioCheck = 0;
+  private audioState = 'locked';
+  public settings: Settings = { reduced: false, contrast: false, large: false, volume: .45, music: .55 };
   constructor(private hooks: UiHooks, private sound: Soundscape) {
     this.root = document.querySelector('#interface')!;
-    this.root.innerHTML = '<div id="hud"></div><div id="dialogues"></div><div id="notices" role="status" aria-live="polite"></div><div id="modal"></div><div class="small-screen">建议横屏游玩，或扩大浏览器窗口。<button data-ui="dismiss-small">继续</button></div>';
+    this.root.innerHTML = '<div id="hud"></div><div id="dialogues"></div><div id="notices" role="status" aria-live="polite"></div><div id="modal"></div>';
     this.hud = document.querySelector('#hud')!; this.modal = document.querySelector('#modal')!;
     this.dialogues = document.querySelector('#dialogues')!; this.notices = document.querySelector('#notices')!;
     try { const saved = JSON.parse(localStorage.getItem(SETTINGS) || '{}'); this.settings = {...this.settings, ...saved}; } catch { /* retain defaults */ }
@@ -44,14 +47,19 @@ export class GameUI {
   }
   get blocked() { return Boolean(this.screen); }
   get isTitle() { return this.screen === 'title' || this.screen === 'create'; }
+  private audioButton() {
+    const muted = this.sound.inspect().muted;
+    const label = muted ? '声音已关' : this.audioState === 'running' ? '声音已开' : '开启声音';
+    return `<button class="audio-toggle" data-ui="audio" data-audio="${muted?'muted':this.audioState}" aria-label="${muted?'开启声音':this.audioState==='running'?'关闭声音':'开启背景音乐和音效'}" aria-pressed="${!muted && this.audioState==='running'}">${label}</button>`;
+  }
   private button(label: string, action: string, cls = '') { return `<button class="${cls}" data-ui="${action}">${label}</button>`; }
   private shell(title: string, contents: string, cls = '') {
     this.modal.innerHTML = `<div class="veil"><section class="paper modal-paper ${cls}" role="dialog" aria-modal="true" aria-label="${esc(title)}"><div class="modal-heading"><span class="eyebrow">山门之外</span>${this.button('×','close','close')}<h2>${title}</h2></div>${contents}</section></div>`;
   }
   showTitle() {
-    this.screen = 'title'; this.hooks.act({type:'pause',value:true});
+    this.pauseBeforeMenu = null; this.screen = 'title'; this.hooks.act({type:'pause',value:true});
     let canContinue = false; try { canContinue = Boolean(localStorage.getItem(SAVE) || localStorage.getItem(AUTO)); } catch { /* private mode */ }
-    this.modal.innerHTML = `<main class="title-screen"><div class="title-mist"></div><div class="title-copy"><div class="title-kicker"><span class="seal">仙逆</span><span>一段关于修行与归处的冒险</span></div><h1>山门之外</h1><p class="title-poem">雨停之前，先把灯扶正。<br>路还很远，总有个地方记得你。</p><div class="title-actions">${this.button('入 山','create','primary')}${canContinue ? this.button('继续前行','load','secondary') : ''}${this.button('行路须知','help','text-button')}</div><p class="title-caption">空间冒险 · 随时暂停 · 简体中文</p></div><div class="title-foot"><span>回石驿 · 雨后</span><span>原创修士的山道故事</span></div></main>`;
+    this.modal.innerHTML = `<main class="title-screen"><div class="title-mist"></div><div class="title-copy"><div class="title-kicker"><span class="seal">仙逆</span><span>一段关于修行与归处的冒险</span></div><h1>山门之外</h1><p class="title-poem">雨停之前，先把灯扶正。<br>路还很远，总有个地方记得你。</p><div class="title-actions">${this.button('入 山','create','primary')}${canContinue ? this.button('继续前行','load','secondary') : ''}${this.button('行路须知','help','text-button')}</div><p class="title-caption">空间冒险 · 随时暂停 · 简体中文</p><div class="title-audio">${this.audioButton()}</div></div><div class="title-foot"><span>回石驿 · 雨后</span><span>原创修士的山道故事</span></div></main>`;
   }
   private showCreate() {
     this.screen = 'create';
@@ -61,12 +69,20 @@ export class GameUI {
       const profile: Profile = {name: String(f.get('name') || '').trim().slice(0,12) || '行舟', origin:f.get('origin')==='tinker'?'tinker':'herbalist',wish:f.get('wish')==='stay'?'stay':'travel',appearance:f.get('appearance')==='1'?1:0};
       this.endingShown = false; this.lastEvent = -1; this.lastAuto = '';
       this.hooks.replace(createGame(profile)); this.started=true; this.lastAuto=''; this.close(true); this.sound.start();
-      this.notify('WASD 或点击地面行走；按 1，再点灯盏试试引力术。');
+      this.notify('点地面行走，点下方「引」再点灯盏，试试引力术。');
     });
   }
-  close(resume = false) { if(!this.started){this.showTitle();return;} this.screen = ''; this.modal.innerHTML = ''; if (resume) this.hooks.act({type:'pause',value:false}); this.hooks.center(); }
+  close(resume = false) {
+    if (!this.started) { this.showTitle(); return; }
+    const restorePause = resume ? false : this.pauseBeforeMenu;
+    this.screen = ''; this.modal.innerHTML = ''; this.pauseBeforeMenu = null;
+    const s = this.hooks.get();
+    if (restorePause !== null && !s.dialogue && !s.defeated && !document.hidden) this.hooks.act({type:'pause',value:restorePause});
+    this.hooks.center();
+  }
   private open(screen: string) {
-    this.screen = screen; this.hooks.act({type:'pause',value:true}); this.drawModal();
+    if (this.pauseBeforeMenu === null) this.pauseBeforeMenu = this.hooks.get().paused;
+    this.screen = screen; if(!this.hooks.get().paused)this.hooks.act({type:'pause',value:true}); this.drawModal();
   }
   private drawModal() {
     const s = this.hooks.get();
@@ -79,9 +95,9 @@ export class GameUI {
       const seen = s.scene;
       this.shell('山道小图',`<div class="route-map"><div class="map-place ${seen==='home'?'here':''}">回石驿<small>灯架 · 桌边 · 工位</small></div><i>⇄</i><div class="map-place ${seen==='creek'?'here':''}">雨中溪道<small>小舟 · 雨棚 · 眺台</small></div><div class="map-branches"><div class="map-place ${seen==='workshop'?'here':''}">旧工棚<small>林路 · 引环 · 试架</small></div><div class="map-place ${seen==='crossing'?'here':''}">石渡<small>主闸 · 低滩 · 山脊</small></div></div></div><p class="muted">沿路上的方向牌移动到出口，再按 E。小图只标记道路，不代你赶路。</p>`);
     } else if (this.screen==='settings') {
-      this.shell('行止与声音',`<div class="settings-list"><label><span>声音</span><input data-setting="volume" type="range" min="0" max="1" step=".05" value="${this.settings.volume}" aria-label="音效音量"></label><label><span>乐声</span><input data-setting="music" type="range" min="0" max="1" step=".05" value="${this.settings.music}" aria-label="音乐音量"></label><label><span>减少雨线与镜头缓动</span><input data-setting="reduced" type="checkbox" ${this.settings.reduced?'checked':''}></label><label><span>高对比交互轮廓</span><input data-setting="contrast" type="checkbox" ${this.settings.contrast?'checked':''}></label><label><span>更大的对话文字</span><input data-setting="large" type="checkbox" ${this.settings.large?'checked':''}></label></div><div class="modal-actions">${this.button('保存此刻','save','primary')}${this.button('载入手动档','load-manual','secondary')}${this.button('载入自动档','load-auto','secondary')}${this.button('导出存档','export','secondary')}<label class="button secondary">导入存档<input id="import-save" type="file" accept="application/json,.json" hidden></label>${this.button('重新开始','restart','text-button')}</div>`);
+      this.shell('行止与声音',`<div class="settings-list"><label><span>音效</span><input data-setting="volume" type="range" min="0" max="1" step=".05" value="${this.settings.volume}" aria-label="音效音量"></label><label><span>背景音乐</span><input data-setting="music" type="range" min="0" max="1" step=".05" value="${this.settings.music}" aria-label="音乐音量"></label><label><span>减少雨线与镜头缓动</span><input data-setting="reduced" type="checkbox" ${this.settings.reduced?'checked':''}></label><label><span>高对比交互轮廓</span><input data-setting="contrast" type="checkbox" ${this.settings.contrast?'checked':''}></label><label><span>更大的对话文字</span><input data-setting="large" type="checkbox" ${this.settings.large?'checked':''}></label></div><div class="modal-actions">${this.button('保存此刻','save','primary')}${this.button('载入手动档','load-manual','secondary')}${this.button('载入自动档','load-auto','secondary')}${this.button('导出存档','export','secondary')}<label class="button secondary">导入存档<input id="import-save" type="file" accept="application/json,.json" hidden></label>${this.button('重新开始','restart','text-button')}</div>`);
     } else if (this.screen==='help') {
-      this.shell('行路须知',`<div class="help-grid"><p><kbd>W A S D</kbd><span>行走；也可以点击地面</span></p><p><kbd>1 2 3</kbd><span>选术法，再点击目标施术</span></p><p><kbd>空格</kbd><span>暂停观察，再按继续</span></p><p><kbd>E</kbd><span>与近处的人、物互动</span></p><p><kbd>R</kbd><span>学会留势后，让牵住的物件停留</span></p><p><kbd>Esc / 右键</kbd><span>取消瞄准或放下牵物</span></p><p><kbd>C</kbd><span>镜头回到身边</span></p><p><kbd>J / I / M</kbd><span>记事 / 行囊 / 山道图</span></p></div><p class="muted">引力术牵住轻物后，点击可达地面放下。暂停时可预先指定一个动作。灵力不足时，退到歇脚处静息即可恢复。</p><div class="modal-actions">${this.button(!this.started?'回到山外':'继续前行',!this.started?'title':'resume','primary')}</div>`);
+      this.shell('行路须知',`<div class="help-grid"><p><kbd>点击地面 / W A S D</kbd><span>行走；点远处的人或物会先走近</span></p><p><kbd>下方术法 / 1 2 3</kbd><span>选术法，再点击目标施术</span></p><p><kbd>空格</kbd><span>暂停观察，再按继续</span></p><p><kbd>E</kbd><span>与近处的人、物互动</span></p><p><kbd>R</kbd><span>学会留势后，让牵住的物件停留</span></p><p><kbd>Esc / 右键</kbd><span>取消瞄准或放下牵物</span></p><p><kbd>回到身边 / C</kbd><span>镜头重新跟随你</span></p><p><kbd>J / I / M</kbd><span>记事 / 行囊 / 山道图</span></p></div><p class="muted">引力术牵住轻物后，点击可达地面放下。暂停时可预先指定一个动作。灵力不足时，退到歇脚处静息即可恢复。</p><div class="modal-actions">${this.button(!this.started?'回到山外':'继续前行',!this.started?'title':'resume','primary')}</div>`);
     } else if (this.screen==='ending') {
       const ending=s.events.filter(e=>e.type==='ending').at(-1)?.text||'你带着自己的引环，回到了灯下。';
       this.shell('这一程，已有归处',`<p class="ending-copy">${esc(ending)}</p><p class="muted">${s.flags.chime?'窗前添了你带回的风铃。':''}${s.flags.gateOpen?'木车已经沿修通的低滩进院。':'驿后留下了你亲脚走过的山脊路标。'}</p><div class="modal-actions">${this.button('在驿中再坐一会儿','resume','primary')}${this.button('再走一程','restart','secondary')}</div>`);
@@ -91,7 +107,14 @@ export class GameUI {
   }
   private click(e: MouseEvent) {
     const button = (e.target as HTMLElement).closest<HTMLElement>('[data-ui]'); if (!button) return;
-    const a = button.dataset.ui!; this.sound.start();
+    const a = button.dataset.ui!;
+    if (a==='audio') {
+      const status = this.sound.inspect();
+      this.sound.setMuted(status.state==='running' && !status.muted);
+      void this.sound.start().then(()=> { this.lastAudioCheck=0; this.update(); if(this.screen==='title')this.showTitle(); });
+      return;
+    }
+    this.sound.start();
     if (a==='create') this.showCreate();
     else if (a==='title') this.showTitle();
     else if (a==='close') this.close();
@@ -107,7 +130,6 @@ export class GameUI {
     else if (a.startsWith('choice:')) { this.hooks.act({type:'choose',choiceId:a.slice(7)}); this.update(); }
     else if (['release','hold','rest','heal','retry','retreat'].includes(a)) { this.hooks.act({type:a} as GameAction); this.update(); if (a==='heal') this.drawModal(); }
     else if (a==='interact') { const near=nearbyEntity(this.hooks.get()); if (near) this.hooks.act({type:'interact',targetId:near.id}); }
-    else if (a==='dismiss-small') document.querySelector('.small-screen')!.classList.add('dismissed');
     else this.open(a);
   }
   private change(e: Event) {
@@ -160,12 +182,16 @@ export class GameUI {
   }
   update() {
     const s=this.hooks.get();
+    if (performance.now()-this.lastAudioCheck>400 || !this.lastAudioCheck) {
+      const status=this.sound.inspect(); this.audioState=status.muted?'muted':status.state; this.lastAudioCheck=performance.now();
+    }
     const near=nearbyEntity(s);
-    const hudKey=JSON.stringify([s.scene,s.player.hp,s.player.mana,s.selected,s.paused,s.ringStyle,Boolean(s.player.pullId),near?.id,objective(s),Boolean(s.dialogue),s.defeated,this.screen,s.flags.ringOwned,s.flags.trialStyle]);
+    const hudKey=JSON.stringify([s.scene,s.player.hp,s.player.mana,s.selected,s.paused,s.ringStyle,Boolean(s.player.pullId),near?.id,objective(s),Boolean(s.dialogue),s.defeated,this.screen,s.flags.ringOwned,s.flags.trialStyle,this.audioState]);
     if(hudKey!==this.lastHud) {
       this.lastHud=hudKey;
-      this.hud.innerHTML=`<div class="top-left paper hud-paper"><span class="name-mark">${esc(s.profile.name.slice(0,1))}</span><div><strong>${esc(s.profile.name)}</strong><span class="realm">凝气 · 三层</span><div class="resource hp" aria-label="体力 ${s.player.hp}/4"><span>体力</span>${[0,1,2,3].map(i=>`<i class="${i<s.player.hp?'full':''}"></i>`).join('')}</div><div class="resource mana" aria-label="灵力 ${s.player.mana}/6"><span>灵力</span>${[0,1,2,3,4,5].map(i=>`<i class="${i<s.player.mana?'full':''}"></i>`).join('')}</div></div></div><div class="location"><span>${SCENES[s.scene].subtitle}</span><h2>${SCENES[s.scene].title}</h2><p>${esc(objective(s))}</p></div><nav class="top-right">${this.button('山道','map')}${this.button('记事','journal')}${this.button('行囊','bag')}${this.button('设置','settings')}</nav><div class="pause-state ${s.paused&&!s.dialogue&&!this.screen?'shown':''}">${this.button('Ⅱ 已暂停 · 点击继续','pause','paper')}</div><div class="bottom-left"><span>WASD / 点击 · 行走</span><span>空格 · 暂停　C · 回到身边</span></div><div class="action-dock paper"><div class="spells">${(['pull','flame','ward'] as Spell[]).map((spell,i)=>`<button data-ui="spell:${spell}" class="spell ${s.selected===spell?'selected':''}" title="${['牵引轻物；再点地面放下','点燃干物、打断敌人','向瞄准方向护持一次'][i]}"><kbd>${i+1}</kbd><span class="spell-symbol">${['引','焰','障'][i]}</span><span>${['引力术','火焰球','护符·障'][i]}</span></button>`).join('')}</div><div class="dock-divider"></div>${this.button(s.paused?'▶ 继续':'Ⅱ 暂停','pause','pause-button')}${s.player.pullId?this.button('放下','release','small-button'):''}${s.player.pullId&&(s.ringStyle==='hold'||s.flags.trialStyle==='hold')?this.button('R 留势','hold','small-button'):''}</div><div class="nearby ${near&&!s.dialogue&&!this.screen?'shown':''}">${near?this.button(`<kbd>E</kbd> ${esc(near.name)}`,'interact','paper'):''}</div><button class="help-toggle" data-ui="help" aria-label="操作帮助">?</button>`;
+      this.hud.innerHTML=`<div class="top-left paper hud-paper"><span class="name-mark">${esc(s.profile.name.slice(0,1))}</span><div><strong>${esc(s.profile.name)}</strong><span class="realm">凝气 · 三层</span><div class="resource hp" aria-label="体力 ${s.player.hp}/4"><span>体力</span>${[0,1,2,3].map(i=>`<i class="${i<s.player.hp?'full':''}"></i>`).join('')}</div><div class="resource mana" aria-label="灵力 ${s.player.mana}/6"><span>灵力</span>${[0,1,2,3,4,5].map(i=>`<i class="${i<s.player.mana?'full':''}"></i>`).join('')}</div></div></div><div class="location"><span>${SCENES[s.scene].subtitle}</span><h2>${SCENES[s.scene].title}</h2><p>${esc(objective(s))}</p></div><nav class="top-right">${this.button('山道','map')}${this.button('记事','journal')}${this.button('行囊','bag')}${this.button('设置','settings')}${this.audioButton()}</nav><div class="pause-state ${s.paused&&!s.dialogue&&!this.screen?'shown':''}">${this.button('Ⅱ 已暂停 · 点击继续','pause','paper')}</div><div class="bottom-left"><span>WASD / 点击 · 行走</span><span>空格 · 暂停　C · 回到身边</span>${this.button('回到身边','center','touch-center paper')}</div><div class="action-dock paper"><div class="spells">${(['pull','flame','ward'] as Spell[]).map((spell,i)=>`<button data-ui="spell:${spell}" class="spell ${s.selected===spell?'selected':''}" aria-pressed="${s.selected===spell}" title="${['牵引轻物；再点地面放下','点燃干物、打断敌人','向瞄准方向护持一次'][i]}"><kbd>${i+1}</kbd><span class="spell-symbol">${['引','焰','障'][i]}</span><span>${['引力术','火焰球','护符·障'][i]}</span></button>`).join('')}</div><div class="dock-divider"></div>${this.button(s.paused?'▶ 继续':'Ⅱ 暂停','pause','pause-button')}${s.player.pullId?this.button('放下','release','small-button'):''}${s.player.pullId&&(s.ringStyle==='hold'||s.flags.trialStyle==='hold')?this.button('R 留势','hold','small-button'):''}</div><div class="nearby ${near&&!s.dialogue&&!this.screen?'shown':''}">${near?this.button(`<kbd>E</kbd> ${esc(near.name)}`,'interact','paper'):''}</div><button class="help-toggle" data-ui="help" aria-label="操作帮助">?</button>`;
       this.hud.classList.toggle('hidden',!this.started||this.isTitle);
+      this.hud.classList.toggle('reading',Boolean(s.dialogue)||Boolean(s.defeated));
     }
     const dk=JSON.stringify([s.dialogue,s.defeated]);
     if(dk!==this.lastDialogue) {
@@ -175,7 +201,7 @@ export class GameUI {
       else this.dialogues.innerHTML='';
     }
     const ev=s.events.at(-1);
-    if(ev&&ev.seq!==this.lastEvent) { this.lastEvent=ev.seq; if(!this.isTitle){ this.notify(ev.text); this.sound.play(ev.type); } }
+    if(ev&&ev.seq!==this.lastEvent) { this.lastEvent=ev.seq; if(!this.isTitle){ this.notify(ev.text); } }
     const safeKey=s.checkpoint||'';
     if(this.started && !this.isTitle && safeKey!==this.lastAuto) {
       this.lastAuto=safeKey;

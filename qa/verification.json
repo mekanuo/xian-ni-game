@@ -16,6 +16,14 @@
       {
         "command": "node scripts/ui-regression.mjs",
         "exitCode": 0
+      },
+      {
+        "command": "node scripts/mobile-render-check.mjs",
+        "exitCode": 0
+      },
+      {
+        "command": "node scripts/combat-check.mjs",
+        "exitCode": 0
       }
     ]
   },

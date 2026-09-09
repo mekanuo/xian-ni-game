@@ -14,9 +14,10 @@ if(branchExists)run('git',['clone','--quiet','--single-branch','--branch','gh-pa
 else{run('git',['init','--quiet','--initial-branch=gh-pages'],root);run('git',['remote','add','origin',remote],root);}
 for(const entry of await readdir(root))if(entry!=='.git')await rm(join(root,entry),{recursive:true,force:true});
 await cp(resolve('dist'),root,{recursive:true});await writeFile(join(root,'.nojekyll'),'');
-const release={game:'山门之外',version:'0.1.0',sourceCommit,builtAt:new Date().toISOString()};
+const version=JSON.parse(await readFile('package.json','utf8')).version;
+const release={game:'山门之外',version,sourceCommit,builtAt:new Date().toISOString()};
 await writeFile(join(root,'release.json'),JSON.stringify(release,null,2));
-run('git',['add','.'],root);run('git',['commit','-m',`Publish first playable ${sourceCommit.slice(0,7)}`],root);
+run('git',['add','.'],root);run('git',['commit','-m',`Publish ${version} ${sourceCommit.slice(0,7)}`],root);
 console.log(run('git',['-c','credential.helper=!gh auth git-credential','push','-u','origin','gh-pages'],root));
 let pages;try{pages=JSON.parse(run('gh',['api',`repos/${repo}/pages`]));}catch{
  const config=join(root,'pages-config.json');await writeFile(config,JSON.stringify({source:{branch:'gh-pages',path:'/'},build_type:'legacy'}));
