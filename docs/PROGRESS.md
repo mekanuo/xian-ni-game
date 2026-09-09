@@ -2,6 +2,13 @@
 
 Last verified: 2026-09-09. This file records evidence, not a product completion claim.
 
+## Latest Checkpoint
+
+- Full-book first-pass synthesis has closed its identified truncated-reading gaps. The final 561-577 report was read and integrated; the agent was closed. Remaining early provenance limitations and source contradictions are retained, not converted into a false full independent review claim.
+- Local commit dd0cc6b adds concepts/CONCEPT.md: three different concepts, official precedent references, source boundaries, rejection criteria, and a recommended spatial adventure direction A. This is a proposal awaiting user confirmation, not approved production design.
+- Local commit a25f633 records tooling in docs/ENVIRONMENT.md. No game implementation or browser acceptance was performed.
+- Supersedes the pending-agent and incomplete-first-pass notes below. Next action: user direction confirmation, then detailed design and selected-scene facts. Do not restart full-book research.
+
 ## Repository
 
 - User confirmation (2026-09-09): use mekanuo/xian-ni-game and disregard its existing content. New design is not constrained by the legacy demonstration; no force-push or historical deletion is implied.
