@@ -1,6 +1,6 @@
 import { SCENES } from './content';
-import { initialLifeEntities, lifeEntityIds } from './life-content';
-import { validateLife, validateManifest } from './save';
+import { initialLifeEntities } from './life-content';
+import { restore } from './save';
 import { lifeChoices, lifeChoose, lifeInteract, lifeFlameHit, lifePullReason, lifeTick, lifeInterrupt, lifeBeforeExit, lifeMaintainSupport, lifeUseSachet, lifeScentSource, lifeObjective } from './life';
 import type { ActionResult, CastPreview, DialogueChoice, Entity, GameAction, GameState, Profile, SceneId, Spell, Vec } from './contracts';
 
@@ -485,48 +485,4 @@ export function objective(s:GameState):string {
   if(s.scene==='crossing')return s.flags.gateOpen?'低滩已露出，亲自走到彼岸路碑':s.flags.ridgeOpen?'绳梯已经放下，亲自走到山脊石标':'观察闸口与高处绳梯，选自己能走通的办法';
   return '带着试稳的控物环，回溪道再去石渡';
 }
-export function snapshot(s:GameState):string{return JSON.stringify(s);}
-export function restore(json:string):GameState {
-  if(typeof json!=='string'||json.length>2_000_000)throw Error('存档过大或格式无效');
-  let s:GameState;try{s=JSON.parse(json);}catch{throw Error('存档不是有效的 JSON');}
-  // Version 1 saves predate the life entities.  Migrate only an exact legacy
-  // manifest; malformed or partially edited worlds remain rejected below.
-  if(s && s.contentVersion===undefined && s.worlds && typeof s.worlds==='object') {
-    const ids=['home','creek','workshop','crossing'] as SceneId[];
-    const legacyExact=ids.every(id=>Array.isArray(s.worlds[id])&&s.worlds[id].length===SCENES[id].entities.length);
-    if(legacyExact) {
-      for(const id of ids) s.worlds[id].push(...initialLifeEntities(id));
-      s.contentVersion=2;
-      s.life={repair:{stage:'unaccepted',softened:false,stopSet:false,latched:false,tested:false,method:null,testing:null},harvest:{stage:'unaccepted',sun:'unpicked',shade:'unpicked',picking:null,shared:false},clamp:'unowned',sachets:0,scent:null};
-    }
-  }
-  const scenes=['home','creek','workshop','crossing'];
-  if(!s||s.schema!==1||s.revision!=='return-stone-v1'||!scenes.includes(s.scene)||!s.profile||!['herbalist','tinker'].includes(s.profile.origin)||!['stay','travel'].includes(s.profile.wish)||typeof s.profile.name!=='string'||![0,1].includes(s.profile.appearance)||!s.player||!finitePoint(s.player)||!Number.isFinite(s.time)||s.time<0||!Number.isInteger(s.player.hp)||s.player.hp<0||s.player.hp>4||!Number.isInteger(s.player.mana)||s.player.mana<0||s.player.mana>6||!Array.isArray(s.player.path)||!s.player.path.every(finitePoint)||!s.worlds||!s.flags||Array.isArray(s.flags)||!Array.isArray(s.events)||!Array.isArray(s.projectiles)||!s.lastSafe||!scenes.includes(s.lastSafe.scene)||!finitePoint(s.lastSafe.point)||!['long','hold',null].includes(s.ringStyle)||!Number.isInteger(s.herbs)||s.herbs<0||s.herbs>2||typeof s.paused!=='boolean'||typeof s.ended!=='boolean'||typeof s.defeated!=='boolean')throw Error('存档版本或世界数据不匹配');
-  for(const id of scenes as SceneId[]){
-    const list=s.worlds[id];const expectedIds=[...SCENES[id].entities.map(e=>e.id),...lifeEntityIds(id)];if(!Array.isArray(list)||list.length!==expectedIds.length)throw Error('存档缺少场景器物');
-    const ids=new Set<string>();for(const e of list){if(!e||!finitePoint(e)||typeof e.id!=='string'||ids.has(e.id)||!expectedIds.includes(e.id)||typeof e.state!=='string')throw Error('存档器物数据无效');ids.add(e.id);}
-  }
-  if(!['pull','flame','ward'].includes(s.selected)||Object.values(s.flags).some(v=>!['boolean','string','number'].includes(typeof v)||(typeof v==='number'&&!Number.isFinite(v))))throw Error('存档标记数据无效');
-  if(s.pending&&!validAction(s.pending))throw Error('存档待执行动作无效');
-  if(s.events.some(e=>!e||!Number.isFinite(e.seq)||!Number.isFinite(e.time)||typeof e.text!=='string'||typeof e.type!=='string'))throw Error('存档事件数据无效');
-  if(s.projectiles.some(p=>!finitePoint(p)||!Number.isFinite(p.vx)||!Number.isFinite(p.vy)||!Number.isFinite(p.life)||!['player','enemy'].includes(p.owner)))throw Error('存档投射物数据无效');
-  if(s.dialogue&&(!Array.isArray(s.dialogue.choices)||typeof s.dialogue.text!=='string'))throw Error('存档对话无效');
-  validateManifest(s);
-  if(s.checkpoint!==null){ let nested: GameState; try{nested=restore(s.checkpoint);}catch{throw Error('存档恢复点无效');} if(nested.checkpoint!==null)throw Error('存档恢复点层级无效'); validateLife(nested.life); }
-  if(s.checkpoint!==null&&typeof s.checkpoint!=='string')throw Error('存档恢复点无效');
-  for(const key of ['facing','invulnerable','cooldown','ward','wardFacing','hold']as const)if(!Number.isFinite(s.player[key]))throw Error('存档术法状态无效');
-  return s;
-}
-
-function validAction(a:GameAction):boolean {
-  if(!a||typeof a!=='object')return false;
-  switch(a.type){
-    case 'move':return !!finitePoint(a.point);
-    case 'cast':return ['pull','flame','ward'].includes(a.spell)&&!!finitePoint(a.point)&&(a.targetId===undefined||typeof a.targetId==='string');
-    case 'select':return ['pull','flame','ward'].includes(a.spell);
-    case 'interact':return typeof a.targetId==='string';
-    case 'choose':return typeof a.choiceId==='string';
-    case 'pause':return typeof a.value==='boolean';
-    default:return ['cancel','release','hold','rest','heal','retry','retreat'].includes(a.type);
-  }
-}
+export { snapshot, restore } from './save';
