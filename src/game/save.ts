@@ -132,7 +132,7 @@ function restoreWorld(s:GameState):GameState {
   check(s.player.pullId===null||typeof s.player.pullId==='string','存档牵引目标无效');
   check(s.player.pullPoint===null||finitePoint(s.player.pullPoint),'存档牵引落点无效');
   check(s.player.hold>=0&&s.player.hold<=8&&s.player.ward>=0&&s.player.ward<=6,'存档术法时限无效');
-  if(s.player.pullId!==null)check(s.worlds[s.scene]?.some(e=>e.id===s.player.pullId&&e.movable)&&s.player.pullPoint!==null,'存档牵引器物不存在');
+  if(s.player.pullId!==null)check(s.worlds[s.scene]?.some(e=>e.id===s.player.pullId&&e.movable)&&(s.player.hold>0?s.player.pullPoint===null:s.player.pullPoint!==null),'存档牵引器物不存在');
   else check(s.player.pullPoint===null&&s.player.hold===0,'存档牵引状态不一致');
   validateManifest(s);
   return s;

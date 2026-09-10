@@ -124,6 +124,7 @@ try{
  await wait(()=>Math.abs(window.__XIAN_NI__.inspect().worlds.workshop.find(e=>e.id==='life_jaw').x-1420)<3);
  await page.locator('[data-ui="hold"]').click();await wait(()=>window.__XIAN_NI__.inspect().player.hold>0);await pause();const held=(await state()).player.hold;
  await page.waitForTimeout(1100);assert.equal((await state()).player.hold,held);evidence.observations.pause={held,after:(await state()).player.hold,wallMs:1100};
+ await exportSave('life-hold-paused-input.json');const heldBytes=await readFile('qa/evidence/life-hold-paused-input.json');await importFile(heldBytes,'life-hold-paused-input.json');assert.equal((await state()).player.hold,held);assert.equal((await state()).player.pullId,'life_jaw');assert.equal((await state()).player.pullPoint,null);evidence.observations.heldRoundtrip={export:'qa/evidence/life-hold-paused-input.json',hold:held};
  await resume();await interact('life_press');await wait(()=>window.__XIAN_NI__.inspect().life.repair.latched);
  await interact('life_press');await wait(()=>window.__XIAN_NI__.inspect().life.repair.stage==='ready');
  const done=await state();assert.equal(done.life.repair.method,'hold');assert.equal(done.life.repair.stopSet,false);await capture('hold-repair');

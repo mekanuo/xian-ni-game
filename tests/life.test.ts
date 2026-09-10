@@ -24,6 +24,7 @@ function rackChoice(s:GameState,id:string){s.scene='home';s.player.x=350;s.playe
 function herbsReward(){const s=harvestStart();collectBoth(s);expect(rackChoice(s,'life:leaf:sun:upper').ok).toBe(true);expect(rackChoice(s,'life:leaf:shade:lower').ok).toBe(true);expect(rackChoice(s,'life:harvest:deliver').ok).toBe(true);return s;}
 function clampReward(){const s=finished();acceptRepair(s);heat(s);s.ringStyle='hold';jaw(s);act(s,{type:'hold'});pressure(s);s.scene='home';s.player.x=480;s.player.y=660;act(s,{type:'interact',targetId:'tao'});expect(choice(s,'life:repair:deliver').ok).toBe(true);return s;}
 describe('finite physical rewards and interruption',()=>{
+ it('restores a paused jaw held by actual magic with no active pull destination',()=>{const s=finished();acceptRepair(s);heat(s);s.ringStyle='hold';jaw(s);act(s,{type:'hold'});act(s,{type:'pause',value:true});expect(s.player.pullPoint).toBeNull();const saved=restore(snapshot(s));expect(saved.player.hold).toBe(8);expect(saved.player.pullId).toBe('life_jaw');act(saved,{type:'pause',value:false});pressure(saved);expect(saved.life.repair.method).toBe('hold');});
  it.each(['tinker','herbalist'] as const)('%s corrects wrong drying layers and issues only two sachets once',origin=>{
   const s=harvestStart(origin);collectBoth(s);expect(restore(snapshot(s)).life.harvest.sun).toBe('bag');
   expect(rackChoice(s,'life:leaf:sun:lower').ok).toBe(true);expect(rackChoice(s,'life:leaf:shade:lower').ok).toBe(false);
