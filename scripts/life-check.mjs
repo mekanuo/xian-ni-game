@@ -142,11 +142,12 @@ try{
  await interact('life_home_eye');await choose('life:clamp:remove');assert.equal((await state()).life.clamp,'bag');
  await capture('repair-reward');
 
- await exit('to_creek','creek');await walk(320,300);await walk(1000,290);await pull('platform_ladder',1010,290);
+ await exit('to_creek','creek');await walk(320,300);await walk(890,290);await pull('platform_ladder',1010,290);
  assert.equal((await state()).flags.platformLong,true);await walk(1170,230);await interact('return_ladder');assert.equal((await state()).flags.platformReturn,true);
  await interact('life_sun_leaf');await wait(()=>window.__XIAN_NI__.inspect().life.harvest.sun==='bag');await capture('sun-leaf');
- await walk(1000,290);await walk(1000,390);await walk(1550,390);await walk(1455,680);
+ await walk(890,290);await walk(1000,390);await walk(1550,390);await walk(1455,680);
  const shadeBefore=await state();assert.ok(shadeBefore.player.x>=1430,'Player must remain outside the rock-trigger strip on the dry east side');
+ await exportSave('life-shade-ready-input.json');
  await interact('life_shade_leaf');await wait(()=>window.__XIAN_NI__.inspect().life.harvest.shade==='bag');
  const shade=await state();assert.equal(shade.player.hp,shadeBefore.player.hp);assert.equal(shade.life.harvest.stage,'ready');await capture('shade-safe-side');
  await walk(1455,760);await exit('to_home','home');

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-09T15:01:09.659Z",
+  "checkedAt": "2026-09-10T01:17:32.992Z",
   "input": [
     {
       "device": "mouse",
@@ -18,14 +18,14 @@
       "device": "mouse",
       "actions": "click distant table; walk around stone obstruction; interact once",
       "player": {
-        "x": 681.7995630274286,
-        "y": 462.67993494792165,
+        "x": 688.4344948893702,
+        "y": 458.2102952323077,
         "hp": 4,
         "mana": 4,
-        "facing": -0.5928235016214228,
+        "facing": -0.5928235016214217,
         "invulnerable": 0,
         "cooldown": 0,
-        "ward": 2.483333333333346,
+        "ward": 2.433333333333346,
         "wardFacing": -1.738468710963149e-8,
         "pullId": null,
         "pullPoint": null,

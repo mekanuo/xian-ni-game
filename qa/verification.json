@@ -44,6 +44,18 @@
       {
         "command": "node scripts/main-route-check.mjs",
         "exitCode": 0
+      },
+      {
+        "command": "node scripts/life-check.mjs",
+        "exitCode": 0
+      },
+      {
+        "command": "node scripts/life-hold-check.mjs",
+        "exitCode": 0
+      },
+      {
+        "command": "node scripts/life-mobile-check.mjs",
+        "exitCode": 0
       }
     ]
   },
@@ -80,5 +92,11 @@
       "restart": "initial-state",
       "evidence": "qa/evidence/main-route.json"
     }
-  ]
+  ],
+  "continuation": {
+    "desktop": "qa/evidence/life-check.json",
+    "hold": "qa/evidence/life-hold-check.json",
+    "mobile": "qa/evidence/life-mobile.json",
+    "source": "Real 0.2.2 chapter-ending UI exports; continuation uses browser inputs only."
+  }
 }

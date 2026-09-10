@@ -24,6 +24,19 @@ const before=(await state()).player.x;await page.keyboard.down('d');await page.w
 evidence.input.push({action:'keyboard D movement',state:await state()});
 await page.locator('[data-ui="observe"]').click();assert.equal(await page.locator('[data-ui="observe"]').getAttribute('aria-expanded'),'true');evidence.input.push({action:'open current encounter observation',text:await page.locator('#observation-content').textContent()});
 await page.screenshot({path:'qa/evidence/public-start.png'});evidence.visual='qa/evidence/public-start.png';assert.equal(evidence.errors.length,0);
+// Verify the new public continuation through the same real old-save import UI.
+await page.locator('[data-ui="settings"]').click();
+await page.locator('#import-save').setInputFiles('qa/fixtures/return-main-v0.2.2.json');
+await page.waitForFunction(()=>window.__XIAN_NI__.inspect().ended&&window.__XIAN_NI__.inspect().contentVersion===2);
+await page.getByRole('button',{name:'在驿中再坐一会儿',exact:true}).click();
+if(await page.evaluate(()=>window.__XIAN_NI__.inspect().paused))await page.locator('.action-dock [data-ui="pause"]').click();
+point=await page.evaluate(()=>window.__XIAN_NI__.screenPoint(1060,430));await page.mouse.click(point.x,point.y);
+await page.waitForFunction(()=>window.__XIAN_NI__.inspect().dialogue!==null,null,{timeout:30000});
+for(let i=0;i<12&&!await page.evaluate(()=>window.__XIAN_NI__.inspect().dialogue?.choices.some(c=>c.id==='life:repair:accept'));i++)await page.locator('[data-ui="choice:more"]').click();
+await page.locator('[data-ui="choice:life:repair:accept"]').click();
+await page.waitForFunction(()=>window.__XIAN_NI__.inspect().life.repair.stage==='active');
+evidence.continuation=await page.evaluate(()=>{const s=window.__XIAN_NI__.inspect();return {contentVersion:s.contentVersion,checkpointVersion:JSON.parse(s.checkpoint).contentVersion,life:s.life,fixture:'Real 0.2.2 main ending imported via settings',input:'Click workbench, accept repair'};});
+await page.screenshot({path:'qa/evidence/public-life.png'});
 await page.close();
 const phoneContext=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,isMobile:true,hasTouch:true});
 const phone=await phoneContext.newPage();phone.on('pageerror',e=>evidence.errors.push(e.message));

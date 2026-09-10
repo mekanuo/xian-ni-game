@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "runId": "life-mobile",
+  "environment": {
+    "url": "http://127.0.0.1:4187/",
+    "viewport": "390x844 DPR3 touch emulation",
+    "limitation": "Chrome touch emulation; not a physical phone or Safari."
+  },
+  "checks": [
+    {
+      "id": "pick-pause-freeze",
+      "passed": true
+    },
+    {
+      "id": "touch-pick-interrupt-and-retry",
+      "passed": true
+    },
+    {
+      "id": "save-import-preserves-pick",
+      "passed": true
+    },
+    {
+      "id": "paused-sachet-cancel",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

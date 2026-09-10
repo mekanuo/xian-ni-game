@@ -12,7 +12,7 @@
       "action": "new-game",
       "detail": {
         "scene": "home",
-        "time": 0.11666666666666665,
+        "time": 0.15,
         "player": {
           "x": 360,
           "y": 710,
@@ -41,7 +41,7 @@
             "seq": 1,
             "time": 0,
             "type": "note",
-            "text": "行舟，凝气三层。先前攒钱修的引环，今日该去取了。"
+            "text": "行舟，凝气三层。先前攒钱修的控物环，今日该去取了。"
           },
           {
             "seq": 2,
@@ -51,7 +51,7 @@
           }
         ]
       },
-      "wall": 8290
+      "wall": 5655
     },
     {
       "action": "pull",
@@ -60,52 +60,52 @@
         "x": 560,
         "y": 665
       },
-      "wall": 10002
+      "wall": 6768
     },
     {
       "action": "interact",
       "detail": "xu",
-      "wall": 19159
+      "wall": 11454
     },
     {
       "action": "choice",
       "detail": "invite",
-      "wall": 27035
+      "wall": 16097
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 29690
+      "wall": 17480
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 35568
+      "wall": 21406
     },
     {
       "action": "interact",
       "detail": "rope",
-      "wall": 36198
+      "wall": 21720
     },
     {
       "action": "choice",
       "detail": "fix",
-      "wall": 39325
+      "wall": 23989
     },
     {
       "action": "interact",
       "detail": "bag",
-      "wall": 41835
+      "wall": 25267
     },
     {
       "action": "interact",
       "detail": "to_workshop",
-      "wall": 43549
+      "wall": 26470
     },
     {
       "action": "scene",
       "detail": "workshop",
-      "wall": 58312
+      "wall": 36145
     },
     {
       "action": "walk",
@@ -113,7 +113,7 @@
         "x": 320,
         "y": 220
       },
-      "wall": 58653
+      "wall": 36315
     },
     {
       "action": "walk",
@@ -121,22 +121,22 @@
         "x": 1450,
         "y": 220
       },
-      "wall": 68115
+      "wall": 42231
     },
     {
       "action": "interact",
       "detail": "ring",
-      "wall": 82772
+      "wall": 52074
     },
     {
       "action": "interact",
       "detail": "tao_work",
-      "wall": 85123
+      "wall": 53728
     },
     {
       "action": "choice",
       "detail": "long",
-      "wall": 87091
+      "wall": 55073
     },
     {
       "action": "walk",
@@ -144,7 +144,7 @@
         "x": 1210,
         "y": 600
       },
-      "wall": 89376
+      "wall": 56209
     },
     {
       "action": "pull",
@@ -153,17 +153,17 @@
         "x": 1310,
         "y": 600
       },
-      "wall": 91779
+      "wall": 57668
     },
     {
       "action": "interact",
       "detail": "tao_work",
-      "wall": 97897
+      "wall": 61117
     },
     {
       "action": "choice",
       "detail": "hold",
-      "wall": 98963
+      "wall": 61802
     },
     {
       "action": "walk",
@@ -171,22 +171,22 @@
         "x": 1390,
         "y": 610
       },
-      "wall": 100968
+      "wall": 62939
     },
     {
       "action": "mouse-hold-training",
       "detail": "learned through visible button",
-      "wall": 112778
+      "wall": 70159
     },
     {
       "action": "interact",
       "detail": "tao_work",
-      "wall": 113465
+      "wall": 70483
     },
     {
       "action": "choice",
       "detail": "long",
-      "wall": 114665
+      "wall": 71320
     },
     {
       "action": "walk",
@@ -194,7 +194,7 @@
         "x": 1210,
         "y": 600
       },
-      "wall": 117233
+      "wall": 72452
     },
     {
       "action": "pull",
@@ -203,12 +203,12 @@
         "x": 1310,
         "y": 600
       },
-      "wall": 119242
+      "wall": 73511
     },
     {
       "action": "interact",
       "detail": "rest_workshop",
-      "wall": 126603
+      "wall": 77736
     },
     {
       "action": "walk",
@@ -216,7 +216,7 @@
         "x": 1450,
         "y": 220
       },
-      "wall": 129430
+      "wall": 79640
     },
     {
       "action": "walk",
@@ -224,17 +224,17 @@
         "x": 320,
         "y": 220
       },
-      "wall": 134067
+      "wall": 82639
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 148149
+      "wall": 92445
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 158277
+      "wall": 98701
     },
     {
       "action": "walk",
@@ -242,7 +242,7 @@
         "x": 890,
         "y": 290
       },
-      "wall": 158567
+      "wall": 98866
     },
     {
       "action": "pull",
@@ -251,7 +251,7 @@
         "x": 1010,
         "y": 290
       },
-      "wall": 165536
+      "wall": 103624
     },
     {
       "action": "walk",
@@ -259,24 +259,24 @@
         "x": 1180,
         "y": 230
       },
-      "wall": 171532
+      "wall": 107094
     },
     {
       "action": "interact",
       "detail": "chime",
-      "wall": 175299
+      "wall": 109592
     },
     {
       "action": "shared-platform-and-chime",
       "detail": {
         "scene": "creek",
-        "time": 100.33333333332892,
+        "time": 95.4833333333292,
         "player": {
-          "x": 1312.945826296507,
-          "y": 198.62682570020647,
+          "x": 1312.8461313836974,
+          "y": 198.58345808781462,
           "hp": 4,
           "mana": 5,
-          "facing": -0.23718649594055552,
+          "facing": -0.2363601556645819,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -316,41 +316,41 @@
         "events": [
           {
             "seq": 24,
-            "time": 94.83333333332924,
+            "time": 90.24999999999616,
             "type": "change",
             "text": "远处绳梯搭到入口，旧眺台的路打开了。"
           },
           {
             "seq": 25,
-            "time": 97.89999999999573,
+            "time": 93.08333333332934,
             "type": "place",
             "text": "你实际走上旧眺台，凹台里风轻了。"
           },
           {
             "seq": 26,
-            "time": 98.61666666666235,
+            "time": 93.79999999999596,
             "type": "relationship",
             "text": "许照和你一起登上眺台，在旧采药记号旁添了今日共同认出的路。"
           },
           {
             "seq": 27,
-            "time": 99.93333333332895,
+            "time": 94.96666666666256,
             "type": "item",
             "text": "你收起旧檐风铃，想把它挂到驿中自己的窗边。"
           }
         ]
       },
-      "wall": 177470
+      "wall": 111057
     },
     {
       "action": "interact",
       "detail": "to_crossing",
-      "wall": 178028
+      "wall": 111392
     },
     {
       "action": "scene",
       "detail": "crossing",
-      "wall": 192568
+      "wall": 120370
     },
     {
       "action": "walk",
@@ -358,7 +358,7 @@
         "x": 320,
         "y": 170
       },
-      "wall": 192929
+      "wall": 120538
     },
     {
       "action": "walk",
@@ -366,7 +366,7 @@
         "x": 680,
         "y": 170
       },
-      "wall": 203437
+      "wall": 127301
     },
     {
       "action": "pull",
@@ -375,7 +375,7 @@
         "x": 800,
         "y": 180
       },
-      "wall": 207092
+      "wall": 129806
     },
     {
       "action": "walk",
@@ -383,12 +383,12 @@
         "x": 1430,
         "y": 280
       },
-      "wall": 213561
+      "wall": 133816
     },
     {
       "action": "interact",
       "detail": "ridge_marker",
-      "wall": 224877
+      "wall": 141209
     },
     {
       "action": "walk",
@@ -396,7 +396,7 @@
         "x": 1050,
         "y": 220
       },
-      "wall": 227345
+      "wall": 142808
     },
     {
       "action": "walk",
@@ -404,7 +404,7 @@
         "x": 680,
         "y": 170
       },
-      "wall": 231326
+      "wall": 145306
     },
     {
       "action": "walk",
@@ -412,7 +412,7 @@
         "x": 320,
         "y": 170
       },
-      "wall": 235258
+      "wall": 147833
     },
     {
       "action": "walk",
@@ -420,37 +420,37 @@
         "x": 400,
         "y": 900
       },
-      "wall": 242919
+      "wall": 152621
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 250857
+      "wall": 160014
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 252755
+      "wall": 161897
     },
     {
       "action": "interact",
       "detail": "to_home",
-      "wall": 253077
+      "wall": 162214
     },
     {
       "action": "scene",
       "detail": "home",
-      "wall": 264376
+      "wall": 173545
     },
     {
       "action": "interact",
       "detail": "table",
-      "wall": 264706
+      "wall": 173892
     },
     {
       "action": "choice",
       "detail": "travel",
-      "wall": 269671
+      "wall": 178825
     }
   ],
   "observations": {
@@ -471,7 +471,7 @@
       ],
       "state": {
         "scene": "home",
-        "time": 0.24999999999999997,
+        "time": 0.31666666666666665,
         "player": {
           "x": 360,
           "y": 710,
@@ -500,7 +500,7 @@
             "seq": 1,
             "time": 0,
             "type": "note",
-            "text": "行舟，凝气三层。先前攒钱修的引环，今日该去取了。"
+            "text": "行舟，凝气三层。先前攒钱修的控物环，今日该去取了。"
           },
           {
             "seq": 2,
@@ -522,7 +522,7 @@
       ],
       "state": {
         "scene": "home",
-        "time": 1.2000000000000006,
+        "time": 1.3000000000000003,
         "player": {
           "x": 360,
           "y": 710,
@@ -553,7 +553,7 @@
             "seq": 1,
             "time": 0,
             "type": "note",
-            "text": "行舟，凝气三层。先前攒钱修的引环，今日该去取了。"
+            "text": "行舟，凝气三层。先前攒钱修的控物环，今日该去取了。"
           },
           {
             "seq": 2,
@@ -563,7 +563,7 @@
           },
           {
             "seq": 3,
-            "time": 0.5166666666666666,
+            "time": 0.5833333333333335,
             "type": "pull",
             "text": "灵线牵住松脱的灯盏。点空地改变落点，按「放下」结束。",
             "x": 430,
@@ -572,7 +572,7 @@
           },
           {
             "seq": 4,
-            "time": 0.8333333333333343,
+            "time": 0.9000000000000011,
             "type": "change",
             "text": "灯盏落回架上。陶七终于松开手，暖光照见留给你的碗。",
             "x": 560,
@@ -588,12 +588,12 @@
         {
           "action": "interact",
           "detail": "tao_work",
-          "wall": 97897
+          "wall": 61117
         },
         {
           "action": "choice",
           "detail": "hold",
-          "wall": 98963
+          "wall": 61802
         },
         {
           "action": "walk",
@@ -601,22 +601,22 @@
             "x": 1390,
             "y": 610
           },
-          "wall": 100968
+          "wall": 62939
         },
         {
           "action": "mouse-hold-training",
           "detail": "learned through visible button",
-          "wall": 112778
+          "wall": 70159
         },
         {
           "action": "interact",
           "detail": "tao_work",
-          "wall": 113465
+          "wall": 70483
         },
         {
           "action": "choice",
           "detail": "long",
-          "wall": 114665
+          "wall": 71320
         },
         {
           "action": "walk",
@@ -624,7 +624,7 @@
             "x": 1210,
             "y": 600
           },
-          "wall": 117233
+          "wall": 72452
         },
         {
           "action": "pull",
@@ -633,18 +633,18 @@
             "x": 1310,
             "y": 600
           },
-          "wall": 119242
+          "wall": 73511
         }
       ],
       "state": {
         "scene": "workshop",
-        "time": 64.93333333333094,
+        "time": 61.2999999999978,
         "player": {
-          "x": 1212.806466484438,
-          "y": 599.2924686319171,
+          "x": 1211.0684488358675,
+          "y": 599.7454718244392,
           "hp": 4,
           "mana": 1,
-          "facing": -0.06074755413585532,
+          "facing": -0.06183239447695072,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -679,7 +679,7 @@
         "events": [
           {
             "seq": 17,
-            "time": 54.53333333333152,
+            "time": 52.19999999999832,
             "type": "hold",
             "text": "试环木块停住八秒，现在可以另施一术。",
             "x": 1440,
@@ -688,13 +688,13 @@
           },
           {
             "seq": 18,
-            "time": 59.733333333331224,
+            "time": 56.649999999998066,
             "type": "hint",
             "text": "陶七演示将灵线放长，又以短停展示留势。轮到你：站在试环站位，把远处木块牵近。"
           },
           {
             "seq": 19,
-            "time": 62.83333333333105,
+            "time": 59.149999999997924,
             "type": "pull",
             "text": "灵线牵住试环木块。点空地改变落点，按「放下」结束。",
             "x": 1530,
@@ -703,7 +703,7 @@
           },
           {
             "seq": 20,
-            "time": 63.56666666666434,
+            "time": 59.79999999999789,
             "type": "growth",
             "text": "远处木块稳稳到了手边。你亲手试成了长牵，灵线可达十步。"
           }
@@ -720,13 +720,13 @@
       "state": {
         "terminal": "designed-outcome",
         "scene": "home",
-        "time": 169.9500000000274,
+        "time": 162.43333333335474,
         "player": {
-          "x": 836.8862109571224,
-          "y": 438.3264987736767,
+          "x": 841.890707580147,
+          "y": 440.17026068742257,
           "hp": 4,
           "mana": 4,
-          "facing": -2.7886022657628886,
+          "facing": -2.7886022657628873,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -777,25 +777,25 @@
         "events": [
           {
             "seq": 35,
-            "time": 153.18333333334738,
+            "time": 145.7000000000081,
             "type": "scene",
             "text": "雨后溪道"
           },
           {
             "seq": 36,
-            "time": 164.65000000002317,
+            "time": 157.16666666668388,
             "type": "return",
             "text": "门后添了一块山脊路标，背架靠在熟悉的墙边。"
           },
           {
             "seq": 37,
-            "time": 164.65000000002317,
+            "time": 157.16666666668388,
             "type": "scene",
             "text": "回石驿"
           },
           {
             "seq": 38,
-            "time": 169.9500000000274,
+            "time": 162.43333333335474,
             "type": "ending",
             "text": "你在桌上展开亲自走过的山脊绕路。风铃响过你们一起看路的眺台。许照在旁添了一笔，约好下次短途。"
           }
@@ -804,8 +804,8 @@
       "visual": "qa/evidence/home-keepsakes.png"
     },
     "exportedSave": {
-      "fixture": "qa/fixtures/return-ridge-v0.2.2.json",
-      "version": "0.2.2",
+      "fixture": "qa/fixtures/return-ridge-v0.3.0.json",
+      "version": "0.3.0",
       "method": "settings export after actual complete route",
       "route": "ridge"
     },
@@ -848,7 +848,7 @@
             "seq": 1,
             "time": 0,
             "type": "note",
-            "text": "行舟，凝气三层。先前攒钱修的引环，今日该去取了。"
+            "text": "行舟，凝气三层。先前攒钱修的控物环，今日该去取了。"
           },
           {
             "seq": 2,
