@@ -94,7 +94,7 @@ export function nearbyEncounter(s: GameState): EncounterView|undefined {
   }
   if(s.scene==='workshop'){
     if(s.life?.repair.stage!=='unaccepted'&&near(['life_hearth','life_jaw','life_press'],220)){
-      const e=s.worlds.workshop.find(e=>e.id.startsWith('life_')&&e.id!=='life_scent'&&distance(s.player,e)<=220);
+      const e=s.worlds.workshop.filter(e=>['life_hearth','life_jaw','life_press'].includes(e.id)&&e.state!=='hidden'&&distance(s.player,e)<=220).sort((a,b)=>distance(s.player,a)-distance(s.player,b))[0];
       if(e)return view('life-repair',e.name,lifeDescription(s,e)||'挂扣修器工序','察看当前工序','回驿交还挂扣');
     }
     if(near(['tao_work','trial','ring','trial_mark'],210))return training(s);

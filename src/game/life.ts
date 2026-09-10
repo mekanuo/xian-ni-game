@@ -77,7 +77,7 @@ export function lifeChoose(s:GameState,id:string,p:LifePorts):ActionResult|undef
   }
   if(s.life.clamp!==site)return no('这里没有装着你的压扣');
   if(site==='lookout'&&[s.player,...s.worlds.creek.filter(e=>e.type==='xu')].some(v=>Math.abs(v.x-1080)<43&&Math.abs(v.y-290)<75))return no('先让自己与同行者离开倾梁下方，再取回压扣');
-  e.state='idle';if(site==='lookout'){e.x=e.homeX!;e.y=e.homeY!;s.flags.platformOpen=Boolean(s.flags.platformReturn||s.flags.platformLong);}s.life.clamp='bag';p.emit(s,'change','物件落回安全承托处，压扣已经收回；已有回程梯仍可通行。',eye);return ok();
+  e.state='idle';if(site==='lookout'){e.x=e.homeX!;e.y=e.homeY!;s.flags.platformOpen=Boolean(s.flags.platformReturn||s.flags.platformLong);}s.life.clamp='bag';p.emit(s,'change',site==='home'?'试件留在工位承托处，压扣已经收回。':`倾梁落回原位，压扣已经收回。${s.flags.platformReturn||s.flags.platformLong?'已有的梯路仍可通行。':'你在入口西侧，可重新安排通路。'}`,eye);return ok();
  }
  return no('这个工序当前不能进行');
 }
