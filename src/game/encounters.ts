@@ -2,41 +2,8 @@ import type { Entity, GameState, Vec } from './contracts';
 
 export interface EncounterView { id: string; title: string; fact: string; options: string[] }
 
-export function lifeObjective(s: GameState): string | undefined {
-  if (!s.life || !['stay','travel'].includes(String(s.flags.endingWish))) return undefined;
-  const r=s.life.repair,h=s.life.harvest;
-  if (r.stage!=='complete') {
-    if (r.stage==='unaccepted') return '陶七和许照各有一件小事等你帮忙。';
-    if (!r.softened) return '把挂扣装到炉芯，用火焰软开旧胶。';
-    if (!r.latched) return '把活动钳口校到刻线，再用留势或止挡压紧。';
-    if (!r.tested) return '近身试压挂扣，确认它真的承得住。';
-    return '回石驿把试压通过的挂扣交还陶七。';
-  }
-  if (h.stage!=='complete') {
-    if (h.stage==='unaccepted') return '问许照要不要给晒架添两束路用叶。';
-    if (h.sun==='unpicked'||h.shade==='unpicked') return '沿溪道采回向阳叶和背阴叶，各留一束根。';
-    if (h.sun==='bag'||h.shade==='bag') return '回晒药架，把两束叶分到对应的上下层。';
-    return '回晒药架交付分拣好的叶片，收好两份避兽药囊。';
-  }
-  return '手艺与行囊已经备好；可继续试术，或在桌边歇一歇。';
-}
-
-function lifeDescription(s: GameState, e: Entity): string | undefined {
-  const l=s.life;if(!l)return undefined;
-  const r=l.repair,h=l.harvest;
-  switch(e.id){
-    case 'life_hearth': return r.stage==='unaccepted'?'炉芯还没有任务用途':r.softened?'旧胶已经软开，活动钳口可以校直':'把挂扣装进炉芯，再用火焰命中引火芯';
-    case 'life_jaw': return r.latched?'钳口已压紧，去压柄试承重':r.softened?'沿刻线把钳口牵到右侧，再用止挡或留势承住':'旧胶未软，先处理炉芯';
-    case 'life_press': return r.tested?'挂扣已通过试压':r.latched?'近身按压一息，确认挂扣承重':'钳口尚未压紧，不能试压';
-    case 'life_sun_leaf': return h.sun==='unpicked'?'向阳石边的一束嫩叶；剪上部，别拔根':h.sun==='bag'?'向阳叶在器具袋中，回晒架分层':'向阳叶已放在晒架上';
-    case 'life_shade_leaf': return h.shade==='unpicked'?'背阴窄段的一束叶；东侧干路可以安全靠近':h.shade==='bag'?'背阴叶在器具袋中，回晒架分层':'背阴叶已放在晒架上';
-    case 'life_home_eye': return l.clamp==='home'?'压扣固定在工位试件上':'工位的金属固定眼';
-    case 'life_practice': return l.clamp==='home'?'试件被压扣承住，可安全取回':'把物件移到固定眼再试压扣';
-    case 'life_lookout_eye': return l.clamp==='lookout'?'压扣承住倾梁，入口保持打开':'倾梁侧托的金属固定眼';
-    case 'life_scent': return l.scent?'药囊气味还会令附近山兽绕行片刻':'已经散尽的药囊布片';
-    default:return undefined;
-  }
-}
+import { lifeObjective, lifeDescription } from './life';
+export { lifeObjective } from './life';
 
 const distance = (a: Vec,b: Vec) => Math.hypot(a.x-b.x,a.y-b.y);
 const object = (s: GameState,id: string) => s.worlds[s.scene].find(e=>e.id===id);
@@ -68,11 +35,11 @@ function lookout(s: GameState): EncounterView {
 }
 
 function training(s: GameState): EncounterView {
-  if(!s.flags.ringOwned)return view('ring-training','旧工棚试架','台上引环还系着你的旧绳，试环木块就在一旁。','先取回引环，再与陶七选练法');
+  if(!s.flags.ringOwned)return view('ring-training','旧工棚试架','台上控物环还系着你的旧绳，试环木块就在一旁。','先取回控物环，再与陶七选练法');
   if(s.flags.trialStyle==='long')return view('ring-training','长牵试架','这次要从六步之外，把试环木块实际牵近。','站到西侧试环印，牵近木块后放下');
   if(s.flags.trialStyle==='hold')return view('ring-training','留势试架','这次要让木块离手停住；留势还需一格灵力。','走近牵住木块，再按留势');
   if(s.flags.ringTrained)return view('ring-training','试环已稳',`你已亲试${s.ringStyle==='long'?'长牵，牵物可达十步':'留势，物件可离手停住八秒'}。`,'可与陶七重试另一种练法','静息后继续去石渡');
-  return view('ring-training','旧工棚试架','引环已回到手中，还没有亲手试稳练法。','与陶七选长牵或留势，再动手试环');
+  return view('ring-training','旧工棚试架','控物环已回到手中，还没有亲手试稳练法。','与陶七选长牵或留势，再动手试环');
 }
 
 function beasts(s: GameState): EncounterView {
@@ -108,20 +75,21 @@ function crossing(s: GameState,ridge: boolean): EncounterView {
 
 /** Only local, observable circumstances; never changes progress or issues actions. */
 export function nearbyEncounter(s: GameState): EncounterView|undefined {
-  const near=(ids:string[],radius:number)=>s.worlds[s.scene].filter(e=>ids.includes(e.id)).some(e=>distance(s.player,e)<=radius);
+  const near=(ids:string[],radius:number)=>s.worlds[s.scene].filter(e=>ids.includes(e.id)&&e.state!=='hidden').some(e=>distance(s.player,e)<=radius);
+  if(s.scene==='home'&&['stay','travel'].includes(String(s.flags.endingWish))&&near(['workbench','herb_rack','tao','xu'],160))return view('life-home-talk','灯下的手艺',lifeObjective(s)||'回驿继续手上的活','与工位旁的陶七交谈','到晒架看许照的叶图');
   if(s.scene==='home'&&near(['lamp_stand'],280))return s.flags.lampFixed
-    ? view('home-lamp','灯下归处','灯盏已经归架，暖光照着熟悉的院子。',s.flags.returned?'到自己的桌边放环或摊图':!s.flags.tools?'沿溪道取回自己的器具袋':!s.flags.ringOwned?'去旧工棚取回自己的引环':!s.flags.ringTrained?'回旧工棚，与陶七亲手试环':'沿溪道去石渡，用引环试路')
+    ? view('home-lamp','灯下归处','灯盏已经归架，暖光照着熟悉的院子。',s.flags.returned?'到自己的桌边放环或摊图':!s.flags.tools?'沿溪道取回自己的器具袋':!s.flags.ringOwned?'去旧工棚取回自己的控物环':!s.flags.ringTrained?'回旧工棚，与陶七亲手试环':'沿溪道去石渡，用控物环试路')
     : view('home-lamp','松脱的灯盏','陶七扶着灯架，灯盏落在一旁。','选牵引，牵灯盏到架旁落点','到位后按放下');
   if(s.scene==='home'&&s.life&&['stay','travel'].includes(String(s.flags.endingWish))){
     const ids=['life_home_eye','life_practice'];
     if(near(ids,220))return view('life-home','工位固定眼',lifeDescription(s,s.worlds.home.find(e=>ids.includes(e.id))!)||'压扣与试件的用途仍在记录中','察看压扣承物','回桌边听陶七和许照的安排');
   }
   if(s.scene==='creek'){
-    if(near(['platform_beam','platform_ladder','return_ladder','chime','marks'],180))return lookout(s);
-    if(near(['life_sun_leaf','life_shade_leaf'],150)){
-      const e=s.worlds.creek.find(e=>e.id.startsWith('life_')&&distance(s.player,e)<=150);
+    if(s.life.harvest.stage!=='unaccepted'&&near(['life_sun_leaf','life_shade_leaf'],150)){
+      const e=s.worlds.creek.find(e=>['life_sun_leaf','life_shade_leaf'].includes(e.id)&&e.state!=='hidden'&&distance(s.player,e)<=150);
       if(e)return view('life-leaf',e.name,lifeDescription(s,e)||'叶片仍在枝上','走近剪取一束叶','沿安全侧靠近');
     }
+    if(near(['platform_beam','platform_ladder','return_ladder','chime','marks'],180))return lookout(s);
     if(near(['board','basket','shelter'],235))return rainShelter(s);
   }
   if(s.scene==='workshop'){
@@ -152,7 +120,7 @@ export function inspectObject(s: GameState,e: Entity): string {
     case 'platform_ladder':return f.platformLong?'绳梯已搭到入口，沿石地即可登台':e.hint||'';
     case 'platform_beam':return f.platformReturn?'回程梯已放稳，不必再留势撑开入口':s.player.pullId===e.id&&s.player.hold>0?'倾梁暂时悬停，趁留势穿过并放下回程梯':e.hint||'';
     case 'return_ladder':return f.platformReturn?'回程梯已放稳，零灵力也能出入':e.hint||'';
-    case 'trial':case 'trial_mark':return s.flags.trialStyle==='long'?'从六步外牵近木块；西侧试环印可站稳':s.flags.trialStyle==='hold'?'走近牵住木块，再留势让它离手悬停':f.ringTrained?'已试稳引环；可与陶七重试另一种练法':e.hint||'';
+    case 'trial':case 'trial_mark':return s.flags.trialStyle==='long'?'从六步外牵近木块；西侧试环印可站稳':s.flags.trialStyle==='hold'?'走近牵住木块，再留势让它离手悬停':f.ringTrained?'已试稳控物环；可与陶七重试另一种练法':e.hint||'';
     case 'gate':return f.gateOpen?'闸口已固定，低滩已经露出':f.gateWedge?'木楔已安好，把闸扣牵开即可卡稳':f.gateDemonstrated?'排水示范已被看见；无楔松手仍会回弹':e.hint||'';
     case 'gate_slot':return f.gateOpen?'木楔已经卡稳闸口，无须重复修理':f.gateWedge?'木楔已安好，继续牵开闸扣':'带器具安楔；正牵闸时需先留势腾手';
     case 'ridge_rope':return f.ridgeOpen?'绳梯已放下，可沿高处绕行':e.hint||'';

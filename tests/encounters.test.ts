@@ -97,7 +97,7 @@ describe('local encounter observations',()=>{
 
   it('updates training and does not recommend reusing spent environmental distractions',()=>{
     const s=at('workshop',{x:1400,y:580});
-    expect(nearbyEncounter(s)?.options[0]).toContain('取回引环');
+    expect(nearbyEncounter(s)?.options[0]).toContain('取回控物环');
     s.flags.ringOwned=true;s.flags.trialStyle='hold';
     expect(nearbyEncounter(s)?.options[0]).toContain('留势');
     s.flags.trialStyle='';s.flags.ringTrained=true;s.ringStyle='hold';

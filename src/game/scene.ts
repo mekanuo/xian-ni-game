@@ -487,6 +487,7 @@ export class WorldScene extends Phaser.Scene {
       propImage=this.add.image(0,0,'journey-props',this.journeyFrame(e)).setOrigin(.5,1);
       container=this.add.container(e.x,e.y,[propImage,art,label]);
     }else{container=this.add.container(e.x,e.y,[art,label]);}
+    if(this.state.scene==='home'&&['workbench','herb_rack'].includes(e.id)){const extra=createLifeVisual(this,e);if(extra)container.addAt(extra,1);}
     container.setDepth(e.y);const lifeVisual=container.list.find(o=>o instanceof Phaser.GameObjects.Container) as Phaser.GameObjects.Container|undefined;const r={container,art,label,image,propImage,lifeVisual,stateKey:''};this.renders.set(e.id,r);this.drawObject(e,art);return r;
   }
   private drawObject(e:Entity,g:Phaser.GameObjects.Graphics){
@@ -582,7 +583,7 @@ export class WorldScene extends Phaser.Scene {
       const r=this.renders.get(e.id)||this.makeEntity(e);
       const isGone=['taken','gone','hidden'].includes(e.state)||(e.id==='lamp'&&Boolean(this.state.flags.lampFixed));
       r.container.setVisible(!isGone);if(isGone)continue;
-      const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.life?.repair?.stage}:${this.state.life?.repair?.softened}:${this.state.life?.repair?.latched}:${this.state.life?.repair?.tested}:${this.state.life?.harvest?.sun}:${this.state.life?.harvest?.shade}:${this.state.life?.clamp}:${this.state.life?.scent?.remaining ?? 0}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}`;
+      const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.life?.repair?.stage}:${this.state.life?.repair?.softened}:${this.state.life?.repair?.latched}:${this.state.life?.repair?.tested}:${this.state.life?.harvest?.sun}:${this.state.life?.harvest?.shade}:${this.state.life?.clamp}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}`;
       if(r.stateKey!==key){r.stateKey=key;this.drawObject(e,r.art);}
       if(r.lifeVisual)updateLifeVisual(r.lifeVisual,e,this.state,this.settings.reduced);
       r.container.setPosition(e.x,e.y).setDepth(e.y+(e.kind==='npc'?100:0));
