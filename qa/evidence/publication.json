@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-09-09T15:32:11.497Z",
+  "checkedAt": "2026-09-10T01:42:59.659Z",
   "url": "https://mekanuo.github.io/xian-ni-game/",
   "release": {
     "game": "山门之外",
-    "version": "0.2.2",
-    "sourceCommit": "39e4aedc2e65aba4816f437a7d18c48cdad834bf",
-    "builtAt": "2026-09-09T15:28:08.877Z"
+    "version": "0.3.0",
+    "sourceCommit": "77091bf5debd232fa8267c6331952da24ddaf94f",
+    "builtAt": "2026-09-10T01:42:00.379Z"
   },
   "resources": [
     {
@@ -69,6 +69,12 @@
       "sha256": "ecc72550eaadeccf903455cd83d589cc1ce298c04a42f79e7cfe8a7ef0820b04"
     },
     {
+      "path": "art/life-props.png",
+      "status": 200,
+      "bytes": 2057987,
+      "sha256": "c0f196315ff5e448d370a5b4c264cb51d33bd2e13fbf7c446d14998fbbaa4bf5"
+    },
+    {
       "path": "art/region-architecture.png",
       "status": 200,
       "bytes": 1728167,
@@ -93,22 +99,22 @@
       "sha256": "bedbd7d681e1cf7c4481696e3983b6638f6c8088f892c4a54759953b58f108c9"
     },
     {
-      "path": "assets/index-BCc5tWgp.js",
-      "status": 200,
-      "bytes": 1356788,
-      "sha256": "9727e313122f217da22c311e856fab4d6c0c1d873f3ba2a644a4a573f5048a0e"
-    },
-    {
       "path": "assets/index-B_OocHnE.css",
       "status": 200,
       "bytes": 30486,
       "sha256": "aa67c4e2291b950b076cc37231ca104a8af52347bf7012724f6840867ae86dce"
     },
     {
+      "path": "assets/index-D3hwYOzU.js",
+      "status": 200,
+      "bytes": 1385891,
+      "sha256": "116b10b91c6a36a4778eb8f4513ccbd7098cdd8d1c8b0cebf34bf246140f91f3"
+    },
+    {
       "path": "index.html",
       "status": 200,
       "bytes": 656,
-      "sha256": "172bdf03331986086b9a313a6483c5fe434b87e70db151628560bddda7b4f0e6"
+      "sha256": "8e1d5d0573539b2c4ab74647550c32aefe781ccfaea77abd838b08eaccb99c40"
     }
   ],
   "browser": "150.0.7871.114",
@@ -176,7 +182,7 @@
       "state": {
         "scene": "home",
         "player": {
-          "x": 498.66666666666765,
+          "x": 501.33333333333434,
           "y": 710,
           "hp": 4,
           "mana": 5,
@@ -215,7 +221,7 @@
     "musicVolume": 0.55,
     "effectsVolume": 0.45,
     "musicScheduled": 5,
-    "musicRms": 0.08403802564546467,
+    "musicRms": 0.0840191584660982,
     "effectsRms": 0,
     "activeVoices": 8,
     "lastEffect": "",
@@ -224,6 +230,33 @@
     "disposed": false
   },
   "visual": "qa/evidence/public-start.png",
+  "continuation": {
+    "contentVersion": 2,
+    "checkpointVersion": 2,
+    "life": {
+      "repair": {
+        "stage": "active",
+        "softened": false,
+        "stopSet": false,
+        "latched": false,
+        "tested": false,
+        "method": null,
+        "testing": null
+      },
+      "harvest": {
+        "stage": "unaccepted",
+        "sun": "unpicked",
+        "shade": "unpicked",
+        "picking": null,
+        "shared": false
+      },
+      "clamp": "unowned",
+      "sachets": 0,
+      "scent": null
+    },
+    "fixture": "Real 0.2.2 main ending imported via settings",
+    "input": "Click workbench, accept repair"
+  },
   "mobile": {
     "device": "Chrome touch / DPR3 emulation, not a physical phone",
     "dimensions": {
@@ -245,8 +278,8 @@
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
       "musicScheduled": 12,
-      "musicRms": 0.01746339897777433,
-      "effectsRms": 0.002822217618255884,
+      "musicRms": 0.019598971395244604,
+      "effectsRms": 0.003164207764615601,
       "activeVoices": 15,
       "lastEffect": "ward",
       "effectCounts": {
