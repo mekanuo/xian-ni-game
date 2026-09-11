@@ -281,6 +281,10 @@ scenarios.quiet = async () => {
   // Merely clicking beyond it would miss UI target interception at the doorway.
   await walk(665, 410); await observe('real pointer delivered inside the open doorway');
   await walk(820, 405);
+  // On the narrow viewport walk toward the visible L-wall approach before
+  // choosing north. Standing in the exposed lane to pan a distant exit is
+  // unnecessary; this is an ordinary intermediate ground tap, not a teleport.
+  if (device === 'phone') await walk(1000, 440);
   await confirmNorth('private');
   await returnViaSouthernWaypoints(); await confirmReturn('private');
   const returned = await observe('private outbound / actual return via southern waypoints');
