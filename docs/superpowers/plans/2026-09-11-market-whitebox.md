@@ -122,7 +122,7 @@ export function marketThreat(run: MarketRun): boolean;
 **Files:** `scripts/market-whitebox-check.mjs`、运行后 `qa/whitebox/market.json`；root 仅按实际结果更新 `design/BUILD_BRIEF_070_WHITEBOX.md`、`docs/PROGRESS.md` 与 ADVENTURE_070 的白盒状态。
 
 - [ ] 先写脚本和语法检查 `node --check scripts/market-whitebox-check.mjs`，不得趁别人持有浏览器自行启动。脚本只通过真实DOM/键盘/鼠标/触屏操作，__MARKET__ 只观察。
-- [ ] root确认唯一浏览器空闲后启动独立预览：`npx vite --host 127.0.0.1 --port 4193 --strictPort`，访问 `/market-whitebox.html`。4193若被占用，核对所属任务后换明确端口，不杀未知进程。实际执行 `GAME_URL=http://127.0.0.1:4193/market-whitebox.html node scripts/market-whitebox-check.mjs`。
+- [ ] root确认唯一浏览器空闲后启动独立预览：`npx vite preview --config vite.market-whitebox.config.ts --host 127.0.0.1 --port 4193 --strictPort`，访问 `/market-whitebox.html`。4193若被占用，核对所属任务后换明确端口，不杀未知进程。实际执行 `GAME_URL=http://127.0.0.1:4193/market-whitebox.html node scripts/market-whitebox-check.mjs`。
 - [ ] 串行桌面1440×900 DPR2与手机390×844 DPR3。至少分别完成“有信息，保持未暴露直接交换→NPC实际开门并侧让回摊→私巷→上端确认→回原口”和“无信息零灵力→公共巷→上端确认→回原口”。真实移动不暂停取景求通过，60秒条件等待只监测已请求动作，不注入下一阶段。
 - [ ] 在独立新开局走 Task 2 找到的真实引敌路线：沈砚能看见才停；有资源办法与零资源脱离/退出各留结果，威胁消退自动继续。再证门开后才遇险也不重新上锁；如未完成，报告该项 FAIL/NOT_RUN，不用安静路线替代。
 - [ ] 独立暂停例：对白打开时等待，模型时间/敌人/门不变；结束对白但原本手动暂停仍保持；NPC移步途中暂停、恢复后续行，不能重置到起点或瞬开门。原地重开恢复所选初态、门闭/交换未发生/通路无成果。
@@ -133,3 +133,5 @@ export function marketThreat(run: MarketRun): boolean;
 ## 执行记录
 
 本文件为计划交接；当前只完成文档准备，没有实施、构建、模型运行或浏览器结果。后续按任务填写真实记录，不能复制0.6通过数或旧窑白盒报告。
+
+根代理实施补充：对白内实际“交谈后保持暂停”控制调用已有pause:true，可在结束交谈后保留暂停；测试不通过写flags制造这一前提。正式npm build仍为原生产包；白盒最新JS market-whitebox-Csov99fZ.js，真实浏览器尚NOT_RUN。

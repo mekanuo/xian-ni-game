@@ -15,7 +15,7 @@ buildPath: custom
 
 最短闭环：选择固定初态→实际走到摊前→交换或选择公共路→应对真实来向/开门与让路→完整穿过对应通道→实际点北口离场→显示仅属本轮的实际结果→重开到同一初态。原口退出也可结束本轮，但不补穿行；把私巷探一半再退回不算走通，完整走过两条则按事实保留。正常全过程不靠持续暂停或假死敌人。
 
-工具链沿用Node22、npm10、Phaser3.90.0、TypeScript5.9.3、Vite7.3.6。现已构建 market-whitebox.html；命令为 `npm run build`（验证原正式入口仍可构建）与 `npx tsc --noEmit`、`npx vite build --config vite.market-whitebox.config.ts`。白盒输出 `.whitebox-dist/market`，不复制生产PNG；运行 `npx vite preview --config vite.market-whitebox.config.ts --host 127.0.0.1 --port 4193 --strictPort` 后访问 `/market-whitebox.html`。当前JS market-whitebox-d6Vzb8Ra.js / CSS market-whitebox-DRyAUuGA.css，revision market-whitebox-1；模型32行为PASS，之前相关组合88/4 PASS，最后文案变更已重跑market全32。尚未启动白盒浏览器，testedRuntime仍为NOT_RUN。目标为桌面键鼠与触屏；实际环境仅能证明Linux Chrome与窗口/DPR/触屏仿真，不代替实体Mac/Safari/手机。
+工具链沿用Node22、npm10、Phaser3.90.0、TypeScript5.9.3、Vite7.3.6。现已构建 market-whitebox.html；命令为 `npm run build`（验证原正式入口仍可构建）与 `npx tsc --noEmit`、`npx vite build --config vite.market-whitebox.config.ts`。白盒输出 `.whitebox-dist/market`，不复制生产PNG；运行 `npx vite preview --config vite.market-whitebox.config.ts --host 127.0.0.1 --port 4193 --strictPort` 后访问 `/market-whitebox.html`。当前JS market-whitebox-Csov99fZ.js / CSS market-whitebox-DRyAUuGA.css，revision market-whitebox-1；模型33行为PASS，之前相关组合88/4 PASS，最后文案变更已重跑market全32。尚未启动白盒浏览器，testedRuntime仍为NOT_RUN。目标为桌面键鼠与触屏；实际环境仅能证明Linux Chrome与窗口/DPR/触屏仿真，不代替实体Mac/Safari/手机。
 
 验证先跑有意义的边界行为RED→GREEN，再跑最窄白盒真实输入：安静直接成交，零资源公共往返，真实近敌暂缓后继续/撤回，对话暂停与门侧途中暂停，既成交换/开门保持、两条路线归因与重开。固定seed/初态版本、输入序列、只读事件和终态存档到qa/whitebox/market；不把模型合成状态冒充真实浏览器过程。自然度与趣味不由PASS裁决。
 

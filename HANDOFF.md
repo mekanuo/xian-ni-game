@@ -8,9 +8,11 @@
 
 规则代理 canal_rules_040 独占 src/whitebox/market-model.ts 和 tests/market-whitebox.test.ts；美术代理 canal_art_040 此次仅做白盒UI，独占market-whitebox.html、market-main.ts、market.css、vite.market-whitebox.config.ts；不生成生产美术。root拥有共享model、Git/构建/浏览器/后续QA脚本。所有实现仅在本树，0.6源码冻结。
 
-模型与白盒UI已实现，market32测试PASS、此前相关组合88/4 PASS；tsc和独立构建通过（market-whitebox-d6Vzb8Ra.js / DRyAUuGA.css），正式build仍完全BTwh6Je1/B8Ldhq7K。真实模型已证明私去公返HP3MP6、zero公共往返HP3MP0、诱物停/续HP2MP5及zero引敌退出HP2MP0；非浏览器。规则/UI代理已停写；save代理仅写scripts/market-whitebox-check.mjs，暂不运行。root在UI补了已开门洞不吞点击、原口65内直接复核互动与只读threat，待实际输入回归。
+模型与白盒UI已实现，market33测试PASS、此前相关组合88/4 PASS；tsc和独立构建通过（market-whitebox-Csov99fZ.js / DRyAUuGA.css），正式build仍完全BTwh6Je1/B8Ldhq7K。真实模型已证明私去公返HP3MP6、zero公共往返HP3MP0、诱物停/续HP2MP5及zero引敌退出HP2MP0；非浏览器。规则/UI代理已停写；save代理仅写scripts/market-whitebox-check.mjs，暂不运行。root在UI补了已开门洞不吞点击、原口65内直接复核互动与只读threat，待实际输入回归。
 
-下一步脚本静态交付后提交/推送；0.6发行完成后串行跑白盒实际输入。白盒北口只近身确认和实际折返，不证明生产跨图或联络路用途。正式生产需设计决定，不能提前补全图/迁移或部署白盒。保留旧研究和封版项目边界；无需重读下面历史全文。
+下一步提交/推送脚本与对白保持暂停控制；脚本五案×两视口已静态交付，当前仅NOT_RUN。新增连接研究MARKET_070_CONNECTION_REVIEW建议北口接旧渠1100300/到达990350，当前只是候选四水态free/步行探测；仍需白盒设计判断和生产合同，不能当捷径已成立。
+
+0.6发行完成后串行跑白盒实际输入。白盒北口只近身确认和实际折返，不证明生产跨图或联络路用途。正式生产需设计决定，不能提前补全图/迁移或部署白盒。保留旧研究和封版项目边界；无需重读下面历史全文。
 
 ---
 

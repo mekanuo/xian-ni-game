@@ -210,6 +210,9 @@ class MarketScene extends Phaser.Scene {
   }
   private syncDialogue() {
     const d = run.state.dialogue, key = JSON.stringify(d);
+    const keepPaused = get<HTMLButtonElement>('[data-action="keep-paused"]');
+    keepPaused.disabled = !d || Boolean(run.state.flags.dialogueWasPaused);
+    keepPaused.textContent = run.state.flags.dialogueWasPaused ? '交谈后将保持暂停' : '交谈后保持暂停';
     if (key === this.dialogueKey) return;
     this.dialogueKey = key; dialogue.hidden = !d; choices.replaceChildren();
     if (!d) return;
@@ -273,6 +276,7 @@ document.querySelectorAll<HTMLButtonElement>('[data-action]').forEach(button => 
     case 'release': dispatch({ type: 'release' }); select(null); break;
     case 'hold': dispatch({ type: 'hold' }); select(null); break;
     case 'pause': scene().pause(!run.state.paused); break;
+    case 'keep-paused': if (run.state.dialogue) scene().pause(true); break;
     case 'center': scene().center(); break;
     case 'overview': scene().fullView(); break;
     case 'pan': scene().togglePan(); break;

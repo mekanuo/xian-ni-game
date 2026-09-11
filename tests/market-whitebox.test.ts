@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SCENES } from '../src/game/content';
-import { simulationPorts } from '../src/game/model';
+import { interactionPoint, simulationPorts } from '../src/game/model';
 import { createMarketRun, installMarketMap, MARKET_MAP, marketAct, marketThreat, marketTick, type MarketRun } from '../src/whitebox/market-model';
 const point = (x:number,y:number)=>({x,y});
 const obj = (r:MarketRun,id:string)=>r.state.worlds.home.find(e=>e.id===id)!;
@@ -123,7 +123,8 @@ describe('synthetic safe fixtures isolate continuous corridor attribution',()=>{
 
 describe('fixed initial state actual act/tick replay without state injection',()=>{
  it.each(['private','public'] as const)('quiet exchange takes private outbound, returns via %s with active input gaps',(returnRoute)=>{
-  const r=fresh();walk(r,470,760,.8,'click');walk(r,470,440,.8,'click');
+  const r=fresh();walk(r,470,760,.8,'click');
+  const approach=returnRoute==='public'?interactionPoint(r.state,'market_merchant'):point(470,440);expect(approach).toBeDefined();walk(r,approach!.x,approach!.y,.8,'click');
   expect(r.state.events.some(e=>e.type==='alert')).toBe(false);expect(exchange(r).ok).toBe(true);step(r,4);
   expect(obj(r,'market_door').state).toBe('open');expect(obj(r,'market_merchant').x).toBeCloseTo(470);
   walk(r,620,440,.8,'click');expect(marketAct(r,{type:'move',point:point(820,440)}).ok).toBe(false);walk(r,620,405,.8,'click');walk(r,665,410,.8,'click');walk(r,820,405,.8,'click');walk(r,1140,240,.8,'click');
@@ -156,16 +157,17 @@ it.each(['keys','click'] as const)('actual decoy lure interrupts and resumes wit
  expect(r.state.player.mana).toBe(5);expect(r.state.player.hp).toBeGreaterThan(0);expect(obj(r,'market_raider').hp).toBe(3);
  console.log('AUTO_RESUME',JSON.stringify({t:r.state.time,hp:r.state.player.hp,mana:r.state.player.mana,stopped,npc:obj(r,'market_merchant'),door:obj(r,'market_door'),e:obj(r,'market_raider')}));
  expect(obj(r,'market_door').state).toBe('open');expect(r.exchanged).toBe(true);
+ expect(marketThreat(r)).toBe(true);expect(obj(r,'market_merchant').state).toBe('waiting');
  expect(marketAct(r,{type:'interact',targetId:'market_entry'}).ok).toBe(true);expect(r.completed).toEqual({public:false,private:false});
 });
 
-it('zero-resource actual eastern loop brings a visible threat to the stall and permits original-endpoint withdrawal',()=>{
+it.each(['keys','click'] as const)('zero-resource eastern loop and withdrawal using %s',(mode)=>{
  const r=createMarketRun({mana:'zero',informed:true});
- for(const [x,y] of [[420,840],[880,840],[1220,900],[880,900],[680,900],[430,900],[430,500]])walk(r,x,y,.8);
+ for(const [x,y] of [[420,840],[880,840],[1220,900],[880,900],[680,900],[430,900],[430,500]])walk(r,x,y,.8,mode);
  for(let i=0;i<600&&!marketThreat(r);i++)step(r,1/60);
  expect(marketThreat(r)).toBe(true);expect(talk(r).ok).toBe(true);
  expect(marketAct(r,{type:'choose',choiceId:'market:exchange'}).ok).toBe(false);marketAct(r,{type:'choose',choiceId:'leave'});
- for(const [x,y] of [[180,500],[180,850],[240,760]])walk(r,x,y,.8);
+ for(const [x,y] of [[180,500],[180,850],mode==='click'?[180,780]:[240,760]])walk(r,x,y,.8,mode);
  expect(marketAct(r,{type:'interact',targetId:'market_entry'}).ok).toBe(true);
  expect(r.state.player.mana).toBe(0);expect(r.state.player.hp).toBeGreaterThan(0);expect(obj(r,'market_raider').hp).toBe(3);
  expect(r.exchanged).toBe(false);expect(obj(r,'market_door').state).toBe('closed');expect(r.completed).toEqual({public:false,private:false});

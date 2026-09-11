@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>集口问路 · 独立白盒</title></head>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="icon" href="data:,"><title>集口问路 · 独立白盒</title></head>
 <body>
 <div id="market-game" aria-label="集口空间，可点击地面行走"></div>
 <header id="topbar">
@@ -7,7 +7,7 @@
   <div class="presets"><label>新开灵力 <select data-preset="mana"><option value="ordinary">普通 · 6</option><option value="zero">零 · 0</option></select></label><label>消息前提 <select data-preset="informed"><option value="true">有旧窑路况</option><option value="false">无旧窑路况</option></select></label><button data-action="restart">新开</button></div>
   <p id="status"></p><p id="premise">上述选择仅影响下次新开；消息为合成白盒前提。</p>
 </header>
-<section id="dialogue" role="dialog" aria-label="交谈" hidden><strong id="speaker"></strong><p id="dialogue-text"></p><div id="choices"></div></section>
+<section id="dialogue" role="dialog" aria-label="交谈" hidden><strong id="speaker"></strong><p id="dialogue-text"></p><div id="choices"></div><button data-action="keep-paused">交谈后保持暂停</button></section>
 <footer id="controls">
   <p id="notice" role="status">走到沈砚身旁问路，也可自行走公共巷。北口仅确认端点，还须亲自折返。</p>
   <nav aria-label="行动"><button data-action="walk" aria-pressed="true">行走</button><button data-spell="pull">1 牵物</button><button data-spell="flame">2 火术</button><button data-spell="ward">3 护符</button><button data-action="release">放下</button><button data-action="hold">留势</button><button data-action="cancel">取消待办</button></nav>
