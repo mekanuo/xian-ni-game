@@ -1,35 +1,48 @@
 # 当前入口 · 0.6已发布，继续0.7集口白盒
 
-工作树`.worktrees/market-070`，分支`feat/market-070-whitebox`。用户“继续，别停”，已授权持续自主设计、实施、测试、里程碑推送与既定公网部署；无需重复确认，不另建推断Goal。只读现有研究/设计，不读旧聊天或全书原文，不碰smbb/starvein-companion-cards。历史阶段见docs/PROGRESS.md，勿按历史待办重做。
+用户最新“继续，別停”，已授权持续自主设计、实施、测试、Git里程碑推送与既定公网部署；不重新询问已确认事项，不另建推断Goal。当前worktree `.worktrees/market-070`、分支`feat/market-070-whitebox`，最近运行源码db5ac65已推送。读AGENTS和本入口；研究沿docs/research，不读旧聊天/全书，不碰smbb和starvein-companion-cards。
 
-## 已发布基线
+## 已发布基线（不要重做）
 
-0.6「背墙旧窑」已通过完整本地与公网核验，原入口 https://mekanuo.github.io/xian-ni-game/ （可加?v=0.6.0）。源码19dada6a2e4406d2b2a37b9093e06dc316f358f9，发行文档38bca1d，gh-pages f215b0cf3ff0039b8ffa941f7e956209ed922373；主源码feat/return-stone-v1与kiln分支均已推送。
+0.6「背墙旧窑」公网 https://mekanuo.github.io/xian-ni-game/ （?v=0.6.0）。源码19dada6a2e4406d2b2a37b9093e06dc316f358f9，文档38bca1d，gh-pages f215b0cf3ff0039b8ffa941f7e956209ed922373；main工作树feat/return-stone-v1与kiln-060工作树/分支均38bca1d、已推送。正式包index-BTwh6Je1.js / index-B8Ldhq7K.css。
 
-本地507测试/29文件、24命令、六项全PASS，r2 exit0；82文件冻结一致。公网25资源哈希/sourceCommit准确，真实旧档第六图入口、音乐、桌面输入和DPR3触控仿真通过，无页面错误。root目视公网旧窑。qa/verification.json、qa/evidence/publication.json和qa/REVIEW_060.md在这里继承的报告仅证明0.6，不证明0.7。实际Linux Chrome150，不等同实体Mac/Safari/手机。两套进程都已结束，勿重跑0.6矩阵。
+本地507测试/29文件、24命令、六检查全PASS，82runtime文件冻结一致；公网25资源哈希/source准确、真实旧档入口/键鼠/音乐/手机DPR3触控仿真均通过，root目视旧窑。Linux Chrome150，不代表实体Mac/Safari/手机。六图完整首版已发布；旧窑借还、棚角、烧屏与零灵力脱困、严格v5迁移已在0.6包含。qa/verification.json与publication.json继承的PASS只证明0.6。0.6验证/发布/公网进程全部结束，勿重跑矩阵。main忽略的dist仍旧0.5，禁止拿它部署；正确0.6dist在kiln-060。
 
-正式运行包index-BTwh6Je1.js / index-B8Ldhq7K.css。新窑连接溪道与旧渠、杜芹借还/现场归位确认/棚角许可、烧屏持久化与脚下落屏零灵力脱困、v5严格迁移均包含。首轮驱动FAIL及其他修复前证据保留对应rejected目录，不是当前失败。公网重新核验须EXPECTED_SOURCE_COMMIT指定上述源码全SHA，文档HEAD不同不能当发行源码。
+## 0.7当前实际状态
 
-## 0.7当前覆盖更新
+独立白盒，正式游戏仍未加第七图/新存档/美术。设计ADVENTURE_070、MARKET_070_GEOMETRY_REVIEW、BUILD_BRIEF_070_WHITEBOX；生产候选MARKET_070_STATE_CONTRACT_DRAFT、MARKET_070_PRODUCTION_DECISIONS、ART_MARKET_070以及docs/superpowers/plans/2026-09-11-market-production.md。先完整六案两设备，再root在已授权范围收敛生产，不重复向用户确认。
 
-第三候选revision3已构建market-whitebox-CUicfkSa.js；沈砚470380，其余地形规则不变。40模型测试/tsc通过，代理已停写。真实浏览器新包待跑；以下第二候选PASS只代表旧包。当前六案两设备：quiet/public-zero/lure/threat-zero/open-threat/pause。open-threat为独立实际已开门后引敌重访；诱物撤离自身不会再遇敌，不能空等。暂停驱动提前取真实按钮位置避免多次读取错失途中动作，尚待复测。
+唯一当前运行包 **market-whitebox-CUicfkSa.js / market-whitebox-DRyAUuGA.css**，revision **market-whitebox-3**。预览4193 PID1156261，http://127.0.0.1:4193/market-whitebox.html；独立vite config。40市场模型测试和tsc、独立build通过。沈砚原位470380→闩620440；保留北口L墙(1030,300,150,40)+(1150,300,30,180)，敌850560hp3、感知300、速度120、资源均未改。原点240760/北口1140240，货屋54080/540500、完整通道x523–797，私y397–483/公y797–903。是真实模型端口和UI动作；浏览器仅有readonly inspect/screenPoint/geometry，没有写状态接口。
 
-## 0.7当前范围
+### 第三布局已取得的实际PASS（不能相加当新全矩阵）
 
-设计入口design/ADVENTURE_070.md、MARKET_070_GEOMETRY_REVIEW.md、BUILD_BRIEF_070_WHITEBOX.md；计划docs/superpowers/plans/2026-09-11-market-whitebox.md。只做一张小集/沈砚/私门/一敌/一无主诱物的交涉与通行白盒，没有生产美术、正式跨图或新存档格式。未批准生产；先看实际输入结果。小集所有生产入口仍需journey完成（包括独行认路），不能把未接旧渠当正常进入前提。
+- `qa/whitebox/market-r4-core.json`，run2026-09-11T13-57-18-332Z，源码ddfd5b2：桌面pause/quiet/public-zero三案全PASS、exit0、errors=[]；私路完整返回HP2MP6。40模型与这些三案不是整版总数。原report/截图独立归档。
+- `qa/whitebox/market-r5-encounters.json`，run2026-09-11T14-05-37-693Z，源码bdaab2b：桌面lure完整PASS HP1MP5，但接下来的threat-zero FAIL，因此该报告整体FAIL。实际交换→途中见敌waiting→直回180780→自主开门→原口接受→真实暂停后截图成立。
+- **R7两个剩余桌面案已PASS、exit0，market-r7-threats.json/run2026-09-11T14-15-20-805Z。至此同CUicfkSa桌面六类行为齐备；手机六案尚未跑。** 所有旧geometry1/2 PASS/FAIL仅历史，不能当revision3通过。
 
-独立白盒使用真实model端口：free/clearLine/emit/dialogue/closeDialogue/moveNpc，不给浏览器写状态接口。公开普通6/零0灵力、有/无信息预置与固定hold练法均为合成前提。37小集模型测试通过；端口/model/projectile先前57/3、相关组合88/4，不能相加充整版总数。tsc和独立构建通过，正式build仍BTwh6Je1（白盒未进入正式入口）。
+### 浏览器接续入口
 
-白盒包market-whitebox-CvvPbFxE.js / market-whitebox-DRyAUuGA.css，4193独立预览PID1156261，URL http://127.0.0.1:4193/market-whitebox.html。第三轮和独立lure均已结束；quiet/public-zero桌面完整PASS（同一Cvv包），lure因合法近敌拒绝仍FAIL，手机/其余尚未测。下一步先收敛NPC动线再续测，浏览器仍串行。第一轮desktop quiet在北口看返路时败退，证据已推303ebb7；第二轮亦FAIL但发现QA先等5秒再拖镜头，重复叠成9.4秒站立；已保留13-23-13归档。下一轮同一CvvPbFxE包，只修为实际镜头动作包含在至少5秒观察内；六次临时不同节奏模型回放均成立。脚本使用真实UI/触控/镜头拖动，记录只读位置、承诺与实际开门、去程完整穿带/北口近身确认/原口返回、引敌停续、零资源撤回与暂停重开；无注入或清敌。
+R7 supervisor PID1167787 **已结束exit0**，以下为完成证据：
+- `/tmp/xian-ni-070-r7-threats.log`，结束写`.exit`
+- `MARKET_CASE=threat-zero,open-threat MARKET_DEVICE=desktop MARKET_OUTPUT=qa/whitebox/market-r7-threats.json node scripts/market-whitebox-check.mjs`
+- 源码db5ac65，新包仍CUicfkSa（本轮仅QA变动）。两案实际PASS，下一进程将跑手机六案，仍只一个浏览器。
 
-第二候选新增L实墙(1030,300,150,40)+(1150,300,30,180)，revision2。2.8秒每点+北返点5秒看路模型回放私路HP3MP6，外侧公共y880路线HP4MP0；实际敌弹碰墙，未清敌/加血/削弱攻击，37项通过。QA采用外侧公共路、北返5秒真实观察；不强制避敌路线先触发alert，另zero引敌案保留。新墙使生产到达1140365失效；连接/状态稿已改候选1030220与同行1075260，free/LOS局部探测成立但非全向安全/生产实现。
+上一批r4selected/r4core/r4encounters/r5encounters/r6threats/r6open都已结束。**只准一个浏览器**（软件GPU慢），不要并跑。长命令用Python detached supervisor+日志/exit文件，普通exec可能5分钟回收。root独占Git/build/browser/deploy，代理目前均停写。
 
-脚本已修静态审查两点：开门后再遇险只要求真实threat+dooropen，不强制已回摊NPCwaiting；返程只声明指定南侧路标后的实际原口返回，不宣称另有东向西通道分类证明。去程真正穿带与第一次尚未开门的NPC途中waiting仍严格检查。UI已修开门洞点击不被旧实体矩形吞掉、65范围内直接复核原口、对白后明确保持手动暂停按钮。
+## 最近QA修正与失败事实
 
-## 分工和下一步
+R4新站位确实改善交易/停步，旧退路180500→180880→180780因原地观察+镜头多耗约4s败退。改直接180780后R4完成了原口接受但随后读状态倒下；去掉交换后固定2s等待，改实时观察真实waiting后响应，R5lure完整PASS。没改伤害/感知，没有清敌或回资源。
 
-root拥有Git/构建/浏览器/共享模型/QA脚本。输入审查、工具与文档代理均已停写。canal_rules_040正在纯内存探索NPC起点北移470380→闩620440，让安全摊前到门边有更可读的威胁变化；暂不写文件，不改敌人/感知/速度或浏览器。接点候选见MARKET_070_CONNECTION_REVIEW，北口接旧渠1100300/到达990350只证明局部几何，还未真实跨图。
+R6zero直回旁边HP1但第二次点原口前后倒下；R6open实际开门后新威胁和正确“门已开”对白/无重复exchange成立，但手动镜头停旧远处，找近身人物再找返路两次拖图，未出发即败退。完整FAIL及截图均已推送归档。最新db5ac65只改正常UI驱动：近身NPC时用已有“回身”恢复镜头；在正常对白已经冻结世界期间看原口并严格确认模拟不动；关闭对白后直接点原口自动实走+近身确认，不先点旁边再补一次入口。没有额外手动暂停通关，存活/真实威胁/实际接受仍必需。真实矩阵待检验此候选。
 
-market分支8fb7d10加入后续verify/deploy源码与dist指纹：33工具测试、tsc与真实CLI三拒绝路径通过，详见docs/VERIFICATION_BINDING.md。不绑定HEAD/文档，不认证QA夹具来源或环境；无指纹旧0.6 PASS会被新deploy拒绝。不要误用旧验证发布新游戏。
+脚本当前六案quiet/public-zero/lure/threat-zero/open-threat/pause，支持MARKET_CASE/MARKET_DEVICE/MARKET_OUTPUT选案。部分PASS报告fullMatrixStatus仍NOT_RUN；不要伪改整矩阵PASS。phone驱动新改为实际点pan按钮+CDP单指touchStart/Move/End、finally关pan，CSS坐标不乘DPR；首测尚未跑，不再以手机环境鼠标拖图充触控。旧报告保留各自限制。
 
-接下来：小集真实浏览器五案两设备→按实际失败修正并保留证据→局部设计决定与双向连接/保存合同→生产美术及第七图实现。每个里程碑推送；不要在本次合并、白盒或发布后停下。
+核心QA仍检查：实际碰撞/闭门NPC移动/到闩开门与侧让回摊；完整去程穿带+北口近身+真实原口返回，不把返程路标当独立反向分类；公共零资源走外侧y880可合法不惊敌；暂停待办/取消/对白后保持/途中人物与玩家路径/重开。短动作暂停提前取得真实按钮位置再鼠标/触摸点击，之后仍严查中途与冻结。截图只在实际结果后暂停，不靠截图把危险过程冻结。北返5秒读路包含真实镜头时间，不再5秒后另加拖图。
+
+## 正式接入待办与工具
+
+生产入口统一journey.complete（含独行），不改旧canal未接不可入/不可lastSafe。北口候选玩家1030220、同行1075260；旧1140365已经L墙否决。新图实际接旧渠高岸1100300/990350，西接石渡；目前只几何free/LOS局部探测，未真实跨图。双向方向位、实际visit/through/reported分开，同端局部探路不加永久账；exchange/door/NPC不重复存。许照在场需要集中判断，同时覆盖旧图雨棚regroup/dry、绳扣cooperate等借物件调用同伴入口，不能只藏NPC实体。门初次真实开、实际交换/出图/报告等有限checkpoint；retreat清visit不发through、retry完整恢复，内外独立严格v1–5→6迁移。详见生产计划，不提前声称已实现。
+
+8fb7d10已加入verify/deploy输入+dist指纹，33工具测试及CLI拒绝路径通过；docs/VERIFICATION_BINDING.md。旧0.6无指纹PASS会被新deploy拒绝，不能拿它发布市场修改。未来正式整合完成才跑完整verify，一次冻结再部署，同源公网核验。
+
+Git推送用 `git -c credential.helper='!gh auth git-credential' push origin feat/market-070-whitebox`，新稀疏文件git add --sparse；禁止强推/覆盖无关改动。接下来R7结果→手机六案→root生产决定→美术/实现/保存/正式整合验收与同URL部署。每个里程碑推送，勿在白盒或发布后停下等用户回来。
