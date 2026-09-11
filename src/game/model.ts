@@ -56,6 +56,25 @@ function rectangles(s: GameState, ignoreId?: string): Rect[] {
 }
 function contains(r: Rect,p: Vec,pad=0){return p.x>r.x-pad&&p.x<r.x+r.w+pad&&p.y>r.y-pad&&p.y<r.y+r.h+pad;}
 function free(s:GameState,p:Vec,pad=17,ignoreId?:string){const map=SCENES[s.scene];return finitePoint(p)&&p.x>=25&&p.x<=map.width-25&&p.y>=25&&p.y<=map.height-25&&!rectangles(s,ignoreId).some(r=>contains(r,p,pad));}
+/** Only an already-overlapped movable solid may yield to the player's outward
+ * motion. Fixed walls, physical water and every other object remain swept. */
+function playerNeedsRecovery(s:GameState,from:Vec):boolean {
+  return rectangles(s).some(r=>r.entityId&&entity(s,r.entityId)?.movable&&contains(r,from,17));
+}
+function playerRecoveryClear(s:GameState,from:Vec,to:Vec):boolean {
+  const map=SCENES[s.scene],epsilon=1e-7;
+  if(!finitePoint(to)||to.x<25||to.y<25||to.x>map.width-25||to.y>map.height-25)return false;
+  return rectangles(s).every(r=>{
+    if(contains(r,from,17)){
+      if(!r.entityId||!entity(s,r.entityId)?.movable)return false;
+      // Each coordinate may stay or move away from this object's center. Once
+      // outside, this exception is gone; it never permits crossing its far side.
+      return (to.x-from.x)*(from.x-r.x-r.w/2)>=-epsilon&&(to.y-from.y)*(from.y-r.y-r.h/2)>=-epsilon;
+    }
+    const expanded={x:r.x-17+epsilon,y:r.y-17+epsilon,w:r.w+34-2*epsilon,h:r.h+34-2*epsilon};
+    return segmentRectEntry(from,to,expanded)===null;
+  });
+}
 function isWaterRect(s:GameState,r:Rect){return SCENES[s.scene].ground.some(g=>g.type==='water'&&r.x>=g.points[0]&&r.y>=g.points[1]&&r.x+r.w<=g.points[2]&&r.y+r.h<=g.points[5]);}
 function clearLine(s:GameState,a:Vec,b:Vec,ignoreId?:string){
   const blocks=rectangles(s,ignoreId).filter(r=>!isWaterRect(s,r)&&r.flag!=='platformOpen');
@@ -68,6 +87,27 @@ function safeFromThreat(s:GameState,p:Vec,margin=260){return !entities(s).some(e
 function pathfind(s:GameState,destination:Vec,actorId?:string):Vec[]{return pathForActor(s,s.player,destination,actorId);}
 function pathForActor(s:GameState,start:Vec,destination:Vec,actorId?:string,allowed?:(point:Vec)=>boolean):Vec[]{
   if(!free(s,destination,17,actorId)||(allowed&&!allowed(destination)))return [];
+  if(!actorId&&start===s.player&&playerNeedsRecovery(s,start)){
+    const safeStart=safeFromThreat(s,start,145);
+    const escapeSafe=(to:Vec)=>{const n=Math.max(1,Math.ceil(dist(start,to)/18));for(let i=1;i<=n;i++){const p={x:start.x+(to.x-start.x)*i/n,y:start.y+(to.y-start.y)*i/n};if(allowed&&!allowed(p)||safeStart&&!safeFromThreat(s,p,145))return false;}return true;};
+    if(playerRecoveryClear(s,start,destination)&&escapeSafe(destination))return [destination];
+    // Find a real, free edge to step out through before using ordinary navigation.
+    // Grid rounding must not pretend the still-overlapped start is already free.
+    let best:Vec[]=[];let bestLength=Infinity;
+    const reach=Math.max(...rectangles(s).filter(r=>contains(r,start,17)).map(r=>r.w+r.h))+68;
+    for(const [dx,dy]of [[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[-1,1],[1,-1],[1,1]]){
+      const length=Math.hypot(dx,dy);
+      for(let d=8;d<=reach;d+=8){
+        const edge={x:start.x+dx/length*d,y:start.y+dy/length*d};
+        if(!playerRecoveryClear(s,start,edge)||!escapeSafe(edge))break;
+        if(!free(s,edge,17))continue;
+        const onward=pathForActor(s,edge,destination,actorId,allowed);
+        if(onward.length){const route=[edge,...onward];let total=0,previous=start;for(const point of route){total+=dist(previous,point);previous=point;}if(total<bestLength){bestLength=total;best=route;}}
+        break;
+      }
+    }
+    return best;
+  }
   const straight=(a:Vec,b:Vec)=>{const n=Math.ceil(dist(a,b)/18);for(let i=1;i<=n;i++){const p={x:a.x+(b.x-a.x)*i/n,y:a.y+(b.y-a.y)*i/n};if(!free(s,p,17,actorId)||(allowed&&!allowed(p))||(!safeFromThreat(s,p,145)&&safeFromThreat(s,start,145)))return false;}return true;};
   if(straight(start,destination))return [destination];
   const step=40,cols=Math.ceil(SCENES[s.scene].width/step),rows=Math.ceil(SCENES[s.scene].height/step),key=(x:number,y:number)=>y*cols+x;
@@ -421,7 +461,8 @@ export function act(s:GameState,a:GameAction):ActionResult {
 function moveBody(s:GameState,body:Vec,destination:Vec,speed:number,dt:number,ignoreId?:string){
   if(s.scene==='canal'&&ignoreId?.startsWith('canal_beast_'))destination={x:Math.max(1300,Math.min(1525,destination.x)),y:Math.max(480,Math.min(900,destination.y))};
   const d=dist(body,destination);if(d<.01)return;const amount=Math.min(d,speed*dt),dx=(destination.x-body.x)/d*amount,dy=(destination.y-body.y)/d*amount;
-  const next={x:body.x+dx,y:body.y+dy};if(free(s,next,17,ignoreId)){body.x=next.x;body.y=next.y;}else{if(free(s,{x:body.x+dx,y:body.y},17,ignoreId))body.x+=dx;if(free(s,{x:body.x,y:body.y+dy},17,ignoreId))body.y+=dy;}
+  const canStep=(to:Vec)=>body===s.player&&playerNeedsRecovery(s,body)?playerRecoveryClear(s,body,to):free(s,to,17,ignoreId);
+  const next={x:body.x+dx,y:body.y+dy};if(canStep(next)){body.x=next.x;body.y=next.y;}else{if(canStep({x:body.x+dx,y:body.y}))body.x+=dx;if(canStep({x:body.x,y:body.y+dy}))body.y+=dy;}
 }
 function hurt(s:GameState,source:Vec,reason:string){
   if(s.player.invulnerable>0)return;
