@@ -344,7 +344,10 @@ scenarios['open-threat'] = async () => {
   const threat = await waitFor('real renewed danger after physical opening', r => r.threat && door(r).state === 'open', 15000);
   await observe('already-open door remains passable under renewed danger', threat);
   await interact('market_merchant');
-  assert.equal((await inspect()).threat, true); assert.equal(door(await inspect()).solid, false);
+  const meeting = await inspect();
+  assert.equal(meeting.threat, true); assert.equal(door(meeting).solid, false);
+  assert.match(await page.locator('#dialogue').innerText(), /门已开/);
+  assert.equal(await page.locator('#dialogue button[data-choice="market:exchange"]:enabled').count(), 0);
   await choose('leave');
   for (const [x, y] of [[180, 500], [180, 880], [180, 780]]) await walk(x, y);
   await withdraw();
