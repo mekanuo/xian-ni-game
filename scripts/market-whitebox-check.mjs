@@ -352,7 +352,7 @@ scenarios['threat-zero'] = async () => {
   assert.equal(meeting.threat, true); assert.equal(meeting.exchanged, false);
   assert.equal(await page.locator('#dialogue button[data-choice="market:exchange"]:enabled').count(), 0);
   await frozen('reading a real threat refusal freezes the world'); await choose('leave');
-  for (const [x, y] of [[180, 500], [180, 880], [180, 780]]) await walk(x, y);
+  await walk(180, 780, 0);
   await withdraw();
   const r = await observe('zero-resource withdrawal without pretending north was reached');
   current.outcome = facts(r);
@@ -375,7 +375,7 @@ scenarios['open-threat'] = async () => {
   assert.match(await page.locator('#dialogue').innerText(), /门已开/);
   assert.equal(await page.locator('#dialogue button[data-choice="market:exchange"]:enabled').count(), 0);
   await choose('leave');
-  for (const [x, y] of [[180, 500], [180, 880], [180, 780]]) await walk(x, y);
+  await walk(180, 780, 0);
   await withdraw();
   const r = await observe('actual withdrawal after visiting an open door under threat');
   assert.equal(r.state.player.mana, 6); assert.equal(enemy(r).hp, 3); assert.equal(door(r).state, 'open');
