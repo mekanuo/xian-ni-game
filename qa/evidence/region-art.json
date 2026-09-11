@@ -53,7 +53,7 @@
           }
         ]
       },
-      "wall": 11190
+      "wall": 10780
     },
     {
       "action": "walk",
@@ -61,7 +61,7 @@
         "x": 1510,
         "y": 710
       },
-      "wall": 11619
+      "wall": 11182
     },
     {
       "action": "capture",
@@ -69,17 +69,17 @@
         "id": "home-road",
         "scene": "home"
       },
-      "wall": 67824
+      "wall": 63512
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 70477
+      "wall": 66155
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 71897
+      "wall": 67556
     },
     {
       "action": "capture",
@@ -87,22 +87,22 @@
         "id": "creek-return",
         "scene": "creek"
       },
-      "wall": 96010
+      "wall": 92146
     },
     {
       "action": "interact",
       "detail": "rope",
-      "wall": 98558
+      "wall": 94848
     },
     {
       "action": "choice",
       "detail": "fix",
-      "wall": 102641
+      "wall": 99140
     },
     {
       "action": "interact",
       "detail": "bag",
-      "wall": 106261
+      "wall": 102428
     },
     {
       "action": "walk",
@@ -110,7 +110,7 @@
         "x": 885,
         "y": 555
       },
-      "wall": 108192
+      "wall": 104190
     },
     {
       "action": "pull",
@@ -119,7 +119,7 @@
         "x": 1180,
         "y": 520
       },
-      "wall": 113875
+      "wall": 109813
     },
     {
       "action": "pull",
@@ -128,7 +128,7 @@
         "x": 1120,
         "y": 648
       },
-      "wall": 121388
+      "wall": 117285
     },
     {
       "action": "walk",
@@ -136,7 +136,7 @@
         "x": 1120,
         "y": 735
       },
-      "wall": 129544
+      "wall": 124832
     },
     {
       "action": "walk",
@@ -144,7 +144,7 @@
         "x": 1120,
         "y": 555
       },
-      "wall": 134190
+      "wall": 129483
     },
     {
       "action": "capture",
@@ -152,7 +152,7 @@
         "id": "creek-shelter",
         "scene": "creek"
       },
-      "wall": 162848
+      "wall": 154349
     },
     {
       "action": "walk",
@@ -160,7 +160,7 @@
         "x": 1500,
         "y": 430
       },
-      "wall": 165597
+      "wall": 156913
     },
     {
       "action": "capture",
@@ -168,17 +168,17 @@
         "id": "creek-workshop-road",
         "scene": "creek"
       },
-      "wall": 195988
+      "wall": 186274
     },
     {
       "action": "interact",
       "detail": "to_workshop",
-      "wall": 198820
+      "wall": 188909
     },
     {
       "action": "scene",
       "detail": "workshop",
-      "wall": 200565
+      "wall": 190483
     },
     {
       "action": "capture",
@@ -186,7 +186,7 @@
         "id": "workshop-entry",
         "scene": "workshop"
       },
-      "wall": 225221
+      "wall": 215180
     },
     {
       "action": "walk",
@@ -194,7 +194,7 @@
         "x": 320,
         "y": 220
       },
-      "wall": 227819
+      "wall": 217747
     },
     {
       "action": "walk",
@@ -202,7 +202,7 @@
         "x": 1450,
         "y": 220
       },
-      "wall": 239949
+      "wall": 229764
     },
     {
       "action": "walk",
@@ -210,7 +210,7 @@
         "x": 1410,
         "y": 560
       },
-      "wall": 260684
+      "wall": 250316
     },
     {
       "action": "capture",
@@ -218,22 +218,22 @@
         "id": "workshop-shed",
         "scene": "workshop"
       },
-      "wall": 294923
+      "wall": 277211
     },
     {
       "action": "interact",
       "detail": "ring",
-      "wall": 297754
+      "wall": 280020
     },
     {
       "action": "interact",
       "detail": "tao_work",
-      "wall": 299406
+      "wall": 282037
     },
     {
       "action": "choice",
       "detail": "long",
-      "wall": 301051
+      "wall": 283654
     },
     {
       "action": "walk",
@@ -241,7 +241,7 @@
         "x": 1210,
         "y": 600
       },
-      "wall": 304053
+      "wall": 286670
     },
     {
       "action": "pull",
@@ -250,7 +250,7 @@
         "x": 1310,
         "y": 600
       },
-      "wall": 306915
+      "wall": 289478
     },
     {
       "action": "walk",
@@ -258,7 +258,7 @@
         "x": 1450,
         "y": 220
       },
-      "wall": 316007
+      "wall": 298494
     },
     {
       "action": "walk",
@@ -266,17 +266,17 @@
         "x": 320,
         "y": 220
       },
-      "wall": 322024
+      "wall": 304478
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 342657
+      "wall": 325189
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 355868
+      "wall": 338393
     },
     {
       "action": "walk",
@@ -284,7 +284,7 @@
         "x": 1510,
         "y": 745
       },
-      "wall": 356283
+      "wall": 338815
     },
     {
       "action": "capture",
@@ -292,17 +292,17 @@
         "id": "creek-crossing-road",
         "scene": "creek"
       },
-      "wall": 390974
+      "wall": 373256
     },
     {
       "action": "interact",
       "detail": "to_crossing",
-      "wall": 393533
+      "wall": 376045
     },
     {
       "action": "scene",
       "detail": "crossing",
-      "wall": 394877
+      "wall": 377209
     },
     {
       "action": "capture",
@@ -310,7 +310,7 @@
         "id": "crossing-entry",
         "scene": "crossing"
       },
-      "wall": 419430
+      "wall": 401221
     },
     {
       "action": "walk",
@@ -318,7 +318,7 @@
         "x": 650,
         "y": 900
       },
-      "wall": 422019
+      "wall": 403761
     },
     {
       "action": "capture",
@@ -326,18 +326,18 @@
         "id": "crossing-bank",
         "scene": "crossing"
       },
-      "wall": 449490
+      "wall": 431398
     },
     {
       "action": "mobile-sign",
       "detail": {
         "name": "溪道 →",
         "foot": {
-          "x": 319.09997989991086,
+          "x": 324.1999799952784,
           "y": 495.50002271240874
         }
       },
-      "wall": 477416
+      "wall": 458559
     }
   ],
   "observations": {
@@ -576,7 +576,7 @@
       "visual": "qa/evidence/region-phone-road.png",
       "viewport": "390x844 DPR3",
       "player": {
-        "x": 1504.0000000000073,
+        "x": 1498.6666666666738,
         "y": 710,
         "hp": 4,
         "mana": 6,
@@ -593,7 +593,7 @@
       "sign": {
         "name": "溪道 →",
         "foot": {
-          "x": 319.09997989991086,
+          "x": 324.1999799952784,
           "y": 495.50002271240874
         }
       },

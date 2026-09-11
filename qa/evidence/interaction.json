@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-11T05:56:05.371Z",
+  "checkedAt": "2026-09-11T07:47:02.589Z",
   "input": [
     {
       "device": "mouse",
@@ -25,7 +25,7 @@
         "facing": -0.5928235016214228,
         "invulnerable": 0,
         "cooldown": 0,
-        "ward": 2.483333333333346,
+        "ward": 2.5000000000000124,
         "wardFacing": -1.738468710963149e-8,
         "pullId": null,
         "pullPoint": null,

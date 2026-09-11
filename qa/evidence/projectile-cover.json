@@ -1,28 +1,28 @@
 {
   "status": "PASS",
-  "url": "http://127.0.0.1:4191/",
+  "url": "http://127.0.0.1:4187/",
   "browser": "150.0.7871.114",
   "fixture": "Genuine 0.4.1 ridge completion imported via settings",
   "inputTrace": [
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 7540
+      "wall": 6749
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 16559
+      "wall": 16286
     },
     {
       "action": "interact",
       "detail": "to_crossing",
-      "wall": 16896
+      "wall": 16620
     },
     {
       "action": "scene",
       "detail": "crossing",
-      "wall": 28466
+      "wall": 28157
     },
     {
       "action": "walk",
@@ -30,7 +30,7 @@
         "x": 600,
         "y": 740
       },
-      "wall": 28641
+      "wall": 28329
     }
   ],
   "board": {
@@ -51,7 +51,7 @@
   },
   "impact": {
     "seq": 42,
-    "time": 187.75000000004155,
+    "time": 187.66666666670815,
     "type": "impact",
     "text": "术法撞在遮挡上，光屑散开。",
     "x": 740,
@@ -60,11 +60,11 @@
   },
   "before": {
     "player": {
-      "x": 590.2274417752311,
-      "y": 742.0454191633238,
+      "x": 587.6173334412234,
+      "y": 742.5917209076509,
       "hp": 4,
       "mana": 4,
-      "facing": -0.2063238940297195,
+      "facing": -0.20632389402972304,
       "invulnerable": 0,
       "cooldown": 0,
       "ward": 0,
@@ -88,7 +88,7 @@
       "mana": 3,
       "facing": -0.20748436668027767,
       "invulnerable": 0,
-      "cooldown": 0.6500000000000007,
+      "cooldown": 0.633333333333334,
       "ward": 0,
       "wardFacing": 0,
       "pullId": null,

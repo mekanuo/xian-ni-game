@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "PASS",
-  "checkedAt": "2026-09-11T05:54:47.116Z",
+  "checkedAt": "2026-09-11T07:45:44.216Z",
   "url": "http://127.0.0.1:4187/",
   "mode": "visual-and-home-input",
   "environment": {
@@ -577,11 +577,11 @@
         ]
       },
       "arrival": {
-        "x": 690.4189571197221,
-        "y": 461.5856598643856,
+        "x": 688.1999136142801,
+        "y": 463.0644962421052,
         "hp": 4,
         "mana": 5,
-        "facing": -0.5878384943436201,
+        "facing": -0.5878384943436237,
         "invulnerable": 0,
         "cooldown": 0,
         "ward": 0,
@@ -597,7 +597,7 @@
       "device": "desktop-short-1920",
       "action": "Hold D to walk into the center; verify following camera keeps the feet clear of the toolbar",
       "feet": {
-        "x": 952.8888354831253,
+        "x": 955.7332799275697,
         "y": 365.00000583877136
       },
       "dock": {
