@@ -280,7 +280,7 @@ scenarios.lure = async () => {
   assert.equal(drop.state.player.pullId, null); assert.equal(drop.state.player.mana, 5);
   assert.equal(entity(drop, 'decoy').data.noiseUsed, true);
   assert.ok(drop.state.events.some(e => e.type === 'drop'));
-  await waitFor('enemy actually follows the drop to the west', r => enemy(r).x <= 610, 30000);
+  await waitFor('enemy follows the drop and actually sees the player before withdrawal', r => enemy(r).x <= 700 && r.state.events.some(e => e.type === 'alert' && e.targetId === 'market_raider'), 30000);
   await walk(430, 500); await interact('market_merchant');
   assert.equal((await inspect()).threat, false, 'Exchange must occur while the current encounter is actually safe');
   await choose('market:exchange'); await activeGap(2);
