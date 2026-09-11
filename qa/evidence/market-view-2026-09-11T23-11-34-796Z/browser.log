@@ -1,0 +1,16 @@
+Market visual capture desktop-1440-dpr2 west-sign
+Market visual capture desktop-1440-dpr2 merchant-idle
+Market visual capture desktop-1440-dpr2 merchant-dialogue
+Market visual capture desktop-1440-dpr2 merchant-walking
+Market visual capture desktop-1440-dpr2 physical-door-open
+Market visual capture short-1280-dpr1 west-sign
+Market visual capture short-1280-dpr1 merchant-idle
+Market visual capture short-1280-dpr1 merchant-dialogue
+Market visual capture short-1280-dpr1 merchant-walking
+Market visual capture short-1280-dpr1 physical-door-open
+Market visual capture phone-390-dpr3 west-sign
+Market visual capture phone-390-dpr3 merchant-idle
+Market visual capture phone-390-dpr3 merchant-dialogue
+Market visual capture phone-390-dpr3 merchant-walking
+Market visual capture phone-390-dpr3 physical-door-open
+{"status":"PASS","runId":"2026-09-11T23-11-34-796Z","output":"qa/evidence/market-view.json","folder":"qa/evidence/market-view-2026-09-11T23-11-34-796Z","devices":[{"id":"desktop-1440-dpr2","status":"PASS","poses":{"idle":"PASS","walking":"PASS","waiting":"NOT_RUN"}},{"id":"short-1280-dpr1","status":"PASS","poses":{"idle":"PASS","walking":"PASS","waiting":"NOT_RUN"}},{"id":"phone-390-dpr3","status":"PASS","poses":{"idle":"PASS","walking":"PASS","waiting":"NOT_RUN"}}]}

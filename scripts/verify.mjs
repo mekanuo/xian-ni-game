@@ -9,6 +9,11 @@ await mkdir('qa/evidence',{recursive:true});let server,serverExited=false;
 async function publish(){await writeFile('qa/verification.json.tmp',JSON.stringify(report,null,2));await rename('qa/verification.json.tmp','qa/verification.json');}
 await publish();
 try{
+ // These immutable UI exports live outside qa/fixtures and may be omitted by
+ // a sparse checkout. Fail before launching a long browser matrix if missing.
+ for(const path of ['qa/evidence/market-2026-09-11T15-13-29-584Z/market-west-entry.json','qa/evidence/market-2026-09-11T15-48-58-773Z/market-west-entry.json']){
+  try{await readFile(path);}catch(error){throw Error(`Missing required historical UI export: ${path}. Restore its committed bytes in this checkout before verification.`,{cause:error});}
+ }
  const inputsBefore=await captureVerificationInputs(process.cwd());
  for(const script of ['test','build']){const r=spawnSync('npm',['run',script],{stdio:'inherit'});report.verify.suites.push({command:`npm run ${script}`,exitCode:r.status});if(r.status!==0)throw Error(`${script} failed`);}
  report.fingerprint=await captureVerificationFingerprint(process.cwd());

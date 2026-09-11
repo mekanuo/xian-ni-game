@@ -60,3 +60,13 @@ package与lock已升0.8.0，固定0.7来源SHA未变。独立冻结前QA复核�
 脚本现在等待实际闻朔走离圈心90单位后再点地面，不改人物轨迹/模型/资源/存档，也不注入坐标；保留定位阶段跨context导出恢复。只读pointer日志记录实际输入落点和peer，为后续取证。对应desktop/hit复验正在进行，结果未预填。
 
 修正后 `spar-production-2026-09-11T22-37-14-430Z` desktop/front/hit完整PASS，真实圈内行走path已产生，定位导出恢复、一源hit/实际HP3MP4/音乐hurt计数、归驿报告与再次导入全部通过；errors空、exit0。游戏运行包仍CLyXa97I/D5XfOxnh。接着冻结修订QA重新完整verify。
+
+## R2整版结果、稀疏输入恢复与矮窗修正
+
+整版R2 a04d4a1：956模型/build、正面四案、手机左右、三视口与朝向全PASS；进入market-view前缺少已提交但稀疏未检出的15:13旧入口JSON，整体FAIL。qa/verify-080-r2保留结果。已精确恢复15:13/15:48两份原历史导出并逐字节对照HEAD，两者仍content6；verify增加开测前存在检查。新练场PASS不替代旧章完成。
+
+root审查R2短窗截图发现暂停牌遮住闻朔头身，先前脚本通过只证明原有镜头/冻结条件，不证明所有HUD无遮挡。补实际头/躯干/脚位置的elementFromPoint检查，23-07-43短窗指定RED记录暂停按钮遮头身；局部CSS将短桌面练场暂停牌移至左资源栏下。新r7 DwjNP5Si/DzkGuDoj构建通过，23-11-14同短窗检查GREEN，root目视完整身体与左侧暂停牌。此检查针对交互控件，不替代非交互文字或全部主观视觉审查。
+
+market-view恢复输入后的23-03-31实例因20秒墙钟等门超时FAIL；错误采样中真实门已开，NPC实际速度/开门事件与checkpoint一致，详情design/MARKET_080_VIEW_DEBUG.md。不改游戏速度/条件，只将这段物理开门观察限定90秒并记录前后实际时间/位置，复验进行中。
+
+market-view修订复验 `qa/evidence/market-view-2026-09-11T23-11-34-796Z` 全三视口PASS，真实idle/walking/物理open与冻结通过，原资源/路线/报告不增；waiting仍不在此专项，不偷改NOT_RUN。新游戏构建DwjNP5Si/DzkGuDoj，接着冻结34命令R3。

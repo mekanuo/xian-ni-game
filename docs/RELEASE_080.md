@@ -20,3 +20,7 @@
 修后视口与左右来向、最终包完整旧章回归和指纹校验、提交/推送、原Pages部署、公网文件字节与实际入口/操作验证。每项须有实际结果后再从本节移除，不能将预备脚本视为通过。
 
 测试环境为Linux Chrome150及DPR/触控模拟，并非真实Mac、Safari或手机。模型、浏览器实际操作和主观游戏体验分别记录。
+
+## 发布操作备忘（待本轮整版PASS后执行）
+
+完整verify R2当前进行中，不能执行下列发布。实际PASS后先核对指纹、完整命令退出与截图；提交QA并推送，使用专用TMPDIR运行deploy-pages.mjs。然后用该次发行的真实sourceCommit作为EXPECTED_SOURCE_COMMIT运行public-check.mjs，逐字节核对受测dist及实际新建/旧档/声音/触控。新练场另用spar-production-check.mjs、GAME_URL=原公网URL、SPAR_DEVICE=phone、SPAR_CASE=ward、SPAR_STANCE=front完成公开构建的真实入口到归驿链。浏览器全程串行。任何网络部署或公开操作失败均保留原结果，不把本地PASS当公网PASS。

@@ -1,0 +1,10 @@
+Market visual capture desktop-1440-dpr2 west-sign
+Market visual capture desktop-1440-dpr2 merchant-idle
+Market visual capture desktop-1440-dpr2 merchant-dialogue
+Market visual capture desktop-1440-dpr2 merchant-walking
+page.waitForFunction: Timeout 20000ms exceeded.
+    at wait (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/market-view-check.mjs:47:43)
+    at /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/market-view-check.mjs:154:24 {
+  name: 'TimeoutError'
+}
+{"status":"FAIL","runId":"2026-09-11T23-03-31-318Z","output":"qa/evidence/market-view.json","folder":"qa/evidence/market-view-2026-09-11T23-03-31-318Z","devices":[{"id":"desktop-1440-dpr2","status":"FAIL","poses":{"idle":"PASS","walking":"PASS","waiting":"NOT_RUN"}}],"failure":"TimeoutError: page.waitForFunction: Timeout 20000ms exceeded."}

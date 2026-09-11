@@ -50,3 +50,19 @@
 当前唯一浏览器为只读点击诊断supervisor1251280，固定4203，日志cache/xian-ni-qa/spar-front-input-debug-r1.log及.exit。假设约定后闻朔仍经过圈心，真实点击命中人物而非地面；已给production脚本加入DOM捕获只读坐标/peer状态，无改变模型。先核实证据再修QA路线，勿与之并发。0.9候选文档NEXT_CONTENT_090_CANDIDATES已由agent交付，未审核或实施，所有agent停写。
 
 最新覆盖（22:41 UTC）：诊断R1已如期FAIL，点击peer(900,971)而非地面因果已证。QA增加等实际peer走离圈心90后再点地面，desktop/front/hit GREEN `qa/spar-production-2026-09-11T22-37-14-430Z`完整PASS/exit0，日志spar-front-input-green-r1.log。无活动浏览器/agent。准备提交推送并重启完整verify；严禁把旧FAIL verification用于部署。
+
+## 当前运行覆盖（22:46 UTC）
+
+修订阶段a04d4a1已成功推送。完整verify R2 supervisor1252712正在运行，日志 `/home/zhangjingzhou/.cache/xian-ni-qa/verify-080-r2.log`，结束同名.exit；自有preview4187，唯一浏览器，不得并发。45文件956测试/build再次PASS，正面desktop-hit已完整PASS，desktop-ward正在执行；其他项尚未跑。所有src/public/tests/scripts/package已冻结，除实际FAIL定位外不要改动。新0.9风险复核已交付停写，仅文档，尚未批准实施。
+
+R2进度覆盖（22:59 UTC）：正面四案与手机左右共六条完整练场路线全部PASS，错误列表为空；三视口presentation正在跑，desktop已PASS/phone进行中。唯一浏览器仍verify-080-r2主管1252712；不得另起浏览器。实际游戏与脚本未再改，只有设计/交接文字在更新。
+
+## 当前覆盖（2026-09-12本地00:03；UTC11日23:03）
+
+verify R2已FAIL结束，原全报告/log在qa/verify-080-r2：956模型/build、全部六条练场路线、三视口presentation及facing均PASS；进入market-view前ENOENT历史输入，未启动该浏览器。不是游戏规则失败。两份15:13/15:48旧market-west-entry.json为HEAD已跟踪但稀疏检出未包括，已用sparse-checkout add精确恢复且与git show HEAD字节一致，content6/SHA4b17256c...与1f0f5adc...。该操作会收起不在pattern内的已提交旧QA目录，Git历史仍完整，勿称删除证据。未提交本轮目录仍存在。
+
+scripts/verify.mjs只加这两个历史输入的开测前存在检查。当前唯一浏览器market-view恢复复验supervisor1256487，固定4203，日志cache/xian-ni-qa/market-view-080-restored-r1.log及.exit。完成后收束源码/QA提交推送，冻结重新完整verify；已通过R2子项不得冒称完整发行PASS。
+
+最新覆盖（UTC23:12）：短窗暂停牌实际遮头身已RED（23-07-43）/GREEN（23-11-14），root目视修后左侧提示与完整人物。新r7固定preview4204 PID1257776，cache/spar-production-080-r7，JS DwjNP5Si/CSS DzkGuDoj，buildPASS。唯一QA supervisor1257777已完成short GREEN，当前market-view恢复复验r2，日志cache/xian-ni-qa/market-view-080-restored-r2.log及.exit，三个视口。market旧r1 FAIL为开门20秒墙钟仅1.2667模拟秒，门在最终采样已真实开；当前只改观察90秒和记录，不改模型。所有agent停写。接着待market专项结束，提交/推送并冻结完整verify R3；勿误用4203旧暂停CSS。
+
+最新覆盖（UTC23:14）：supervisor1257777已结束，短窗遮挡GREEN及market-view三视口GREEN均PASS，无浏览器活动。market-view报告23-11-34（idle/walking/open，waiting不属此项）。root准备提交推送这一批证据和局部CSS/QA输入前置/观察时限，再启动完整verify R3；新运行包为4204的DwjNP5Si/DzkGuDoj。

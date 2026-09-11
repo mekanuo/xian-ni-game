@@ -10,11 +10,13 @@ const input=process.env.SPAR_START;
 const runId=new Date().toISOString().replaceAll(/[:.]/g,'-');
 const folder=`qa/spar-presentation-${runId}`;
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+const deviceNames=(process.env.SPAR_PRESENTATION_DEVICES||'desktop,phone,short').split(',');
+assert.ok(deviceNames.length&&deviceNames.every(n=>['desktop','phone','short'].includes(n)));
 const devices=[
  {name:'desktop',width:1440,height:900,dpr:2,mobile:false},
  {name:'phone',width:390,height:844,dpr:3,mobile:true},
  {name:'short',width:1280,height:500,dpr:2,mobile:false},
-];
+].filter(d=>deviceNames.includes(d.name));
 const report={schemaVersion:1,runId,url,status:'NOT_RUN',startedAt:new Date().toISOString(),sourceRevision:process.env.SOURCE_SHA||null,
  scope:'Serial positioning import, real manual pan and C / 回到身边, ready pause freeze, real begin/stop with actual emission accounting, settled pause camera freeze. No full activity repeat.',
  cases:devices.map(device=>({device,status:'NOT_RUN',inputs:[],checks:[],captures:[],errors:[]})),errors:[],limitations:[
@@ -155,6 +157,15 @@ try{
   assert.ok(Math.hypot(actualCenter.x-expectedCenter.x,actualCenter.y-expectedCenter.y)<3,'After C the automatic activity target must replace the manual/player center');
   item.checks.push({id:'automatic-framing-restored',readyCamera,expectedZoom,expectedCenter,actualCenter,hud});
   await frozen('positioning-ready-paused');
+  const bodyVisibility=await page.evaluate(()=>{
+   const api=window.__XIAN_NI__,s=api.inspect(),peer=s.worlds.spar.find(e=>e.id==='spar_peer');
+   return [{id:'player',body:s.player},{id:'spar_peer',body:peer}].flatMap(({id,body})=>[64,38,4].map(height=>{
+    const point=api.screenPoint(body.x,body.y-height),element=document.elementFromPoint(point.x,point.y);
+    return{id,height,point,exposed:element?.tagName==='CANVAS',cover:element?.outerHTML.slice(0,200)};
+   }));
+  });
+  item.checks.push({id:'paused-bodies-unobscured',samples:bodyVisibility});await persist();
+  assert.ok(bodyVisibility.every(p=>p.exposed),'Paused heads, torsos and feet must remain visible outside HUD controls');
   const beforeHand=await state();assert.equal(beforeHand.projectiles.length,0);
   await pause(false);await button('[data-ui="spar-begin"]');
   const stopTarget=await page.evaluate(()=>{

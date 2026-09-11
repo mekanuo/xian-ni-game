@@ -151,7 +151,11 @@ try{
   await wait(()=>{const s=window.__XIAN_NI__.inspect(),a=window.__XIAN_NI__.presentation().actors.find(a=>a.id==='market_merchant');return s.worlds.market.find(e=>e.id==='market_merchant').state==='leading'&&a?.frame==='walking';});
   log('pause after actual merchant motion',{screen:pausePoint});if(device.touch)await page.touchscreen.tap(pausePoint.x,pausePoint.y);else await page.mouse.click(pausePoint.x,pausePoint.y);await wait(()=>window.__XIAN_NI__.inspect().paused);
   assert.equal(entity(await state(),'market_merchant').state,'leading');await capture('merchant-walking',{merchant:true,pose:'walking'});await frozen('walking-paused');
-  await resume();await wait(()=>{const s=window.__XIAN_NI__.inspect();return !s.defeated&&s.worlds.market.find(e=>e.id==='market_door').state==='open';});await pause();
+  await resume();const doorWaitStart=await state();log('physical-door-wait-start',{time:doorWaitStart.time,merchant:entity(doorWaitStart,'market_merchant'),door:entity(doorWaitStart,'market_door')});
+  // Software rendering may advance much less simulation time than wall time.
+  // Keep the actual open-door requirement with a bounded 90s observation window.
+  await wait(()=>{const s=window.__XIAN_NI__.inspect();if(s.defeated)throw Error('Defeated before the merchant opened the door');return s.worlds.market.find(e=>e.id==='market_door').state==='open';},undefined,90000);
+  const doorWaitEnd=await state();log('physical-door-wait-complete',{time:doorWaitEnd.time,simulationElapsed:doorWaitEnd.time-doorWaitStart.time,merchant:entity(doorWaitEnd,'market_merchant'),door:entity(doorWaitEnd,'market_door')});await pause();
   assert.equal((await state()).market.exchanged,true);await capture('physical-door-open',{door:true});await frozen('open-door-paused');
   const final=await state();assert.equal(final.scene,'market');assert.deepEqual(final.market.through,original.market.through);assert.deepEqual(final.market.reported,original.market.reported);assert.equal(final.player.mana,original.player.mana);item.final={time:final.time,player:final.player,market:final.market,merchant:entity(final,'market_merchant'),enemy:entity(final,'market_raider'),door:entity(final,'market_door')};
   item.status='PASS';await persist();await context.close();activePage=null;activeItem=null;

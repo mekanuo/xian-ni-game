@@ -1,0 +1,105 @@
+
+> xian-ni-shanmen-zhiwai@0.8.0 verify
+> node scripts/verify.mjs
+
+
+> xian-ni-shanmen-zhiwai@0.8.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+
+ Test Files  45 passed (45)
+      Tests  956 passed (956)
+   Start at  23:42:51
+   Duration  12.21s (transform 1.67s, setup 0ms, import 5.86s, tests 20.34s, environment 5ms)
+
+
+> xian-ni-shanmen-zhiwai@0.8.0 build
+> tsc --noEmit && vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 42 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.72 kB │ gzip:   0.52 kB
+dist/assets/index-D5XfOxnh.css     31.62 kB │ gzip:   7.84 kB
+dist/assets/index-CLyXa97I.js   1,535.40 kB │ gzip: 446.21 kB
+✓ built in 4.32s
+world input {"x":1500,"y":480} {"scene":"home","x":849.3974525146839,"y":442.9359035580414,"path":[{"x":1499.1099668192874,"y":481.0049522863919}],"paused":false}
+world input {"x":1540,"y":420} {"scene":"home","x":1496.2879454280696,"y":480.83959966120864,"path":[],"paused":true}
+world input {"x":900,"y":1060} {"scene":"spar","x":900,"y":1220,"path":[{"x":899.1093736785939,"y":1060.9464706513552}],"paused":false}
+world input {"x":900,"y":980} {"scene":"spar","x":899.1190197933628,"y":1062.6691331885138,"path":[],"paused":true}
+world input {"x":900,"y":940} {"scene":"spar","x":899.1190197933628,"y":1062.6691331885138,"path":[{"x":899.1093745770503,"y":940.9459950973446}],"paused":false}
+world input {"x":900,"y":1160} {"scene":"spar","x":899.1095111167708,"y":942.6691335652423,"path":[{"x":899.1093745770503,"y":1160.9482337155907}],"paused":false}
+world input {"x":900,"y":1280} {"scene":"spar","x":899.1093760026916,"y":1158.6691335651967,"path":[{"x":899.4274597854551,"y":1202.0021013250823}],"paused":false}
+world input {"x":760,"y":410} {"scene":"home","x":1500,"y":480,"path":[{"x":837.6533473389343,"y":417.34558691043975}],"paused":false}
+desktop hit front PASS qa/spar-production-2026-09-11T22-43-12-830Z
+world input {"x":1500,"y":480} {"scene":"home","x":849.3974525146839,"y":442.9359035580414,"path":[{"x":1499.1099668192874,"y":481.0049522863919}],"paused":false}
+world input {"x":1540,"y":420} {"scene":"home","x":1496.2879454280696,"y":480.83959966120864,"path":[],"paused":true}
+world input {"x":900,"y":1060} {"scene":"spar","x":900,"y":1220,"path":[{"x":899.1093736785939,"y":1060.9464706513552}],"paused":false}
+world input {"x":900,"y":980} {"scene":"spar","x":899.1190197933628,"y":1062.6691331885138,"path":[],"paused":true}
+world input {"x":900,"y":940} {"scene":"spar","x":899.1190197933628,"y":1062.6691331885138,"path":[{"x":899.1093745770503,"y":940.9459950973446}],"paused":false}
+world input {"x":900,"y":1160} {"scene":"spar","x":899.1095111167708,"y":942.6691335652423,"path":[{"x":899.1093745770503,"y":1160.9482337155907}],"paused":false}
+world input {"x":900,"y":1280} {"scene":"spar","x":899.1093760026916,"y":1158.6691335651967,"path":[{"x":899.4274597854551,"y":1202.0021013250823}],"paused":false}
+world input {"x":760,"y":410} {"scene":"home","x":1500,"y":480,"path":[{"x":837.6533473389343,"y":417.34558691043975}],"paused":false}
+desktop ward front PASS qa/spar-production-2026-09-11T22-43-12-830Z
+world input {"x":1500,"y":480} {"scene":"home","x":849.3974525146839,"y":442.9359035580414,"path":[{"x":1499.999999326818,"y":480.000023336972}],"paused":false}
+world input {"x":1540,"y":420} {"scene":"home","x":1499.0108269465097,"y":479.9436712618604,"path":[],"paused":true}
+world input {"x":900,"y":1060} {"scene":"spar","x":900,"y":1220,"path":[{"x":899.9999988780302,"y":1060.000005460253}],"paused":false}
+world input {"x":900,"y":980} {"scene":"spar","x":899.9999988967296,"y":1062.6666666666622,"path":[],"paused":true}
+world input {"x":900,"y":940} {"scene":"spar","x":899.9999988967296,"y":1062.6666666666622,"path":[{"x":900.004344306008,"y":939.2992160677597}],"paused":false}
+world input {"x":900,"y":1160} {"scene":"spar","x":900.0043196220795,"y":940.0000000760931,"path":[{"x":900.0000084111232,"y":1168.0112631066413}],"paused":false}
+world input {"x":900,"y":1280} {"scene":"spar","x":900.0000338345986,"y":1166.666666702238,"path":[{"x":900.000023286165,"y":1202.0000000000034}],"paused":false}
+world input {"x":760,"y":410} {"scene":"home","x":1500,"y":480,"path":[{"x":837.6533473389343,"y":417.34558691043975}],"paused":false}
+phone hit front PASS qa/spar-production-2026-09-11T22-43-12-830Z
+world input {"x":1500,"y":480} {"scene":"home","x":849.3974525146839,"y":442.9359035580414,"path":[{"x":1499.999999326818,"y":480.000023336972}],"paused":false}
+world input {"x":1540,"y":420} {"scene":"home","x":1499.0108269465097,"y":479.9436712618604,"path":[],"paused":true}
+world input {"x":900,"y":1060} {"scene":"spar","x":900,"y":1220,"path":[{"x":899.9999988780302,"y":1060.000005460253}],"paused":false}
+world input {"x":900,"y":980} {"scene":"spar","x":899.9999988967296,"y":1062.6666666666622,"path":[],"paused":true}
+world input {"x":900,"y":940} {"scene":"spar","x":899.9999988967296,"y":1062.6666666666622,"path":[{"x":900.004344306008,"y":939.2992160677597}],"paused":false}
+world input {"x":900,"y":1160} {"scene":"spar","x":900.0043196220795,"y":940.0000000760931,"path":[{"x":900.0000097656437,"y":1164.3165157890985}],"paused":false}
+world input {"x":900,"y":1280} {"scene":"spar","x":900.0000670823682,"y":1161.3333333685748,"path":[{"x":900.0000440934667,"y":1202.0000000000125}],"paused":false}
+world input {"x":760,"y":410} {"scene":"home","x":1500,"y":480,"path":[{"x":837.6533473389343,"y":417.34558691043975}],"paused":false}
+phone ward front PASS qa/spar-production-2026-09-11T22-43-12-830Z
+BROWSER DISCONNECTED 2026-09-11T22:53:50.741Z
+qa/spar-production-2026-09-11T22-43-12-830Z/report.json PASS
+world input {"x":1500,"y":480} {"scene":"home","x":849.3974525146839,"y":442.9359035580414,"path":[{"x":1499.999999326818,"y":480.000023336972}],"paused":false}
+world input {"x":1540,"y":420} {"scene":"home","x":1499.0108269465097,"y":479.9436712618604,"path":[],"paused":true}
+world input {"x":900,"y":1060} {"scene":"spar","x":900,"y":1220,"path":[{"x":899.9999988780302,"y":1060.000005460253}],"paused":false}
+world input {"x":900,"y":980} {"scene":"spar","x":899.9999988967296,"y":1062.6666666666622,"path":[],"paused":true}
+world input {"x":900,"y":940} {"scene":"spar","x":899.9999988967296,"y":1062.6666666666622,"path":[{"x":900.010229802734,"y":940.7054219638227}],"paused":false}
+world input {"x":900,"y":1160} {"scene":"spar","x":900.0100652806797,"y":942.6666670888782,"path":[{"x":899.9999909807187,"y":1166.6140881685715}],"paused":false}
+world input {"x":900,"y":1280} {"scene":"spar","x":900.0001085757605,"y":1164.0000001982635,"path":[{"x":900.0000730078391,"y":1202.000000000034}],"paused":false}
+world input {"x":760,"y":410} {"scene":"home","x":1500,"y":480,"path":[{"x":837.6533473389343,"y":417.34558691043975}],"paused":false}
+phone ward left PASS qa/spar-production-2026-09-11T22-53-52-005Z
+BROWSER DISCONNECTED 2026-09-11T22:55:52.709Z
+qa/spar-production-2026-09-11T22-53-52-005Z/report.json PASS
+world input {"x":1500,"y":480} {"scene":"home","x":849.3974525146839,"y":442.9359035580414,"path":[{"x":1499.999999326818,"y":480.000023336972}],"paused":false}
+world input {"x":1540,"y":420} {"scene":"home","x":1499.0108269465097,"y":479.9436712618604,"path":[],"paused":true}
+world input {"x":900,"y":1060} {"scene":"spar","x":900,"y":1220,"path":[{"x":899.9999988780302,"y":1060.000005460253}],"paused":false}
+world input {"x":900,"y":980} {"scene":"spar","x":899.9999988967296,"y":1062.6666666666622,"path":[],"paused":true}
+world input {"x":900,"y":940} {"scene":"spar","x":899.9999988967296,"y":1062.6666666666622,"path":[{"x":900.0086240929636,"y":939.5939455492694}],"paused":false}
+world input {"x":900,"y":1160} {"scene":"spar","x":900.008595635789,"y":940.000000301234,"path":[{"x":899.9999888257342,"y":1164.7770019810528}],"paused":false}
+world input {"x":900,"y":1280} {"scene":"spar","x":900.0000185774759,"y":1164.0000001370238,"path":[{"x":900.000012491751,"y":1202.000000000001}],"paused":false}
+world input {"x":760,"y":410} {"scene":"home","x":1500,"y":480,"path":[{"x":837.6533473389343,"y":417.34558691043975}],"paused":false}
+phone ward right PASS qa/spar-production-2026-09-11T22-55-53-810Z
+BROWSER DISCONNECTED 2026-09-11T22:57:55.478Z
+qa/spar-production-2026-09-11T22-55-53-810Z/report.json PASS
+qa/spar-presentation-2026-09-11T22-57-56-572Z/report.json PASS
+qa/spar-facing-2026-09-11T22-59-34-769Z/report.json PASS
+Error: ENOENT: no such file or directory, open 'qa/evidence/market-2026-09-11T15-13-29-584Z/market-west-entry.json'
+    at async open (node:internal/fs/promises:639:25)
+    at async readFile (node:internal/fs/promises:1249:14)
+    at async file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/market-view-check.mjs:28:14 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'qa/evidence/market-2026-09-11T15-13-29-584Z/market-west-entry.json'
+}
+{"status":"FAIL","runId":"2026-09-11T23-00-00-192Z","output":"qa/evidence/market-view.json","folder":"qa/evidence/market-view-2026-09-11T23-00-00-192Z","devices":[],"failure":"Error: ENOENT: no such file or directory, open 'qa/evidence/market-2026-09-11T15-13-29-584Z/market-west-entry.json'"}
+Error: market-view-check.mjs failed on viewports
+    at file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/verify.mjs:56:181
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)

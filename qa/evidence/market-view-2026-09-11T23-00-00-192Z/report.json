@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-09-11T23-00-00-192Z",
+  "selection": "all",
+  "status": "FAIL",
+  "startedAt": "2026-09-11T23:00:00.198Z",
+  "url": "http://127.0.0.1:4187/",
+  "scope": "Three serial production viewports: actual entry import, sign and merchant framing, conversation, physical opening, idle/walking presentation and pause freezing. No complete crossing/report route.",
+  "devices": [],
+  "errors": [],
+  "limitations": [
+    "Linux Chrome viewport/DPR/touch emulation; not physical Mac, Safari or phone.",
+    "World movement and NPC opening are real input-driven actions. Framing and captures intentionally pause the world; this is not uninterrupted combat evidence.",
+    "Merchant waiting pose is NOT_RUN in this bounded production visual check. No artificial threat or state is injected to force it; prior model/whitebox evidence does not prove this production pose was seen.",
+    "Canvas hit checks prove the sampled body/sign positions are clear of DOM. Screenshots still require visual assessment of artwork, world occlusion and overall quality."
+  ],
+  "failure": "Error: ENOENT: no such file or directory, open 'qa/evidence/market-2026-09-11T15-13-29-584Z/market-west-entry.json'",
+  "completedAt": "2026-09-11T23:00:00.203Z"
+}
