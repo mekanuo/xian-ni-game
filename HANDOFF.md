@@ -1,3 +1,19 @@
+# 当前入口 · 划线切磋白盒设计已收敛
+
+root读完SPAR_080_RULE_RISK，已收敛SPAR_080_DESIGN和BUILD_BRIEF_SPAR_WHITEBOX，批准独立一手步法/护符风险切片。下一动作TDD真实约定/移动/射弹/收手，再Phaser真实手机输入。不是完整第八章批准；0.7公网保持不变。当前cliff-080-space树将切到feat/spar-080-whitebox；全部代理已停写，root独占实现/Git/浏览器。见docs/superpowers/plans/2026-09-11-spar-whitebox.md。下方是历史记录。
+
+# 当前选题 · 划线切磋C进入最小设计
+
+当前工作树cliff-080-space / feat/cliff-080-space，HEAD247e0ab已经成功推送，碎崖失败原样归档/活动源码移除。正式游戏src/tests/public/scripts与2575722无差异。0.7完整发行继续有效，不部署此研究分支。
+
+canal_save_040已交回design/NEXT_CONTENT_080_CANDIDATES.md并停写，root已读。A试火见证推荐未直接采纳：root选择C「划线切磋」先验证更直接的走位/施术熟练与自愿停手，A暂存、B否决；理由写在该文件末尾根代理覆盖。不是正式生产批准，也没新白盒代码。
+
+**当前代理canal_rules_040仅独占design/SPAR_080_RULE_RISK.md**，只读现行敌人/射弹/护符/手机显示，核对一回守线与真实收手/低资源/站角漏洞，禁止代码浏览器构建Git。root独占其他文档与Git，准备最小局部详细设计。所有其他代理停写，无浏览器。CONTENT_ROADMAP已更新0.7发行/碎崖搁置，待连同新概念里程碑提交推送。
+
+下一动作读风险报告→收敛具体一回合空间/胜负/停止条件→根代理批准有界白盒后实现，不把现有敌人改标签就称已有自愿切磋。用户授权自主取舍和持续推进，继续工作，不等待新确认。
+
+以下历史记录被本入口覆盖。
+
 # 当前入口 · 碎崖布局搁置，继续下一内容选题
 
 工作树cliff-080-space / feat/cliff-080-space，基于2575722，0.7正式/公网发布已闭合（见下方）。新树npmci成功、35文件753基线测试PASS。
