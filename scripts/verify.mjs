@@ -12,9 +12,9 @@ try{
  let ready=false;for(let i=0;i<100;i++){if(serverExited)throw Error('Owned preview process exited before verification');try{const r=await fetch('http://127.0.0.1:4187/');if(r.ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,100));}
  await new Promise(r=>setTimeout(r,400));if(serverExited)throw Error('Preview port is occupied or the owned server failed');
  if(!ready)throw Error('Preview server failed to start');
- // Verify the new chapter first so art/input failures surface before the long
- // unchanged-chapter regression matrix. Browsers still run one at a time.
- for(const script of ['kiln-view-check.mjs','kiln-check.mjs','kiln-consequences-check.mjs']){
+ // Check the corrected continuous-input driver and new chapter before the
+ // remaining regression matrix. Every required suite still runs once.
+ for(const script of ['journey-check.mjs','journey-view-check.mjs','kiln-view-check.mjs','kiln-check.mjs','kiln-consequences-check.mjs']){
   const child=spawn(process.execPath,[`scripts/${script}`],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/',KILN_ROUTE:'all',KILN_CONSEQUENCE_CASE:'all',KILN_OUTPUT:'qa/evidence/kiln-check.json'}});
   const code=await new Promise(r=>child.on('exit',r));report.verify.suites.push({command:`node scripts/${script}`,exitCode:code});if(code!==0)throw Error(`${script} failed`);
  }
@@ -32,7 +32,7 @@ try{
  report.verify.suites.push(...routes);
  if(routes.some(r=>r.exitCode!==0))throw Error('A complete browser route failed; see corresponding qa/evidence failure trace');
  // The desktop continuation exports real intermediate saves for touch replay.
- for(const script of ['life-check.mjs','life-hold-check.mjs','life-mobile-check.mjs','presentation-check.mjs','canal-check.mjs','canal-view-check.mjs','canal-revisit-check.mjs','journey-check.mjs','journey-view-check.mjs']){
+ for(const script of ['life-check.mjs','life-hold-check.mjs','life-mobile-check.mjs','presentation-check.mjs','canal-check.mjs','canal-view-check.mjs','canal-revisit-check.mjs']){
   const child=spawn(process.execPath,[`scripts/${script}`],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
   const code=await new Promise(r=>child.on('exit',r));report.verify.suites.push({command:`node scripts/${script}`,exitCode:code});if(code!==0)throw Error(`${script} failed`);
  }

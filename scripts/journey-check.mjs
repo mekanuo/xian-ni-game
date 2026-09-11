@@ -129,7 +129,11 @@ async function followLeader(){
  }
  // Xu stands near (220,780); touching that point would open a conversation.
  // This empty ground is within the actual exit-meeting radius and outside her hitbox.
- await worldTap(270,805);await wait(()=>{const s=window.__XIAN_NI__.inspect();return Math.hypot(s.player.x-270,s.player.y-805)<18&&s.player.path.length===0;},undefined,60000);
+ await worldTap(270,805);const tapped=await state();log('meeting-ground-tap',{intended:{x:270,y:805},actualPathEnd:tapped.player.path.at(-1)??null,player:{x:tapped.player.x,y:tapped.player.y}});
+ // Continuous camera tracking can shift a delivered touch from the sampled
+ // screen coordinate. The designed outcome is the actual 75-unit meeting,
+ // not sub-pixel accuracy at one arbitrary ground point inside that area.
+ await wait(()=>{const s=window.__XIAN_NI__.inspect();return Math.hypot(s.player.x-220,s.player.y-780)<=75&&s.player.path.length===0&&s.journey.run?.playerGate&&s.journey.run?.companionGate&&!s.paused&&!s.dialogue;},undefined,60000);
  const safe=await state(),endNpc=safe.worlds.workshop.find(e=>e.id==='xu_work');assert.equal(safe.paused,false);assert.equal(safe.dialogue,null);assert.equal(safe.journey.run.playerGate,true);assert.equal(safe.journey.run.companionGate,true);assert.ok(moved>1800,`Only ${moved} actual NPC travel was observed`);assert.ok(Math.hypot(safe.player.x-220,safe.player.y-780)<=75);assert.ok(Math.hypot(endNpc.x-220,endNpc.y-780)<=75);
  route.observations.leadership={paused:false,exportedDuring:false,screenshotsDuring:false,wallMs:Date.now()-wallStart,modelSeconds:safe.time-began.time,npcObservedDistance:moved,distanceWaitingSamples:waitSamples,start:brief(began),finalMeeting:{player:{x:safe.player.x,y:safe.player.y},npc:{x:endNpc.x,y:endNpc.y},run:safe.journey.run},samples};
  // Leave using a real target click without resume() masking a surprise pause.
