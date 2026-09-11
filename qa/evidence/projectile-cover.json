@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "url": "http://127.0.0.1:4191/",
+  "browser": "150.0.7871.114",
+  "fixture": "Genuine 0.4.1 ridge completion imported via settings",
+  "inputTrace": [
+    {
+      "action": "interact",
+      "detail": "to_creek",
+      "wall": 7540
+    },
+    {
+      "action": "scene",
+      "detail": "creek",
+      "wall": 16559
+    },
+    {
+      "action": "interact",
+      "detail": "to_crossing",
+      "wall": 16896
+    },
+    {
+      "action": "scene",
+      "detail": "crossing",
+      "wall": 28466
+    },
+    {
+      "action": "walk",
+      "detail": {
+        "x": 600,
+        "y": 740
+      },
+      "wall": 28641
+    }
+  ],
+  "board": {
+    "id": "shield_board",
+    "kind": "object",
+    "type": "shield_board",
+    "name": "松动挡板",
+    "x": 790,
+    "y": 700,
+    "w": 100,
+    "h": 40,
+    "state": "idle",
+    "movable": true,
+    "solid": true,
+    "hint": "牵动遮住施术来向；留势可腾手放火",
+    "homeX": 790,
+    "homeY": 700
+  },
+  "impact": {
+    "seq": 42,
+    "time": 187.75000000004155,
+    "type": "impact",
+    "text": "术法撞在遮挡上，光屑散开。",
+    "x": 740,
+    "y": 710.525696521268,
+    "targetId": "3"
+  },
+  "before": {
+    "player": {
+      "x": 590.2274417752311,
+      "y": 742.0454191633238,
+      "hp": 4,
+      "mana": 4,
+      "facing": -0.2063238940297195,
+      "invulnerable": 0,
+      "cooldown": 0,
+      "ward": 0,
+      "wardFacing": 0,
+      "pullId": null,
+      "pullPoint": null,
+      "hold": 0,
+      "path": [
+        {
+          "x": 600,
+          "y": 740
+        }
+      ]
+    }
+  },
+  "after": {
+    "player": {
+      "x": 598.0577667772542,
+      "y": 740.4065139303422,
+      "hp": 4,
+      "mana": 3,
+      "facing": -0.20748436668027767,
+      "invulnerable": 0,
+      "cooldown": 0.6500000000000007,
+      "ward": 0,
+      "wardFacing": 0,
+      "pullId": null,
+      "pullPoint": null,
+      "hold": 0,
+      "path": []
+    }
+  },
+  "errors": [],
+  "limitation": "Real desktop input proves visible fire collision with the first board face. Enemy short-step, wall, ward and flammable-solid boundaries have model tests; no physical-device claim."
+}

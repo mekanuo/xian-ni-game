@@ -6,7 +6,7 @@ import { SCENES } from './content';
 import { initialLifeEntities } from './life-content';
 import { restore } from './save';
 import { lifeChoices, lifeChoose, lifeInteract, lifeFlameHit, lifePullReason, lifeTick, lifeInterrupt, lifeBeforeExit, lifeMaintainSupport, lifeUseSachet, lifeScentSource, lifeObjective } from './life';
-import type { ActionResult, CastPreview, DialogueChoice, Entity, GameAction, GameState, Profile, SceneId, Spell, Vec } from './contracts';
+import type { ActionResult, CastPreview, DialogueChoice, Entity, GameAction, GameState, Profile, Projectile, SceneId, Spell, Vec } from './contracts';
 
 const lifePorts={free,clearLine,emit,dialogue};
 const canalPorts={...lifePorts,hurt};
@@ -43,12 +43,12 @@ export function createGame(profile: Profile): GameState {
   checkpoint(s);return s;
 }
 
-type Rect={x:number;y:number;w:number;h:number;flag?:string};
+type Rect={x:number;y:number;w:number;h:number;flag?:string;entityId?:string};
 function rectangles(s: GameState, ignoreId?: string): Rect[] {
   // The entrance collider represents this movable beam: ignore it only for the beam itself.
   // Actor movement supplies no beam ID, so the entrance stays blocked until hold opens it.
   const fixed=SCENES[s.scene].obstacles.filter(r=>(!r.flag||!s.flags[r.flag])&&!(ignoreId==='platform_beam'&&r.flag==='platformOpen'));
-  const moving=entities(s).filter(e=>e.solid&&e.id!==ignoreId&&e.state!=='held'&&e.state!=='burned').map(e=>({x:e.x-e.w/2,y:e.y-e.h/2,w:e.w,h:e.h}));
+  const moving=entities(s).filter(e=>e.solid&&e.id!==ignoreId&&e.state!=='held'&&e.state!=='burned').map(e=>({x:e.x-e.w/2,y:e.y-e.h/2,w:e.w,h:e.h,entityId:e.id}));
   return [...fixed,...moving,...(ignoreId==='xu_canal'?[CANAL_CHANNEL,CANAL_SIDE]:canalObstacles(s))];
 }
 function contains(r: Rect,p: Vec,pad=0){return p.x>r.x-pad&&p.x<r.x+r.w+pad&&p.y>r.y-pad&&p.y<r.y+r.h+pad;}
@@ -412,7 +412,13 @@ function enemyTick(s:GameState,e:Entity,dt:number){
     else d.attack=0;
   }
 }
-function spawnProjectile(s:GameState,from:Vec,to:Vec,owner:'player'|'enemy',speed:number){const angle=Math.atan2(to.y-from.y,to.x-from.x);const id=Number(s.flags.projectileSeq??0)+1;s.flags.projectileSeq=id;s.projectiles.push({id,x:from.x+Math.cos(angle)*24,y:from.y+Math.sin(angle)*24,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,life:owner==='player'?.92:1.6,owner});}
+function spawnProjectile(s:GameState,from:Vec,to:Vec,owner:'player'|'enemy',speed:number){
+  const angle=Math.atan2(to.y-from.y,to.x-from.x),id=Number(s.flags.projectileSeq??0)+1;s.flags.projectileSeq=id;
+  const p:Projectile={id,x:from.x,y:from.y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,life:owner==='player'?.92:1.6,owner};
+  // The visual muzzle offset is also travelled space: a nearby board cannot be skipped.
+  advanceProjectile(s,p,{x:from.x+Math.cos(angle)*24,y:from.y+Math.sin(angle)*24});
+  if(p.life>0)s.projectiles.push(p);
+}
 // The directional shield has a physical front edge, so a ray aimed past the
 // player's body can still be stopped before it reaches someone behind them.
 function wardProtects(s:GameState,who:Vec,source:Vec){
@@ -429,29 +435,82 @@ function wardIntercepts(s:GameState,point:Vec,velocity:Vec){
   const nx=Math.cos(p.wardFacing),ny=Math.sin(p.wardFacing),dx=point.x-p.x,dy=point.y-p.y;
   return velocity.x*nx+velocity.y*ny<0&&dx*nx+dy*ny>0&&Math.hypot(dx,dy)<=70&&Math.abs(dx*-ny+dy*nx)<=48;
 }
+// Analytic segment intersections include both endpoints and starts inside a collider.
+// They are independent of frame duration; clearLine's visual sampling is not used here.
+function segmentRectEntry(a:Vec,b:Vec,r:Rect):number|null{
+  let enter=0,leave=1;
+  for(const [start,delta,min,max] of [[a.x,b.x-a.x,r.x,r.x+r.w],[a.y,b.y-a.y,r.y,r.y+r.h]]){
+    if(Math.abs(delta)<1e-12){if(start<min||start>max)return null;continue;}
+    const u=(min-start)/delta,v=(max-start)/delta;
+    enter=Math.max(enter,Math.min(u,v));leave=Math.min(leave,Math.max(u,v));
+    if(enter>leave)return null;
+  }
+  return enter;
+}
+function segmentCircleEntry(a:Vec,b:Vec,center:Vec,radius:number):number|null{
+  const x=a.x-center.x,y=a.y-center.y,dx=b.x-a.x,dy=b.y-a.y,c=x*x+y*y-radius*radius;
+  if(c<=0)return 0;
+  const length=dx*dx+dy*dy;if(length<1e-12)return null;
+  const dot=x*dx+y*dy,disc=dot*dot-length*c;if(disc<0)return null;
+  const t=(-dot-Math.sqrt(disc))/length;return t>=0&&t<=1?t:null;
+}
+function flameEntityHit(s:GameState,e:Entity,before:Vec):boolean{
+  if(e.kind==='enemy'){
+    e.hp=Math.max(0,(e.hp??3)-1);data(e).attack=0;data(e).seen=3;data(e).lastX=before.x;data(e).lastY=before.y;e.state=e.hp===0?'retreated':'alert';e.timer=.6;
+    if(clearLine(s,e,s.player)){data(e).lastX=s.player.x;data(e).lastY=s.player.y;}
+    emit(s,'hit',e.hp===0?`${e.name}退出这场争夺，不再追来。`:`火球命中${e.name}，打断起手，抵抗少一格。`,e);return true;
+  }
+  if(lifeFlameHit(s,e,lifePorts))return true;
+  if(e.flammable&&e.state!=='burned'){e.state='burning';e.timer=12;emit(s,'fire',`${e.name}燃起一小片火，山兽避开这处。`,e);return true;}
+  if(['board','basket','boat'].includes(e.id)){emit(s,'steam',`${e.name}带着雨水，火球熄成一团白汽。`,e);return true;}
+  return false;
+}
+function advanceProjectile(s:GameState,p:Projectile,to:Vec){
+  const before={x:p.x,y:p.y};
+  type Contact={t:number;kind:'obstacle'|'entity'|'ward'|'player'|'xu';entity?:Entity};
+  const contacts:Contact[]=[];
+  const blocks=rectangles(s).filter(r=>!isWaterRect(s,r)&&r.flag!=='platformOpen');
+  const solidIds=new Set(blocks.map(r=>r.entityId).filter(Boolean));
+  for(const r of blocks){const t=segmentRectEntry(before,to,r);if(t!==null)contacts.push({t,kind:'obstacle',entity:r.entityId?entity(s,r.entityId):undefined});}
+  if(p.owner==='player'){
+    for(const e of entities(s)){
+      if(e.state==='taken'||e.state==='retreated'||solidIds.has(e.id))continue;
+      const t=segmentCircleEntry(before,to,e,Math.max(22,Math.min(e.w,e.h)*.6));
+      if(t!==null)contacts.push({t,kind:'entity',entity:e});
+    }
+  }else{
+    // Preserve the existing forward semicircle/width and approach-direction ward shape.
+    if(s.player.ward>0){
+      const nx=Math.cos(s.player.wardFacing),ny=Math.sin(s.player.wardFacing);
+      const local=(v:Vec)=>({x:(v.x-s.player.x)*nx+(v.y-s.player.y)*ny,y:-(v.x-s.player.x)*ny+(v.y-s.player.y)*nx});
+      const a=local(before),b=local(to),box=segmentRectEntry(a,b,{x:0,y:-48,w:70,h:96}),circle=segmentCircleEntry(a,b,{x:0,y:0},70);
+      if(box!==null&&circle!==null){const t=Math.max(box,circle),point={x:before.x+(to.x-before.x)*t,y:before.y+(to.y-before.y)*t};if(wardIntercepts(s,point,{x:p.vx,y:p.vy}))contacts.push({t,kind:'ward'});}
+    }
+    const player=segmentCircleEntry(before,to,s.player,24);if(player!==null)contacts.push({t:player,kind:'player'});
+    const xu=entities(s).find(e=>e.type==='xu');
+    if(xu&&s.flags.companion==='following'){const t=segmentCircleEntry(before,to,xu,24);if(t!==null)contacts.push({t,kind:'xu',entity:xu});}
+  }
+  // Obstacles win exact ties; unrelated entity storage order cannot select a farther hit.
+  contacts.sort((a,b)=>a.t-b.t);
+  for(const contact of contacts){
+    p.x=before.x+(to.x-before.x)*contact.t;p.y=before.y+(to.y-before.y)*contact.t;
+    if(contact.kind==='obstacle'){
+      if(p.owner!=='player'||!contact.entity||!flameEntityHit(s,contact.entity,before))emit(s,'impact','术法撞在遮挡上，光屑散开。',p);
+      p.life=0;return;
+    }
+    if(contact.kind==='entity'){if(!flameEntityHit(s,contact.entity!,before))continue;}
+    else if(contact.kind==='ward'){s.player.ward=0;emit(s,'block','护符前缘截住一次来袭，身后的同行者仍能前行。',s.player);}
+    else if(contact.kind==='player')hurt(s,{x:p.x-p.vx*.1,y:p.y-p.vy*.1},'飞石从护持未遮住的一侧击中，体力少了一格。');
+    else {s.flags.companion='sheltered';data(contact.entity!).sheltered=true;emit(s,'relationship','许照被来袭逼退，转到遮蔽处，暂时停下协作。');}
+    p.life=0;break;
+  }
+  if(p.life>0){p.x=to.x;p.y=to.y;}
+  if(p.owner==='player')for(const e of entities(s).filter(e=>e.kind==='enemy'&&e.state==='idle'))if(dist(e,p)<260&&clearLine(s,e,p)){e.state='alert';e.timer=1;data(e).seen=3;data(e).lastX=before.x;data(e).lastY=before.y;}
+}
 function projectileTick(s:GameState,dt:number){
   for(const p of s.projectiles){
-    const before={x:p.x,y:p.y};p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt;
-    if(!clearLine(s,before,p)){p.life=0;emit(s,'impact','术法撞在遮挡上，光屑散开。',p);continue;}
-    if(p.owner==='player'){
-      for(const e of entities(s)){
-        if(e.state==='taken'||e.state==='retreated'||dist(p,e)>Math.max(22,Math.min(e.w,e.h)*.6))continue;
-        if(e.kind==='enemy'){
-          e.hp=Math.max(0,(e.hp??3)-1);data(e).attack=0;data(e).seen=3;data(e).lastX=before.x;data(e).lastY=before.y;e.state=e.hp===0?'retreated':'alert';e.timer=.6;
-          // Only a visible caster supplies their location, otherwise search the observed incoming ray.
-          if(clearLine(s,e,s.player)){data(e).lastX=s.player.x;data(e).lastY=s.player.y;}
-          emit(s,'hit',e.hp===0?`${e.name}退出这场争夺，不再追来。`:`火球命中${e.name}，打断起手，抵抗少一格。`,e);p.life=0;break;
-        }
-        if(lifeFlameHit(s,e,lifePorts)){p.life=0;break;}
-        if(e.flammable&&e.state!=='burned'){e.state='burning';e.timer=12;emit(s,'fire',`${e.name}燃起一小片火，山兽避开这处。`,e);p.life=0;break;}
-        if(['board','basket','boat'].includes(e.id)){emit(s,'steam',`${e.name}带着雨水，火球熄成一团白汽。`,e);p.life=0;break;}
-      }
-      for(const e of entities(s).filter(e=>e.kind==='enemy'&&e.state==='idle'))if(dist(e,p)<260&&clearLine(s,e,p)){e.state='alert';e.timer=1;data(e).seen=3;data(e).lastX=before.x;data(e).lastY=before.y;}
-    }else{
-      if(wardIntercepts(s,p,{x:p.vx,y:p.vy})){s.player.ward=0;p.life=0;emit(s,'block','护符前缘截住一次来袭，身后的同行者仍能前行。',s.player);continue;}
-      if(dist(p,s.player)<24){hurt(s,{x:p.x-p.vx*.1,y:p.y-p.vy*.1},'飞石从护持未遮住的一侧击中，体力少了一格。');p.life=0;}
-      const xu=entities(s).find(e=>e.type==='xu');if(xu&&s.flags.companion==='following'&&dist(p,xu)<24){s.flags.companion='sheltered';data(xu).sheltered=true;emit(s,'relationship','许照被来袭逼退，转到遮蔽处，暂时停下协作。');p.life=0;}
-    }
+    const to={x:p.x+p.vx*dt,y:p.y+p.vy*dt};
+    advanceProjectile(s,p,to);p.life-=dt;
   }
   s.projectiles=s.projectiles.filter(p=>p.life>0);
 }

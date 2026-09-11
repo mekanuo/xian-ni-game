@@ -1,22 +1,46 @@
 {
   "schemaVersion": 3,
   "status": "NOT_RUN",
+  "verify": {
+    "command": "npm run verify",
+    "exitCode": 143,
+    "suites": []
+  },
+  "completeRun": {
+    "id": "ridge-return",
+    "cleanContext": true,
+    "terminal": "designed-outcome",
+    "restart": "initial-state",
+    "evidence": "qa/evidence/run.json"
+  },
+  "checks": {
+    "launch": "NOT_RUN",
+    "render": "NOT_RUN",
+    "input": "NOT_RUN",
+    "coreLoop": "NOT_RUN",
+    "outcome": "NOT_RUN",
+    "restart": "NOT_RUN"
+  },
+  "limitations": [
+    {
+      "scope": "target device",
+      "reason": "Automated evidence is Linux Chrome 150 at 1440×900. macOS Safari/Chrome and trackpad have not been tested."
+    },
+    {
+      "scope": "experience",
+      "reason": "Natural play duration and subjective enjoyment require player feedback. Both ring styles, shared platform memory and the ridge ending have real browser input evidence; the main crossing outcome and guard/companion boundaries have model regression evidence."
+    },
+    {
+      "scope": "build",
+      "reason": "Release verification intentionally interrupted after discovering short-segment projectile obstacle collision defect. Prior partial successes do not qualify this candidate for release; fix and rerun required."
+    }
+  ],
   "candidate": "0.5.0",
-  "baseline": {
-    "version": "0.4.1",
-    "sourceCommit": "ee17e8f0f957d76586fe3ae6a507dd5128755314",
-    "reportCommit": "d25af20",
-    "status": "PASS"
-  },
   "targeted": {
-    "tests": 316,
-    "testFiles": 20,
+    "projectileTests": "25 new; 71/71 related tests PASS",
     "build": "PASS",
-    "bundle": "index-BEPc4gec.js",
-    "journeyModel": "8 PASS",
-    "browser": "Phone complete PASS; desktop complete observed and fresh-page moving pause PASS; full current matrix pending",
-    "exitGuidanceRegression": "1 PASS (red then green)",
-    "cameraDrag": "DPR 1/2/3 PASS (red then green)"
-  },
-  "note": "New content candidate; current full runtime and public verification not yet run."
+    "bundle": "index-BJE6H6II.js",
+    "projectileBrowser": "PASS: real first board face hit at x740, y710.526",
+    "fullRelease": "NOT_RUN after collision fix; prior run intentionally interrupted"
+  }
 }
