@@ -1,3 +1,9 @@
+## 2026-09-11 · 0.5 三视口通过，完整发行回归运行中
+
+journey-view-check exit0，1440×900 DPR2、1280×500、390×844 DPR3 共12处截图通过：南路标记、北弯石刻、领路暂停姿态、真实桌面纸签、雨棚坐垫与往返输入。根代理目视复核高DPR北弯、矮窗口领路和手机桌案，纸签落在实际桌面。镜头释放修复后原高DPR桌案出门失败已通过。
+
+完整 npm run verify 已独立启动，PID1086289，日志/tmp/xian-ni-050-verify.log，退出码/tmp/xian-ni-050-verify.exit；预览端口4187由verify独占。候选运行包index-BEPc4gec.js，不能同时启动其他浏览器。旧临时4191服务已关闭。完整报告尚未PASS前不部署；已通过的局部检查不重复单独跑。
+
 ## 2026-09-11 · 0.5 真实操作与镜头修复
 
 真实桌面完成北路同行、溪道坐垫、归驿落笔与重开；手机独立完整检查PASS，连续同行39.5秒、不暂停，真实位移约2132。两端均在新页面恢复真实迈步暂停档，手机完整结果qa/evidence/journey-check.json（selection=phone），桌面额外定格qa/evidence/journey-pause-check.json。尚待整套权威verify汇总桌面/手机共同PASS，不把局部报告当发行结论。
