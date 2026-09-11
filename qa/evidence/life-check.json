@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "status": "PASS",
   "runId": "life-mechanical-stop-return",
-  "startedAt": "2026-09-11T04:48:16.552Z",
+  "startedAt": "2026-09-11T06:12:05.100Z",
   "environment": {
     "url": "http://127.0.0.1:4187/",
     "platform": "linux",
@@ -18,7 +18,7 @@
     {
       "action": "new-profile-for-import-ui",
       "detail": {},
-      "wallMs": 4066
+      "wallMs": 4386
     },
     {
       "action": "legacy-import",
@@ -148,7 +148,7 @@
           }
         ]
       },
-      "wallMs": 6206
+      "wallMs": 6266
     },
     {
       "action": "interact",
@@ -158,12 +158,12 @@
         "x": 1060,
         "y": 430
       },
-      "wallMs": 7700
+      "wallMs": 7689
     },
     {
       "action": "choose",
       "detail": "life:repair:accept",
-      "wallMs": 11792
+      "wallMs": 11759
     },
     {
       "action": "interact",
@@ -173,12 +173,12 @@
         "x": 350,
         "y": 420
       },
-      "wallMs": 13700
+      "wallMs": 13702
     },
     {
       "action": "choose",
       "detail": "life:harvest:accept",
-      "wallMs": 17356
+      "wallMs": 17383
     },
     {
       "action": "interact",
@@ -188,7 +188,7 @@
         "x": 1640,
         "y": 690
       },
-      "wallMs": 19517
+      "wallMs": 19947
     },
     {
       "action": "camera-pan",
@@ -196,12 +196,12 @@
         "dx": -500,
         "dy": -250
       },
-      "wallMs": 22030
+      "wallMs": 22654
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wallMs": 29901
+      "wallMs": 30647
     },
     {
       "action": "interact",
@@ -211,7 +211,7 @@
         "x": 1640,
         "y": 370
       },
-      "wallMs": 30524
+      "wallMs": 31272
     },
     {
       "action": "camera-pan",
@@ -219,12 +219,12 @@
         "dx": -500,
         "dy": 270
       },
-      "wallMs": 32892
+      "wallMs": 33642
     },
     {
       "action": "scene",
       "detail": "workshop",
-      "wallMs": 42451
+      "wallMs": 43228
     },
     {
       "action": "walk",
@@ -232,7 +232,7 @@
         "x": 320,
         "y": 220
       },
-      "wallMs": 42845
+      "wallMs": 43620
     },
     {
       "action": "camera-pan",
@@ -240,7 +240,7 @@
         "dx": 400,
         "dy": 300
       },
-      "wallMs": 45276
+      "wallMs": 46145
     },
     {
       "action": "walk",
@@ -248,7 +248,7 @@
         "x": 1450,
         "y": 220
       },
-      "wallMs": 49184
+      "wallMs": 50096
     },
     {
       "action": "camera-pan",
@@ -256,7 +256,7 @@
         "dx": -500,
         "dy": 220
       },
-      "wallMs": 51575
+      "wallMs": 52496
     },
     {
       "action": "interact",
@@ -266,7 +266,7 @@
         "x": 1320,
         "y": 430
       },
-      "wallMs": 59390
+      "wallMs": 60251
     },
     {
       "action": "walk",
@@ -274,7 +274,7 @@
         "x": 1410,
         "y": 460
       },
-      "wallMs": 61154
+      "wallMs": 61973
     },
     {
       "action": "fire-loaded-hearth",
@@ -282,7 +282,7 @@
         "x": 1320,
         "y": 430
       },
-      "wallMs": 62096
+      "wallMs": 62907
     },
     {
       "action": "export-save",
@@ -310,7 +310,7 @@
           "scent": null
         }
       },
-      "wallMs": 65491
+      "wallMs": 66757
     },
     {
       "action": "interact",
@@ -320,12 +320,12 @@
         "x": 1450,
         "y": 630
       },
-      "wallMs": 66059
+      "wallMs": 67313
     },
     {
       "action": "choose",
       "detail": "life:repair:stop",
-      "wallMs": 67000
+      "wallMs": 68260
     },
     {
       "action": "pull",
@@ -340,7 +340,7 @@
           "y": 570
         }
       },
-      "wallMs": 68767
+      "wallMs": 70060
     },
     {
       "action": "interact",
@@ -350,7 +350,7 @@
         "x": 1450,
         "y": 630
       },
-      "wallMs": 71949
+      "wallMs": 73243
     },
     {
       "action": "interact",
@@ -360,12 +360,12 @@
         "x": 1450,
         "y": 630
       },
-      "wallMs": 73207
+      "wallMs": 74537
     },
     {
       "action": "capture",
       "detail": "repair-tested",
-      "wallMs": 76305
+      "wallMs": 77630
     },
     {
       "action": "walk",
@@ -373,7 +373,7 @@
         "x": 1450,
         "y": 220
       },
-      "wallMs": 77534
+      "wallMs": 78854
     },
     {
       "action": "walk",
@@ -381,7 +381,7 @@
         "x": 320,
         "y": 220
       },
-      "wallMs": 80113
+      "wallMs": 81470
     },
     {
       "action": "camera-pan",
@@ -389,7 +389,7 @@
         "dx": 500,
         "dy": 220
       },
-      "wallMs": 82501
+      "wallMs": 83863
     },
     {
       "action": "interact",
@@ -399,7 +399,7 @@
         "x": 100,
         "y": 780
       },
-      "wallMs": 90297
+      "wallMs": 91632
     },
     {
       "action": "camera-pan",
@@ -407,12 +407,12 @@
         "dx": 500,
         "dy": -300
       },
-      "wallMs": 92687
+      "wallMs": 94012
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wallMs": 96414
+      "wallMs": 97773
     },
     {
       "action": "interact",
@@ -422,7 +422,7 @@
         "x": 100,
         "y": 770
       },
-      "wallMs": 96967
+      "wallMs": 98331
     },
     {
       "action": "camera-pan",
@@ -430,12 +430,12 @@
         "dx": 500,
         "dy": -300
       },
-      "wallMs": 99290
+      "wallMs": 100744
     },
     {
       "action": "scene",
       "detail": "home",
-      "wallMs": 109343
+      "wallMs": 113328
     },
     {
       "action": "interact",
@@ -445,12 +445,12 @@
         "x": 1060,
         "y": 430
       },
-      "wallMs": 109936
+      "wallMs": 114054
     },
     {
       "action": "choose",
       "detail": "life:repair:deliver",
-      "wallMs": 113085
+      "wallMs": 118169
     },
     {
       "action": "pull",
@@ -465,7 +465,7 @@
           "y": 500
         }
       },
-      "wallMs": 115072
+      "wallMs": 120877
     },
     {
       "action": "interact",
@@ -475,12 +475,12 @@
         "x": 1030,
         "y": 500
       },
-      "wallMs": 118242
+      "wallMs": 125260
     },
     {
       "action": "choose",
       "detail": "life:clamp:install",
-      "wallMs": 118900
+      "wallMs": 126036
     },
     {
       "action": "interact",
@@ -490,17 +490,17 @@
         "x": 1030,
         "y": 500
       },
-      "wallMs": 120867
+      "wallMs": 128057
     },
     {
       "action": "choose",
       "detail": "life:clamp:remove",
-      "wallMs": 121521
+      "wallMs": 128705
     },
     {
       "action": "capture",
       "detail": "repair-reward",
-      "wallMs": 124923
+      "wallMs": 132152
     },
     {
       "action": "interact",
@@ -510,12 +510,12 @@
         "x": 1640,
         "y": 690
       },
-      "wallMs": 126381
+      "wallMs": 133620
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wallMs": 129873
+      "wallMs": 137175
     },
     {
       "action": "walk",
@@ -523,7 +523,7 @@
         "x": 320,
         "y": 300
       },
-      "wallMs": 130254
+      "wallMs": 137560
     },
     {
       "action": "camera-pan",
@@ -531,7 +531,7 @@
         "dx": 400,
         "dy": 300
       },
-      "wallMs": 132593
+      "wallMs": 139890
     },
     {
       "action": "walk",
@@ -539,7 +539,7 @@
         "x": 890,
         "y": 290
       },
-      "wallMs": 136157
+      "wallMs": 143441
     },
     {
       "action": "pull",
@@ -554,7 +554,7 @@
           "y": 290
         }
       },
-      "wallMs": 140313
+      "wallMs": 147593
     },
     {
       "action": "walk",
@@ -562,7 +562,7 @@
         "x": 1170,
         "y": 230
       },
-      "wallMs": 143832
+      "wallMs": 151162
     },
     {
       "action": "interact",
@@ -572,7 +572,7 @@
         "x": 1150,
         "y": 170
       },
-      "wallMs": 146478
+      "wallMs": 153782
     },
     {
       "action": "interact",
@@ -582,7 +582,7 @@
         "x": 1420,
         "y": 270
       },
-      "wallMs": 147563
+      "wallMs": 154844
     },
     {
       "action": "camera-pan",
@@ -590,12 +590,12 @@
         "dx": -500,
         "dy": 170
       },
-      "wallMs": 149927
+      "wallMs": 157226
     },
     {
       "action": "capture",
       "detail": "sun-leaf",
-      "wallMs": 155030
+      "wallMs": 162365
     },
     {
       "action": "walk",
@@ -603,7 +603,7 @@
         "x": 890,
         "y": 290
       },
-      "wallMs": 156228
+      "wallMs": 163585
     },
     {
       "action": "walk",
@@ -611,7 +611,7 @@
         "x": 1000,
         "y": 390
       },
-      "wallMs": 159645
+      "wallMs": 166861
     },
     {
       "action": "walk",
@@ -619,7 +619,7 @@
         "x": 1550,
         "y": 390
       },
-      "wallMs": 161102
+      "wallMs": 168313
     },
     {
       "action": "walk",
@@ -627,7 +627,7 @@
         "x": 1455,
         "y": 680
       },
-      "wallMs": 165128
+      "wallMs": 172304
     },
     {
       "action": "export-save",
@@ -655,7 +655,7 @@
           "scent": null
         }
       },
-      "wallMs": 169339
+      "wallMs": 176598
     },
     {
       "action": "interact",
@@ -665,12 +665,12 @@
         "x": 1380,
         "y": 680
       },
-      "wallMs": 169903
+      "wallMs": 177142
     },
     {
       "action": "capture",
       "detail": "shade-safe-side",
-      "wallMs": 173956
+      "wallMs": 181283
     },
     {
       "action": "walk",
@@ -678,7 +678,7 @@
         "x": 1455,
         "y": 760
       },
-      "wallMs": 175141
+      "wallMs": 182480
     },
     {
       "action": "interact",
@@ -688,7 +688,7 @@
         "x": 100,
         "y": 770
       },
-      "wallMs": 176352
+      "wallMs": 183708
     },
     {
       "action": "camera-pan",
@@ -696,12 +696,12 @@
         "dx": 500,
         "dy": -130
       },
-      "wallMs": 178664
+      "wallMs": 186045
     },
     {
       "action": "scene",
       "detail": "home",
-      "wallMs": 187121
+      "wallMs": 194527
     },
     {
       "action": "interact",
@@ -711,7 +711,7 @@
         "x": 350,
         "y": 420
       },
-      "wallMs": 187713
+      "wallMs": 195130
     },
     {
       "action": "camera-pan",
@@ -719,12 +719,12 @@
         "dx": 500,
         "dy": 70
       },
-      "wallMs": 190281
+      "wallMs": 197696
     },
     {
       "action": "choose",
       "detail": "life:leaf:sun:lower",
-      "wallMs": 197688
+      "wallMs": 205067
     },
     {
       "action": "interact",
@@ -734,12 +734,12 @@
         "x": 350,
         "y": 420
       },
-      "wallMs": 199684
+      "wallMs": 207059
     },
     {
       "action": "choose",
       "detail": "life:leaf:sun:bag",
-      "wallMs": 200356
+      "wallMs": 207723
     },
     {
       "action": "interact",
@@ -749,12 +749,12 @@
         "x": 350,
         "y": 420
       },
-      "wallMs": 202328
+      "wallMs": 209721
     },
     {
       "action": "choose",
       "detail": "life:leaf:sun:upper",
-      "wallMs": 202992
+      "wallMs": 210391
     },
     {
       "action": "interact",
@@ -764,12 +764,12 @@
         "x": 350,
         "y": 420
       },
-      "wallMs": 204895
+      "wallMs": 212289
     },
     {
       "action": "choose",
       "detail": "life:leaf:shade:lower",
-      "wallMs": 206646
+      "wallMs": 214026
     },
     {
       "action": "interact",
@@ -779,12 +779,12 @@
         "x": 350,
         "y": 420
       },
-      "wallMs": 208549
+      "wallMs": 215935
     },
     {
       "action": "choose",
       "detail": "life:harvest:deliver",
-      "wallMs": 209211
+      "wallMs": 216603
     },
     {
       "action": "interact",
@@ -794,12 +794,12 @@
         "x": 350,
         "y": 420
       },
-      "wallMs": 211201
+      "wallMs": 218593
     },
     {
       "action": "capture",
       "detail": "both-errands-home",
-      "wallMs": 215335
+      "wallMs": 222697
     },
     {
       "action": "interact",
@@ -809,7 +809,7 @@
         "x": 1640,
         "y": 690
       },
-      "wallMs": 216828
+      "wallMs": 224032
     },
     {
       "action": "camera-pan",
@@ -817,12 +817,12 @@
         "dx": -500,
         "dy": -250
       },
-      "wallMs": 219338
+      "wallMs": 226402
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wallMs": 227167
+      "wallMs": 234290
     },
     {
       "action": "interact",
@@ -832,7 +832,7 @@
         "x": 1640,
         "y": 370
       },
-      "wallMs": 227719
+      "wallMs": 234838
     },
     {
       "action": "camera-pan",
@@ -840,12 +840,12 @@
         "dx": -500,
         "dy": 270
       },
-      "wallMs": 230071
+      "wallMs": 237211
     },
     {
       "action": "scene",
       "detail": "workshop",
-      "wallMs": 239593
+      "wallMs": 246803
     },
     {
       "action": "walk",
@@ -853,18 +853,18 @@
         "x": 420,
         "y": 820
       },
-      "wallMs": 239986
+      "wallMs": 247200
     },
     {
       "action": "keyboard-approach-live-beast",
       "detail": {},
-      "wallMs": 242270
+      "wallMs": 249612
     },
     {
       "action": "use-sachet-near-live-beast",
       "detail": {
         "player": {
-          "x": 638.7564796824458,
+          "x": 641.4231463491125,
           "y": 819.2071219535734,
           "hp": 4,
           "mana": 0,
@@ -882,16 +882,16 @@
           {
             "id": "beast_a",
             "hp": 3,
-            "distance": 113.28427727586227
+            "distance": 107.29210025903048
           }
         ]
       },
-      "wallMs": 243981
+      "wallMs": 252007
     },
     {
       "action": "capture",
       "detail": "sachet-repels",
-      "wallMs": 250985
+      "wallMs": 260871
     },
     {
       "action": "export-current-life",
@@ -916,13 +916,13 @@
           "clamp": "bag",
           "sachets": 1,
           "scent": {
-            "remaining": 5.5166666666666755,
+            "remaining": 4.900000000000011,
             "scene": "workshop"
           }
         },
         "scene": "workshop"
       },
-      "wallMs": 252521
+      "wallMs": 262814
     }
   ],
   "observations": {
@@ -1058,7 +1058,7 @@
     "repair-tested": {
       "state": {
         "scene": "workshop",
-        "time": 197.5833333333827,
+        "time": 198.3333333333833,
         "player": {
           "x": 1429.9852297889738,
           "y": 545.1868627528593,
@@ -1150,7 +1150,7 @@
         "events": [
           {
             "seq": 41,
-            "time": 188.10000000004183,
+            "time": 188.58333333337555,
             "type": "fire",
             "text": "炉芯燃起，挂扣上的旧胶松开了；现在可以校直活动钳口。",
             "x": 1320,
@@ -1159,7 +1159,7 @@
           },
           {
             "seq": 42,
-            "time": 190.1166666667101,
+            "time": 190.81666666671066,
             "type": "change",
             "text": "止挡扣到右侧刻线处。把钳口牵到刻线，再放下、压紧。",
             "x": 1450,
@@ -1168,7 +1168,7 @@
           },
           {
             "seq": 43,
-            "time": 192.2000000000451,
+            "time": 192.91666666671233,
             "type": "pull",
             "text": "灵线牵住活动钳口。点空地改变落点，按「放下」结束。",
             "x": 1360,
@@ -1177,7 +1177,7 @@
           },
           {
             "seq": 44,
-            "time": 194.53333333338028,
+            "time": 195.25000000004752,
             "type": "change",
             "text": "钳口压紧，挂扣已经校直。再拉一次压柄，实际检验承重。",
             "x": 1450,
@@ -1186,7 +1186,7 @@
           },
           {
             "seq": 45,
-            "time": 195.78333333338128,
+            "time": 196.53333333338188,
             "type": "note",
             "text": "压柄落下，静止一息，看挂扣能否承稳。",
             "x": 1450,
@@ -1195,7 +1195,7 @@
           },
           {
             "seq": 46,
-            "time": 196.78333333338207,
+            "time": 197.53333333338267,
             "type": "change",
             "text": "挂扣承住试重，没有回歪；可以回石驿交还陶七。",
             "x": 1450,
@@ -1209,13 +1209,13 @@
     "repair-reward": {
       "state": {
         "scene": "home",
-        "time": 240.4500000000835,
+        "time": 242.20000000008488,
         "player": {
-          "x": 1111.0686767582492,
-          "y": 479.90936244951985,
+          "x": 1114.6815168086412,
+          "y": 474.2184152895725,
           "hp": 4,
           "mana": 1,
-          "facing": 2.8986645033201945,
+          "facing": 2.8460550981378883,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -1301,25 +1301,25 @@
         "events": [
           {
             "seq": 48,
-            "time": 229.11666666674114,
+            "time": 229.9000000000751,
             "type": "return",
             "text": "木车已进了院，路上的人正沿你修开的低滩来。"
           },
           {
             "seq": 49,
-            "time": 229.11666666674114,
+            "time": 229.9000000000751,
             "type": "scene",
             "text": "回石驿"
           },
           {
             "seq": 50,
-            "time": 232.83333333341076,
+            "time": 233.8000000000782,
             "type": "growth",
             "text": "陶七接过修稳的挂扣：“止挡用得明白，松手也不偏。”他给你一枚可回收压扣；在工位把试件牵到固定眼，扣稳后就能腾手。"
           },
           {
             "seq": 51,
-            "time": 235.1333333334126,
+            "time": 236.50000000008035,
             "type": "pull",
             "text": "灵线牵住挂扣试件。点空地改变落点，按「放下」结束。",
             "x": 990,
@@ -1328,7 +1328,7 @@
           },
           {
             "seq": 52,
-            "time": 237.56666666674786,
+            "time": 239.30000000008258,
             "type": "change",
             "text": "压扣咬进固定眼，物件由木托承住，松开术法也能腾手。",
             "x": 1030,
@@ -1337,7 +1337,7 @@
           },
           {
             "seq": 53,
-            "time": 238.9500000000823,
+            "time": 240.73333333341705,
             "type": "change",
             "text": "试件留在工位承托处，压扣已经收回。",
             "x": 1030,
@@ -1351,13 +1351,13 @@
     "sun-leaf": {
       "state": {
         "scene": "creek",
-        "time": 268.2500000000847,
+        "time": 270.05000000008306,
         "player": {
-          "x": 1334.7033936600365,
-          "y": 256.87506517434014,
+          "x": 1326.7964532392607,
+          "y": 255.65839217706477,
           "hp": 4,
           "mana": 0,
-          "facing": 0.15267658581474536,
+          "facing": 0.15267658581474763,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -1448,31 +1448,31 @@
         "events": [
           {
             "seq": 56,
-            "time": 256.4666666667621,
+            "time": 258.2833333334271,
             "type": "change",
             "text": "远处绳梯搭到入口，旧眺台的路打开了。"
           },
           {
             "seq": 57,
-            "time": 259.78333333342573,
+            "time": 261.63333333342405,
             "type": "place",
             "text": "你实际走上旧眺台，凹台里风轻了。"
           },
           {
             "seq": 58,
-            "time": 261.01666666675794,
+            "time": 262.83333333342296,
             "type": "change",
             "text": "你徒手放下回程梯，入口已有稳固退路。灵力用尽也能走回。"
           },
           {
             "seq": 59,
-            "time": 264.7000000000879,
+            "time": 266.5000000000863,
             "type": "relationship",
             "text": "许照和你一起登上眺台，在旧采药记号旁添了今日共同认出的路。"
           },
           {
             "seq": 60,
-            "time": 265.5333333334205,
+            "time": 267.2833333334189,
             "type": "note",
             "text": "俯身剪取上部叶片；移动或受击会中断，根仍留在原处。",
             "x": 1420,
@@ -1481,7 +1481,7 @@
           },
           {
             "seq": 61,
-            "time": 267.55000000008533,
+            "time": 269.30000000008374,
             "type": "item",
             "text": "剪下向阳叶，根与嫩叶留在石边。",
             "x": 1420,
@@ -1495,13 +1495,13 @@
     "shade-safe-side": {
       "state": {
         "scene": "creek",
-        "time": 283.8500000000705,
+        "time": 285.9166666667353,
         "player": {
-          "x": 1455.1839172983175,
-          "y": 679.4275091207948,
+          "x": 1455.1938074443688,
+          "y": 679.3974042254575,
           "hp": 4,
           "mana": 0,
-          "facing": 1.8816400379975236,
+          "facing": 1.8819689899733374,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -1592,19 +1592,19 @@
         "events": [
           {
             "seq": 58,
-            "time": 261.01666666675794,
+            "time": 262.83333333342296,
             "type": "change",
             "text": "你徒手放下回程梯，入口已有稳固退路。灵力用尽也能走回。"
           },
           {
             "seq": 59,
-            "time": 264.7000000000879,
+            "time": 266.5000000000863,
             "type": "relationship",
             "text": "许照和你一起登上眺台，在旧采药记号旁添了今日共同认出的路。"
           },
           {
             "seq": 60,
-            "time": 265.5333333334205,
+            "time": 267.2833333334189,
             "type": "note",
             "text": "俯身剪取上部叶片；移动或受击会中断，根仍留在原处。",
             "x": 1420,
@@ -1613,7 +1613,7 @@
           },
           {
             "seq": 61,
-            "time": 267.55000000008533,
+            "time": 269.30000000008374,
             "type": "item",
             "text": "剪下向阳叶，根与嫩叶留在石边。",
             "x": 1420,
@@ -1622,7 +1622,7 @@
           },
           {
             "seq": 62,
-            "time": 281.08333333340636,
+            "time": 283.05000000007124,
             "type": "note",
             "text": "俯身剪取上部叶片；移动或受击会中断，根仍留在原处。",
             "x": 1380,
@@ -1631,7 +1631,7 @@
           },
           {
             "seq": 63,
-            "time": 283.1000000000712,
+            "time": 285.06666666673607,
             "type": "item",
             "text": "剪下背阴叶，根与嫩叶留在石边。",
             "x": 1380,
@@ -1645,13 +1645,13 @@
     "both-errands-home": {
       "state": {
         "scene": "home",
-        "time": 314.31666666670947,
+        "time": 316.4333333333742,
         "player": {
-          "x": 440.78254464867905,
-          "y": 438.93274569111736,
+          "x": 435.47276585955115,
+          "y": 438.4320525166368,
           "hp": 4,
           "mana": 0,
-          "facing": -3.047574232513495,
+          "facing": -3.0475742325134956,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -1742,37 +1742,37 @@
         "events": [
           {
             "seq": 65,
-            "time": 295.73333333339303,
+            "time": 297.8500000000578,
             "type": "scene",
             "text": "回石驿"
           },
           {
             "seq": 66,
-            "time": 306.21666666671683,
+            "time": 308.3333333333816,
             "type": "change",
             "text": "细长向阳叶放在下层。"
           },
           {
             "seq": 67,
-            "time": 307.6333333333822,
+            "time": 309.75000000004695,
             "type": "change",
             "text": "细长向阳叶已取回，可重新放置。"
           },
           {
             "seq": 68,
-            "time": 309.03333333338094,
+            "time": 311.1500000000457,
             "type": "change",
             "text": "细长向阳叶放在上层。"
           },
           {
             "seq": 69,
-            "time": 310.3500000000464,
+            "time": 312.46666666671115,
             "type": "change",
             "text": "宽圆背阴叶放在下层。"
           },
           {
             "seq": 70,
-            "time": 311.6666666667119,
+            "time": 313.7833333333766,
             "type": "growth",
             "text": "晒架添了两层新叶。许照提起这次在身旁一起辨过的干路。她把两份避兽药囊交给你：只在林路脚边拆开，山兽绕行片刻；不伤兽，对人和落石无效。"
           }
@@ -1783,9 +1783,9 @@
     "sachetMovement": {
       "before": {
         "scene": "workshop",
-        "time": 341.5000000000181,
+        "time": 343.53333333334956,
         "player": {
-          "x": 638.7564796824458,
+          "x": 641.4231463491125,
           "y": 819.2071219535734,
           "hp": 4,
           "mana": 0,
@@ -1880,37 +1880,37 @@
         "events": [
           {
             "seq": 68,
-            "time": 309.03333333338094,
+            "time": 311.1500000000457,
             "type": "change",
             "text": "细长向阳叶放在上层。"
           },
           {
             "seq": 69,
-            "time": 310.3500000000464,
+            "time": 312.46666666671115,
             "type": "change",
             "text": "宽圆背阴叶放在下层。"
           },
           {
             "seq": 70,
-            "time": 311.6666666667119,
+            "time": 313.7833333333766,
             "type": "growth",
             "text": "晒架添了两层新叶。许照提起这次在身旁一起辨过的干路。她把两份避兽药囊交给你：只在林路脚边拆开，山兽绕行片刻；不伤兽，对人和落石无效。"
           },
           {
             "seq": 71,
-            "time": 324.80000000003326,
+            "time": 326.66666666669823,
             "type": "scene",
             "text": "雨后溪道"
           },
           {
             "seq": 72,
-            "time": 337.0666666666888,
+            "time": 339.016666666687,
             "type": "scene",
             "text": "林路与旧工棚"
           },
           {
             "seq": 73,
-            "time": 340.2166666666859,
+            "time": 342.20000000001744,
             "type": "alert",
             "text": "护食山兽看见了你的动静。",
             "x": 720,
@@ -1921,9 +1921,9 @@
       },
       "after": {
         "scene": "workshop",
-        "time": 342.8333333333502,
+        "time": 345.1333333333481,
         "player": {
-          "x": 638.7564796824458,
+          "x": 641.4231463491125,
           "y": 819.2071219535734,
           "hp": 4,
           "mana": 0,
@@ -1957,12 +1957,12 @@
           "clamp": "bag",
           "sachets": 1,
           "scent": {
-            "remaining": 6.666666666666671,
+            "remaining": 6.400000000000006,
             "scene": "workshop"
           }
         },
         "flags": {
-          "eventSeq": 75,
+          "eventSeq": 76,
           "companion": "following",
           "visited_home": true,
           "wardCooldown": 0,
@@ -2020,26 +2020,20 @@
         "dialogue": null,
         "events": [
           {
-            "seq": 70,
-            "time": 311.6666666667119,
-            "type": "growth",
-            "text": "晒架添了两层新叶。许照提起这次在身旁一起辨过的干路。她把两份避兽药囊交给你：只在林路脚边拆开，山兽绕行片刻；不伤兽，对人和落石无效。"
-          },
-          {
             "seq": 71,
-            "time": 324.80000000003326,
+            "time": 326.66666666669823,
             "type": "scene",
             "text": "雨后溪道"
           },
           {
             "seq": 72,
-            "time": 337.0666666666888,
+            "time": 339.016666666687,
             "type": "scene",
             "text": "林路与旧工棚"
           },
           {
             "seq": 73,
-            "time": 340.2166666666859,
+            "time": 342.20000000001744,
             "type": "alert",
             "text": "护食山兽看见了你的动静。",
             "x": 720,
@@ -2048,20 +2042,29 @@
           },
           {
             "seq": 74,
-            "time": 341.5000000000181,
+            "time": 343.53333333334956,
             "type": "drop",
             "text": "药囊放在脚边，附近山兽会绕开这处气味八秒；仍要亲自行路。",
-            "x": 638.7564796824458,
+            "x": 641.4231463491125,
             "y": 819.2071219535734,
             "targetId": "life_scent"
           },
           {
             "seq": 75,
-            "time": 341.81666666668445,
+            "time": 343.9000000000159,
             "type": "alert",
             "text": "护食山兽看见了你的动静。",
-            "x": 724.2879917695448,
-            "y": 695.0287876367582,
+            "x": 724.7668579110837,
+            "y": 693.2406907358325,
+            "targetId": "beast_a"
+          },
+          {
+            "seq": 76,
+            "time": 344.9333333333483,
+            "type": "alert",
+            "text": "护食山兽看见了你的动静。",
+            "x": 725.0887361489686,
+            "y": 692.7542010876858,
             "targetId": "beast_a"
           }
         ]
@@ -2070,16 +2073,16 @@
         {
           "id": "beast_a",
           "hp": 3,
-          "distance": 113.28427727586227
+          "distance": 107.29210025903048
         }
       ]
     },
     "sachet-repels": {
       "state": {
         "scene": "workshop",
-        "time": 343.98333333334915,
+        "time": 346.63333333334674,
         "player": {
-          "x": 638.7564796824458,
+          "x": 641.4231463491125,
           "y": 819.2071219535734,
           "hp": 4,
           "mana": 0,
@@ -2113,7 +2116,7 @@
           "clamp": "bag",
           "sachets": 1,
           "scent": {
-            "remaining": 5.5166666666666755,
+            "remaining": 4.900000000000011,
             "scene": "workshop"
           }
         },
@@ -2177,7 +2180,7 @@
         "events": [
           {
             "seq": 73,
-            "time": 340.2166666666859,
+            "time": 342.20000000001744,
             "type": "alert",
             "text": "护食山兽看见了你的动静。",
             "x": 720,
@@ -2186,44 +2189,44 @@
           },
           {
             "seq": 74,
-            "time": 341.5000000000181,
+            "time": 343.53333333334956,
             "type": "drop",
             "text": "药囊放在脚边，附近山兽会绕开这处气味八秒；仍要亲自行路。",
-            "x": 638.7564796824458,
+            "x": 641.4231463491125,
             "y": 819.2071219535734,
             "targetId": "life_scent"
           },
           {
             "seq": 75,
-            "time": 341.81666666668445,
+            "time": 343.9000000000159,
             "type": "alert",
             "text": "护食山兽看见了你的动静。",
-            "x": 724.2879917695448,
-            "y": 695.0287876367582,
+            "x": 724.7668579110837,
+            "y": 693.2406907358325,
             "targetId": "beast_a"
           },
           {
             "seq": 76,
-            "time": 342.8333333333502,
+            "time": 344.9333333333483,
+            "type": "alert",
+            "text": "护食山兽看见了你的动静。",
+            "x": 725.0887361489686,
+            "y": 692.7542010876858,
+            "targetId": "beast_a"
+          },
+          {
+            "seq": 77,
+            "time": 345.1333333333481,
             "type": "invalid",
             "text": "已有药囊在旧工棚起效，气味留在原地，不必重复拆开"
           },
           {
-            "seq": 77,
-            "time": 342.85000000001685,
-            "type": "alert",
-            "text": "护食山兽看见了你的动静。",
-            "x": 724.6188842402466,
-            "y": 694.5483836915095,
-            "targetId": "beast_a"
-          },
-          {
             "seq": 78,
-            "time": 343.88333333334924,
+            "time": 345.98333333334733,
             "type": "alert",
             "text": "护食山兽看见了你的动静。",
-            "x": 724.9497767109485,
-            "y": 694.0679797462607,
+            "x": 724.5829274894351,
+            "y": 693.5186848204878,
             "targetId": "beast_a"
           }
         ]
@@ -2252,7 +2255,7 @@
         "clamp": "bag",
         "sachets": 1,
         "scent": {
-          "remaining": 5.5166666666666755,
+          "remaining": 4.900000000000011,
           "scene": "workshop"
         }
       },
@@ -2276,7 +2279,7 @@
         "clamp": "bag",
         "sachets": 1,
         "scent": {
-          "remaining": 5.5166666666666755,
+          "remaining": 4.900000000000011,
           "scene": "workshop"
         }
       },
@@ -2291,5 +2294,5 @@
     "origin": "Real 0.2.2 UI export after main-route return",
     "lifePresent": false
   },
-  "completedAt": "2026-09-11T04:52:29.674Z"
+  "completedAt": "2026-09-11T06:16:28.555Z"
 }
