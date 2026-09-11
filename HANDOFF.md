@@ -1,3 +1,17 @@
+# 当前工作入口 · 0.7 集口白盒并行开发，0.6发行优先
+
+本工作树 `.worktrees/market-070` / `feat/market-070-whitebox`，基线 a167f79（0.6冻结runtime加下一章设计，尚不是0.6最终发行）。计划 docs/superpowers/plans/2026-09-11-market-whitebox.md；设计 design/ADVENTURE_070.md 和 BUILD_BRIEF_070_WHITEBOX.md。用户授权继续自主开发和里程碑推送，无待确认事项，不另建Goal。
+
+**0.6仍在 `.worktrees/kiln-060` / feat/kiln-060 跑完整r2，root必须继续监控并优先完成合入/部署/公网核验。** supervisor1134667，/tmp/xian-ni-060-verify-r2.log，exit同名.exit，拥有4187与唯一浏览器；0.7浏览器等0.6本地及公网验证全部释放后再开，不触动该树runtime/dist。当前正式公网仍0.5，不把这里package0.6.0当作0.7发布。
+
+已完成共享 simulationPorts：仅导出真实free/clearLine/emit/dialogue/closeDialogue与moveBody薄包装moveNpc（暂停/败退/非法dt不动）；不接入生产剧情或浏览器写接口。3新边界先RED后GREEN，ports/model/projectile三文件57测试PASS，tsc通过。
+
+规则代理 canal_rules_040 独占 src/whitebox/market-model.ts 和 tests/market-whitebox.test.ts；美术代理 canal_art_040 此次仅做白盒UI，独占market-whitebox.html、market-main.ts、market.css、vite.market-whitebox.config.ts；不生成生产美术。root拥有共享model、Git/构建/浏览器/后续QA脚本。所有实现仅在本树，0.6源码冻结。
+
+下一步收敛真实模型路径，独立构建；0.6发行完成后串行跑白盒实际输入。白盒北口只近身确认和实际折返，不证明生产跨图或联络路用途。正式生产需设计决定，不能提前补全图/迁移或部署白盒。保留旧研究和封版项目边界；无需重读下面历史全文。
+
+---
+
 # 当前工作入口 · 0.6 正式整版验证运行中
 
 工作目录 `.worktrees/kiln-060` / `feat/kiln-060`。最新已推 59e746b（public-check核对预期sourceCommit）、b624481（同行驱动）；47b6bd2（新窑完整专项证据与下章草案）；dfa0264为烧屏对话与真实零灵力恢复，之前 b19174c 美术/音乐、f04555c 脱困、a381f73 正式规则。主源码分支和公网仍为已核验0.5（7fea179，gh-pages f7972c2）。用户“继续，别停”，自主设计/实施/测试/推送和既定公网部署授权，无待确认事项。不要重读聊天/原书或碰封版项目；不另建推断Goal。

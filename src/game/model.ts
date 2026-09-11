@@ -681,3 +681,13 @@ export function objective(s:GameState):string {
   return '带着试稳的控物环，回溪道再去石渡';
 }
 export { snapshot, restore } from './save';
+
+/** Shared engine operations for isolated experience prototypes. These are never
+ * installed on the browser inspection API and do not add production content. */
+export const simulationPorts = Object.freeze({
+  free, clearLine, emit, dialogue, closeDialogue,
+  moveNpc(s:GameState,npc:Entity,to:Vec,speed:number,dt:number):void {
+    if(s.paused||s.dialogue||s.defeated||!Number.isFinite(dt)||dt<=0)return;
+    moveBody(s,npc,to,speed,dt,npc.id);
+  },
+});
