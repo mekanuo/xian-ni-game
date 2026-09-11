@@ -72,3 +72,10 @@ html,body{overscroll-behavior:none}button{touch-action:manipulation;-webkit-tap-
   .location>span{display:none}
   .location h2{display:table;margin:0 auto 5px;padding:5px 20px 7px;color:#f1e8cd;background:#294a43eb;border:1px solid #b8a47799;box-shadow:0 3px 15px #18372e24;text-shadow:none;font-size:24px;letter-spacing:.18em;border-radius:2px}
 }
+
+/* Keep the phone pause control beside the collapsed observation, never under it. */
+@media(max-width:600px){
+ .pause-state{top:calc(151px + env(safe-area-inset-top));left:auto;right:10px;transform:none;max-width:calc(100vw - 166px)}
+ .pause-state button{width:100%;min-height:44px;font-size:12px;padding:8px 10px;white-space:normal}
+ #interface:has(.observation.expanded) .pause-state{visibility:hidden}
+}

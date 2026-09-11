@@ -6,6 +6,7 @@ import { GameUI, type Settings } from './ui';
 import { Soundscape } from './audio';
 import { display } from './display';
 import { Feedback } from './feedback';
+import { playerPose, visibleLabels, type LabelBox } from './presentation';
 import { paintTerrain } from './terrain';
 import { inspectObject, placementAnchors } from './encounters';
 import { drawWayfinding, configureWayfindingLabel } from './wayfinding';
@@ -39,6 +40,7 @@ export class WorldScene extends Phaser.Scene {
   private lastX=0;
   private lastY=0;
   private walking=0;
+  private motionMoving=false;
   private keys!: Record<string, Phaser.Input.Keyboard.Key>;
   private casting=false;
   private hovered?: Entity;
@@ -117,6 +119,7 @@ export class WorldScene extends Phaser.Scene {
       inspect:()=>JSON.parse(snapshot(this.state)),
       screenPoint:(x:number,y:number)=>{const c=this.cameras.main,o=c.getWorldPoint(0,0);return{x:(x-o.x)*c.zoom/display.density,y:(y-o.y)*c.zoom/display.density};},
       scene:()=>SCENES[this.state.scene],
+      presentation:()=>({player:{x:this.playerImage?.x,y:this.playerImage?.y,angle:this.playerImage?.angle,scaleY:this.playerImage?.scaleY,flipX:this.playerImage?.flipX},labels:[...this.renders.entries()].filter(([,r])=>r.container.visible&&r.label.visible).map(([id,r])=>({id,text:r.label.text,bounds:{x:r.label.getBounds().x,y:r.label.getBounds().y,w:r.label.width,h:r.label.height}}))}),
       audio:()=>this.soundscape.inspect(),
       feedback:()=>({active:this.feedback.active.map(e=>({...e})),recent:this.feedback.recent.map(e=>({...e}))}),
     }});
@@ -252,7 +255,7 @@ export class WorldScene extends Phaser.Scene {
     if(this.renderedScene!==this.state.scene)this.refreshScene();
     const ground=`${this.state.scene}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.platformOpen}:${this.state.flags.returned}:${this.state.flags.chime}:${this.state.flags.endingWish}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}`;
     if(ground!==this.groundVersion){this.groundVersion=ground;this.paintLandscape();}
-    this.feedback.advance(delta);
+    if(!this.state.paused&&!this.state.dialogue&&!this.state.defeated)this.feedback.advance(delta);
     for(const event of this.feedback.ingest(this.state.events,this.state.player)){
       if(this.ui.isTitle)continue;
       this.soundscape.play(event.type);
@@ -261,21 +264,20 @@ export class WorldScene extends Phaser.Scene {
     this.drawEntities(delta);this.drawEffects();
     const p=this.state.player;
     const moving=Math.hypot(p.x-this.lastX,p.y-this.lastY)>.01;
-    if(moving)this.walking+=delta*.012;
+    if(!this.state.paused&&!this.state.dialogue){this.motionMoving=moving;if(moving)this.walking+=delta*.012;}
     if(moving&&!this.state.paused){this.stepClock+=delta;if(this.stepClock>340){this.stepClock=0;this.soundscape.play('step');}}else this.stepClock=250;
-    this.player.setPosition(p.x,p.y+(!this.settings.reduced&&moving?Math.sin(this.walking*2)*1.8:0)).setDepth(p.y+100);
+    this.player.setPosition(p.x,p.y).setDepth(p.y+100);
     const targetScale=this.textures.exists('characters')? .13 : 1;
     if(this.playerImage){
       const hit=this.feedback.active.filter(e=>e.kind==='hurt'&&e.age<240).at(-1);
-      const kick=hit&&!this.settings.reduced?Math.sin(Math.PI*hit.age/240)*9:0;
-      const casting=Boolean(this.state.flags.casting);
-      this.playerImage.setFrame(String(this.state.profile.appearance)).setFlipX(Math.cos(p.facing)<0);
-      this.playerImage.setPosition(-Math.cos(p.facing)*kick,5-Math.sin(p.facing)*kick);
-      this.playerImage.setAngle(!this.settings.reduced?(hit?-kick*.8:casting?-7: moving?Math.sin(this.walking)*2:0):0);
-      this.playerImage.setScale(targetScale).setAlpha(p.invulnerable>0&&Math.sin(this.state.time*25)>0?.65:1);
+      const pose=playerPose(this.state,this.motionMoving,this.walking,this.settings.reduced,hit?.age??null);
+      this.playerImage.setFrame(String(this.state.profile.appearance)).setFlipX(pose.flipX);
+      this.playerImage.setPosition(pose.x,pose.y).setAngle(pose.angle);
+      this.playerImage.setScale(targetScale,targetScale*pose.scaleY).setAlpha(p.invulnerable>0&&Math.sin(this.state.time*25)>0?.65:1);
       if(hit&&hit.age<120)this.playerImage.setTintFill(0xffdfcd);else this.playerImage.clearTint();
     }
     this.playerHand.clear();
+    if(this.state.life.harvest.picking){const side=this.playerImage?.flipX?-1:1;this.playerHand.lineStyle(2,0xa0ae88,.8);this.playerHand.lineBetween(side*12,-23,side*21,-19);this.playerHand.lineBetween(side*16,-23,side*22,-26);}
     if((p.pullId&&p.hold<=0)||this.casting){const side=Math.cos(p.facing)>0?1:-1;this.playerHand.fillStyle(0xa9c9b8,.2);this.playerHand.fillCircle(side*20,-36,6);}
     this.lastX=p.x;this.lastY=p.y;
     if(!this.cameraManual){
@@ -286,7 +288,7 @@ export class WorldScene extends Phaser.Scene {
     this.uiClock+=delta;if(this.uiClock>110){this.uiClock=0;this.ui.update();}
   }
   private refreshScene(){
-    this.renderedScene=this.state.scene;
+    this.renderedScene=this.state.scene;this.motionMoving=false;this.walking=0;this.lastX=this.state.player.x;this.lastY=this.state.player.y;
     this.renders.forEach(r=>r.container.destroy());this.renders.clear();
     this.worldLabels.removeAll(true);
     this.feedback.active=[];this.impactLabels.forEach(label=>label.destroy());this.impactLabels.clear();
@@ -607,11 +609,16 @@ export class WorldScene extends Phaser.Scene {
         const kick=hit&&!this.settings.reduced?Math.sin(Math.PI*hit.age/260)*13:0;
         r.image.setPosition(hit?Math.cos(hit.angle)*kick:0,5+(hit?Math.sin(hit.angle)*kick:0));
         r.image.setFlipX(Math.cos(e.facing??0)<0);
-        r.image.setAngle(!this.state.paused&&!this.settings.reduced?(hit?kick*.7:e.state==='casting'?-7:['following','chasing','helping'].includes(e.state)?Math.sin(this.state.time*9)*2:0):0);
+        r.image.setAngle(!this.settings.reduced?(hit?kick*.7:e.state==='casting'?-7:['following','chasing','helping'].includes(e.state)?Math.sin(this.state.time*9)*2:0):0);
         if(hit&&hit.age<100)r.image.setTintFill(0xffe8b8);else r.image.clearTint();
       }
       if(['defeated','retreated'].includes(e.state))r.container.setAlpha(.45);else r.container.setAlpha(1);
     }
+    const boxes:LabelBox[]=[];
+    const focus=this.pointerOverWorld&&!this.ui.blocked?this.entityAt({x:this.input.activePointer.worldX,y:this.input.activePointer.worldY})?.id:undefined;
+    for(const e of this.state.worlds[this.state.scene]){const r=this.renders.get(e.id);if(!r?.container.visible||!r.label.visible||e.kind==='exit')continue;
+      const b=r.label.getBounds();boxes.push({id:e.id,x:b.x,y:b.y,w:b.width,h:b.height,priority:e.id===focus?-1000:Math.hypot(e.x-this.state.player.x,e.y-this.state.player.y)});}
+    const shown=new Set(visibleLabels(boxes));for(const box of boxes)this.renders.get(box.id)!.label.setVisible(shown.has(box.id));
     const p=this.input.activePointer,pointerVisible=this.pointerOverWorld&&(!p.wasTouch||p.isDown);
     this.hovered=pointerVisible?this.entityAt({x:p.worldX,y:p.worldY}):undefined;
     if(pointerVisible&&!this.ui.blocked&&!this.state.dialogue&&(this.hovered||this.casting)){
