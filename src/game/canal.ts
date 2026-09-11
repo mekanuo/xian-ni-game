@@ -1,3 +1,4 @@
+import {companionAvailable} from './companion';
 import type {ActionResult,CanalState,DialogueChoice,Entity,GameState,Vec} from './contracts';
 import type {LifePorts} from './life';
 import {CANAL_CHANNEL,CANAL_SIDE,CANAL_POINTS as P,type CanalRect} from './canal-content';
@@ -11,7 +12,7 @@ const handFree=(s:GameState)=>!s.player.pullId||s.player.hold>0;
 const unlocked=(s:GameState)=>s.flags.endingWish==='stay'||s.flags.endingWish==='travel';
 const inside=(v:Vec,r:CanalRect,pad=0)=>v.x>=r.x-pad&&v.x<=r.x+r.w+pad&&v.y>=r.y-pad&&v.y<=r.y+r.h+pad;
 export const canalInsideChannel=(v:Vec)=>inside(v,CANAL_CHANNEL);
-const near=(s:GameState,e:Entity|undefined,p:LifePorts):e is Entity=>!!e&&e.state!=='hidden'&&distance(s.player,e)<96&&p.free(s,s.player)&&p.clearLine(s,s.player,e,e.id);
+const near=(s:GameState,e:Entity|undefined,p:LifePorts):e is Entity=>!!e&&(e.type!=='xu'||companionAvailable(s))&&e.state!=='hidden'&&distance(s.player,e)<96&&p.free(s,s.player)&&p.clearLine(s,s.player,e,e.id);
 const shared=(s:GameState)=>s.flags.companion==='following'&&s.worlds.canal.some(e=>e.type==='xu'&&distance(e,s.player)<165);
 const diverted=(s:GameState)=>{const e=object(s,'canal_diverter');return !!e&&distance(e,P.diverterSide)<=8;};
 const stopped=(s:GameState)=>{const e=object(s,'canal_stop');return !!e&&distance(e,P.stopSlot)<=8&&(s.life.clamp==='canal'||s.player.pullId===e.id);};

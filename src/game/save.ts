@@ -7,12 +7,15 @@ import { createJourneyState } from './journey';
 import { initialJourneyEntities, getJourneyRoute } from './journey-content';
 import { createKilnState } from './kiln';
 import { KILN_SCENE, KILN_POINTS, initialKilnEntries } from './kiln-content';
-import type { CanalState, ClampSite, Entity, GameAction, GameState, LifeState, SceneId, Vec } from './contracts';
+import { createMarketState } from './market';
+import { MARKET_SCENE, MARKET_POINTS, initialMarketEntries } from './market-content';
+import type { CanalState, ClampSite, Entity, GameAction, GameState, LifeState, SceneId, Vec, MarketPassages } from './contracts';
 
 export const MAX_SAVE_BYTES = 2_000_000;
 const oldScenes: SceneId[] = ['home','creek','workshop','crossing'];
 const fiveScenes: SceneId[] = [...oldScenes,'canal'];
-const scenes: SceneId[] = [...fiveScenes,'kiln'];
+const sixScenes: SceneId[] = [...fiveScenes,'kiln'];
+const scenes: SceneId[] = [...sixScenes,'market'];
 const record = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 const finitePoint = (p: Vec): boolean => !!p && finite(p.x) && finite(p.y);
@@ -46,11 +49,11 @@ export function validateLife(l: LifeState, legacy = false): void {
   check(l.scent===null || l.sachets<2, '药囊已拆开但份数未扣除');
 }
 
-function validateEntities(s: GameState, version: 1|2|3|4|5): void {
-  const manifest=version===5?scenes:version>=3?fiveScenes:oldScenes;
+function validateEntities(s: GameState, version: 1|2|3|4|5|6): void {
+  const manifest=version===6?scenes:version===5?sixScenes:version>=3?fiveScenes:oldScenes;
   check(record(s.worlds) && Object.keys(s.worlds).length===manifest.length && Object.keys(s.worlds).every(id=>manifest.includes(id as SceneId)), '存档场景清单无效');
   for(const id of manifest) {
-    const templates=[...(id==='kiln'?KILN_SCENE:id==='canal'?CANAL_SCENE:SCENES[id]).entities,...(version===1||id==='kiln'?[]:initialLifeEntities(id)),...(version>=4&&id!=='kiln'?initialJourneyEntities(id):[]),...(version===5?initialKilnEntries(id):[])];
+    const templates=[...(id==='market'?MARKET_SCENE:id==='kiln'?KILN_SCENE:id==='canal'?CANAL_SCENE:SCENES[id]).entities,...(version===1||!fiveScenes.includes(id)?[]:initialLifeEntities(id)),...(version>=4&&fiveScenes.includes(id)?initialJourneyEntities(id):[]),...(version>=5?initialKilnEntries(id):[]),...(version>=6?initialMarketEntries(id):[])];
     const list=s.worlds[id];
     check(Array.isArray(list)&&list.length===templates.length, '存档缺少场景器物');
     const seen=new Set<string>();
@@ -97,8 +100,86 @@ function validateLifeWorld(s: GameState, legacy = false): void {
 }
 
 export function validateManifest(s:GameState):void {
-  check(s.contentVersion===5,'存档内容版本不匹配');
-  validateEntities(s,5);validateLife(s.life);validateLifeWorld(s);validateCanal(s);validateJourney(s);validateKiln(s);
+  check(s.contentVersion===6,'存档内容版本不匹配');
+  validateEntities(s,6);validateLife(s.life);validateLifeWorld(s);validateCanal(s);validateJourney(s);validateKiln(s);validateMarket(s);
+}
+
+/** Market facts are checked against their physical state, never inferred from
+ * coordinates. A valid serialized ledger is not proof of real player input. */
+function validateMarket(s:GameState):void {
+  const m=s.market, epsilon=.001;
+  const keys=(value:unknown,allowed:string[])=>record(value)&&Object.keys(value).length===allowed.length&&Object.keys(value).every(key=>allowed.includes(key));
+  const passages=(value:MarketPassages)=>{
+    check(keys(value,['public','private']),'小集路线清单无效');
+    for(const route of ['public','private'] as const)check(keys(value[route],['westToEast','eastToWest'])&&Object.values(value[route]).every(v=>typeof v==='boolean'),'小集方向记录无效');
+  };
+  const any=(value:MarketPassages)=>Object.values(value).some(d=>Object.values(d).some(Boolean));
+  check(keys(m,['exchanged','visit','through','reported'])&&typeof m.exchanged==='boolean','小集账本格式无效');
+  passages(m.through);passages(m.reported);
+  for(const route of ['public','private'] as const)for(const direction of ['westToEast','eastToWest'] as const)check(!m.reported[route][direction]||m.through[route][direction],'小集报告缺少实际穿出记录');
+  check((s.scene==='market')===(m.visit!==null),'小集当前行程与地点不一致');
+  check(s.lastSafe.scene!=='market','小集没有静息安全点');
+  if(m.visit){
+    const v=m.visit;
+    check(keys(v,['entry','transit','passed'])&&['crossing','canal'].includes(v.entry),'小集行程入口无效');
+    passages(v.passed);
+    check(v.transit===null||keys(v.transit,['route','from'])&&['public','private'].includes(v.transit.route)&&['west','east'].includes(v.transit.from),'小集当前通道片段无效');
+  }
+  const visited=s.flags.visited_market===true;
+  check(s.flags.visited_market===undefined||typeof s.flags.visited_market==='boolean','小集到访标记无效');
+  check(!visited||s.journey.stage==='complete','回程落笔前不能进入小集');
+  check(visited||m.visit===null&&!m.exchanged&&!any(m.through)&&!any(m.reported),'未到访小集不能已有经历');
+  check(!m.exchanged||s.kiln.crossed.west||s.kiln.crossed.east,'小集交换缺少亲自走过旧窑的消息');
+  const door=s.worlds.market.find(e=>e.id==='market_door')!;
+  check(['closed','open'].includes(door.state)&&door.solid===(door.state==='closed')&&(door.state!=='open'||m.exchanged),'小集门闩状态与实际交换不一致');
+  check(!(Object.values(m.through.private).some(Boolean)||m.visit&&Object.values(m.visit.passed.private).some(Boolean))||door.state==='open','私巷经过记录缺少已开的门');
+
+  const structure=(e:Entity,t:Entity)=>{
+    check(e.w===t.w&&e.h===t.h&&e.homeX===(t.homeX??t.x)&&e.homeY===(t.homeY??t.y)&&e.movable===t.movable&&e.flammable===t.flammable&&(e.id==='market_door'||e.solid===t.solid),'小集器物结构或原位无效');
+    check(e.targetScene===t.targetScene&&(t.targetSpawn?finitePoint(e.targetSpawn!)&&distance(e.targetSpawn!,t.targetSpawn)<epsilon:e.targetSpawn===undefined),'小集出口目的地无效');
+  };
+  for(const scene of sixScenes)for(const t of initialMarketEntries(scene)){
+    const e=s.worlds[scene].find(e=>e.id===t.id)!;structure(e,t);
+    check(distance(e,t)<epsilon&&e.state===(s.journey.stage==='complete'?'idle':'hidden'),'小集入口位置或开放状态无效');
+  }
+  const inBounds=(e:Entity)=>e.x>=25&&e.x<=MARKET_SCENE.width-25&&e.y>=25&&e.y<=MARKET_SCENE.height-25;
+  // Actor feet use the same 17-unit static-wall clearance as model movement.
+  // The door is the only solid movable-state collider in this new map.
+  const freeActor=(e:Entity)=>inBounds(e)&&![...MARKET_SCENE.obstacles,...(door.solid?[{x:door.x-door.w/2,y:door.y-door.h/2,w:door.w,h:door.h}]:[])].some(r=>e.x>r.x-17&&e.x<r.x+r.w+17&&e.y>r.y-17&&e.y<r.y+r.h+17);
+  const home=MARKET_POINTS.merchant,latch=MARKET_POINTS.latch;
+  const onSegment=(e:Vec,a:Vec,b:Vec)=>{
+    const dx=b.x-a.x,dy=b.y-a.y,len=dx*dx+dy*dy;
+    const fraction=Math.max(0,Math.min(1,((e.x-a.x)*dx+(e.y-a.y)*dy)/len));
+    return distance(e,{x:a.x+fraction*dx,y:a.y+fraction*dy})<epsilon;
+  };
+  for(const t of MARKET_SCENE.entities){
+    const e=s.worlds.market.find(e=>e.id===t.id)!;structure(e,t);
+    if(e.id==='market_merchant'){
+      check(['idle','leading','waiting'].includes(e.state)&&freeActor(e),'小集办事人物状态或站位无效');
+      if(!m.exchanged)check(distance(e,home)<epsilon&&e.state==='idle','尚未交换不能提前离摊');
+      else if(door.state==='closed')check(onSegment(e,home,latch),'沈砚未沿实际移步路线开闩');
+      else{
+        // Opening stops within eight units, not necessarily at the exact latch.
+        // Preserve that actual x during the first vertical return segment.
+        const minX=latch.x-8*(latch.x-home.x)/distance(home,latch);
+        const diagonalY=home.y+(e.x-home.x)*(latch.y-home.y)/(latch.x-home.x);
+        check(e.x>=minX-epsilon&&e.x<=latch.x+epsilon&&e.y>=405-epsilon&&e.y<=diagonalY+epsilon||onSegment(e,{x:470,y:405},{x:latch.x,y:405})||onSegment(e,home,{x:470,y:405}),'沈砚回摊位置不在真实路线');
+      }
+    }else if(e.id==='xu_market'){
+      check(['hidden','following','waiting','refused'].includes(e.state)&&freeActor(e),'小集许照状态或站位无效');
+      check(e.state==='hidden'||visited,'许照不能出现在从未到访的小集');
+      check(s.scene!=='market'||s.flags.companion!=='following'||e.state!=='hidden','小集内同行不能缺少实际在场人物');
+      check(s.scene==='market'||e.state==='hidden'||s.flags.companion!=='following','许照留在小集时不能在图外跟随');
+      check(e.state!=='following'||s.scene==='market'&&s.flags.companion==='following','小集跟随状态与全局约定不一致');
+    }else if(e.id==='decoy'){
+      check(inBounds(e)&&['idle','pulled','held','burning','burned'].includes(e.state),'小集空筐状态或位置无效');
+      if(e.state==='burning')check(finite(e.timer)&&e.timer>0&&e.timer<=12,'小集空筐燃烧计时无效');
+      if(e.state==='burned')check(e.timer===0,'小集空筐残骸计时无效');
+      const owned=s.scene==='market'&&s.player.pullId===e.id;
+      check(owned?e.state===(s.player.hold>0?'held':'pulled'):e.state!=='held'&&e.state!=='pulled','小集空筐与牵引状态不一致');
+    }else if(e.kind==='enemy')check(inBounds(e)&&['idle','alert','chasing','searching','casting','retreated','peaceful'].includes(e.state)&&Number.isInteger(e.hp)&&e.hp!>=0&&e.hp!<=3,'小集散修状态无效');
+    else check(distance(e,t)<epsilon&&(e.id==='market_door'||e.state===t.state),'小集固定设施状态或位置无效');
+  }
 }
 
 function validateKiln(s:GameState):void {
@@ -217,13 +298,15 @@ export function migrateSave(json:string):string { return snapshot(restore(json))
 function restoreWorld(s:GameState):GameState {
   check(record(s),'存档世界格式无效');
   const version:unknown=s.contentVersion;
-  check(version===undefined||version===2||version===3||version===4||version===5,'存档内容版本不匹配');
+  check(version===undefined||version===2||version===3||version===4||version===5||version===6,'存档内容版本不匹配');
+  const beforeMarket=version!==6;
+  if(beforeMarket)check(!Object.hasOwn(s,'market')&&sixScenes.includes(s.scene)&&sixScenes.includes(s.lastSafe?.scene)&&record(s.flags)&&!Object.keys(s.flags).some(key=>key==='visited_market'||key.startsWith('market_')),'旧存档不能混入小集数据');
   const legacy=version===undefined;
   const beforeCanal=legacy||version===2;
   if(beforeCanal)check(!Object.hasOwn(s,'canal')&&oldScenes.includes(s.scene)&&oldScenes.includes(s.lastSafe?.scene),'旧存档不能混入旧渠数据');
   const beforeJourney=beforeCanal||version===3;
   if(beforeJourney)check(!Object.hasOwn(s,'journey'),'旧存档不能混入同行回程数据');
-  if(version!==5)check(!Object.hasOwn(s,'kiln')&&fiveScenes.includes(s.scene)&&fiveScenes.includes(s.lastSafe?.scene),'旧存档不能混入旧窑数据');
+  if(version!==5&&version!==6)check(!Object.hasOwn(s,'kiln')&&fiveScenes.includes(s.scene)&&fiveScenes.includes(s.lastSafe?.scene),'旧存档不能混入旧窑数据');
   if(legacy) {
     check(!('life' in s),'旧存档不能混入新版生活状态');
     validateEntities(s,1);
@@ -242,13 +325,21 @@ function restoreWorld(s:GameState):GameState {
     for(const id of fiveScenes)s.worlds[id].push(...initialJourneyEntities(id));
     s.journey=createJourneyState();
   }
-  if(version!==5){
+  if(version!==5&&version!==6){
     // Keep the v4 five-scene manifest immutable before adding the sixth map.
     validateEntities(s,4);validateLife(s.life);validateLifeWorld(s);validateCanal(s);validateJourney(s);
     s.worlds.kiln=KILN_SCENE.entities.map(e=>structuredClone({...e,homeX:e.x,homeY:e.y}));
     s.kiln=createKilnState();
     for(const id of fiveScenes)s.worlds[id].push(...initialKilnEntries(id).map(e=>structuredClone({...e,homeX:e.x,homeY:e.y,state:s.journey.stage==='complete'?'idle':'hidden'})));
-    s.contentVersion=5;
+
+  }
+  if(beforeMarket){
+    // Validate the complete source v5 world before adding any market objects.
+    validateEntities(s,5);validateLife(s.life);validateLifeWorld(s);validateCanal(s);validateJourney(s);validateKiln(s);
+    s.worlds.market=MARKET_SCENE.entities.map(e=>structuredClone({...e,homeX:e.homeX??e.x,homeY:e.homeY??e.y}));
+    s.market=createMarketState();
+    for(const id of sixScenes)s.worlds[id].push(...initialMarketEntries(id).map(e=>structuredClone({...e,homeX:e.x,homeY:e.y,state:s.journey.stage==='complete'?'idle':'hidden'})));
+    s.contentVersion=6;
   }
   if(!s||s.schema!==1||s.revision!=='return-stone-v1'||!scenes.includes(s.scene)||!s.profile||!['herbalist','tinker'].includes(s.profile.origin)||!['stay','travel'].includes(s.profile.wish)||typeof s.profile.name!=='string'||![0,1].includes(s.profile.appearance)||!s.player||!finitePoint(s.player)||!Number.isFinite(s.time)||s.time<0||!Number.isInteger(s.player.hp)||s.player.hp<0||s.player.hp>4||!Number.isInteger(s.player.mana)||s.player.mana<0||s.player.mana>6||!Array.isArray(s.player.path)||!s.player.path.every(finitePoint)||!s.worlds||!s.flags||Array.isArray(s.flags)||!Array.isArray(s.events)||!Array.isArray(s.projectiles)||!s.lastSafe||!scenes.includes(s.lastSafe.scene)||!finitePoint(s.lastSafe.point)||!['long','hold',null].includes(s.ringStyle)||!Number.isInteger(s.herbs)||s.herbs<0||s.herbs>2||typeof s.paused!=='boolean'||typeof s.ended!=='boolean'||typeof s.defeated!=='boolean')throw Error('存档版本或世界数据不匹配');
   if(!['pull','flame','ward'].includes(s.selected)||Object.values(s.flags).some(v=>!['boolean','string','number'].includes(typeof v)||(typeof v==='number'&&!Number.isFinite(v))))throw Error('存档标记数据无效');

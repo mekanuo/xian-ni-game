@@ -1,3 +1,4 @@
+import {companionAvailable} from './companion';
 import type { ActionResult, DialogueChoice, Entity, GameState, LeafId, LifeState, Vec } from './contracts';
 export interface LifePorts {
  free(s:GameState,p:Vec,pad?:number,ignoreId?:string):boolean;
@@ -11,7 +12,7 @@ const object=(s:GameState,id:string)=>s.worlds[s.scene].find(e=>e.id===id);
 const ok=(message?:string):ActionResult=>({ok:true,...(message?{message}:{})});
 const no=(message:string):ActionResult=>({ok:false,message});
 const freeHand=(s:GameState)=>!s.player.pullId||s.player.hold>0;
-const closeTo=(s:GameState,e:Entity|undefined,p:LifePorts):e is Entity=>!!e&&e.state!=='hidden'&&distance(s.player,e)<96&&p.free(s,s.player)&&p.clearLine(s,s.player,e,e.id);
+const closeTo=(s:GameState,e:Entity|undefined,p:LifePorts):e is Entity=>!!e&&(e.type!=='xu'||companionAvailable(s))&&e.state!=='hidden'&&distance(s.player,e)<96&&p.free(s,s.player)&&p.clearLine(s,s.player,e,e.id);
 const leafKey=(id:LeafId)=>id==='life_sun_leaf'?'sun':'shade';
 export function lifeUnlocked(s:GameState):boolean{return s.flags.endingWish==='stay'||s.flags.endingWish==='travel';}
 function reveal(s:GameState,ids:string[]){for(const group of Object.values(s.worlds))for(const e of group)if(ids.includes(e.id)&&e.state==='hidden')e.state='idle';}
@@ -22,7 +23,7 @@ export function lifeChoices(s:GameState,e:Entity):DialogueChoice[]{
   if(r.stage==='unaccepted')choices.push({id:'life:repair:accept',label:'帮陶七修一枚承重挂扣'});
   if(r.stage==='ready')choices.push({id:'life:repair:deliver',label:'交还已经试压的挂扣'});
  }
- if(e.type==='xu'||e.id==='herb_rack'){
+ if((e.type==='xu'||e.id==='herb_rack')&&companionAvailable(s)){
   if(h.stage==='unaccepted')choices.push({id:'life:harvest:accept',label:'看叶图，接下这次采叶'});
   if(e.id==='herb_rack'&&h.stage!=='complete'&&h.stage!=='unaccepted'){
    for(const key of ['sun','shade'] as const){const name=key==='sun'?'向阳叶':'背阴叶';if(h[key]==='bag')for(const place of ['upper','lower'] as const){const occupied=h[key==='sun'?'shade':'sun']===place;choices.push({id:`life:leaf:${key}:${place}`,label:`把${name}放到${place==='upper'?'上':'下'}层`,...(occupied?{disabled:'这一层已有另一束叶，先取回再换'}:{})});}else if(h[key]==='upper'||h[key]==='lower')choices.push({id:`life:leaf:${key}:bag`,label:`取回${name}，重新分层`});}
@@ -50,6 +51,7 @@ export function lifeChoose(s:GameState,id:string,p:LifePorts):ActionResult|undef
   r.stage='complete';s.life.clamp='bag';reveal(s,['life_home_eye','life_practice','life_lookout_eye']);p.emit(s,'growth',`陶七接过修稳的挂扣：${r.method==='hold'?'“你留势腾手压得稳。”':'“止挡用得明白，松手也不偏。”'}他给你一枚可回收压扣；在工位把试件牵到固定眼，扣稳后就能腾手。`);return ok();
  }
  if(id==='life:harvest:accept'){
+  if(!companionAvailable(s))return no('许照还在小集等候，等会合后再请她说明采叶');
   if(!homeTalk('harvest')||h.stage!=='unaccepted')return no('这次采叶已经接过了');
   h.stage='active';reveal(s,['life_sun_leaf','life_shade_leaf']);p.emit(s,'note','许照摊开叶图：眺台的向阳叶细长，晒架放上层；溪道窄段的背阴叶宽圆，放下层。剪叶留根；窄段可以向上护符，也能从东侧干路伸手采。');return ok();
  }
@@ -62,6 +64,7 @@ export function lifeChoose(s:GameState,id:string,p:LifePorts):ActionResult|undef
   p.emit(s,'change',`${k==='sun'?'细长向阳叶':'宽圆背阴叶'}${place==='bag'?'已取回，可重新放置':`放在${place==='upper'?'上':'下'}层`}。`);return ok();
  }
  if(id==='life:harvest:deliver'){
+  if(!companionAvailable(s))return no('叶子可以先放好，等许照回来再交代并领取药囊');
   if(s.scene!=='home'||!closeTo(s,object(s,'herb_rack'),p)||h.stage!=='ready'||h.sun!=='upper'||h.shade!=='lower')return no('细长向阳叶在上，宽圆背阴叶在下；放错可以取回');
   h.stage='complete';s.life.sachets=2;p.emit(s,'growth',`晒架添了两层新叶。${h.shared?'许照提起这次在身旁一起辨过的干路。':'许照听你说完独自辨路的经过。'}她把两份避兽药囊交给你：只在林路脚边拆开，山兽绕行片刻；不伤兽，对人和落石无效。`);return ok();
  }
@@ -76,7 +79,7 @@ export function lifeChoose(s:GameState,id:string,p:LifePorts):ActionResult|undef
    p.emit(s,'change','压扣咬进固定眼，物件由木托承住，松开术法也能腾手。',eye);return ok();
   }
   if(s.life.clamp!==site)return no('这里没有装着你的压扣');
-  if(site==='lookout'&&[s.player,...s.worlds.creek.filter(e=>e.type==='xu')].some(v=>Math.abs(v.x-1080)<43&&Math.abs(v.y-290)<75))return no('先让自己与同行者离开倾梁下方，再取回压扣');
+  if(site==='lookout'&&[s.player,...s.worlds.creek.filter(e=>e.type==='xu'&&companionAvailable(s))].some(v=>Math.abs(v.x-1080)<43&&Math.abs(v.y-290)<75))return no('先让自己与同行者离开倾梁下方，再取回压扣');
   e.state='idle';if(site==='lookout'){e.x=e.homeX!;e.y=e.homeY!;s.flags.platformOpen=Boolean(s.flags.platformReturn||s.flags.platformLong);}s.life.clamp='bag';p.emit(s,'change',site==='home'?'试件留在工位承托处，压扣已经收回。':`倾梁落回原位，压扣已经收回。${s.flags.platformReturn||s.flags.platformLong?'已有的梯路仍可通行。':'你在入口西侧，可重新安排通路。'}`,eye);return ok();
  }
  return no('这个工序当前不能进行');

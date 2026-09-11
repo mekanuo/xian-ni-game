@@ -1,4 +1,4 @@
-export type SceneId = 'home' | 'creek' | 'workshop' | 'crossing' | 'canal' | 'kiln';
+export type SceneId = 'home' | 'creek' | 'workshop' | 'crossing' | 'canal' | 'kiln' | 'market';
 export type Spell = 'pull' | 'flame' | 'ward';
 export type RingStyle = 'long' | 'hold' | null;
 export type LifeStage = 'unaccepted' | 'active' | 'ready' | 'complete';
@@ -20,6 +20,15 @@ export interface JourneyState {
 }
 export type KilnSide = 'west' | 'east';
 export interface KilnState { visited:boolean; entry:KilnSide|null; crossed:{west:boolean;east:boolean}; loan:'none'|'agreed'|'borrowed'|'returned'; shelterOpened:boolean; }
+export type MarketRoute = 'public' | 'private';
+export type MarketDirection = 'westToEast' | 'eastToWest';
+export type MarketPassages = Record<MarketRoute, Record<MarketDirection, boolean>>;
+export interface MarketState {
+ exchanged: boolean;
+ visit: null | {entry: 'crossing' | 'canal'; transit: null | {route: MarketRoute; from: 'west' | 'east'}; passed: MarketPassages};
+ through: MarketPassages;
+ reported: MarketPassages;
+}
 export type Vec = { x: number; y: number };
 export type Profile = { name: string; origin: 'herbalist' | 'tinker'; wish: 'stay' | 'travel'; appearance: 0 | 1 };
 export type EntityKind = 'npc' | 'object' | 'enemy' | 'exit' | 'rest' | 'scenery';
@@ -51,7 +60,7 @@ export interface GameState {
   ringStyle: RingStyle; herbs: number; selected: Spell; paused: boolean;
   dialogue: Dialogue | null; events: GameEvent[]; projectiles: Projectile[];
   pending: GameAction | null; ended: boolean; defeated: boolean;
-  checkpoint: string | null; contentVersion: 5; life: LifeState; canal: CanalState; journey: JourneyState; kiln: KilnState; lastSafe: { scene: SceneId; point: Vec };
+  checkpoint: string | null; contentVersion: 6; market: MarketState; life: LifeState; canal: CanalState; journey: JourneyState; kiln: KilnState; lastSafe: { scene: SceneId; point: Vec };
 }
 export type GameAction =
   | { type: 'move'; point: Vec }

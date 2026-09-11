@@ -1,3 +1,7 @@
+import {companionAvailable} from './companion';
+export {companionAvailable} from './companion';
+import { initialMarketEntries } from './market-content';
+import { createMarketState, marketRefresh, marketChoices, marketChoose, marketInteract, marketDescription, marketObjective, marketTick, marketAfterTravel, marketAbandonVisit } from './market';
 import { initialKilnEntries } from './kiln-content';
 import { createKilnState, kilnRefresh, kilnTick, kilnChoose, kilnInteract, kilnBeforeTravel, kilnObjective } from './kiln';
 import { initialJourneyEntities } from './journey-content';
@@ -17,12 +21,14 @@ const journeyPorts={...lifePorts,
  moveNpc:(s:GameState,npc:Entity,to:Vec,speed:number,dt:number)=>moveBody(s,npc,to,speed,dt,npc.id),
  safe:(s:GameState,point:Vec,margin:number)=>safeFromThreat(s,point,margin)&&!s.projectiles.some(p=>p.owner==='enemy'&&dist(p,point)<150&&!wardProtects(s,point,p))
 };
+const marketPorts={...lifePorts,moveNpc:journeyPorts.moveNpc};
 function interruptWork(s:GameState){lifeInterrupt(s);canalInterrupt(s);}
 const clone = <T>(v: T): T => JSON.parse(JSON.stringify(v));
 const dist = (a: Vec, b: Vec) => Math.hypot(a.x-b.x,a.y-b.y);
 const finitePoint = (p: Vec) => p && Number.isFinite(p.x) && Number.isFinite(p.y);
 const result = (ok: boolean, message?: string): ActionResult => message ? {ok,message} : {ok};
-const entities = (s: GameState) => s.worlds[s.scene];
+
+const entities = (s: GameState) => s.worlds[s.scene].filter(e=>e.type!=='xu'||companionAvailable(s));
 const entity = (s: GameState, id: string) => entities(s).find(e=>e.id===id);
 const data = (e: Entity) => e.data ?? (e.data={});
 const num = (e: Entity, key: string) => Number(e.data?.[key] ?? 0);
@@ -36,11 +42,11 @@ export function createGame(profile: Profile): GameState {
   if(!profile || !['herbalist','tinker'].includes(profile.origin) || !['stay','travel'].includes(profile.wish))throw Error('人物经历无效');
   const s:GameState={schema:1,revision:'return-stone-v1',profile:{...profile,name:profile.name.trim().slice(0,12)||'行舟'},scene:'home',time:0,
     player:{...SCENES.home.spawn,hp:4,mana:6,facing:0,invulnerable:0,cooldown:0,ward:0,wardFacing:0,pullId:null,pullPoint:null,hold:0,path:[]},
-    worlds:{kiln:clone(SCENES.kiln.entities),canal:clone(SCENES.canal.entities),home:[...clone(SCENES.home.entities),...initialLifeEntities('home')],creek:[...clone(SCENES.creek.entities),...initialLifeEntities('creek')],workshop:[...clone(SCENES.workshop.entities),...initialLifeEntities('workshop')],crossing:[...clone(SCENES.crossing.entities),...initialLifeEntities('crossing')]},
-    flags:{eventSeq:0,companion:'waiting',visited_home:true},ringStyle:null,contentVersion:5,kiln:createKilnState(),journey:createJourneyState(),canal:createCanalState(),life:{repair:{stage:'unaccepted',softened:false,stopSet:false,latched:false,tested:false,method:null,testing:null},harvest:{stage:'unaccepted',sun:'unpicked',shade:'unpicked',picking:null,shared:false},clamp:'unowned',sachets:0,scent:null},herbs:2,selected:'pull',paused:false,dialogue:null,events:[],projectiles:[],pending:null,ended:false,defeated:false,checkpoint:null,lastSafe:{scene:'home',point:{x:340,y:850}}};
-  for(const id of Object.keys(s.worlds) as SceneId[])s.worlds[id].push(...initialJourneyEntities(id),...initialKilnEntries(id));
+    worlds:{market:clone(SCENES.market.entities),kiln:clone(SCENES.kiln.entities),canal:clone(SCENES.canal.entities),home:[...clone(SCENES.home.entities),...initialLifeEntities('home')],creek:[...clone(SCENES.creek.entities),...initialLifeEntities('creek')],workshop:[...clone(SCENES.workshop.entities),...initialLifeEntities('workshop')],crossing:[...clone(SCENES.crossing.entities),...initialLifeEntities('crossing')]},
+    flags:{eventSeq:0,companion:'waiting',visited_home:true},ringStyle:null,contentVersion:6,market:createMarketState(),kiln:createKilnState(),journey:createJourneyState(),canal:createCanalState(),life:{repair:{stage:'unaccepted',softened:false,stopSet:false,latched:false,tested:false,method:null,testing:null},harvest:{stage:'unaccepted',sun:'unpicked',shade:'unpicked',picking:null,shared:false},clamp:'unowned',sachets:0,scent:null},herbs:2,selected:'pull',paused:false,dialogue:null,events:[],projectiles:[],pending:null,ended:false,defeated:false,checkpoint:null,lastSafe:{scene:'home',point:{x:340,y:850}}};
+  for(const id of Object.keys(s.worlds) as SceneId[])s.worlds[id].push(...initialJourneyEntities(id),...initialKilnEntries(id),...initialMarketEntries(id));
   for(const group of Object.values(s.worlds))for(const e of group){e.homeX=e.x;e.homeY=e.y;}
-  kilnRefresh(s);
+  kilnRefresh(s);marketRefresh(s);
   emit(s,'note',`${s.profile.name}，凝气三层。先前攒钱修的控物环，今日该去取了。`);
   emit(s,'hint','陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。');
   checkpoint(s);return s;
@@ -245,16 +251,19 @@ function choose(s:GameState,id:string):ActionResult {
     if(d.id!=='canal_depart'||s.scene!=='home'||s.canal.stage==='unaccepted'||!canInteract(s,'to_creek'))return result(false,'先走到驿前路牌');
     closeDialogue(s);return id.endsWith('canal')?changeScene(s,'canal',SCENES.canal.spawn):changeScene(s,'creek',{x:170,y:760});
   }
+  const marketAction=marketChoose(s,id,marketPorts);
+  if(marketAction){if(marketAction.ok){closeDialogue(s);if(marketAction.checkpoint)checkpoint(s);}return marketAction;}
+  if(['invite','wait','cooperate','bandage','learn_bandage','dry','route_talk','danger','regroup'].includes(id)&&!companionAvailable(s))return result(false,'许照还在小集等候，先回到她身旁再商量');
   const kilnAction=kilnChoose(s,id,lifePorts);
   if(kilnAction){if(kilnAction.ok){closeDialogue(s);if(kilnAction.checkpoint)checkpoint(s);}return kilnAction;}
   const journeyAction=journeyChoose(s,id,journeyPorts);
-  if(journeyAction){if(journeyAction.ok){closeDialogue(s);kilnRefresh(s);if(journeyAction.travel)return changeScene(s,journeyAction.travel.scene,journeyAction.travel.point);if(journeyAction.checkpoint)checkpoint(s);}return journeyAction;}
+  if(journeyAction){if(journeyAction.ok){closeDialogue(s);kilnRefresh(s);marketRefresh(s);if(journeyAction.travel)return changeScene(s,journeyAction.travel.scene,journeyAction.travel.point);if(journeyAction.checkpoint)checkpoint(s);}return journeyAction;}
   const beforeCanal=s.canal.stage,canalAction=canalChoose(s,id,canalPorts);
   if(canalAction){if(canalAction.ok){closeDialogue(s);if(beforeCanal!==s.canal.stage)checkpoint(s);}return canalAction;}
   const beforeLife=JSON.stringify([s.life.repair.stage,s.life.harvest.stage]);
   const handled=lifeChoose(s,id,lifePorts);if(handled){if(handled.ok){closeDialogue(s);if(beforeLife!==JSON.stringify([s.life.repair.stage,s.life.harvest.stage]))checkpoint(s);}return handled;}
   if(id==='invite'){follow(s);s.flags.invited=true;}
-  else if(id==='wait'){s.flags.companion='waiting';emit(s,'relationship',s.scene==='canal'?'你们约好在这段高岸会合。许照收好药篓，留在干路旁等你。':'你们约在溪道会合。许照会按自己的路程走。');}
+  else if(id==='wait'){s.flags.companion='waiting';emit(s,'relationship',s.scene==='market'?'许照收紧药篓，在眼前这条巷边等你回来。':s.scene==='canal'?'你们约好在这段高岸会合。许照收好药篓，留在干路旁等你。':'你们约在溪道会合。许照会按自己的路程走。');}
   else if(id==='fix'){s.flags.boatSecured=true;entity(s,'boat')!.state='secured';emit(s,'change','你认出旧绳扣的受力处，徒手固定了小舟。');}
   else if(id==='cooperate'){s.flags.boatCooperating=true;follow(s);emit(s,'hint','你稳住绳扣，许照正沿你指的干燥踏点走向船舷。留在绳扣附近，等她压稳舟身。');}
   else if(id==='bandage'){
@@ -285,12 +294,27 @@ function choose(s:GameState,id:string):ActionResult {
       emit(s,'ending',id==='stay'?`你在桌边放下控物环，亲手定好练功角的挂钩。${shared}明日有地方继续练。`:`你在桌上展开亲自走过的${s.flags.route==='main'?'低滩渡路':'山脊绕路'}。${shared}${s.flags.travelInvited?'许照在旁添了一笔，约好下次短途。':'你给自己的下一段行路留出空白。'}`);
     }else{s.profile.wish=id;emit(s,'note',id==='stay'?'你想先有个能安心练术的地方。':'你想练到能独自走远，也能照应同行。');}
   }
+  if(s.scene==='market'&&['invite','wait','regroup'].includes(id)){const xu=entity(s,'xu_market');if(xu)xu.state=s.flags.companion==='following'?'following':'waiting';closeDialogue(s);checkpoint(s);return result(true);}
   closeDialogue(s);return result(true);
 }
 function changeScene(s:GameState,scene:SceneId,spawn:Vec):ActionResult{
+    const from=s.scene,marketTravel=from==='market'||scene==='market';
+    let companionPoint:Vec|undefined;
+    if(marketTravel){
+      if(s.journey.stage!=='complete'||scene==='canal'&&s.canal.stage==='unaccepted')return result(false,'先完成已经约好的回程，再从小集接上这段路');
+      const target={...s,scene};
+      if(!free(target,spawn))return result(false,'落脚处被器物挡住了，先清出空地再动身');
+      if(s.flags.companion==='following'){
+        const candidates=[{x:spawn.x+45,y:spawn.y+40},{x:spawn.x-45,y:spawn.y+40},{x:spawn.x-40,y:spawn.y+20}];
+        companionPoint=candidates.find(point=>free(target,point)&&dist(point,spawn)>=34&&!s.worlds[scene].some(e=>e.kind==='npc'&&e.type!=='xu'&&e.state!=='hidden'&&dist(e,point)<34));
+        if(!companionPoint)return result(false,'同行的落脚处被挡住了，先留出能站稳的空地');
+      }
+    }
     kilnBeforeTravel(s,scene,lifePorts);journeyBeforeExit(s,scene,journeyPorts);release(s);lifeBeforeExit(s);canalBeforeExit(s);s.scene=scene;s.player.x=spawn.x;s.player.y=spawn.y;s.player.path=[];s.player.ward=0;s.projectiles=[];s.flags.casting=false;s.pending=null;
+    marketAfterTravel(s,from,scene);
+    if(marketTravel&&s.flags.companion==='following'){const xu=s.worlds.market.find(e=>e.id==='xu_market')!;xu.state=scene==='market'?'following':'hidden';}
     s.flags[`visited_${s.scene}`]=true;const r=entities(s).find(e=>e.kind==='rest'&&e.state!=='hidden');if(s.scene!=='kiln'&&r)s.lastSafe={scene:s.scene,point:{x:r.x,y:r.y}};
-    for(const n of entities(s).filter(e=>e.type==='xu'))if(s.flags.companion==='following'){n.x=s.player.x+45;n.y=s.player.y+40;}
+    for(const n of entities(s).filter(e=>e.type==='xu'))if(s.flags.companion==='following'){n.x=companionPoint?.x??s.player.x+45;n.y=companionPoint?.y??s.player.y+40;if(marketTravel)n.state='following';}
     if(s.scene==='home'&&s.flags.route){s.flags.returned=true;const cart=entity(s,'return_cart')!;cart.state=s.flags.gateOpen?'arrived':'ridge';cart.x=s.flags.gateOpen?1230:1380;emit(s,'return',s.flags.gateOpen?'木车已进了院，路上的人正沿你修开的低滩来。':'门后添了一块山脊路标，背架靠在熟悉的墙边。');}
     emit(s,'scene',SCENES[s.scene].title);checkpoint(s);return result(true);
 }
@@ -298,6 +322,7 @@ function interact(s:GameState,id:string):ActionResult {
   const e=entity(s,id);if(!interactable(s,e))return result(false,'这里已经没有可互动的人或器物');
   if(dist(e,s.player)>105||!clearLine(s,s.player,e,e.id))return result(false,'先走近这个人或器物再互动');
   if(e.kind==='exit'){
+    if((s.scene==='market'||e.targetScene==='market')&&(s.journey.stage!=='complete'||dist(e,s.player)>=96))return result(false,'完成工棚回程后，走到小集路牌近处再动身');
     if((s.scene==='kiln'||e.targetScene==='kiln')&&s.journey.stage!=='complete')return result(false,'先完成工棚回程，回到桌边记下亲自走过的路');
     const journeyExit=journeyExitIntent(s,e,journeyPorts);if(journeyExit)return journeyExit;
     if(id==='to_workshop'&&!s.flags.tools)return result(false,'先取回小舟上的器具袋，修闸和试环会用到');
@@ -307,10 +332,11 @@ function interact(s:GameState,id:string):ActionResult {
     }
     return changeScene(s,e.targetScene!,e.targetSpawn!);
   }
+  const marketAction=marketInteract(s,e,marketPorts);if(marketAction)return marketAction;
   const kilnAction=kilnInteract(s,e,lifePorts);if(kilnAction)return kilnAction;
   const journeyAction=journeyInteract(s,e,journeyPorts);if(journeyAction)return journeyAction;
   if(s.scene==='home'&&e.id==='table'&&s.canal.stage==='complete'){
-    dialogue(s,'journey_table','你的桌边',journeyDescription(s,e)||'旧渠小图留在桌边。许照想把工棚回雨棚的路认熟，亲自带一段。',journeyChoices(s,e));return result(true);
+    dialogue(s,'journey_table','你的桌边',marketDescription(s,e,marketPorts)||journeyDescription(s,e)||'旧渠小图留在桌边。许照想把工棚回雨棚的路认熟，亲自带一段。',[...marketChoices(s,e,marketPorts),...journeyChoices(s,e)]);return result(true);
   }
   const canalAction=canalInteract(s,e,canalPorts);if(canalAction)return canalAction;
   if(e.kind==='rest'){
@@ -327,17 +353,18 @@ function interact(s:GameState,id:string):ActionResult {
     return result(true);
   }
   if(e.type==='xu'){
-    let text=s.flags.herbsWet?'许照抱着受潮药筐：“板一拿走，水全落到这里。先把导水板放回，再把药理好吧。”':s.flags.companion==='sheltered'?'“刚才的来袭把我逼退了。先在安全处会合，再继续。”':s.flags.companion==='refused'?'“我不替你迎着术法冲。先在安全处说好怎么走，再继续。”':s.flags.returned?`“你真走过那条${s.flags.route==='main'?'低滩':'山脊'}了。”${s.flags.platformShared?'她指着你们共同添过的眺台记号。':s.flags.platformVisited?'你提起独自看见的眺台，她点头说那里风大。':'她把自己的采药图摊在桌旁。'}`:'“我也要看看雨后的采药路。你要去取环，咱们可以顺路。”';
+    let text=s.scene==='market'?'“我在这条巷边候着。要继续同行，就来身旁说一声；先看清两边来向。”':s.flags.herbsWet?'许照抱着受潮药筐：“板一拿走，水全落到这里。先把导水板放回，再把药理好吧。”':s.flags.companion==='sheltered'?'“刚才的来袭把我逼退了。先在安全处会合，再继续。”':s.flags.companion==='refused'?'“我不替你迎着术法冲。先在安全处说好怎么走，再继续。”':s.flags.returned?`“你真走过那条${s.flags.route==='main'?'低滩':'山脊'}了。”${s.flags.platformShared?'她指着你们共同添过的眺台记号。':s.flags.platformVisited?'你提起独自看见的眺台，她点头说那里风大。':'她把自己的采药图摊在桌旁。'}`:'“我也要看看雨后的采药路。你要去取环，咱们可以顺路。”';
     const options:DialogueChoice[]=[...journeyChoices(s,e),...canalChoices(s,e),...lifeChoices(s,e)];
     if(!s.flags.herbsWet)options.push({id:'invite',label:'一起走，我会留意你的候点'});
-    options.push({id:'wait',label:s.scene==='canal'?'先在这段高岸歇脚，我去看看水路':'各自走，到溪道再会合'},{id:'route_talk',label:s.scene==='canal'?'说说眼前这段渠路':'问问山外的路'});
+    options.push({id:'wait',label:s.scene==='market'?'先在这条巷边等我':s.scene==='canal'?'先在这段高岸歇脚，我去看看水路':'各自走，到溪道再会合'},{id:'route_talk',label:s.scene==='canal'?'说说眼前这段渠路':'问问山外的路'});
     if(s.scene==='crossing'&&s.flags.companion==='following'&&entities(s).some(n=>n.kind==='enemy'&&n.state!=='peaceful'&&n.state!=='retreated'))options.push({id:'danger',label:'请她到前方引开散修'});
     dialogue(s,'xu','许照',s.flags.herbsWet||['refused','sheltered'].includes(String(s.flags.companion))?text:journeyDescription(s,e)??canalDescription(s,e)??(s.scene==='canal'?'“我在高岸候着。你安排好来水，我再沿干路过去；下渠前看好退路。”':text),options);return result(true);
   }
   switch(id){
-    case 'rope': dialogue(s,'boat','许照',s.profile.origin==='tinker'?'绳扣的旧修痕你认得：顺着受力绕回去，就能徒手系住舟。':'西侧两块踏石是干的。你能辨出湿滑苔色；让许照压住船舷，一起把舟稳好。',[...(s.profile.origin==='tinker'?[{id:'fix',label:'照旧修痕徒手固定绳扣'}]:[]),{id:'cooperate',label:'指出踏点，和许照共同稳舟'}]);break;
+    case 'rope': if(!companionAvailable(s)){dialogue(s,'boat','小舟绳扣','许照还在小集等候。绳扣的旧修痕仍在，可以自己查看。',s.profile.origin==='tinker'?[{id:'fix',label:'照旧修痕徒手固定绳扣'}]:[]);break;} dialogue(s,'boat','许照',s.profile.origin==='tinker'?'绳扣的旧修痕你认得：顺着受力绕回去，就能徒手系住舟。':'西侧两块踏石是干的。你能辨出湿滑苔色；让许照压住船舷，一起把舟稳好。',[...(s.profile.origin==='tinker'?[{id:'fix',label:'照旧修痕徒手固定绳扣'}]:[]),{id:'cooperate',label:'指出踏点，和许照共同稳舟'}]);break;
     case 'bag':if(!s.flags.boatSecured)return result(false,'小舟还在晃，先牵回西岸或固定绳扣');s.flags.tools=true;e.state='taken';emit(s,'item','你取回了自己的器具袋。扳钳与绳束齐全，可以去旧工棚了。');break;
     case 'shelter':{
+      if(!companionAvailable(s)){dialogue(s,'shelter','斜雨棚','棚下空着。许照还在小集约好的地方等你。',[]);break;}
       const options:DialogueChoice[]=[...journeyChoices(s,e)];
       if(!s.flags.bandaged)options.push({id:'bandage',label:s.profile.origin==='herbalist'?'用认识的止血草包扎，不耗伤药':'用一份伤药替她包扎',...(s.profile.origin!=='herbalist'&&s.herbs<1?{disabled:'没有伤药了，可请她教你辨认草药'}:{})},{id:'learn_bandage',label:'跟她辨认止血草，共同处理轻伤'});
       if(s.flags.herbsWet)options.push({id:'dry',label:'把受潮药草摊开整理',...(!s.flags.boardReturned?{disabled:'先把导水板牵回原来的位置'}:{})});
@@ -414,6 +441,8 @@ export function act(s:GameState,a:GameAction):ActionResult {
   if(a.type==='retry'||a.type==='retreat'){
     if(!s.checkpoint)return result(false,'没有可恢复的落点');const prior=restore(s.checkpoint);const source=s.checkpoint;
     if(a.type==='retreat'){
+      marketAbandonVisit(s);
+      if(s.scene==='market'&&s.flags.companion==='following')s.worlds.market.find(e=>e.id==='xu_market')!.state='hidden';
       journeyAbandonRun(s);release(s);lifeBeforeExit(s);canalBeforeExit(s);const last=clone(s.lastSafe),current=clone(s);current.checkpoint=null;
       // Retreat preserves every settled object, resource and relationship fact, including false values.
       for(const enemy of current.worlds[current.scene].filter(e=>e.kind==='enemy'&&e.state!=='retreated'&&e.state!=='peaceful')){
@@ -617,7 +646,7 @@ function companionTick(s:GameState,dt:number){
     }
     xu.state='following';xu.facing=Math.atan2(s.player.y-xu.y,s.player.x-xu.x);
   }else if(s.flags.companion==='refused'||s.flags.companion==='sheltered'){
-    xu.state='refused';const wait=s.scene==='creek'?{x:1200,y:590}:s.lastSafe.point;moveBody(s,xu,wait,120,dt,xu.id);
+    xu.state='refused';const wait=s.scene==='market'?{x:xu.x,y:xu.y}:s.scene==='creek'?{x:1200,y:590}:s.lastSafe.point;moveBody(s,xu,wait,120,dt,xu.id);
   }else xu.state='waiting';
 }
 export function tick(s:GameState,dt:number,input:Vec):void {
@@ -626,6 +655,7 @@ export function tick(s:GameState,dt:number,input:Vec):void {
   let remaining=Math.min(dt,1);while(remaining>1e-8){const step=Math.min(.025,remaining);stepTick(s,step,input);remaining-=step;if(s.paused)break;}
 }
 function stepTick(s:GameState,dt:number,input:Vec){
+  const fromPlayer={x:s.player.x,y:s.player.y};
   s.time+=dt;const p=s.player;p.invulnerable=Math.max(0,p.invulnerable-dt);p.cooldown=Math.max(0,p.cooldown-dt);p.ward=Math.max(0,p.ward-dt);s.flags.wardCooldown=Math.max(0,Number(s.flags.wardCooldown??0)-dt);
   if(s.flags.casting){s.flags.castTime=Number(s.flags.castTime)-dt;if(Number(s.flags.castTime)<=0){s.flags.casting=false;spawnProjectile(s,p,{x:Number(s.flags.castX),y:Number(s.flags.castY)},'player',420);}}
   if(finitePoint(input)&&(input.x||input.y)){interruptWork(s);p.path=[];const length=Math.hypot(input.x,input.y);const dest={x:p.x+input.x/length*100,y:p.y+input.y/length*100};p.facing=Math.atan2(input.y,input.x);moveBody(s,p,dest,p.pullId&&p.hold===0?85:160,dt);}
@@ -656,10 +686,12 @@ function stepTick(s:GameState,dt:number,input:Vec){
     }
   }
   projectileTick(s,dt);companionTick(s,dt);journeyTick(s,dt,journeyPorts);lifeTick(s,dt,lifePorts);canalTick(s,dt,canalPorts);kilnTick(s,dt,lifePorts);
+  if(marketTick(s,dt,fromPlayer,marketPorts))checkpoint(s);
   if(s.scene==='creek'&&inPlatform(p))platformVisit(s);
 }
 export function objective(s:GameState):string {
   if(s.defeated)return '观察来袭方向，重试这处境或撤回安全落点';
+  const market=marketObjective(s);if(market)return market;
   const kiln=kilnObjective(s);if(kiln)return kiln;
   const canal=canalObjective(s),life=lifeObjective(s);
   if(s.scene==='canal'&&canal)return canal;

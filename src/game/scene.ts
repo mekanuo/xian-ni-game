@@ -2,7 +2,7 @@ import { registerKilnFrames, paintKilnLandscape, createKilnVisual, updateKilnVis
 import { registerCanalFrames, paintCanalLandscape, createCanalVisual, updateCanalVisual, drawCanalWater, drawCanalHomeRecord } from './canal-art';
 import Phaser from 'phaser';
 import type { Entity, GameAction, GameState, Spell, Vec } from './contracts';
-import { createGame, act, tick, nearbyEntity, previewCast, previewPullMove, interactionPoint, canInteract, snapshot } from './model';
+import { companionAvailable,createGame, act, tick, nearbyEntity, previewCast, previewPullMove, interactionPoint, canInteract, snapshot } from './model';
 import { SCENES } from './content';
 import { GameUI, type Settings } from './ui';
 import { Soundscape } from './audio';
@@ -236,7 +236,7 @@ export class WorldScene extends Phaser.Scene {
     return anchor&&previewPullMove(this.state,anchor).valid?{x:anchor.x,y:anchor.y}:point;
   }
   private entityAt(p:Vec){
-    return this.state.worlds[this.state.scene].filter(e=>!['taken','gone','hidden'].includes(e.state)&&e.kind!=='scenery'&&!(e.id==='lamp'&&this.state.flags.lampFixed))
+    return this.state.worlds[this.state.scene].filter(e=>(e.type!=='xu'||companionAvailable(this.state))&&!['taken','gone','hidden'].includes(e.state)&&e.kind!=='scenery'&&!(e.id==='lamp'&&this.state.flags.lampFixed))
       .filter(e=>!this.casting||this.state.selected!=='pull'||Boolean(this.state.player.pullId)||e.movable)
       .map(e=>({e,d:Math.hypot(e.x-p.x,(e.y-p.y)*.9)}))
       .filter(({e,d})=>d<Math.max(34,Math.max(e.w,e.h)*.65)||Math.abs(e.x-p.x)<e.w*.6&&p.y<e.y&&p.y>e.y-e.h)
@@ -622,7 +622,7 @@ export class WorldScene extends Phaser.Scene {
   private drawEntities(delta:number){
     for(const e of this.state.worlds[this.state.scene]){
       const r=this.renders.get(e.id)||this.makeEntity(e);
-      const isGone=['taken','gone','hidden'].includes(e.state)||(e.id==='lamp'&&Boolean(this.state.flags.lampFixed));
+      const isGone=(e.type==='xu'&&!companionAvailable(this.state))||['taken','gone','hidden'].includes(e.state)||(e.id==='lamp'&&Boolean(this.state.flags.lampFixed));
       r.container.setVisible(!isGone);if(isGone)continue;
       const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.life?.repair?.stage}:${this.state.life?.repair?.softened}:${this.state.life?.repair?.latched}:${this.state.life?.repair?.tested}:${this.state.life?.harvest?.sun}:${this.state.life?.harvest?.shade}:${this.state.life?.clamp}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}:${this.state.canal.stage}:${this.state.canal.cleared}:${this.state.journey.stage}:${this.state.journey.soloRoute}:${this.state.journey.sharedRoute}:${this.state.journey.recordedShared}:${this.state.journey.restOpened}`;
       if(r.stateKey!==key){r.stateKey=key;this.drawObject(e,r.art);}

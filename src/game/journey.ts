@@ -1,3 +1,4 @@
+import {companionAvailable} from './companion';
 import type {ActionResult,DialogueChoice,Entity,GameState,JourneyMode,JourneyRoute,JourneyState,SceneId,Vec} from './contracts';
 import type {LifePorts} from './life';
 import {getJourneyRoute,JOURNEY_GATES,JOURNEY_POINTS as P,JOURNEY_SOUTH} from './journey-content';
@@ -11,12 +12,12 @@ export type JourneyChoiceResult=ActionResult&{checkpoint?:boolean;travel?:{scene
 export function createJourneyState():JourneyState{return {stage:'unaccepted',agreed:null,run:null,soloRoute:null,sharedRoute:null,restOpened:false,recordedShared:false};}
 const distance=(a:Vec,b:Vec)=>Math.hypot(a.x-b.x,a.y-b.y);
 const object=(s:GameState,id:string)=>s.worlds[s.scene].find(e=>e.id===id);
-const companion=(s:GameState)=>s.worlds.workshop.find(e=>e.id==='xu_work');
+const companion=(s:GameState)=>companionAvailable(s)?s.worlds.workshop.find(e=>e.id==='xu_work'):undefined;
 const unlocked=(s:GameState)=>s.canal.stage==='complete';
 const ok=(checkpoint=false,message?:string):JourneyChoiceResult=>({ok:true,...(checkpoint?{checkpoint:true}:{}),...(message?{message}:{})});
 const no=(message:string):JourneyChoiceResult=>({ok:false,message});
 const freeHand=(s:GameState)=>!s.player.pullId||s.player.hold>0;
-const near=(s:GameState,e:Entity|undefined,p:LifePorts):e is Entity=>!!e&&e.state!=='hidden'&&distance(s.player,e)<96&&p.free(s,s.player)&&p.clearLine(s,s.player,e,e.id);
+const near=(s:GameState,e:Entity|undefined,p:LifePorts):e is Entity=>!!e&&(e.type!=='xu'||companionAvailable(s))&&e.state!=='hidden'&&distance(s.player,e)<96&&p.free(s,s.player)&&p.clearLine(s,s.player,e,e.id);
 const inGate=(v:Vec,plan:'north'|'south')=>{const r=JOURNEY_GATES[plan];return v.x>=r.x&&v.x<=r.x+r.w&&v.y>=r.y&&v.y<=r.y+r.h;};
 const atProbe=(v:Vec)=>v.x>=1100&&v.x<=1380&&v.y>=800&&v.y<=930;
 const actualRoute=(run:NonNullable<JourneyState['run']>):JourneyRoute=>run.plan==='north'&&run.viaSouth?'mixed':run.plan;
@@ -41,11 +42,12 @@ export function journeyChoices(s:GameState,e:Entity):DialogueChoice[]{
   }
  }
  if(s.scene==='creek'&&e.id==='shelter'&&!j.restOpened&&(j.soloRoute||j.sharedRoute))choices.push({id:'journey:rest',label:'在棚内干地展开现成坐垫，留下歇脚处'});
- return choices;
+ return companionAvailable(s)?choices:choices.filter(c=>!c.id.includes('together'));
 }
 function contact(s:GameState,p:JourneyPorts):boolean{return s.worlds[s.scene].some(e=>(e.type==='xu'||e.id==='journey_north_mark'||e.id==='journey_south_mark')&&near(s,e,p));}
 export function journeyChoose(s:GameState,id:string,p:JourneyPorts):JourneyChoiceResult|undefined{
  if(!id.startsWith('journey:'))return undefined;
+ if(id.includes('together')&&!companionAvailable(s))return no('许照还在小集等候，先会合再约她领路');
  if(!unlocked(s))return no('先完成旧渠这一程，回到自己的桌边落笔');
  const j=s.journey;
  if(id==='journey:agree:solo'||id==='journey:agree:together'){

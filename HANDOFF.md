@@ -1,3 +1,13 @@
+# 当前正式制作入口 · 0.7 P1 接线已完成，P2 美术进行中
+
+2026-09-11。实际工作树 `/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/market-070-production`，分支 `feat/market-070`，从白盒生产决定 052e708 建立。公网仍 0.6，同 URL；本分支没有构建、浏览器、部署证据，禁止用继承的 PASS 发布。
+
+已接第七图、正式双向出口、真实交换/移步/开门/穿行/差集记事、严格 v6 迁移与许照在场判断。35 文件 741 测试 PASS、tsc PASS；包括明确合成前置后的实际 act/tick 穿行、交换与 NPC 每步快照、暂停牵筐、许照等候与旧物件防重复。旧 fixture 未修改。尚需进一步只读同行/退回审查、完整生产美术合成、音效/小图、真实桌面触控与旧档续玩验收。
+
+代理 canal_art_040 独占四张 market 资产 + market-art.ts + MARKET_070_ASSET_DELIVERY.md，已生成素材、正写渲染模块；不要提交其未交回文件。canal_rules_040 已交回规则/24测试，正在只读审查 root 同行集成；canal_save_040 已交回 save/130测试、停止写入。root 独占其它代码、Git、构建、浏览器、部署。当前无浏览器或生产预览进程；白盒旧 preview4193 可留，白盒矩阵已完成不要重跑。
+
+下方为历史记录。持续开发，不停在本里程碑；按照 docs/superpowers/plans/2026-09-11-market-production.md 与 qa/REVIEW_070_WHITEBOX.md 继续。
+
 # 最新覆盖 · 小集白盒已通过，转正式制作
 
 2026-09-11。十二项代表场景已齐备，同revision3/CUicfkSa与运行源SHA；不是单次完整矩阵。详见qa/REVIEW_070_WHITEBOX.md与qa/whitebox/market-review.json。root已在用户自主续作授权内决定进入正式P1–P5，计划docs/superpowers/plans/2026-09-11-market-production.md，允许开始四组美术与独立第七图/真实双向连接/同行/严格v6迁移。公网仍0.6，不能用白盒证据部署生产。

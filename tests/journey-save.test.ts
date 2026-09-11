@@ -1,3 +1,4 @@
+import {marketRefresh} from '../src/game/market';
 /// <reference types="vite/client" />
 import {describe,it,expect} from 'vitest';
 import old02 from '../qa/fixtures/return-main-v0.2.2.json?raw';
@@ -16,13 +17,13 @@ const entity=(s:GameState,id:string)=>Object.values(s.worlds).flat().find(e=>e.i
 const ids=['journey_north_mark','journey_south_mark','journey_rest_shelter'];
 function active(){const s=current();s.journey.stage='active';s.journey.agreed='together';entity(s,ids[0]).state=entity(s,ids[1]).state='idle';return s;}
 function leading(){const s=active();s.scene='workshop';s.journey.run={mode:'together',plan:'north',next:2,playerGate:false,companionGate:false,viaSouth:false,waiting:true};return s;}
-function complete(){const s=active();Object.assign(s.journey,{stage:'complete',soloRoute:'north',restOpened:true});entity(s,ids[2]).state='idle';kilnRefresh(s);return s;}
+function complete(){const s=active();Object.assign(s.journey,{stage:'complete',soloRoute:'north',restOpened:true});entity(s,ids[2]).state='idle';kilnRefresh(s);marketRefresh(s);return s;}
 
 describe('journey content 4 migration and ledger validation',()=>{
  for(const [name,raw] of [['0.2',old02],['0.3.1',old03],['0.4.0',old04],['canal diversion',canalNorth],['canal hold',canalHold]])it(`migrates real ${name} export and checkpoint without granting journey results`,()=>{
   const prior=JSON.parse(raw),s=restore(raw),nested=JSON.parse(s.checkpoint!);
   for(const [next,old] of [[s,prior],[nested,JSON.parse(prior.checkpoint)]]){
-   expect(next.contentVersion).toBe(5);expect(next.player).toEqual(old.player);expect(next.flags).toEqual(old.flags);expect(next.ended).toBe(old.ended);
+   expect(next.contentVersion).toBe(6);expect(next.player).toEqual(old.player);expect(next.flags).toEqual(old.flags);expect(next.ended).toBe(old.ended);
    if(old.canal)expect(next.canal).toEqual(old.canal);if(old.life)expect(next.life).toEqual(old.life);
    expect(next.journey).toEqual({stage:'unaccepted',agreed:null,run:null,soloRoute:null,sharedRoute:null,restOpened:false,recordedShared:false});
    for(const [scene,list] of Object.entries(old.worlds))for(const e of list as {id:string}[])expect(next.worlds[scene].find((n:{id:string})=>n.id===e.id)).toEqual(e);

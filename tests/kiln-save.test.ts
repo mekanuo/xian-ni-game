@@ -22,8 +22,8 @@ describe('kiln v5 save migration',()=>{
  for(const [path,raw] of [...Object.entries(oldFixtures),['actual v4 complete',journeyComplete],['actual v4 paused guide',journeyPaused]])it(`upgrades ${path} and its checkpoint without changing prior facts`,()=>{
   const prior=JSON.parse(raw),s=restore(raw);
   for(const [next,old] of [[s,prior],[JSON.parse(s.checkpoint!),JSON.parse(prior.checkpoint)]]){
-   expect(next.contentVersion).toBe(5);
-   expect(Object.keys(next.worlds).sort()).toEqual(['canal','creek','crossing','home','kiln','workshop']);
+   expect(next.contentVersion).toBe(6);
+   expect(Object.keys(next.worlds).sort()).toEqual(['canal','creek','crossing','home','kiln','market','workshop']);
    expect(next.kiln).toEqual(initialKiln);
    for(const key of ['player','flags','profile','time','herbs','paused','pending','projectiles','dialogue','lastSafe'])expect(next[key]).toEqual(old[key]);
    for(const key of ['life','canal','journey'])if(old[key])expect(next[key]).toEqual(old[key]);
@@ -36,7 +36,7 @@ describe('kiln v5 save migration',()=>{
   const s=current(),old=s.worlds.crossing.find(e=>e.id==='shield_board')!;screen(s).x+=50;
   const restored=round(s);expect(restored.worlds.crossing.find(e=>e.id==='shield_board')).toEqual(old);expect(screen(restored).x).toBe(screen(s).x);
  });
- for(const value of [0,1,6,'5',null])it(`rejects unsupported version ${String(value)}`,()=>{const s=JSON.parse(journeyComplete);s.contentVersion=value;expect(()=>restore(JSON.stringify(s))).toThrow();});
+ for(const value of [0,1,7,'5',null])it(`rejects unsupported version ${String(value)}`,()=>{const s=JSON.parse(journeyComplete);s.contentVersion=value;expect(()=>restore(JSON.stringify(s))).toThrow();});
  for(const key of ['kiln','scene','lastSafe','world','entry'])it(`rejects future ${key} data in an old v4 export`,()=>{
   const s=JSON.parse(journeyComplete);
   if(key==='kiln')s.kiln=initialKiln;
@@ -115,7 +115,7 @@ describe('kiln v5 manifest and physical contracts',()=>{
 });
 
 describe('kiln pause and spell save boundaries',()=>{
- it('round-trips a newly created six-map world and its original retry point',()=>{const s=createGame({name:'存档校验',origin:'tinker',wish:'travel',appearance:0});expect(round(s)).toEqual(s);expect(JSON.parse(s.checkpoint!).contentVersion).toBe(5);});
+ it('round-trips a newly created current seven-map world and its original retry point',()=>{const s=createGame({name:'存档校验',origin:'tinker',wish:'travel',appearance:0});expect(round(s)).toEqual(s);expect(JSON.parse(s.checkpoint!).contentVersion).toBe(6);});
  it('resumes an actual held screen only after the saved pending release is confirmed',()=>{
   const s=inside();s.paused=false;s.ringStyle='hold';s.player.mana=6;
   expect(act(s,{type:'cast',spell:'pull',targetId:'shield_board',point:{x:500,y:640}}).ok).toBe(true);
