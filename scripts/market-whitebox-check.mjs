@@ -33,14 +33,14 @@ const report = {
   cases: [], errors: [],
   limitations: [
     'Desktop Chromium and Chromium mobile emulation only; no physical phone, macOS or Safari claim.',
-    'Phone gameplay uses real touchscreen taps. Camera framing alone uses simulated Shift+mouse dragging, recorded in the input trace.',
+    'Phone gameplay uses touchscreen taps and CDP single-finger touch dragging on the visible pan control; no physical-device or multi-touch claim.',
     'Information and hold practice are visible synthetic starting premises, not earned old-save progress.',
     'North and original endpoints only confirm actual near interaction and walking in the isolated home slot; production changeScene, destination usefulness and save migration are untested.',
     'Return input selects southern waypoints and proves physical endpoint return; it does not independently classify which complete east-to-west corridor a dynamic avoidance path used.',
     'Placeholder art, subjective fun, balance and production release readiness are not proven by this report.',
   ],
 };
-let browser, page, current, device, doorOpened = false;
+let browser, page, current, device, touchSession, doorOpened = false;
 const entity = (r, id) => r.state.worlds.home.find(e => e.id === id);
 const npc = r => entity(r, 'market_merchant');
 const door = r => entity(r, 'market_door');
@@ -105,6 +105,8 @@ async function canvasAt(p) {
 async function frame(target) {
   // Keep the normal close view. Real panning can run while the world runs;
   // there is deliberately no pause, camera setter, or permanent phone overview.
+  let touchPan = false;
+  try {
   for (let attempt = 0; attempt < 12; attempt++) {
     const g = await geometry(), u = g.viewport.usable, p = await screenPoint(target);
     if (p.x >= u.x + 28 && p.x <= u.x + u.width - 28 && p.y >= u.y + 28 && p.y <= u.y + u.height - 28) return;
@@ -114,13 +116,35 @@ async function frame(target) {
     const offY = p.y < u.y + 28 || p.y > u.y + u.height - 28;
     const to = point(from.x - (offX ? limit(p.x - from.x, u.width * .36) : 0), from.y - (offY ? limit(p.y - from.y, u.height * .36) : 0));
     await canvasAt(from); await canvasAt(to);
-    log('shift-mouse-camera-pan', { simulatedOnPhone: device === 'phone', target, from, to, camera: g.camera, time: (await inspect()).state.time });
-    await page.keyboard.down('Shift');
-    try { await page.mouse.move(from.x, from.y); await page.mouse.down(); await page.mouse.move(to.x, to.y, { steps: 4 }); }
-    finally { await page.mouse.up(); await page.keyboard.up('Shift'); }
+    if (device === 'phone') {
+      if (!touchPan) {
+        await action('pan'); touchPan = true;
+        assert.equal(await page.locator('[data-action="pan"]').getAttribute('aria-pressed'), 'true');
+      }
+      log('single-finger-touch-camera-pan', { target, from, to, camera: g.camera, time: (await inspect()).state.time });
+      const finger = p => ({ x: p.x, y: p.y, id: 1, radiusX: 4, radiusY: 4, force: 1 });
+      try {
+        await touchSession.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [finger(from)] });
+        for (let i = 1; i <= 6; i++) {
+          const p = point(from.x + (to.x - from.x) * i / 6, from.y + (to.y - from.y) * i / 6);
+          await touchSession.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [finger(p)] });
+        }
+      } finally { await touchSession.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); }
+    } else {
+      log('shift-mouse-camera-pan', { simulatedOnPhone: false, target, from, to, camera: g.camera, time: (await inspect()).state.time });
+      await page.keyboard.down('Shift');
+      try { await page.mouse.move(from.x, from.y); await page.mouse.down(); await page.mouse.move(to.x, to.y, { steps: 4 }); }
+      finally { await page.mouse.up(); await page.keyboard.up('Shift'); }
+    }
     await page.waitForTimeout(35);
   }
   throw Error(`Cannot frame ${JSON.stringify(target)} within the usable canvas`);
+  } finally {
+    if (touchPan) {
+      await action('pan');
+      assert.equal(await page.locator('[data-action="pan"]').getAttribute('aria-pressed'), 'false');
+    }
+  }
 }
 async function world(target) {
   await frame(target);
@@ -296,7 +320,9 @@ scenarios.lure = async () => {
   await waitFor('enemy physically follows the drop into the western approach', r => enemy(r).x <= 610, 30000);
   await walk(480, 460); await interact('market_merchant');
   assert.equal((await inspect()).threat, false, 'Exchange must occur while the current encounter is actually safe');
-  await choose('market:exchange'); await activeGap(2);
+  await choose('market:exchange');
+  // React to the observed physical interruption; do not add a second fixed
+  // wait before starting to watch an already-running short NPC action.
   const stopped = await waitFor('NPC sees the approaching enemy and stops before opening', r => r.threat && npc(r).state === 'waiting' && door(r).state === 'closed');
   assert.equal(stopped.exchanged, true);
   assert.ok(npc(stopped).x > 470 && npc(stopped).x < 620, 'Observe a real interrupted walk, not a fabricated waiting flag at the start');
@@ -424,6 +450,7 @@ try {
   for (device of selectedDevices) {
     const context = await browser.newContext(deviceSpecs[device]);
     page = await context.newPage();
+    touchSession = device === 'phone' ? await context.newCDPSession(page) : null;
     page.on('pageerror', error => report.errors.push({ device, case: current?.id, type: 'pageerror', message: error.message }));
     page.on('console', message => { if (message.type() === 'error') report.errors.push({ device, case: current?.id, type: 'console', message: message.text() }); });
     page.on('requestfailed', request => report.errors.push({ device, case: current?.id, type: 'requestfailed', url: request.url(), failure: request.failure() }));
