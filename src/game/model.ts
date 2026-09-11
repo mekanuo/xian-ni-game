@@ -244,12 +244,12 @@ function interact(s:GameState,id:string):ActionResult {
     return result(true);
   }
   if(e.type==='xu'){
-    let text=s.flags.herbsWet?'许照抱着受潮药筐：“板一拿走，水全落到这里。先把导水板放回，再把药理好吧。”':s.flags.returned?`“你真走过那条${s.flags.route==='main'?'低滩':'山脊'}了。”${s.flags.platformShared?'她指着你们共同添过的眺台记号。':s.flags.platformVisited?'你提起独自看见的眺台，她点头说那里风大。':'她把自己的采药图摊在桌旁。'}`:'“我也要看看雨后的采药路。你要去取环，咱们可以顺路。”';
+    let text=s.flags.herbsWet?'许照抱着受潮药筐：“板一拿走，水全落到这里。先把导水板放回，再把药理好吧。”':s.flags.companion==='sheltered'?'“刚才的来袭把我逼退了。先在安全处会合，再继续。”':s.flags.companion==='refused'?'“我不替你迎着术法冲。先在安全处说好怎么走，再继续。”':s.flags.returned?`“你真走过那条${s.flags.route==='main'?'低滩':'山脊'}了。”${s.flags.platformShared?'她指着你们共同添过的眺台记号。':s.flags.platformVisited?'你提起独自看见的眺台，她点头说那里风大。':'她把自己的采药图摊在桌旁。'}`:'“我也要看看雨后的采药路。你要去取环，咱们可以顺路。”';
     const options:DialogueChoice[]=[...journeyChoices(s,e),...canalChoices(s,e),...lifeChoices(s,e)];
     if(!s.flags.herbsWet)options.push({id:'invite',label:'一起走，我会留意你的候点'});
     options.push({id:'wait',label:s.scene==='canal'?'先在这段高岸歇脚，我去看看水路':'各自走，到溪道再会合'},{id:'route_talk',label:s.scene==='canal'?'说说眼前这段渠路':'问问山外的路'});
     if(s.scene==='crossing'&&s.flags.companion==='following'&&entities(s).some(n=>n.kind==='enemy'&&n.state!=='peaceful'&&n.state!=='retreated'))options.push({id:'danger',label:'请她到前方引开散修'});
-    dialogue(s,'xu','许照',journeyDescription(s,e)??canalDescription(s,e)??(s.scene==='canal'?'“我在高岸候着。你安排好来水，我再沿干路过去；下渠前看好退路。”':text),options);return result(true);
+    dialogue(s,'xu','许照',s.flags.herbsWet||['refused','sheltered'].includes(String(s.flags.companion))?text:journeyDescription(s,e)??canalDescription(s,e)??(s.scene==='canal'?'“我在高岸候着。你安排好来水，我再沿干路过去；下渠前看好退路。”':text),options);return result(true);
   }
   switch(id){
     case 'rope': dialogue(s,'boat','许照',s.profile.origin==='tinker'?'绳扣的旧修痕你认得：顺着受力绕回去，就能徒手系住舟。':'西侧两块踏石是干的。你能辨出湿滑苔色；让许照压住船舷，一起把舟稳好。',[...(s.profile.origin==='tinker'?[{id:'fix',label:'照旧修痕徒手固定绳扣'}]:[]),{id:'cooperate',label:'指出踏点，和许照共同稳舟'}]);break;

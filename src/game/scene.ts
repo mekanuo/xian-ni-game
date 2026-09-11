@@ -124,7 +124,7 @@ export class WorldScene extends Phaser.Scene {
       inspect:()=>JSON.parse(snapshot(this.state)),
       screenPoint:(x:number,y:number)=>{const c=this.cameras.main,o=c.getWorldPoint(0,0);return{x:(x-o.x)*c.zoom/display.density,y:(y-o.y)*c.zoom/display.density};},
       scene:()=>SCENES[this.state.scene],
-      presentation:()=>({player:{x:this.playerImage?.x,y:this.playerImage?.y,angle:this.playerImage?.angle,scaleY:this.playerImage?.scaleY,flipX:this.playerImage?.flipX},labels:[...this.renders.entries()].filter(([,r])=>r.container.visible&&r.label.visible).map(([id,r])=>({id,text:r.label.text,bounds:{x:r.label.getBounds().x,y:r.label.getBounds().y,w:r.label.width,h:r.label.height}}))}),
+      presentation:()=>({actors:[...this.renders.entries()].filter(([,r])=>r.container.visible&&r.image).map(([id,r])=>({id,x:r.container.x,y:r.container.y,angle:r.image!.angle,flipX:r.image!.flipX})),player:{x:this.playerImage?.x,y:this.playerImage?.y,angle:this.playerImage?.angle,scaleY:this.playerImage?.scaleY,flipX:this.playerImage?.flipX},labels:[...this.renders.entries()].filter(([,r])=>r.container.visible&&r.label.visible).map(([id,r])=>({id,text:r.label.text,bounds:{x:r.label.getBounds().x,y:r.label.getBounds().y,w:r.label.width,h:r.label.height}}))}),
       audio:()=>this.soundscape.inspect(),
       feedback:()=>({active:this.feedback.active.map(e=>({...e})),recent:this.feedback.recent.map(e=>({...e}))}),
     }});

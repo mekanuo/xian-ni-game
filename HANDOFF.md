@@ -4,7 +4,7 @@
 
 本目录为 `.worktrees/companion-050` / `feat/companion-050`，基于0.4.1源码里程碑d7e6a36。用户要求持续自主推进。已选 `design/COMPANION_050.md`，实施计划与美术稿分别为 `COMPANION_050_IMPLEMENTATION.md`、`ART_COMPANION_050.md`；直接继续实现与验证，无待用户批准事项。
 
-新增许照工棚领路、北路与南探折返、真实双方经过、单人先走、雨棚坐垫及归家补笔。contentVersion4，旧1/2/3外层与checkpoint迁移；新约定不补发历史成果。新规则/存档/表现已接入，315项测试/20文件与构建PASS，7项模型闭环已证实；浏览器/公网尚未发布本候选。`qa/verification.json` NOT_RUN不得当成通过。
+新增许照工棚领路、北路与南探折返、真实双方经过、单人先走、雨棚坐垫及归家补笔。contentVersion4，旧1/2/3外层与checkpoint迁移；新约定不补发历史成果。新规则/存档/表现已接入，316项测试/20文件与构建PASS，8项模型闭环/处境边界已证实；浏览器/公网尚未发布本候选。`qa/verification.json` NOT_RUN不得当成通过。
 
 0.4.1在另一个隔离目录 `.worktrees/revisit-041` 完整回归，PID/日志记录于本轮进展；**浏览器只能顺序运行**。不要同时运行0.5浏览器影响0.4.1软件GPU测试。公网下述0.4.0状态仍是已核验基线。
 

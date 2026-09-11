@@ -1,7 +1,8 @@
 import {describe,it,expect} from 'vitest';
 import {act,tick,restore,snapshot,interactionPoint,objective} from '../src/game/model';
 import type {GameState,GameAction} from '../src/game/contracts';
-import completed from '../qa/evidence/canal-desktop-diversion-complete-export.json?raw';
+import {inspectObject} from '../src/game/encounters';
+import completed from '../qa/fixtures/return-canal-v0.4.0.json?raw';
 const step=(s:GameState,n=1)=>{for(let i=0;i<n;i++)tick(s,.025,{x:0,y:0});};
 const action=(s:GameState,a:GameAction)=>expect(act(s,a).ok,JSON.stringify(a)).toBe(true);
 function walk(s:GameState,x:number,y:number){action(s,{type:'move',point:{x,y}});for(let i=0;s.player.path.length&&i<8000;i++)step(s);expect(s.player.path).toHaveLength(0);expect(Math.hypot(s.player.x-x,s.player.y-y)).toBeLessThan(4);}
@@ -69,6 +70,12 @@ describe('journey through authoritative movement and scene transitions',()=>{
   walk(s,220,780);touch(s,'to_creek');expect(s.journey.sharedRoute).toBe('north');expect(s.journey.recordedShared).toBe(false);expect(s.journey.stage).toBe('complete');
   touch(s,'to_home');touch(s,'table');choose(s,'journey:record');expect(s.journey.recordedShared).toBe(true);expect(s.journey.soloRoute).toBe('north');
   expect(s.events.filter(e=>e.text.includes('你在棚内干地展开坐垫')).map(e=>e.seq)).toEqual([restSeq]);expect(restore(snapshot(s)).journey).toEqual(s.journey);
+ });
+ it('keeps a wet-basket refusal visible instead of replacing it with old canal praise',()=>{
+  const s=restore(completed);if(s.dialogue)choose(s,'leave');action(s,{type:'pause',value:false});
+  // Boundary fixture: the existing refusal may coexist with completed canal history.
+  s.flags.herbsWet=true;s.flags.companion='refused';touch(s,'xu');
+  expect(inspectObject(s,s.worlds.home.find(e=>e.id==='xu')!)).toContain('受潮');expect(s.dialogue?.text).toContain('受潮');expect(s.dialogue?.text).toContain('导水板');expect(s.dialogue?.choices.some(c=>c.id==='invite')).toBe(false);
  });
  it('freezes actual leader and individual progress while paused and survives a paused save',()=>{
   const s=ready();step(s,80);action(s,{type:'pause',value:true});const before=snapshot(s);step(s,100);expect(snapshot(s)).toBe(before);

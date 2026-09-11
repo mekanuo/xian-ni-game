@@ -121,6 +121,9 @@ export function nearbyEncounter(s: GameState): EncounterView|undefined {
 }
 
 export function inspectObject(s: GameState,e: Entity): string {
+  if(s.flags.herbsWet&&(e.type==='xu'||e.id==='shelter'))return s.flags.boardReturned?'药草仍受潮；导水板已归位，到雨棚一起整理后再商量同行':'药草受潮；先放回导水板，再到雨棚一起整理';
+  if(e.type==='xu'&&s.flags.companion==='refused')return '许照不愿替你迎着术法冲；先在安全处重新商量同行';
+  if(e.type==='xu'&&s.flags.companion==='sheltered')return '许照被来袭逼退；先到安全处会合，再继续';
   const journeyText=journeyDescription(s,e);if(journeyText!==undefined)return journeyText;
   const canalText=canalDescription(s,e);if(canalText!==undefined)return canalText;
   const lifeText=lifeDescription(s,e);if(lifeText!==undefined)return lifeText;
