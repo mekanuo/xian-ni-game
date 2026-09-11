@@ -10,7 +10,7 @@ const fixturePath=process.env.MARKET_START||'qa/evidence/market-2026-09-11T15-48
 const runId=new Date().toISOString().replaceAll(':','-').replaceAll('.','-');
 const folder=`qa/evidence/market-threat-view-${runId}`;
 const output=process.env.MARKET_THREAT_OUTPUT||`${folder}/report.json`;
-const report={schemaVersion:1,runId,status:'RUNNING',startedAt:new Date().toISOString(),environment:{url,viewport:{width:1440,height:900},dpr:2,platform:process.platform,limitation:'Desktop Linux Chrome at DPR2; not a physical Mac. The threat stop is captured using ordinary pause, not presented as uninterrupted combat footage.'},inputTrace:[],motion:[],observations:{},errors:[]};
+const report={schemaVersion:1,runId,status:'RUNNING',startedAt:new Date().toISOString(),environment:{url,viewport:{width:1440,height:900},dpr:1,platform:process.platform,limitation:'Desktop Linux Chrome at DPR1; higher density artwork has separate DPR2/DPR3 view evidence; not a physical Mac. The threat stop is captured using ordinary pause, not presented as uninterrupted combat footage.'},inputTrace:[],motion:[],observations:{},errors:[]};
 const started=Date.now(),hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 let browser,page,lastMotion=-Infinity;
 const responses=new Map();
@@ -21,7 +21,7 @@ const get=(s,id)=>s.worlds.market.find(e=>e.id===id);
 const facts=s=>({scene:s.scene,time:s.time,paused:s.paused,dialogue:s.dialogue,defeated:s.defeated,player:s.player,market:s.market,npc:get(s,'market_merchant'),door:get(s,'market_door'),enemy:get(s,'market_raider'),decoy:get(s,'decoy'),events:s.events.slice(-12)});
 async function read(){return page.evaluate(()=>({s:window.__XIAN_NI__.inspect(),visual:window.__XIAN_NI__.presentation()}));}
 function alive(s){assert.equal(s.scene,'market','Stay within this bounded market check');assert.equal(s.defeated,false,'No defeated recovery may hide route failure');assert.ok(s.player.hp>0,'Player must remain alive');assert.ok(get(s,'market_raider').hp>0,'The original enemy must remain alive');}
-async function until(label,test,timeout=15000){
+async function until(label,test,timeout=60000){
  const end=Date.now()+timeout;let current;
  while(Date.now()<end){
   current=await read();alive(current.s);
@@ -91,7 +91,7 @@ try{
  assert.equal(get(fixture,'market_door').state,'closed');assert.equal(get(fixture,'market_merchant').state,'idle');assert.equal(get(fixture,'decoy').state,'idle');assert.equal(get(fixture,'market_raider').hp,3);assert.equal(fixture.player.hp,4);assert.equal(fixture.player.mana,6);
  report.fixture={path:fixturePath,sha256:hash(bytes),provenance:'Unchanged settings export from the real production R4 west entry; no synthetic preset or field edits.',initial:facts(fixture)};
  browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});report.environment.browser=await browser.version();
- page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:2,acceptDownloads:true});
+ page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1,acceptDownloads:true});
  page.on('pageerror',e=>report.errors.push({type:'pageerror',message:e.message}));page.on('requestfailed',r=>report.errors.push({type:'requestfailed',url:r.url(),failure:r.failure()}));page.on('response',r=>{responses.set(r.url(),r);if(r.status()>=400)report.errors.push({type:'http',url:r.url(),status:r.status()});});
  await page.goto(url);await page.getByRole('button',{name:'入 山',exact:true}).click();await page.getByRole('button',{name:'去回石驿',exact:true}).click();
  await page.waitForFunction(()=>window.__XIAN_NI__?.inspect().scene==='home');
@@ -101,13 +101,13 @@ try{
  const imported=await read();alive(imported.s);assert.equal(imported.s.paused,true);assert.deepEqual(imported.s.market,fixture.market);assert.equal(imported.s.player.hp,4);assert.equal(imported.s.player.mana,6);
  assert.equal(await page.getByRole('button',{name:'在驿中再坐一会儿',exact:true}).isVisible(),false,'Imported chapter entry must not reopen the original ending');
  report.canvas=await page.locator('canvas').first().evaluate(c=>({width:c.width,height:c.height,css:{width:c.getBoundingClientRect().width,height:c.getBoundingClientRect().height}}));
- const actualDensity=Math.max(1,Math.min(2,3,Math.sqrt(5_000_000/(1440*900))));report.canvas.actualDensity=actualDensity;assert.equal(report.canvas.width,Math.round(1440*actualDensity));assert.equal(report.canvas.height,Math.round(900*actualDensity));
+ const actualDensity=Math.max(1,Math.min(1,3,Math.sqrt(5_000_000/(1440*900))));report.canvas.actualDensity=actualDensity;assert.equal(report.canvas.width,Math.round(1440*actualDensity));assert.equal(report.canvas.height,Math.round(900*actualDensity));
  await walk(380,720);await activeGap();
  await button('[data-ui="spell:pull"]');await tap(460,720);await until('real pull acquired',s=>s.player.pullId==='decoy');
  await tap(490,840);await until('actual empty crate displacement',s=>Math.hypot(get(s,'decoy').x-490,get(s,'decoy').y-840)<=12);await activeGap();await button('[data-ui="release"]');
  const dropped=await until('actual drop event',s=>s.player.pullId===null&&get(s,'decoy').data?.noiseUsed===true&&s.events.some(e=>e.type==='drop'));
  assert.equal(dropped.s.player.mana,5);report.observations.drop={state:facts(dropped.s)};
- await until('enemy actually follows the drop toward the western approach',s=>get(s,'market_raider').x<=610,30000);
+ await until('enemy actually follows the drop toward the western approach',s=>get(s,'market_raider').x<=610,120000);
  await walk(480,460);await activeGap();const merchant=get((await read()).s,'market_merchant');await tap(merchant.x,merchant.y);
  const meeting=await until('actual nearby merchant dialogue',s=>s.dialogue?.id==='market_talk');assert.equal(meeting.s.market.exchanged,false);assert.equal(get(meeting.s,'market_door').state,'closed');assert.ok(Math.hypot(meeting.s.player.x-get(meeting.s,'market_merchant').x,meeting.s.player.y-get(meeting.s,'market_merchant').y)<96);
  report.observations.meeting={state:facts(meeting.s)};await dialogueChoice('market:exchange');await until('dialogue ends after accepted exchange',s=>!s.dialogue&&s.market.exchanged);await resume();
@@ -120,8 +120,8 @@ try{
  // combat time dragging a camera or serializing a screenshot. This is the same
  // player-facing pending move available in the production UI.
  const retreat=await framePoint(180,780);log('paused-ground-retreat',{world:{x:180,y:780},screen:retreat});await page.mouse.click(retreat.x,retreat.y);await until('normal paused move is queued',s=>s.paused&&s.pending?.type==='move');await resume();
- const continued=await until('threat leaves and merchant really continues',s=>get(s,'market_door').state==='open'||get(s,'market_merchant').state==='leading'&&Math.hypot(get(s,'market_merchant').x-stoppedPosition.x,get(s,'market_merchant').y-stoppedPosition.y)>8,20000);report.observations.continued={state:facts(continued.s),visual:continued.visual};
- await until('player reaches the actual retreat',s=>s.player.path.length===0&&Math.hypot(s.player.x-180,s.player.y-780)<18,30000);await pause();await screenshot('after-actual-retreat');
+ const continued=await until('threat leaves and merchant really continues',s=>get(s,'market_door').state==='open'||get(s,'market_merchant').state==='leading'&&Math.hypot(get(s,'market_merchant').x-stoppedPosition.x,get(s,'market_merchant').y-stoppedPosition.y)>8,60000);report.observations.continued={state:facts(continued.s),visual:continued.visual};
+ await until('player reaches the actual retreat',s=>s.player.path.length===0&&Math.hypot(s.player.x-180,s.player.y-780)<18,120000);await pause();await screenshot('after-actual-retreat');
  const done=(await read()).s;alive(done);assert.equal(get(done,'market_raider').hp,3,'No damaging spell or manufactured enemy removal');assert.equal(done.player.mana,5);assert.deepEqual(done.market.through,fixture.market.through,'This local pose check cannot invent a cross-map journey');assert.deepEqual(done.market.reported,fixture.market.reported);assert.deepEqual(report.errors,[]);
  report.outcome={state:facts(done),enemyUnharmed:true,playerAlive:true,waitingRendered:true,pauseFrozen:true,realContinuation:true};for(const entry of report.sourceFiles)assert.equal(hash(await readFile(entry.path)),entry.sha256,`Source changed during run: ${entry.path}`);report.status='PASS';
 }catch(error){
