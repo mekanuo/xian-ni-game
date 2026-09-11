@@ -150,7 +150,10 @@ export function journeyGuideView(s:GameState):{phase:'leading'|'waiting'|'exitRe
  const r=s.journey.run;if(!r||r.mode!=='together'||s.scene!=='workshop')return null;
  if(s.flags.companion!=='following'||s.flags.herbsWet)return {phase:'waiting',reason:'许照尚未重新同意同行；先在安全处按原条件集合。'};
  if(r.waiting)return {phase:'waiting',reason:'许照停在干地等你；走近一些，她再继续。'};
- if(r.next!==null&&r.next>=getJourneyRoute(r).length)return {phase:'exitReady',reason:'许照已到出口候点；你仍要走过实际分岔，在出口会合。'};
+ if(r.next!==null&&r.next>=getJourneyRoute(r).length){
+  const reason=!r.playerGate?'许照已到出口候点；你仍要走过实际分岔，在出口会合。':jointExit(s)?'你们已经在出口会合；点「溪道」离开，再去雨棚留好歇脚处。':'回程分岔已经走过；走近出口候点与许照会合，再点「溪道」离开。';
+  return {phase:'exitReady',reason};
+ }
  if(companion(s)?.state==='waiting')return {phase:'waiting',reason:'前面暂时没有放心通过的路；看清实际兽情与障碍，也可近身改走北路。'};
  return {phase:'leading',reason:r.plan==='north'&&r.viaSouth?'沿干地折回工棚东侧，再绕北路；这段折返会如实记下。':`许照正带${r.plan==='north'?'北侧高路':'南林回程'}，你仍需自行跟上。`};
 }

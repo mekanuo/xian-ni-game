@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "startedAt": "2026-09-11T06:58:41.007Z",
+  "selection": "desktop",
+  "phase": "pause-only",
+  "environment": {
+    "url": "http://127.0.0.1:4191/",
+    "platform": "linux",
+    "limitation": "Linux Chrome desktop and 390×844 DPR3 touch emulation; real Shift-mouse camera dragging on both. No physical phone/Mac/Safari claim.",
+    "browser": "150.0.7871.114"
+  },
+  "routes": [
+    {
+      "id": "desktop",
+      "status": "PASS",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "dpr": 1,
+        "touch": false
+      },
+      "inputTrace": [
+        {
+          "action": "settings-import",
+          "detail": {
+            "name": "journey-ready-input.json",
+            "contentVersion": 4
+          },
+          "wallMs": 6185
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "xu_work",
+            "scene": "workshop",
+            "world": {
+              "x": 1518.5510990349778,
+              "y": 749.2615609672112
+            }
+          },
+          "wallMs": 8339
+        },
+        {
+          "action": "choose",
+          "detail": "journey:start:together:north",
+          "wallMs": 8980
+        },
+        {
+          "action": "settings-export",
+          "detail": "qa/evidence/journey-desktop-paused-input.json",
+          "wallMs": 15011
+        },
+        {
+          "action": "settings-import",
+          "detail": {
+            "name": "journey-paused-input.json",
+            "contentVersion": 4
+          },
+          "wallMs": 20947
+        }
+      ],
+      "observations": {
+        "separatePauseSave": {
+          "separatePage": true,
+          "restoredIntoCleanPage": true,
+          "source": "real pre-start settings export from this route",
+          "freezeWallMs": 800,
+          "modelTime": 251.18333333342537,
+          "journey": {
+            "stage": "active",
+            "agreed": "together",
+            "run": {
+              "mode": "together",
+              "plan": "north",
+              "next": 2,
+              "playerGate": false,
+              "companionGate": false,
+              "viaSouth": false,
+              "waiting": false
+            },
+            "soloRoute": null,
+            "sharedRoute": null,
+            "restOpened": false,
+            "recordedShared": false
+          },
+          "npc": {
+            "id": "xu_work",
+            "kind": "npc",
+            "type": "xu",
+            "name": "许照",
+            "x": 1585.3583231879638,
+            "y": 703.8326834700325,
+            "w": 40,
+            "h": 62,
+            "state": "leading",
+            "hint": "交谈",
+            "homeX": 1420,
+            "homeY": 740,
+            "facing": -1.53164994517788
+          }
+        },
+        "paused-restored": {
+          "visual": "qa/evidence/journey-desktop-paused-restored.png",
+          "state": {
+            "scene": "workshop",
+            "time": 251.18333333342537,
+            "player": {
+              "x": 1464.6322518371385,
+              "y": 791.0003062038703,
+              "hp": 4,
+              "mana": 0,
+              "facing": 0.4316390180272834,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": [
+                {
+                  "x": 1482,
+                  "y": 799
+                }
+              ]
+            },
+            "journey": {
+              "stage": "active",
+              "agreed": "together",
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 2,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "soloRoute": null,
+              "sharedRoute": null,
+              "restOpened": false,
+              "recordedShared": false
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "companion": "following",
+            "ended": true,
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 50,
+                "time": 201.68333333338597,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 51,
+                "time": 207.20000000005703,
+                "type": "growth",
+                "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
+              },
+              {
+                "seq": 52,
+                "time": 209.10000000005854,
+                "type": "note",
+                "text": "约定记下了，还不算一起走过。按原来的条件邀请许照，实际到旧工棚东侧歇脚处，再让她带回程。"
+              },
+              {
+                "seq": 53,
+                "time": 216.6833333333979,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 54,
+                "time": 229.46666666674142,
+                "type": "scene",
+                "text": "林路与旧工棚"
+              },
+              {
+                "seq": 55,
+                "time": 250.55000000009153,
+                "type": "route",
+                "text": "许照从工棚东侧动身，自己带北侧高路。你仍要亲自行走；前路不稳或你落后时，她会停下。"
+              }
+            ]
+          }
+        }
+      },
+      "exports": [
+        {
+          "path": "qa/evidence/journey-desktop-paused-input.json",
+          "sha256": "19f94631b00a07337f6d95b04ee17d97d519e96558822e19c56007aace8a92b3"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "fixture": {
+    "path": "qa/fixtures/return-canal-v0.4.0.json",
+    "sha256": "8c6004c56965b0f4b076ea26922a6bf1224f75426404afbb95e574f8419530b1",
+    "source": "Unmodified real 0.4 desktop diversion completion exported through settings"
+  },
+  "completedAt": "2026-09-11T06:59:03.303Z"
+}

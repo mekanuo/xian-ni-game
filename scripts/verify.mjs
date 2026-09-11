@@ -14,7 +14,7 @@ try{
  if(!ready)throw Error('Preview server failed to start');
  const regression=spawn(process.execPath,['scripts/ui-regression.mjs'],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
  const regressionExit=await new Promise(r=>regression.on('exit',r));report.verify.suites.push({command:'node scripts/ui-regression.mjs',exitCode:regressionExit});if(regressionExit!==0)throw Error('UI save/input regression failed');
- for(const script of ['home-layout-check.mjs','interaction-check.mjs','mobile-render-check.mjs','combat-check.mjs','region-art-check.mjs']){
+ for(const script of ['camera-drag-check.mjs','home-layout-check.mjs','interaction-check.mjs','mobile-render-check.mjs','combat-check.mjs','region-art-check.mjs']){
   const check=spawn(process.execPath,[`scripts/${script}`],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
   const code=await new Promise(r=>check.on('exit',r));report.verify.suites.push({command:`node scripts/${script}`,exitCode:code});if(code!==0)throw Error(`${script} failed`);
  }

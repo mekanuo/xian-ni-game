@@ -10,8 +10,9 @@ import {createHash} from 'node:crypto';
 const url=process.env.GAME_URL||'http://127.0.0.1:4191/';
 const selection=process.env.JOURNEY_ROUTE||'all';assert.ok(['desktop','phone','all'].includes(selection));
 const fixturePath=process.env.JOURNEY_FIXTURE||'qa/fixtures/return-canal-v0.4.0.json';
-const output='qa/evidence/journey-check.json';
-const evidence={schemaVersion:1,status:'NOT_RUN',startedAt:new Date().toISOString(),selection,environment:{url,platform:process.platform,limitation:'Linux Chrome desktop and 390×844 DPR3 touch emulation; real Shift-mouse camera dragging on both. No physical phone/Mac/Safari claim.'},routes:[],errors:[]};
+const pauseOnly=process.env.JOURNEY_PHASE==='pause';
+const output=pauseOnly?'qa/evidence/journey-pause-check.json':'qa/evidence/journey-check.json';
+const evidence={schemaVersion:1,status:'NOT_RUN',startedAt:new Date().toISOString(),selection,phase:pauseOnly?'pause-only':'complete',environment:{url,platform:process.platform,limitation:'Linux Chrome desktop and 390×844 DPR3 touch emulation; real Shift-mouse camera dragging on both. No physical phone/Mac/Safari claim.'},routes:[],errors:[]};
 let browser,page,route,mobile=false;
 const started=Date.now();
 await mkdir('qa/evidence',{recursive:true});
@@ -95,7 +96,9 @@ async function prepare(bytes){
  return ready;
 }
 function entityHit(s,p){
- return s.worlds[s.scene].filter(e=>!['taken','gone','hidden'].includes(e.state)&&e.kind!=='scenery'&&!(e.id==='lamp'&&s.flags.lampFixed)).some(e=>Math.hypot(e.x-p.x,(e.y-p.y)*.9)<Math.max(34,Math.max(e.w,e.h)*.65)||Math.abs(e.x-p.x)<e.w*.6&&p.y<e.y&&p.y>e.y-e.h);
+ // Leave room for camera tracking between observing coordinates and delivering touch input.
+ const margin=28;
+ return s.worlds[s.scene].filter(e=>!['taken','gone','hidden'].includes(e.state)&&e.kind!=='scenery'&&!(e.id==='lamp'&&s.flags.lampFixed)).some(e=>Math.hypot(e.x-p.x,(e.y-p.y)*.9)<Math.max(34,Math.max(e.w,e.h)*.65)+margin||Math.abs(e.x-p.x)<e.w*.6+margin&&p.y<e.y+margin&&p.y>e.y-e.h-margin);
 }
 function followGround(s,n){
  // Clicking Xu herself is a dialogue action, so click real ground behind her.
@@ -126,7 +129,7 @@ async function followLeader(){
  }
  // Xu stands near (220,780); touching that point would open a conversation.
  // This empty ground is within the actual exit-meeting radius and outside her hitbox.
- await worldTap(270,825);await wait(()=>{const s=window.__XIAN_NI__.inspect();return Math.hypot(s.player.x-270,s.player.y-825)<18&&s.player.path.length===0;},undefined,60000);
+ await worldTap(270,805);await wait(()=>{const s=window.__XIAN_NI__.inspect();return Math.hypot(s.player.x-270,s.player.y-805)<18&&s.player.path.length===0;},undefined,60000);
  const safe=await state(),endNpc=safe.worlds.workshop.find(e=>e.id==='xu_work');assert.equal(safe.paused,false);assert.equal(safe.dialogue,null);assert.equal(safe.journey.run.playerGate,true);assert.equal(safe.journey.run.companionGate,true);assert.ok(moved>1800,`Only ${moved} actual NPC travel was observed`);assert.ok(Math.hypot(safe.player.x-220,safe.player.y-780)<=75);assert.ok(Math.hypot(endNpc.x-220,endNpc.y-780)<=75);
  route.observations.leadership={paused:false,exportedDuring:false,screenshotsDuring:false,wallMs:Date.now()-wallStart,modelSeconds:safe.time-began.time,npcObservedDistance:moved,distanceWaitingSamples:waitSamples,start:brief(began),finalMeeting:{player:{x:safe.player.x,y:safe.player.y},npc:{x:endNpc.x,y:endNpc.y},run:safe.journey.run},samples};
  // Leave using a real target click without resume() masking a surprise pause.
@@ -146,8 +149,14 @@ async function finishReturn(){
 }
 async function separatePauseSave(ready){
  await page.close();page=await newPage();await importSave(ready,'journey-ready-input.json',{fresh:true,continuation:true});await resume();await interact('xu_work');await choose('journey:start:together:north');
- const startNpc=await entity('xu_work');await wait(({x,y})=>{const n=window.__XIAN_NI__.inspect().worlds.workshop.find(e=>e.id==='xu_work');return Math.hypot(n.x-x,n.y-y)>50;},{x:startNpc.x,y:startNpc.y});
- await pause();const frozen=await state();await page.waitForTimeout(800);const after=await state();assert.deepEqual(after.journey,frozen.journey);assert.deepEqual(after.worlds.workshop.find(e=>e.id==='xu_work'),frozen.worlds.workshop.find(e=>e.id==='xu_work'));assert.equal(after.time,frozen.time);
+ const startNpc=await entity('xu_work'),starting=await state(),pauseRect=await page.locator('.action-dock [data-ui="pause"]').boundingBox();assert.ok(pauseRect);
+ // Real UI latency can let Xu reach her distance wait before choose() returns.
+ // Follow with a ground input before sampling a moving pose for the pause export.
+ const nearLeader=followGround(starting,startNpc);await worldTap(nearLeader.x,nearLeader.y);
+ await wait(({x,y})=>{const n=window.__XIAN_NI__.inspect().worlds.workshop.find(e=>e.id==='xu_work');return n.state==='leading'&&Math.hypot(n.x-x,n.y-y)>10;},{x:startNpc.x,y:startNpc.y});
+ // Tap the already measured real pause button without auto-wait delaying it until the next distance stop.
+ if(mobile)await page.touchscreen.tap(pauseRect.x+pauseRect.width/2,pauseRect.y+pauseRect.height/2);else await page.mouse.click(pauseRect.x+pauseRect.width/2,pauseRect.y+pauseRect.height/2);
+ await wait(()=>window.__XIAN_NI__.inspect().paused);const frozen=await state();assert.equal(frozen.worlds.workshop.find(e=>e.id==='xu_work').state,'leading');await page.waitForTimeout(800);const after=await state();assert.deepEqual(after.journey,frozen.journey);assert.deepEqual(after.worlds.workshop.find(e=>e.id==='xu_work'),frozen.worlds.workshop.find(e=>e.id==='xu_work'));assert.equal(after.time,frozen.time);
  const bytes=await exportSave(`journey-${route.id}-paused-input.json`),saved=JSON.parse(bytes.toString('utf8'));
  // Restore into a clean page so an ignored import cannot pass by comparing the unchanged source state.
  await page.close();page=await newPage();await importSave(bytes,'journey-paused-input.json',{fresh:true,continuation:true});const restored=await state();
@@ -156,7 +165,7 @@ async function separatePauseSave(ready){
 }
 async function run(bytes,isPhone){
  mobile=isPhone;route={id:mobile?'phone':'desktop',status:'RUNNING',viewport:{width:mobile?390:1440,height:mobile?844:900,dpr:mobile?3:1,touch:mobile},inputTrace:[],observations:{},exports:[]};evidence.routes.push(route);page=await newPage();
- const ready=await prepare(bytes);await followLeader();await finishReturn();await separatePauseSave(ready);route.status='PASS';await persist();await page.close();page=null;
+ const ready=pauseOnly?await readFile(mobile?'qa/evidence/journey-phone-ready-input.json':'qa/evidence/journey-ready-input.json'):await prepare(bytes);if(!pauseOnly){await followLeader();await finishReturn();}await separatePauseSave(ready);route.status='PASS';await persist();await page.close();page=null;
 }
 try{
  const bytes=await readFile(fixturePath),fixture=JSON.parse(bytes.toString('utf8'));assert.equal(fixture.contentVersion,3);assert.equal(fixture.canal.stage,'complete');assert.equal(fixture.scene,'home');assert.equal(fixture.ended,true);evidence.fixture={path:fixturePath,sha256:hash(bytes),source:'Unmodified real 0.4 desktop diversion completion exported through settings'};

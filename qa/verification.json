@@ -12,9 +12,11 @@
     "tests": 316,
     "testFiles": 20,
     "build": "PASS",
-    "bundle": "index-DlYb64u7.js",
+    "bundle": "index-BEPc4gec.js",
     "journeyModel": "8 PASS",
-    "browser": "NOT_RUN"
+    "browser": "Phone complete PASS; desktop complete observed and fresh-page moving pause PASS; full current matrix pending",
+    "exitGuidanceRegression": "1 PASS (red then green)",
+    "cameraDrag": "DPR 1/2/3 PASS (red then green)"
   },
   "note": "New content candidate; current full runtime and public verification not yet run."
 }

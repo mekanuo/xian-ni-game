@@ -111,7 +111,14 @@ export class WorldScene extends Phaser.Scene {
     });
     this.input.mouse?.disableContextMenu();
     this.input.on('pointerdown',(p:Phaser.Input.Pointer)=>this.pointerDown(p));
-    this.input.on('pointerup',()=>{this.dragStart=null;});
+    const endCameraDrag=()=>{this.dragStart=null;};
+    this.input.on('pointerup',endCameraDrag);
+    this.input.on('pointerupoutside',endCameraDrag);
+    // DOM controls can receive mouseup instead of the canvas. Release globally
+    // so returning to the world never continues a finished camera gesture.
+    const dragReleaseEvents=['mouseup','touchend','touchcancel','pointercancel','blur'] as const;
+    for(const event of dragReleaseEvents)window.addEventListener(event,endCameraDrag,true);
+    this.events.once('shutdown',()=>{for(const event of dragReleaseEvents)window.removeEventListener(event,endCameraDrag,true);});
     this.input.on('pointermove',(p:Phaser.Input.Pointer)=>{if(this.dragStart){this.cameraManual=true;this.cameras.main.scrollX=this.dragStart.cx-(p.x-this.dragStart.x)/this.cameras.main.zoom;this.cameras.main.scrollY=this.dragStart.cy-(p.y-this.dragStart.y)/this.cameras.main.zoom;}});
     window.addEventListener('blur',()=>{this.dispatch({type:'pause',value:true});this.keys&&Object.values(this.keys).forEach(k=>k.reset());});
     document.addEventListener('visibilitychange',()=>{if(document.hidden)this.dispatch({type:'pause',value:true});});

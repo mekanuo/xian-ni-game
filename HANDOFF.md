@@ -4,9 +4,9 @@
 
 本目录为 `.worktrees/companion-050` / `feat/companion-050`，基于0.4.1源码里程碑d7e6a36。用户要求持续自主推进。已选 `design/COMPANION_050.md`，实施计划与美术稿分别为 `COMPANION_050_IMPLEMENTATION.md`、`ART_COMPANION_050.md`；直接继续实现与验证，无待用户批准事项。
 
-新增许照工棚领路、北路与南探折返、真实双方经过、单人先走、雨棚坐垫及归家补笔。contentVersion4，旧1/2/3外层与checkpoint迁移；新约定不补发历史成果。新规则/存档/表现已接入，316项测试/20文件与构建PASS，8项模型闭环/处境边界已证实；浏览器/公网尚未发布本候选。`qa/verification.json` NOT_RUN不得当成通过。
+新增许照工棚领路、北路与南探折返、真实双方经过、单人先走、雨棚坐垫及归家补笔。contentVersion4，旧1/2/3外层与checkpoint迁移；新约定不补发历史成果。新规则/存档/表现已接入，316项测试/20文件与构建PASS，8项模型闭环/处境边界已证实；已实测桌面北路完整归来及手机独立PASS，双方迈步暂停档新页面恢复PASS；三视口仍验证中，完整发行回归未运行，未发布本候选。`qa/verification.json` NOT_RUN不得当成通过。另已修复DOM按钮上松开镜头拖动导致下一点击错位，camera-drag-check在DPR1/2/3通过；新包index-BEPc4gec.js。
 
-0.4.1已完成17条发行检查与公网核验，源码ee17e8f、gh-pages dd82f80，21资源哈希一致，页面错误为空。公开入口 https://mekanuo.github.io/xian-ni-game/?v=0.4.1 。本分支已合入发行证据，当前0.5真实带路检查运行中；浏览器必须串行。
+0.4.1已完成17条发行检查与公网核验，源码ee17e8f、gh-pages dd82f80，21资源哈希一致，页面错误为空。公开入口 https://mekanuo.github.io/xian-ni-game/?v=0.4.1 。本分支已合入发行证据，当前0.5三视口检查运行中；浏览器必须串行。
 
 ## 发行状态 · 2026-09-11
 

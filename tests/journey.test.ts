@@ -4,7 +4,7 @@ import type {GameState,Vec} from '../src/game/contracts';
 import {CANAL_SCENE} from '../src/game/canal-content';
 import {createCanalState} from '../src/game/canal';
 import {getJourneyRoute,initialJourneyEntities,JOURNEY_POINTS as P} from '../src/game/journey-content';
-import {createJourneyState,journeyChoose,journeyTick,journeyCompanionStep,journeyBeforeExit,journeyExitIntent,journeyAbandonRun,journeyChoices,type JourneyPorts} from '../src/game/journey';
+import {createJourneyState,journeyChoose,journeyTick,journeyCompanionStep,journeyBeforeExit,journeyExitIntent,journeyAbandonRun,journeyChoices,journeyObjective,type JourneyPorts} from '../src/game/journey';
 const ports:JourneyPorts={free:()=>true,clearLine:()=>true,emit:()=>{},dialogue:(s,id,speaker,text,choices=[])=>{s.dialogue={id,speaker,text,choices};s.paused=true;},safe:()=>true,route:(_s,a,b,_id,allowed)=>allowed(a)&&allowed(b)?[b]:[],moveNpc:(_s,n,to,speed,dt)=>{const d=Math.hypot(to.x-n.x,to.y-n.y),a=Math.min(d,speed*dt);if(d){n.x+=(to.x-n.x)/d*a;n.y+=(to.y-n.y)/d*a;}}};
 function game(){const s=JSON.parse(mainFixture) as GameState;s.contentVersion=4;s.canal={...createCanalState(),stage:'complete',inspected:true,cleared:true,method:'diversion'};s.worlds.canal=structuredClone(CANAL_SCENE.entities);for(const scene of ['home','creek','workshop','crossing','canal'] as const)s.worlds[scene].push(...initialJourneyEntities(scene));s.journey=createJourneyState();s.paused=false;s.dialogue=null;s.flags.herbsWet=false;s.flags.companion='following';return s;}
 const xu=(s:GameState)=>s.worlds.workshop.find(e=>e.type==='xu')!;
@@ -21,6 +21,17 @@ describe('journey direct rule ports',()=>{
  it('freezes positions and progress under paused, dialogue or defeated states',()=>{const s=game();begin(s);for(const key of ['paused','defeated'] as const){s[key]=true;const before=JSON.stringify([s.journey,xu(s)]);tick(s,1);expect(JSON.stringify([s.journey,xu(s)])).toBe(before);s[key]=false;}s.dialogue={id:'x',speaker:'x',text:'x',choices:[]};const before=JSON.stringify([s.journey,xu(s)]);tick(s,1);expect(JSON.stringify([s.journey,xu(s)])).toBe(before);});
  it('unsafe southern path waits without changing beasts or silently using north',()=>{const s=game();begin(s,'together','south');locate(s,{x:1300,y:860},P.southProbe);s.journey.run!.next=3;const before=structuredClone(s.worlds.workshop.filter(e=>e.kind==='enemy')),pos={x:xu(s).x,y:xu(s).y};journeyCompanionStep(s,xu(s),.5,{...ports,safe:(_s,p)=>p.x>1200});expect(xu(s).x).toBe(pos.x);expect(s.journey.run?.plan).toBe('south');expect(s.worlds.workshop.filter(e=>e.kind==='enemy')).toEqual(before);});
  it('switches south to an explicit safe return route and freezes its viaSouth selection',()=>{const s=game();begin(s,'together','south');locate(s,{x:1300,y:860},P.southProbe);expect(s.journey.run?.viaSouth).toBe(true);expect(journeyChoose(s,'journey:change:north',ports)?.ok).toBe(true);expect(getJourneyRoute(s.journey.run!)).toHaveLength(9);expect(getJourneyRoute(s.journey.run!)[0]).toEqual(P.southProbe);expect(s.journey.run?.next).toBe(0);locate(s,P.start);expect(s.journey.run?.viaSouth).toBe(true);});
+ it('exit guidance distinguishes missing passage, completed passage and actual meeting without changing evidence',()=>{
+  const s=game();begin(s);const r=s.journey.run!;r.next=getJourneyRoute(r).length;
+  locate(s,{x:P.exit.x+75.2,y:P.exit.y},P.exit);
+  expect(journeyObjective(s)).toContain('仍要走过实际分岔');
+  locate(s,{x:1000,y:250});locate(s,{x:P.exit.x+75.2,y:P.exit.y},P.exit);
+  const before=JSON.stringify(s.journey);expect(r.playerGate).toBe(true);expect(r.companionGate).toBe(true);
+  expect(journeyObjective(s)).toContain('已经走过');expect(journeyObjective(s)).toContain('会合');expect(journeyObjective(s)).not.toContain('仍要走过');
+  expect(JSON.stringify(s.journey)).toBe(before);expect(s.journey.sharedRoute).toBe(null);
+  Object.assign(s.player,{x:P.exit.x+74,y:P.exit.y});
+  expect(journeyObjective(s)).toContain('已经在出口会合');expect(journeyObjective(s)).toContain('溪道');expect(s.journey.sharedRoute).toBe(null);
+ });
  it('does not finish from route index or destination alone',()=>{const s=game();begin(s);s.journey.run!.next=getJourneyRoute(s.journey.run!).length;locate(s,P.exit);journeyBeforeExit(s,'creek',ports);expect(s.journey.sharedRoute).toBe(null);expect(s.journey.soloRoute).toBe(null);});
  it('records a joint route only after both bodies pass the gate and actually meet at the exit',()=>{const s=game();begin(s);locate(s,{x:1000,y:250});expect(s.journey.run?.playerGate).toBe(true);expect(s.journey.run?.companionGate).toBe(true);locate(s,{x:175,y:780},P.exit);journeyBeforeExit(s,'creek',ports);expect(s.journey.sharedRoute).toBe('north');expect(s.journey.soloRoute).toBe(null);expect(s.journey.run).toBe(null);expect(s.journey.stage).toBe('active');});
  it('lets solo finish without granting shared credit to an incidental nearby companion',()=>{const s=game();begin(s,'solo');locate(s,{x:1000,y:250});locate(s,{x:175,y:780},P.exit);journeyBeforeExit(s,'creek',ports);expect(s.journey.soloRoute).toBe('north');expect(s.journey.sharedRoute).toBe(null);});

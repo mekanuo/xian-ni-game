@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "url": "http://127.0.0.1:4191/",
+  "checkedAt": "2026-09-11T07:14:22.116Z",
+  "devices": [
+    {
+      "dpr": 2,
+      "before": {
+        "x": 1000.0000128772499,
+        "y": 680.0593328491844
+      },
+      "released": {
+        "x": 639.8912797188477,
+        "y": 551.059331076399
+      },
+      "after": {
+        "x": 639.8912797188477,
+        "y": 551.059331076399
+      },
+      "player": {
+        "x": 998.6905289623155,
+        "y": 750.9195334019576,
+        "hp": 4,
+        "mana": 6,
+        "facing": 0.06398041257116609,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "screenshot": "qa/evidence/camera-drag-dpr2.png"
+    },
+    {
+      "dpr": 1,
+      "before": {
+        "x": 1000,
+        "y": 680
+      },
+      "released": {
+        "x": 640,
+        "y": 550
+      },
+      "after": {
+        "x": 640,
+        "y": 550
+      },
+      "player": {
+        "x": 998.7536502290459,
+        "y": 749.9221031393154,
+        "hp": 4,
+        "mana": 6,
+        "facing": 0.06241880999595735,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "screenshot": "qa/evidence/camera-drag-dpr1.png"
+    },
+    {
+      "dpr": 3,
+      "before": {
+        "x": 1000.0000128772499,
+        "y": 680.0593328491844
+      },
+      "released": {
+        "x": 639.8912797188477,
+        "y": 551.059331076399
+      },
+      "after": {
+        "x": 639.8912797188477,
+        "y": 551.059331076399
+      },
+      "player": {
+        "x": 998.6905289623155,
+        "y": 750.9195334019576,
+        "hp": 4,
+        "mana": 6,
+        "facing": 0.06398041257116609,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "screenshot": "qa/evidence/camera-drag-dpr3.png"
+    }
+  ],
+  "errors": [],
+  "limitation": "Linux Chrome mouse input at emulated display densities; not physical Mac/Safari testing."
+}

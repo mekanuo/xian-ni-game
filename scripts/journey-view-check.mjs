@@ -94,6 +94,6 @@ try{
   assert.equal((await state()).journey.run,null,'Visual revisit must not begin a new guided run');await context.close();activePage=null;
  }
  assert.deepEqual(report.errors,[]);report.status='PASS';
-}catch(error){report.status='FAIL';report.failure=String(error);console.error(error);process.exitCode=1;if(activePage)await activePage.screenshot({path:'qa/evidence/journey-view-failure.png'}).catch(()=>{});}
+}catch(error){report.status='FAIL';report.failure=String(error);console.error(error);process.exitCode=1;if(activePage)report.failureState=await activePage.evaluate(()=>window.__XIAN_NI__.inspect()).catch(()=>null);if(activePage)await activePage.screenshot({path:'qa/evidence/journey-view-failure.png'}).catch(()=>{});}
 finally{await browser?.close();await writeFile(output,JSON.stringify(report,null,2));}
 console.log(JSON.stringify(report));
