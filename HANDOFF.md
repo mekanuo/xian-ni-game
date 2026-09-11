@@ -1,10 +1,10 @@
 # 《仙逆：山门之外》当前交接
 
-## 当前候选 · 0.4.1
+## 当前发行 · 0.4.1
 
-0.4.1 重访提示修正已完成 npm run verify，exit0，243 项测试、17 条命令、六项运行时检查全部 PASS。桌面与手机实际完成历史桌案、重新分水、复位验水和归驿回访；报告 qa/evidence/canal-revisit-check.json。包 index-COg2LfF-.js，CSS index-B8Ldhq7K.css。根代理复核了当前桌面、矮窗口与 DPR3 手机旧渠截图。规则、资源与存档版本均未改。当前正在提交发行，公网核验尚待完成。
+0.4.1 重访提示修正已完成 npm run verify，exit0，243 项测试、17 条命令、六项运行时检查全部 PASS。桌面与手机实际完成历史桌案、重新分水、复位验水和归驿回访；报告 qa/evidence/canal-revisit-check.json。包 index-COg2LfF-.js，CSS index-B8Ldhq7K.css。根代理复核了当前桌面、矮窗口与 DPR3 手机旧渠截图。规则、资源与存档版本均未改。已上线并通过 public-check exit0：源码 ee17e8f0f957d76586fe3ae6a507dd5128755314，gh-pages dd82f80e3d19efd0b436b6cdb7f85dc0c59aca88；21 个资源哈希一致，输入与声音、旧档延续均通过，页面错误为空。试玩 https://mekanuo.github.io/xian-ni-game/?v=0.4.1 。
 
-实施目录 .worktrees/revisit-041 / feat/revisit-041；下一候选 .worktrees/companion-050 / feat/companion-050 已推至 aabe351，316 项测试与构建通过，真实浏览器验证未运行。继续先发布本修正，再验证 0.5，不因已通过模型测试就声称新内容已上线。
+实施目录 .worktrees/revisit-041 / feat/revisit-041；下一候选 .worktrees/companion-050 / feat/companion-050 已推至 aabe351，316 项测试与构建通过，真实浏览器验证未运行。本修正已发布，继续验证 0.5，不因已通过模型测试就声称新内容已上线。
 
 ## 发行状态 · 2026-09-11
 
