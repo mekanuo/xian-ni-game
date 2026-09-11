@@ -252,6 +252,19 @@ async function withdraw() {
 // Route bodies below follow actual act/tick replay candidates, including normal
 // active input gaps. Browser execution is still required to validate their UI timing.
 const scenarios = {};
+async function circleTowardStall() {
+  if (device === 'phone') {
+    for (const [x, y] of [[420, 840], [600, 840], [780, 840], [780, 900], [600, 900], [430, 900]]) await walk(x, y);
+    await walk(430, 650, 2);
+    const visible = await waitFor('enemy actually reaches and casts at the visible warehouse corner', r => enemy(r).x <= 570 && enemy(r).state === 'casting', 30000);
+    await canvasAt(await screenPoint(point(enemy(visible).x, enemy(visible).y)));
+    await observe('actual visible corner approach before returning to the stall', visible);
+  } else {
+    for (const [x, y] of [[420, 840], [880, 840], [1220, 900], [880, 900], [680, 900], [430, 900]]) await walk(x, y);
+    await walk(430, 650); await activeGap(2);
+  }
+  await walk(430, 430);
+}
 const returnViaSouthernWaypoints = async () => {
   await walk(1220, 240, 0);
   const readingStart = (await inspect()).state.time;
@@ -366,8 +379,7 @@ scenarios.lure = async () => {
 };
 scenarios['threat-zero'] = async () => {
   await reset({ mana: 'zero', informed: true });
-  for (const [x, y] of [[420, 840], [880, 840], [1220, 900], [880, 900], [680, 900], [430, 900]]) await walk(x, y);
-  await walk(430, 650); await activeGap(2); await walk(430, 430);
+  await circleTowardStall();
   await waitFor('zero-resource eastern loop creates an actually visible threat at the stall', r => r.threat, 15000);
   await interact('market_merchant');
   const meeting = await observe('actual near-threat refusal at zero mana');
@@ -389,8 +401,7 @@ scenarios['open-threat'] = async () => {
   await reset({ mana: 'ordinary', informed: true });
   await walk(470, 760); await interact('market_merchant'); await choose('market:exchange');
   await waitFor('actual opening and return before a separate encounter', r => door(r).state === 'open' && Math.hypot(npc(r).x - 470, npc(r).y - 380) <= 5);
-  for (const [x, y] of [[420, 840], [880, 840], [1220, 900], [880, 900], [680, 900], [430, 900]]) await walk(x, y);
-  await walk(430, 650); await activeGap(2); await walk(430, 430);
+  await circleTowardStall();
   const threat = await waitFor('real renewed danger after physical opening', r => r.threat && door(r).state === 'open', 15000);
   await observe('already-open door remains passable under renewed danger', threat);
   await interact('market_merchant');
