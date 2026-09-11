@@ -26,6 +26,8 @@
 
 checkpoint：实际入图、有效交换、首次真实开门、有效等待/邀请、实际离图、桌边报告后按既有函数保存。门开点在本tick移动/路线观察结束后一次写；不每帧存。retry按完整checkpoint恢复，不混入当前成果；retreat沿既有资源恢复/敌情回置语义，额外清visit而不发through，保留交换、门与NPC位置。原source checkpoint与外层撤回地点可不同，独立合法即可。
 
+同一在场判断也必须覆盖借物件调用许照的旧入口：溪道shelter/regroup、rope/cooperate、dry等对白选项与choose裁决。不能只隐藏type=xu实体，否则她在小集等待时，独自点旧雨棚仍会凭空改following。保留不依赖她的徒手操作和旧已完成历史；不能让旁边物件代替她发言或同意。迁移/验证拒绝图外xu_market在场却global following的矛盾组合。
+
 验证：未到场不凭空出现；留图等待后家中无第二可交谈副本；北口玩家/同行不擦L墙；暂停/离图不偷跑；exchange后重试门仍闭合、open后重试保留open；retreat不计穿图且内外恢复点各自一致。
 
 ## P3 · 严格新旧档兼容

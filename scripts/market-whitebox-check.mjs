@@ -164,7 +164,11 @@ async function walk(x, y, gap = .8) {
   if (gap) await activeGap(gap);
 }
 async function interact(id) {
-  await ensureWalking(); const e = entity(await inspect(), id); await world(point(e.x, e.y));
+  await ensureWalking(); const state = await inspect(), e = entity(state, id);
+  // A close conversation uses the existing recenter control when a prior map
+  // look left the camera behind; avoid dragging across a distant old viewport.
+  if (id === 'market_merchant' && Math.hypot(e.x - state.state.player.x, e.y - state.state.player.y) <= 96 && (await geometry()).camera.manual) await action('center');
+  await world(point(e.x, e.y));
   if (id === 'market_merchant') await waitFor('real near merchant dialogue', r => r.state.dialogue?.id === 'market_talk');
 }
 async function choose(id) { await ui(`#dialogue button[data-choice="${id}"]`); }
@@ -351,8 +355,10 @@ scenarios['threat-zero'] = async () => {
   const meeting = await observe('actual near-threat refusal at zero mana');
   assert.equal(meeting.threat, true); assert.equal(meeting.exchanged, false);
   assert.equal(await page.locator('#dialogue button[data-choice="market:exchange"]:enabled').count(), 0);
-  await frozen('reading a real threat refusal freezes the world'); await choose('leave');
-  await walk(180, 780, 0);
+  await frozen('reading a real threat refusal freezes the world');
+  const reading = await inspect(); await frame(point(240, 760));
+  assert.deepEqual(await inspect(), reading, 'Looking back during the normal dialogue must not advance the world');
+  await choose('leave');
   await withdraw();
   const r = await observe('zero-resource withdrawal without pretending north was reached');
   current.outcome = facts(r);
@@ -374,8 +380,9 @@ scenarios['open-threat'] = async () => {
   assert.equal(meeting.threat, true); assert.equal(door(meeting).solid, false);
   assert.match(await page.locator('#dialogue').innerText(), /门已开/);
   assert.equal(await page.locator('#dialogue button[data-choice="market:exchange"]:enabled').count(), 0);
+  const reading = await inspect(); await frame(point(240, 760));
+  assert.deepEqual(await inspect(), reading, 'Looking back during the normal dialogue must not advance the world');
   await choose('leave');
-  await walk(180, 780, 0);
   await withdraw();
   const r = await observe('actual withdrawal after visiting an open door under threat');
   assert.equal(r.state.player.mana, 6); assert.equal(enemy(r).hp, 3); assert.equal(door(r).state, 'open');
