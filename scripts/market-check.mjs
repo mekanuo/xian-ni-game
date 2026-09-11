@@ -104,7 +104,7 @@ try{
   for(const p of [[1220,220],[1220,880],[880,880],[420,880]])await walk(...p);
   await interact('market_entry');await wait(()=>window.__XIAN_NI__.inspect().scene==='crossing');assert.equal((await state()).market.through.public.eastToWest,true);await capture('west-connected');
   for(const p of [[1370,830],[1000,830],[600,830]])await walk(...p);await interact('to_creek');await wait(()=>window.__XIAN_NI__.inspect().scene==='creek');await walk(300,740);await interact('to_home');await wait(()=>window.__XIAN_NI__.inspect().scene==='home');
-  await walk(900,700);await walk(1000,450);await interact('table');await choose('market:report');
+  await walk(900,700);await interact('table');await choose('market:report');
   const done=await state();assert.equal(done.market.reported.private.westToEast,true);assert.equal(done.market.reported.public.eastToWest,true);assert.equal(done.market.reported.private.eastToWest,false);assert.equal(done.market.reported.public.westToEast,false);
   await capture('reported-at-home');await exportSave('market-complete.json');
  }
