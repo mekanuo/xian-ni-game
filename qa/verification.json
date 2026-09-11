@@ -3,9 +3,9 @@
   "status": "NOT_RUN",
   "candidate": "0.5.0",
   "baseline": {
-    "version": "0.4.0",
-    "sourceCommit": "f5063db5234f500f9955935a636d69db5dc23c90",
-    "reportCommit": "493bd8c",
+    "version": "0.4.1",
+    "sourceCommit": "ee17e8f0f957d76586fe3ae6a507dd5128755314",
+    "reportCommit": "d25af20",
     "status": "PASS"
   },
   "targeted": {
