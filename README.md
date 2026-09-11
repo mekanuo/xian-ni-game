@@ -23,6 +23,14 @@
 
 完成旧渠并归驿记录后，可在桌边约许照认一段回程，再到旧工棚商量由她领路。玩家仍需亲自行走；落后或前方不安全时，她会停下等候。共同走过分岔、在出口会合后，可回溪道雨棚歇脚，再归驿补上记号。也可以先独自认路，后来再一起走，不会重复领取歇脚成果。
 
+## 正在验收的下一版
+
+**0.6.0「背墙旧窑」尚在整版回归，当前公网仍为上述0.5.0。** 新增第六处场景，接通溪道与旧渠。完成认路并归驿记下后，旧窑入口开放；不要求一定与许照同行，也不要求先取得其他歇脚许可。
+
+可以不耗灵力穿窑，也可以向杜芹借用轻木挡屏，利用实体遮蔽来袭。屏幕上的位置、烧毁与人物亲眼见到的借还分别产生后果：烧掉的挡屏不会因切图复原，完好放回还需当面确认，获准后才能使用棚角歇脚。进入旧窑不会自动更换原来的安全落点。
+
+新窑三视口、双向零资源往返、借还与独立页面读档、烧毁后果和脚下落屏脱困已有专项证据；完整回归及公网发布完成后再更新版本状态。记录见 `qa/REVIEW_060.md`、`qa/evidence/kiln-check.json`、`qa/evidence/kiln-consequences.json` 与 `qa/evidence/kiln-view.json`。
+
 ## 本地运行与验证
 
 需要 Node.js 22、npm，以及浏览器。依赖版本与安装选项固定在锁文件和 `.npmrc`。
@@ -40,7 +48,7 @@ npm run verify
 
 `verify` 在 Linux Chrome 中运行真实鼠标键盘流程，覆盖启动、渲染、输入、核心循环、设计结果和重开；结果在 `qa/verification.json`，同一轮观察记录在 `qa/evidence/run.json`。Chrome 默认路径为 `/usr/bin/google-chrome`；可用 `CHROME_PATH` 指定执行文件。
 
-`node scripts/public-check.mjs` 另行核对公网资源哈希、匿名桌面/手机输入、声音、旧档导入与新章节入口；发布证据在 `qa/evidence/publication.json`。新章两法真实流程见 `qa/evidence/canal-check.json`，三视口见 `qa/evidence/canal-view.json`。
+`node scripts/public-check.mjs` 另行核对公网资源哈希、匿名桌面/手机输入、声音、旧档导入与新章节入口；发布证据在 `qa/evidence/publication.json`。默认要求公网源码提交等于当前 HEAD；后续只改文档再复核旧发行时，用 `EXPECTED_SOURCE_COMMIT=<完整发行提交>` 明确指定来源。新章两法真实流程见 `qa/evidence/canal-check.json`，三视口见 `qa/evidence/canal-view.json`。
 
 同行连续带路与独立暂停读档见 `qa/evidence/journey-check.json`，三视口十二处观察见 `qa/evidence/journey-view.json`。模型边界另含独行后再同行、换路和提前离队，不把约定或切图当成共同经历。
 

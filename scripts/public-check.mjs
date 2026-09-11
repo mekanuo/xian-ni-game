@@ -2,10 +2,14 @@ import {chromium} from '@playwright/test';
 import assert from 'node:assert/strict';
 import {readFile,readdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
 const base='https://mekanuo.github.io/xian-ni-game/';
-const evidence={checkedAt:new Date().toISOString(),url:base,release:null,resources:[],browser:null,input:[],errors:[]};
+const expectedSourceCommit=process.env.EXPECTED_SOURCE_COMMIT||execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+assert.match(expectedSourceCommit,/^[a-f0-9]{40}$/,'Expected public source must be a full Git commit');
+const evidence={checkedAt:new Date().toISOString(),url:base,release:null,expectedSourceCommit,resources:[],browser:null,input:[],errors:[]};
 const releaseResponse=await fetch(new URL('release.json',base));assert.equal(releaseResponse.status,200);evidence.release=await releaseResponse.json();
 assert.equal(evidence.release.version,JSON.parse(await readFile('package.json','utf8')).version,'Public release must be the current version');
+assert.equal(evidence.release.sourceCommit,expectedSourceCommit,'Public release must match the explicitly expected source commit');
 async function files(dir){const list=[];for(const e of await readdir(dir,{withFileTypes:true})){const path=`${dir}/${e.name}`;if(e.isDirectory())list.push(...await files(path));else list.push(path);}return list;}
 const hash=b=>createHash('sha256').update(b).digest('hex');
 evidence.resources=await Promise.all((await files('dist')).map(async path=>{const relative=path.slice(5),response=await fetch(new URL(relative,base));assert.equal(response.status,200,relative);const bytes=Buffer.from(await response.arrayBuffer()),local=await readFile(path);assert.equal(hash(bytes),hash(local),`${relative} must match the tested production build`);return {path:relative,status:response.status,bytes:bytes.length,sha256:hash(bytes)};}));
