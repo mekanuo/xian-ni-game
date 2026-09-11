@@ -75,7 +75,7 @@ class MarketScene extends Phaser.Scene {
         const c = this.cameras.main, o = c.getWorldPoint(c.x, c.y);
         return { x: (c.x + (x - o.x) * c.zoom) / dpr, y: (c.y + (y - o.y) * c.zoom) / dpr };
       },
-      geometry: () => structuredClone({ ...MARKET_MAP, revision: 'market-whitebox-1', points: MARKET_POINTS,
+      geometry: () => structuredClone({ ...MARKET_MAP, revision: 'market-whitebox-2', points: MARKET_POINTS,
         viewport: { width: innerWidth, height: innerHeight, dpr, usable: this.usable },
         camera: { x: this.cameras.main.x / dpr, y: this.cameras.main.y / dpr, zoom: this.cameras.main.zoom / dpr,
           scrollX: this.cameras.main.scrollX, scrollY: this.cameras.main.scrollY, overview: this.overview, manual: this.manual } }),
@@ -252,6 +252,7 @@ class MarketScene extends Phaser.Scene {
     for (const r of MARKET_MAP.obstacles) { g.fillStyle(0x737d72).fillRect(r.x, r.y, r.w, r.h); g.lineStyle(2, 0x4d6056).strokeRect(r.x, r.y, r.w, r.h); }
     this.label('cargo-north', '北侧货屋', 660, 200); this.label('cargo-south', '南侧货屋', 660, 640);
     this.label('public-lane', '公共巷', 660, 900);
+    this.label('north-corner', '北口短墙', 1100, 334);
     for (const e of s.worlds.home) this.actor(e);
     g.fillStyle(0x284f48).fillCircle(p.x, p.y, 17);
     g.lineStyle(3, 0xe7d9a6).lineBetween(p.x, p.y, p.x + Math.cos(p.facing) * 24, p.y + Math.sin(p.facing) * 24);

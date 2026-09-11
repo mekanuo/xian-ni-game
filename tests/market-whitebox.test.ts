@@ -85,13 +85,13 @@ function walk(r:MarketRun,x:number,y:number,gap=0,mode:'keys'|'click'='keys'){
 const openBoundary=()=>{const r=fresh();obj(r,'market_door').state='open';obj(r,'market_raider').state='retreated';return r;};
 const publicAcross=(r:MarketRun)=>{walk(r,420,840);walk(r,880,840);};
 const privateAcross=(r:MarketRun)=>{walk(r,470,840);walk(r,470,440);walk(r,830,440);};
-const confirmNorth=(r:MarketRun)=>{walk(r,1140,840);walk(r,1140,240);return marketAct(r,{type:'interact',targetId:'market_exit'});};
+const confirmNorth=(r:MarketRun)=>{walk(r,1140,840);walk(r,1140,240,0,'click');return marketAct(r,{type:'interact',targetId:'market_exit'});};
 const returnWest=(r:MarketRun)=>{walk(r,1220,240);walk(r,1220,840);walk(r,420,840);walk(r,240,760);return marketAct(r,{type:'interact',targetId:'market_entry'});};
 
 describe('synthetic safe fixtures isolate continuous corridor attribution',()=>{
  it('door open and public crossing records public only; north point needs an interaction',()=>{
   const r=openBoundary();publicAcross(r);expect(r.trip.traversed).toEqual({public:true,private:false});
-  walk(r,1140,840);walk(r,1140,240);expect(r.completed.public).toBe(false);
+  walk(r,1140,840);walk(r,1140,240,0,'click');expect(r.completed.public).toBe(false);
   expect(marketAct(r,{type:'interact',targetId:'market_exit'}).ok).toBe(true);expect(r.completed).toEqual({public:true,private:false});
   expect(returnWest(r).ok).toBe(true);expect(r.returned).toEqual({public:true,private:false});
  });
@@ -101,12 +101,12 @@ describe('synthetic safe fixtures isolate continuous corridor attribution',()=>{
  });
  it('keeps both actually traversed routes through backtracking instead of guessing from the door',()=>{
   const r=openBoundary();publicAcross(r);walk(r,420,840);privateAcross(r);
-  walk(r,1140,440);walk(r,1140,240);expect(marketAct(r,{type:'interact',targetId:'market_exit'}).ok).toBe(true);
+  walk(r,1000,440);walk(r,1140,240,0,'click');expect(marketAct(r,{type:'interact',targetId:'market_exit'}).ok).toBe(true);
   expect(r.completed).toEqual({public:true,private:true});returnWest(r);expect(r.returned).toEqual({public:true,private:true});
  });
  it('east-side partial visit cannot invent a complete private crossing',()=>{
   const r=openBoundary();publicAcross(r);walk(r,850,440);walk(r,720,440);walk(r,850,440);
-  walk(r,1140,440);walk(r,1140,240);marketAct(r,{type:'interact',targetId:'market_exit'});
+  walk(r,1000,440);walk(r,1140,240,0,'click');marketAct(r,{type:'interact',targetId:'market_exit'});
   expect(r.completed).toEqual({public:true,private:false});
  });
  it('sideways escape invalidates incomplete traversal; original endpoint resets only the trip',()=>{
@@ -129,7 +129,7 @@ describe('fixed initial state actual act/tick replay without state injection',()
   expect(obj(r,'market_door').state).toBe('open');expect(obj(r,'market_merchant').x).toBeCloseTo(470);
   walk(r,620,440,.8,'click');expect(marketAct(r,{type:'move',point:point(820,440)}).ok).toBe(false);walk(r,620,405,.8,'click');walk(r,665,410,.8,'click');walk(r,820,405,.8,'click');walk(r,1140,240,.8,'click');
   expect(marketAct(r,{type:'interact',targetId:'market_exit'}).ok).toBe(true);
-  if(returnRoute==='private'){walk(r,1140,405,.8);walk(r,820,405,.8);walk(r,470,405,.8);walk(r,470,440,.8);walk(r,470,760,.8);walk(r,240,760,.8);}
+  if(returnRoute==='private'){walk(r,1000,240,.8);walk(r,1000,405,.8);walk(r,820,405,.8);walk(r,470,405,.8);walk(r,470,440,.8);walk(r,470,760,.8);walk(r,240,760,.8);}
   else for(const [x,y] of [[1220,240],[1220,840],[880,840],[420,840],[240,760]])walk(r,x,y,.8,'click');
   expect(marketAct(r,{type:'interact',targetId:'market_entry'}).ok).toBe(true);
   expect(r.returned).toEqual({public:false,private:true});expect(r.state.player.mana).toBe(6);
@@ -137,7 +137,7 @@ describe('fixed initial state actual act/tick replay without state injection',()
  });
  it.each(['keys','click'] as const)('zero mana public out-and-back survives gaps using %s',(mode)=>{
   const r=createMarketRun({mana:'zero',informed:false});
-  for(const [x,y] of [[420,840],[880,840],[1140,840],[1140,240]])walk(r,x,y,.8,mode);
+  for(const [x,y] of (mode==='keys'?[[420,840],[880,840],[1140,840],[1220,840],[1220,240],[1140,240]]:[[420,840],[880,840],[1140,840],[1140,240]]))walk(r,x,y,.8,mode);
   expect(marketAct(r,{type:'interact',targetId:'market_exit'}).ok).toBe(true);
   for(const [x,y] of [[1220,240],[1220,840],[880,840],[420,840],[240,760]])walk(r,x,y,.8,mode);
   expect(marketAct(r,{type:'interact',targetId:'market_entry'}).ok).toBe(true);
@@ -190,17 +190,17 @@ it('cancel clears a paused movement intention without moving the body after resu
 
 it('synthetic middle-of-corridor fixture cannot claim a western entrance that never happened',()=>{
  const r=openBoundary();Object.assign(r.state.player,point(700,440));walk(r,830,440);
- expect(r.trip.traversed.private).toBe(false);walk(r,1140,440);walk(r,1140,240);
+ expect(r.trip.traversed.private).toBe(false);walk(r,1000,440);walk(r,1140,240,0,'click');
  expect(marketAct(r,{type:'interact',targetId:'market_exit'}).ok).toBe(false);
 });
 it('synthetic safe fixture can add the other route on a later trip without erasing settled facts',()=>{
  const r=openBoundary();publicAcross(r);confirmNorth(r);returnWest(r);
- privateAcross(r);walk(r,1140,440);walk(r,1140,240);marketAct(r,{type:'interact',targetId:'market_exit'});
+ privateAcross(r);walk(r,1000,440);walk(r,1140,240,0,'click');marketAct(r,{type:'interact',targetId:'market_exit'});
  expect(r.trip.exitRoutes).toEqual(['private']);expect(r.completed).toEqual({public:true,private:true});
  expect(r.returned).toEqual({public:true,private:false});returnWest(r);expect(r.returned).toEqual({public:true,private:true});
 });
 it('paused endpoint confirmation waits for resume and cancel does not manufacture completion',()=>{
- const r=openBoundary();publicAcross(r);walk(r,1140,840);walk(r,1140,240);
+ const r=openBoundary();publicAcross(r);walk(r,1140,840);walk(r,1140,240,0,'click');
  marketAct(r,{type:'pause',value:true});marketAct(r,{type:'interact',targetId:'market_exit'});step(r,1);
  expect(r.completed.public).toBe(false);marketAct(r,{type:'cancel'});marketAct(r,{type:'pause',value:false});expect(r.completed.public).toBe(false);
  marketAct(r,{type:'pause',value:true});marketAct(r,{type:'interact',targetId:'market_exit'});marketAct(r,{type:'pause',value:false});expect(r.completed.public).toBe(true);
@@ -229,4 +229,34 @@ it('synthetic opened-door threat dialogue acknowledges the fulfilled promise ins
  expect(marketThreat(r)).toBe(true);expect(talk(r).ok).toBe(true);
  expect(r.state.dialogue?.text).toContain('门已开');expect(r.state.dialogue?.text).not.toContain('等他离远');
  expect(r.state.dialogue?.choices.some(c=>c.id==='market:exchange')).toBe(false);expect(obj(r,'market_door').state).toBe('open');
+});
+
+describe('actual click routes with time to read and pan the camera',()=>{
+ it.each(['private','public','outer-public'] as const)('survives slower %s outbound and a five-second northern return decision',(route)=>{
+  const r=createMarketRun({mana:route==='private'?'ordinary':'zero',informed:route==='private'});
+  if(route==='private'){
+   walk(r,470,760,2.8,'click');const near=interactionPoint(r.state,'market_merchant')!;walk(r,near.x,near.y,2.8,'click');expect(exchange(r).ok).toBe(true);step(r,4);
+   for(const [x,y] of [[620,440],[620,405],[665,410],[820,405],[1140,240]])walk(r,x,y,2.8,'click');
+  }else for(const [x,y] of (route==='outer-public'?[[420,880],[880,880],[1220,880],[1220,240],[1140,240]]:[[420,840],[880,840],[1140,840],[1140,240]]))walk(r,x,y,2.8,'click');
+  expect(marketAct(r,{type:'interact',targetId:'market_exit'}).ok).toBe(true);
+  walk(r,1220,240,5,'click');
+  console.log('MARKET_SLOW_NORTH',JSON.stringify({route,time:r.state.time,hp:r.state.player.hp,enemy:obj(r,'market_raider')}));
+  expect(r.state.defeated,'five seconds of active map reading should leave a usable return route').toBe(false);
+  for(const [x,y] of (route==='outer-public'?[[1220,880],[880,880],[420,880],[240,760]]:[[1220,840],[880,840],[420,840],[240,760]]))walk(r,x,y,2.8,'click');
+  expect(marketAct(r,{type:'interact',targetId:'market_entry'}).ok).toBe(true);expect(r.returned[route==='private'?'private':'public']).toBe(true);
+  expect(r.state.player.mana).toBe(route==='private'?6:0);expect(obj(r,'market_raider').hp).toBe(3);expect(obj(r,'market_raider').state).not.toMatch(/peaceful|retreated/);
+  const cornerImpacts=r.state.events.filter(e=>e.type==='impact'&&e.x!>=1030&&e.x!<=1180&&e.y!>=300&&e.y!<=480);
+  if(route==='private')expect(cornerImpacts.length,'actual enemy shots must hit the added masonry').toBeGreaterThan(0);
+  console.log('MARKET_SLOW_RETURN',JSON.stringify({route,time:r.state.time,hp:r.state.player.hp,mana:r.state.player.mana,enemy:obj(r,'market_raider'),cornerImpacts}));
+ });
+});
+
+it('synthetic northern corner fixture blocks real sightlines while leaving an exposed eastern approach dangerous',()=>{
+ const r=fresh();expect(simulationPorts.clearLine(r.state,point(1020,371),point(1220,240))).toBe(false);
+ expect(simulationPorts.clearLine(r.state,point(1100,450),point(1220,240))).toBe(false);
+ for(const p of [point(1140,240),point(1220,240),point(1220,400),point(1220,600)])expect(simulationPorts.free(r.state,p)).toBe(true);
+ expect(simulationPorts.free(r.state,point(1160,400))).toBe(false);
+ Object.assign(r.state.player,point(1220,240));Object.assign(obj(r,'market_raider'),point(1220,440));
+ expect(simulationPorts.clearLine(r.state,obj(r,'market_raider'),r.state.player)).toBe(true);step(r,5.5);
+ expect(r.state.player.hp).toBeLessThan(4);expect(obj(r,'market_raider').hp).toBe(3);
 });

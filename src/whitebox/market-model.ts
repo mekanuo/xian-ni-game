@@ -15,7 +15,10 @@ export const MARKET_POINTS:Record<'entry'|'exit'|'merchant'|'latch'|'decoy'|'ene
 export const MARKET_MAP:SceneDefinition={
  id:'home',title:'集口问路 · 空间与交涉白盒',subtitle:'问路、亲自穿巷，到北口确认后步行折返。',width:1400,height:1000,spawn:{...MARKET_POINTS.entry},
  palette:{ground:0xb6aa91,path:0xcbbda0,foliage:0x777d64,water:0x789eac},ground:[{type:'floor',points:[120,80,1280,80,1280,920,120,920]}],
- obstacles:[{x:80,y:40,w:1240,h:40},{x:80,y:920,w:1240,h:40},{x:80,y:80,w:40,h:840},{x:1280,y:80,w:40,h:840},{x:540,y:80,w:240,h:300},{x:540,y:500,w:240,h:280}],
+ obstacles:[{x:80,y:40,w:1240,h:40},{x:80,y:920,w:1240,h:40},{x:80,y:80,w:40,h:840},{x:1280,y:80,w:40,h:840},{x:540,y:80,w:240,h:300},{x:540,y:500,w:240,h:280},
+  // Real northern masonry gives a turn to read behind; the eastern lane remains
+  // 100 wide (66 for a body), and enemies can still approach or shoot around it.
+  {x:1030,y:300,w:150,h:40},{x:1150,y:300,w:30,h:180}],
  entities:[
   {id:'market_merchant',name:'沈砚',kind:'npc',type:'market-merchant',...MARKET_POINTS.merchant,w:40,h:60,state:'idle'},
   {id:'market_door',name:'私巷木门',kind:'object',type:'market-door',x:665,y:440,w:30,h:120,state:'closed',solid:true},

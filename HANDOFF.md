@@ -14,9 +14,11 @@
 
 设计入口design/ADVENTURE_070.md、MARKET_070_GEOMETRY_REVIEW.md、BUILD_BRIEF_070_WHITEBOX.md；计划docs/superpowers/plans/2026-09-11-market-whitebox.md。只做一张小集/沈砚/私门/一敌/一无主诱物的交涉与通行白盒，没有生产美术、正式跨图或新存档格式。未批准生产；先看实际输入结果。小集所有生产入口仍需journey完成（包括独行认路），不能把未接旧渠当正常进入前提。
 
-独立白盒使用真实model端口：free/clearLine/emit/dialogue/closeDialogue/moveNpc，不给浏览器写状态接口。公开普通6/零0灵力、有/无信息预置与固定hold练法均为合成前提。33小集模型测试通过；端口/model/projectile先前57/3、相关组合88/4，不能相加充整版总数。tsc和独立构建通过，正式build仍BTwh6Je1（白盒未进入正式入口）。
+独立白盒使用真实model端口：free/clearLine/emit/dialogue/closeDialogue/moveNpc，不给浏览器写状态接口。公开普通6/零0灵力、有/无信息预置与固定hold练法均为合成前提。37小集模型测试通过；端口/model/projectile先前57/3、相关组合88/4，不能相加充整版总数。tsc和独立构建通过，正式build仍BTwh6Je1（白盒未进入正式入口）。
 
-白盒包market-whitebox-Csov99fZ.js / market-whitebox-DRyAUuGA.css，4193独立预览PID1156261，URL http://127.0.0.1:4193/market-whitebox.html。下一步立即运行scripts/market-whitebox-check.mjs，五案×桌面/手机串行唯一浏览器，目前NOT_RUN。脚本使用真实UI/触控/镜头拖动，记录只读位置、承诺与实际开门、去程完整穿带/北口近身确认/原口返回、引敌停续、零资源撤回与暂停重开；无注入或清敌。
+白盒包market-whitebox-CvvPbFxE.js / market-whitebox-DRyAUuGA.css，4193独立预览PID1156261，URL http://127.0.0.1:4193/market-whitebox.html。下一步运行scripts/market-whitebox-check.mjs第二轮，五案×桌面/手机串行唯一浏览器，第一轮desktop quiet在北口看返路时败退，证据已推303ebb7；现第二几何候选尚待实机。脚本使用真实UI/触控/镜头拖动，记录只读位置、承诺与实际开门、去程完整穿带/北口近身确认/原口返回、引敌停续、零资源撤回与暂停重开；无注入或清敌。
+
+第二候选新增L实墙(1030,300,150,40)+(1150,300,30,180)，revision2。2.8秒每点+北返点5秒看路模型回放私路HP3MP6，外侧公共y880路线HP4MP0；实际敌弹碰墙，未清敌/加血/削弱攻击，37项通过。QA采用外侧公共路、北返5秒真实观察；不强制避敌路线先触发alert，另zero引敌案保留。新墙使生产到达1140365失效，连接/状态文档代理正在核对新候选。
 
 脚本已修静态审查两点：开门后再遇险只要求真实threat+dooropen，不强制已回摊NPCwaiting；返程只声明指定南侧路标后的实际原口返回，不宣称另有东向西通道分类证明。去程真正穿带与第一次尚未开门的NPC途中waiting仍严格检查。UI已修开门洞点击不被旧实体矩形吞掉、65范围内直接复核原口、对白后明确保持手动暂停按钮。
 
