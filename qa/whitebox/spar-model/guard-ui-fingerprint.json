@@ -1,0 +1,42 @@
+{
+  "scope": "Final single-front guard UI; R6 paused view and R7 built phone use this UI. R5 predates effect-layer and label presentation-only revision.",
+  "source": {
+    "src/game/model.ts": "3ecdf4cdc214c7563f99fb07be0d13e80614deb19762d70c70101b35909c50a1",
+    "src/whitebox/spar-model.ts": "d58b3e03c728a828ef9683ff55743d064c0a8c0a4ddec576308f9574ed1e1c30",
+    "src/whitebox/spar-main.ts": "2ce1454edd74c7965d891c746ceba76cee2800bbda89a6229fea2a58bd305d17",
+    "src/whitebox/spar.css": "3a295e110c3e29db75b0864d89185f296c66fa36863317bacd74fc81723749d9",
+    "spar-whitebox.html": "e637771918d85f5c8e72041d414583ea5e779eb55d3196a33243c7952ce5b6f2",
+    "scripts/spar-whitebox-check.mjs": "d340e0c9a70988b427f76510c24c24771b600677936310d9a933a1e428f72871"
+  },
+  "built": {
+    "spar-whitebox.html": "a41b45881504df6b4bdba19512c1f2a60e0c676f5f1fe0bb0ac060dada51ff38",
+    "assets/spar-whitebox-BZ_eM12M.css": "ac0556c5face9d9708709cdcc9a1ea9ab9eeba88b43bccdcc2550c3cca1b56e2",
+    "assets/spar-whitebox-CTk1jfPP.js": "6c1a1fa92f86fd8061802b77afae99fc0a455f1625af9dba85040779a1202933",
+    "assets/market-shenyan.png": "837a8eceedd8c9070b326acdc7afeb34cbe9aa8a2a7782d469c8c2aa2f144f40",
+    "assets/market-props.png": "6bf1962548d48f47cc46c465c52ca21606018de527f7f2b6e506d690424a783e",
+    "assets/market-ground.png": "7ae06c6db742114b9b6a81fa368a4fb21030bde153d22b60328b4fc4b30a966d",
+    "assets/market-environment.png": "6f349bf66a60f1c1b5eacbb8f8d434a9b9531e2ec8859985ae0327e7242e409b",
+    "assets/kiln-props.png": "aba59236b3b602f09c9c3ffe3c7a5681b248472847253f6054dbe4fb5c7017ed",
+    "assets/kiln-ground.png": "df1ab7ea81cec12235c70afa91946425aa23cf031f7dc73d2b522d0c0353167d",
+    "assets/kiln-environment.png": "5d9b59014cab12b050d48e1f8bcbc60310260eb626b744c3904cd8df07735d93",
+    "assets/kiln-duqin.png": "0480b088be4bff693bd87e5833e03d28ee23f91b421772b326e90c03de9e0c87",
+    "art/workshop-ground.png": "bedbd7d681e1cf7c4481696e3983b6638f6c8088f892c4a54759953b58f108c9",
+    "art/water-surface.png": "6fb7988ee59d46aa3ba9feac3ec1ccd2844f249b04c6b549e7e2e03c4a0434e9",
+    "art/title.png": "58e23fb0b0d022eaf4afc7c934afa3df1f3fd8ce4cb01645b0c14d444471f75e",
+    "art/region-architecture.png": "4a726507e768ed9a01b0def0adaa797de695d004db4b0557884e0e2deef338b8",
+    "art/life-props.png": "c0f196315ff5e448d370a5b4c264cb51d33bd2e13fbf7c446d14998fbbaa4bf5",
+    "art/journey-props.png": "ecc72550eaadeccf903455cd83d589cc1ce298c04a42f79e7cfe8a7ef0820b04",
+    "art/home-props.png": "d25b7db544aed2e8c0a979d520d0e690bc49ffa64059b296e39ff892dd5c9246",
+    "art/home-inn.png": "0602547ab3fd1ff71fbb69d8e16e39ece7eb99e0d0c7552b4db75d5c61be4cff",
+    "art/home-ground.png": "f7a57e8c8892e1f96e09b1cb743c3510984ec5e94b2e081dee200e186cb9ee0f",
+    "art/environment.png": "006719ddbd6b1a42673851aad8b4c06772bc6c68bcecbde8241d9a63369b04d9",
+    "art/enemies.png": "230a256f03ca9acc0b7db2a94f18ab160b3f10d4bda7143c802b70a974f27eee",
+    "art/detail-props.png": "fc685245548231a1cea9836fd4ae1719c1d2834aadac9a514eae47adaba5c793",
+    "art/crossing-ground.png": "63845ee3c761e1ec1c1d57273eb18a399decf53148c1635770e096b96ef18d7b",
+    "art/creek-ground.png": "73e657f6610659c908900e292d9c6f2aa276f711516f6f4995be441ee2403db4",
+    "art/characters.png": "37b50db6122507a1d00fa1e7eb71468616208e77e1650f12ee06bbac728520f2",
+    "art/canal-props.png": "d3bdaa155b2f3df86c867ab7fe9a3d462d74e46135a56d1812f196b378f578f7",
+    "art/canal-ground.png": "4d2a6ba10a712dbacf9eb2d5b535c62fed428ecd0fa70dafc0d6a10c5d811ccf",
+    "art/canal-architecture.png": "88cd8982350b4af451c041c6c38d74bb6b3bff0b12547bf28702b5e2e085b575"
+  }
+}

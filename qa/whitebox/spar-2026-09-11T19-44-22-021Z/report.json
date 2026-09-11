@@ -1,0 +1,19 @@
+{
+  "status": "FAIL",
+  "runId": "2026-09-11T19-44-22-021Z",
+  "url": "http://127.0.0.1:4195/spar-whitebox.html",
+  "environment": {
+    "platform": "linux",
+    "browser": "150.0.7871.114"
+  },
+  "cases": [],
+  "errors": [
+    "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4195/spar-whitebox.html\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4195/spar-whitebox.html\", waiting until \"load\"\u001b[22m\n\n    at /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-whitebox-check.mjs:12:103"
+  ],
+  "limitations": [
+    "Isolated synthetic start; no official save or chapter transition.",
+    "Linux Chromium desktop and touch/DPR emulation, not physical Mac or phone.",
+    "Automation reads actual emitted-shot state to time reaction; this does not establish human reaction comfort or subjective fun.",
+    "Images reuse existing actors; final new character art is not represented."
+  ]
+}

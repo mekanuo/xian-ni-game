@@ -1,0 +1,48 @@
+import {chromium} from '@playwright/test';
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+const runId=new Date().toISOString().replaceAll(/[:.]/g,'-');
+const dir=`qa/whitebox/spar-${runId}`;await mkdir(dir,{recursive:true});
+const report={status:'RUNNING',runId,url:process.env.GAME_URL||'http://127.0.0.1:4195/spar-whitebox.html',environment:{platform:process.platform},cases:[],errors:[],limitations:['Isolated synthetic start; no official save or chapter transition.','Linux Chromium desktop and touch/DPR emulation, not physical Mac or phone.','Automation reads actual emitted-shot state to time reaction; this does not establish human reaction comfort or subjective fun.','Images reuse existing actors; final new character art is not represented.']};
+let browser;
+try{
+ browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});report.environment.browser=browser.version();
+ for(const device of (process.env.SPAR_DEVICE?[process.env.SPAR_DEVICE]:['desktop','phone'])){
+  const phone=device==='phone',context=await browser.newContext({viewport:phone?{width:390,height:844}:{width:1440,height:900},deviceScaleFactor:phone?3:2,hasTouch:phone,isMobile:phone});
+  const page=await context.newPage();page.on('pageerror',e=>report.errors.push(String(e)));await page.goto(report.url);await page.waitForFunction(()=>window.__SPAR__,{},{timeout:60000});
+  const inspect=()=>page.evaluate(()=>window.__SPAR__.inspect());
+  let current;
+  const click=async(selector)=>{const box=await page.locator(selector).boundingBox();assert(box&&box.width>=44&&box.height>=44);if(phone)await page.touchscreen.tap(box.x+box.width/2,box.y+box.height/2);else await page.mouse.click(box.x+box.width/2,box.y+box.height/2);current?.input.push({action:phone?'touch-control':'mouse-control',selector,time:Date.now()});};
+  const ground=async(x,y)=>{const point=await page.evaluate(p=>window.__SPAR__.screenPoint(p.x,p.y),{x,y});const view=await page.evaluate(()=>window.__SPAR__.view());assert(point.x>=view.usable.x&&point.x<=view.usable.x+view.usable.width&&point.y>=view.usable.y&&point.y<=view.usable.y+view.usable.height,'Ground input must be visible');if(phone)await page.touchscreen.tap(point.x,point.y);else await page.mouse.click(point.x,point.y);current.input.push({action:phone?'touch-ground':'mouse-ground',world:{x,y},screen:point,time:Date.now()});};
+  const wait=async(predicate,arg)=>page.waitForFunction(predicate,arg,{timeout:45000,polling:'raf'});
+  const reset=async(mana)=>{await page.selectOption('#mana',String(mana));await click('#restart');await wait(()=>window.__SPAR__.inspect().phase==='idle');};
+  const begin=async()=>{await click('#round');await ground(900,940);await wait(()=>{const r=window.__SPAR__.inspect();return Math.abs(r.peer.y-720)<3&&Math.abs(r.s.player.y-940)<3;});await click('#round');assert.equal((await inspect()).phase,'active');};
+  for(const scenario of (process.env.SPAR_CASE?[process.env.SPAR_CASE]:['idle-hit','dodge','ward','stop','early-ward','keyboard'])){
+   if(phone&&scenario==='keyboard')continue;current={device,scenario,status:'RUNNING',input:[]};report.cases.push(current);await reset(scenario.includes('ward')?6:0);
+   if(scenario==='idle-hit'){
+    await page.screenshot({path:`${dir}/${device}-idle.png`});current.view=await page.evaluate(()=>window.__SPAR__.view());
+    const sizes=await page.locator('button').evaluateAll(nodes=>nodes.map(n=>({id:n.id,w:n.getBoundingClientRect().width,h:n.getBoundingClientRect().height})));assert(sizes.every(b=>b.w>=44&&b.h>=44));current.controls=sizes;
+   }
+   if(scenario==='ward')await click('#ward');
+   await begin();
+   if(scenario==='early-ward'){await click('#ward');await ground(900,720);}
+   if(scenario!=='idle-hit'&&scenario!=='early-ward'){
+    await wait(()=>window.__SPAR__.inspect().shots===1);current.atShot=await inspect();
+    if(scenario==='dodge')await ground(948,940);
+    if(scenario==='ward')await ground(900,720);
+    if(scenario==='stop')await click('#stop');
+    if(scenario==='keyboard'){await page.keyboard.down('d');await page.waitForTimeout(250);await page.keyboard.up('d');current.input.push({action:'keyboard-d',heldWallMs:250});}
+   }
+   current.frames=await page.evaluate(()=>new Promise((resolve,reject)=>{const frames=[],deadline=performance.now()+45000;function sample(){const r=window.__SPAR__.inspect(),view=window.__SPAR__.view();frames.push({phase:r.phase,time:r.s.time,peerState:r.peer.state,...view});if(r.phase==='result')resolve(frames);else if(performance.now()>deadline)reject(Error('Round did not settle'));else requestAnimationFrame(sample);}sample();}));current.result=await inspect();
+   for(const frame of current.frames){const u=frame.usable,z=frame.zoom;for(const actor of ['player','peer']){const point=frame[actor];assert(point.x-26*z>=u.x&&point.x+26*z<=u.x+u.width&&point.y-82*z>=u.y&&point.y+5*z<=u.y+u.height,`${device} ${actor} body outside usable viewport`);}}
+   const wanted={'idle-hit':'hit',dodge:'dodged',ward:'blocked',stop:'stopped','early-ward':'blocked',keyboard:'dodged'}[scenario];assert.equal(current.result.outcome,wanted);
+   assert.equal(current.result.shots,1);assert.equal(current.result.s.player.hp,scenario==='idle-hit'||scenario==='stop'?3:4);
+   assert.equal(current.result.s.player.mana,scenario.includes('ward')?5:0);assert.equal(current.result.s.paused,false);assert.equal(current.result.s.projectiles.length,0);
+   current.audio=await page.evaluate(()=>window.__SPAR__.audio());await page.screenshot({path:`${dir}/${device}-${scenario}-result.png`});current.status='PASS';
+   console.log(`${device} ${scenario} PASS time=${current.result.s.time.toFixed(3)}`);
+  }
+  await context.close();
+ }
+ assert.equal(report.errors.length,0);report.status='PASS';
+}catch(e){report.status='FAIL';report.errors.push(String(e.stack||e));console.error(e);process.exitCode=1;}
+finally{await browser?.close();await writeFile(`${dir}/report.json`,JSON.stringify(report,null,2));console.log(`${dir}/report.json ${report.status}`);}
