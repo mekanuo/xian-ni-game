@@ -26,7 +26,7 @@ try{
  report.verify.suites.push(...routes);
  if(routes.some(r=>r.exitCode!==0))throw Error('A complete browser route failed; see corresponding qa/evidence failure trace');
  // The desktop continuation exports real intermediate saves for touch replay.
- for(const script of ['life-check.mjs','life-hold-check.mjs','life-mobile-check.mjs','presentation-check.mjs']){
+ for(const script of ['life-check.mjs','life-hold-check.mjs','life-mobile-check.mjs','presentation-check.mjs','canal-check.mjs','canal-view-check.mjs']){
   const child=spawn(process.execPath,[`scripts/${script}`],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
   const code=await new Promise(r=>child.on('exit',r));report.verify.suites.push({command:`node scripts/${script}`,exitCode:code});if(code!==0)throw Error(`${script} failed`);
  }
@@ -38,6 +38,7 @@ try{
  report.continuation={desktop:'qa/evidence/life-check.json',hold:'qa/evidence/life-hold-check.json',mobile:'qa/evidence/life-mobile.json',source:'Real 0.2.2 chapter-ending UI exports; continuation uses browser inputs only.'};
  report.limitations[1].reason='Natural play duration and subjective enjoyment require player feedback. Both ring styles, shared platform memory, protected-basket bridge, main crossing and ridge endings have real browser input evidence; guard/companion failure boundaries also have model regression evidence.';
  report.presentation='qa/evidence/presentation.json';
+ report.adventure={canal:'qa/evidence/canal-check.json',viewports:'qa/evidence/canal-view.json',methods:['zero-resource diversion','uninterrupted phone hold'],source:'Real 0.3.0 chapter-ending UI export; all adventure progression uses browser inputs.'};
  report.status='PASS';report.verify.exitCode=0;for(const k of keys)report.checks[k]='PASS';
 }catch(e){report.status='FAIL';report.verify.exitCode=1;report.limitations.push({scope:'build',reason:String(e)});report.checks.coreLoop='FAIL';console.error(e);process.exitCode=1;}
 finally{if(server?.pid)try{process.kill(-server.pid,'SIGTERM');}catch{}await publish();}

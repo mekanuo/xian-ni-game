@@ -96,6 +96,12 @@ async function verifyAndReturn(method){
  await interact('table');assert.ok(!(await state()).dialogue.choices.some(c=>c.id==='canal:record'));await resume();
  route.final=brief(await state());route.status='PASS';await persist();
 }
+async function restartProof(){
+ await button('[data-ui="settings"]');await button('[data-ui="restart"]');await button('[data-ui="create"]');await named('去回石驿');
+ await wait(()=>{const s=window.__XIAN_NI__.inspect();return s.scene==='home'&&!s.ended&&s.canal.stage==='unaccepted';});
+ const fresh=await state();assert.equal(fresh.canal.cleared,false);assert.equal(fresh.life.clamp,'unowned');assert.equal(fresh.life.sachets,0);assert.equal(fresh.worlds.canal.find(e=>e.id==='canal_diverter').x,600);assert.equal(fresh.worlds.canal.find(e=>e.id==='canal_stop').x,1280);
+ route.restart={input:'settings → restart confirmation → new profile',state:brief(fresh)};await persist();
+}
 async function emptyMana(){
  await walk(980,720);
  while((await state()).player.mana>0){
@@ -113,11 +119,12 @@ async function diversionRoute(bytes){
  await wait(()=>{const s=window.__XIAN_NI__.inspect();return !s.canal.work&&s.worlds.canal.find(e=>e.id==='canal_diverter').x===680&&s.canal.drain===1;});
  await capture('diverter-set');
  // The side stepping path is wet now; use the permanent west bank, then approach the dry screen.
- await walk(880,430);await walk(990,540);await walk(1100,475);await interact('canal_screen');await wait(()=>window.__XIAN_NI__.inspect().canal.work?.kind==='clear');
+ await walk(880,430);await walk(990,540);await interact('canal_screen');await wait(()=>window.__XIAN_NI__.inspect().canal.work?.kind==='clear');
  await capture('screen-work');await resume();await wait(()=>window.__XIAN_NI__.inspect().canal.cleared);assert.equal((await state()).canal.method,'diversion');
- await walk(990,540);await walk(880,430);await interact('canal_diverter');await wait(()=>window.__XIAN_NI__.inspect().canal.work?.kind==='restore');
+ // Xu waits at the west bank (990,540); use clear north-bank ground on return.
+ await walk(1130,420);await walk(880,430);await interact('canal_diverter');await wait(()=>window.__XIAN_NI__.inspect().canal.work?.kind==='restore');
  await wait(()=>!window.__XIAN_NI__.inspect().canal.work&&window.__XIAN_NI__.inspect().worlds.canal.find(e=>e.id==='canal_diverter').x===600);
- await verifyAndReturn('diversion');assert.equal((await state()).player.mana,0);route.zeroResourceCompletion=true;await persist();await page.close();page=null;
+ await verifyAndReturn('diversion');assert.equal((await state()).player.mana,0);route.zeroResourceCompletion=true;await persist();await restartProof();await page.close();page=null;
 }
 async function holdRoute(bytes){
  mobile=true;route={id:'phone-hold',status:'RUNNING',viewport:{width:390,height:844,deviceScaleFactor:3,isMobile:true,hasTouch:true},inputTrace:[],observations:{},exports:[]};evidence.routes.push(route);
@@ -143,7 +150,7 @@ async function holdRoute(bytes){
  route.observations.holdWindow={startModelTime:began.time,safeModelTime:safe.time,activeModelSeconds:safe.time-began.time,wallMs:Date.now()-wallStart,remainingSeconds:safe.player.hold,start:brief(began),safe:brief(safe),pausedDuringTimedSegment:false,inputTrace:route.inputTrace.slice(traceStart)};
  log('timed-hold-safe-bank',{remaining:safe.player.hold,activeSeconds:safe.time-began.time});
  await button('[data-ui="release"]');await wait(()=>window.__XIAN_NI__.inspect().player.pullId===null);assert.equal((await object('canal_stop')).x,1280);
- await capture('screen-cleared');await resume();await verifyAndReturn('hold');await page.close();page=null;
+ await capture('screen-cleared');await resume();await verifyAndReturn('hold');await restartProof();await page.close();page=null;
 }
 
 try{

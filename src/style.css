@@ -79,3 +79,5 @@ html,body{overscroll-behavior:none}button{touch-action:manipulation;-webkit-tap-
  .pause-state button{width:100%;min-height:44px;font-size:12px;padding:8px 10px;white-space:normal}
  #interface:has(.observation.expanded) .pause-state{visibility:hidden}
 }
+
+.canal-map-link{margin:8px auto 20px;max-width:440px}

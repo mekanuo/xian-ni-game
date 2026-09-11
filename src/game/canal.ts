@@ -79,6 +79,7 @@ export function canalInteract(s:GameState,e:Entity,p:CanalPorts):ActionResult|un
   p.dialogue(s,e.id,'检修水尺',c.cleared?'筛框已扶正。水尺和旁路的湿线仍会随着两块水板改变。':'木尺上游水痕很高，下游却干着：筛框卡斜，枝叶聚在框上。西侧分水板可徒手推入旁槽，东侧截水板可牵住留势；都要等渠底退水，再沿台阶下去。');return ok();
  }
  if(e.id==='canal_diverter'){
+  if(s.flags.casting)return no('先等火焰出手，再腾手推分水板');
   if(!handFree(s))return no('先放下正在牵的东西，才能徒手推分水板');
   if(s.player.pullId===e.id)return no('先放下分水板，再用手推入槽口');
   c.work={kind:diverted(s)?'restore':'divert',elapsed:0,start:{x:s.player.x,y:s.player.y}};s.player.path=[];p.emit(s,'note',diverted(s)?'双手把板推回原槽，停稳两息。':'把轻板推入右侧旁槽，停稳两息；旁路会淹过低踏道，西岸仍可走。',e);return ok();
@@ -153,7 +154,7 @@ export function canalTick(s:GameState,dt:number,p:CanalPorts):void{
  const work=c.work;
  if(work){
   const e=object(s,work.kind==='clear'?'canal_screen':'canal_diverter');
-  if(!near(s,e,p)||distance(s.player,work.start)>4||!handFree(s)||(work.kind==='clear'&&(!dry||c.drain<1||!canalInsideChannel(s.player)))){c.work=null;return;}
+  if(!near(s,e,p)||distance(s.player,work.start)>4||!handFree(s)||s.flags.casting||(work.kind==='clear'&&(!dry||c.drain<1||!canalInsideChannel(s.player)))){c.work=null;return;}
   work.elapsed+=dt;
   if(work.elapsed>=2){
    c.work=null;

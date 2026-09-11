@@ -181,7 +181,8 @@ export class WorldScene extends Phaser.Scene {
     const homeDesktop=this.state.scene==='home'&&width>=1000;
     const scale=homeDesktop?Math.min(1,height/900):display.worldScale;
     // Cover the whole viewport even when it exceeds the map's native world dimensions.
-    this.cameras.main.setZoom(display.density*Math.max(scale,width/1800,height/1100));
+    const map=SCENES[this.state.scene];
+    this.cameras.main.setZoom(display.density*Math.max(scale,width/map.width,height/map.height));
   }
   private cameraLead(){
     // Tall desktop views include the inn facade; shorter views keep the player above the controls.

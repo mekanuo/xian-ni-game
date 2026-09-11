@@ -496,8 +496,12 @@ function stepTick(s:GameState,dt:number,input:Vec){
 }
 export function objective(s:GameState):string {
   if(s.defeated)return '观察来袭方向，重试这处境或撤回安全落点';
-  const canal=canalObjective(s);if(canal)return canal;
-  const life=lifeObjective(s);if(life)return life;
+  const canal=canalObjective(s),life=lifeObjective(s);
+  if(s.scene==='canal'&&canal)return canal;
+  const errandActive=[s.life.repair.stage,s.life.harvest.stage].some(stage=>stage==='active'||stage==='ready');
+  if(errandActive&&life)return life;
+  if(canal)return canal;
+  if(life)return life;
   if(s.ended)return '灯下已安顿好；仍可在走过的地方散步试术';
   if(s.flags.returned)return '和熟悉的人说说话，再到自己的桌边放环或摊图';
   if(s.flags.route)return '沿亲自走通的路，返回回石驿';

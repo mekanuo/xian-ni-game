@@ -27,8 +27,8 @@ await page.screenshot({path:'qa/evidence/public-start.png'});evidence.visual='qa
 // Verify the new public continuation through the same real old-save import UI.
 await page.locator('[data-ui="settings"]').click();
 await page.locator('#import-save').setInputFiles('qa/fixtures/return-main-v0.2.2.json');
-await page.waitForFunction(()=>window.__XIAN_NI__.inspect().ended&&window.__XIAN_NI__.inspect().contentVersion===2);
-await page.getByRole('button',{name:'在驿中再坐一会儿',exact:true}).click();
+await page.waitForFunction(()=>window.__XIAN_NI__.inspect().ended&&window.__XIAN_NI__.inspect().contentVersion===3);
+const oldEnding=page.getByRole('button',{name:'在驿中再坐一会儿',exact:true});if(await oldEnding.isVisible())await oldEnding.click();
 if(await page.evaluate(()=>window.__XIAN_NI__.inspect().paused))await page.locator('.action-dock [data-ui="pause"]').click();
 point=await page.evaluate(()=>window.__XIAN_NI__.screenPoint(1060,430));await page.mouse.click(point.x,point.y);
 await page.waitForFunction(()=>window.__XIAN_NI__.inspect().dialogue!==null,null,{timeout:30000});
@@ -37,6 +37,55 @@ await page.locator('[data-ui="choice:life:repair:accept"]').click();
 await page.waitForFunction(()=>window.__XIAN_NI__.inspect().life.repair.stage==='active');
 evidence.continuation=await page.evaluate(()=>{const s=window.__XIAN_NI__.inspect();return {contentVersion:s.contentVersion,checkpointVersion:JSON.parse(s.checkpoint).contentVersion,life:s.life,fixture:'Real 0.2.2 main ending imported via settings',input:'Click workbench, accept repair'};});
 await page.screenshot({path:'qa/evidence/public-life.png'});
+// Smoke-test the published fifth scene from an unchanged real 0.3.0 export.
+// Screen conversion observes the camera; the only mutations remain real UI input.
+const adventureInput=[];
+const fullState=()=>page.evaluate(()=>window.__XIAN_NI__.inspect());
+async function adventureResume(){
+ const ending=page.getByRole('button',{name:'在驿中再坐一会儿',exact:true});if(await ending.isVisible())await ending.click();
+ const s=await fullState();assert.equal(s.defeated,false);
+ if(s.paused&&!s.dialogue)await page.locator('.action-dock [data-ui="pause"]').click();
+}
+async function adventurePoint(x,y){
+ for(let attempt=0;attempt<8;attempt++){
+  const p=await page.evaluate(({x,y})=>window.__XIAN_NI__.screenPoint(x,y),{x,y});
+  if(p.x>=70&&p.x<=1370&&p.y>=170&&p.y<=730)return p;
+  const dx=Math.max(-500,Math.min(500,720-p.x)),dy=Math.max(-280,Math.min(280,440-p.y));
+  await page.keyboard.down('Shift');
+  try{await page.mouse.move(720,440);await page.mouse.down();await page.mouse.move(720+dx,440+dy,{steps:8});await page.mouse.up();}finally{await page.keyboard.up('Shift');}
+  await page.waitForTimeout(150);adventureInput.push({action:'camera Shift-drag',dx,dy});
+ }
+ throw Error(`Public adventure target ${x},${y} could not be framed`);
+}
+async function adventureInteract(id){
+ await adventureResume();const s=await fullState(),e=s.worlds[s.scene].find(e=>e.id===id);assert.ok(e,`Missing public entity ${id}`);
+ const p=await adventurePoint(e.x,e.y);await page.mouse.click(p.x,p.y);adventureInput.push({action:'click world entity',id,world:{x:e.x,y:e.y},screen:p});
+ await page.waitForFunction(()=>window.__XIAN_NI__.inspect().dialogue!==null,null,{timeout:60000});
+}
+async function adventureChoose(id){
+ for(let attempt=0;attempt<12&&!(await fullState()).dialogue?.choices.some(c=>c.id===id);attempt++){
+  assert.ok((await fullState()).dialogue?.choices.some(c=>c.id==='more'),`Missing public choice ${id}`);await page.locator('[data-ui="choice:more"]').click();
+ }
+ assert.ok((await fullState()).dialogue?.choices.some(c=>c.id===id&&!c.disabled),`Public choice ${id} must be enabled`);
+ await page.locator(`[data-ui="choice:${id}"]`).click();adventureInput.push({action:'click dialogue choice',id});await adventureResume();
+}
+const adventureFixture='qa/fixtures/return-main-v0.3.0.json';
+const adventureFixtureBytes=await readFile(adventureFixture);
+await page.locator('[data-ui="settings"]').click();await page.locator('#import-save').setInputFiles(adventureFixture);
+await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===3&&s.scene==='home'&&s.ended&&s.canal.stage==='unaccepted'&&s.life.repair.stage==='unaccepted';});
+adventureInput.push({action:'settings import unchanged real 0.3.0 main-route fixture'});await adventureResume();
+await adventureInteract('table');await adventureChoose('canal:accept');assert.equal((await fullState()).canal.stage,'active');
+await adventureInteract('to_creek');await adventureChoose('canal:depart:canal');
+await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect();return s.scene==='canal'&&s.canal.stage==='active';});
+// The published resource check above verifies these actual HTTP bytes against dist.
+const adventureResources=['art/canal-ground.png','art/canal-architecture.png','art/canal-props.png'].map(path=>{
+ const resource=evidence.resources.find(r=>r.path===path);assert.ok(resource,`New public art missing: ${path}`);assert.equal(resource.status,200);assert.ok(resource.bytes>0);return resource;
+});
+await page.keyboard.press('c');await page.waitForTimeout(350);
+await page.locator('.action-dock [data-ui="pause"]').click();assert.equal((await fullState()).paused,true);
+const adventureState=await fullState();assert.ok(adventureState.worlds.canal.some(e=>e.id==='canal_keeper'));assert.ok(adventureState.worlds.canal.some(e=>e.id==='canal_screen'));assert.equal(evidence.errors.length,0);
+evidence.adventure={fixture:adventureFixture,fixtureSha256:hash(adventureFixtureBytes),input:adventureInput,scene:adventureState.scene,contentVersion:adventureState.contentVersion,stage:adventureState.canal.stage,inspected:adventureState.canal.inspected,cleared:adventureState.canal.cleared,player:adventureState.player,resources:adventureResources,visual:'qa/evidence/public-canal.png',scope:'Published old-save import, accepted invitation and physical fifth-scene entry; full two-method playthrough is verified separately.'};
+await page.screenshot({path:evidence.adventure.visual});
 await page.close();
 const phoneContext=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,isMobile:true,hasTouch:true});
 const phone=await phoneContext.newPage();phone.on('pageerror',e=>evidence.errors.push(e.message));

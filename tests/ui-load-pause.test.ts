@@ -13,12 +13,12 @@ function heldSave(kind:'pending'|'running'|'dialogue'){
  return s;
 }
 function harness(raw:string){
- let state=make();const actions:GameAction[]=[];
+ let state=make();const actions:GameAction[]=[],updateCaches:Array<{lastAuto:unknown;endingShown:unknown}>=[];
  // Exercise the production load/change/close methods without constructing a rendered screen.
  const ui=Object.create(GameUI.prototype) as {load(slot?:string):void;change(e:Event):void;endingShown:boolean};
- Object.assign(ui,{hooks:{get:()=>state,act:(a:GameAction)=>{actions.push(a);act(state,a);},replace:(next:GameState)=>{state=next;},center:()=>{}},started:true,pauseBeforeMenu:false,screen:'settings',modal:{innerHTML:''},notify:()=>{}});
+ Object.assign(ui,{hooks:{get:()=>state,act:(a:GameAction)=>{actions.push(a);const cache=ui as unknown as {lastAuto:unknown;endingShown:unknown};updateCaches.push({lastAuto:cache.lastAuto,endingShown:cache.endingShown});act(state,a);},replace:(next:GameState)=>{state=next;},center:()=>{}},started:true,pauseBeforeMenu:false,screen:'settings',modal:{innerHTML:''},notify:()=>{}});
  vi.stubGlobal('document',{hidden:false});vi.stubGlobal('localStorage',{getItem:(key:string)=>key==='manual'?raw:'0'});
- return {ui,actions,get:()=>state};
+ return {ui,actions,updateCaches,get:()=>state};
 }
 afterEach(()=>vi.unstubAllGlobals());
 describe('loading never resumes a restored world while closing the previous settings menu',()=>{
@@ -26,7 +26,7 @@ describe('loading never resumes a restored world while closing the previous sett
   const saved=heldSave(kind),h=harness(snapshot(saved));
   if(route==='manual')h.ui.load('manual');
   else{h.ui.change({target:{id:'import-save',files:[{text:async()=>snapshot(saved)}],dataset:{}}} as unknown as Event);await Promise.resolve();}
-  const s=h.get();expect(s.paused).toBe(true);expect(s.player).toEqual(saved.player);expect(s.pending).toEqual(saved.pending);expect(s.events).toEqual(saved.events);expect(s.dialogue).toEqual(saved.dialogue);
+  const s=h.get();expect(h.updateCaches.every(cache=>cache.lastAuto===saved.checkpoint&&cache.endingShown===Boolean(saved.flags.endingWish))).toBe(true);expect(s.paused).toBe(true);expect(s.player).toEqual(saved.player);expect(s.pending).toEqual(saved.pending);expect(s.events).toEqual(saved.events);expect(s.dialogue).toEqual(saved.dialogue);
   expect(h.actions.some(a=>a.type==='pause'&&!a.value)).toBe(false);
   tick(s,1,{x:0,y:0});expect(s.player.hold).toBe(saved.player.hold);
   if(kind==='dialogue'){act(s,{type:'choose',choiceId:'leave'});expect(s.paused).toBe(true);}
