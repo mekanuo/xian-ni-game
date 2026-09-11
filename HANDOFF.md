@@ -1,14 +1,14 @@
-# 当前工作入口 · 0.6 正式规则已接入，正在接美术
+# 当前工作入口 · 0.6 正式美术/输入验证中
 
-目录 `.worktrees/kiln-060` / `feat/kiln-060`；主源码分支及公网仍为已核验0.5，7fea179 / gh-pages f7972c2。用户要求“继续，别停”，自主设计/实施/测试/推送/既定部署已授权，无待确认事项。不要重读旧聊天/原书或碰两个封版项目。
+工作目录 `.worktrees/kiln-060` / `feat/kiln-060`，最新已推 f04555c（玩家落屏脱困），规则基线 a381f73；主源码分支/公网保持已核验0.5（7fea179，gh-pages f7972c2）。用户要求“继续，别停”，自主设计、实施、测试、里程碑推送和既定公网部署均授权，无待确认事项。不读旧聊天/原书、不碰封版项目；已有首版Goal完成，本轮不另建推断Goal。
 
-0.6白盒两次真实脚本共7项PASS，原第二修订失败保留；根代理决定生产。正式第六图、双向连接、杜芹目睹借离/完好归还、许可棚角、contentVersion5外层/checkpoint严格迁移已接入。新旧全部模型489/28 PASS（临时探测未计入）；此前TypeScript通过，当前正在接kiln-art helper暂待构建。新固定旧档return-journey[-paused]-v0.5.0从7fea179原样保存，不能被未来实测导出覆盖。
+正式第六图、双向连接、杜芹目睹借离/完好归还、许可棚角及v5严格存档已接入；a381f73模型489/28 PASS。新屏落自己脚下会卡住的真实问题已补向外脱困，13新增回归与相关四文件64 PASS，只读审查未发现问题；当前连接落点与路牌分开后98/2 PASS。完整新版矩阵还未跑，qa/verification.json NOT_RUN，不能用旧0.5报告发布。
 
-计划 docs/superpowers/plans/2026-09-11-kiln-production.md；美术 ART_KILN_060.md。新四母版public/assets/kiln-*.png已生成并根目视，前三RGB magenta需keyAtlas，不能当透明源；helper由canal_art_040独占src/game/kiln-art.ts/assets，root已在scene接预定接口，等待helper完成。root另改audio的旧窑稀疏音乐、石驿旧占位绘制清理，均待真实运行检查。当前无正式0.6浏览器报告；qa/verification.json NOT_RUN，不能沿用0.5 PASS发布。
+首轮生产构建 index-CanjsJtL.js，通过真实桌面零灵力四次换图、HP2仍存活、旧档导入、重开，qa/evidence/kiln-desktop-check.json PASS。首轮已归档；4191现服务第二轮 index-DlWvZPCK.js（TypeScript/构建通过）。新包新增西270480/东1220620到达落点，与出口牌脚分开，杜芹presentation接口补齐。美术helper第二轮地面采样收细/降对比、窄压顶加砖立面、棚脚到445使坐垫在棚内。root目视当前西院图，路牌不再被到达人物遮住，地面/墙面更清楚；三视口完整验收仍待运行，art代理已停写。
 
-scripts/kiln-check.mjs已准备（未运行），真实固定0.5导档、桌面零资源四向换图与手机借还/新页面存读。后续补正式烧毁持久性、重开、三视口/声音及完整发行流程。4192/PID1105194只服务旧白盒，不是正式新构建；当前无浏览器运行。真实浏览器必须串行。root拥有Git/构建/浏览器/部署。
+手机借还/新页面恢复/静息/重开已 PASS，PID1118008已结束；当前唯一浏览器 PID1119959 正运行 kiln-consequences-check（/tmp/xian-ni-060-consequences.log，qa/evidence/kiln-consequences.json）。首轮报告/图/v5候选导出已归档qa/evidence/kiln-initial-art，因入口到达坐标修订，这些未发布v5导出不能用于当前候选恢复，必须新构建重导。日志 /tmp/xian-ni-060-production-phone.log 保留。root另已写 kiln-check 的 consequences 选择器与wrapper（正式烧毁存读/进出保留、零灵力脚下落屏键盘和新页面点击脱困），正在运行。规则代理已完成scripts/kiln-view-check.mjs三视口脚本，未运行；save代理只读审查无新阻塞，已结束。root拥有Git/构建/所有浏览器/部署。
 
-规则代理已完成并停写；save代理完成后正只读探测“屏落自己脚下是否卡住”风险，未证实不当缺陷结论；美术代理还写helper。推进模型里程碑推送后立即继续正式画面、输入验证和必要修复，不在中间汇报停下。
+下一步完成手机流程，收拢art/helper后重构建，运行后果和三视口、目视修整；推送视听/交互里程碑后继续完整verify和公网发行。生产 BUILD_BRIEF_060 / ART_KILN_060 / ASSET_LOG 已记录范围和原画来源。verify和public-check正在加入第六图验收，尚未运行，不能提前记PASS。固定旧输入qa/fixtures/return-journey[-paused]-v0.5.0来自真实0.5 UI导出，不能覆盖。
 
 ---
 

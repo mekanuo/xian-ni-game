@@ -1,3 +1,4 @@
+import { registerKilnFrames, paintKilnLandscape, createKilnVisual, updateKilnVisual } from './kiln-art';
 import { registerCanalFrames, paintCanalLandscape, createCanalVisual, updateCanalVisual, drawCanalWater, drawCanalHomeRecord } from './canal-art';
 import Phaser from 'phaser';
 import type { Entity, GameAction, GameState, Spell, Vec } from './contracts';
@@ -64,10 +65,12 @@ export class WorldScene extends Phaser.Scene {
     this.load.image('home-ground',new URL('art/home-ground.png',document.baseURI).href);
     for(const key of ['creek-ground','workshop-ground','crossing-ground','canal-ground','water-surface'])this.load.image(key,new URL(`art/${key}.png`,document.baseURI).href);
     for(const key of ['region-architecture','journey-props','detail-props','life-props','canal-architecture','canal-props'])this.load.image(`${key}-source`,new URL(`art/${key}.png`,document.baseURI).href);
+    for(const key of ['kiln-environment','kiln-props','kiln-duqin'])this.load.image(`${key}-source`,new URL(`assets/${key}.png`,document.baseURI).href);
+    this.load.image('kiln-ground',new URL('assets/kiln-ground.png',document.baseURI).href);
     this.load.on('loaderror',(file:Phaser.Loader.File)=>{document.body.dataset.assetError=file.key;});
   }
   create(){
-    if(['title-source','characters-source','environment-source','enemies-source','home-inn-source','home-props-source','home-ground','creek-ground','workshop-ground','crossing-ground','water-surface','region-architecture-source','journey-props-source','detail-props-source','life-props-source','canal-ground','canal-architecture-source','canal-props-source'].some(key=>!this.textures.exists(key))){
+    if(['kiln-environment-source','kiln-props-source','kiln-duqin-source','kiln-ground','title-source','characters-source','environment-source','enemies-source','home-inn-source','home-props-source','home-ground','creek-ground','workshop-ground','crossing-ground','water-surface','region-architecture-source','journey-props-source','detail-props-source','life-props-source','canal-ground','canal-architecture-source','canal-props-source'].some(key=>!this.textures.exists(key))){
       const root=document.querySelector('#interface')!;
       root.innerHTML='<div class="veil"><section class="paper modal-paper" role="alert"><h2>山道画卷尚未展开</h2><p>部分画面未能载入，重新连接后可以再试一次。</p><button class="primary" id="retry-assets">重新载入</button></section></div>';
       document.querySelector('#retry-assets')!.addEventListener('click',()=>window.location.reload());
@@ -92,6 +95,7 @@ export class WorldScene extends Phaser.Scene {
     for(const [name,b] of Object.entries(detailFrames))details?.add(name,0,b[0],b[1],b[2],b[3]);
     const lifeAtlas=this.keyAtlas('life-props');if(lifeAtlas)registerLifeFrames(lifeAtlas);
     const canalArchitecture=this.keyAtlas('canal-architecture'),canalProps=this.keyAtlas('canal-props');if(canalArchitecture&&canalProps)registerCanalFrames(canalArchitecture,canalProps);
+    const kilnEnvironment=this.keyAtlas('kiln-environment'),kilnProps=this.keyAtlas('kiln-props'),kilnDuqin=this.keyAtlas('kiln-duqin');if(kilnEnvironment&&kilnProps&&kilnDuqin)registerKilnFrames(kilnEnvironment,kilnProps,kilnDuqin);
     const enemies=this.keyAtlas('enemies');
     if(enemies){const boxes=[[120,19,428,688],[734,66,458,628],[68,774,489,396],[690,784,493,385]];boxes.forEach((b,i)=>enemies.add(String(i),0,b[0],b[1],b[2],b[3]));}
     this.state=createGame({name:'行舟',origin:'herbalist',wish:'travel',appearance:0});
@@ -317,7 +321,7 @@ export class WorldScene extends Phaser.Scene {
     this.homeFacade?.destroy();this.homeFacade=undefined;
     this.landscape.removeAll(true);
     const m=SCENES[this.state.scene],g=this.add.graphics();this.landscape.add(g);
-    const rand=seeded(['home','creek','workshop','crossing','canal'].indexOf(m.id)*43+83);
+    const rand=seeded(['home','creek','workshop','crossing','canal','kiln'].indexOf(m.id)*43+83);
     const terrainKey='terrain-detail';
     if(this.textures.exists(terrainKey))this.textures.remove(terrainKey);
     const terrain=this.textures.createCanvas(terrainKey,m.width*2,m.height*2)!;
@@ -329,13 +333,15 @@ export class WorldScene extends Phaser.Scene {
     terrain.refresh();
     this.landscape.addAt(this.add.image(0,0,terrainKey).setOrigin(0).setScale(.5),0);
     // Vegetation belongs to edges and landmarks, with open lanes between groups.
-    for(const [x,y] of [[70,90],[150,67],[490,48],[1210,75],[1660,65],[1740,135],[95,1025],[170,1010],[560,1050],[1430,1040],[1630,1010]])this.bush(g,x,y,26+rand()*24,rand);
+    if(m.id!=='kiln')for(const [x,y] of [[70,90],[150,67],[490,48],[1210,75],[1660,65],[1740,135],[95,1025],[170,1010],[560,1050],[1430,1040],[1630,1010]])this.bush(g,x,y,26+rand()*24,rand);
     if(m.id==='home')this.paintHome(g,rand);
     if(m.id==='creek')this.paintCreek(g,rand);
     if(m.id==='workshop')this.paintWorkshop(g,rand);
     if(m.id==='crossing')this.paintCrossing(g,rand);
     if(m.id==='canal')paintCanalLandscape(this,this.landscape,g);
+    if(m.id==='kiln')paintKilnLandscape(this,this.landscape,g);
     for(const ob of m.obstacles){
+      if(m.id==='kiln')continue; // Kiln art draws exact wall rectangles including top and end faces.
       if(ob.flag&&this.state.flags[ob.flag])continue;
       // All collision rectangles have visible geometry, never invisible walls.
       if(m.id==='crossing'&&ob.x===1180)continue;
@@ -429,9 +435,7 @@ export class WorldScene extends Phaser.Scene {
         if(x+48<right){g.lineStyle(5,0x85765a);g.lineBetween(x,y-17,x+48,y-14);g.lineBetween(x,y+1,x+48,y+4);}
       }
     }
-    // Returning route states are painted where players remember them.
-    if(this.state.flags.gateOpen){g.fillStyle(0xbcb18f);g.fillRoundedRect(1230,700,170,50,8);}
-    if(this.state.flags.ridgeUsed||this.state.flags.ridge_used){g.lineStyle(3,0x849b6b);g.lineBetween(1300,830,1440,970);}
+    // The returned cart and ridge sign carry route changes on the finished yard.
     if(this.state.flags.returned){
       g.fillStyle(0xf3d99e,.055);g.fillRect(0,0,1800,390);
       if(this.state.flags.chime){
@@ -489,7 +493,9 @@ export class WorldScene extends Phaser.Scene {
     if(e.kind==='exit')configureWayfindingLabel(label,e.name,display.density);
     let container:Phaser.GameObjects.Container;let image:Phaser.GameObjects.Image|undefined;let propImage:Phaser.GameObjects.Image|undefined;
     const canalVisual=this.state.scene==='canal'?createCanalVisual(this,e):undefined;
-    if(canalVisual){container=this.add.container(e.x,e.y,[canalVisual,art,label]);}
+    const kilnVisual=this.state.scene==='kiln'?createKilnVisual(this,e):undefined;
+    if(kilnVisual){container=this.add.container(e.x,e.y,[kilnVisual,art,label]);if(e.id==='duqin')image=kilnVisual.getData('image') as Phaser.GameObjects.Image|undefined;}
+    else if(canalVisual){container=this.add.container(e.x,e.y,[canalVisual,art,label]);}
     else if(e.kind==='npc'){
       container=this.makeCharacter(e.type,e.x,e.y,e.type==='tao'?2:3);
       image=container.list.find(o=>o instanceof Phaser.GameObjects.Image) as Phaser.GameObjects.Image|undefined;
@@ -524,6 +530,7 @@ export class WorldScene extends Phaser.Scene {
   }
   private drawObject(e:Entity,g:Phaser.GameObjects.Graphics){
     g.clear();const w=e.w,h=e.h;
+    if(this.state.scene==='kiln'&&['shield_board','duqin','kiln_rest'].includes(e.id))return;
     if(e.type==='gate_slot'&&(e.state==='wedged'||e.state==='fixed')){
       this.polygon(g,[-14,-38,15,-45,18,-38,-12,-31],0x987344);
       g.lineStyle(1.5,0xc4a774);g.lineBetween(-12,-37,14,-43);
@@ -619,7 +626,7 @@ export class WorldScene extends Phaser.Scene {
       r.container.setVisible(!isGone);if(isGone)continue;
       const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.life?.repair?.stage}:${this.state.life?.repair?.softened}:${this.state.life?.repair?.latched}:${this.state.life?.repair?.tested}:${this.state.life?.harvest?.sun}:${this.state.life?.harvest?.shade}:${this.state.life?.clamp}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}:${this.state.canal.stage}:${this.state.canal.cleared}:${this.state.journey.stage}:${this.state.journey.soloRoute}:${this.state.journey.sharedRoute}:${this.state.journey.recordedShared}:${this.state.journey.restOpened}`;
       if(r.stateKey!==key){r.stateKey=key;this.drawObject(e,r.art);}
-      if(r.lifeVisual){if(e.id.startsWith('canal_'))updateCanalVisual(r.lifeVisual,e,this.state,this.settings.reduced);else updateLifeVisual(r.lifeVisual,e,this.state,this.settings.reduced);}
+      if(r.lifeVisual){if(this.state.scene==='kiln'&&['shield_board','duqin','kiln_rest'].includes(e.id))updateKilnVisual(r.lifeVisual,e,this.state,this.settings.reduced);else if(e.id.startsWith('canal_'))updateCanalVisual(r.lifeVisual,e,this.state,this.settings.reduced);else updateLifeVisual(r.lifeVisual,e,this.state,this.settings.reduced);}
       r.container.setPosition(e.x,e.y).setDepth(e.y+(e.kind==='npc'?100:0));
       if(r.propImage){
         const flat=['board','shield_board','platform_beam','boat'].includes(e.type);

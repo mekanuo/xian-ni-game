@@ -26,7 +26,7 @@ try{
  report.verify.suites.push(...routes);
  if(routes.some(r=>r.exitCode!==0))throw Error('A complete browser route failed; see corresponding qa/evidence failure trace');
  // The desktop continuation exports real intermediate saves for touch replay.
- for(const script of ['life-check.mjs','life-hold-check.mjs','life-mobile-check.mjs','presentation-check.mjs','canal-check.mjs','canal-view-check.mjs','canal-revisit-check.mjs','journey-check.mjs','journey-view-check.mjs']){
+ for(const script of ['life-check.mjs','life-hold-check.mjs','life-mobile-check.mjs','presentation-check.mjs','canal-check.mjs','canal-view-check.mjs','canal-revisit-check.mjs','journey-check.mjs','journey-view-check.mjs','kiln-check.mjs','kiln-consequences-check.mjs','kiln-view-check.mjs']){
   const child=spawn(process.execPath,[`scripts/${script}`],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
   const code=await new Promise(r=>child.on('exit',r));report.verify.suites.push({command:`node scripts/${script}`,exitCode:code});if(code!==0)throw Error(`${script} failed`);
  }
@@ -40,6 +40,7 @@ try{
  report.presentation='qa/evidence/presentation.json';
  report.adventure={canal:'qa/evidence/canal-check.json',viewports:'qa/evidence/canal-view.json',methods:['zero-resource diversion','uninterrupted phone hold'],limitations:'Optional clamp, scent ownership, companion absence and surge boundary variants have model tests; the two principal methods and restart have real browser input coverage. Phone evidence is touch/DPR emulation, not physical device testing.',source:'Real 0.3.0 chapter-ending UI export; all adventure progression uses browser inputs.'};
  report.companion={route:'qa/evidence/journey-check.json',viewports:'qa/evidence/journey-view.json',source:'Fixed genuine content 3 canal completion; content 4 migration and all main progression use real browser input.',limitations:'South-to-north changes, early departure and solo-then-shared completion have model coverage; browser proves the uninterrupted northern shared route and separate paused save.'};
+ report.kiln={routes:'qa/evidence/kiln-check.json',consequences:'qa/evidence/kiln-consequences.json',viewports:'qa/evidence/kiln-view.json',source:'Unmodified actual 0.5 completion imported through settings; all new progression uses actual world/UI input.',scope:'Zero-mana two-ended travel, witnessed borrow/intact return, permission/rest, independent save restore, burned persistence, player recovery after dropping a screen at zero mana, restart and three viewports.',limitations:'Real-browser coverage is Linux Chrome and DPR/touch emulation; held-expiry recovery and other boundary combinations also have model coverage.'};
  report.status='PASS';report.verify.exitCode=0;for(const k of keys)report.checks[k]='PASS';
 }catch(e){report.status='FAIL';report.verify.exitCode=1;report.limitations.push({scope:'build',reason:String(e)});report.checks.coreLoop='FAIL';console.error(e);process.exitCode=1;}
 finally{if(server?.pid)try{process.kill(-server.pid,'SIGTERM');}catch{}await publish();}

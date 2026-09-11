@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 const url=process.env.GAME_URL||'http://127.0.0.1:4191/';
-const selection=process.env.KILN_ROUTE||'all';assert.ok(['desktop','phone','all'].includes(selection));
+const selection=process.env.KILN_ROUTE||'all';assert.ok(['desktop','phone','consequences','all'].includes(selection));
 const fixturePath='qa/fixtures/return-journey-v0.5.0.json';
-const output='qa/evidence/kiln-check.json';
+const output=process.env.KILN_OUTPUT||'qa/evidence/kiln-check.json';
 const evidence={schemaVersion:1,status:'NOT_RUN',startedAt:new Date().toISOString(),selection,environment:{url,platform:process.platform,limitation:'Linux Chrome desktop and emulated phone, not physical Mac/Safari/phone.'},routes:[],errors:[]};
 let browser,page,route,mobile=false;
 const started=Date.now();await mkdir('qa/evidence',{recursive:true});
@@ -65,7 +65,7 @@ async function exportSave(name){
  const bytes=await readFile(path);route.exports.push({path,sha256:hash(bytes)});log('settings-export',path);return bytes;
 }
 async function importSave(bytes,name,{fresh=false,continuation=false}={}){
- if(fresh){await page.goto(url);await named('入 山');await named('去回石驿');await wait(()=>window.__XIAN_NI__?.inspect().scene==='home');}
+ if(fresh){await page.goto(url);await named('入 山');await named('去回石驿');await wait(()=>window.__XIAN_NI__?.inspect().scene==='home');route.runtimeScripts=await page.locator('script[src]').evaluateAll(nodes=>nodes.map(n=>n.src));}
  await button('[data-ui="settings"]');await page.locator('#import-save').setInputFiles({name,mimeType:'application/json',buffer:bytes});
  await wait(continuation=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===5&&s.journey.stage==='complete'&&(!continuation||s.scene==='kiln');},continuation);
  await page.waitForTimeout(160);await dismissEnding();log('settings-import',{name,contentVersion:(await state()).contentVersion});
@@ -82,7 +82,7 @@ async function prepare(bytes,{rest=false}={}){
  for(const p of [[300,740],[300,340],[700,315]])await walk(...p);
  await interact('creek_to_kiln');await wait(()=>window.__XIAN_NI__.inspect().scene==='kiln');
  const entered=await state();assert.equal(entered.kiln.entry,'west');assert.deepEqual(entered.kiln.crossed,{west:false,east:false});assert.notEqual(entered.lastSafe.scene,'kiln');route.initial=brief(entered);
- await capture('west-entry');await resume();
+ await wait(()=>window.__XIAN_NI__.audio().musicRms>.002);route.audio=await page.evaluate(()=>window.__XIAN_NI__.audio());assert.equal(route.audio.error,'');await capture('west-entry');await resume();
 }
 async function zeroRoundTrip(){
  assert.equal((await state()).player.mana,0);
@@ -106,9 +106,39 @@ async function borrowReturn(){
  await capture('intact-return');const bytes=await exportSave('kiln-phone-returned-export.json');await page.close();page=await newPage();await importSave(bytes,'kiln-returned.json',{fresh:true,continuation:true});s=await state();assert.equal(s.paused,true);assert.equal(s.kiln.loan,'returned');assert.equal(s.kiln.shelterOpened,true);assert.equal(s.player.mana,4);route.restored=brief(s);
  await resume();await interact('kiln_rest');s=await state();assert.equal(s.player.mana,6);assert.equal(s.lastSafe.scene,'kiln');await capture('permitted-shelter');
 }
-async function run(bytes,isPhone){mobile=isPhone;route={id:mobile?'phone':'desktop',status:'RUNNING',inputTrace:[],observations:{},exports:[]};evidence.routes.push(route);page=await newPage();await prepare(bytes,{rest:mobile});if(mobile)await borrowReturn();else await zeroRoundTrip();route.status='PASS';await persist();await page.close();page=null;}
+async function restart(){
+ await button('[data-ui="settings"]');await button('[data-ui="restart"]');await button('[data-ui="create"]');await named('去回石驿');
+ await wait(()=>window.__XIAN_NI__.inspect().scene==='home'&&!window.__XIAN_NI__.inspect().ended);
+ const s=await state();assert.deepEqual(s.kiln,{visited:false,entry:null,crossed:{west:false,east:false},loan:'none',shelterOpened:false});
+ assert.equal(s.worlds.kiln.find(e=>e.id==='shield_board').state,'idle');assert.equal(s.worlds.creek.find(e=>e.id==='creek_to_kiln').state,'hidden');route.restart=brief(s);
+}
+async function consequences(bytes){
+ mobile=false;route={id:'consequences',status:'RUNNING',inputTrace:[],observations:{},exports:[]};evidence.routes.push(route);page=await newPage();
+ await prepare(bytes,{rest:true});await interact('duqin');await choose('kiln:borrow');await walk(350,640);
+ await cast('pull',500,640);await wait(()=>window.__XIAN_NI__.inspect().player.pullId==='shield_board');await worldTap(620,700);
+ await wait(()=>{const e=window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board');return Math.hypot(e.x-620,e.y-700)<3;});await button('[data-ui="release"]');await wait(()=>window.__XIAN_NI__.inspect().kiln.loan==='borrowed');
+ await cast('pull',620,700);await wait(()=>window.__XIAN_NI__.inspect().player.pullId==='shield_board');await worldTap(500,640);
+ await wait(()=>{const e=window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board');return Math.hypot(e.x-500,e.y-640)<3;});await button('[data-ui="release"]');
+ await cast('flame',500,640);await wait(()=>window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board').state==='burning');route.burnAudio=await page.evaluate(()=>window.__XIAN_NI__.audio());assert.ok(route.burnAudio.effectCounts.fire>0);await capture('burning');await resume();
+ await wait(()=>window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board').state==='burned',null,60000);await capture('burned');
+ const burned=await exportSave('kiln-burned-export.json');await page.close();page=await newPage();await importSave(burned,'kiln-burned.json',{fresh:true,continuation:true});
+ let s=await state();assert.equal(s.worlds.kiln.find(e=>e.id==='shield_board').state,'burned');assert.equal(s.kiln.loan,'borrowed');assert.equal(s.kiln.shelterOpened,false);assert.equal(s.player.mana,3);route.burnRestored=brief(s);
+ await resume();await interact('duqin');s=await state();assert.ok(s.dialogue);assert.ok(!s.dialogue.choices.some(c=>c.id==='kiln:return'));route.burnDialogue=s.dialogue;await resume();
+ await interact('kiln_to_creek');await wait(()=>window.__XIAN_NI__.inspect().scene==='creek');await interact('creek_to_kiln');await wait(()=>window.__XIAN_NI__.inspect().scene==='kiln');assert.equal((await entity('shield_board')).state,'burned');await capture('burned-reentry');
+ await page.close();page=await newPage();await prepare(bytes,{rest:true});
+ await walk(420,640);
+ for(let n=0;n<5;n++){await cast('ward',350,700);await wait(()=>Number(window.__XIAN_NI__.inspect().flags.wardCooldown??0)===0,null,15000);}
+ assert.equal((await state()).player.mana,1);const origin=(await state()).player;
+ await cast('pull',500,640);await wait(()=>window.__XIAN_NI__.inspect().player.pullId==='shield_board');await worldTap(origin.x,origin.y);
+ await wait(({x,y})=>{const e=window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board');return Math.hypot(e.x-x,e.y-y)<.6;},origin);await button('[data-ui="release"]');assert.equal((await state()).player.mana,0);
+ const dropped=await exportSave('kiln-player-overlap-export.json');await capture('screen-at-feet');await resume();await page.keyboard.down('a');await page.waitForTimeout(1200);await page.keyboard.up('a');
+ s=await state();assert.ok(s.player.x<origin.x-70);assert.equal(s.player.mana,0);assert.equal(s.defeated,false);route.keyboardRecovery=brief(s);
+ await page.close();page=await newPage();await importSave(dropped,'kiln-overlap.json',{fresh:true,continuation:true});await resume();await walk(origin.x-150,origin.y);s=await state();assert.equal(s.player.mana,0);assert.equal(s.defeated,false);route.restoredClickRecovery=brief(s);await capture('restored-recovered');
+ await restart();route.status='PASS';await persist();await page.close();page=null;
+}
+async function run(bytes,isPhone){mobile=isPhone;route={id:mobile?'phone':'desktop',status:'RUNNING',inputTrace:[],observations:{},exports:[]};evidence.routes.push(route);page=await newPage();await prepare(bytes,{rest:mobile});if(mobile)await borrowReturn();else await zeroRoundTrip();await restart();route.status='PASS';await persist();await page.close();page=null;}
 try{
  const bytes=await readFile(fixturePath),original=JSON.parse(bytes);assert.equal(original.contentVersion,4);assert.equal(original.journey.stage,'complete');evidence.fixture={path:fixturePath,sha256:hash(bytes),source:'Unmodified actual 0.5 completion exported through settings, preserved from 7fea179'};
  browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});evidence.environment.browser=await browser.version();
- if(selection!=='phone')await run(bytes,false);if(selection!=='desktop')await run(bytes,true);assert.deepEqual(evidence.errors,[]);evidence.status='PASS';evidence.completedAt=new Date().toISOString();await persist();
+ if(['desktop','all'].includes(selection))await run(bytes,false);if(['phone','all'].includes(selection))await run(bytes,true);if(selection==='consequences')await consequences(bytes);assert.deepEqual(evidence.errors,[]);evidence.status='PASS';evidence.completedAt=new Date().toISOString();await persist();
 }catch(error){evidence.status='FAIL';evidence.failure=String(error);if(route)route.status='FAIL';console.error(error);if(page){evidence.failureState=await state().catch(()=>null);await page.screenshot({path:'qa/evidence/kiln-failure.png'}).catch(()=>{});}await persist();process.exitCode=1;}finally{await browser?.close();}

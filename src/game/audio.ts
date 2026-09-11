@@ -143,14 +143,14 @@ export class Soundscape {
     if (!this.context || this.context.state !== 'running' || !this.requested) return;
     const now = this.context.currentTime;
     if (this.nextNote < now) this.nextNote = now + .025; // Never burst missed notes after backgrounding.
-    const beat = 60 / (this.scene === 'crossing' ? 80 : this.scene === 'workshop' ? 76 : this.scene === 'canal' ? 68 : 70);
+    const beat = 60 / (this.scene === 'crossing' ? 80 : this.scene === 'workshop' ? 76 : this.scene === 'canal' ? 68 : this.scene === 'kiln' ? 74 : 70);
     // Eight original bars: call, answer, ascending journey, quiet return. -1 is a deliberate breath.
-    const melody = [0, 2, 4, -1, 2, 1, 0, -1, 1, 2, 4, 5, 4, 2, 1, -1,
+    const melody = this.scene==='kiln' ? [0,-1,2,-1,4,2,-1,-1,1,-1,0,-1,2,-1,-1,-1,2,4,-1,5,-1,4,2,-1,1,-1,0,-1,0,-1,-1,-1] : [0, 2, 4, -1, 2, 1, 0, -1, 1, 2, 4, 5, 4, 2, 1, -1,
       2, 4, 5, -1, 7, 5, 4, 2, 1, 2, 0, -1, 1, 0, -1, -1,
       4, 5, 7, -1, 5, 4, 2, -1, 2, 4, 5, 4, 2, 1, 0, -1,
       1, 2, 4, 2, 1, 0, 1, -1, 2, 1, 0, -1, 0, -1, -1, -1];
     const scale = [0, 2, 4, 7, 9];
-    const pitch = (degree: number) => (this.scene==='canal'?261.6256:293.6648) * 2 ** ((scale[degree % 5] + 12 * Math.floor(degree / 5)) / 12);
+    const pitch = (degree: number) => (this.scene==='canal'?261.6256:this.scene==='kiln'?246.9417:293.6648) * 2 ** ((scale[degree % 5] + 12 * Math.floor(degree / 5)) / 12);
     while (this.nextNote < now + .22) {
       const at = this.nextNote; const index = this.step % melody.length;
       const note = melody[index]; const bar = Math.floor(index / 8);
@@ -159,6 +159,11 @@ export class Soundscape {
         this.tone(frequency, beat * 1.65, .29, 'music', at, 'triangle');
         this.tone(frequency * 2, beat * .7, .047, 'music', at, 'sine');
         if (bar % 2 === 1 && index % 2 === 0) this.tone(frequency, beat * 2.2, .115, 'music', at + .025, 'sine', undefined, .1);
+      }
+      if(this.scene==='kiln'&&index%8===6){
+        // Sparse hollow clay tones leave the attack warning clear.
+        this.tone(610, .16, .075, 'music', at, 'sine');
+        this.tone(967, .09, .025, 'music', at+.012, 'sine');
       }
       if (index % 8 === 0) {
         if(this.scene==='canal'&&this.waterFlow>0)this.noise(beat*3.8,.035*this.waterFlow,850,at,'bandpass');

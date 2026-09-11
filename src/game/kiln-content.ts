@@ -1,10 +1,12 @@
 import type {Entity,SceneDefinition,SceneId} from './contracts';
 export const KILN_POINTS={west:{x:180,y:480},east:{x:1220,y:540},screen:{x:500,y:640},duqin:{x:260,y:560},rest:{x:260,y:400}};
+// Arrival feet stay clear of each sign face; exit interaction points are unchanged.
+export const KILN_ARRIVALS={west:{x:270,y:480},east:{x:1220,y:620}};
 export const KILN_WORKSPACE={x:420,y:600,w:160,h:100};
 // Entries are version-5 additions, kept outside old scene templates for strict migration.
 export function initialKilnEntries(scene:SceneId):Entity[]{
- if(scene==='creek')return [{id:'creek_to_kiln',kind:'exit',type:'sign',name:'← 旧窑',x:620,y:315,w:90,h:60,state:'hidden',targetScene:'kiln',targetSpawn:{...KILN_POINTS.west}}];
- if(scene==='canal')return [{id:'canal_to_kiln',kind:'exit',type:'sign',name:'← 旧窑',x:460,y:450,w:90,h:60,state:'hidden',targetScene:'kiln',targetSpawn:{...KILN_POINTS.east}}];
+ if(scene==='creek')return [{id:'creek_to_kiln',kind:'exit',type:'sign',name:'← 旧窑',x:620,y:315,w:90,h:60,state:'hidden',targetScene:'kiln',targetSpawn:{...KILN_ARRIVALS.west}}];
+ if(scene==='canal')return [{id:'canal_to_kiln',kind:'exit',type:'sign',name:'← 旧窑',x:460,y:450,w:90,h:60,state:'hidden',targetScene:'kiln',targetSpawn:{...KILN_ARRIVALS.east}}];
  return [];
 }
 const raider = (id: string, name: string, x: number, y: number): Entity => ({
@@ -13,7 +15,7 @@ const raider = (id: string, name: string, x: number, y: number): Entity => ({
 });
 export const KILN_SCENE: SceneDefinition = {
   id: 'kiln', title: '背墙旧窑', subtitle: '窑墙隔开来向，旧路通向高岸。',
-  width: 1460, height: 1000, spawn: { ...KILN_POINTS.west },
+  width: 1460, height: 1000, spawn: { ...KILN_ARRIVALS.west },
   palette: { ground: 0xb6aa91, path: 0xcbbda0, foliage: 0x777d64, water: 0x789eac },
   ground: [{ type: 'floor', points: [120, 80, 1340, 80, 1340, 880, 120, 880] }],
   obstacles: [
@@ -31,4 +33,3 @@ export const KILN_SCENE: SceneDefinition = {
     raider('kiln_raider_b', '外路散修', 1090, 300),
   ],
 };
-

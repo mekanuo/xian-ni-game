@@ -99,6 +99,24 @@ const companionState=await fullState();assert.equal(companionState.journey.run,n
 await page.keyboard.press('c');await page.locator('.action-dock [data-ui="pause"]').click();await page.waitForTimeout(200);
 evidence.companion={fixture:companionFixture,fixtureSha256:hash(companionBytes),input:adventureInput.slice(traceStart),scene:companionState.scene,journey:companionState.journey,contentVersion:companionState.contentVersion,visual:'qa/evidence/public-companion.png',scope:'Published v3 migration, agreement and real workshop entry; no shared journey awarded for agreement or scene change.'};
 await page.screenshot({path:evidence.companion.visual});
+// Current sixth-scene entry, authentic v4 completion, no manufactured crossing or loan.
+const kilnFixture='qa/fixtures/return-journey-v0.5.0.json',kilnBytes=await readFile(kilnFixture),kilnTrace=adventureInput.length;
+await page.locator('[data-ui="settings"]').click();await page.locator('#import-save').setInputFiles(kilnFixture);
+await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===5&&s.journey.stage==='complete'&&s.scene==='home';});
+await adventureResume();if(await page.locator('[data-ui="observe"]').getAttribute('aria-expanded')==='true')await page.locator('[data-ui="observe"]').click();
+await adventureInteract('to_creek');await adventureChoose('canal:depart:creek');await page.waitForFunction(()=>window.__XIAN_NI__.inspect().scene==='creek');
+for(const [x,y]of [[300,740],[300,340],[700,315]]){
+ const p=await adventurePoint(x,y);await page.mouse.click(p.x,p.y);adventureInput.push({action:'click walk',x,y});
+ await page.waitForFunction(({x,y})=>{const s=window.__XIAN_NI__.inspect();return Math.hypot(s.player.x-x,s.player.y-y)<18&&!s.player.path.length;},{x,y},{timeout:60000});
+}
+const kilnExit=(await fullState()).worlds.creek.find(e=>e.id==='creek_to_kiln'),kilnPoint=await adventurePoint(kilnExit.x,kilnExit.y);await page.mouse.click(kilnPoint.x,kilnPoint.y);adventureInput.push({action:'click exit',id:kilnExit.id});
+await page.waitForFunction(()=>window.__XIAN_NI__.inspect().scene==='kiln',null,{timeout:60000});
+await page.waitForFunction(()=>window.__XIAN_NI__.audio().musicRms>.002);const kilnAudio=await page.evaluate(()=>window.__XIAN_NI__.audio());
+await page.keyboard.press('c');await page.locator('.action-dock [data-ui="pause"]').click();const kilnState=await fullState();
+assert.deepEqual(kilnState.kiln,{visited:true,entry:'west',crossed:{west:false,east:false},loan:'none',shelterOpened:false});assert.notEqual(kilnState.lastSafe.scene,'kiln');
+assert.equal(kilnState.worlds.kiln.find(e=>e.id==='shield_board').state,'idle');assert.ok((await page.evaluate(()=>window.__XIAN_NI__.presentation())).actors.some(a=>a.id==='duqin'));
+const kilnResources=['kiln-environment.png','kiln-props.png','kiln-duqin.png','kiln-ground.png'].map(name=>{const r=evidence.resources.find(r=>r.path===`assets/${name}`);assert.ok(r);return r;});
+evidence.kiln={fixture:kilnFixture,fixtureSha256:hash(kilnBytes),input:adventureInput.slice(kilnTrace),contentVersion:kilnState.contentVersion,kiln:kilnState.kiln,player:kilnState.player,resources:kilnResources,audio:kilnAudio,visual:'qa/evidence/public-kiln.png',scope:'Public authentic v4 migration and actual sixth-scene entry with real music and loaded independent art; full routes verified locally.'};await page.screenshot({path:evidence.kiln.visual});
 await page.close();
 const phoneContext=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,isMobile:true,hasTouch:true});
 const phone=await phoneContext.newPage();phone.on('pageerror',e=>evidence.errors.push(e.message));
