@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>背墙旧窑 · 空间白盒</title></head>
+<body>
+  <main id="kiln-game" aria-label="旧窑空间白盒"></main>
+  <header>
+    <div><strong>背墙旧窑</strong><span>空间白盒 · 非正式美术</span></div>
+    <nav aria-label="初始处境"><button data-preset="ordinary">普通处境</button><button data-preset="zero">零灵力处境</button><button data-action="restart">重新开始</button></nav>
+    <p id="status" aria-live="polite"></p>
+  </header>
+  <aside id="notice" aria-live="polite">从西院走到东端，再亲自返回；可以留屏、移屏或烧屏。</aside>
+  <footer>
+    <nav aria-label="动作"><button data-spell="pull">1 引物</button><button data-spell="flame">2 施火</button><button data-spell="ward">3 护符</button><button data-action="walk">行走</button><button data-action="release">放下</button><button data-action="pause">暂停</button><button data-action="center">回到身边</button><button data-action="overview">看全图</button></nav>
+    <p>WASD / 点地行走 · 选术后点目标 · 牵住后点落点 · 空格暂停 · Shift 拖动镜头</p>
+  </footer>
+  <script type="module" src="/src/whitebox/kiln-main.ts"></script>
+</body>
+</html>

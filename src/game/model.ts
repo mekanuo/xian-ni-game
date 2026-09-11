@@ -109,6 +109,8 @@ export function interactionPoint(s:GameState,targetId:string):Vec|undefined {
 const pullRange=(s:GameState)=>s.ringStyle==='long'||s.flags.trialStyle==='long'?500:300;
 function pullPlacementReason(s:GameState,target:Entity,point:Vec,range:number):string|undefined {
   if(!finitePoint(point))return '落点无效';
+  if(target.state==='burning')return '物件正在燃烧，先退开等火熄';
+  if(target.state==='burned')return '物件已经烧毁，不能再牵动';
   const canalReason=canalPullReason(s,target,point);if(canalReason)return canalReason;
   const lifeReason=lifePullReason(s,target,point);if(lifeReason)return lifeReason;
   if(dist(s.player,point)>range+1)return '落点超出牵引范围';
@@ -297,7 +299,7 @@ function trained(s:GameState,style:'long'|'hold'){
 }
 function release(s:GameState){
   if(!s.player.pullId)return;canalInterrupt(s);const e=entity(s,s.player.pullId);
-  if(e){e.state='idle';objectChanged(s,e);if(e.id==='gate'&&!s.flags.gateWedge){e.x=e.homeX!;e.y=e.homeY!;s.flags.gatePulled=false;emit(s,'change','无楔的闸扣回弹，短暂排出的水重新漫上低滩。');}if(['decoy','shield_board','boat','board'].includes(e.id)&&!e.data?.noiseUsed&&dist(e,{x:e.homeX!,y:e.homeY!})>70){data(e).noiseUsed=true;for(const enemy of entities(s).filter(n=>n.kind==='enemy'&&n.state!=='retreated'&&n.state!=='peaceful'&&dist(n,e)<550)){data(enemy).lastX=e.x;data(enemy).lastY=e.y;data(enemy).seen=3;enemy.state='searching';}emit(s,'drop',`${e.name}落稳，声响留在实际落点。`,e);}}
+  if(e){if(e.state!=='burning'&&e.state!=='burned')e.state='idle';objectChanged(s,e);if(e.id==='gate'&&!s.flags.gateWedge){e.x=e.homeX!;e.y=e.homeY!;s.flags.gatePulled=false;emit(s,'change','无楔的闸扣回弹，短暂排出的水重新漫上低滩。');}if(['decoy','shield_board','boat','board'].includes(e.id)&&!e.data?.noiseUsed&&dist(e,{x:e.homeX!,y:e.homeY!})>70){data(e).noiseUsed=true;for(const enemy of entities(s).filter(n=>n.kind==='enemy'&&n.state!=='retreated'&&n.state!=='peaceful'&&dist(n,e)<550)){data(enemy).lastX=e.x;data(enemy).lastY=e.y;data(enemy).seen=3;enemy.state='searching';}emit(s,'drop',`${e.name}落稳，声响留在实际落点。`,e);}}
   s.player.pullId=null;s.player.pullPoint=null;s.player.hold=0;
   if(e){lifeMaintainSupport(s,e);canalMaintainSupport(s,e);}
   if(!s.flags.platformReturn&&!s.flags.platformLong&&s.life.clamp!=='lookout')s.flags.platformOpen=false;
@@ -461,7 +463,7 @@ function flameEntityHit(s:GameState,e:Entity,before:Vec):boolean{
     emit(s,'hit',e.hp===0?`${e.name}退出这场争夺，不再追来。`:`火球命中${e.name}，打断起手，抵抗少一格。`,e);return true;
   }
   if(lifeFlameHit(s,e,lifePorts))return true;
-  if(e.flammable&&e.state!=='burned'){e.state='burning';e.timer=12;emit(s,'fire',`${e.name}燃起一小片火，山兽避开这处。`,e);return true;}
+  if(e.flammable&&e.state!=='burned'){e.state='burning';e.timer=12;emit(s,'fire',`${e.name}燃起一小片火，山兽避开这处。`,e);if(s.player.pullId===e.id)release(s);return true;}
   if(['board','basket','boat'].includes(e.id)){emit(s,'steam',`${e.name}带着雨水，火球熄成一团白汽。`,e);return true;}
   return false;
 }

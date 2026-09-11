@@ -4,7 +4,7 @@
 
 **Goal:** 用真实既有施术、射弹、警觉和移动规则验证两处窑墙与落地挡屏的空间取舍及零灵力往返。
 
-**Architecture:** 独立 whitebox.html 与独立 Phaser 场景，只在此入口的模块环境把 SCENES.home 替换为候选几何。调用既有 act/tick/preview，不改生产入口、规则、存档和旧地图；白盒自身只记录真实到达的东端与返程位置，不写主线完成旗标。
+**Architecture:** 独立 whitebox.html 与独立 Phaser 场景，只在此入口的模块环境把 SCENES.home 替换为候选几何。调用既有 act/tick/preview，仅按Task0修复燃烧物复原组合，不改生产入口、存档和旧地图；白盒自身只记录真实到达的东端与返程位置，不写主线完成旗标。
 
 **Tech Stack:** Phaser 3.90.0、TypeScript 5.9.3、Vite 7.3.6、Vitest 4.1.11、Playwright 1.58.2。
 
@@ -31,7 +31,7 @@ expect(act(s,{type:'cast',spell:'pull',targetId:screen.id,point:screen}).ok).toB
 expect(screen.state).toBe('burned');
 ```
 
-- [ ] RED reproduction, minimum state-preserving patch, targeted GREEN and independent review before claiming the new screen is permanent after burning.
+- [x] RED reproduction, minimum state-preserving patch, targeted GREEN and independent review before claiming the new screen is permanent after burning.
 
 ## Task 1: 可重开的规则切片
 
@@ -95,3 +95,7 @@ Consumes Task 1 exact exports plus shared previewCast/previewPullMove. Renderer 
 ## Execution ledger
 
 2026-09-11: Preparing this isolated slice while the frozen0.5 candidate completes its long release run. This adjusts the earlier scheduling sentence “0.5发行后建立白盒”; release priority and browser serialization remain unchanged. User authorized autonomous progress and milestone pushes; no approval question is pending.
+
+Task0/1首次模型验证65项通过；零资源南去北返实走完成，敌人仍活跃。南侧原路返程会被已经移来的敌人145范围拒绝，因此保留实际北返替代。初稿北线140距墙的身体余量仅3，根代理把上围墙上移40并延长两侧围墙，返程同一路线获得43余量；窑墙、挡屏与敌人初态不动，重新验证受影响路线。精确时长/警觉计数只记录观察，不作为硬断言。
+
+Task0/1代码与模型完成，Task2输入渲染完成，Task3脚本已准备但未运行。整合353测试/23文件PASS；npm run build生成index-BDE2bYAh.js，独立npx vite build --config vite.whitebox.config.ts生成whitebox-CG1fuQvL.js。两个构建分开，白盒未加入生产默认入口。独立规则审查无发现；UI审查的按钮空格双激活已修，局部只读复核通过，实际输入脚本纳入该路径。无白盒浏览器PASS或公网发行声明。

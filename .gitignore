@@ -13,3 +13,4 @@ qa/evidence/playthrough-failure.json
 qa/evidence/playthrough-failure.png
 
 .worktrees/
+.whitebox-dist/
