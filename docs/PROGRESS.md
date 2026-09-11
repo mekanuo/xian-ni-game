@@ -1,3 +1,9 @@
+## 2026-09-11 · 0.5公网交付完成，继续旧窑白盒
+
+发行源码4771041c3e392a0c62e248764e8ceee1d6a7ad8e，已推feat/companion-050并快进主源码feat/return-stone-v1；gh-pages f7972c26d2d55e5f057848296892189d475d5a5e。public-check exit0，21运行资源与已验dist哈希一致，真实桌面/手机输入、声音、生活/旧渠旧档及同行v3→v4接约、步行进入工棚通过，errors=[]。试玩 https://mekanuo.github.io/xian-ni-game/?v=0.5.0 ，原无参数链接也不变。
+
+0.5完整342测试/21命令与公网证据已完成；当前发布的是同行回程，不是0.6新图。独立旧窑白盒开始真实浏览器输入，PID1105420，日志/tmp/xian-ni-060-whitebox.log，退出码同名.exit，预览4192/PID1105194；继续在kiln-060目录，勿同时开另一个浏览器。用户要求持续推进，不在发行里程碑停下。
+
 ## 2026-09-11 · 0.5完整发行候选通过
 
 npm run verify exit0，342测试/21文件、21条命令全部通过，qa/verification.json六项PASS。独立PID1091270结束，运行包index-BJE6H6II.js，CSS index-B8Ldhq7K.css。两条首章、生活四检查、旧渠两法/重访/九视口、连续同行桌面与手机、独立暂停读档/重开，以及三视口12处画面都完成。根代理已目视复核本轮归家纸签和手机雨棚；仅声明Linux Chrome/仿真设备范围。

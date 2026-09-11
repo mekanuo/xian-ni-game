@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-09-11T06:38:16.809Z",
+  "checkedAt": "2026-09-11T08:48:48.073Z",
   "url": "https://mekanuo.github.io/xian-ni-game/",
   "release": {
     "game": "山门之外",
-    "version": "0.4.1",
-    "sourceCommit": "ee17e8f0f957d76586fe3ae6a507dd5128755314",
-    "builtAt": "2026-09-11T06:37:41.540Z"
+    "version": "0.5.0",
+    "sourceCommit": "4771041c3e392a0c62e248764e8ceee1d6a7ad8e",
+    "builtAt": "2026-09-11T08:47:28.848Z"
   },
   "resources": [
     {
@@ -123,16 +123,16 @@
       "sha256": "5138fa03b844e102f030d3e4197575dcf6b16d34f9c34200e1e31862348c5f2c"
     },
     {
-      "path": "assets/index-COg2LfF-.js",
+      "path": "assets/index-BJE6H6II.js",
       "status": 200,
-      "bytes": 1426879,
-      "sha256": "cb1059ebb79a446d5ad4ae7d32a0bcf2b9e322ee8ff8152315678b939190a74a"
+      "bytes": 1452051,
+      "sha256": "71798f54921819cca54dc145a0db9a438d480be0908c489748bb551a9c90fd1b"
     },
     {
       "path": "index.html",
       "status": 200,
       "bytes": 656,
-      "sha256": "22eb3f25df408a207f4be93886f14462e519d71f3ef79445be254fb8bf19c524"
+      "sha256": "31fb19e71a546e6985d1d521cc082263dba96329e8e2f332f1baca24a80ec750"
     }
   ],
   "browser": "150.0.7871.114",
@@ -200,7 +200,7 @@
       "state": {
         "scene": "home",
         "player": {
-          "x": 496.00000000000097,
+          "x": 493.3333333333343,
           "y": 710,
           "hp": 4,
           "mana": 5,
@@ -239,7 +239,7 @@
     "musicVolume": 0.55,
     "effectsVolume": 0.45,
     "musicScheduled": 4,
-    "musicRms": 0.01569234243679392,
+    "musicRms": 0.017973413758912368,
     "effectsRms": 0,
     "activeVoices": 8,
     "lastEffect": "",
@@ -249,8 +249,8 @@
   },
   "visual": "qa/evidence/public-start.png",
   "continuation": {
-    "contentVersion": 3,
-    "checkpointVersion": 3,
+    "contentVersion": 4,
+    "checkpointVersion": 4,
     "life": {
       "repair": {
         "stage": "active",
@@ -318,10 +318,52 @@
       {
         "action": "click dialogue choice",
         "id": "canal:depart:canal"
+      },
+      {
+        "action": "click world entity",
+        "id": "table",
+        "world": {
+          "x": 760,
+          "y": 410
+        },
+        "screen": {
+          "x": 635.6070441083407,
+          "y": 410
+        }
+      },
+      {
+        "action": "click dialogue choice",
+        "id": "journey:agree:together"
+      },
+      {
+        "action": "camera Shift-drag",
+        "dx": -500,
+        "dy": -250
+      },
+      {
+        "action": "click world entity",
+        "id": "to_creek",
+        "world": {
+          "x": 1640,
+          "y": 690
+        },
+        "screen": {
+          "x": 1280,
+          "y": 490
+        }
+      },
+      {
+        "action": "click dialogue choice",
+        "id": "canal:depart:creek"
+      },
+      {
+        "action": "camera Shift-drag",
+        "dx": -500,
+        "dy": 270
       }
     ],
     "scene": "canal",
-    "contentVersion": 3,
+    "contentVersion": 4,
     "stage": "active",
     "inspected": false,
     "cleared": false,
@@ -363,6 +405,67 @@
     "visual": "qa/evidence/public-canal.png",
     "scope": "Published old-save import, accepted invitation and physical fifth-scene entry; full two-method playthrough is verified separately."
   },
+  "companion": {
+    "fixture": "qa/fixtures/return-canal-v0.4.0.json",
+    "fixtureSha256": "8c6004c56965b0f4b076ea26922a6bf1224f75426404afbb95e574f8419530b1",
+    "input": [
+      {
+        "action": "click world entity",
+        "id": "table",
+        "world": {
+          "x": 760,
+          "y": 410
+        },
+        "screen": {
+          "x": 635.6070441083407,
+          "y": 410
+        }
+      },
+      {
+        "action": "click dialogue choice",
+        "id": "journey:agree:together"
+      },
+      {
+        "action": "camera Shift-drag",
+        "dx": -500,
+        "dy": -250
+      },
+      {
+        "action": "click world entity",
+        "id": "to_creek",
+        "world": {
+          "x": 1640,
+          "y": 690
+        },
+        "screen": {
+          "x": 1280,
+          "y": 490
+        }
+      },
+      {
+        "action": "click dialogue choice",
+        "id": "canal:depart:creek"
+      },
+      {
+        "action": "camera Shift-drag",
+        "dx": -500,
+        "dy": 270
+      }
+    ],
+    "scene": "workshop",
+    "journey": {
+      "stage": "active",
+      "agreed": "together",
+      "run": null,
+      "soloRoute": null,
+      "sharedRoute": null,
+      "restOpened": false,
+      "recordedShared": false
+    },
+    "contentVersion": 4,
+    "visual": "qa/evidence/public-companion.png",
+    "scope": "Published v3 migration, agreement and real workshop entry; no shared journey awarded for agreement or scene change."
+  },
   "mobile": {
     "device": "Chrome touch / DPR3 emulation, not a physical phone",
     "dimensions": {
@@ -384,8 +487,8 @@
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
       "musicScheduled": 12,
-      "musicRms": 0.017633812165940885,
-      "effectsRms": 0.0028222176161175247,
+      "musicRms": 0.017054910289549873,
+      "effectsRms": 0.002822217618255884,
       "activeVoices": 15,
       "lastEffect": "ward",
       "effectCounts": {
