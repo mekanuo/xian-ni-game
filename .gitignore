@@ -11,3 +11,5 @@ qa/verification.json.tmp
 qa/evidence/playthrough-draft.json
 qa/evidence/playthrough-failure.json
 qa/evidence/playthrough-failure.png
+
+.worktrees/
