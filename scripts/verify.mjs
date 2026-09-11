@@ -1,3 +1,5 @@
+import assert from 'node:assert/strict';
+import {captureVerificationInputs,captureVerificationFingerprint,assertVerificationFingerprint} from './verification-fingerprint.mjs';
 import {spawn,spawnSync} from 'node:child_process';
 import {readFile,writeFile,rename,mkdir} from 'node:fs/promises';
 const keys=['launch','render','input','coreLoop','outcome','restart'];
@@ -6,7 +8,11 @@ await mkdir('qa/evidence',{recursive:true});let server,serverExited=false;
 async function publish(){await writeFile('qa/verification.json.tmp',JSON.stringify(report,null,2));await rename('qa/verification.json.tmp','qa/verification.json');}
 await publish();
 try{
+ const inputsBefore=await captureVerificationInputs(process.cwd());
  for(const script of ['test','build']){const r=spawnSync('npm',['run',script],{stdio:'inherit'});report.verify.suites.push({command:`npm run ${script}`,exitCode:r.status});if(r.status!==0)throw Error(`${script} failed`);}
+ report.fingerprint=await captureVerificationFingerprint(process.cwd());
+ assert.deepEqual(report.fingerprint.inputs,inputsBefore,'Source or verification inputs changed during model tests/build');
+ await publish();
  server=spawn('npm',['run','preview','--','--host','127.0.0.1','--port','4187','--strictPort'],{stdio:'ignore',detached:true});
  server.on('exit',()=>{serverExited=true;});server.on('error',()=>{serverExited=true;});
  let ready=false;for(let i=0;i<100;i++){if(serverExited)throw Error('Owned preview process exited before verification');try{const r=await fetch('http://127.0.0.1:4187/');if(r.ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,100));}
@@ -47,6 +53,7 @@ try{
  report.adventure={canal:'qa/evidence/canal-check.json',viewports:'qa/evidence/canal-view.json',methods:['zero-resource diversion','uninterrupted phone hold'],limitations:'Optional clamp, scent ownership, companion absence and surge boundary variants have model tests; the two principal methods and restart have real browser input coverage. Phone evidence is touch/DPR emulation, not physical device testing.',source:'Real 0.3.0 chapter-ending UI export; all adventure progression uses browser inputs.'};
  report.companion={route:'qa/evidence/journey-check.json',viewports:'qa/evidence/journey-view.json',source:'Fixed genuine content 3 canal completion; content 4 migration and all main progression use real browser input.',limitations:'South-to-north changes, early departure and solo-then-shared completion have model coverage; browser proves the uninterrupted northern shared route and separate paused save.'};
  report.kiln={routes:'qa/evidence/kiln-check.json',consequences:'qa/evidence/kiln-consequences.json',viewports:'qa/evidence/kiln-view.json',source:'Unmodified actual 0.5 completion imported through settings; all new progression uses actual world/UI input.',scope:'Zero-mana two-ended travel, witnessed borrow/intact return, permission/rest, independent save restore, burned persistence, player recovery after dropping a screen at zero mana, restart and three viewports.',limitations:'Real-browser coverage is Linux Chrome and DPR/touch emulation; held-expiry recovery and other boundary combinations also have model coverage.'};
+ await assertVerificationFingerprint(process.cwd(),report.fingerprint);
  report.status='PASS';report.verify.exitCode=0;for(const k of keys)report.checks[k]='PASS';
 }catch(e){report.status='FAIL';report.verify.exitCode=1;report.limitations.push({scope:'build',reason:String(e)});report.checks.coreLoop='FAIL';console.error(e);process.exitCode=1;}
 finally{if(server?.pid)try{process.kill(-server.pid,'SIGTERM');}catch{}await publish();}

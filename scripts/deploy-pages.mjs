@@ -1,3 +1,4 @@
+import {assertVerificationFingerprint} from './verification-fingerprint.mjs';
 import {execFileSync} from 'node:child_process';
 import {mkdtemp,cp,writeFile,readFile,readdir,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
@@ -6,6 +7,7 @@ const run=(cmd,args,cwd=process.cwd())=>execFileSync(cmd,args,{cwd,encoding:'utf
 const repo='mekanuo/xian-ni-game',remote=`https://github.com/${repo}.git`;
 const verification=JSON.parse(await readFile('qa/verification.json','utf8'));
 if(verification.status!=='PASS')throw Error('The complete production candidate must pass npm run verify before publishing');
+await assertVerificationFingerprint(process.cwd(),verification.fingerprint);
 if(run('git',['status','--porcelain']))throw Error('Commit the reviewed source and QA milestone before deploying');
 const sourceCommit=run('git',['rev-parse','HEAD']);
 const root=await mkdtemp(join(tmpdir(),'xian-ni-pages-'));
@@ -13,6 +15,8 @@ const branchExists=Boolean(run('git',['ls-remote','--heads',remote,'gh-pages']))
 if(branchExists)run('git',['clone','--quiet','--single-branch','--branch','gh-pages',remote,root]);
 else{run('git',['init','--quiet','--initial-branch=gh-pages'],root);run('git',['remote','add','origin',remote],root);}
 for(const entry of await readdir(root))if(entry!=='.git')await rm(join(root,entry),{recursive:true,force:true});
+// Recheck after network/clone work, immediately before copying the tested bytes.
+await assertVerificationFingerprint(process.cwd(),verification.fingerprint);
 await cp(resolve('dist'),root,{recursive:true});await writeFile(join(root,'.nojekyll'),'');
 const version=JSON.parse(await readFile('package.json','utf8')).version;
 const release={game:'山门之外',version,sourceCommit,builtAt:new Date().toISOString()};
