@@ -1,0 +1,34 @@
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+ ❯ tests/spar-angles.test.ts (8 tests | 2 failed) 54ms
+   × a second agreement changes position by real walking while preserving actual damage and mana 9ms
+   × a positioning peer yields to a stationary person on the agreed northern walking route 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/spar-angles.test.ts > a second agreement changes position by real walking while preserving actual damage and mana
+AssertionError: expected 0.5 to be greater than 60
+ ❯ tests/spar-angles.test.ts:30:217
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/spar-angles.test.ts > a positioning peer yields to a stationary person on the agreed northern walking route
+AssertionError: expected 336.2160228226847 to be less than 45
+ ❯ tests/spar-angles.test.ts:40:119
+     38|  expect(sparAct(r,{type:'agree',stance:'right'}).ok).toBe(true);
+     39|  sparAct(r,{type:'move',point:{x:810,y:810}});wait(r,6);
+     40|  const gap=Math.hypot(r.peer.x-r.s.player.x,r.peer.y-r.s.player.y);exp…
+       |                                                                                                                       ^
+     41|  const stopped={x:r.peer.x,y:r.peer.y};wait(r,1);expect({x:r.peer.x,y:…
+     42|  sparAct(r,{type:'move',point:{x:900,y:940}});wait(r,8);expect(r.peer.…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 6 passed (8)
+   Start at  21:02:21
+   Duration  486ms (transform 224ms, setup 0ms, import 266ms, tests 54ms, environment 0ms)
+

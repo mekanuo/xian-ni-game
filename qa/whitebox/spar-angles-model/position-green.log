@@ -1,0 +1,9 @@
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+
+ Test Files  3 passed (3)
+      Tests  25 passed (25)
+   Start at  21:03:00
+   Duration  586ms (transform 589ms, setup 0ms, import 795ms, tests 223ms, environment 0ms)
+

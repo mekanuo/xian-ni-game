@@ -31,7 +31,7 @@ try{
     await wait(()=>window.__SPAR__.inspect().shots===1);current.atShot=await inspect();
     if(scenario==='dodge')await ground(stance==='front'?948:900,stance==='front'?940:892);
     if(scenario==='ward')await ground(peerTarget.x,peerTarget.y);
-    if(scenario==='wrong-ward')await ground(900+(900-peerTarget.x)*.6,940+(940-peerTarget.y)*.6);
+    if(scenario==='wrong-ward')await ground(900,stance==='front'?1160:720);
     if(scenario==='along-ray')await ground(stance==='front'?900:stance==='left'?948:852,stance==='front'?988:940);
     if(scenario==='stop')await click('#stop');
     if(scenario==='keyboard'){await page.keyboard.down('d');await page.waitForTimeout(250);await page.keyboard.up('d');current.input.push({action:'keyboard-d',heldWallMs:250});}

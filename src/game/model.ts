@@ -569,7 +569,8 @@ function wardProtects(s:GameState,who:Vec,source:Vec){
 function wardIntercepts(s:GameState,point:Vec,velocity:Vec){
   const p=s.player;if(p.ward<=0)return false;
   const nx=Math.cos(p.wardFacing),ny=Math.sin(p.wardFacing),dx=point.x-p.x,dy=point.y-p.y;
-  return velocity.x*nx+velocity.y*ny<0&&dx*nx+dy*ny>0&&Math.hypot(dx,dy)<=70&&Math.abs(dx*-ny+dy*nx)<=48;
+  // Ignore trig roundoff at an exactly side-on approach (cos(pi/2) is not zero).
+  return velocity.x*nx+velocity.y*ny < -1e-8 && dx*nx+dy*ny > 1e-8 &&Math.hypot(dx,dy)<=70&&Math.abs(dx*-ny+dy*nx)<=48;
 }
 // Analytic segment intersections include both endpoints and starts inside a collider.
 // They are independent of frame duration; clearLine's visual sampling is not used here.

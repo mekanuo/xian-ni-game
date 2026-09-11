@@ -1,0 +1,30 @@
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+ ❯ tests/spar-angles.test.ts (7 tests | 1 failed) 76ms
+   × right: a ward must face the actual side, not the old front position 14ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/spar-angles.test.ts > right: a ward must face the actual side, not the old front position
+AssertionError: expected 'blocked' to be 'hit' // Object.is equality
+
+Expected: "hit"
+Received: "blocked"
+
+ ❯ tests/spar-angles.test.ts:21:25
+     19|  it(`${stance}: a ward must face the actual side, not the old front po…
+     20|   const wrong=ready(stance,1);shot(wrong);sparAct(wrong,{type:'cast',s…
+     21|   expect(wrong.outcome).toBe('hit');expect(wrong.s.player.hp).toBe(3);…
+       |                         ^
+     22|   const right=ready(stance,1);shot(right);sparAct(right,{type:'cast',s…
+     23|   expect(right.outcome).toBe('blocked');expect(right.s.player.hp).toBe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 17 passed (18)
+   Start at  20:56:02
+   Duration  521ms (transform 433ms, setup 0ms, import 532ms, tests 153ms, environment 0ms)
+

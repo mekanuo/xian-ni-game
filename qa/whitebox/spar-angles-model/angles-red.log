@@ -1,0 +1,111 @@
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+ ❯ tests/spar-angles.test.ts (7 tests | 7 failed) 28ms
+   × left: zero-mana perpendicular ground movement avoids the actual side shot 12ms
+   × left: moving along the projectile line is still hit rather than a free dodge 3ms
+   × left: a ward must face the actual side, not the old front position 3ms
+   × right: zero-mana perpendicular ground movement avoids the actual side shot 2ms
+   × right: moving along the projectile line is still hit rather than a free dodge 2ms
+   × right: a ward must face the actual side, not the old front position 2ms
+   × a second agreement changes position by real walking while preserving actual damage and mana 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/spar-angles.test.ts > left: zero-mana perpendicular ground movement avoids the actual side shot
+AssertionError: expected 900 to be close to 680, received difference is 220, but expected 0.5
+ ❯ ready tests/spar-angles.test.ts:7:74
+      5| function ready(stance:'left'|'right',mana=0){const r=createSpar(mana);…
+      6|  const original={x:r.peer.x,y:r.peer.y};expect(original).toEqual({x:90…
+      7|  sparAct(r,{type:'move',point:{x:900,y:940}});wait(r,4);expect(r.peer.…
+       |                                                                          ^
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+      9| function shot(r:SparRound){for(let i=0;i<120&&!r.shots;i++)sparTick(r,…
+ ❯ tests/spar-angles.test.ts:12:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  tests/spar-angles.test.ts > left: moving along the projectile line is still hit rather than a free dodge
+AssertionError: expected 900 to be close to 680, received difference is 220, but expected 0.5
+ ❯ ready tests/spar-angles.test.ts:7:74
+      5| function ready(stance:'left'|'right',mana=0){const r=createSpar(mana);…
+      6|  const original={x:r.peer.x,y:r.peer.y};expect(original).toEqual({x:90…
+      7|  sparAct(r,{type:'move',point:{x:900,y:940}});wait(r,4);expect(r.peer.…
+       |                                                                          ^
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+      9| function shot(r:SparRound){for(let i=0;i<120&&!r.shots;i++)sparTick(r,…
+ ❯ tests/spar-angles.test.ts:16:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  tests/spar-angles.test.ts > left: a ward must face the actual side, not the old front position
+AssertionError: expected 900 to be close to 680, received difference is 220, but expected 0.5
+ ❯ ready tests/spar-angles.test.ts:7:74
+      5| function ready(stance:'left'|'right',mana=0){const r=createSpar(mana);…
+      6|  const original={x:r.peer.x,y:r.peer.y};expect(original).toEqual({x:90…
+      7|  sparAct(r,{type:'move',point:{x:900,y:940}});wait(r,4);expect(r.peer.…
+       |                                                                          ^
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+      9| function shot(r:SparRound){for(let i=0;i<120&&!r.shots;i++)sparTick(r,…
+ ❯ tests/spar-angles.test.ts:20:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  tests/spar-angles.test.ts > right: zero-mana perpendicular ground movement avoids the actual side shot
+AssertionError: expected 900 to be close to 1120, received difference is 220, but expected 0.5
+ ❯ ready tests/spar-angles.test.ts:7:74
+      5| function ready(stance:'left'|'right',mana=0){const r=createSpar(mana);…
+      6|  const original={x:r.peer.x,y:r.peer.y};expect(original).toEqual({x:90…
+      7|  sparAct(r,{type:'move',point:{x:900,y:940}});wait(r,4);expect(r.peer.…
+       |                                                                          ^
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+      9| function shot(r:SparRound){for(let i=0;i<120&&!r.shots;i++)sparTick(r,…
+ ❯ tests/spar-angles.test.ts:12:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  tests/spar-angles.test.ts > right: moving along the projectile line is still hit rather than a free dodge
+AssertionError: expected 900 to be close to 1120, received difference is 220, but expected 0.5
+ ❯ ready tests/spar-angles.test.ts:7:74
+      5| function ready(stance:'left'|'right',mana=0){const r=createSpar(mana);…
+      6|  const original={x:r.peer.x,y:r.peer.y};expect(original).toEqual({x:90…
+      7|  sparAct(r,{type:'move',point:{x:900,y:940}});wait(r,4);expect(r.peer.…
+       |                                                                          ^
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+      9| function shot(r:SparRound){for(let i=0;i<120&&!r.shots;i++)sparTick(r,…
+ ❯ tests/spar-angles.test.ts:16:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  tests/spar-angles.test.ts > right: a ward must face the actual side, not the old front position
+AssertionError: expected 900 to be close to 1120, received difference is 220, but expected 0.5
+ ❯ ready tests/spar-angles.test.ts:7:74
+      5| function ready(stance:'left'|'right',mana=0){const r=createSpar(mana);…
+      6|  const original={x:r.peer.x,y:r.peer.y};expect(original).toEqual({x:90…
+      7|  sparAct(r,{type:'move',point:{x:900,y:940}});wait(r,4);expect(r.peer.…
+       |                                                                          ^
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+      9| function shot(r:SparRound){for(let i=0;i<120&&!r.shots;i++)sparTick(r,…
+ ❯ tests/spar-angles.test.ts:20:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  tests/spar-angles.test.ts > a second agreement changes position by real walking while preserving actual damage and mana
+AssertionError: expected 900 to be close to 680, received difference is 220, but expected 0.5
+ ❯ ready tests/spar-angles.test.ts:7:74
+      5| function ready(stance:'left'|'right',mana=0){const r=createSpar(mana);…
+      6|  const original={x:r.peer.x,y:r.peer.y};expect(original).toEqual({x:90…
+      7|  sparAct(r,{type:'move',point:{x:900,y:940}});wait(r,4);expect(r.peer.…
+       |                                                                          ^
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+      9| function shot(r:SparRound){for(let i=0;i<120&&!r.shots;i++)sparTick(r,…
+ ❯ tests/spar-angles.test.ts:27:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed (7)
+   Start at  20:55:32
+   Duration  454ms (transform 214ms, setup 0ms, import 252ms, tests 28ms, environment 0ms)
+

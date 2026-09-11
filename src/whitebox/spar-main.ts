@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import './spar.css';
 import {Soundscape} from '../game/audio';
-import {createSpar,installSparMap,sparAct,sparTick,SPAR_CENTER,type SparAction} from './spar-model';
+import {createSpar,installSparMap,sparAct,sparTick,SPAR_CENTER,SPAR_STANCES,type SparStance,type SparAction} from './spar-model';
 installSparMap();let round=createSpar(),aim=false;
 const node=<T extends HTMLElement>(id:string)=>document.getElementById(id) as T;
 const audio=new Soundscape();audio.setScene('home');
@@ -43,7 +43,7 @@ class SparScene extends Phaser.Scene{
  screenPoint(x:number,y:number){const c=this.cameras.main,o=c.getWorldPoint(c.x,c.y);return{x:(c.x+(x-o.x)*c.zoom)/dpr,y:(c.y+(y-o.y)*c.zoom)/dpr};}
  frame(){if(!this.cameras)return;const top=node('topbar').getBoundingClientRect().bottom+8,bottom=node('controls').getBoundingClientRect().top-8;
   this.usable={x:16,y:top,width:innerWidth-32,height:Math.max(80,bottom-top)};const u=this.usable,c=this.cameras.main;
-  c.setViewport(u.x*dpr,u.y*dpr,u.width*dpr,u.height*dpr);c.setZoom(Math.min(1,u.width/600,u.height/560)*dpr);c.centerOn(900,880);
+  c.setViewport(u.x*dpr,u.y*dpr,u.width*dpr,u.height*dpr);c.setZoom(Math.min(1,u.width/600,u.height/600)*dpr);c.centerOn(900,880);
  }
  reset(){round=createSpar(Number(node<HTMLSelectElement>('mana').value));this.lastSeq=0;this.lastPhase='';this.hitTime=-10;this.blockTime=-10;this.clearKeys();mode(false);say('重建了公开合成初态，不读取或写入正式存档。');}
  clearKeys(){Object.values(this.keys??{}).forEach(k=>k.reset());}
@@ -63,18 +63,18 @@ class SparScene extends Phaser.Scene{
    if(event.type==='warning')say('闻朔抬手了。看他出手时的方向，留好侧身的地方。');
   }
   if(this.lastPhase!==round.phase){this.lastPhase=round.phase;
-   if(round.phase==='positioning')say('闻朔正在走到对面。你走进圆线，再按“就位”。');
+   if(round.phase==='positioning')say(`闻朔正在走到${{front:'正面',left:'左侧',right:'右侧'}[round.stance]}。你走进圆线，再按“就位”。`);
    if(round.phase==='active')say('开始。只守这一手，踩出线便停。');
    if(round.phase==='settling')say('已经收手，还有先前这一发，避开再说。');
    if(round.phase==='result')say(outcomes[round.outcome!]);
   }
   node('round').textContent=round.phase==='positioning'?'就位':round.phase==='result'?'再约一手':'约一手';
   node('pause').textContent=s.paused?'恢复':'暂停';
-  node('status').textContent=`体力 ${p.hp} / 4　灵力 ${p.mana} / 6　${s.paused?'已暂停':round.phase==='active'?'守线中':round.phase==='settling'?'余势未尽':round.phase==='result'?'这一手结束':'尚未开打'}`;
+  node('status').textContent=`体力 ${p.hp} / 4　灵力 ${p.mana} / 6　${s.paused?'已暂停':round.positionWaiting&&round.phase==='positioning'?'闻朔停步等你让开':round.phase==='active'?'守线中':round.phase==='settling'?'余势未尽':round.phase==='result'?'这一手结束':'尚未开打'}`;
   g.clear();g.fillStyle(0x344439);g.fillRect(0,0,1800,1800);
   g.lineStyle(1,0x89947b,.12);for(let x=500;x<=1300;x+=40)g.lineBetween(x,540,x,1240);for(let y=540;y<=1240;y+=40)g.lineBetween(500,y,1300,y);
   g.fillStyle(0x84916b,.1);g.fillCircle(SPAR_CENTER.x,SPAR_CENTER.y,70);g.lineStyle(3,0xc9bb8c,.85);g.strokeCircle(SPAR_CENTER.x,SPAR_CENTER.y,70);
-  g.lineStyle(2,0xa5ad8c,.5);g.strokeCircle(900,720,22);
+  g.lineStyle(2,0xa5ad8c,.5);g.strokeCircle(SPAR_STANCES[round.stance].x,SPAR_STANCES[round.stance].y,22);
   for(const who of [p,e]){g.fillStyle(0x13241c,.4);g.fillEllipse(who.x,who.y,44,15);}
   this.player.setPosition(p.x,p.y+4).setDepth(p.y).setFlipX(Math.cos(p.facing)<0);this.peer.setPosition(e.x,e.y+4).setDepth(e.y).setFlipX(p.x<e.x);
   this.player.setAngle(p.path.length||input.x||input.y?Math.sin(s.time*10)*1.6:0);this.peer.setAngle(e.state==='casting'?-7:0);
@@ -89,7 +89,7 @@ class SparScene extends Phaser.Scene{
 }
 const game=new Phaser.Game({type:Phaser.AUTO,parent:'spar-game',width:innerWidth*dpr,height:innerHeight*dpr,backgroundColor:'#26352f',scale:{mode:Phaser.Scale.NONE,zoom:1/dpr},render:{antialias:true,roundPixels:false},scene:SparScene});
 const scene=()=>game.scene.getScene('spar') as SparScene;
-node('round').onclick=()=>dispatch({type:round.phase==='positioning'?'begin':'agree'});
+node('round').onclick=()=>dispatch(round.phase==='positioning'?{type:'begin'}:{type:'agree',stance:node<HTMLSelectElement>('stance').value as SparStance});
 node('walk').onclick=()=>mode(false);node('ward').onclick=()=>{mode(true);say('点来袭方向撑起护符；侧后仍会被碰到。');};
 node('stop').onclick=()=>dispatch({type:'stop'});node('pause').onclick=()=>scene().pause();node('restart').onclick=()=>scene().reset();
 document.querySelectorAll<HTMLButtonElement>('button').forEach(button=>button.addEventListener('click',()=>button.blur()));

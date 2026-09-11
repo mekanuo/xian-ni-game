@@ -1,0 +1,477 @@
+{
+  "status": "PASS",
+  "runId": "2026-09-11T20-12-59-891Z",
+  "stance": "right",
+  "url": "http://127.0.0.1:4197/spar-whitebox.html",
+  "environment": {
+    "platform": "linux",
+    "browser": "150.0.7871.114"
+  },
+  "cases": [
+    {
+      "device": "phone",
+      "scenario": "wrong-ward",
+      "status": "PASS",
+      "input": [
+        {
+          "action": "touch-control",
+          "selector": "#restart",
+          "time": 1789157581462
+        },
+        {
+          "action": "touch-control",
+          "selector": "#round",
+          "time": 1789157581928
+        },
+        {
+          "action": "touch-ground",
+          "world": {
+            "x": 900,
+            "y": 940
+          },
+          "screen": {
+            "x": 194.9999988810221,
+            "y": 487.7650034388751
+          },
+          "time": 1789157582126
+        },
+        {
+          "action": "touch-control",
+          "selector": "#ward",
+          "time": 1789157586560
+        },
+        {
+          "action": "touch-control",
+          "selector": "#round",
+          "time": 1789157586940
+        },
+        {
+          "action": "touch-ground",
+          "world": {
+            "x": 768,
+            "y": 940
+          },
+          "screen": {
+            "x": 116.23999888102212,
+            "y": 487.7650034388751
+          },
+          "time": 1789157589163
+        }
+      ],
+      "atShot": {
+        "phase": "active",
+        "shots": 1,
+        "peer": {
+          "id": "spar_peer",
+          "kind": "enemy",
+          "type": "raider",
+          "name": "闻朔",
+          "x": 1120,
+          "y": 940,
+          "w": 40,
+          "h": 40,
+          "hp": 3,
+          "state": "peaceful",
+          "data": {
+            "attack": 0,
+            "lastX": 900.0000080849819,
+            "lastY": 942.6666666666669,
+            "seen": 3
+          }
+        },
+        "s": {
+          "time": 5.423146666666671,
+          "player": {
+            "x": 900.0000080849819,
+            "y": 942.6666666666669,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.5707962578887955,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "projectiles": [
+            {
+              "id": 1,
+              "x": 1086.4708630235425,
+              "y": 940.4064137964685,
+              "vx": -259.98090201120476,
+              "vy": 3.1512837765515043,
+              "life": 1.5633400000000002,
+              "owner": "enemy"
+            }
+          ]
+        }
+      },
+      "frames": [
+        {
+          "phase": "active",
+          "time": 5.651466666666673,
+          "peerState": "peaceful",
+          "usable": {
+            "x": 16,
+            "y": 219,
+            "width": 358,
+            "height": 465
+          },
+          "zoom": 0.5966666666666667,
+          "dpr": 3,
+          "player": {
+            "x": 195.00000370506132,
+            "y": 489.35611454998633
+          },
+          "peer": {
+            "x": 326.2666655476888,
+            "y": 487.7650034388751
+          }
+        },
+        {
+          "phase": "active",
+          "time": 5.689806666666674,
+          "peerState": "peaceful",
+          "usable": {
+            "x": 16,
+            "y": 219,
+            "width": 358,
+            "height": 465
+          },
+          "zoom": 0.5966666666666667,
+          "dpr": 3,
+          "player": {
+            "x": 195.00000370506132,
+            "y": 489.35611454998633
+          },
+          "peer": {
+            "x": 326.2666655476888,
+            "y": 487.7650034388751
+          }
+        },
+        {
+          "phase": "active",
+          "time": 5.729796666666674,
+          "peerState": "peaceful",
+          "usable": {
+            "x": 16,
+            "y": 219,
+            "width": 358,
+            "height": 465
+          },
+          "zoom": 0.5966666666666667,
+          "dpr": 3,
+          "player": {
+            "x": 195.00000370506132,
+            "y": 489.35611454998633
+          },
+          "peer": {
+            "x": 326.2666655476888,
+            "y": 487.7650034388751
+          }
+        },
+        {
+          "phase": "active",
+          "time": 5.768136666666675,
+          "peerState": "peaceful",
+          "usable": {
+            "x": 16,
+            "y": 219,
+            "width": 358,
+            "height": 465
+          },
+          "zoom": 0.5966666666666667,
+          "dpr": 3,
+          "player": {
+            "x": 195.00000370506132,
+            "y": 489.35611454998633
+          },
+          "peer": {
+            "x": 326.2666655476888,
+            "y": 487.7650034388751
+          }
+        },
+        {
+          "phase": "active",
+          "time": 5.806466666666675,
+          "peerState": "peaceful",
+          "usable": {
+            "x": 16,
+            "y": 219,
+            "width": 358,
+            "height": 465
+          },
+          "zoom": 0.5966666666666667,
+          "dpr": 3,
+          "player": {
+            "x": 195.00000370506132,
+            "y": 489.35611454998633
+          },
+          "peer": {
+            "x": 326.2666655476888,
+            "y": 487.7650034388751
+          }
+        },
+        {
+          "phase": "active",
+          "time": 5.844796666666675,
+          "peerState": "peaceful",
+          "usable": {
+            "x": 16,
+            "y": 219,
+            "width": 358,
+            "height": 465
+          },
+          "zoom": 0.5966666666666667,
+          "dpr": 3,
+          "player": {
+            "x": 195.00000370506132,
+            "y": 489.35611454998633
+          },
+          "peer": {
+            "x": 326.2666655476888,
+            "y": 487.7650034388751
+          }
+        },
+        {
+          "phase": "active",
+          "time": 5.8831266666666755,
+          "peerState": "peaceful",
+          "usable": {
+            "x": 16,
+            "y": 219,
+            "width": 358,
+            "height": 465
+          },
+          "zoom": 0.5966666666666667,
+          "dpr": 3,
+          "player": {
+            "x": 195.00000370506132,
+            "y": 489.35611454998633
+          },
+          "peer": {
+            "x": 326.2666655476888,
+            "y": 487.7650034388751
+          }
+        },
+        {
+          "phase": "active",
+          "time": 5.921456666666676,
+          "peerState": "peaceful",
+          "usable": {
+            "x": 16,
+            "y": 219,
+            "width": 358,
+            "height": 465
+          },
+          "zoom": 0.5966666666666667,
+          "dpr": 3,
+          "player": {
+            "x": 195.00000370506132,
+            "y": 489.35611454998633
+          },
+          "peer": {
+            "x": 326.2666655476888,
+            "y": 487.7650034388751
+          }
+        },
+        {
+          "phase": "active",
+          "time": 5.958126666666676,
+          "peerState": "peaceful",
+          "usable": {
+            "x": 16,
+            "y": 219,
+            "width": 358,
+            "height": 465
+          },
+          "zoom": 0.5966666666666667,
+          "dpr": 3,
+          "player": {
+            "x": 195.00000370506132,
+            "y": 489.35611454998633
+          },
+          "peer": {
+            "x": 326.2666655476888,
+            "y": 487.7650034388751
+          }
+        },
+        {
+          "phase": "active",
+          "time": 5.994796666666676,
+          "peerState": "peaceful",
+          "usable": {
+            "x": 16,
+            "y": 219,
+            "width": 358,
+            "height": 465
+          },
+          "zoom": 0.5966666666666667,
+          "dpr": 3,
+          "player": {
+            "x": 195.00000370506132,
+            "y": 489.35611454998633
+          },
+          "peer": {
+            "x": 326.2666655476888,
+            "y": 487.7650034388751
+          }
+        },
+        {
+          "phase": "active",
+          "time": 6.033126666666676,
+          "peerState": "peaceful",
+          "usable": {
+            "x": 16,
+            "y": 219,
+            "width": 358,
+            "height": 465
+          },
+          "zoom": 0.5966666666666667,
+          "dpr": 3,
+          "player": {
+            "x": 195.00000370506132,
+            "y": 489.35611454998633
+          },
+          "peer": {
+            "x": 326.2666655476888,
+            "y": 487.7650034388751
+          }
+        },
+        {
+          "phase": "result",
+          "time": 6.071456666666676,
+          "peerState": "peaceful",
+          "usable": {
+            "x": 16,
+            "y": 219,
+            "width": 358,
+            "height": 465
+          },
+          "zoom": 0.5966666666666667,
+          "dpr": 3,
+          "player": {
+            "x": 195.00000370506132,
+            "y": 489.35611454998633
+          },
+          "peer": {
+            "x": 326.2666655476888,
+            "y": 487.7650034388751
+          }
+        }
+      ],
+      "result": {
+        "positionPath": [],
+        "positionWaiting": false,
+        "stance": "right",
+        "s": {
+          "time": 6.071456666666676,
+          "player": {
+            "x": 900.0000080849819,
+            "y": 942.6666666666669,
+            "hp": 3,
+            "mana": 5,
+            "facing": -3.12139359691991,
+            "invulnerable": 0.9866699999999999,
+            "cooldown": 0,
+            "ward": 5.541679999999997,
+            "wardFacing": -3.12139359691991,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "paused": false,
+          "projectiles": [],
+          "events": [
+            {
+              "seq": 1,
+              "time": 4.39987666666666,
+              "type": "warning",
+              "text": "闻朔抬手聚光；火球命中可以打断。",
+              "x": 1120,
+              "y": 940,
+              "targetId": "spar_peer"
+            },
+            {
+              "seq": 2,
+              "time": 5.613136666666673,
+              "type": "ward",
+              "text": "护符在身前张开，侧后仍需留意。",
+              "x": 900.0000080849819,
+              "y": 942.6666666666669
+            },
+            {
+              "seq": 3,
+              "time": 6.058126666666676,
+              "type": "hurt",
+              "text": "飞石从护持未遮住的一侧击中，体力少了一格。",
+              "x": 900.0000080849819,
+              "y": 942.6666666666669
+            }
+          ],
+          "flags": {
+            "eventSeq": 3,
+            "companion": "waiting",
+            "wardCooldown": 2.541680000000001,
+            "projectileSeq": 1
+          }
+        },
+        "peer": {
+          "id": "spar_peer",
+          "kind": "enemy",
+          "type": "raider",
+          "name": "闻朔",
+          "x": 1120,
+          "y": 940,
+          "w": 40,
+          "h": 40,
+          "hp": 3,
+          "state": "peaceful",
+          "data": {
+            "attack": 0,
+            "lastX": 900.0000080849819,
+            "lastY": 942.6666666666669,
+            "seen": 3
+          }
+        },
+        "phase": "result",
+        "outcome": "hit",
+        "shots": 1,
+        "startHp": 4,
+        "startSeq": 0,
+        "blocked": false,
+        "stopReason": null
+      },
+      "audio": {
+        "state": "running",
+        "requested": true,
+        "scene": "home",
+        "muted": false,
+        "musicVolume": 0.25,
+        "effectsVolume": 0.45,
+        "musicScheduled": 19,
+        "musicRms": 0.01330691681336126,
+        "effectsRms": 0.020545812792843864,
+        "activeVoices": 15,
+        "lastEffect": "hurt",
+        "effectCounts": {
+          "ward": 1,
+          "hurt": 1
+        },
+        "error": "",
+        "disposed": false
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Isolated synthetic start; no official save or chapter transition.",
+    "Linux Chromium desktop and touch/DPR emulation, not physical Mac or phone.",
+    "Automation reads actual emitted-shot state to time reaction; this does not establish human reaction comfort or subjective fun.",
+    "Images reuse existing actors; final new character art is not represented."
+  ]
+}
