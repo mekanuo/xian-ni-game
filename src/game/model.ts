@@ -1,3 +1,5 @@
+import { initialKilnEntries } from './kiln-content';
+import { createKilnState, kilnRefresh, kilnTick, kilnChoose, kilnInteract, kilnBeforeTravel, kilnObjective } from './kiln';
 import { initialJourneyEntities } from './journey-content';
 import { createJourneyState, journeyChoices, journeyChoose, journeyInteract, journeyTick, journeyCompanionStep, journeyExitIntent, journeyBeforeExit, journeyAbandonRun, journeyObjective, journeyDescription } from './journey';
 import { CANAL_CHANNEL, CANAL_SIDE } from './canal-content';
@@ -34,10 +36,11 @@ export function createGame(profile: Profile): GameState {
   if(!profile || !['herbalist','tinker'].includes(profile.origin) || !['stay','travel'].includes(profile.wish))throw Error('人物经历无效');
   const s:GameState={schema:1,revision:'return-stone-v1',profile:{...profile,name:profile.name.trim().slice(0,12)||'行舟'},scene:'home',time:0,
     player:{...SCENES.home.spawn,hp:4,mana:6,facing:0,invulnerable:0,cooldown:0,ward:0,wardFacing:0,pullId:null,pullPoint:null,hold:0,path:[]},
-    worlds:{canal:clone(SCENES.canal.entities),home:[...clone(SCENES.home.entities),...initialLifeEntities('home')],creek:[...clone(SCENES.creek.entities),...initialLifeEntities('creek')],workshop:[...clone(SCENES.workshop.entities),...initialLifeEntities('workshop')],crossing:[...clone(SCENES.crossing.entities),...initialLifeEntities('crossing')]},
-    flags:{eventSeq:0,companion:'waiting',visited_home:true},ringStyle:null,contentVersion:4,journey:createJourneyState(),canal:createCanalState(),life:{repair:{stage:'unaccepted',softened:false,stopSet:false,latched:false,tested:false,method:null,testing:null},harvest:{stage:'unaccepted',sun:'unpicked',shade:'unpicked',picking:null,shared:false},clamp:'unowned',sachets:0,scent:null},herbs:2,selected:'pull',paused:false,dialogue:null,events:[],projectiles:[],pending:null,ended:false,defeated:false,checkpoint:null,lastSafe:{scene:'home',point:{x:340,y:850}}};
-  for(const id of Object.keys(s.worlds) as SceneId[])s.worlds[id].push(...initialJourneyEntities(id));
+    worlds:{kiln:clone(SCENES.kiln.entities),canal:clone(SCENES.canal.entities),home:[...clone(SCENES.home.entities),...initialLifeEntities('home')],creek:[...clone(SCENES.creek.entities),...initialLifeEntities('creek')],workshop:[...clone(SCENES.workshop.entities),...initialLifeEntities('workshop')],crossing:[...clone(SCENES.crossing.entities),...initialLifeEntities('crossing')]},
+    flags:{eventSeq:0,companion:'waiting',visited_home:true},ringStyle:null,contentVersion:5,kiln:createKilnState(),journey:createJourneyState(),canal:createCanalState(),life:{repair:{stage:'unaccepted',softened:false,stopSet:false,latched:false,tested:false,method:null,testing:null},harvest:{stage:'unaccepted',sun:'unpicked',shade:'unpicked',picking:null,shared:false},clamp:'unowned',sachets:0,scent:null},herbs:2,selected:'pull',paused:false,dialogue:null,events:[],projectiles:[],pending:null,ended:false,defeated:false,checkpoint:null,lastSafe:{scene:'home',point:{x:340,y:850}}};
+  for(const id of Object.keys(s.worlds) as SceneId[])s.worlds[id].push(...initialJourneyEntities(id),...initialKilnEntries(id));
   for(const group of Object.values(s.worlds))for(const e of group){e.homeX=e.x;e.homeY=e.y;}
+  kilnRefresh(s);
   emit(s,'note',`${s.profile.name}，凝气三层。先前攒钱修的控物环，今日该去取了。`);
   emit(s,'hint','陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。');
   checkpoint(s);return s;
@@ -202,8 +205,10 @@ function choose(s:GameState,id:string):ActionResult {
     if(d.id!=='canal_depart'||s.scene!=='home'||s.canal.stage==='unaccepted'||!canInteract(s,'to_creek'))return result(false,'先走到驿前路牌');
     closeDialogue(s);return id.endsWith('canal')?changeScene(s,'canal',SCENES.canal.spawn):changeScene(s,'creek',{x:170,y:760});
   }
+  const kilnAction=kilnChoose(s,id,lifePorts);
+  if(kilnAction){if(kilnAction.ok){closeDialogue(s);if(kilnAction.checkpoint)checkpoint(s);}return kilnAction;}
   const journeyAction=journeyChoose(s,id,journeyPorts);
-  if(journeyAction){if(journeyAction.ok){closeDialogue(s);if(journeyAction.travel)return changeScene(s,journeyAction.travel.scene,journeyAction.travel.point);if(journeyAction.checkpoint)checkpoint(s);}return journeyAction;}
+  if(journeyAction){if(journeyAction.ok){closeDialogue(s);kilnRefresh(s);if(journeyAction.travel)return changeScene(s,journeyAction.travel.scene,journeyAction.travel.point);if(journeyAction.checkpoint)checkpoint(s);}return journeyAction;}
   const beforeCanal=s.canal.stage,canalAction=canalChoose(s,id,canalPorts);
   if(canalAction){if(canalAction.ok){closeDialogue(s);if(beforeCanal!==s.canal.stage)checkpoint(s);}return canalAction;}
   const beforeLife=JSON.stringify([s.life.repair.stage,s.life.harvest.stage]);
@@ -243,8 +248,8 @@ function choose(s:GameState,id:string):ActionResult {
   closeDialogue(s);return result(true);
 }
 function changeScene(s:GameState,scene:SceneId,spawn:Vec):ActionResult{
-    journeyBeforeExit(s,scene,journeyPorts);release(s);lifeBeforeExit(s);canalBeforeExit(s);s.scene=scene;s.player.x=spawn.x;s.player.y=spawn.y;s.player.path=[];s.player.ward=0;s.projectiles=[];s.flags.casting=false;s.pending=null;
-    s.flags[`visited_${s.scene}`]=true;const r=entities(s).find(e=>e.kind==='rest')!;s.lastSafe={scene:s.scene,point:{x:r.x,y:r.y}};
+    kilnBeforeTravel(s,scene,lifePorts);journeyBeforeExit(s,scene,journeyPorts);release(s);lifeBeforeExit(s);canalBeforeExit(s);s.scene=scene;s.player.x=spawn.x;s.player.y=spawn.y;s.player.path=[];s.player.ward=0;s.projectiles=[];s.flags.casting=false;s.pending=null;
+    s.flags[`visited_${s.scene}`]=true;const r=entities(s).find(e=>e.kind==='rest'&&e.state!=='hidden');if(s.scene!=='kiln'&&r)s.lastSafe={scene:s.scene,point:{x:r.x,y:r.y}};
     for(const n of entities(s).filter(e=>e.type==='xu'))if(s.flags.companion==='following'){n.x=s.player.x+45;n.y=s.player.y+40;}
     if(s.scene==='home'&&s.flags.route){s.flags.returned=true;const cart=entity(s,'return_cart')!;cart.state=s.flags.gateOpen?'arrived':'ridge';cart.x=s.flags.gateOpen?1230:1380;emit(s,'return',s.flags.gateOpen?'木车已进了院，路上的人正沿你修开的低滩来。':'门后添了一块山脊路标，背架靠在熟悉的墙边。');}
     emit(s,'scene',SCENES[s.scene].title);checkpoint(s);return result(true);
@@ -253,6 +258,7 @@ function interact(s:GameState,id:string):ActionResult {
   const e=entity(s,id);if(!interactable(s,e))return result(false,'这里已经没有可互动的人或器物');
   if(dist(e,s.player)>105||!clearLine(s,s.player,e,e.id))return result(false,'先走近这个人或器物再互动');
   if(e.kind==='exit'){
+    if((s.scene==='kiln'||e.targetScene==='kiln')&&s.journey.stage!=='complete')return result(false,'先完成工棚回程，回到桌边记下亲自走过的路');
     const journeyExit=journeyExitIntent(s,e,journeyPorts);if(journeyExit)return journeyExit;
     if(id==='to_workshop'&&!s.flags.tools)return result(false,'先取回小舟上的器具袋，修闸和试环会用到');
     if(id==='to_crossing'&&!s.flags.ringTrained)return result(false,'先取回自己的控物环，亲手试稳一种用法再去石渡');
@@ -261,6 +267,7 @@ function interact(s:GameState,id:string):ActionResult {
     }
     return changeScene(s,e.targetScene!,e.targetSpawn!);
   }
+  const kilnAction=kilnInteract(s,e,lifePorts);if(kilnAction)return kilnAction;
   const journeyAction=journeyInteract(s,e,journeyPorts);if(journeyAction)return journeyAction;
   if(s.scene==='home'&&e.id==='table'&&s.canal.stage==='complete'){
     dialogue(s,'journey_table','你的桌边',journeyDescription(s,e)||'旧渠小图留在桌边。许照想把工棚回雨棚的路认熟，亲自带一段。',journeyChoices(s,e));return result(true);
@@ -373,6 +380,7 @@ export function act(s:GameState,a:GameAction):ActionResult {
         const initial=prior.worlds[current.scene].find(e=>e.id===enemy.id);if(initial)Object.assign(enemy,clone(initial));
       }
       Object.assign(prior,current);prior.scene=last.scene;prior.player.x=last.point.x;prior.player.y=last.point.y;prior.lastSafe=last;
+      prior.kiln.entry=last.scene==='kiln'?'west':null;
       prior.player.pullId=null;prior.player.pullPoint=null;prior.player.hold=0;prior.flags.casting=false;
     }
     Object.assign(s,prior);s.checkpoint=source;s.player.hp=4;s.player.mana=6;s.defeated=false;s.paused=false;s.dialogue=null;s.pending=null;s.projectiles=[];s.player.path=[];emit(s,'restore',a.type==='retry'?'恢复到这处境进入前的完整局面。':'撤回安全落点，已经完成的行路与交谈仍在。');return result(true);
@@ -606,11 +614,12 @@ function stepTick(s:GameState,dt:number,input:Vec){
       rock.state='warning';rock.timer=1;s.flags.ridgeRockClock=7;emit(s,'warning','山脊上方碎石松动！一息后落向正下方，朝上护持或移到两旁石地。',rock);
     }
   }
-  projectileTick(s,dt);companionTick(s,dt);journeyTick(s,dt,journeyPorts);lifeTick(s,dt,lifePorts);canalTick(s,dt,canalPorts);
+  projectileTick(s,dt);companionTick(s,dt);journeyTick(s,dt,journeyPorts);lifeTick(s,dt,lifePorts);canalTick(s,dt,canalPorts);kilnTick(s,dt,lifePorts);
   if(s.scene==='creek'&&inPlatform(p))platformVisit(s);
 }
 export function objective(s:GameState):string {
   if(s.defeated)return '观察来袭方向，重试这处境或撤回安全落点';
+  const kiln=kilnObjective(s);if(kiln)return kiln;
   const canal=canalObjective(s),life=lifeObjective(s);
   if(s.scene==='canal'&&canal)return canal;
   const journey=journeyObjective(s);if(journey&&s.journey.run)return journey;

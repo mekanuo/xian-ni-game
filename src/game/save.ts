@@ -5,11 +5,14 @@ import { createCanalState, canalWaterState } from './canal';
 import { CANAL_SCENE, CANAL_CHANNEL } from './canal-content';
 import { createJourneyState } from './journey';
 import { initialJourneyEntities, getJourneyRoute } from './journey-content';
+import { createKilnState } from './kiln';
+import { KILN_SCENE, KILN_POINTS, initialKilnEntries } from './kiln-content';
 import type { CanalState, ClampSite, Entity, GameAction, GameState, LifeState, SceneId, Vec } from './contracts';
 
 export const MAX_SAVE_BYTES = 2_000_000;
 const oldScenes: SceneId[] = ['home','creek','workshop','crossing'];
-const scenes: SceneId[] = [...oldScenes,'canal'];
+const fiveScenes: SceneId[] = [...oldScenes,'canal'];
+const scenes: SceneId[] = [...fiveScenes,'kiln'];
 const record = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 const finitePoint = (p: Vec): boolean => !!p && finite(p.x) && finite(p.y);
@@ -43,11 +46,11 @@ export function validateLife(l: LifeState, legacy = false): void {
   check(l.scent===null || l.sachets<2, '药囊已拆开但份数未扣除');
 }
 
-function validateEntities(s: GameState, version: 1|2|3|4): void {
-  const manifest=version>=3?scenes:oldScenes;
+function validateEntities(s: GameState, version: 1|2|3|4|5): void {
+  const manifest=version===5?scenes:version>=3?fiveScenes:oldScenes;
   check(record(s.worlds) && Object.keys(s.worlds).length===manifest.length && Object.keys(s.worlds).every(id=>manifest.includes(id as SceneId)), '存档场景清单无效');
   for(const id of manifest) {
-    const templates=[...(id==='canal'?CANAL_SCENE:SCENES[id]).entities,...(version===1?[]:initialLifeEntities(id)),...(version===4?initialJourneyEntities(id):[])];
+    const templates=[...(id==='kiln'?KILN_SCENE:id==='canal'?CANAL_SCENE:SCENES[id]).entities,...(version===1||id==='kiln'?[]:initialLifeEntities(id)),...(version>=4&&id!=='kiln'?initialJourneyEntities(id):[]),...(version===5?initialKilnEntries(id):[])];
     const list=s.worlds[id];
     check(Array.isArray(list)&&list.length===templates.length, '存档缺少场景器物');
     const seen=new Set<string>();
@@ -94,8 +97,46 @@ function validateLifeWorld(s: GameState, legacy = false): void {
 }
 
 export function validateManifest(s:GameState):void {
-  check(s.contentVersion===4,'存档内容版本不匹配');
-  validateEntities(s,4);validateLife(s.life);validateLifeWorld(s);validateCanal(s);validateJourney(s);
+  check(s.contentVersion===5,'存档内容版本不匹配');
+  validateEntities(s,5);validateLife(s.life);validateLifeWorld(s);validateCanal(s);validateJourney(s);validateKiln(s);
+}
+
+function validateKiln(s:GameState):void {
+  const k=s.kiln;
+  check(record(k)&&Object.keys(k).every(key=>['visited','entry','crossed','loan','shelterOpened'].includes(key))&&record(k.crossed),'旧窑状态格式无效');
+  check(Object.keys(k.crossed).every(key=>['west','east'].includes(key))&&[k.visited,k.crossed.west,k.crossed.east,k.shelterOpened].every(v=>typeof v==='boolean'),'旧窑到访或穿行记录无效');
+  check([null,'west','east'].includes(k.entry)&&['none','agreed','borrowed','returned'].includes(k.loan),'旧窑入口或借还阶段无效');
+  check((s.scene==='kiln')===(k.entry!==null),'旧窑入口与当前地点不一致');
+  check(k.visited||s.scene!=='kiln'&&s.lastSafe.scene!=='kiln'&&k.entry===null&&!k.crossed.west&&!k.crossed.east&&k.loan==='none'&&!k.shelterOpened,'未到访旧窑不能已有经历');
+  check(!k.visited||s.journey.stage==='complete','回程落笔前不能进入旧窑');
+  check(k.shelterOpened===(k.loan==='returned'),'棚角许可与实际归还不一致');
+  if(s.lastSafe.scene==='kiln')check(k.shelterOpened&&distance(s.lastSafe.point,KILN_POINTS.rest)<.001,'旧窑安全点未获许可或位置无效');
+
+  // Restrict only new v5 objects. Old scenes retain their historical validation,
+  // including valid screen corners which need gradual outward recovery.
+  const structure=(e:Entity,template:Entity)=>{
+    check(e.w===template.w&&e.h===template.h&&e.homeX===(template.homeX??template.x)&&e.homeY===(template.homeY??template.y)&&e.solid===template.solid&&e.movable===template.movable&&e.flammable===template.flammable,'旧窑器物结构或原位无效');
+    check(e.targetScene===template.targetScene&&(template.targetSpawn?finitePoint(e.targetSpawn!)&&distance(e.targetSpawn!,template.targetSpawn)<.001:e.targetSpawn===undefined),'旧窑出口目的地无效');
+  };
+  for(const id of fiveScenes)for(const template of initialKilnEntries(id)){
+    const e=s.worlds[id].find(e=>e.id===template.id)!;structure(e,template);
+    check(distance(e,template)<.001&&e.state===(s.journey.stage==='complete'?'idle':'hidden'),'旧窑入口位置或开放状态无效');
+  }
+  for(const template of KILN_SCENE.entities){
+    const e=s.worlds.kiln.find(e=>e.id===template.id)!;structure(e,template);
+    if(e.id==='shield_board'){
+      check(['idle','pulled','held','burning','burned'].includes(e.state),'旧窑挡屏状态无效');
+      check(e.x>=25+e.w/2&&e.x<=KILN_SCENE.width-25-e.w/2&&e.y>=25+e.h/2&&e.y<=KILN_SCENE.height-25-e.h/2,'旧窑挡屏越出地图');
+      if(e.state==='burning')check(finite(e.timer)&&e.timer>0&&e.timer<=12,'旧窑燃烧计时无效');
+      if(e.state==='burned')check(e.timer===0,'旧窑残屏不能恢复燃烧时间');
+      const owned=s.scene==='kiln'&&s.player.pullId===e.id;
+      check(owned?e.state===(s.player.hold>0?'held':'pulled'):e.state!=='held'&&e.state!=='pulled','旧窑挡屏与牵引状态不一致');
+    }else if(e.kind==='enemy'){
+      check(['idle','alert','chasing','searching','casting','retreated','peaceful'].includes(e.state)&&Number.isInteger(e.hp)&&e.hp!>=0&&e.hp!<=3,'旧窑散修状态无效');
+    }else{
+      check(distance(e,template)<.001&&e.state===(e.id==='kiln_rest'?(k.shelterOpened?'idle':'hidden'):template.state),'旧窑固定人物或设施状态无效');
+    }
+  }
 }
 
 function validateJourney(s:GameState):void {
@@ -118,7 +159,7 @@ function validateJourney(s:GameState):void {
     else check(Number.isInteger(r.next)&&r.next!==null&&r.next>=0&&r.next<=getJourneyRoute(r).length,'领路路点索引无效');
   }
   const markState=j.stage==='unaccepted'?'hidden':'idle';
-  for(const scene of scenes)for(const template of initialJourneyEntities(scene)){
+  for(const scene of fiveScenes)for(const template of initialJourneyEntities(scene)){
     const e=s.worlds[scene].find(e=>e.id===template.id)!;
     check(distance(e,template)<.001&&e.homeX===template.homeX&&e.homeY===template.homeY,'回程地标或坐垫不能离开固定位置');
   }
@@ -176,11 +217,13 @@ export function migrateSave(json:string):string { return snapshot(restore(json))
 function restoreWorld(s:GameState):GameState {
   check(record(s),'存档世界格式无效');
   const version:unknown=s.contentVersion;
-  check(version===undefined||version===2||version===3||version===4,'存档内容版本不匹配');
+  check(version===undefined||version===2||version===3||version===4||version===5,'存档内容版本不匹配');
   const legacy=version===undefined;
   const beforeCanal=legacy||version===2;
   if(beforeCanal)check(!Object.hasOwn(s,'canal')&&oldScenes.includes(s.scene)&&oldScenes.includes(s.lastSafe?.scene),'旧存档不能混入旧渠数据');
-  if(version!==4)check(!Object.hasOwn(s,'journey'),'旧存档不能混入同行回程数据');
+  const beforeJourney=beforeCanal||version===3;
+  if(beforeJourney)check(!Object.hasOwn(s,'journey'),'旧存档不能混入同行回程数据');
+  if(version!==5)check(!Object.hasOwn(s,'kiln')&&fiveScenes.includes(s.scene)&&fiveScenes.includes(s.lastSafe?.scene),'旧存档不能混入旧窑数据');
   if(legacy) {
     check(!('life' in s),'旧存档不能混入新版生活状态');
     validateEntities(s,1);
@@ -193,11 +236,19 @@ function restoreWorld(s:GameState):GameState {
     s.worlds.canal=CANAL_SCENE.entities.map(e=>structuredClone({...e,homeX:e.x,homeY:e.y}));
     s.canal=createCanalState();
   }
-  if(version!==4){
+  if(beforeJourney){
     // Validate the exact old five-world manifest before appending any new objects.
     validateEntities(s,3);validateLife(s.life);validateLifeWorld(s);validateCanal(s);
-    for(const id of scenes)s.worlds[id].push(...initialJourneyEntities(id));
-    s.journey=createJourneyState();s.contentVersion=4;
+    for(const id of fiveScenes)s.worlds[id].push(...initialJourneyEntities(id));
+    s.journey=createJourneyState();
+  }
+  if(version!==5){
+    // Keep the v4 five-scene manifest immutable before adding the sixth map.
+    validateEntities(s,4);validateLife(s.life);validateLifeWorld(s);validateCanal(s);validateJourney(s);
+    s.worlds.kiln=KILN_SCENE.entities.map(e=>structuredClone({...e,homeX:e.x,homeY:e.y}));
+    s.kiln=createKilnState();
+    for(const id of fiveScenes)s.worlds[id].push(...initialKilnEntries(id).map(e=>structuredClone({...e,homeX:e.x,homeY:e.y,state:s.journey.stage==='complete'?'idle':'hidden'})));
+    s.contentVersion=5;
   }
   if(!s||s.schema!==1||s.revision!=='return-stone-v1'||!scenes.includes(s.scene)||!s.profile||!['herbalist','tinker'].includes(s.profile.origin)||!['stay','travel'].includes(s.profile.wish)||typeof s.profile.name!=='string'||![0,1].includes(s.profile.appearance)||!s.player||!finitePoint(s.player)||!Number.isFinite(s.time)||s.time<0||!Number.isInteger(s.player.hp)||s.player.hp<0||s.player.hp>4||!Number.isInteger(s.player.mana)||s.player.mana<0||s.player.mana>6||!Array.isArray(s.player.path)||!s.player.path.every(finitePoint)||!s.worlds||!s.flags||Array.isArray(s.flags)||!Array.isArray(s.events)||!Array.isArray(s.projectiles)||!s.lastSafe||!scenes.includes(s.lastSafe.scene)||!finitePoint(s.lastSafe.point)||!['long','hold',null].includes(s.ringStyle)||!Number.isInteger(s.herbs)||s.herbs<0||s.herbs>2||typeof s.paused!=='boolean'||typeof s.ended!=='boolean'||typeof s.defeated!=='boolean')throw Error('存档版本或世界数据不匹配');
   if(!['pull','flame','ward'].includes(s.selected)||Object.values(s.flags).some(v=>!['boolean','string','number'].includes(typeof v)||(typeof v==='number'&&!Number.isFinite(v))))throw Error('存档标记数据无效');

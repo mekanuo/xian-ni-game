@@ -1,3 +1,4 @@
+import { kilnDescription } from './kiln';
 import { journeyObjective, journeyDescription } from './journey';
 import { canalDescription, canalObjective, canalWaterState } from './canal';
 import type { Entity, GameState, Vec } from './contracts';
@@ -78,6 +79,14 @@ function crossing(s: GameState,ridge: boolean): EncounterView {
 /** Only local, observable circumstances; never changes progress or issues actions. */
 export function nearbyEncounter(s: GameState): EncounterView|undefined {
   const near=(ids:string[],radius:number)=>s.worlds[s.scene].filter(e=>ids.includes(e.id)&&e.state!=='hidden').some(e=>distance(s.player,e)<=radius);
+  if(s.scene==='kiln'){
+    const screen=object(s,'shield_board');
+    if(screen&&distance(s.player,screen)<360){
+      const fact=screen.state==='burned'?'木屏已经烧尽，不再遮挡来袭；原来的观察位置也会暴露。':screen.state==='burning'?'木屏仍在燃烧，烧完前仍挡路；之后会失去这处遮蔽。':screen.state==='pulled'||screen.state==='held'?'木屏悬起，落地后才可借它挡住双方术法。':'落地木屏隔开来向，也会拦住你自己的火球。';
+      return view('kiln-screen','窑墙边的挡屏',fact,'沿完整窑墙换角度，零灵力也可绕行',s.kiln.loan==='borrowed'?'借过的屏还可完好放回晾坯处':'靠近杜芹说好借用，不借也能走外路');
+    }
+    return view('kiln-road','旧窑外路','两道窑墙隔开视线；散修会沿看见你的来向追近。','看清起手，借墙角退开','走到另一端的方向牌，再亲自离开旧窑');
+  }
   if(s.scene==='canal'){
     const local=s.worlds.canal.filter(e=>e.state!=='hidden'&&e.kind!=='enemy'&&distance(e,s.player)<200).sort((a,b)=>distance(a,s.player)-distance(b,s.player))[0];
     const water=canalWaterState(s);
@@ -121,6 +130,7 @@ export function nearbyEncounter(s: GameState): EncounterView|undefined {
 }
 
 export function inspectObject(s: GameState,e: Entity): string {
+  const kiln=kilnDescription(s,e);if(kiln)return kiln;
   if(s.flags.herbsWet&&(e.type==='xu'||e.id==='shelter'))return s.flags.boardReturned?'药草仍受潮；导水板已归位，到雨棚一起整理后再商量同行':'药草受潮；先放回导水板，再到雨棚一起整理';
   if(e.type==='xu'&&s.flags.companion==='refused')return '许照不愿替你迎着术法冲；先在安全处重新商量同行';
   if(e.type==='xu'&&s.flags.companion==='sheltered')return '许照被来袭逼退；先到安全处会合，再继续';
@@ -153,6 +163,7 @@ export function inspectObject(s: GameState,e: Entity): string {
 export function placementAnchors(s: GameState): Array<Vec & {id:string;title:string}> {
   const id=s.player.pullId;
   if(!id||s.player.hold>0||!object(s,id)?.movable)return [];
+  if(s.scene==='kiln'&&id==='shield_board')return [{id:'kiln-screen-home',title:'晾坯屏原位',x:500,y:640}];
   switch(id){
     case 'canal_diverter':return [{id:'canal-divert',title:'旁路分水槽',x:680,y:350},{id:'canal-restore',title:'原渠槽口',x:600,y:350}];
     case 'canal_stop':return [{id:'canal-stop',title:'左侧止水槽',x:1200,y:350},{id:'canal-open',title:'截水板原位',x:1280,y:350}];

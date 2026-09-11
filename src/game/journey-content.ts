@@ -9,7 +9,7 @@ export function getJourneyRoute(run:NonNullable<GameState['journey']['run']>):Re
 }
 const mark=(id:string,name:string,x:number,y:number):Entity=>({id,kind:'object',type:id,name,x,y,w:36,h:34,state:'hidden'});
 export const JOURNEY_ENTITIES:Record<SceneId,Entity[]>={
- home:[],crossing:[],canal:[],
+ home:[],crossing:[],canal:[],kiln:[],
  workshop:[mark('journey_north_mark','北弯回程石刻',320,285),mark('journey_south_mark','南林旧绳结',1250,885)],
  creek:[{id:'journey_rest_shelter',kind:'rest',type:'rest',name:'雨棚干地坐垫',...JOURNEY_POINTS.rest,w:65,h:36,state:'hidden'}],
 };

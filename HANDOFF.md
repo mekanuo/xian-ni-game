@@ -1,14 +1,14 @@
-# 当前工作入口 · 0.6 隔离空间白盒
+# 当前工作入口 · 0.6 正式规则已接入，正在接美术
 
-本目录 `.worktrees/kiln-060` / `feat/kiln-060`。0.5已正式发行并公网核验：主源码4771041、最终证据7fea179、gh-pages f7972c2，21运行资源哈希一致，原链接 https://mekanuo.github.io/xian-ni-game/?v=0.5.0 。本分支已合入最终0.5证据文档；qa/evidence及verification中的发行PASS属于0.5基线，不代表0.6。
+目录 `.worktrees/kiln-060` / `feat/kiln-060`；主源码分支及公网仍为已核验0.5，7fea179 / gh-pages f7972c2。用户要求“继续，别停”，自主设计/实施/测试/推送/既定部署已授权，无待确认事项。不要重读旧聊天/原书或碰两个封版项目。
 
-用户要求持续自主推进，无待批准事项，不重读旧聊天或原小说，不碰两个封版项目。0.6选定 design/ADVENTURE_060.md，当前只做独立whitebox.html，空间与物件后果已完成实测，根代理决定进入正式生产；生产计划docs/superpowers/plans/2026-09-11-kiln-production.md、美术ART_KILN_060.md，正式新图仍未实现，不发布白盒。
+0.6白盒两次真实脚本共7项PASS，原第二修订失败保留；根代理决定生产。正式第六图、双向连接、杜芹目睹借离/完好归还、许可棚角、contentVersion5外层/checkpoint严格迁移已接入。新旧全部模型489/28 PASS（临时探测未计入）；此前TypeScript通过，当前正在接kiln-art helper暂待构建。新固定旧档return-journey[-paused]-v0.5.0从7fea179原样保存，不能被未来实测导出覆盖。
 
-第三几何修订东侧扩60，真实Chrome150桌面DPR2五项PASS：留屏与暂停、牵屏合法落点及屏角拒绝、烧毁不可牵复原、零灵力实际东去西返、整局重开。返回HP3/MP0、38.015秒，两敌未退出，真实敌弹撞固定围墙；页面错误为空。qa/whitebox/kiln.json及截图，原第二修订北返失败保留在rejected-east-narrow。模型新增1秒活动决策间隔先RED后GREEN，白盒7/7；TypeScript与whitebox-Dd3FMveF.js通过。不得把脚本PASS说成完整设计全部验证：补证kiln-decisions.json已PASS：实际归屏HP4/MP4；烧前拒绝同点，烧后实际跨过并返回HP3/MP5，截图前继续受击为HP2，原观察位失去遮蔽。根代理已目视复核并决定生产。
+计划 docs/superpowers/plans/2026-09-11-kiln-production.md；美术 ART_KILN_060.md。新四母版public/assets/kiln-*.png已生成并根目视，前三RGB magenta需keyAtlas，不能当透明源；helper由canal_art_040独占src/game/kiln-art.ts/assets，root已在scene接预定接口，等待helper完成。root另改audio的旧窑稀疏音乐、石驿旧占位绘制清理，均待真实运行检查。当前无正式0.6浏览器报告；qa/verification.json NOT_RUN，不能沿用0.5 PASS发布。
 
-模型燃烧保持、实体完整足迹及旧角重叠逐步脱困补丁已推4a52181/f54f9e6/a4e1b20。旧位兼容85项相关模型测试通过，证据为完整五图合成边界夹具，不是假称历史实机存档。
+scripts/kiln-check.mjs已准备（未运行），真实固定0.5导档、桌面零资源四向换图与手机借还/新页面存读。后续补正式烧毁持久性、重开、三视口/声音及完整发行流程。4192/PID1105194只服务旧白盒，不是正式新构建；当前无浏览器运行。真实浏览器必须串行。root拥有Git/构建/浏览器/部署。
 
-4192预览PID1105194仍服务.whitebox-dist，当前无浏览器运行；浏览器必须串行。root拥有Git/构建/浏览器/部署，当前scene.ts有未提交的小型石驿旧绘制占位清理，尚未正式渲染验证，不随白盒里程碑发布。三个既有Agent的存档计划、连接选址、剩余局面重放均已完成；下一步实施正式类型/新图/规则/迁移和美术；持续推进，不结束在计划。
+规则代理已完成并停写；save代理完成后正只读探测“屏落自己脚下是否卡住”风险，未证实不当缺陷结论；美术代理还写helper。推进模型里程碑推送后立即继续正式画面、输入验证和必要修复，不在中间汇报停下。
 
 ---
 

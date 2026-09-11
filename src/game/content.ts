@@ -1,4 +1,5 @@
 import type { Entity, GroundShape, SceneDefinition, SceneId, Vec } from './contracts';
+import { KILN_SCENE } from './kiln-content';
 import { CANAL_SCENE } from './canal-content';
 const rect = (type: GroundShape['type'], x: number, y: number, w: number, h: number): GroundShape => ({ type, points: [x,y,x+w,y,x+w,y+h,x,y+h] });
 const e = (id: string, kind: Entity['kind'], type: string, name: string, x: number, y: number, extra: Partial<Entity> = {}): Entity => ({ id,kind,type,name,x,y,w:48,h:44,state:'idle',...extra });
@@ -8,6 +9,7 @@ const exit = (id: string, name: string, x: number, y: number, targetScene: Scene
 const rest = (id: string, x: number, y: number) => e(id,'rest','rest','静息落点',x,y,{w:75,h:50,hint:'安全时静息，恢复体力和灵力'});
 const palette = { ground:0xa0aea0,path:0xc5bea9,foliage:0x637967,water:0x789eac };
 export const SCENES: Record<SceneId,SceneDefinition> = {
+  kiln:KILN_SCENE,
   canal:CANAL_SCENE,
   home: { id:'home',title:'回石驿',subtitle:'灯下有你的碗，山外有未走过的路。',width:1800,height:1100,spawn:{x:360,y:710},palette,
     ground:[rect('path',100,570,1620,230),rect('floor',230,230,940,300),rect('stone',660,570,270,220),rect('grass',110,850,1550,180)],
