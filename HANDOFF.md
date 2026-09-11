@@ -2,7 +2,11 @@
 
 2026-09-11。用户最新要求“继续，别停”，已授权自主开发、测试、里程碑推送、既有Pages部署。不要等待重复确认；不用旧聊天、不重做全书分析、不碰封版smbb/starvein。研究在docs/research。首版Goal早已完成，不推断创建新Goal。历史入口已清理，必要历史看Git和docs/PROGRESS，而不是重跑已通过工作。
 
-## 当前覆盖：生产接线开始
+## 当前覆盖：生产模型通过，视听接线进行中
+
+生产模型已完成八图/content7、严格旧档及独立checkpoint迁移、真实一手/余弹/等候/报告。45文件956测试全PASS、tsc PASS；qa/REVIEW_080_SPAR_PRODUCTION.md说明证据范围。首章立即开门/报告不被旧渠挡住/异常HP0不覆盖恢复点已RED→GREEN。当前没有正式浏览器运行证据，不发布。
+
+新闻朔public/assets/spar-wenshuo.png由内置imagegen r2生成，root已查看采用；r1比例太写实且背景错误被拒。canal_art_040目前独占src/game/spar-art.ts与design/SPAR_080_ASSET_DELIVERY.md制作环境与NPC帧；canal_save_040目前独占scripts/spar-production-check.mjs，仅写真实UI脚本，不运行browser；canal_rules_040审查已交回停写。root负责scene/ui/镜头/玩家背向原图。当前内置imagegen cell1550正在生成两款玩家背向+护符姿态（原角色图编辑参考），结果尚待wait和审查。不能说已采用。
 
 03ad999 角度/换位里程碑已成功推送 origin/feat/spar-080-whitebox。28项定位几何与白盒专项、tsc 已通过；定位路径与让路判断抽入 src/game/spar-geometry.ts 供正式复用，不改数值或旧行为。正式局部合同 design/SPAR_080_GAME_DESIGN.md 已按自主授权收束，旧草案仅作跳转；生产 brief/plan 已写。不是正式新图完成或已发布。
 

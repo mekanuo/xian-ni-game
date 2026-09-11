@@ -1,10 +1,11 @@
+import {sparRefresh} from '../src/game/spar';
 import { describe, it, expect } from 'vitest';
 import { createGame, act, tick, snapshot, restore } from '../src/game/model';
 import type { GameState } from '../src/game/contracts';
 const profile={name:'行舟',origin:'tinker' as const,wish:'travel' as const,appearance:0 as const};
 const advance=(s:GameState,t:number)=>{for(let i=0;i<Math.ceil(t/.05);i++)tick(s,.05,{x:0,y:0});};
 const get=(s:GameState,id:string)=>s.worlds[s.scene].find(e=>e.id===id)!;
-function finished(origin:'tinker'|'herbalist'='tinker'){const s=createGame({...profile,origin});s.ended=true;s.flags.endingWish='travel';s.flags.ringOwned=true;s.flags.ringTrained=true;s.ringStyle='long';return s;}
+function finished(origin:'tinker'|'herbalist'='tinker'){const s=createGame({...profile,origin});s.ended=true;s.flags.endingWish='travel';s.flags.ringOwned=true;s.flags.ringTrained=true;s.ringStyle='long';sparRefresh(s);return s;}
 function choice(s:GameState,id:string){for(let i=0;i<8&&!s.dialogue?.choices.some(c=>c.id===id);i++)act(s,{type:'choose',choiceId:'more'});return act(s,{type:'choose',choiceId:id});}
 function acceptRepair(s:GameState){s.scene='home';s.player.x=480;s.player.y=660;expect(act(s,{type:'interact',targetId:'tao'}).ok).toBe(true);expect(choice(s,'life:repair:accept').ok).toBe(true);s.scene='workshop';s.player.x=1380;s.player.y=485;}
 function heat(s:GameState){expect(act(s,{type:'interact',targetId:'life_hearth'}).ok).toBe(true);expect(act(s,{type:'cast',spell:'flame',targetId:'life_hearth',point:{x:1320,y:430}}).ok).toBe(true);advance(s,1);expect(s.life.repair.softened).toBe(true);}

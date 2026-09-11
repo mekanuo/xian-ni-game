@@ -1,3 +1,4 @@
+import {SPAR_SCENE} from './spar-content';
 import type { Entity, GroundShape, SceneDefinition, SceneId, Vec } from './contracts';
 import { MARKET_SCENE } from './market-content';
 import { KILN_SCENE } from './kiln-content';
@@ -10,6 +11,7 @@ const exit = (id: string, name: string, x: number, y: number, targetScene: Scene
 const rest = (id: string, x: number, y: number) => e(id,'rest','rest','静息落点',x,y,{w:75,h:50,hint:'安全时静息，恢复体力和灵力'});
 const palette = { ground:0xa0aea0,path:0xc5bea9,foliage:0x637967,water:0x789eac };
 export const SCENES: Record<SceneId,SceneDefinition> = {
+  spar:SPAR_SCENE,
   market:MARKET_SCENE,
   kiln:KILN_SCENE,
   canal:CANAL_SCENE,

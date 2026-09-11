@@ -22,7 +22,7 @@ describe('market v6 immutable source migration',()=>{
   const previous=JSON.parse(raw),s=restore(raw);
   const pairs=[[s,previous],...(previous.checkpoint?[[JSON.parse(s.checkpoint!),JSON.parse(previous.checkpoint)]]:[])];
   for(const [next,old] of pairs){
-   expect(next.contentVersion).toBe(6);expect(Object.keys(next.worlds).sort()).toEqual(['canal','creek','crossing','home','kiln','market','workshop']);expect(next.market).toEqual(empty());
+   expect(next.contentVersion).toBe(7);expect(Object.keys(next.worlds).sort()).toEqual(['canal','creek','crossing','home','kiln','market','spar','workshop']);expect(next.market).toEqual(empty());
    for(const key of ['player','flags','profile','time','herbs','paused','pending','dialogue','projectiles','lastSafe'])expect(next[key]).toEqual(old[key]);
    for(const key of ['life','canal','journey','kiln'])if(old[key])expect(next[key]).toEqual(old[key]);
    for(const [scene,list] of Object.entries(old.worlds))for(const e of list as Entity[])expect(next.worlds[scene].find((n:Entity)=>n.id===e.id)).toEqual(e);
@@ -35,9 +35,9 @@ describe('market v6 immutable source migration',()=>{
   if(defect==='ledger')s.market=empty();if(defect==='map')s.worlds.market=[];if(defect==='entry')s.worlds.crossing.push({...s.worlds.crossing[0],id:'crossing_to_market'});if(defect==='xu')s.worlds.home.push({...s.worlds.home[0],id:'xu_market'});if(defect==='scene')s.scene='market';if(defect==='safe')s.lastSafe.scene='market';if(defect==='visited-flag')s.flags.visited_market=true;if(defect==='market-flag')s.flags.market_exchanged=true;
   expect(()=>restore(JSON.stringify(s))).toThrow();
  });
- for(const version of [0,1,7,'6',null])it(`rejects unsupported ${String(version)}`,()=>{const s=JSON.parse(oldV5);s.contentVersion=version;expect(()=>restore(JSON.stringify(s))).toThrow();});
+ for(const version of [0,1,8,'6',null])it(`rejects unsupported ${String(version)}`,()=>{const s=JSON.parse(oldV5);s.contentVersion=version;expect(()=>restore(JSON.stringify(s))).toThrow();});
  it('keeps new outer facts independent of an old checkpoint',()=>{const s=open();s.checkpoint=JSON.parse(oldV5).checkpoint;const r=round(s);expect(r.market).toEqual(s.market);expect(JSON.parse(r.checkpoint!).market).toEqual(empty());});
- it('allows an independently valid v6 checkpoint in a v5 outer world',()=>{const s=JSON.parse(oldV5),nested=open();nested.checkpoint=null;s.checkpoint=snapshot(nested);const r=restore(JSON.stringify(s));expect(r.market).toEqual(empty());expect(JSON.parse(r.checkpoint!).market).toEqual(nested.market);});
+ it('allows an independently valid current v7 checkpoint in a v5 outer world',()=>{const s=JSON.parse(oldV5),nested=open();nested.checkpoint=null;s.checkpoint=snapshot(nested);const r=restore(JSON.stringify(s));expect(r.market).toEqual(empty());expect(JSON.parse(r.checkpoint!).market).toEqual(nested.market);});
  it('rejects malformed market in nested checkpoint',()=>{const s=current(),nested=inside();nested.market.visit=null;nested.checkpoint=null;s.checkpoint=snapshot(nested);expect(()=>round(s)).toThrow();});
  it('rejects a second nested checkpoint',()=>{const s=current();s.checkpoint=snapshot(inside());expect(()=>round(s)).toThrow();});
 });
@@ -110,8 +110,8 @@ function walkReplay(s:GameState,x:number,y:number){
 }
 
 describe('production act/tick save replay',()=>{
- it('round-trips a genuinely new seven-map game and its initial checkpoint',()=>{
-  const s=createGame({name:'迁移实测',origin:'tinker',wish:'travel',appearance:0});expect(round(s)).toEqual(s);expect(JSON.parse(s.checkpoint!).contentVersion).toBe(6);
+ it('round-trips a genuinely new eight-map game and its initial checkpoint',()=>{
+  const s=createGame({name:'迁移实测',origin:'tinker',wish:'travel',appearance:0});expect(round(s)).toEqual(s);expect(JSON.parse(s.checkpoint!).contentVersion).toBe(7);
  });
  it('preserves actual exchange, mid-walk pause and every real return segment without completing work on restore',()=>{
   let s=enterForReplay();const entryCheckpoint=JSON.parse(s.checkpoint!);expect(entryCheckpoint.market.exchanged).toBe(false);

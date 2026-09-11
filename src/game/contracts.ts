@@ -1,4 +1,5 @@
-export type SceneId = 'home' | 'creek' | 'workshop' | 'crossing' | 'canal' | 'kiln' | 'market';
+import type {SparState} from './spar-state';
+export type SceneId = 'home' | 'creek' | 'workshop' | 'crossing' | 'canal' | 'kiln' | 'market' | 'spar';
 export type Spell = 'pull' | 'flame' | 'ward';
 export type RingStyle = 'long' | 'hold' | null;
 export type LifeStage = 'unaccepted' | 'active' | 'ready' | 'complete';
@@ -60,7 +61,7 @@ export interface GameState {
   ringStyle: RingStyle; herbs: number; selected: Spell; paused: boolean;
   dialogue: Dialogue | null; events: GameEvent[]; projectiles: Projectile[];
   pending: GameAction | null; ended: boolean; defeated: boolean;
-  checkpoint: string | null; contentVersion: 6; market: MarketState; life: LifeState; canal: CanalState; journey: JourneyState; kiln: KilnState; lastSafe: { scene: SceneId; point: Vec };
+  checkpoint: string | null; contentVersion: 7; spar: SparState; market: MarketState; life: LifeState; canal: CanalState; journey: JourneyState; kiln: KilnState; lastSafe: { scene: SceneId; point: Vec };
 }
 export type GameAction =
   | { type: 'move'; point: Vec }
@@ -76,6 +77,8 @@ export type GameAction =
   | { type: 'heal' }
   | { type: 'retry' }
   | { type: 'retreat' }
+  | { type: 'spar-begin' }
+  | { type: 'spar-stop' }
   | { type: 'use-sachet' };
 export interface ActionResult { ok: boolean; message?: string }
 export interface CastPreview { valid: boolean; reason: string; cost: number; range: number; target?: Entity; }

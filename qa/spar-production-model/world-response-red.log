@@ -1,0 +1,50 @@
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+ ❯ tests/spar-world-response.test.ts (2 tests | 2 failed) 14ms
+   × finishing the first return opens the gate immediately in the same running game 10ms
+   × reporting a real practice fact remains available without accepting the canal and preserves its offer 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/spar-world-response.test.ts > finishing the first return opens the gate immediately in the same running game
+AssertionError: expected 'hidden' to be 'idle' // Object.is equality
+
+Expected: "idle"
+Received: "hidden"
+
+ ❯ tests/spar-world-response.test.ts:6:125
+      4| it('finishing the first return opens the gate immediately in the same …
+      5|  const s=returned();expect(act(s,{type:'interact',targetId:'table'}).o…
+      6|  expect(act(s,{type:'choose',choiceId:'travel'}).ok).toBe(true);expect…
+       |                                                                                                                             ^
+      7| });
+      8| it('reporting a real practice fact remains available without accepting…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/spar-world-response.test.ts > reporting a real practice fact remains available without accepting the canal and preserves its offer
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/spar-world-response.test.ts:11:60
+      9|  const s=returned();s.flags.endingWish='travel';s.spar.facts=['left:hi…
+     10|  expect(act(s,{type:'interact',targetId:'table'}).ok).toBe(true);
+     11|  expect(s.dialogue?.choices.some(c=>c.id==='spar:report')).toBe(true);
+       |                                                            ^
+     12|  expect(act(s,{type:'choose',choiceId:'spar:report'}).ok).toBe(true);e…
+     13|  expect(act(s,{type:'interact',targetId:'table'}).ok).toBe(true);expec…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  21:31:21
+   Duration  449ms (transform 228ms, setup 0ms, import 268ms, tests 14ms, environment 0ms)
+

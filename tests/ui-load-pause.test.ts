@@ -1,3 +1,4 @@
+import {sparRefresh} from '../src/game/spar';
 import {afterEach,describe,it,expect,vi} from 'vitest';
 import {GameUI} from '../src/game/ui';
 import {act,createGame,snapshot,tick} from '../src/game/model';
@@ -34,7 +35,7 @@ describe('loading never resumes a restored world while closing the previous sett
   if(kind==='pending'){expect(s.player.hold).toBe(0);expect(s.pending).toBeNull();}else expect(s.player.hold).toBe(saved.player.hold);
  });
  for(const route of ['import','manual'] as const)for(const finished of [false,true])it(`${route}: ${finished?'does not replay a completed':'preserves the first future'} chapter ending`,async()=>{
-  const saved=heldSave('running');if(finished){saved.flags.endingWish='stay';saved.ended=true;}
+  const saved=heldSave('running');if(finished){saved.flags.endingWish='stay';saved.ended=true;sparRefresh(saved);}
   const h=harness(snapshot(saved));h.ui.endingShown=!finished;
   if(route==='manual')h.ui.load('manual');else{h.ui.change({target:{id:'import-save',files:[{text:async()=>snapshot(saved)}],dataset:{}}} as unknown as Event);await Promise.resolve();}
   expect(h.ui.endingShown).toBe(finished);expect(h.get().ended).toBe(saved.ended);expect(h.get().flags.endingWish).toBe(saved.flags.endingWish);

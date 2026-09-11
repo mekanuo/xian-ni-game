@@ -1,3 +1,4 @@
+import {sparCanTalk} from './spar';
 import {registerMarketFrames,paintMarketLandscape,createMarketVisual,updateMarketVisual,drawMarketHomeRecord} from './market-art';
 import { registerKilnFrames, paintKilnLandscape, createKilnVisual, updateKilnVisual } from './kiln-art';
 import { registerCanalFrames, paintCanalLandscape, createCanalVisual, updateCanalVisual, drawCanalWater, drawCanalHomeRecord } from './canal-art';
@@ -59,6 +60,7 @@ export class WorldScene extends Phaser.Scene {
   constructor(){super('world');}
   preload(){
     this.load.image('title-source',new URL('art/title.png',document.baseURI).href);
+    this.load.image('spar-ground',new URL('art/home-ground.png',document.baseURI).href);
     this.load.image('characters-source',new URL('art/characters.png',document.baseURI).href);
     this.load.image('enemies-source',new URL('art/enemies.png',document.baseURI).href);
     this.load.image('environment-source',new URL('art/environment.png',document.baseURI).href);
@@ -201,6 +203,30 @@ export class WorldScene extends Phaser.Scene {
     const map=SCENES[this.state.scene];
     this.cameras.main.setZoom(display.density*Math.max(scale,width/map.width,height/map.height));
   }
+  private updateSparCamera(){
+    const camera=this.cameras.main,r=this.state.spar.run;
+    const width=this.scale.width/display.density,height=this.scale.height/display.density;
+    if(this.cameraManual)return;
+    const active=r?.phase==='positioning'||r?.phase==='active';
+    camera.useBounds=!r;
+    if(active){
+      const bottoms=['.top-left','.location','.top-right'].map(selector=>document.querySelector(selector)?.getBoundingClientRect().bottom??0);
+      const top=Math.max(110,...bottoms)+12,dock=document.querySelector('.action-dock')?.getBoundingClientRect().top??height-125;
+      const bottom=Math.max(top+120,dock-18),usableHeight=bottom-top;
+      const zoom=Math.min(1,(width-28)/600,usableHeight/600)*display.density;
+      const blend=this.settings.reduced?1:.16;
+      if(!this.state.paused&&!this.state.dialogue)camera.setZoom(Phaser.Math.Linear(camera.zoom,zoom,blend));
+      const center=camera.getWorldPoint(camera.width/2,camera.height/2);
+      const target={x:900,y:880+(height/2-(top+bottom)/2)/(camera.zoom/display.density)};
+      if(!this.state.paused&&!this.state.dialogue)camera.centerOn(Phaser.Math.Linear(center.x,target.x,blend),Phaser.Math.Linear(center.y,target.y,blend));
+    }else{
+      // Residual projectiles keep their size as the player walks away. A clean
+      // result may return to the normal exploration scale without hiding danger.
+      if(!r){const map=SCENES.spar,target=display.density*Math.max(display.worldScale,width/map.width,height/map.height);camera.setZoom(Phaser.Math.Linear(camera.zoom,target,this.settings.reduced?1:.12));}
+      const center=camera.getWorldPoint(camera.width/2,camera.height/2),blend=this.settings.reduced?1:.12;
+      camera.centerOn(Phaser.Math.Linear(center.x,this.state.player.x,blend),Phaser.Math.Linear(center.y,this.state.player.y-this.cameraLead(),blend));
+    }
+  }
   private cameraLead(){
     // Tall desktop views include the inn facade; shorter views keep the player above the controls.
     if(this.state.scene!=='home'||this.scale.width/display.density<1000)return 55;
@@ -229,7 +255,7 @@ export class WorldScene extends Phaser.Scene {
     }else if(entity&&entity.kind!=='scenery'){
       const d=Phaser.Math.Distance.Between(this.state.player.x,this.state.player.y,entity.x,entity.y);
       this.queuedInteract=null;
-      if(entity.kind==='enemy'){this.ui.notify('留意对方起手；可选火焰球打断，或护符挡住来袭。');return;}
+      if(entity.kind==='enemy'&&!sparCanTalk(this.state,entity)){this.ui.notify(entity.id==='spar_peer'?'这一手尚未结清。看清来向，侧身或撑起护符；也可收手。':'留意对方起手；可选火焰球打断，或护符挡住来袭。');return;}
       const destination=interactionPoint(this.state,entity.id);
       if(!destination){this.ui.notify('暂时走不到它身边，先找一条可通行的路。');return;}
       if(d<96&&Math.hypot(destination.x-this.state.player.x,destination.y-this.state.player.y)<1)this.dispatch({type:'interact',targetId:entity.id});
@@ -303,7 +329,8 @@ export class WorldScene extends Phaser.Scene {
     if(this.state.life.harvest.picking){const side=this.playerImage?.flipX?-1:1;this.playerHand.lineStyle(2,0xa0ae88,.8);this.playerHand.lineBetween(side*12,-23,side*21,-19);this.playerHand.lineBetween(side*16,-23,side*22,-26);}
     if((p.pullId&&p.hold<=0)||this.casting){const side=Math.cos(p.facing)>0?1:-1;this.playerHand.fillStyle(0xa9c9b8,.2);this.playerHand.fillCircle(side*20,-36,6);}
     this.lastX=p.x;this.lastY=p.y;
-    if(!this.cameraManual){
+    if(this.state.scene==='spar'){this.updateSparCamera();}
+    else if(!this.cameraManual){
       const camera=this.cameras.main;const tx=p.x-camera.width/2,ty=p.y-camera.height/2-this.cameraLead();
       camera.scrollX=Phaser.Math.Linear(camera.scrollX,tx,this.settings.reduced?1:.1);
       camera.scrollY=Phaser.Math.Linear(camera.scrollY,ty,this.settings.reduced?1:.1);

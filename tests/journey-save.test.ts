@@ -23,7 +23,7 @@ describe('journey content 4 migration and ledger validation',()=>{
  for(const [name,raw] of [['0.2',old02],['0.3.1',old03],['0.4.0',old04],['canal diversion',canalNorth],['canal hold',canalHold]])it(`migrates real ${name} export and checkpoint without granting journey results`,()=>{
   const prior=JSON.parse(raw),s=restore(raw),nested=JSON.parse(s.checkpoint!);
   for(const [next,old] of [[s,prior],[nested,JSON.parse(prior.checkpoint)]]){
-   expect(next.contentVersion).toBe(6);expect(next.player).toEqual(old.player);expect(next.flags).toEqual(old.flags);expect(next.ended).toBe(old.ended);
+   expect(next.contentVersion).toBe(7);expect(next.player).toEqual(old.player);expect(next.flags).toEqual(old.flags);expect(next.ended).toBe(old.ended);
    if(old.canal)expect(next.canal).toEqual(old.canal);if(old.life)expect(next.life).toEqual(old.life);
    expect(next.journey).toEqual({stage:'unaccepted',agreed:null,run:null,soloRoute:null,sharedRoute:null,restOpened:false,recordedShared:false});
    for(const [scene,list] of Object.entries(old.worlds))for(const e of list as {id:string}[])expect(next.worlds[scene].find((n:{id:string})=>n.id===e.id)).toEqual(e);

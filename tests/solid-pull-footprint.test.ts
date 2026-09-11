@@ -1,3 +1,4 @@
+import {initialSparEntries} from '../src/game/spar-content';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SCENES } from '../src/game/content';
 import { act, createGame, previewCast, previewPullMove, restore, snapshot, tick } from '../src/game/model';
@@ -158,12 +159,12 @@ describe('solid pull uses the whole rectangular footprint', () => {
     const oldScreen = original.worlds.crossing.find(e => e.id === 'shield_board')!;
     oldScreen.x = 960; oldScreen.y = 600; // A saved center-valid position previously allowed by corner-only overlap.
     // A synthetic v4 five-map export with the historical corner-valid position.
-    const old = JSON.parse(snapshot(original));delete old.market;delete old.worlds.market;for(const scene of Object.keys(old.worlds))old.worlds[scene]=old.worlds[scene].filter((e:{id:string})=>!e.id.endsWith('_to_market'));delete old.kiln;delete old.worlds.kiln;old.contentVersion=4;old.checkpoint=null;
+    const old = JSON.parse(snapshot(original));delete old.spar;delete old.worlds.spar;delete old.flags.visited_spar;old.worlds.home=old.worlds.home.filter((e:{id:string})=>!initialSparEntries('home').some(n=>n.id===e.id));delete old.market;delete old.worlds.market;for(const scene of Object.keys(old.worlds))old.worlds[scene]=old.worlds[scene].filter((e:{id:string})=>!e.id.endsWith('_to_market'));delete old.kiln;delete old.worlds.kiln;old.contentVersion=4;old.checkpoint=null;
     for(const id of ['creek','canal'])old.worlds[id]=old.worlds[id].filter((e:{id:string})=>e.id!==`${id}_to_kiln`);
     expect(Object.keys(old.worlds)).toHaveLength(5);
     const s = restore(JSON.stringify(old));
     const screen = s.worlds.crossing.find(e => e.id === 'shield_board')!;
-    expect(Object.keys(s.worlds)).toHaveLength(7);
+    expect(Object.keys(s.worlds)).toHaveLength(8);
     for (const scene of Object.keys(original.worlds) as (keyof typeof original.worlds)[]) expect(s.worlds[scene]).toEqual(original.worlds[scene]);
     expect(screen.x).toBe(960); expect(screen.y).toBe(600);
     expect(s.player.mana).toBe(6); expect(s.player.hp).toBe(4);

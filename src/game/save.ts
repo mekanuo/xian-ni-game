@@ -9,13 +9,17 @@ import { createKilnState } from './kiln';
 import { KILN_SCENE, KILN_POINTS, initialKilnEntries } from './kiln-content';
 import { createMarketState } from './market';
 import { MARKET_SCENE, MARKET_POINTS, initialMarketEntries } from './market-content';
+import { SPAR_SCENE, initialSparEntries } from './spar-content';
+import { createSparState } from './spar-state';
+import { validateSpar } from './spar-save';
 import type { CanalState, ClampSite, Entity, GameAction, GameState, LifeState, SceneId, Vec, MarketPassages } from './contracts';
 
 export const MAX_SAVE_BYTES = 2_000_000;
 const oldScenes: SceneId[] = ['home','creek','workshop','crossing'];
 const fiveScenes: SceneId[] = [...oldScenes,'canal'];
 const sixScenes: SceneId[] = [...fiveScenes,'kiln'];
-const scenes: SceneId[] = [...sixScenes,'market'];
+const sevenScenes: SceneId[] = [...sixScenes,'market'];
+const scenes: SceneId[] = [...sevenScenes,'spar'];
 const record = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 const finitePoint = (p: Vec): boolean => !!p && finite(p.x) && finite(p.y);
@@ -49,11 +53,11 @@ export function validateLife(l: LifeState, legacy = false): void {
   check(l.scent===null || l.sachets<2, '药囊已拆开但份数未扣除');
 }
 
-function validateEntities(s: GameState, version: 1|2|3|4|5|6): void {
-  const manifest=version===6?scenes:version===5?sixScenes:version>=3?fiveScenes:oldScenes;
+function validateEntities(s: GameState, version: 1|2|3|4|5|6|7): void {
+  const manifest=version===7?scenes:version===6?sevenScenes:version===5?sixScenes:version>=3?fiveScenes:oldScenes;
   check(record(s.worlds) && Object.keys(s.worlds).length===manifest.length && Object.keys(s.worlds).every(id=>manifest.includes(id as SceneId)), '存档场景清单无效');
   for(const id of manifest) {
-    const templates=[...(id==='market'?MARKET_SCENE:id==='kiln'?KILN_SCENE:id==='canal'?CANAL_SCENE:SCENES[id]).entities,...(version===1||!fiveScenes.includes(id)?[]:initialLifeEntities(id)),...(version>=4&&fiveScenes.includes(id)?initialJourneyEntities(id):[]),...(version>=5?initialKilnEntries(id):[]),...(version>=6?initialMarketEntries(id):[])];
+    const templates=[...(id==='spar'?SPAR_SCENE:id==='market'?MARKET_SCENE:id==='kiln'?KILN_SCENE:id==='canal'?CANAL_SCENE:SCENES[id]).entities,...(version===1||!fiveScenes.includes(id)?[]:initialLifeEntities(id)),...(version>=4&&fiveScenes.includes(id)?initialJourneyEntities(id):[]),...(version>=5?initialKilnEntries(id):[]),...(version>=6?initialMarketEntries(id):[]),...(version>=7?initialSparEntries(id):[])];
     const list=s.worlds[id];
     check(Array.isArray(list)&&list.length===templates.length, '存档缺少场景器物');
     const seen=new Set<string>();
@@ -100,8 +104,8 @@ function validateLifeWorld(s: GameState, legacy = false): void {
 }
 
 export function validateManifest(s:GameState):void {
-  check(s.contentVersion===6,'存档内容版本不匹配');
-  validateEntities(s,6);validateLife(s.life);validateLifeWorld(s);validateCanal(s);validateJourney(s);validateKiln(s);validateMarket(s);
+  check(s.contentVersion===7,'存档内容版本不匹配');
+  validateEntities(s,7);validateLife(s.life);validateLifeWorld(s);validateCanal(s);validateJourney(s);validateKiln(s);validateMarket(s);validateSpar(s);
 }
 
 /** Market facts are checked against their physical state, never inferred from
@@ -298,15 +302,20 @@ export function migrateSave(json:string):string { return snapshot(restore(json))
 function restoreWorld(s:GameState):GameState {
   check(record(s),'存档世界格式无效');
   const version:unknown=s.contentVersion;
-  check(version===undefined||version===2||version===3||version===4||version===5||version===6,'存档内容版本不匹配');
-  const beforeMarket=version!==6;
+  check(version===undefined||version===2||version===3||version===4||version===5||version===6||version===7,'存档内容版本不匹配');
+  const beforeSpar=version!==7;
+  const sparId=(value:unknown)=>typeof value==='string'&&(value==='spar'||value==='home_to_spar'||/^spar[_:-]/.test(value));
+  const sparProtocol=(value:unknown)=>record(value)&&[value.type,value.id,value.targetId,value.choiceId].some(sparId);
+  const newProtocol=sparProtocol(s.pending)||sparProtocol(s.dialogue)||record(s.dialogue)&&Array.isArray(s.dialogue.choices)&&s.dialogue.choices.some(sparProtocol);
+  if(beforeSpar)check(!Object.hasOwn(s,'spar')&&sevenScenes.includes(s.scene)&&sevenScenes.includes(s.lastSafe?.scene)&&record(s.flags)&&!Object.keys(s.flags).some(key=>key==='visited_spar'||key.startsWith('spar_'))&&!newProtocol,'旧存档不能混入练场数据');
+  const beforeMarket=version!==6&&version!==7;
   if(beforeMarket)check(!Object.hasOwn(s,'market')&&sixScenes.includes(s.scene)&&sixScenes.includes(s.lastSafe?.scene)&&record(s.flags)&&!Object.keys(s.flags).some(key=>key==='visited_market'||key.startsWith('market_')),'旧存档不能混入小集数据');
   const legacy=version===undefined;
   const beforeCanal=legacy||version===2;
   if(beforeCanal)check(!Object.hasOwn(s,'canal')&&oldScenes.includes(s.scene)&&oldScenes.includes(s.lastSafe?.scene),'旧存档不能混入旧渠数据');
   const beforeJourney=beforeCanal||version===3;
   if(beforeJourney)check(!Object.hasOwn(s,'journey'),'旧存档不能混入同行回程数据');
-  if(version!==5&&version!==6)check(!Object.hasOwn(s,'kiln')&&fiveScenes.includes(s.scene)&&fiveScenes.includes(s.lastSafe?.scene),'旧存档不能混入旧窑数据');
+  if(version!==5&&version!==6&&version!==7)check(!Object.hasOwn(s,'kiln')&&fiveScenes.includes(s.scene)&&fiveScenes.includes(s.lastSafe?.scene),'旧存档不能混入旧窑数据');
   if(legacy) {
     check(!('life' in s),'旧存档不能混入新版生活状态');
     validateEntities(s,1);
@@ -325,7 +334,7 @@ function restoreWorld(s:GameState):GameState {
     for(const id of fiveScenes)s.worlds[id].push(...initialJourneyEntities(id));
     s.journey=createJourneyState();
   }
-  if(version!==5&&version!==6){
+  if(version!==5&&version!==6&&version!==7){
     // Keep the v4 five-scene manifest immutable before adding the sixth map.
     validateEntities(s,4);validateLife(s.life);validateLifeWorld(s);validateCanal(s);validateJourney(s);
     s.worlds.kiln=KILN_SCENE.entities.map(e=>structuredClone({...e,homeX:e.x,homeY:e.y}));
@@ -339,7 +348,6 @@ function restoreWorld(s:GameState):GameState {
     s.worlds.market=MARKET_SCENE.entities.map(e=>structuredClone({...e,homeX:e.homeX??e.x,homeY:e.homeY??e.y}));
     s.market=createMarketState();
     for(const id of sixScenes)s.worlds[id].push(...initialMarketEntries(id).map(e=>structuredClone({...e,homeX:e.x,homeY:e.y,state:s.journey.stage==='complete'?'idle':'hidden'})));
-    s.contentVersion=6;
   }
   if(!s||s.schema!==1||s.revision!=='return-stone-v1'||!scenes.includes(s.scene)||!s.profile||!['herbalist','tinker'].includes(s.profile.origin)||!['stay','travel'].includes(s.profile.wish)||typeof s.profile.name!=='string'||![0,1].includes(s.profile.appearance)||!s.player||!finitePoint(s.player)||!Number.isFinite(s.time)||s.time<0||!Number.isInteger(s.player.hp)||s.player.hp<0||s.player.hp>4||!Number.isInteger(s.player.mana)||s.player.mana<0||s.player.mana>6||!Array.isArray(s.player.path)||!s.player.path.every(finitePoint)||!s.worlds||!s.flags||Array.isArray(s.flags)||!Array.isArray(s.events)||!Array.isArray(s.projectiles)||!s.lastSafe||!scenes.includes(s.lastSafe.scene)||!finitePoint(s.lastSafe.point)||!['long','hold',null].includes(s.ringStyle)||!Number.isInteger(s.herbs)||s.herbs<0||s.herbs>2||typeof s.paused!=='boolean'||typeof s.ended!=='boolean'||typeof s.defeated!=='boolean')throw Error('存档版本或世界数据不匹配');
   if(!['pull','flame','ward'].includes(s.selected)||Object.values(s.flags).some(v=>!['boolean','string','number'].includes(typeof v)||(typeof v==='number'&&!Number.isFinite(v))))throw Error('存档标记数据无效');
@@ -354,6 +362,15 @@ function restoreWorld(s:GameState):GameState {
   check(s.player.hold>=0&&s.player.hold<=8&&s.player.ward>=0&&s.player.ward<=6,'存档术法时限无效');
   if(s.player.pullId!==null)check(s.worlds[s.scene]?.some(e=>e.id===s.player.pullId&&e.movable)&&(s.player.hold>0?s.player.pullPoint===null:s.player.pullPoint!==null),'存档牵引器物不存在');
   else check(s.player.pullPoint===null&&s.player.hold===0,'存档牵引状态不一致');
+  if(beforeSpar){
+    // Validate every source-v6 ledger and its immutable seven-world manifest
+    // before appending any version-seven entity or granting any new history.
+    validateEntities(s,6);validateLife(s.life);validateLifeWorld(s);validateCanal(s);validateJourney(s);validateKiln(s);validateMarket(s);
+    s.worlds.spar=SPAR_SCENE.entities.map(e=>structuredClone({...e,homeX:e.homeX??e.x,homeY:e.homeY??e.y}));
+    s.spar=createSparState();
+    for(const id of sevenScenes)s.worlds[id].push(...initialSparEntries(id).map(e=>structuredClone({...e,homeX:e.x,homeY:e.y,state:['stay','travel'].includes(String(s.flags.endingWish))?'idle':'hidden'})));
+    s.contentVersion=7;
+  }
   validateManifest(s);
   return s;
 }
@@ -367,6 +384,7 @@ function validAction(a:GameAction):boolean {
     case 'interact':return typeof a.targetId==='string';
     case 'choose':return typeof a.choiceId==='string';
     case 'pause':return typeof a.value==='boolean';
+    case 'spar-begin':case 'spar-stop':return Object.keys(a).length===1;
     default:return ['cancel','release','hold','rest','heal','retry','retreat','use-sachet'].includes(a.type);
   }
 }
