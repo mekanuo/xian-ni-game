@@ -1,0 +1,240 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "scope": "Aggregated selected-case whitebox requirements, not a single full-matrix run or production release",
+  "singleFullMatrixRun": false,
+  "reviewedAt": "2026-09-11T14:41:19.591449+00:00",
+  "runtimeSha256": "7ac3b0f5014ebced5f89cb52197a45952233b2eda0d6569180e30a02ad23d045",
+  "sourceSha256": {
+    "src/whitebox/market-model.ts": "d9d41639d23d3dbbcebe5a1a97614302d3dd51f258f85680d16facd55ee496eb",
+    "src/whitebox/market-main.ts": "7d3ee36011cd03ce1e6c36d52e0c00d6a646d8ce7933fe0c8197d602fa31fb24",
+    "src/whitebox/market.css": "de9f38f63eae408f0678aeec4fd8d9430c8f34030cf44e57de49132a9f1404b3",
+    "src/game/model.ts": "a5af3cd248a044e40e3374cbd2fa366c30dedd743dbbe4eb4914cce693faea96"
+  },
+  "cases": [
+    {
+      "device": "desktop",
+      "case": "pause",
+      "status": "PASS",
+      "hp": 4,
+      "mana": 6,
+      "report": "qa/whitebox/market-r4-core.json",
+      "reportSha256": "fbd3281aa53a714ce4dd09cc3af272bc25848597127ed4e2e70d2faff36e0e1d",
+      "runId": "2026-09-11T13-57-18-332Z",
+      "sourceCommit": "ddfd5b2b57bc0fe05edd2c2155a86b9e7fa8f4b2",
+      "reportOverallStatus": "PASS",
+      "canvas": {
+        "width": 2828,
+        "height": 1767,
+        "cssWidth": 1440,
+        "cssHeight": 900
+      }
+    },
+    {
+      "device": "desktop",
+      "case": "quiet",
+      "status": "PASS",
+      "hp": 2,
+      "mana": 6,
+      "report": "qa/whitebox/market-r4-core.json",
+      "reportSha256": "fbd3281aa53a714ce4dd09cc3af272bc25848597127ed4e2e70d2faff36e0e1d",
+      "runId": "2026-09-11T13-57-18-332Z",
+      "sourceCommit": "ddfd5b2b57bc0fe05edd2c2155a86b9e7fa8f4b2",
+      "reportOverallStatus": "PASS",
+      "canvas": {
+        "width": 2828,
+        "height": 1767,
+        "cssWidth": 1440,
+        "cssHeight": 900
+      }
+    },
+    {
+      "device": "desktop",
+      "case": "public-zero",
+      "status": "PASS",
+      "hp": 4,
+      "mana": 0,
+      "report": "qa/whitebox/market-r4-core.json",
+      "reportSha256": "fbd3281aa53a714ce4dd09cc3af272bc25848597127ed4e2e70d2faff36e0e1d",
+      "runId": "2026-09-11T13-57-18-332Z",
+      "sourceCommit": "ddfd5b2b57bc0fe05edd2c2155a86b9e7fa8f4b2",
+      "reportOverallStatus": "PASS",
+      "canvas": {
+        "width": 2828,
+        "height": 1767,
+        "cssWidth": 1440,
+        "cssHeight": 900
+      }
+    },
+    {
+      "device": "desktop",
+      "case": "lure",
+      "status": "PASS",
+      "hp": 1,
+      "mana": 5,
+      "report": "qa/whitebox/market-r5-encounters.json",
+      "reportSha256": "5d7603ebb4a9d9685b138932c8fea54b7b6eb26b44cc76eddc9d3f40b145eb20",
+      "runId": "2026-09-11T14-05-37-693Z",
+      "sourceCommit": "bdaab2b6e517df3ca1b94bd0dec9f94213881cfd",
+      "reportOverallStatus": "FAIL",
+      "canvas": {
+        "width": 2828,
+        "height": 1767,
+        "cssWidth": 1440,
+        "cssHeight": 900
+      }
+    },
+    {
+      "device": "desktop",
+      "case": "threat-zero",
+      "status": "PASS",
+      "hp": 2,
+      "mana": 0,
+      "report": "qa/whitebox/market-r7-threats.json",
+      "reportSha256": "6404ff488adf4f28f807e1ab3b2ef15f9c5d63596fed465e3b99a4c6448fe91b",
+      "runId": "2026-09-11T14-15-20-805Z",
+      "sourceCommit": "db5ac65137a02226685e32bc7d5f697d951af77b",
+      "reportOverallStatus": "PASS",
+      "canvas": {
+        "width": 2828,
+        "height": 1767,
+        "cssWidth": 1440,
+        "cssHeight": 900
+      }
+    },
+    {
+      "device": "desktop",
+      "case": "open-threat",
+      "status": "PASS",
+      "hp": 2,
+      "mana": 6,
+      "report": "qa/whitebox/market-r7-threats.json",
+      "reportSha256": "6404ff488adf4f28f807e1ab3b2ef15f9c5d63596fed465e3b99a4c6448fe91b",
+      "runId": "2026-09-11T14-15-20-805Z",
+      "sourceCommit": "db5ac65137a02226685e32bc7d5f697d951af77b",
+      "reportOverallStatus": "PASS",
+      "canvas": {
+        "width": 2828,
+        "height": 1767,
+        "cssWidth": 1440,
+        "cssHeight": 900
+      }
+    },
+    {
+      "device": "phone",
+      "case": "pause",
+      "status": "PASS",
+      "hp": 4,
+      "mana": 6,
+      "report": "qa/whitebox/market-phone-r1.json",
+      "reportSha256": "d4249e966ed1a57b10458d1d3be3d9b992f19f5727007bd5014d1791b7e78f9d",
+      "runId": "2026-09-11T14-19-33-640Z",
+      "sourceCommit": "15ee3a8dea5b0367b28e0bbaf90678b7d14980a1",
+      "reportOverallStatus": "FAIL",
+      "canvas": {
+        "width": 1170,
+        "height": 2532,
+        "cssWidth": 390,
+        "cssHeight": 844
+      }
+    },
+    {
+      "device": "phone",
+      "case": "quiet",
+      "status": "PASS",
+      "hp": 2,
+      "mana": 6,
+      "report": "qa/whitebox/market-phone-r2.json",
+      "reportSha256": "464c0368137f5996918b4682f1ba05d753d485947d410456253823b0efb3ab19",
+      "runId": "2026-09-11T14-22-32-032Z",
+      "sourceCommit": "04dcbd5069c3484cad46a1f89c5ea0abc119fb35",
+      "reportOverallStatus": "FAIL",
+      "canvas": {
+        "width": 1170,
+        "height": 2532,
+        "cssWidth": 390,
+        "cssHeight": 844
+      }
+    },
+    {
+      "device": "phone",
+      "case": "public-zero",
+      "status": "PASS",
+      "hp": 4,
+      "mana": 0,
+      "report": "qa/whitebox/market-phone-r2.json",
+      "reportSha256": "464c0368137f5996918b4682f1ba05d753d485947d410456253823b0efb3ab19",
+      "runId": "2026-09-11T14-22-32-032Z",
+      "sourceCommit": "04dcbd5069c3484cad46a1f89c5ea0abc119fb35",
+      "reportOverallStatus": "FAIL",
+      "canvas": {
+        "width": 1170,
+        "height": 2532,
+        "cssWidth": 390,
+        "cssHeight": 844
+      }
+    },
+    {
+      "device": "phone",
+      "case": "lure",
+      "status": "PASS",
+      "hp": 4,
+      "mana": 5,
+      "report": "qa/whitebox/market-phone-r4.json",
+      "reportSha256": "98db055ac779fcd096ace27c4424a90dc60c64f8c4d3e5988912b6f58434732f",
+      "runId": "2026-09-11T14-31-01-973Z",
+      "sourceCommit": "2185897df39d69dc087da22940e0f24bea39112d",
+      "reportOverallStatus": "FAIL",
+      "canvas": {
+        "width": 1170,
+        "height": 2532,
+        "cssWidth": 390,
+        "cssHeight": 844
+      }
+    },
+    {
+      "device": "phone",
+      "case": "threat-zero",
+      "status": "PASS",
+      "hp": 2,
+      "mana": 0,
+      "report": "qa/whitebox/market-phone-r5.json",
+      "reportSha256": "b37d9cd65fa8d51f14ed001c1ef8f49f1bf9cb1059731a69e45e9f37f1601c92",
+      "runId": "2026-09-11T14-37-21-815Z",
+      "sourceCommit": "2049412186e38e1f3f1ab89c42e03c8f5dc11fa7",
+      "reportOverallStatus": "PASS",
+      "canvas": {
+        "width": 1170,
+        "height": 2532,
+        "cssWidth": 390,
+        "cssHeight": 844
+      }
+    },
+    {
+      "device": "phone",
+      "case": "open-threat",
+      "status": "PASS",
+      "hp": 2,
+      "mana": 6,
+      "report": "qa/whitebox/market-phone-r5.json",
+      "reportSha256": "b37d9cd65fa8d51f14ed001c1ef8f49f1bf9cb1059731a69e45e9f37f1601c92",
+      "runId": "2026-09-11T14-37-21-815Z",
+      "sourceCommit": "2049412186e38e1f3f1ab89c42e03c8f5dc11fa7",
+      "reportOverallStatus": "PASS",
+      "canvas": {
+        "width": 1170,
+        "height": 2532,
+        "cssWidth": 390,
+        "cssHeight": 844
+      }
+    }
+  ],
+  "limitations": [
+    "Linux Chrome desktop/mobile emulation, no physical phone/Mac/Safari evidence.",
+    "Original entry/north are whitebox near-interaction endpoints; production travel/save/companion are not yet implemented.",
+    "Some containing reports overall FAIL due to later unrelated cases; each selected completed case is individually PASS.",
+    "Phone uses real single-finger touch on pan and gameplay controls; normal dialogue pause permits looking around.",
+    "Outcome capture uses real pause only after actual endpoint acceptance; the endpoint is not permanently safe.",
+    "Prototype art and subjective enjoyment are not production quality approval."
+  ]
+}

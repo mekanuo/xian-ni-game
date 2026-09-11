@@ -1,3 +1,9 @@
+# 最新覆盖 · 小集白盒已通过，转正式制作
+
+2026-09-11。十二项代表场景已齐备，同revision3/CUicfkSa与运行源SHA；不是单次完整矩阵。详见qa/REVIEW_070_WHITEBOX.md与qa/whitebox/market-review.json。root已在用户自主续作授权内决定进入正式P1–P5，计划docs/superpowers/plans/2026-09-11-market-production.md，允许开始四组美术与独立第七图/真实双向连接/同行/严格v6迁移。公网仍0.6，不能用白盒证据部署生产。
+
+最后phone R5 supervisor1171140已结束exit0，threat-zero/open-threat均HP2，分别MP0/6。所有白盒浏览器都已结束；preview4193 PID1156261仍可用。下一步提交推送本里程碑，从此HEAD创建正式工作树.market-070-production（实际路径/分支以随后Git结果为准）。以下旧活动状态仅历史，勿按仍RUNNING重跑。
+
 # 当前入口 · 0.6已发布，继续0.7集口白盒
 
 用户最新“继续，別停”，已授权持续自主设计、实施、测试、Git里程碑推送与既定公网部署；不重新询问已确认事项，不另建推断Goal。当前worktree `.worktrees/market-070`、分支`feat/market-070-whitebox`，最近运行源码db5ac65已推送。读AGENTS和本入口；研究沿docs/research，不读旧聊天/全书，不碰smbb和starvein-companion-cards。
