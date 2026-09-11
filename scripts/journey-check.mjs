@@ -148,9 +148,11 @@ async function separatePauseSave(ready){
  await page.close();page=await newPage();await importSave(ready,'journey-ready-input.json',{fresh:true,continuation:true});await resume();await interact('xu_work');await choose('journey:start:together:north');
  const startNpc=await entity('xu_work');await wait(({x,y})=>{const n=window.__XIAN_NI__.inspect().worlds.workshop.find(e=>e.id==='xu_work');return Math.hypot(n.x-x,n.y-y)>50;},{x:startNpc.x,y:startNpc.y});
  await pause();const frozen=await state();await page.waitForTimeout(800);const after=await state();assert.deepEqual(after.journey,frozen.journey);assert.deepEqual(after.worlds.workshop.find(e=>e.id==='xu_work'),frozen.worlds.workshop.find(e=>e.id==='xu_work'));assert.equal(after.time,frozen.time);
- const bytes=await exportSave(`journey-${route.id}-paused-input.json`),saved=JSON.parse(bytes.toString('utf8'));await importSave(bytes,'journey-paused-input.json',{continuation:true});const restored=await state();
- assert.equal(restored.paused,true);assert.deepEqual(restored.journey,saved.journey);assert.deepEqual(restored.worlds.workshop.find(e=>e.id==='xu_work'),saved.worlds.workshop.find(e=>e.id==='xu_work'));
- route.observations.separatePauseSave={separatePage:true,source:'real pre-start settings export from this route',freezeWallMs:800,modelTime:frozen.time,journey:restored.journey,npc:restored.worlds.workshop.find(e=>e.id==='xu_work')};await capture('paused-restored');
+ const bytes=await exportSave(`journey-${route.id}-paused-input.json`),saved=JSON.parse(bytes.toString('utf8'));
+ // Restore into a clean page so an ignored import cannot pass by comparing the unchanged source state.
+ await page.close();page=await newPage();await importSave(bytes,'journey-paused-input.json',{fresh:true,continuation:true});const restored=await state();
+ assert.equal(restored.paused,true);assert.equal(restored.time,saved.time);assert.deepEqual(restored.player,saved.player);assert.deepEqual(restored.journey,saved.journey);assert.deepEqual(restored.worlds.workshop.find(e=>e.id==='xu_work'),saved.worlds.workshop.find(e=>e.id==='xu_work'));
+ route.observations.separatePauseSave={separatePage:true,restoredIntoCleanPage:true,source:'real pre-start settings export from this route',freezeWallMs:800,modelTime:frozen.time,journey:restored.journey,npc:restored.worlds.workshop.find(e=>e.id==='xu_work')};await capture('paused-restored');
 }
 async function run(bytes,isPhone){
  mobile=isPhone;route={id:mobile?'phone':'desktop',status:'RUNNING',viewport:{width:mobile?390:1440,height:mobile?844:900,dpr:mobile?3:1,touch:mobile},inputTrace:[],observations:{},exports:[]};evidence.routes.push(route);page=await newPage();
