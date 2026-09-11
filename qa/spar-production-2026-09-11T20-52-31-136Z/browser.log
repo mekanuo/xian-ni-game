@@ -1,0 +1,12 @@
+browser warning [.WebGL-0xa04000fc200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+browser warning [.WebGL-0xa04000fc200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+browser warning [.WebGL-0xa04000fc200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+browser warning [.WebGL-0xa04000fc200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+locator.waitFor: Target page, context or browser has been closed
+Call log:
+[2m  - waiting for getByRole('button', { name: '入 山', exact: true }) to be visible[22m
+
+    at press (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:51:18)
+    at freshPage (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:101:50)
+    at async file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:124:3
+qa/spar-production-2026-09-11T20-52-31-136Z/report.json FAIL

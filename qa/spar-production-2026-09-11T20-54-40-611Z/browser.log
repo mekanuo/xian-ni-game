@@ -1,0 +1,27 @@
+2026-09-11T20:54:40.621Z pw:browser <launching> /usr/bin/google-chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-YPSVYy --remote-debugging-pipe --no-startup-window
+2026-09-11T20:54:40.625Z pw:browser <launched> pid=1235086
+2026-09-11T20:54:41.063Z pw:browser [pid=1235086][err] [1235121:1235121:0911/215441.063213:ERROR:gpu/command_buffer/service/gl_utils.cc:430] [.WebGL-0x30fc000f8800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+2026-09-11T20:54:41.083Z pw:browser [pid=1235086][err] [1235121:1235121:0911/215441.083015:ERROR:gpu/command_buffer/service/gl_utils.cc:430] [.WebGL-0x30fc000f8800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+2026-09-11T20:54:41.184Z pw:browser [pid=1235086][err] [1235121:1235121:0911/215441.181947:ERROR:gpu/command_buffer/service/gl_utils.cc:430] [.WebGL-0x30fc000f8800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+browser warning [.WebGL-0x30fc000f8800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+browser warning [.WebGL-0x30fc000f8800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+2026-09-11T20:54:41.250Z pw:browser [pid=1235086][err] [1235121:1235121:0911/215441.249820:ERROR:gpu/command_buffer/service/gl_utils.cc:430] [.WebGL-0x30fc000f8800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+browser warning [.WebGL-0x30fc000f8800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+browser warning [.WebGL-0x30fc000f8800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+2026-09-11T20:54:42.927Z pw:browser [pid=1235086][err] [1235086:1235105:0911/215442.927755:FATAL:components/services/font_data/font_data_service_impl.cc:379] Check failed: . : No space left on device (28)
+2026-09-11T20:54:42.931Z pw:browser [pid=1235086][err] [0911/215442.931268:ERROR:third_party/crashpad/crashpad/snapshot/elf/elf_dynamic_array_reader.h:64] tag not found
+2026-09-11T20:54:42.932Z pw:browser [pid=1235086][err] [0911/215442.932556:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq: No such file or directory (2)
+2026-09-11T20:54:42.932Z pw:browser [pid=1235086][err] [0911/215442.932568:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:145] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq: No such file or directory (2)
+2026-09-11T20:54:44.830Z pw:browser [pid=1235086][err] [1235167:1235167:0100/000000.828403:ERROR:content/child/child_process_sandbox_support_impl_linux.cc:128] GetRenderStyleForStrike did not receive a response for family and size: serif, 19
+2026-09-11T20:54:44.864Z pw:browser [pid=1235086] <process did exit: exitCode=null, signal=SIGABRT>
+2026-09-11T20:54:44.864Z pw:browser [pid=1235086] starting temporary directories cleanup
+BROWSER DISCONNECTED 2026-09-11T20:54:44.871Z
+locator.waitFor: Target page, context or browser has been closed
+Call log:
+[2m  - waiting for getByRole('button', { name: '入 山', exact: true }) to be visible[22m
+
+    at press (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:51:18)
+    at freshPage (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:101:50)
+    at async file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:124:3
+qa/spar-production-2026-09-11T20-54-40-611Z/report.json FAIL
+2026-09-11T20:54:44.881Z pw:browser [pid=1235086] finished temporary directories cleanup

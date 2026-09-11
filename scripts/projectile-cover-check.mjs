@@ -27,7 +27,7 @@ try{
  await page.goto(process.env.GAME_URL||'http://127.0.0.1:4191/');
  await page.getByRole('button',{name:'入 山',exact:true}).click();await page.getByRole('button',{name:'去回石驿',exact:true}).click();
  await page.locator('[data-ui="settings"]').click();await page.locator('#import-save').setInputFiles('qa/fixtures/return-ridge-v0.4.1.json');
- await page.waitForFunction(()=>window.__XIAN_NI__.inspect().contentVersion===6&&window.__XIAN_NI__.inspect().ended);
+ await page.waitForFunction(()=>window.__XIAN_NI__.inspect().contentVersion===7&&window.__XIAN_NI__.inspect().ended);
  const ending=page.getByRole('button',{name:'在驿中再坐一会儿',exact:true});if(await ending.isVisible())await ending.click();await resume();
  await exit('to_creek','creek');await exit('to_crossing','crossing');await walk(600,740);
  const before=await state(),board=await obj('shield_board'),seq=before.events.at(-1)?.seq??0;

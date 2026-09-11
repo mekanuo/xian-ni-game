@@ -74,8 +74,8 @@ async function exportSave(name){
 async function importSave(bytes,name,{fresh=false,continuation=false}={}){
  if(fresh){await page.goto(url);await named('入 山');await named('去回石驿');await wait(()=>window.__XIAN_NI__?.inspect().scene==='home');}
  await button('[data-ui="settings"]');await page.locator('#import-save').setInputFiles({name,mimeType:'application/json',buffer:bytes});
- await wait(continuation=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===6&&s.canal.stage==='complete'&&(!continuation||s.scene==='workshop'&&s.journey.stage==='active');},continuation);
- assert.deepEqual(Object.keys((await state()).worlds).sort(),['canal','creek','crossing','home','kiln','market','workshop']);
+ await wait(continuation=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===7&&s.canal.stage==='complete'&&(!continuation||s.scene==='workshop'&&s.journey.stage==='active');},continuation);
+ assert.deepEqual(Object.keys((await state()).worlds).sort(),['canal','creek','crossing','home','kiln','market','spar','workshop']);
  await page.waitForTimeout(160);await dismissEnding();log('settings-import',{name,contentVersion:(await state()).contentVersion});
 }
 async function capture(id){await pause();if(!mobile)await page.mouse.move(1430,890);const path=`qa/evidence/journey-${route.id}-${id}.png`;await page.screenshot({path});route.observations[id]={visual:path,state:brief(await state())};await persist();}
@@ -84,7 +84,7 @@ async function newPage(){
  const routeId=route.id;p.on('pageerror',e=>evidence.errors.push({route:routeId,message:e.message}));return p;
 }
 async function prepare(bytes){
- await importSave(bytes,'return-canal-v0.4.0.json',{fresh:true});await resume();let s=await state();assert.equal(s.journey.stage,'unaccepted');assert.equal(JSON.parse(s.checkpoint).contentVersion,6);route.initial={hp:s.player.hp,mana:s.player.mana,clamp:s.life.clamp,sachets:s.life.sachets,companion:s.flags.companion};
+ await importSave(bytes,'return-canal-v0.4.0.json',{fresh:true});await resume();let s=await state();assert.equal(s.journey.stage,'unaccepted');assert.equal(JSON.parse(s.checkpoint).contentVersion,7);route.initial={hp:s.player.hp,mana:s.player.mana,clamp:s.life.clamp,sachets:s.life.sachets,companion:s.flags.companion};
  await interact('table');await choose('journey:agree:together');assert.equal((await state()).journey.run,null);
  // The agreement itself never recruits or wipes previous refusal.
  if((await state()).flags.companion!=='following'){await interact('xu');await choose('invite');}

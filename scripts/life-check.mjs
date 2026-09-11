@@ -120,8 +120,8 @@ try{
  await wait(()=>window.__XIAN_NI__?.inspect().scene==='home');
  log('new-profile-for-import-ui');await importFile(fixtureBytes,'return-main-v0.2.2.json');
  await wait(()=>window.__XIAN_NI__.inspect().flags.endingWish==='travel');
- const loaded=await state();assert.equal(loaded.contentVersion,6);assert.equal(loaded.life.repair.stage,'unaccepted');assert.equal(loaded.life.harvest.stage,'unaccepted');assert.equal(loaded.life.clamp,'unowned');assert.equal(loaded.life.sachets,0);
- assert.equal(JSON.parse(loaded.checkpoint).contentVersion,6);evidence.observations.migration={state:brief(loaded),checkpointContentVersion:JSON.parse(loaded.checkpoint).contentVersion};log('legacy-import',brief(loaded));
+ const loaded=await state();assert.equal(loaded.contentVersion,7);assert.equal(loaded.life.repair.stage,'unaccepted');assert.equal(loaded.life.harvest.stage,'unaccepted');assert.equal(loaded.life.clamp,'unowned');assert.equal(loaded.life.sachets,0);
+ assert.equal(JSON.parse(loaded.checkpoint).contentVersion,7);evidence.observations.migration={state:brief(loaded),checkpointContentVersion:JSON.parse(loaded.checkpoint).contentVersion};log('legacy-import',brief(loaded));
 
  await interact('workbench');await choose('life:repair:accept');
  await interact('herb_rack');await choose('life:harvest:accept');

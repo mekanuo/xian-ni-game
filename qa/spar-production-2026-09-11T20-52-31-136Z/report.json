@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-09-11T20-52-31-136Z",
+  "status": "FAIL",
+  "startedAt": "2026-09-11T20:52:31.136Z",
+  "url": "http://127.0.0.1:4198/",
+  "selection": {
+    "devices": [
+      "desktop"
+    ],
+    "scenarios": [
+      "hit"
+    ],
+    "stance": "front"
+  },
+  "scope": "Selected serial production cases: unchanged v6 UI import, real home doorway and companion wait agreement, spar positioning export/import in a fresh context, one actual hand, return home and table report, final v7 export/import.",
+  "cases": [
+    {
+      "device": "desktop",
+      "scenario": "hit",
+      "stance": "front",
+      "status": "FAIL",
+      "inputs": [],
+      "captures": [],
+      "checks": [],
+      "exports": [],
+      "consoleErrors": [
+        {
+          "type": "console",
+          "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "location": {
+            "url": "http://127.0.0.1:4198/favicon.ico",
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ],
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "dpr": 2,
+        "touch": false
+      },
+      "failureStateError": "Error: page.evaluate: Target page, context or browser has been closed",
+      "failureScreenshotError": "Error: page.screenshot: Target page, context or browser has been closed"
+    }
+  ],
+  "errors": [
+    {
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:4198/favicon.ico",
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "device": "desktop",
+      "scenario": "hit"
+    },
+    {
+      "type": "failure",
+      "message": "locator.waitFor: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '入 山', exact: true }) to be visible\u001b[22m\n\n    at press (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:51:18)\n    at freshPage (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:101:50)\n    at async file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:124:3"
+    }
+  ],
+  "limitations": [
+    "Linux Chromium with viewport/DPR/touch emulation, not physical Mac, Safari or phone.",
+    "Only selected device/case/stance combinations are covered. This is not the full old-chapter regression or a complete three-stance matrix.",
+    "Approach/framing, positioning export and result captures use ordinary pause. There is no pause or camera pan from begin through settlement of the tested hand.",
+    "Ward input uses read-only detection of the emitted projectile to time one real click/tap. It proves input and rules, not human reaction comfort or subjective fun.",
+    "No zero-mana start, residual-stop case, defeated recovery, waiting elsewhere, repeated rounds or save in mid-flight is claimed here; those require separate evidence.",
+    "Screenshots need human visual review. Runtime hashes identify the loaded bytes; source hashes are observations, not a claim that a full release verification passed."
+  ],
+  "fixture": {
+    "path": "qa/fixtures/return-main-v0.7.0.json",
+    "sha256": "6a5694a3ec238949f1eca6ea3e280a0a24ca5dcc0c912e93a5b4de1f374f4ff9",
+    "origin": "Fixed original delivered 0.7 UI export; read unchanged. Every new arrival, agreement, shot and report uses real UI input."
+  },
+  "sourceFiles": [
+    {
+      "path": "src/game/spar.ts",
+      "sha256": "3946cc8b2038e91bfc2a0deaeb5656c5533c3f164d771ee40d5eb3f984fde8e7"
+    },
+    {
+      "path": "src/game/spar-content.ts",
+      "sha256": "771550547099d777c27f7bd0ee8a16f3b0b0f38bf83bbfa51d5d7b0dd5dd6018"
+    },
+    {
+      "path": "src/game/spar-state.ts",
+      "sha256": "ee7e79a5ac002c2018d6f8affa3df7b7996b5a1317419f93408bb5a23052a59a"
+    },
+    {
+      "path": "src/game/spar-save.ts",
+      "sha256": "68d3d8da953cdc103cfdb43d2804cc0377d9ff56fa9b48344fef6266b51132b9"
+    },
+    {
+      "path": "src/game/model.ts",
+      "sha256": "9d31dc765be38763c6369aaa218777df212694572b822dd1d3332c836d75e7f1"
+    },
+    {
+      "path": "src/game/save.ts",
+      "sha256": "3da7e76ef27ff4733420b80441c82361d7e9e32f6db61e53fea8f3d027063c60"
+    },
+    {
+      "path": "src/game/scene.ts",
+      "sha256": "64fb6e559be927cfadd4d48a854c62ddeb62c1d453aa65302d4a7023d362e298"
+    },
+    {
+      "path": "src/game/ui.ts",
+      "sha256": "8d7b8557c7e187303665a44b4572da6a46c97d9cd65bbb08448f529de09f2a69"
+    },
+    {
+      "path": "scripts/spar-production-check.mjs",
+      "sha256": "fa4cbe55f7f71c78a4b1a1fec30d3f1cfbdf6f02a33b41cd7fc2d1342854cfce"
+    }
+  ],
+  "environment": {
+    "platform": "linux",
+    "browser": "150.0.7871.114"
+  },
+  "finishedAt": "2026-09-11T20:52:35.419Z"
+}

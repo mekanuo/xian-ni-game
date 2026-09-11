@@ -1,3 +1,4 @@
+import {registerSparFrames,paintSparLandscape,createSparVisual,updateSparVisual,drawSparHomeRecord} from './spar-art';
 import {sparCanTalk} from './spar';
 import {registerMarketFrames,paintMarketLandscape,createMarketVisual,updateMarketVisual,drawMarketHomeRecord} from './market-art';
 import { registerKilnFrames, paintKilnLandscape, createKilnVisual, updateKilnVisual } from './kiln-art';
@@ -60,6 +61,8 @@ export class WorldScene extends Phaser.Scene {
   constructor(){super('world');}
   preload(){
     this.load.image('title-source',new URL('art/title.png',document.baseURI).href);
+    this.load.image('spar-wenshuo-source',new URL('assets/spar-wenshuo.png',document.baseURI).href);
+    this.load.image('spar-player-back-source',new URL('assets/spar-player-back.png',document.baseURI).href);
     this.load.image('spar-ground',new URL('art/home-ground.png',document.baseURI).href);
     this.load.image('characters-source',new URL('art/characters.png',document.baseURI).href);
     this.load.image('enemies-source',new URL('art/enemies.png',document.baseURI).href);
@@ -76,7 +79,7 @@ export class WorldScene extends Phaser.Scene {
     this.load.on('loaderror',(file:Phaser.Loader.File)=>{document.body.dataset.assetError=file.key;});
   }
   create(){
-    if(['market-environment-source','market-props-source','market-shenyan-source','market-ground','kiln-environment-source','kiln-props-source','kiln-duqin-source','kiln-ground','title-source','characters-source','environment-source','enemies-source','home-inn-source','home-props-source','home-ground','creek-ground','workshop-ground','crossing-ground','water-surface','region-architecture-source','journey-props-source','detail-props-source','life-props-source','canal-ground','canal-architecture-source','canal-props-source'].some(key=>!this.textures.exists(key))){
+    if(['spar-wenshuo-source','spar-player-back-source','spar-ground','market-environment-source','market-props-source','market-shenyan-source','market-ground','kiln-environment-source','kiln-props-source','kiln-duqin-source','kiln-ground','title-source','characters-source','environment-source','enemies-source','home-inn-source','home-props-source','home-ground','creek-ground','workshop-ground','crossing-ground','water-surface','region-architecture-source','journey-props-source','detail-props-source','life-props-source','canal-ground','canal-architecture-source','canal-props-source'].some(key=>!this.textures.exists(key))){
       const root=document.querySelector('#interface')!;
       root.innerHTML='<div class="veil"><section class="paper modal-paper" role="alert"><h2>山道画卷尚未展开</h2><p>部分画面未能载入，重新连接后可以再试一次。</p><button class="primary" id="retry-assets">重新载入</button></section></div>';
       document.querySelector('#retry-assets')!.addEventListener('click',()=>window.location.reload());
@@ -84,6 +87,9 @@ export class WorldScene extends Phaser.Scene {
     }
     document.documentElement.style.setProperty('--title-image',`url("${new URL('art/title.png',document.baseURI).href}")`);
     this.keyCharacters();
+    const sparWenshuo=this.keyAtlas('spar-wenshuo');if(sparWenshuo)registerSparFrames(sparWenshuo);
+    const sparPlayer=this.keyAtlas('spar-player-back');
+    for(const [name,b] of Object.entries({'0-idle':[210,20,291,599],'1-idle':[786,21,264,598],'0-ward':[191,638,386,580],'1-ward':[768,643,381,576]}))sparPlayer?.add(name,0,b[0],b[1],b[2],b[3]);
     this.keyEnvironment();
     const inn=this.keyAtlas('home-inn');
     inn?.add('facade',0,12,45,2026,635);
@@ -142,7 +148,8 @@ export class WorldScene extends Phaser.Scene {
       inspect:()=>JSON.parse(snapshot(this.state)),
       screenPoint:(x:number,y:number)=>{const c=this.cameras.main,o=c.getWorldPoint(0,0);return{x:(x-o.x)*c.zoom/display.density,y:(y-o.y)*c.zoom/display.density};},
       scene:()=>SCENES[this.state.scene],
-      presentation:()=>({actors:[...this.renders.entries()].filter(([,r])=>r.container.visible&&(r.image||r.lifeVisual?.getData('image'))).map(([id,r])=>{const image=r.image||r.lifeVisual!.getData('image') as Phaser.GameObjects.Image;return{id,x:r.container.x,y:r.container.y,angle:image.angle,flipX:image.flipX,frame:image.frame.name};}),player:{x:this.playerImage?.x,y:this.playerImage?.y,angle:this.playerImage?.angle,scaleY:this.playerImage?.scaleY,flipX:this.playerImage?.flipX},labels:[...this.renders.entries()].filter(([,r])=>r.container.visible&&r.label.visible).map(([id,r])=>({id,text:r.label.text,bounds:{x:r.label.getBounds().x,y:r.label.getBounds().y,w:r.label.width,h:r.label.height}}))}),
+      presentation:()=>({actors:[...this.renders.entries()].filter(([,r])=>r.container.visible&&(r.image||r.lifeVisual?.getData('image'))).map(([id,r])=>{const image=r.image||r.lifeVisual!.getData('image') as Phaser.GameObjects.Image;return{id,x:r.container.x,y:r.container.y,angle:image.angle,flipX:image.flipX,frame:image.frame.name};}),player:{x:this.playerImage?.x,y:this.playerImage?.y,angle:this.playerImage?.angle,scaleY:this.playerImage?.scaleY,flipX:this.playerImage?.flipX,texture:this.playerImage?.texture.key,frame:this.playerImage?.frame.name},labels:[...this.renders.entries()].filter(([,r])=>r.container.visible&&r.label.visible).map(([id,r])=>({id,text:r.label.text,bounds:{x:r.label.getBounds().x,y:r.label.getBounds().y,w:r.label.width,h:r.label.height}}))}),
+      camera:()=>({zoom:this.cameras.main.zoom/display.density,density:display.density,view:{x:this.cameras.main.worldView.x,y:this.cameras.main.worldView.y,width:this.cameras.main.worldView.width,height:this.cameras.main.worldView.height}}),
       audio:()=>this.soundscape.inspect(),
       feedback:()=>({active:this.feedback.active.map(e=>({...e})),recent:this.feedback.recent.map(e=>({...e}))}),
     }});
@@ -194,7 +201,7 @@ export class WorldScene extends Phaser.Scene {
     return result;
   }
   private cancelAim(){this.casting=false;this.queuedInteract=null;this.dispatch({type:'cancel'});}
-  private select(spell:Spell){this.panMode=false;this.dragStart=null;this.casting=true;this.queuedInteract=null;this.dispatch({type:'select',spell});this.ui?.notify({pull:'引力术：点轻物牵起，再点地面放下。',flame:'火焰球：对准干物或威胁，点击施术。',ward:'护符·障：朝需要保护的方向点击。'}[spell]);}
+  private select(spell:Spell){if(this.state.scene==='spar'&&spell!=='ward'){this.ui?.notify('此处约好只试步法与护符。');return;}this.panMode=false;this.dragStart=null;this.casting=true;this.queuedInteract=null;this.dispatch({type:'select',spell});this.ui?.notify({pull:'引力术：点轻物牵起，再点地面放下。',flame:'火焰球：对准干物或威胁，点击施术。',ward:'护符·障：朝需要保护的方向点击。'}[spell]);}
   private updateCameraScale(){
     const width=this.scale.width/display.density,height=this.scale.height/display.density;
     const homeDesktop=this.state.scene==='home'&&width>=1000;
@@ -206,7 +213,9 @@ export class WorldScene extends Phaser.Scene {
   private updateSparCamera(){
     const camera=this.cameras.main,r=this.state.spar.run;
     const width=this.scale.width/display.density,height=this.scale.height/display.density;
-    if(this.cameraManual)return;
+    // Manual framing remains available, but automatic tracking must freeze
+    // together with the world in every phase, including residual projectiles.
+    if(this.cameraManual||this.state.paused||this.state.dialogue||this.state.defeated)return;
     const active=r?.phase==='positioning'||r?.phase==='active';
     camera.useBounds=!r;
     if(active){
@@ -320,9 +329,15 @@ export class WorldScene extends Phaser.Scene {
     if(this.playerImage){
       const hit=this.feedback.active.filter(e=>e.kind==='hurt'&&e.age<240).at(-1);
       const pose=playerPose(this.state,this.motionMoving,this.walking,this.settings.reduced,hit?.age??null);
-      this.playerImage.setFrame(String(this.state.profile.appearance)).setFlipX(pose.flipX);
+      const wardPose=p.ward>0&&!this.motionMoving,bodyAngle=wardPose?p.wardFacing:p.facing;
+      const back=this.state.scene==='spar'&&Math.sin(bodyAngle)<-.15;
+      if(back){
+        const frame=`${this.state.profile.appearance}-${wardPose?'ward':'idle'}`;
+        this.playerImage.setTexture('spar-player-back',frame).setOrigin(wardPose?.49:this.state.profile.appearance===0?.58:.61,1);
+      }else this.playerImage.setTexture('characters',String(this.state.profile.appearance)).setOrigin(.5,1);
+      this.playerImage.setFlipX(back||this.state.scene==='spar'&&wardPose?Math.cos(bodyAngle)<0:pose.flipX);
       this.playerImage.setPosition(pose.x,pose.y).setAngle(pose.angle);
-      this.playerImage.setScale(targetScale,targetScale*pose.scaleY).setAlpha(p.invulnerable>0&&Math.sin(this.state.time*25)>0?.65:1);
+      this.playerImage.setScale(back?82/this.playerImage.height:targetScale,(back?82/this.playerImage.height:targetScale)*pose.scaleY).setAlpha(p.invulnerable>0&&Math.sin(this.state.time*25)>0?.65:1);
       if(hit&&hit.age<120)this.playerImage.setTintFill(0xffdfcd);else this.playerImage.clearTint();
     }
     this.playerHand.clear();
@@ -354,7 +369,7 @@ export class WorldScene extends Phaser.Scene {
     this.homeFacade?.destroy();this.homeFacade=undefined;
     this.landscape.removeAll(true);
     const m=SCENES[this.state.scene],g=this.add.graphics();this.landscape.add(g);
-    const rand=seeded(['home','creek','workshop','crossing','canal','kiln','market'].indexOf(m.id)*43+83);
+    const rand=seeded(['home','creek','workshop','crossing','canal','kiln','market','spar'].indexOf(m.id)*43+83);
     const terrainKey='terrain-detail';
     if(this.textures.exists(terrainKey))this.textures.remove(terrainKey);
     const terrain=this.textures.createCanvas(terrainKey,m.width*2,m.height*2)!;
@@ -366,16 +381,17 @@ export class WorldScene extends Phaser.Scene {
     terrain.refresh();
     this.landscape.addAt(this.add.image(0,0,terrainKey).setOrigin(0).setScale(.5),0);
     // Vegetation belongs to edges and landmarks, with open lanes between groups.
-    if(m.id!=='kiln'&&m.id!=='market')for(const [x,y] of [[70,90],[150,67],[490,48],[1210,75],[1660,65],[1740,135],[95,1025],[170,1010],[560,1050],[1430,1040],[1630,1010]])this.bush(g,x,y,26+rand()*24,rand);
+    if(m.id!=='kiln'&&m.id!=='market'&&m.id!=='spar')for(const [x,y] of [[70,90],[150,67],[490,48],[1210,75],[1660,65],[1740,135],[95,1025],[170,1010],[560,1050],[1430,1040],[1630,1010]])this.bush(g,x,y,26+rand()*24,rand);
     if(m.id==='home')this.paintHome(g,rand);
     if(m.id==='creek')this.paintCreek(g,rand);
     if(m.id==='workshop')this.paintWorkshop(g,rand);
     if(m.id==='crossing')this.paintCrossing(g,rand);
     if(m.id==='canal')paintCanalLandscape(this,this.landscape,g);
+    if(m.id==='spar')paintSparLandscape(this,this.landscape,g);
     if(m.id==='market')paintMarketLandscape(this,this.landscape,g);
     if(m.id==='kiln')paintKilnLandscape(this,this.landscape,g);
     for(const ob of m.obstacles){
-      if(m.id==='kiln'||m.id==='market')continue; // Kiln art draws exact wall rectangles including top and end faces.
+      if(m.id==='kiln'||m.id==='market'||m.id==='spar')continue; // Kiln art draws exact wall rectangles including top and end faces.
       if(ob.flag&&this.state.flags[ob.flag])continue;
       // All collision rectangles have visible geometry, never invisible walls.
       if(m.id==='crossing'&&ob.x===1180)continue;
@@ -529,7 +545,9 @@ export class WorldScene extends Phaser.Scene {
     const canalVisual=this.state.scene==='canal'?createCanalVisual(this,e):undefined;
     const kilnVisual=this.state.scene==='kiln'?createKilnVisual(this,e):undefined;
     const marketVisual=this.state.scene==='market'?createMarketVisual(this,e):undefined;
-    if(marketVisual){container=this.add.container(e.x,e.y,[marketVisual,art,label]);}
+    const sparVisual=this.state.scene==='spar'?createSparVisual(this,e):undefined;
+    if(sparVisual){container=this.add.container(e.x,e.y,[sparVisual,art,label]);label.setPosition(0,-104);}
+    else if(marketVisual){container=this.add.container(e.x,e.y,[marketVisual,art,label]);}
     else if(kilnVisual){container=this.add.container(e.x,e.y,[kilnVisual,art,label]);if(e.id==='duqin')image=kilnVisual.getData('image') as Phaser.GameObjects.Image|undefined;}
     else if(canalVisual){container=this.add.container(e.x,e.y,[canalVisual,art,label]);}
     else if(e.kind==='npc'){
@@ -566,6 +584,7 @@ export class WorldScene extends Phaser.Scene {
   }
   private drawObject(e:Entity,g:Phaser.GameObjects.Graphics){
     g.clear();const w=e.w,h=e.h;
+    if(e.id==='spar_peer')return;
     if(this.state.scene==='market'&&['market_merchant','market_door','decoy'].includes(e.id))return;
     if(this.state.scene==='kiln'&&['shield_board','duqin','kiln_rest'].includes(e.id))return;
     if(e.type==='gate_slot'&&(e.state==='wedged'||e.state==='fixed')){
@@ -637,7 +656,7 @@ export class WorldScene extends Phaser.Scene {
       g.strokePoints(route.reduce<Phaser.Geom.Point[]>((points,n,i)=>{if(i%2===0)points.push(new Phaser.Geom.Point(n,route[i+1]));return points;},[]),false);
       if(this.state.flags.travelInvited){g.lineStyle(2,0x889c5c);g.lineBetween(-25,-38,23,-38);}
     }
-    if(e.id==='table'){drawCanalHomeRecord(g,this.state);drawJourneyHomeRecord(g,this.state);drawMarketHomeRecord(g,this.state);}
+    if(e.id==='table'){drawCanalHomeRecord(g,this.state);drawJourneyHomeRecord(g,this.state);drawMarketHomeRecord(g,this.state);drawSparHomeRecord(g,this.state);}
     if(e.type==='workbench'&&(this.state.flags.roomTalk||this.state.flags.endingWish==='stay')){
       g.fillStyle(0x718977);g.fillRect(-22,-52,23,13);g.lineStyle(1,0xd5c794);g.lineBetween(-18,-48,-5,-48);
       if(this.state.flags.endingWish==='stay'){g.lineStyle(3,0x8a7954);g.lineBetween(43,-38,43,-93);g.lineBetween(43,-93,28,-93);g.lineStyle(2,0xcab57a);g.lineBetween(28,-93,28,-83);g.strokeCircle(28,-76,7);}
@@ -661,10 +680,10 @@ export class WorldScene extends Phaser.Scene {
       const r=this.renders.get(e.id)||this.makeEntity(e);
       const isGone=(e.type==='xu'&&!companionAvailable(this.state))||['taken','gone','hidden'].includes(e.state)||(e.id==='lamp'&&Boolean(this.state.flags.lampFixed));
       r.container.setVisible(!isGone);if(isGone)continue;
-      const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.life?.repair?.stage}:${this.state.life?.repair?.softened}:${this.state.life?.repair?.latched}:${this.state.life?.repair?.tested}:${this.state.life?.harvest?.sun}:${this.state.life?.harvest?.shade}:${this.state.life?.clamp}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}:${this.state.canal.stage}:${this.state.canal.cleared}:${this.state.journey.stage}:${this.state.journey.soloRoute}:${this.state.journey.sharedRoute}:${this.state.journey.recordedShared}:${this.state.journey.restOpened}:${JSON.stringify(this.state.market.reported)}`;
+      const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.life?.repair?.stage}:${this.state.life?.repair?.softened}:${this.state.life?.repair?.latched}:${this.state.life?.repair?.tested}:${this.state.life?.harvest?.sun}:${this.state.life?.harvest?.shade}:${this.state.life?.clamp}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}:${this.state.canal.stage}:${this.state.canal.cleared}:${this.state.journey.stage}:${this.state.journey.soloRoute}:${this.state.journey.sharedRoute}:${this.state.journey.recordedShared}:${this.state.journey.restOpened}:${JSON.stringify(this.state.market.reported)}:${JSON.stringify(this.state.spar.reported)}`;
       if(r.stateKey!==key){r.stateKey=key;this.drawObject(e,r.art);}
-      if(r.lifeVisual){if(this.state.scene==='market')updateMarketVisual(r.lifeVisual,e,this.state,this.settings.reduced);else if(this.state.scene==='kiln'&&['shield_board','duqin','kiln_rest'].includes(e.id))updateKilnVisual(r.lifeVisual,e,this.state,this.settings.reduced);else if(e.id.startsWith('canal_'))updateCanalVisual(r.lifeVisual,e,this.state,this.settings.reduced);else updateLifeVisual(r.lifeVisual,e,this.state,this.settings.reduced);}
-      r.container.setPosition(e.x,e.y).setDepth(e.y+(e.kind==='npc'?100:0));
+      if(r.lifeVisual){if(this.state.scene==='spar')updateSparVisual(r.lifeVisual,e,this.state,this.settings.reduced);else if(this.state.scene==='market')updateMarketVisual(r.lifeVisual,e,this.state,this.settings.reduced);else if(this.state.scene==='kiln'&&['shield_board','duqin','kiln_rest'].includes(e.id))updateKilnVisual(r.lifeVisual,e,this.state,this.settings.reduced);else if(e.id.startsWith('canal_'))updateCanalVisual(r.lifeVisual,e,this.state,this.settings.reduced);else updateLifeVisual(r.lifeVisual,e,this.state,this.settings.reduced);}
+      r.container.setPosition(e.x,e.y).setDepth(e.y+(e.kind==='npc'||e.id==='spar_peer'?100:0));
       if(r.propImage){
         const flat=['board','shield_board','platform_beam','boat'].includes(e.type);
         r.propImage.setOrigin(.5,flat?.5:1).setPosition(0,flat?-e.h*.2:3);
@@ -775,7 +794,7 @@ export class WorldScene extends Phaser.Scene {
       if(e.state==='burning'){for(let i=0;i<7;i++){g.fillStyle(i%2?0xf3cd83:0xd89858,.75);g.fillTriangle(e.x-29+i*9,e.y-6,e.x-17+i*9,e.y-6,e.x-21+i*9,e.y-23-Math.sin(t*7+i)*9);}}
       if(e.kind==='enemy'&&['alert','chasing','attacking','searching','windup','casting'].includes(e.state)){
         const color=e.state==='windup'||e.state==='attacking'||e.state==='casting'?0xc78256:0xd4b86f;g.lineStyle(2,color,.9);g.strokeCircle(e.x,e.y-e.h-27,8);g.lineBetween(e.x,e.y-e.h-31,e.x,e.y-e.h-26);g.fillStyle(color);g.fillCircle(e.x,e.y-e.h-22,1.5);
-        if(e.state==='windup'||e.state==='attacking'||e.state==='casting'){g.lineStyle(2,0xb96d4f,.65);g.lineBetween(e.x,e.y-25,p.x,p.y-20);}
+        if(e.id!=='spar_peer'&&(e.state==='windup'||e.state==='attacking'||e.state==='casting')){g.lineStyle(2,0xb96d4f,.65);g.lineBetween(e.x,e.y-25,p.x,p.y-20);}
       }
     }
     const ending=this.state.events.filter(e=>e.type==='ending').at(-1);

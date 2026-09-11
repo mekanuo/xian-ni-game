@@ -1,0 +1,38 @@
+2026-09-11T20:56:38.312Z pw:browser <launching> /usr/bin/google-chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --user-data-dir=/home/zhangjingzhou/.cache/xian-ni-qa/tmp/playwright_chromiumdev_profile-deekUw --remote-debugging-pipe --no-startup-window
+2026-09-11T20:56:38.315Z pw:browser <launched> pid=1235551
+2026-09-11T20:56:38.773Z pw:browser [pid=1235551][err] [1235586:1235586:0911/215638.772647:ERROR:gpu/command_buffer/service/gl_utils.cc:430] [.WebGL-0x108c00100200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+2026-09-11T20:56:38.801Z pw:browser [pid=1235551][err] [1235586:1235586:0911/215638.801291:ERROR:gpu/command_buffer/service/gl_utils.cc:430] [.WebGL-0x108c00100200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+browser warning [.WebGL-0x108c00100200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+browser warning [.WebGL-0x108c00100200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+2026-09-11T20:56:38.925Z pw:browser [pid=1235551][err] [1235586:1235586:0911/215638.924765:ERROR:gpu/command_buffer/service/gl_utils.cc:430] [.WebGL-0x108c00100200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+2026-09-11T20:56:38.975Z pw:browser [pid=1235551][err] [1235586:1235586:0911/215638.975770:ERROR:gpu/command_buffer/service/gl_utils.cc:430] [.WebGL-0x108c00100200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+browser warning [.WebGL-0x108c00100200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+browser warning [.WebGL-0x108c00100200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)
+world input {"x":1500,"y":480} {"scene":"home","x":862.7079564840951,"y":443.7158150004934,"path":[{"x":1499.1099668192874,"y":481.0049522863919}],"paused":false}
+world input {"x":1540,"y":420} {"scene":"home","x":1496.2879454280696,"y":480.83959966120864,"path":[],"paused":true}
+2026-09-11T20:57:39.211Z pw:browser [pid=1235551][err] [1235551:1235575:0911/215739.210011:ERROR:google_apis/gcm/engine/mcs_client.cc:702]   Error code: 401  Error message: Authentication Failed: wrong_secret
+2026-09-11T20:57:39.211Z pw:browser [pid=1235551][err] [1235551:1235575:0911/215739.210022:ERROR:google_apis/gcm/engine/mcs_client.cc:704] Failed to log in to GCM, resetting connection.
+2026-09-11T20:57:39.212Z pw:browser [pid=1235551][err] [1235551:1235575:0911/215739.212704:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+2026-09-11T20:57:39.213Z pw:browser [pid=1235551][err] [1235551:1235575:0911/215739.212889:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+2026-09-11T20:57:39.215Z pw:browser [pid=1235551][err] [1235551:1235575:0911/215739.215040:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+world input {"x":900,"y":1060} {"scene":"spar","x":899.9104088829215,"y":1204.000250832224,"path":[{"x":899.1093745770503,"y":1060.9464706513552}],"paused":false}
+2026-09-11T20:58:02.286Z pw:browser [pid=1235551][err] [1235551:1235575:0911/215802.286009:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+world input {"x":900,"y":980} {"scene":"spar","x":899.1190206820604,"y":1062.6691331835368,"path":[],"paused":true}
+world input {"x":900,"y":940} {"scene":"spar","x":899.1190206820604,"y":1062.6691331835368,"path":[{"x":899.1093745770503,"y":940.9459950973446}],"paused":false}
+2026-09-11T20:58:56.466Z pw:browser [pid=1235551][err] [1235551:1235575:0911/215856.466551:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+2026-09-11T20:59:05.436Z pw:browser [pid=1235551][err] [1235551:1235551:0911/215905.433839:ERROR:chrome/browser/ui/views/user_education/impl/browser_user_education_interface_impl.cc:186] Attempting to show IPH IPH_ExtensionsZeroStatePromo before browser initialization complete; IPH will not be shown.
+world input {"x":900,"y":1220} {"scene":"spar","x":899.1095111293511,"y":942.6691335603338,"path":[{"x":899.7940956585669,"y":1202.0002717735365}],"paused":false}
+2026-09-11T21:00:48.240Z pw:browser [pid=1235551][err] [1235551:1235575:0911/220048.239871:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+page.waitForFunction: Timeout 120000ms exceeded.
+    at wait (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:45:43)
+    at walk (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:81:32)
+    at async file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:154:3 {
+  name: 'TimeoutError'
+}
+2026-09-11T21:02:46.907Z pw:browser [pid=1235551] <gracefully close start>
+BROWSER DISCONNECTED 2026-09-11T21:02:46.931Z
+2026-09-11T21:02:46.993Z pw:browser [pid=1235551] <process did exit: exitCode=0, signal=null>
+2026-09-11T21:02:46.994Z pw:browser [pid=1235551] starting temporary directories cleanup
+2026-09-11T21:02:47.005Z pw:browser [pid=1235551] finished temporary directories cleanup
+2026-09-11T21:02:47.005Z pw:browser [pid=1235551] <gracefully close end>
+qa/spar-production-2026-09-11T20-56-38-302Z/report.json FAIL

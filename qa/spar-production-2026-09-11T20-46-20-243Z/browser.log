@@ -1,0 +1,7 @@
+page.waitForFunction: Timeout 120000ms exceeded.
+    at wait (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:45:43)
+    at walk (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:81:32)
+    at async file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:125:3 {
+  name: 'TimeoutError'
+}
+qa/spar-production-2026-09-11T20-46-20-243Z/report.json FAIL

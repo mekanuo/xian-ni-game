@@ -31,7 +31,7 @@ await page.screenshot({path:'qa/evidence/public-start.png'});evidence.visual='qa
 // Verify the new public continuation through the same real old-save import UI.
 await page.locator('[data-ui="settings"]').click();
 await page.locator('#import-save').setInputFiles('qa/fixtures/return-main-v0.2.2.json');
-await page.waitForFunction(()=>window.__XIAN_NI__.inspect().ended&&window.__XIAN_NI__.inspect().contentVersion===6);
+await page.waitForFunction(()=>window.__XIAN_NI__.inspect().ended&&window.__XIAN_NI__.inspect().contentVersion===7);
 const oldEnding=page.getByRole('button',{name:'在驿中再坐一会儿',exact:true});if(await oldEnding.isVisible())await oldEnding.click();
 if(await page.evaluate(()=>window.__XIAN_NI__.inspect().paused))await page.locator('.action-dock [data-ui="pause"]').click();
 point=await page.evaluate(()=>window.__XIAN_NI__.screenPoint(1060,430));await page.mouse.click(point.x,point.y);
@@ -76,7 +76,7 @@ async function adventureChoose(id){
 const adventureFixture='qa/fixtures/return-main-v0.3.0.json';
 const adventureFixtureBytes=await readFile(adventureFixture);
 await page.locator('[data-ui="settings"]').click();await page.locator('#import-save').setInputFiles(adventureFixture);
-await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===6&&s.scene==='home'&&s.ended&&s.canal.stage==='unaccepted'&&s.life.repair.stage==='unaccepted';});
+await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===7&&s.scene==='home'&&s.ended&&s.canal.stage==='unaccepted'&&s.life.repair.stage==='unaccepted';});
 adventureInput.push({action:'settings import unchanged real 0.3.0 main-route fixture'});await adventureResume();
 await adventureInteract('table');await adventureChoose('canal:accept');assert.equal((await fullState()).canal.stage,'active');
 await adventureInteract('to_creek');await adventureChoose('canal:depart:canal');
@@ -94,7 +94,7 @@ await page.screenshot({path:evidence.adventure.visual});
 // then reach its existing workshop through real exits. Full leadership is local QA.
 const companionFixture='qa/fixtures/return-canal-v0.4.0.json',companionBytes=await readFile(companionFixture),traceStart=adventureInput.length;
 await page.locator('[data-ui="settings"]').click();await page.locator('#import-save').setInputFiles(companionFixture);
-await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===6&&s.canal.stage==='complete'&&s.journey.stage==='unaccepted'&&s.scene==='home';});
+await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===7&&s.canal.stage==='complete'&&s.journey.stage==='unaccepted'&&s.scene==='home';});
 await adventureResume();await adventureInteract('table');await adventureChoose('journey:agree:together');assert.equal((await fullState()).journey.stage,'active');
 await adventureInteract('to_creek');await adventureChoose('canal:depart:creek');await page.waitForFunction(()=>window.__XIAN_NI__.inspect().scene==='creek');
 const workshopExit=(await fullState()).worlds.creek.find(e=>e.id==='to_workshop'),workshopPoint=await adventurePoint(workshopExit.x,workshopExit.y);await page.mouse.click(workshopPoint.x,workshopPoint.y);
@@ -106,7 +106,7 @@ await page.screenshot({path:evidence.companion.visual});
 // Current sixth-scene entry, authentic v4 completion, no manufactured crossing or loan.
 const kilnFixture='qa/fixtures/return-journey-v0.5.0.json',kilnBytes=await readFile(kilnFixture),kilnTrace=adventureInput.length;
 await page.locator('[data-ui="settings"]').click();await page.locator('#import-save').setInputFiles(kilnFixture);
-await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===6&&s.journey.stage==='complete'&&s.scene==='home';});
+await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===7&&s.journey.stage==='complete'&&s.scene==='home';});
 await adventureResume();if(await page.locator('[data-ui="observe"]').getAttribute('aria-expanded')==='true')await page.locator('[data-ui="observe"]').click();
 await adventureInteract('to_creek');await adventureChoose('canal:depart:creek');await page.waitForFunction(()=>window.__XIAN_NI__.inspect().scene==='creek');
 for(const [x,y]of [[300,740],[300,340],[700,315]]){

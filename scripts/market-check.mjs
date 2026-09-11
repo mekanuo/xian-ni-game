@@ -78,8 +78,8 @@ async function exportSave(name){
 async function importSave(bytes,name,{fresh=false,continuation=false}={}){
  if(fresh){await page.goto(url);await named('入 山');await named('去回石驿');await wait(()=>window.__XIAN_NI__?.inspect().scene==='home');route.runtimeScripts=await page.locator('script[src]').evaluateAll(nodes=>nodes.map(n=>n.src));route.runtimeHashes=[];for(const url of route.runtimeScripts){const response=responses.get(url);assert.ok(response,`Missing actual loaded response: ${url}`);assert.equal(response.status(),200);route.runtimeHashes.push({url,sha256:hash(await response.body())});}}
  await button('[data-ui="settings"]');await page.locator('#import-save').setInputFiles({name,mimeType:'application/json',buffer:bytes});
- await wait(continuation=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===6&&s.journey.stage==='complete'&&(!continuation||s.scene==='market');},continuation);
- assert.deepEqual(Object.keys((await state()).worlds).sort(),['canal','creek','crossing','home','kiln','market','workshop']);
+ await wait(continuation=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===7&&s.journey.stage==='complete'&&(!continuation||s.scene==='market');},continuation);
+ assert.deepEqual(Object.keys((await state()).worlds).sort(),['canal','creek','crossing','home','kiln','market','spar','workshop']);
  await page.waitForTimeout(160);await dismissEnding();log('settings-import',{name,contentVersion:(await state()).contentVersion});
 }
 async function capture(id){await pause();if(!mobile)await page.mouse.move(1430,890);const path=`${folder}/${route.id}-${id}.png`;await page.screenshot({path});route.observations[id]={visual:path,state:brief(await state())};await persist();}

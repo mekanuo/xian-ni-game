@@ -75,7 +75,7 @@ async function exportSave(name){
 }
 async function importSave(bytes,name){
  await button('[data-ui="settings"]');await log('settings file input',{name,sha256:hash(bytes)});await page.locator('#import-save').setInputFiles({name,mimeType:'application/json',buffer:bytes});
- await page.locator('#import-save').waitFor({state:'hidden',timeout:30000});await wait(()=>window.__XIAN_NI__?.inspect().contentVersion===6&&window.__XIAN_NI__.inspect().paused);
+ await page.locator('#import-save').waitFor({state:'hidden',timeout:30000});await wait(()=>window.__XIAN_NI__?.inspect().contentVersion===7&&window.__XIAN_NI__.inspect().paused);
  const end=page.getByRole('button',{name:'在驿中再坐一会儿',exact:true});if(await end.isVisible()){await log('dismiss original ending');await end.click();}
  await pause();await log('settings import complete',{name});
 }
