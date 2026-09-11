@@ -27,7 +27,7 @@ await page.screenshot({path:'qa/evidence/public-start.png'});evidence.visual='qa
 // Verify the new public continuation through the same real old-save import UI.
 await page.locator('[data-ui="settings"]').click();
 await page.locator('#import-save').setInputFiles('qa/fixtures/return-main-v0.2.2.json');
-await page.waitForFunction(()=>window.__XIAN_NI__.inspect().ended&&window.__XIAN_NI__.inspect().contentVersion===3);
+await page.waitForFunction(()=>window.__XIAN_NI__.inspect().ended&&window.__XIAN_NI__.inspect().contentVersion===4);
 const oldEnding=page.getByRole('button',{name:'在驿中再坐一会儿',exact:true});if(await oldEnding.isVisible())await oldEnding.click();
 if(await page.evaluate(()=>window.__XIAN_NI__.inspect().paused))await page.locator('.action-dock [data-ui="pause"]').click();
 point=await page.evaluate(()=>window.__XIAN_NI__.screenPoint(1060,430));await page.mouse.click(point.x,point.y);
@@ -72,7 +72,7 @@ async function adventureChoose(id){
 const adventureFixture='qa/fixtures/return-main-v0.3.0.json';
 const adventureFixtureBytes=await readFile(adventureFixture);
 await page.locator('[data-ui="settings"]').click();await page.locator('#import-save').setInputFiles(adventureFixture);
-await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===3&&s.scene==='home'&&s.ended&&s.canal.stage==='unaccepted'&&s.life.repair.stage==='unaccepted';});
+await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===4&&s.scene==='home'&&s.ended&&s.canal.stage==='unaccepted'&&s.life.repair.stage==='unaccepted';});
 adventureInput.push({action:'settings import unchanged real 0.3.0 main-route fixture'});await adventureResume();
 await adventureInteract('table');await adventureChoose('canal:accept');assert.equal((await fullState()).canal.stage,'active');
 await adventureInteract('to_creek');await adventureChoose('canal:depart:canal');

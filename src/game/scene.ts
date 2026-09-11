@@ -12,11 +12,12 @@ import { paintTerrain } from './terrain';
 import { inspectObject, placementAnchors } from './encounters';
 import { drawWayfinding, configureWayfindingLabel } from './wayfinding';
 import { registerLifeFrames, createLifeVisual, updateLifeVisual } from './life-art';
+import { guideAngle, drawJourneyMark, drawJourneyHomeRecord, type GuideMotion } from './journey-art';
 
 const FONT = '"Noto Serif SC", "Songti SC", "Microsoft YaHei", serif';
 const COLORS = {ink:0x314b42,outline:0x42573e,stone:0x879887,stoneLight:0xb0baa6,wood:0x897755,woodLight:0xb4a17a,roof:0x576f68,leaf:0x628267};
 function seeded(seed: number) { return () => { seed=(seed*1664525+1013904223)>>>0;return seed/4294967296; }; }
-interface RenderEntity { propImage?:Phaser.GameObjects.Image; lifeVisual?:Phaser.GameObjects.Container; container: Phaser.GameObjects.Container; art: Phaser.GameObjects.Graphics; image?: Phaser.GameObjects.Image; label: Phaser.GameObjects.Text; stateKey:string; }
+interface RenderEntity { guideMotion?:GuideMotion; propImage?:Phaser.GameObjects.Image; lifeVisual?:Phaser.GameObjects.Container; container: Phaser.GameObjects.Container; art: Phaser.GameObjects.Graphics; image?: Phaser.GameObjects.Image; label: Phaser.GameObjects.Text; stateKey:string; }
 
 export class WorldScene extends Phaser.Scene {
   public state!: GameState;
@@ -471,6 +472,8 @@ export class WorldScene extends Phaser.Scene {
     return container;
   }
   private journeyFrame(e:Entity):string|undefined {
+    if(e.id==='journey_north_mark')return 'stele';
+    if(e.id==='journey_south_mark')return 'rope';
     const frames:Record<string,string>={boat:'boat',basket:'basket',board:'board',shield_board:'board',platform_beam:'board',platform_ladder:'ladder',return_ladder:'ladder',ridge_rope:'ladder',rope:'rope',trial:'trial',straw:'straw',bag:'bag',marks:'stele',negotiator:'stele',far_bank:'stele',ridge_marker:'stele'};
     return frames[e.type];
   }
@@ -510,7 +513,7 @@ export class WorldScene extends Phaser.Scene {
       container=this.add.container(e.x,e.y,[propImage,art,label]);
     }else{container=this.add.container(e.x,e.y,[art,label]);}
     if(this.state.scene==='home'&&['workbench','herb_rack'].includes(e.id)){const extra=createLifeVisual(this,e);if(extra)container.addAt(extra,1);}
-    container.setDepth(e.y);const lifeVisual=container.list.find(o=>o instanceof Phaser.GameObjects.Container) as Phaser.GameObjects.Container|undefined;const r={container,art,label,image,propImage,lifeVisual,stateKey:''};this.renders.set(e.id,r);this.drawObject(e,art);return r;
+    container.setDepth(e.y);const lifeVisual=container.list.find(o=>o instanceof Phaser.GameObjects.Container) as Phaser.GameObjects.Container|undefined;const r:RenderEntity={container,art,label,image,propImage,lifeVisual,stateKey:'',...(e.type==='xu'?{guideMotion:{x:e.x,y:e.y,time:this.state.time,step:0,angle:0}}:{})};this.renders.set(e.id,r);this.drawObject(e,art);return r;
   }
   private drawObject(e:Entity,g:Phaser.GameObjects.Graphics){
     g.clear();const w=e.w,h=e.h;
@@ -522,6 +525,7 @@ export class WorldScene extends Phaser.Scene {
     if(e.kind==='npc'||e.type==='rock_source'||['decoy','gate','gate_slot','shelter'].includes(e.type)||(e.kind==='rest'&&this.state.scene!=='home'))return;
     if(e.id.startsWith('life_')||(e.id.startsWith('canal_')&&e.kind!=='exit'))return;
     if(this.journeyFrame(e)){
+      drawJourneyMark(e,g);
       if(['marks','negotiator','far_bank','ridge_marker'].includes(e.type)){
         g.lineStyle(1.7,0xcfd4b8,.9);g.lineBetween(-10,-33,10,-38);g.lineBetween(-9,-25,8,-29);g.lineBetween(-6,-17,6,-19);
       }
@@ -582,7 +586,7 @@ export class WorldScene extends Phaser.Scene {
       g.strokePoints(route.reduce<Phaser.Geom.Point[]>((points,n,i)=>{if(i%2===0)points.push(new Phaser.Geom.Point(n,route[i+1]));return points;},[]),false);
       if(this.state.flags.travelInvited){g.lineStyle(2,0x889c5c);g.lineBetween(-25,-38,23,-38);}
     }
-    if(e.id==='table')drawCanalHomeRecord(g,this.state);
+    if(e.id==='table'){drawCanalHomeRecord(g,this.state);drawJourneyHomeRecord(g,this.state);}
     if(e.type==='workbench'&&(this.state.flags.roomTalk||this.state.flags.endingWish==='stay')){
       g.fillStyle(0x718977);g.fillRect(-22,-52,23,13);g.lineStyle(1,0xd5c794);g.lineBetween(-18,-48,-5,-48);
       if(this.state.flags.endingWish==='stay'){g.lineStyle(3,0x8a7954);g.lineBetween(43,-38,43,-93);g.lineBetween(43,-93,28,-93);g.lineStyle(2,0xcab57a);g.lineBetween(28,-93,28,-83);g.strokeCircle(28,-76,7);}
@@ -606,7 +610,7 @@ export class WorldScene extends Phaser.Scene {
       const r=this.renders.get(e.id)||this.makeEntity(e);
       const isGone=['taken','gone','hidden'].includes(e.state)||(e.id==='lamp'&&Boolean(this.state.flags.lampFixed));
       r.container.setVisible(!isGone);if(isGone)continue;
-      const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.life?.repair?.stage}:${this.state.life?.repair?.softened}:${this.state.life?.repair?.latched}:${this.state.life?.repair?.tested}:${this.state.life?.harvest?.sun}:${this.state.life?.harvest?.shade}:${this.state.life?.clamp}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}:${this.state.canal.stage}:${this.state.canal.cleared}`;
+      const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.life?.repair?.stage}:${this.state.life?.repair?.softened}:${this.state.life?.repair?.latched}:${this.state.life?.repair?.tested}:${this.state.life?.harvest?.sun}:${this.state.life?.harvest?.shade}:${this.state.life?.clamp}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}:${this.state.canal.stage}:${this.state.canal.cleared}:${this.state.journey.stage}:${this.state.journey.soloRoute}:${this.state.journey.sharedRoute}:${this.state.journey.recordedShared}:${this.state.journey.restOpened}`;
       if(r.stateKey!==key){r.stateKey=key;this.drawObject(e,r.art);}
       if(r.lifeVisual){if(e.id.startsWith('canal_'))updateCanalVisual(r.lifeVisual,e,this.state,this.settings.reduced);else updateLifeVisual(r.lifeVisual,e,this.state,this.settings.reduced);}
       r.container.setPosition(e.x,e.y).setDepth(e.y+(e.kind==='npc'?100:0));
@@ -618,6 +622,8 @@ export class WorldScene extends Phaser.Scene {
         if(e.type==='gate')r.propImage.setDisplaySize(32,55);
         if(e.type==='gate_slot')r.propImage.setDisplaySize(37,66);
         if(e.type==='shelter')r.propImage.setDisplaySize(61,44);
+        if(e.id==='journey_north_mark')r.propImage.setDisplaySize(33,43);
+        if(e.id==='journey_south_mark')r.propImage.setDisplaySize(36,25);
         if(e.state==='burned')r.propImage.setTint(0x524b3c).setAlpha(.65);
         else if(e.state==='wet')r.propImage.setTint(0x77969b).setAlpha(1);
         else r.propImage.clearTint().setAlpha(1);
@@ -628,9 +634,10 @@ export class WorldScene extends Phaser.Scene {
       if(r.image){
         const hit=this.feedback.active.filter(f=>f.kind==='hit'&&f.targetId===e.id&&f.age<260).at(-1);
         const kick=hit&&!this.settings.reduced?Math.sin(Math.PI*hit.age/260)*13:0;
+        const leading=r.guideMotion?guideAngle(e,this.state,r.guideMotion,this.settings.reduced):undefined;
         r.image.setPosition(hit?Math.cos(hit.angle)*kick:0,5+(hit?Math.sin(hit.angle)*kick:0));
         r.image.setFlipX(Math.cos(e.facing??0)<0);
-        r.image.setAngle(!this.settings.reduced?(hit?kick*.7:e.state==='casting'?-7:['following','chasing','helping'].includes(e.state)?Math.sin(this.state.time*9)*2:0):0);
+        r.image.setAngle(!this.settings.reduced?(hit?kick*.7:e.state==='casting'?-7:leading??(['following','chasing','helping'].includes(e.state)?Math.sin(this.state.time*9)*2:0)):0);
         if(hit&&hit.age<100)r.image.setTintFill(0xffe8b8);else r.image.clearTint();
       }
       if(['defeated','retreated'].includes(e.state))r.container.setAlpha(.45);else r.container.setAlpha(1);

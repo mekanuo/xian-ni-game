@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "status": "NOT_RUN",
-  "candidate": "0.4.1",
+  "candidate": "0.5.0",
   "baseline": {
     "version": "0.4.0",
     "sourceCommit": "f5063db5234f500f9955935a636d69db5dc23c90",
@@ -9,9 +9,12 @@
     "status": "PASS"
   },
   "targeted": {
-    "tests": 243,
+    "tests": 315,
+    "testFiles": 20,
     "build": "PASS",
-    "browserRevisit": "RUNNING"
+    "bundle": "index-lZ2BhJio.js",
+    "journeyModel": "7 PASS",
+    "browser": "NOT_RUN"
   },
-  "note": "Full release verification pending for this candidate; previous baseline is not current evidence."
+  "note": "New content candidate; current full runtime and public verification not yet run."
 }

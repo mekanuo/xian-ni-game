@@ -1,3 +1,4 @@
+import { journeyObjective } from './journey';
 import { canalObjective } from './canal';
 import type { GameAction, GameState, Profile, Spell } from './contracts';
 import { createGame, snapshot, restore, objective, nearbyEntity } from './model';
@@ -105,7 +106,8 @@ export class GameUI {
       const harvestCard=life.harvest.stage==='unaccepted'?'':`<article><span class="item-glyph">叶</span><h3>两束新叶</h3><p>向阳叶：${leafPlace[life.harvest.sun]}<br>背阴叶：${leafPlace[life.harvest.shade]}</p><p>细长叶在上层，宽圆叶在下层。</p></article>`;
       const rewardCard=life.harvest.stage==='complete'?`<article><span class="item-glyph">囊</span><h3>避兽药囊 · ${life.sachets}份</h3><p>在旧工棚或旧渠干坡脚边拆开，附近山兽绕行八秒。对人和落石无效。${life.scent?`气味正留在${life.scent.scene==='workshop'?'旧工棚':'雾岭旧渠'}，回到原图才继续散去。`:''}</p>${life.sachets>0?this.button('拆开一份，放在脚边','use-sachet','small-button'):''}</article>`:'';
       const canalCard=s.canal.stage==='unaccepted'?'':`<article><span class="item-glyph">渠</span><h3>${s.canal.stage==='complete'?'亲手添下的旧渠小图':'雾岭来信'}</h3><p>${esc(canalObjective(s)||'小图已添在桌边；可以重访旧渠，取扣或试术')}</p></article>`;
-      const lifeCards=repairCard+harvestCard+rewardCard+canalCard;
+      const journeyCard=s.journey.stage==='unaccepted'?'':`<article><span class="item-glyph">归</span><h3>${s.journey.stage==='complete'?'工棚回程记号':'许照的回程约定'}</h3><p>${esc(journeyObjective(s)||(s.journey.recordedShared?'共同走过的回程已经添下两人的记号。':'你亲自走过的回程留在桌边，雨棚坐垫可用。'))}</p></article>`;
+      const lifeCards=repairCard+harvestCard+rewardCard+canalCard+journeyCard;
       this.shell('随身之物',`<div class="inventory"><article><span class="item-glyph">◎</span><h3>${s.flags.ringOwned?'控物环':'控物环还在工棚'}</h3><p>辅助引力术的普通法器，旧称“引环”。</p><p>${s.ringStyle==='long'?'长牵：可将十步内的轻物牵到身边。':s.ringStyle==='hold'?'留势：牵住物件后，按 R 使它停留八秒。':'控物环（旧称引环）：辅助引力术的普通法器。'}</p></article><article><span class="item-glyph">符</span><h3>护符·障</h3><p>向面前张开护持，挡一次正面攻击。侧后仍需留意。</p></article><article><span class="item-glyph">药</span><h3>伤药 · ${s.herbs}份</h3><p>就地恢复两格体力。</p>${this.button('使用伤药','heal','small-button')}</article>${lifeCards}${s.flags.chime?'<article><span class="item-glyph">铃</span><h3>山间风铃</h3><p>从眺台带回的清响，可以挂在驿中窗边。</p></article>':''}</div><p class="muted">当前练法可在回石驿工位调整。打开行囊时，世界已暂停。</p>`);
     } else if (this.screen==='map') {
       const seen = s.scene;

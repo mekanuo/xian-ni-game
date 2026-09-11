@@ -1,3 +1,4 @@
+import { journeyObjective, journeyDescription } from './journey';
 import { canalDescription, canalObjective, canalWaterState } from './canal';
 import type { Entity, GameState, Vec } from './contracts';
 
@@ -82,6 +83,11 @@ export function nearbyEncounter(s: GameState): EncounterView|undefined {
     const water=canalWaterState(s);
     return view('canal-water',local?.name||'雾岭旧渠',local?canalDescription(s,local)||canalObjective(s)||'沿高岸看清水路':canalObjective(s)||'旧渠仍在山路旁',s.canal.cleared?canalObjective(s)||'沿高岸重访':water==='stopped'?'上游暂截，留意剩余支撑；沿台阶进退':water==='diverted'?'旁路通流，西岸始终可走':'近身察看检修台，再安排分水或截水',s.canal.cleared?'水板改位仍会改变眼前水路，离开前记得复水':'分水板可以徒手推入固定槽，不耗灵力');
   }
+  if(s.canal.stage==='complete'){
+    const local=s.worlds[s.scene].filter(e=>e.state!=='hidden'&&(e.type==='xu'||['table','shelter','journey_north_mark','journey_south_mark','journey_rest_shelter'].includes(e.id))&&distance(e,s.player)<190).sort((a,b)=>distance(a,s.player)-distance(b,s.player))[0];
+    const text=local&&journeyDescription(s,local);
+    if(text&&!(s.scene==='creek'&&s.flags.herbsWet))return view('journey-return',local!.id==='table'?(s.journey.stage==='unaccepted'?'桌边的旧渠小图':'桌边的回程记号'):local!.name,text,journeyObjective(s)||'沿已经认清的回程重访');
+  }
   if(s.scene==='home'&&['stay','travel'].includes(String(s.flags.endingWish))&&near(['table'],190))return s.canal.stage==='complete'?view('canal-letter','桌边的旧渠小图','亲自走通的水路和台阶已经添在图上','可察看旧图，或从驿前路牌选择重访','先前的清渠成果已经记下'):view('canal-letter','桌边的新路',canalObjective(s)||'旧渠看渠人的口信留在碗旁',s.canal.stage==='unaccepted'?'到桌边读邵禾口信':s.canal.stage==='ready'?'到桌边亲手添图':'从驿前路牌继续旧渠这一程','从驿前路牌选好此行去处');
   if(s.scene==='home'&&['stay','travel'].includes(String(s.flags.endingWish))&&near(['workbench','herb_rack','tao','xu'],160))return view('life-home-talk','灯下的手艺',lifeObjective(s)||'回驿继续手上的活','与工位旁的陶七交谈','到晒架看许照的叶图');
   if(s.scene==='home'&&near(['lamp_stand'],280))return s.flags.lampFixed
@@ -115,6 +121,7 @@ export function nearbyEncounter(s: GameState): EncounterView|undefined {
 }
 
 export function inspectObject(s: GameState,e: Entity): string {
+  const journeyText=journeyDescription(s,e);if(journeyText!==undefined)return journeyText;
   const canalText=canalDescription(s,e);if(canalText!==undefined)return canalText;
   const lifeText=lifeDescription(s,e);if(lifeText!==undefined)return lifeText;
   const f=s.flags;

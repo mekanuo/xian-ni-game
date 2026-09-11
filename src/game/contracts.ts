@@ -7,6 +7,17 @@ export type LeafPlace = 'unpicked' | 'bag' | 'upper' | 'lower';
 export type ClampSite = 'home' | 'lookout' | 'canal';
 export interface LifeState { repair:{stage:LifeStage; softened:boolean; stopSet:boolean; latched:boolean; tested:boolean; method:null|'hold'|'stop'; testing:number|null}; harvest:{stage:LifeStage; sun:LeafPlace; shade:LeafPlace; picking:null|{id:LeafId; elapsed:number; start:Vec}; shared:boolean}; clamp:'unowned'|'bag'|ClampSite; sachets:0|1|2; scent:null|{remaining:number;scene:'workshop'|'canal'}; }
 export interface CanalState { stage:'unaccepted'|'active'|'verified'|'ready'|'complete'; inspected:boolean; cleared:boolean; method:null|'diversion'|'hold'|'clamp'; sharedInspect:boolean; sharedVerify:boolean; usedClamp:boolean; work:null|{kind:'divert'|'restore'|'clear';elapsed:number;start:Vec}; drain:number; flow:number; surge:number|null; }
+export type JourneyRoute = 'north' | 'south' | 'mixed';
+export type JourneyMode = 'solo' | 'together';
+export interface JourneyState {
+ stage: 'unaccepted' | 'active' | 'ready' | 'complete';
+ agreed: JourneyMode | null;
+ run: null | {mode: JourneyMode; plan: 'north' | 'south'; next: number | null; playerGate: boolean; companionGate: boolean; viaSouth: boolean; waiting: boolean};
+ soloRoute: JourneyRoute | null;
+ sharedRoute: JourneyRoute | null;
+ restOpened: boolean;
+ recordedShared: boolean;
+}
 export type Vec = { x: number; y: number };
 export type Profile = { name: string; origin: 'herbalist' | 'tinker'; wish: 'stay' | 'travel'; appearance: 0 | 1 };
 export type EntityKind = 'npc' | 'object' | 'enemy' | 'exit' | 'rest' | 'scenery';
@@ -38,7 +49,7 @@ export interface GameState {
   ringStyle: RingStyle; herbs: number; selected: Spell; paused: boolean;
   dialogue: Dialogue | null; events: GameEvent[]; projectiles: Projectile[];
   pending: GameAction | null; ended: boolean; defeated: boolean;
-  checkpoint: string | null; contentVersion: 3; life: LifeState; canal: CanalState; lastSafe: { scene: SceneId; point: Vec };
+  checkpoint: string | null; contentVersion: 4; life: LifeState; canal: CanalState; journey: JourneyState; lastSafe: { scene: SceneId; point: Vec };
 }
 export type GameAction =
   | { type: 'move'; point: Vec }

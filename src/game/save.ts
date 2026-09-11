@@ -3,6 +3,8 @@ import { initialLifeEntities } from './life-content';
 import { createLifeState } from './life';
 import { createCanalState, canalWaterState } from './canal';
 import { CANAL_SCENE, CANAL_CHANNEL } from './canal-content';
+import { createJourneyState } from './journey';
+import { initialJourneyEntities, getJourneyRoute } from './journey-content';
 import type { CanalState, ClampSite, Entity, GameAction, GameState, LifeState, SceneId, Vec } from './contracts';
 
 export const MAX_SAVE_BYTES = 2_000_000;
@@ -41,11 +43,11 @@ export function validateLife(l: LifeState, legacy = false): void {
   check(l.scent===null || l.sachets<2, '药囊已拆开但份数未扣除');
 }
 
-function validateEntities(s: GameState, version: 1|2|3): void {
-  const manifest=version===3?scenes:oldScenes;
+function validateEntities(s: GameState, version: 1|2|3|4): void {
+  const manifest=version>=3?scenes:oldScenes;
   check(record(s.worlds) && Object.keys(s.worlds).length===manifest.length && Object.keys(s.worlds).every(id=>manifest.includes(id as SceneId)), '存档场景清单无效');
   for(const id of manifest) {
-    const templates=[...(id==='canal'?CANAL_SCENE:SCENES[id]).entities,...(version===1?[]:initialLifeEntities(id))];
+    const templates=[...(id==='canal'?CANAL_SCENE:SCENES[id]).entities,...(version===1?[]:initialLifeEntities(id)),...(version===4?initialJourneyEntities(id):[])];
     const list=s.worlds[id];
     check(Array.isArray(list)&&list.length===templates.length, '存档缺少场景器物');
     const seen=new Set<string>();
@@ -92,8 +94,36 @@ function validateLifeWorld(s: GameState, legacy = false): void {
 }
 
 export function validateManifest(s:GameState):void {
-  check(s.contentVersion===3,'存档内容版本不匹配');
-  validateEntities(s,3);validateLife(s.life);validateLifeWorld(s);validateCanal(s);
+  check(s.contentVersion===4,'存档内容版本不匹配');
+  validateEntities(s,4);validateLife(s.life);validateLifeWorld(s);validateCanal(s);validateJourney(s);
+}
+
+function validateJourney(s:GameState):void {
+  const j=s.journey;
+  check(record(j)&&['unaccepted','active','ready','complete'].includes(j.stage),'同行回程阶段无效');
+  check([null,'solo','together'].includes(j.agreed)&&[null,'north','south','mixed'].includes(j.soloRoute)&&[null,'north','south','mixed'].includes(j.sharedRoute),'同行约定或历史路线无效');
+  check(typeof j.restOpened==='boolean'&&typeof j.recordedShared==='boolean','同行结果格式无效');
+  check(j.stage==='unaccepted'||s.canal.stage==='complete','旧渠落笔前不能开始同行回程');
+  check(j.stage!=='unaccepted'||j.agreed===null&&j.run===null&&j.soloRoute===null&&j.sharedRoute===null&&!j.restOpened&&!j.recordedShared,'未接取同行回程不能已有结果');
+  check(j.stage==='unaccepted'||j.agreed!==null,'同行回程缺少约定');
+  check(j.restOpened===(j.stage==='ready'||j.stage==='complete')&&(!j.restOpened||j.soloRoute!==null||j.sharedRoute!==null),'雨棚坐垫与回程结果不一致');
+  check(!j.recordedShared||j.stage==='complete'&&j.sharedRoute!==null,'共同补笔缺少真实共同回程');
+  check(j.run===null||record(j.run),'当前领路格式无效');
+  if(j.run){
+    const r=j.run;
+    check(Object.keys(r).every(key=>['mode','plan','next','playerGate','companionGate','viaSouth','waiting'].includes(key)),'领路不能指定任意目标');
+    check(s.scene==='workshop'&&j.stage!=='unaccepted'&&['solo','together'].includes(r.mode)&&j.agreed===r.mode&&['north','south'].includes(r.plan),'当前领路与地点或约定不一致');
+    check([r.playerGate,r.companionGate,r.viaSouth,r.waiting].every(v=>typeof v==='boolean'),'实际经过或等待状态无效');
+    if(r.mode==='solo')check(r.next===null&&!r.companionGate&&!r.waiting,'独行不能记录同伴领路');
+    else check(Number.isInteger(r.next)&&r.next!==null&&r.next>=0&&r.next<=getJourneyRoute(r).length,'领路路点索引无效');
+  }
+  const markState=j.stage==='unaccepted'?'hidden':'idle';
+  for(const scene of scenes)for(const template of initialJourneyEntities(scene)){
+    const e=s.worlds[scene].find(e=>e.id===template.id)!;
+    check(distance(e,template)<.001&&e.homeX===template.homeX&&e.homeY===template.homeY,'回程地标或坐垫不能离开固定位置');
+  }
+  for(const id of ['journey_north_mark','journey_south_mark'])check(s.worlds.workshop.find(e=>e.id===id)!.state===markState,'回程地标与接取阶段不一致');
+  check(s.worlds.creek.find(e=>e.id==='journey_rest_shelter')!.state===(j.restOpened?'idle':'hidden'),'雨棚坐垫现场与开放记录不一致');
 }
 
 function validateCanal(s:GameState):void {
@@ -146,20 +176,28 @@ export function migrateSave(json:string):string { return snapshot(restore(json))
 function restoreWorld(s:GameState):GameState {
   check(record(s),'存档世界格式无效');
   const version:unknown=s.contentVersion;
-  check(version===undefined||version===2||version===3,'存档内容版本不匹配');
+  check(version===undefined||version===2||version===3||version===4,'存档内容版本不匹配');
   const legacy=version===undefined;
-  if(version!==3)check(!Object.hasOwn(s,'canal')&&oldScenes.includes(s.scene)&&oldScenes.includes(s.lastSafe?.scene),'旧存档不能混入旧渠数据');
+  const beforeCanal=legacy||version===2;
+  if(beforeCanal)check(!Object.hasOwn(s,'canal')&&oldScenes.includes(s.scene)&&oldScenes.includes(s.lastSafe?.scene),'旧存档不能混入旧渠数据');
+  if(version!==4)check(!Object.hasOwn(s,'journey'),'旧存档不能混入同行回程数据');
   if(legacy) {
     check(!('life' in s),'旧存档不能混入新版生活状态');
     validateEntities(s,1);
     for(const id of oldScenes)s.worlds[id].push(...initialLifeEntities(id));
     s.life=createLifeState();
   }
-  if(version!==3) {
+  if(beforeCanal) {
     validateEntities(s,2);validateLife(s.life,true);validateLifeWorld(s,true);
     if(s.life.scent)s.life.scent.scene='workshop';
     s.worlds.canal=CANAL_SCENE.entities.map(e=>structuredClone({...e,homeX:e.x,homeY:e.y}));
-    s.canal=createCanalState();s.contentVersion=3;
+    s.canal=createCanalState();
+  }
+  if(version!==4){
+    // Validate the exact old five-world manifest before appending any new objects.
+    validateEntities(s,3);validateLife(s.life);validateLifeWorld(s);validateCanal(s);
+    for(const id of scenes)s.worlds[id].push(...initialJourneyEntities(id));
+    s.journey=createJourneyState();s.contentVersion=4;
   }
   if(!s||s.schema!==1||s.revision!=='return-stone-v1'||!scenes.includes(s.scene)||!s.profile||!['herbalist','tinker'].includes(s.profile.origin)||!['stay','travel'].includes(s.profile.wish)||typeof s.profile.name!=='string'||![0,1].includes(s.profile.appearance)||!s.player||!finitePoint(s.player)||!Number.isFinite(s.time)||s.time<0||!Number.isInteger(s.player.hp)||s.player.hp<0||s.player.hp>4||!Number.isInteger(s.player.mana)||s.player.mana<0||s.player.mana>6||!Array.isArray(s.player.path)||!s.player.path.every(finitePoint)||!s.worlds||!s.flags||Array.isArray(s.flags)||!Array.isArray(s.events)||!Array.isArray(s.projectiles)||!s.lastSafe||!scenes.includes(s.lastSafe.scene)||!finitePoint(s.lastSafe.point)||!['long','hold',null].includes(s.ringStyle)||!Number.isInteger(s.herbs)||s.herbs<0||s.herbs>2||typeof s.paused!=='boolean'||typeof s.ended!=='boolean'||typeof s.defeated!=='boolean')throw Error('存档版本或世界数据不匹配');
   if(!['pull','flame','ward'].includes(s.selected)||Object.values(s.flags).some(v=>!['boolean','string','number'].includes(typeof v)||(typeof v==='number'&&!Number.isFinite(v))))throw Error('存档标记数据无效');
