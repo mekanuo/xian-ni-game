@@ -1,0 +1,76 @@
+import {afterEach, beforeEach, describe, expect, it} from 'vitest';
+import {act, simulationPorts, tick} from '../src/game/model';
+import type {GameState, Vec} from '../src/game/contracts';
+import {CLIFF_POINTS as P, CLIFF_SPACE_MAP, createCliffSpaceState, installCliffSpaceMap} from '../src/whitebox/cliff-space';
+
+// Positions below are explicit synthetic geometry starts. All subsequent travel
+// is the game's real move action and fixed-step body motion, never path injection.
+function walk(s:GameState, target:Vec) {
+  const reply=act(s,{type:'move',point:target});
+  expect(reply.ok, `move accepted toward ${JSON.stringify(target)}: ${reply.message}`).toBe(true);
+  const trace:Vec[]=[{x:s.player.x,y:s.player.y}];
+  for(let i=0;i<1600&&Math.hypot(s.player.x-target.x,s.player.y-target.y)>4;i++) {
+    tick(s,.025,{x:0,y:0});
+    trace.push({x:s.player.x,y:s.player.y});
+    expect(simulationPorts.free(s,s.player),'the full body remains on actual ground').toBe(true);
+    if(!s.player.path.length)break;
+  }
+  expect(Math.hypot(s.player.x-target.x,s.player.y-target.y),`actual arrival at ${JSON.stringify(target)}`).toBeLessThanOrEqual(4);
+  return trace;
+}
+function startAt(point:Vec) {
+  const s=createCliffSpaceState();
+  expect(simulationPorts.free(s,point),'synthetic start must be physically legal').toBe(true);
+  s.player.x=point.x;s.player.y=point.y;
+  return s;
+}
+
+describe('cliff candidate: complete physical space before hazards',()=>{
+  let restore:()=>void;
+  beforeEach(()=>{restore=installCliffSpaceMap();});
+  afterEach(()=>restore());
+
+  it('starts with zero resources and actually walks both alternatives and home',()=>{
+    const s=createCliffSpaceState();
+    expect([s.player.hp,s.player.mana,s.herbs]).toEqual([4,0,0]);
+    for(const point of [P.a,P.b,P.connectEast,P.connectSouth,P.connectWest,P.lower,P.inner,P.upper,P.end,
+      P.upper,P.inner,P.lower,P.outer,P.outerTop,P.end,P.outerTop,P.outer,P.lower,
+      P.connectWest,P.connectSouth,P.connectEast,P.b,P.a,P.entry])walk(s,point);
+    expect([s.player.hp,s.player.mana,s.herbs]).toEqual([4,0,0]);
+    expect(s.defeated).toBe(false);
+  });
+
+  it('accepts imperfect ground clicks throughout the inner foothold',()=>{
+    for(const dx of [-28,0,28])for(const dy of [-28,0,28]) {
+      const s=startAt({x:P.inner.x+dx,y:P.inner.y+dy});
+      walk(s,P.upper);walk(s,{x:P.inner.x+dx,y:P.inner.y+dy});
+    }
+  });
+
+  it('does not let the safe connector enter the end before the lower bay',()=>{
+    const s=startAt(P.b), trace=walk(s,P.end);
+    expect(trace.some(p=>Math.hypot(p.x-P.lower.x,p.y-P.lower.y)<85),'normal direct click must physically approach the lower bay').toBe(true);
+    // Counterfactual only: sealing the unique connector must disconnect the end.
+    // This extra wall is never part of the candidate runtime map.
+    const original=CLIFF_SPACE_MAP.obstacles;
+    CLIFF_SPACE_MAP.obstacles=[...original,{x:820,y:1710,w:150,h:20}];
+    try {expect(act(startAt(P.b),{type:'move',point:P.end}).ok).toBe(false);}
+    finally {CLIFF_SPACE_MAP.obstacles=original;}
+  });
+
+  it('keeps the source mouths too narrow for a body to walk behind them',()=>{
+    const s=createCliffSpaceState();
+    for(const source of [P.sourceOne,P.sourceTwo]) {
+      expect(simulationPorts.free(s,source),`source ${JSON.stringify(source)} must not sit in walkable ground`).toBe(false);
+      expect(act(s,{type:'move',point:source}).ok).toBe(false);
+    }
+  });
+
+  it('allows a direct end click but records whether navigation chooses cover',()=>{
+    const s=startAt(P.lower),trace=walk(s,P.end);
+    // This is a risk measurement, not proof that the choice is interesting.
+    const nearInner=trace.some(p=>Math.hypot(p.x-P.inner.x,p.y-P.inner.y)<60);
+    console.info('CLIFF DIRECT END',JSON.stringify({nearInner,steps:trace.length,maxX:Math.max(...trace.map(p=>p.x)),minX:Math.min(...trace.map(p=>p.x)),hp:s.player.hp}));
+    expect(nearInner,'a direct end click must not automatically make the intended inner-cover choice').toBe(false);
+  });
+});

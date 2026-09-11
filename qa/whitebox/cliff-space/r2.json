@@ -1,0 +1,29 @@
+{
+  "revision": "cliff-space-2",
+  "status": "REJECTED_LAYOUT",
+  "contractResult": "FAIL",
+  "command": "npx vitest run tests/cliff-space.test.ts",
+  "exitCode": 1,
+  "passed": 4,
+  "failed": 1,
+  "typecheckExitCode": 0,
+  "productionBase": "25757229af10a1000b78ae16156cdadd127d18ea",
+  "changes": [
+    "Source rim at (900,1340),100x50, cut only by physical narrow cracks",
+    "Outer top changed from (920,1398) to (920,1420)"
+  ],
+  "directEnd": {
+    "nearInner": true,
+    "samplesIncludingStart": 119,
+    "maxX": 1039.9790657699675,
+    "minX": 840.8966299761661,
+    "hp": 4
+  },
+  "scope": "Actual model move/tick in explicit synthetic, hazard-free geometry. No browser, projectile, timing or gameplay-value pass.",
+  "decision": "Shelve this layout after the bounded local revision: default navigation selects the inner route. This is not a claim that an unimplemented hazard was completed unharmed.",
+  "files": {
+    "r2-source.ts.snapshot": "c3955a95d3f357c223656b66e8b6a84629d988796be76ff4920ab54e4713e95a",
+    "r2-contract.test.ts.snapshot": "335e9c205e64a64f63038190260bef1c915a2fdfc88e2674485d414d33e507b1",
+    "r2.log": "213fb3dfc9a75744c900474de25ffdde94fa41d7282f639c5c7f1f834b3ded2a"
+  }
+}

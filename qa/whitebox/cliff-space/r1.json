@@ -1,0 +1,16 @@
+{
+  "revision": "cliff-space-1",
+  "status": "FAIL",
+  "runtime": "Vitest model only; no browser or hazards",
+  "command": "npx vitest run tests/cliff-space.test.ts",
+  "exitCode": 1,
+  "passed": 4,
+  "failed": 1,
+  "failure": "Second source (930,1380) is body-walkable inside the upper corridor",
+  "productionBase": "25757229af10a1000b78ae16156cdadd127d18ea",
+  "files": {
+    "r1.log": "add6d74f997f5505323833b6a161a9e7d0bb02a0344b431bb859280a1ae1fa7a",
+    "r1-contract.test.ts.snapshot": "335e9c205e64a64f63038190260bef1c915a2fdfc88e2674485d414d33e507b1",
+    "r1-source.ts.snapshot": "d5c3ed8676664701429bc95eb61f0ddecbd5fd4d613d286a54587dfb9daee716"
+  }
+}

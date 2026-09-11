@@ -1,0 +1,77 @@
+import {SCENES} from '../game/content';
+import {createGame} from '../game/model';
+import type {GameState, SceneDefinition, Vec} from '../game/contracts';
+
+type Rect={x:number;y:number;w:number;h:number};
+type Band={from:Vec;to:Vec;width:number};
+export const CLIFF_SPACE_REVISION='cliff-space-1';
+export const CLIFF_POINTS={
+  entry:{x:800,y:1040},a:{x:800,y:850},b:{x:980,y:850},
+  connectEast:{x:1260,y:850},connectSouth:{x:1260,y:1820},connectWest:{x:890,y:1820},
+  lower:{x:890,y:1640},outer:{x:800,y:1620},outerTop:{x:920,y:1398},
+  inner:{x:1050,y:1555},upper:{x:1010,y:1420},end:{x:840,y:1400},
+  sourceOne:{x:890,y:700},sourceTwo:{x:930,y:1380},
+};
+const P=CLIFF_POINTS;
+export const CLIFF_ROCK_NOSE:Rect={x:900,y:1470,w:100,h:75};
+const square=(center:Vec,size:number):Rect=>({x:center.x-size/2,y:center.y-size/2,w:size,h:size});
+const band=(from:Vec,to:Vec,width:number):Band=>({from,to,width});
+export const CLIFF_GROUND_PLAN={
+  cellSize:10,width:1900,height:2200,
+  landings:[square(P.entry,120),square(P.a,92),square(P.b,92),square(P.lower,110),square(P.inner,90),square(P.upper,92),square(P.end,104)],
+  bands:[band(P.entry,P.a,100),band(P.a,P.b,80),band(P.b,P.connectEast,100),
+    band(P.connectEast,P.connectSouth,100),band(P.connectSouth,P.connectWest,100),band(P.connectWest,P.lower,100),
+    band(P.lower,P.outer,90),band(P.outer,P.outerTop,70),band(P.outerTop,P.end,80),
+    band(P.lower,P.inner,106),band(P.inner,P.upper,106),band(P.upper,P.end,106)],
+  // Real narrow stone cracks. They use ordinary obstacles, never water's
+  // projectile exception or an invisible player-only collision rule.
+  cracks:[band(P.sourceOne,{x:890,y:980},16),band(P.sourceTwo,P.outer,16),band(P.sourceTwo,P.inner,16)],
+};
+function inside(rect:Rect,p:Vec) {return p.x>=rect.x&&p.x<=rect.x+rect.w&&p.y>=rect.y&&p.y<=rect.y+rect.h;}
+function inBand(b:Band,p:Vec) {
+  const dx=b.to.x-b.from.x,dy=b.to.y-b.from.y;
+  const t=Math.max(0,Math.min(1,((p.x-b.from.x)*dx+(p.y-b.from.y)*dy)/(dx*dx+dy*dy)));
+  return Math.hypot(p.x-b.from.x-t*dx,p.y-b.from.y-t*dy)<=b.width/2;
+}
+// The occupied cells, not an imagined smooth corridor, are the actual geometry.
+// Merge identical horizontal spans on successive rows into exact rectangles.
+function makeOutsideObstacles():Rect[] {
+  const plan=CLIFF_GROUND_PLAN,step=plan.cellSize,answer:Rect[]=[];
+  let previous=new Map<string,Rect>();
+  const open=(p:Vec)=>plan.landings.some(r=>inside(r,p))||[...plan.bands,...plan.cracks].some(b=>inBand(b,p));
+  for(let y=0;y<plan.height;y+=step) {
+    const row=new Map<string,Rect>();let from:number|null=null;
+    const close=(x:number)=>{
+      if(from===null)return;
+      const key=`${from}:${x-from}`,above=previous.get(key);
+      if(above&&above.y+above.h===y){above.h+=step;row.set(key,above);}
+      else {const rect={x:from,y,w:x-from,h:step};answer.push(rect);row.set(key,rect);}
+      from=null;
+    };
+    for(let x=0;x<plan.width;x+=step) {
+      if(open({x:x+step/2,y:y+step/2}))close(x);
+      else if(from===null)from=x;
+    }
+    close(plan.width);previous=row;
+  }
+  return answer;
+}
+export const CLIFF_SPACE_MAP:SceneDefinition={
+  id:'home',title:'碎崖 · 空间白盒',subtitle:'仅检查可走地形；落石与完整结果尚未实现。',
+  width:1900,height:2200,spawn:{...P.entry},
+  palette:{ground:0xc6bca6,path:0xd8cfb9,foliage:0x7c8772,water:0x738b91},
+  ground:[{type:'floor',points:[0,0,1900,0,1900,2200,0,2200]}],
+  obstacles:[...makeOutsideObstacles(),{...CLIFF_ROCK_NOSE}],
+  entities:[],
+};
+export function installCliffSpaceMap():()=>void {
+  const previous=SCENES.home;SCENES.home=CLIFF_SPACE_MAP;
+  return()=>{SCENES.home=previous;};
+}
+export function createCliffSpaceState():GameState {
+  if(SCENES.home!==CLIFF_SPACE_MAP)throw Error('Install the isolated cliff map before creating the synthetic start');
+  const s=createGame({name:'行舟',origin:'tinker',wish:'travel',appearance:0});
+  s.worlds.home=[];s.player.mana=0;s.herbs=0;s.ringStyle='hold';
+  s.lastSafe={scene:'home',point:{...P.entry}};s.checkpoint=null;s.events=[];s.flags.eventSeq=0;
+  return s;
+}

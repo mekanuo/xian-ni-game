@@ -1,0 +1,36 @@
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+stdout | tests/cliff-space.test.ts > cliff candidate: complete physical space before hazards > allows a direct end click but records whether navigation chooses cover
+CLIFF DIRECT END {"nearInner":true,"steps":119,"maxX":1039.9790657699675,"minX":840.8966299761661,"hp":4}
+
+ ❯ tests/cliff-space.test.ts (5 tests | 1 failed) 98ms
+     × allows a direct end click but records whether navigation chooses cover 15ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/cliff-space.test.ts > cliff candidate: complete physical space before hazards > allows a direct end click but records whether navigation chooses cover
+AssertionError: a direct end click must not automatically make the intended inner-cover choice: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/cliff-space.test.ts:74:104
+     72|     const nearInner=trace.some(p=>Math.hypot(p.x-P.inner.x,p.y-P.inner…
+     73|     console.info('CLIFF DIRECT END',JSON.stringify({nearInner,steps:tr…
+     74|     expect(nearInner,'a direct end click must not automatically make t…
+       |                                                                                                        ^
+     75|   });
+     76| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  20:13:06
+   Duration  552ms (transform 217ms, setup 0ms, import 289ms, tests 98ms, environment 0ms)
+

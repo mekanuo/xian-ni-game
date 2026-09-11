@@ -1,3 +1,23 @@
+# 当前入口 · 碎崖布局搁置，继续下一内容选题
+
+工作树cliff-080-space / feat/cliff-080-space，基于2575722，0.7正式/公网发布已闭合（见下方）。新树npmci成功、35文件753基线测试PASS。
+
+有界空间原型r1/r2均5合同中4过1失败，r1源头可站；一次局部r2修岩缘/上口后，源头不可站却默认点击E会走内侧，最大x1039.979、119样本含初态。tsc exit0。root搁置当前布局；没有落石/浏览器/生产艺术，不能说自动无伤过危险。全部源码/合同/日志/SHA在qa/whitebox/cliff-space。新写的活动src/whitebox/cliff-space.ts与tests/cliff-space.test.ts已在原样归档后移除，生产代码回2575722字节，不隐藏或改写失败为PASS。
+
+**当前唯一代理任务：canal_save_040独占design/NEXT_CONTENT_080_CANDIDATES.md，按game-concept比较0.7后三种局部内容。** 不重开已确认主类型/身份/画风，不写代码，不读原文旧聊天。root独占QA档案/Git/其他文件；无浏览器。下一动作核对生产代码无差异，提交推送本空间评审里程碑，然后读代理新选题并继续有价值的小切片。不要为让碎崖过关继续收窄地形或堆机关。用户要求不停，已授权自主选题取舍。
+
+以下为历史记录。
+
+# 活动入口 · 碎崖有界空间白盒
+
+2026-09-11，0.7发布已完全关闭。正式源码/QA371957e、文档2575722均已推送；主工作树feat/return-stone-v1也已快进并推送2575722。正式market-070-production保留受测dist，勿从主树旧dist部署。
+
+现在的工作树 `/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space`，分支 `feat/cliff-080-space`，基于25757229af10a1000b78ae16156cdadd127d18ea。独立稀疏检出包含src/public/tests/scripts/docs/design和qa/fixtures、qa/evidence/life-current-export.json；不检出旧QA图像，所需引用仍可在正式树查看。npm ci --prefer-offline成功；新树基线35文件753测试PASS（比发行冻结749多4个新完成档夹具用例）。没有新白盒代码、构建或浏览器，所有代理停写。
+
+根代理决定执行docs/superpowers/plans/2026-09-11-cliff-space-preflight.md第一闸口：完整矩形地形与真实move/tick反例、目标普通地区镜头/手机余量、共享首次碰撞。先写合同测试看RED，再实现最小空间；不先扩完整任务、美术或正式版本。依据design/CLIFF_WHITEBOX_COUNTEREXAMPLES.md，不把当前中心坐标视为已可执行。0.7线上不受影响。继承qa/verification.json是0.7报告，不可用于发布任何白盒或新代码。继续自主工作、每个可评审里程碑推送，不停在发布后。
+
+以下为已完成0.7记录。
+
 # 当前入口 · 0.7发行关闭，继续碎崖空间先验
 
 用户要求继续自主开发、保持质量、每个里程碑推送；不新建推断Goal，不重问已确认事项，不读旧聊天/原文/全书解析，不碰两个封版项目。研究沿docs/research。

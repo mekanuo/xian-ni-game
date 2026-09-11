@@ -1,0 +1,33 @@
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+ ❯ tests/cliff-space.test.ts (5 tests | 1 failed) 97ms
+     × keeps the source mouths too narrow for a body to walk behind them 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/cliff-space.test.ts > cliff candidate: complete physical space before hazards > keeps the source mouths too narrow for a body to walk behind them
+AssertionError: source {"x":930,"y":1380} must not sit in walkable ground: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/cliff-space.test.ts:64:113
+     62|     const s=createCliffSpaceState();
+     63|     for(const source of [P.sourceOne,P.sourceTwo]) {
+     64|       expect(simulationPorts.free(s,source),`source ${JSON.stringify(s…
+       |                                                                                                                 ^
+     65|       expect(act(s,{type:'move',point:source}).ok).toBe(false);
+     66|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  20:12:01
+   Duration  557ms (transform 220ms, setup 0ms, import 289ms, tests 97ms, environment 0ms)
+
