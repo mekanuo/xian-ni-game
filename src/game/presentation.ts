@@ -2,14 +2,14 @@ import type {GameState} from './contracts';
 export interface PlayerPose {action:'idle'|'walk'|'cast'|'pull'|'gather'|'press'|'hurt';x:number;y:number;angle:number;scaleY:number;flipX:boolean;}
 /** Presentation only: model time and real action progress drive every pose. */
 export function playerPose(s:GameState,moving:boolean,step:number,reduced:boolean,hurtAge:number|null=null):PlayerPose{
- const p=s.player,pick=s.life.harvest.picking;
- const target=pick?s.worlds[s.scene].find(e=>e.id===pick.id):s.life.repair.testing!==null?s.worlds[s.scene].find(e=>e.id==='life_press'):undefined;
+ const p=s.player,pick=s.life.harvest.picking,work=s.canal.work;
+ const target=work?s.worlds[s.scene].find(e=>e.id===(work.kind==='clear'?'canal_screen':'canal_diverter')):pick?s.worlds[s.scene].find(e=>e.id===pick.id):s.life.repair.testing!==null?s.worlds[s.scene].find(e=>e.id==='life_press'):undefined;
  const side=target?Math.sign(target.x-p.x)||1:Math.cos(p.facing)<0?-1:1;
- const action:PlayerPose['action']=hurtAge!==null?'hurt':pick?'gather':s.life.repair.testing!==null?'press':s.flags.casting?'cast':p.pullId&&p.hold<=0?'pull':moving?'walk':'idle';
+ const action:PlayerPose['action']=hurtAge!==null?'hurt':pick||work?.kind==='clear'?'gather':s.life.repair.testing!==null||work?'press':s.flags.casting?'cast':p.pullId&&p.hold<=0?'pull':moving?'walk':'idle';
  const pose:PlayerPose={action,x:0,y:5,angle:0,scaleY:1,flipX:side<0};
  if(reduced)return pose;
- if(action==='gather'){const ease=Math.min(1,pick!.elapsed/.2);pose.angle=side*(9+Math.sin(pick!.elapsed*9)*1.2)*ease;pose.scaleY=1-.045*ease;}
- if(action==='press'){const q=s.life.repair.testing!;pose.angle=side*(5+Math.sin(Math.PI*q)*6);pose.scaleY=1-.025*Math.sin(Math.PI*q);}
+ if(action==='gather'){const elapsed=pick?.elapsed??work!.elapsed,ease=Math.min(1,elapsed/.2);pose.angle=side*(9+Math.sin(elapsed*9)*1.2)*ease;pose.scaleY=1-.045*ease;}
+ if(action==='press'){const q=s.life.repair.testing??work!.elapsed/2;pose.angle=side*(5+Math.sin(Math.PI*q)*6);pose.scaleY=1-.025*Math.sin(Math.PI*q);}
  if(action==='cast')pose.angle=-side*7;
  if(action==='pull')pose.angle=-side*3;
  if(action==='walk'){pose.angle=Math.sin(step)*1.6;pose.y-=Math.abs(Math.sin(step*2))*1.6;}

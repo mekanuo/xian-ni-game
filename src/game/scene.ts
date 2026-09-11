@@ -1,3 +1,4 @@
+import { registerCanalFrames, paintCanalLandscape, createCanalVisual, updateCanalVisual, drawCanalWater, drawCanalHomeRecord } from './canal-art';
 import Phaser from 'phaser';
 import type { Entity, GameAction, GameState, Spell, Vec } from './contracts';
 import { createGame, act, tick, nearbyEntity, previewCast, previewPullMove, interactionPoint, canInteract, snapshot } from './model';
@@ -26,6 +27,7 @@ export class WorldScene extends Phaser.Scene {
   private stepClock=0;
   private landscape!: Phaser.GameObjects.Container;
   private homeFacade?:Phaser.GameObjects.Image;
+  private canalWater!: Phaser.GameObjects.Graphics;
   private effects!: Phaser.GameObjects.Graphics;
   private worldLabels!: Phaser.GameObjects.Container;
   private hoverLabel!: Phaser.GameObjects.Text;
@@ -59,12 +61,12 @@ export class WorldScene extends Phaser.Scene {
     this.load.image('home-inn-source',new URL('art/home-inn.png',document.baseURI).href);
     this.load.image('home-props-source',new URL('art/home-props.png',document.baseURI).href);
     this.load.image('home-ground',new URL('art/home-ground.png',document.baseURI).href);
-    for(const key of ['creek-ground','workshop-ground','crossing-ground','water-surface'])this.load.image(key,new URL(`art/${key}.png`,document.baseURI).href);
-    for(const key of ['region-architecture','journey-props','detail-props','life-props'])this.load.image(`${key}-source`,new URL(`art/${key}.png`,document.baseURI).href);
+    for(const key of ['creek-ground','workshop-ground','crossing-ground','canal-ground','water-surface'])this.load.image(key,new URL(`art/${key}.png`,document.baseURI).href);
+    for(const key of ['region-architecture','journey-props','detail-props','life-props','canal-architecture','canal-props'])this.load.image(`${key}-source`,new URL(`art/${key}.png`,document.baseURI).href);
     this.load.on('loaderror',(file:Phaser.Loader.File)=>{document.body.dataset.assetError=file.key;});
   }
   create(){
-    if(['title-source','characters-source','environment-source','enemies-source','home-inn-source','home-props-source','home-ground','creek-ground','workshop-ground','crossing-ground','water-surface','region-architecture-source','journey-props-source','detail-props-source','life-props-source'].some(key=>!this.textures.exists(key))){
+    if(['title-source','characters-source','environment-source','enemies-source','home-inn-source','home-props-source','home-ground','creek-ground','workshop-ground','crossing-ground','water-surface','region-architecture-source','journey-props-source','detail-props-source','life-props-source','canal-ground','canal-architecture-source','canal-props-source'].some(key=>!this.textures.exists(key))){
       const root=document.querySelector('#interface')!;
       root.innerHTML='<div class="veil"><section class="paper modal-paper" role="alert"><h2>山道画卷尚未展开</h2><p>部分画面未能载入，重新连接后可以再试一次。</p><button class="primary" id="retry-assets">重新载入</button></section></div>';
       document.querySelector('#retry-assets')!.addEventListener('click',()=>window.location.reload());
@@ -88,12 +90,14 @@ export class WorldScene extends Phaser.Scene {
     const detailFrames:Record<string,number[]>={decoy:[35,132,349,342],gate:[486,32,283,482],gate_slot:[932,20,276,536],fence:[82,570,248,644],rest:[426,735,399,305],shelter:[846,696,389,410]};
     for(const [name,b] of Object.entries(detailFrames))details?.add(name,0,b[0],b[1],b[2],b[3]);
     const lifeAtlas=this.keyAtlas('life-props');if(lifeAtlas)registerLifeFrames(lifeAtlas);
+    const canalArchitecture=this.keyAtlas('canal-architecture'),canalProps=this.keyAtlas('canal-props');if(canalArchitecture&&canalProps)registerCanalFrames(canalArchitecture,canalProps);
     const enemies=this.keyAtlas('enemies');
     if(enemies){const boxes=[[120,19,428,688],[734,66,458,628],[68,774,489,396],[690,784,493,385]];boxes.forEach((b,i)=>enemies.add(String(i),0,b[0],b[1],b[2],b[3]));}
     this.state=createGame({name:'行舟',origin:'herbalist',wish:'travel',appearance:0});
     this.landscape=this.add.container(0,0);
     this.worldLabels=this.add.container(0,0).setDepth(15000);
     this.effects=this.add.graphics().setDepth(12000);
+    this.canalWater=this.add.graphics().setDepth(-900);
     this.hoverLabel=this.add.text(0,0,'',{fontFamily:FONT,fontSize:'13px',color:'#f5f3df',backgroundColor:'#2d4944',padding:{x:12,y:8},align:'center'}).setResolution(display.density).setOrigin(.5,1).setDepth(25000).setVisible(false);
     this.player=this.makeCharacter('player',0,0,0);this.playerHand=this.add.graphics();this.player.add(this.playerHand);
     this.keys=this.input.keyboard!.addKeys('W,A,S,D,UP,LEFT,DOWN,RIGHT,SPACE,ONE,TWO,THREE,E,R,C,Q,J,I,M,ESC',false) as Record<string,Phaser.Input.Keyboard.Key>;
@@ -253,7 +257,7 @@ export class WorldScene extends Phaser.Scene {
       else if(!e||!this.state.player.path.length){this.queuedInteract=null;this.ui.notify('还没走到可互动的位置；请沿近处的路重新点选。');}
     }
     if(this.renderedScene!==this.state.scene)this.refreshScene();
-    const ground=`${this.state.scene}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.platformOpen}:${this.state.flags.returned}:${this.state.flags.chime}:${this.state.flags.endingWish}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}`;
+    const ground=`${this.state.scene}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.platformOpen}:${this.state.flags.returned}:${this.state.flags.chime}:${this.state.flags.endingWish}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}:${this.state.canal.stage}:${this.state.canal.cleared}`;
     if(ground!==this.groundVersion){this.groundVersion=ground;this.paintLandscape();}
     if(!this.state.paused&&!this.state.dialogue&&!this.state.defeated)this.feedback.advance(delta);
     for(const event of this.feedback.ingest(this.state.events,this.state.player)){
@@ -304,7 +308,7 @@ export class WorldScene extends Phaser.Scene {
     this.homeFacade?.destroy();this.homeFacade=undefined;
     this.landscape.removeAll(true);
     const m=SCENES[this.state.scene],g=this.add.graphics();this.landscape.add(g);
-    const rand=seeded(['home','creek','workshop','crossing'].indexOf(m.id)*43+83);
+    const rand=seeded(['home','creek','workshop','crossing','canal'].indexOf(m.id)*43+83);
     const terrainKey='terrain-detail';
     if(this.textures.exists(terrainKey))this.textures.remove(terrainKey);
     const terrain=this.textures.createCanvas(terrainKey,m.width*2,m.height*2)!;
@@ -321,6 +325,7 @@ export class WorldScene extends Phaser.Scene {
     if(m.id==='creek')this.paintCreek(g,rand);
     if(m.id==='workshop')this.paintWorkshop(g,rand);
     if(m.id==='crossing')this.paintCrossing(g,rand);
+    if(m.id==='canal')paintCanalLandscape(this,this.landscape,g);
     for(const ob of m.obstacles){
       if(ob.flag&&this.state.flags[ob.flag])continue;
       // All collision rectangles have visible geometry, never invisible walls.
@@ -461,9 +466,12 @@ export class WorldScene extends Phaser.Scene {
     const art=this.add.graphics(),label=this.add.text(0,15,e.name,{fontFamily:FONT,fontSize:'12px',color:'#344d3d',backgroundColor:'#eaf0d9cc',padding:{x:6,y:3}}).setResolution(display.density).setOrigin(.5,0);
     if(e.kind==='exit')configureWayfindingLabel(label,e.name,display.density);
     let container:Phaser.GameObjects.Container;let image:Phaser.GameObjects.Image|undefined;let propImage:Phaser.GameObjects.Image|undefined;
-    if(e.kind==='npc'){
+    const canalVisual=this.state.scene==='canal'?createCanalVisual(this,e):undefined;
+    if(canalVisual){container=this.add.container(e.x,e.y,[canalVisual,art,label]);}
+    else if(e.kind==='npc'){
       container=this.makeCharacter(e.type,e.x,e.y,e.type==='tao'?2:3);
       image=container.list.find(o=>o instanceof Phaser.GameObjects.Image) as Phaser.GameObjects.Image|undefined;
+      if(e.type==='keeper'&&image)image.setTexture('canal-props','keeper').setDisplaySize(36,84);
       container.add(art);container.add(label);
     }else if(e.kind==='enemy'&&this.textures.exists('enemies')){
       const frame=(e.type==='beast'?2:0)+(e.id.endsWith('_b')?1:0);
@@ -500,7 +508,7 @@ export class WorldScene extends Phaser.Scene {
       g.lineStyle(2,0x524e40);g.lineBetween(-9,-34,-7,-39);
     }
     if(e.kind==='npc'||e.type==='rock_source'||['decoy','gate','gate_slot','shelter'].includes(e.type)||(e.kind==='rest'&&this.state.scene!=='home'))return;
-    if(e.id.startsWith('life_'))return;
+    if(e.id.startsWith('life_')||(e.id.startsWith('canal_')&&e.kind!=='exit'))return;
     if(this.journeyFrame(e)){
       if(['marks','negotiator','far_bank','ridge_marker'].includes(e.type)){
         g.lineStyle(1.7,0xcfd4b8,.9);g.lineBetween(-10,-33,10,-38);g.lineBetween(-9,-25,8,-29);g.lineBetween(-6,-17,6,-19);
@@ -562,6 +570,7 @@ export class WorldScene extends Phaser.Scene {
       g.strokePoints(route.reduce<Phaser.Geom.Point[]>((points,n,i)=>{if(i%2===0)points.push(new Phaser.Geom.Point(n,route[i+1]));return points;},[]),false);
       if(this.state.flags.travelInvited){g.lineStyle(2,0x889c5c);g.lineBetween(-25,-38,23,-38);}
     }
+    if(e.id==='table')drawCanalHomeRecord(g,this.state);
     if(e.type==='workbench'&&(this.state.flags.roomTalk||this.state.flags.endingWish==='stay')){
       g.fillStyle(0x718977);g.fillRect(-22,-52,23,13);g.lineStyle(1,0xd5c794);g.lineBetween(-18,-48,-5,-48);
       if(this.state.flags.endingWish==='stay'){g.lineStyle(3,0x8a7954);g.lineBetween(43,-38,43,-93);g.lineBetween(43,-93,28,-93);g.lineStyle(2,0xcab57a);g.lineBetween(28,-93,28,-83);g.strokeCircle(28,-76,7);}
@@ -585,9 +594,9 @@ export class WorldScene extends Phaser.Scene {
       const r=this.renders.get(e.id)||this.makeEntity(e);
       const isGone=['taken','gone','hidden'].includes(e.state)||(e.id==='lamp'&&Boolean(this.state.flags.lampFixed));
       r.container.setVisible(!isGone);if(isGone)continue;
-      const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.life?.repair?.stage}:${this.state.life?.repair?.softened}:${this.state.life?.repair?.latched}:${this.state.life?.repair?.tested}:${this.state.life?.harvest?.sun}:${this.state.life?.harvest?.shade}:${this.state.life?.clamp}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}`;
+      const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.life?.repair?.stage}:${this.state.life?.repair?.softened}:${this.state.life?.repair?.latched}:${this.state.life?.repair?.tested}:${this.state.life?.harvest?.sun}:${this.state.life?.harvest?.shade}:${this.state.life?.clamp}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}:${this.state.canal.stage}:${this.state.canal.cleared}`;
       if(r.stateKey!==key){r.stateKey=key;this.drawObject(e,r.art);}
-      if(r.lifeVisual)updateLifeVisual(r.lifeVisual,e,this.state,this.settings.reduced);
+      if(r.lifeVisual){if(e.id.startsWith('canal_'))updateCanalVisual(r.lifeVisual,e,this.state,this.settings.reduced);else updateLifeVisual(r.lifeVisual,e,this.state,this.settings.reduced);}
       r.container.setPosition(e.x,e.y).setDepth(e.y+(e.kind==='npc'?100:0));
       if(r.propImage){
         const flat=['board','shield_board','platform_beam','boat'].includes(e.type);
@@ -636,6 +645,8 @@ export class WorldScene extends Phaser.Scene {
   }
   private drawEffects(){
     const g=this.effects,p=this.state.player,t=this.state.time;g.clear();
+    drawCanalWater(this.canalWater,this.state,this.settings.reduced);
+    this.soundscape.setWaterFlow(this.state.scene==='canal'?(this.state.canal.flow>=3?1:1-this.state.canal.drain):0);
     this.drawPlacement();
     if(this.state.scene==='creek'||this.state.scene==='crossing'){
       for(const water of SCENES[this.state.scene].ground.filter(s=>s.type==='water')){

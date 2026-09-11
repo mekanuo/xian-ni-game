@@ -2,7 +2,7 @@ import type { GameAction, GameState, Profile, Spell } from './contracts';
 import { createGame, snapshot, restore, objective, nearbyEntity } from './model';
 import { SCENES } from './content';
 import type { Soundscape } from './audio';
-import { nearbyEncounter, lifeObjective } from './encounters';
+import { nearbyEncounter } from './encounters';
 
 const SAVE = 'xian-ni-return-stone-save-v1';
 const AUTO = 'xian-ni-return-stone-safe-v1';
@@ -96,18 +96,19 @@ export class GameUI {
     const s = this.hooks.get();
     if (this.screen==='journal') {
       const entries = s.events.filter(e=>e.text).slice(-50).reverse();
-      this.shell('行路记事',`<div class="journal-goal"><span>眼下要做</span><p>${esc(lifeObjective(s) || objective(s))}</p></div><div class="scroll-page">${entries.map(e=>`<article class="journal-entry"><span>${Math.floor(e.time/60).toString().padStart(2,'0')} · ${Math.floor(e.time%60).toString().padStart(2,'0')}</span><p>${esc(e.text)}</p></article>`).join('') || '<p>今日的路，从回石驿开始。</p>'}</div>`);
+      this.shell('行路记事',`<div class="journal-goal"><span>眼下要做</span><p>${esc(objective(s))}</p></div><div class="scroll-page">${entries.map(e=>`<article class="journal-entry"><span>${Math.floor(e.time/60).toString().padStart(2,'0')} · ${Math.floor(e.time%60).toString().padStart(2,'0')}</span><p>${esc(e.text)}</p></article>`).join('') || '<p>今日的路，从回石驿开始。</p>'}</div>`);
     } else if (this.screen==='bag') {
       const life=s.life;
       const leafPlace={unpicked:'尚未采到',bag:'行囊中',upper:'晒架上层',lower:'晒架下层'};
-      const repairCard=life.repair.stage==='unaccepted'?'':`<article><span class="item-glyph">扣</span><h3>陶七的挂扣</h3><p>${life.repair.stage==='complete'?'已经试压并交还。你的压扣在'+(life.clamp==='bag'?'行囊中':life.clamp==='home'?'工位固定眼':'眺台侧托')+'。':life.repair.tested?'已承住试重，回驿交还陶七。':life.repair.latched?'钳口已压紧，还需实际试压。':life.repair.softened?'旧胶已松，牵正钳口再压紧。':'去旧工棚装件，向炉芯施火松开旧胶。'}</p></article>`;
+      const repairCard=life.repair.stage==='unaccepted'?'':`<article><span class="item-glyph">扣</span><h3>陶七的挂扣</h3><p>${life.repair.stage==='complete'?'已经试压并交还。你的压扣在'+(life.clamp==='bag'?'行囊中':life.clamp==='home'?'工位固定眼':life.clamp==='canal'?'雾岭旧渠截水架':'眺台侧托')+'。':life.repair.tested?'已承住试重，回驿交还陶七。':life.repair.latched?'钳口已压紧，还需实际试压。':life.repair.softened?'旧胶已松，牵正钳口再压紧。':'去旧工棚装件，向炉芯施火松开旧胶。'}</p></article>`;
       const harvestCard=life.harvest.stage==='unaccepted'?'':`<article><span class="item-glyph">叶</span><h3>两束新叶</h3><p>向阳叶：${leafPlace[life.harvest.sun]}<br>背阴叶：${leafPlace[life.harvest.shade]}</p><p>细长叶在上层，宽圆叶在下层。</p></article>`;
-      const rewardCard=life.harvest.stage==='complete'?`<article><span class="item-glyph">囊</span><h3>避兽药囊 · ${life.sachets}份</h3><p>在旧工棚林路脚边拆开，附近山兽绕行八秒。对人和落石无效。</p>${life.sachets>0?this.button('拆开一份，放在脚边','use-sachet','small-button'):''}</article>`:'';
-      const lifeCards=repairCard+harvestCard+rewardCard;
+      const rewardCard=life.harvest.stage==='complete'?`<article><span class="item-glyph">囊</span><h3>避兽药囊 · ${life.sachets}份</h3><p>在旧工棚或旧渠干坡脚边拆开，附近山兽绕行八秒。对人和落石无效。${life.scent?`气味正留在${life.scent.scene==='workshop'?'旧工棚':'雾岭旧渠'}，回到原图才继续散去。`:''}</p>${life.sachets>0?this.button('拆开一份，放在脚边','use-sachet','small-button'):''}</article>`:'';
+      const canalCard=s.canal.stage==='unaccepted'?'':`<article><span class="item-glyph">渠</span><h3>${s.canal.stage==='complete'?'亲手添下的旧渠小图':'雾岭来信'}</h3><p>${esc(objective(s))}</p></article>`;
+      const lifeCards=repairCard+harvestCard+rewardCard+canalCard;
       this.shell('随身之物',`<div class="inventory"><article><span class="item-glyph">◎</span><h3>${s.flags.ringOwned?'控物环':'控物环还在工棚'}</h3><p>辅助引力术的普通法器，旧称“引环”。</p><p>${s.ringStyle==='long'?'长牵：可将十步内的轻物牵到身边。':s.ringStyle==='hold'?'留势：牵住物件后，按 R 使它停留八秒。':'控物环（旧称引环）：辅助引力术的普通法器。'}</p></article><article><span class="item-glyph">符</span><h3>护符·障</h3><p>向面前张开护持，挡一次正面攻击。侧后仍需留意。</p></article><article><span class="item-glyph">药</span><h3>伤药 · ${s.herbs}份</h3><p>就地恢复两格体力。</p>${this.button('使用伤药','heal','small-button')}</article>${lifeCards}${s.flags.chime?'<article><span class="item-glyph">铃</span><h3>山间风铃</h3><p>从眺台带回的清响，可以挂在驿中窗边。</p></article>':''}</div><p class="muted">当前练法可在回石驿工位调整。打开行囊时，世界已暂停。</p>`);
     } else if (this.screen==='map') {
       const seen = s.scene;
-      this.shell('山道小图',`<div class="route-map"><div class="map-place ${seen==='home'?'here':''}">回石驿<small>灯架 · 桌边 · 工位</small></div><i>⇄</i><div class="map-place ${seen==='creek'?'here':''}">雨中溪道<small>小舟 · 雨棚 · 眺台</small></div><div class="map-branches"><div class="map-place ${seen==='workshop'?'here':''}">旧工棚<small>林路 · 控物环 · 试架</small></div><div class="map-place ${seen==='crossing'?'here':''}">石渡<small>主闸 · 低滩 · 山脊</small></div></div></div><p class="muted">沿路上的方向牌移动到出口，再按 E。小图只标记道路，不代你赶路。</p>`);
+      this.shell('山道小图',`<div class="route-map"><div class="map-place ${seen==='home'?'here':''}">回石驿<small>灯架 · 桌边 · 工位</small></div>${s.canal.stage!=='unaccepted'?`<div class="map-place ${seen==='canal'?'here':''}">雾岭旧渠<small>取水处 · 分水槽 · 截水架</small><small>由回石驿另行出发</small></div>`:''}<i>⇄</i><div class="map-place ${seen==='creek'?'here':''}">雨中溪道<small>小舟 · 雨棚 · 眺台</small></div><div class="map-branches"><div class="map-place ${seen==='workshop'?'here':''}">旧工棚<small>林路 · 控物环 · 试架</small></div><div class="map-place ${seen==='crossing'?'here':''}">石渡<small>主闸 · 低滩 · 山脊</small></div></div></div><p class="muted">沿路上的方向牌移动到出口，再按 E。小图只标记道路，不代你赶路。</p>`);
     } else if (this.screen==='settings') {
       this.shell('行止与声音',`<div class="settings-list"><label><span>音效</span><input data-setting="volume" type="range" min="0" max="1" step=".05" value="${this.settings.volume}" aria-label="音效音量"></label><label><span>背景音乐</span><input data-setting="music" type="range" min="0" max="1" step=".05" value="${this.settings.music}" aria-label="音乐音量"></label><label><span>减少雨线与镜头缓动</span><input data-setting="reduced" type="checkbox" ${this.settings.reduced?'checked':''}></label><label><span>高对比交互轮廓</span><input data-setting="contrast" type="checkbox" ${this.settings.contrast?'checked':''}></label><label><span>更大的对话文字</span><input data-setting="large" type="checkbox" ${this.settings.large?'checked':''}></label></div><div class="modal-actions">${this.button('保存此刻','save','primary')}${this.button('载入手动档','load-manual','secondary')}${this.button('载入自动档','load-auto','secondary')}${this.button('导出存档','export','secondary')}<label class="button secondary">导入存档<input id="import-save" type="file" accept="application/json,.json" hidden></label>${this.button('重新开始','restart','text-button')}</div>`);
     } else if (this.screen==='help') {
@@ -151,7 +152,7 @@ export class GameUI {
   private change(e: Event) {
     const el = e.target as HTMLInputElement;
     if (el.id==='import-save' && el.files?.[0]) {
-      el.files[0].text().then(raw=>{ try { const s=restore(raw); this.hooks.replace(s); this.started=true; this.lastAuto=s.checkpoint||''; this.close(); this.notify('存档已载入，按空格继续。'); } catch { this.notify('无法读取这份存档，当前行程没有改变。'); } });
+      el.files[0].text().then(raw=>{ try { const s=restore(raw); s.paused=true; this.pauseBeforeMenu=true; this.hooks.replace(s); this.hooks.act({type:'pause',value:true}); this.started=true; this.lastAuto=s.checkpoint||''; this.endingShown=Boolean(s.flags.endingWish); this.lastEvent=-1; this.close(); this.notify('存档已载入，按空格继续。'); } catch { this.notify('无法读取这份存档，当前行程没有改变。'); } });
     }
     const key=el.dataset.setting as keyof Settings | undefined;
     if (key) {
@@ -183,8 +184,9 @@ export class GameUI {
       const latest=Number(localStorage.getItem(AUTO+'-time'))>Number(localStorage.getItem(SAVE+'-time'))?AUTO:SAVE;
       const raw=slot?localStorage.getItem(slot):(localStorage.getItem(latest)||localStorage.getItem(latest===SAVE?AUTO:SAVE));
       if (!raw) { this.notify('还没有存档，先走一段路吧。'); return; }
-      const restored=restore(raw); this.hooks.replace(restored); this.started=true; this.lastAuto=restored.checkpoint||''; this.endingShown=false; this.lastEvent=-1; this.close();
-      this.hooks.act({type:'pause',value:true}); this.notify('回到保存的此刻，按空格继续。');
+      // Closing the old menu must not resume the new world or execute its pending action.
+      const restored=restore(raw); restored.paused=true; this.pauseBeforeMenu=true; this.hooks.replace(restored); this.hooks.act({type:'pause',value:true}); this.started=true; this.lastAuto=restored.checkpoint||''; this.endingShown=Boolean(restored.flags.endingWish); this.lastEvent=-1; this.close();
+      this.notify('回到保存的此刻，按空格继续。');
     } catch { this.notify('存档不兼容或已损坏，当前行程未改变。可以导入备份。'); }
   }
   private export() {

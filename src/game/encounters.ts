@@ -1,3 +1,4 @@
+import { canalDescription, canalObjective, canalWaterState } from './canal';
 import type { Entity, GameState, Vec } from './contracts';
 
 export interface EncounterView { id: string; title: string; fact: string; options: string[] }
@@ -76,6 +77,12 @@ function crossing(s: GameState,ridge: boolean): EncounterView {
 /** Only local, observable circumstances; never changes progress or issues actions. */
 export function nearbyEncounter(s: GameState): EncounterView|undefined {
   const near=(ids:string[],radius:number)=>s.worlds[s.scene].filter(e=>ids.includes(e.id)&&e.state!=='hidden').some(e=>distance(s.player,e)<=radius);
+  if(s.scene==='canal'){
+    const local=s.worlds.canal.filter(e=>e.state!=='hidden'&&e.kind!=='enemy'&&distance(e,s.player)<200).sort((a,b)=>distance(a,s.player)-distance(b,s.player))[0];
+    const water=canalWaterState(s);
+    return view('canal-water',local?.name||'雾岭旧渠',local?canalDescription(s,local)||canalObjective(s)||'沿高岸看清水路':canalObjective(s)||'旧渠仍在山路旁',water==='stopped'?'上游暂截，留意剩余支撑；沿台阶进退':water==='diverted'?'旁路通流，西岸始终可走':'近身察看检修台，再安排分水或截水','分水板可以徒手推入固定槽，不耗灵力');
+  }
+  if(s.scene==='home'&&['stay','travel'].includes(String(s.flags.endingWish))&&near(['table'],190))return view('canal-letter','桌边的新路',canalObjective(s)||'旧渠看渠人的口信留在碗旁','到桌边接信或亲手添图','从驿前路牌选好此行去处');
   if(s.scene==='home'&&['stay','travel'].includes(String(s.flags.endingWish))&&near(['workbench','herb_rack','tao','xu'],160))return view('life-home-talk','灯下的手艺',lifeObjective(s)||'回驿继续手上的活','与工位旁的陶七交谈','到晒架看许照的叶图');
   if(s.scene==='home'&&near(['lamp_stand'],280))return s.flags.lampFixed
     ? view('home-lamp','灯下归处','灯盏已经归架，暖光照着熟悉的院子。',s.flags.returned?'到自己的桌边放环或摊图':!s.flags.tools?'沿溪道取回自己的器具袋':!s.flags.ringOwned?'去旧工棚取回自己的控物环':!s.flags.ringTrained?'回旧工棚，与陶七亲手试环':'沿溪道去石渡，用控物环试路')
@@ -108,6 +115,7 @@ export function nearbyEncounter(s: GameState): EncounterView|undefined {
 }
 
 export function inspectObject(s: GameState,e: Entity): string {
+  const canalText=canalDescription(s,e);if(canalText!==undefined)return canalText;
   const lifeText=lifeDescription(s,e);if(lifeText!==undefined)return lifeText;
   const f=s.flags;
   switch(e.id){
@@ -136,6 +144,8 @@ export function placementAnchors(s: GameState): Array<Vec & {id:string;title:str
   const id=s.player.pullId;
   if(!id||s.player.hold>0||!object(s,id)?.movable)return [];
   switch(id){
+    case 'canal_diverter':return [{id:'canal-divert',title:'旁路分水槽',x:680,y:350},{id:'canal-restore',title:'原渠槽口',x:600,y:350}];
+    case 'canal_stop':return [{id:'canal-stop',title:'左侧止水槽',x:1200,y:350},{id:'canal-open',title:'截水板原位',x:1280,y:350}];
     case 'life_jaw':return s.life?.repair.softened && !s.life.repair.latched ? [{id:'life-jaw-rail',title:'钳口右侧刻线',x:1420,y:570}] : [];
     case 'life_practice':return s.life?.clamp==='bag' ? [{id:'life-home-eye',title:'工位固定眼',x:1030,y:500}] : [];
     case 'lamp':return s.flags.lampFixed?[]:[{id:'lamp-stand',title:'灯架旁',x:560,y:665}];

@@ -16,6 +16,7 @@ export class Soundscape {
   private musicLevel = .25;
   private muted = false;
   private scene = 'home';
+  private waterFlow = 0;
   private scheduled = 0;
   private effectCounts: Record<string, number> = {};
   private lastEffect = '';
@@ -102,6 +103,7 @@ export class Soundscape {
     };
   }
   setScene(scene: string) { this.scene = scene; }
+  setWaterFlow(amount:number) { this.waterFlow=Math.max(0,Math.min(1,amount)); }
   /** Effects fader; music is deliberately independent. */
   setVolume(value: number) { this.volume = this.clamp(value); this.level(this.effectGain, this.muted ? 0 : this.volume); }
   setMuted(muted: boolean) {
@@ -141,14 +143,14 @@ export class Soundscape {
     if (!this.context || this.context.state !== 'running' || !this.requested) return;
     const now = this.context.currentTime;
     if (this.nextNote < now) this.nextNote = now + .025; // Never burst missed notes after backgrounding.
-    const beat = 60 / (this.scene === 'crossing' ? 80 : this.scene === 'workshop' ? 76 : 70);
+    const beat = 60 / (this.scene === 'crossing' ? 80 : this.scene === 'workshop' ? 76 : this.scene === 'canal' ? 68 : 70);
     // Eight original bars: call, answer, ascending journey, quiet return. -1 is a deliberate breath.
     const melody = [0, 2, 4, -1, 2, 1, 0, -1, 1, 2, 4, 5, 4, 2, 1, -1,
       2, 4, 5, -1, 7, 5, 4, 2, 1, 2, 0, -1, 1, 0, -1, -1,
       4, 5, 7, -1, 5, 4, 2, -1, 2, 4, 5, 4, 2, 1, 0, -1,
       1, 2, 4, 2, 1, 0, 1, -1, 2, 1, 0, -1, 0, -1, -1, -1];
     const scale = [0, 2, 4, 7, 9];
-    const pitch = (degree: number) => 293.6648 * 2 ** ((scale[degree % 5] + 12 * Math.floor(degree / 5)) / 12);
+    const pitch = (degree: number) => (this.scene==='canal'?261.6256:293.6648) * 2 ** ((scale[degree % 5] + 12 * Math.floor(degree / 5)) / 12);
     while (this.nextNote < now + .22) {
       const at = this.nextNote; const index = this.step % melody.length;
       const note = melody[index]; const bar = Math.floor(index / 8);
@@ -159,6 +161,7 @@ export class Soundscape {
         if (bar % 2 === 1 && index % 2 === 0) this.tone(frequency, beat * 2.2, .115, 'music', at + .025, 'sine', undefined, .1);
       }
       if (index % 8 === 0) {
+        if(this.scene==='canal'&&this.waterFlow>0)this.noise(beat*3.8,.035*this.waterFlow,850,at,'bandpass');
         const root = pitch([0, 2, 4, 0, 2, 4, 1, 0][bar]) / 4;
         this.tone(root, beat * 3.9, .27, 'music', at, 'sine', undefined, .04);
         this.tone(root * 2, beat * 4.2, .1, 'music', at, 'sine', undefined, .24);

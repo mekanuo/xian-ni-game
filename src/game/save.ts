@@ -1,10 +1,13 @@
 import { SCENES } from './content';
 import { initialLifeEntities } from './life-content';
 import { createLifeState } from './life';
-import type { Entity, GameAction, GameState, LifeState, SceneId, Vec } from './contracts';
+import { createCanalState, canalWaterState } from './canal';
+import { CANAL_SCENE, CANAL_CHANNEL } from './canal-content';
+import type { CanalState, ClampSite, Entity, GameAction, GameState, LifeState, SceneId, Vec } from './contracts';
 
 export const MAX_SAVE_BYTES = 2_000_000;
-const scenes: SceneId[] = ['home','creek','workshop','crossing'];
+const oldScenes: SceneId[] = ['home','creek','workshop','crossing'];
+const scenes: SceneId[] = [...oldScenes,'canal'];
 const record = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 const finitePoint = (p: Vec): boolean => !!p && finite(p.x) && finite(p.y);
@@ -12,7 +15,7 @@ const distance = (a: Vec, b: Vec) => Math.hypot(a.x-b.x,a.y-b.y);
 const check = (valid: unknown, message: string): void => { if (!valid) throw Error(message); };
 
 /** Validate the life ledger first, then its physical representation below. */
-export function validateLife(l: LifeState): void {
+export function validateLife(l: LifeState, legacy = false): void {
   check(record(l) && record(l.repair) && record(l.harvest), '生活状态格式无效');
   const r=l.repair, h=l.harvest;
   check(['unaccepted','active','ready','complete'].includes(r.stage) && ['unaccepted','active','ready','complete'].includes(h.stage), '生活状态阶段无效');
@@ -30,17 +33,19 @@ export function validateLife(l: LifeState): void {
   check(h.stage!=='complete' || h.sun==='upper'&&h.shade==='lower', '叶片未正确分拣');
   check(h.picking===null || record(h.picking)&&['life_sun_leaf','life_shade_leaf'].includes(h.picking.id)&&finitePoint(h.picking.start)&&finite(h.picking.elapsed)&&h.picking.elapsed>=0&&h.picking.elapsed<2, '采叶计时无效');
   if(h.picking) check(h.stage==='active'&&h[h.picking.id==='life_sun_leaf'?'sun':'shade']==='unpicked', '当前叶片不能采摘');
-  check(['unowned','bag','home','lookout'].includes(l.clamp) && Number.isInteger(l.sachets)&&l.sachets>=0&&l.sachets<=2, '奖励状态无效');
+  check(['unowned','bag','home','lookout',...(legacy?[]:['canal'])].includes(l.clamp) && Number.isInteger(l.sachets)&&l.sachets>=0&&l.sachets<=2, '奖励状态无效');
   check((r.stage==='complete')===(l.clamp!=='unowned'), '压扣与交付结果不一致');
   check(l.scent===null || record(l.scent)&&finite(l.scent.remaining)&&l.scent.remaining>0&&l.scent.remaining<=8, '药囊计时无效');
+  check(l.scent===null || (legacy?l.scent.scene===undefined:['workshop','canal'].includes(l.scent.scene)), '药囊所属场景无效');
   check(h.stage==='complete' || l.sachets===0&&l.scent===null, '未交付采叶不能持有药囊');
   check(l.scent===null || l.sachets<2, '药囊已拆开但份数未扣除');
 }
 
-function validateEntities(s: GameState, legacy: boolean): void {
-  check(record(s.worlds) && Object.keys(s.worlds).length===scenes.length, '存档场景清单无效');
-  for(const id of scenes) {
-    const templates=[...SCENES[id].entities,...(legacy?[]:initialLifeEntities(id))];
+function validateEntities(s: GameState, version: 1|2|3): void {
+  const manifest=version===3?scenes:oldScenes;
+  check(record(s.worlds) && Object.keys(s.worlds).length===manifest.length && Object.keys(s.worlds).every(id=>manifest.includes(id as SceneId)), '存档场景清单无效');
+  for(const id of manifest) {
+    const templates=[...(id==='canal'?CANAL_SCENE:SCENES[id]).entities,...(version===1?[]:initialLifeEntities(id))];
     const list=s.worlds[id];
     check(Array.isArray(list)&&list.length===templates.length, '存档缺少场景器物');
     const seen=new Set<string>();
@@ -55,7 +60,7 @@ function validateEntities(s: GameState, legacy: boolean): void {
   }
 }
 
-function validateLifeWorld(s: GameState): void {
+function validateLifeWorld(s: GameState, legacy = false): void {
   const l=s.life, r=l.repair, h=l.harvest;
   const all=Object.values(s.worlds).flat();
   const entity=(id:string)=>all.find(e=>e.id===id)!;
@@ -72,21 +77,48 @@ function validateLifeWorld(s: GameState): void {
   check((jaw.state==='latched')===r.latched, '钳口固定状态与工序不一致');
   if(r.latched)check(distance(jaw,{x:1420,y:570})<.001&&s.player.pullId!==jaw.id, '固定钳口位置无效');
   if(r.testing!==null)check(s.scene==='workshop'&&distance(s.player,entity('life_press'))<96&&(!s.player.pullId||s.player.hold>0), '试压计时与人物位置不一致');
-  const targets: Array<{site:'home'|'lookout';entity:Entity;point:Vec}>=[{site:'home',entity:entity('life_practice'),point:{x:1030,y:500}},{site:'lookout',entity:entity('platform_beam'),point:{x:980,y:285}}];
+  const targets: Array<{site:ClampSite;entity:Entity;point:Vec}>=[{site:'home',entity:entity('life_practice'),point:{x:1030,y:500}},{site:'lookout',entity:entity('platform_beam'),point:{x:980,y:285}}];
+  if(!legacy)targets.push({site:'canal',entity:entity('canal_stop'),point:{x:1200,y:350}});
   for(const target of targets) {
     const installed=l.clamp===target.site;
     check((target.entity.state==='clamped')===installed, '压扣与承托物状态不一致');
     if(installed)check(distance(target.entity,target.point)<.001&&s.player.pullId!==target.entity.id, '压扣与承托物位置不一致');
   }
-  check(all.filter(e=>e.state==='clamped').length===(l.clamp==='home'||l.clamp==='lookout'?1:0), '压扣被重复安装');
+  check(all.filter(e=>e.state==='clamped').length===(['home','lookout','canal'].includes(l.clamp)?1:0), '压扣被重复安装');
   check(l.clamp!=='lookout'||s.flags.platformOpen===true, '眺台支撑与通路状态不一致');
   const scent=entity('life_scent');
-  check(scent.state===(l.scent?'idle':'hidden'), '药囊计时与现场状态不一致');
+  check(scent.state===(l.scent&&(legacy||l.scent.scene==='workshop')?'idle':'hidden'), '药囊计时与现场状态不一致');
+  if(!legacy)check(entity('canal_scent').state===(l.scent?.scene==='canal'?'idle':'hidden'), '旧渠药囊计时与现场状态不一致');
 }
 
 export function validateManifest(s:GameState):void {
-  check(s.contentVersion===2,'存档内容版本不匹配');
-  validateEntities(s,false);validateLife(s.life);validateLifeWorld(s);
+  check(s.contentVersion===3,'存档内容版本不匹配');
+  validateEntities(s,3);validateLife(s.life);validateLifeWorld(s);validateCanal(s);
+}
+
+function validateCanal(s:GameState):void {
+  const c:CanalState=s.canal;
+  check(record(c)&&['unaccepted','active','verified','ready','complete'].includes(c.stage),'旧渠阶段无效');
+  check([c.inspected,c.cleared,c.sharedInspect,c.sharedVerify,c.usedClamp].every(v=>typeof v==='boolean')&&[null,'diversion','hold','clamp'].includes(c.method),'旧渠工序格式无效');
+  check(finite(c.drain)&&c.drain>=0&&c.drain<=1&&finite(c.flow)&&c.flow>=0&&c.flow<=3&&(c.surge===null||finite(c.surge)&&c.surge>=0&&c.surge<=1.2),'旧渠水位计时无效');
+  const verified=['verified','ready','complete'].includes(c.stage);
+  check(c.stage==='unaccepted'||['stay','travel'].includes(String(s.flags.endingWish)),'首章结束前不能接取旧渠');
+  check(c.cleared===(c.method!==null)&&(!c.cleared||c.inspected)&&(!verified||c.cleared),'清渠结果与工序不一致');
+  check((!c.sharedInspect||c.inspected)&&(!c.sharedVerify||verified)&&(!(c.method==='clamp')||c.usedClamp),'旧渠见证或用扣记录不一致');
+  check(c.stage!=='unaccepted'||!c.inspected&&!c.cleared&&!c.sharedInspect&&!c.sharedVerify&&!c.usedClamp&&c.work===null&&c.drain===0&&c.flow===0&&c.surge===null,'未接取旧渠不能已有工序');
+  check(c.stage!=='unaccepted'||s.scene!=='canal'&&s.lastSafe.scene!=='canal','未接取旧渠不能已在旧渠');
+  check(c.work===null||record(c.work)&&['divert','restore','clear'].includes(c.work.kind)&&finite(c.work.elapsed)&&c.work.elapsed>=0&&c.work.elapsed<2&&finitePoint(c.work.start),'旧渠操作计时无效');
+  const entity=(id:string)=>s.worlds.canal.find(e=>e.id===id)!;
+  for(const [id,min,max] of [['canal_diverter',600,680],['canal_stop',1200,1280]] as const){const e=entity(id);check(e.x>=min&&e.x<=max&&Math.abs(e.y-350)<=10,'旧渠水板脱离导轨');}
+  check(entity('canal_screen').state===(c.cleared?'cleared':'idle'),'筛框现场与清理记录不一致');
+  check(entity('canal_rest_mid').state===(verified?'idle':'hidden'),'旧渠歇脚点与验水记录不一致');
+  check(s.life.clamp!=='canal'||c.stage!=='unaccepted'&&c.usedClamp,'旧渠压扣缺少安装记录');
+  check(s.life.scent?.scene!=='canal'||c.stage!=='unaccepted','未开放旧渠不能放置药囊');
+  if(c.work){
+    const target=entity(c.work.kind==='clear'?'canal_screen':'canal_diverter');
+    check(s.scene==='canal'&&c.stage!=='unaccepted'&&distance(s.player,c.work.start)<=4&&distance(s.player,target)<96&&(!s.player.pullId||s.player.hold>0)&&!s.flags.casting,'旧渠操作与人物位置或动作不一致');
+    if(c.work.kind==='clear')check(c.inspected&&!c.cleared&&c.drain===1&&['diverted','stopped'].includes(canalWaterState(s))&&s.player.x>=CANAL_CHANNEL.x&&s.player.x<=CANAL_CHANNEL.x+CANAL_CHANNEL.w&&s.player.y>=CANAL_CHANNEL.y&&s.player.y<=CANAL_CHANNEL.y+CANAL_CHANNEL.h,'当前渠底不能清理');
+  }
 }
 
 export function snapshot(s:GameState):string { return JSON.stringify(s); }
@@ -113,13 +145,21 @@ export function migrateSave(json:string):string { return snapshot(restore(json))
 
 function restoreWorld(s:GameState):GameState {
   check(record(s),'存档世界格式无效');
-  check(s.contentVersion===undefined||s.contentVersion===2,'存档内容版本不匹配');
-  const legacy=s.contentVersion===undefined;
+  const version:unknown=s.contentVersion;
+  check(version===undefined||version===2||version===3,'存档内容版本不匹配');
+  const legacy=version===undefined;
+  if(version!==3)check(!Object.hasOwn(s,'canal')&&oldScenes.includes(s.scene)&&oldScenes.includes(s.lastSafe?.scene),'旧存档不能混入旧渠数据');
   if(legacy) {
     check(!('life' in s),'旧存档不能混入新版生活状态');
-    validateEntities(s,true);
-    for(const id of scenes)s.worlds[id].push(...initialLifeEntities(id));
-    s.contentVersion=2;s.life=createLifeState();
+    validateEntities(s,1);
+    for(const id of oldScenes)s.worlds[id].push(...initialLifeEntities(id));
+    s.life=createLifeState();
+  }
+  if(version!==3) {
+    validateEntities(s,2);validateLife(s.life,true);validateLifeWorld(s,true);
+    if(s.life.scent)s.life.scent.scene='workshop';
+    s.worlds.canal=CANAL_SCENE.entities.map(e=>structuredClone({...e,homeX:e.x,homeY:e.y}));
+    s.canal=createCanalState();s.contentVersion=3;
   }
   if(!s||s.schema!==1||s.revision!=='return-stone-v1'||!scenes.includes(s.scene)||!s.profile||!['herbalist','tinker'].includes(s.profile.origin)||!['stay','travel'].includes(s.profile.wish)||typeof s.profile.name!=='string'||![0,1].includes(s.profile.appearance)||!s.player||!finitePoint(s.player)||!Number.isFinite(s.time)||s.time<0||!Number.isInteger(s.player.hp)||s.player.hp<0||s.player.hp>4||!Number.isInteger(s.player.mana)||s.player.mana<0||s.player.mana>6||!Array.isArray(s.player.path)||!s.player.path.every(finitePoint)||!s.worlds||!s.flags||Array.isArray(s.flags)||!Array.isArray(s.events)||!Array.isArray(s.projectiles)||!s.lastSafe||!scenes.includes(s.lastSafe.scene)||!finitePoint(s.lastSafe.point)||!['long','hold',null].includes(s.ringStyle)||!Number.isInteger(s.herbs)||s.herbs<0||s.herbs>2||typeof s.paused!=='boolean'||typeof s.ended!=='boolean'||typeof s.defeated!=='boolean')throw Error('存档版本或世界数据不匹配');
   if(!['pull','flame','ward'].includes(s.selected)||Object.values(s.flags).some(v=>!['boolean','string','number'].includes(typeof v)||(typeof v==='number'&&!Number.isFinite(v))))throw Error('存档标记数据无效');

@@ -140,16 +140,16 @@ export function lifeTick(s:GameState,dt:number,p:LifePorts):void{
  if(r.testing!==null){const press=object(s,'life_press');if(!closeTo(s,press,p)||!freeHand(s)){r.testing=null;}else{r.testing+=dt;if(r.testing>=1){r.testing=null;r.tested=true;r.stage='ready';p.emit(s,'change','挂扣承住试重，没有回歪；可以回石驿交还陶七。',press);}}}
  const h=s.life.harvest,picking=h.picking;
  if(picking){const e=object(s,picking.id);if(s.scene!=='creek'||distance(s.player,picking.start)>4||!closeTo(s,e,p)||!freeHand(s)){h.picking=null;}else{picking.elapsed+=dt;if(picking.elapsed>=2){h[leafKey(picking.id)]='bag';h.picking=null;e.state='picked';if(s.flags.companion==='following'&&!s.flags.herbsWet&&s.worlds.creek.some(n=>n.type==='xu'&&distance(n,s.player)<150))h.shared=true;if(h.sun!=='unpicked'&&h.shade!=='unpicked')h.stage='ready';p.emit(s,'item',`剪下${e.name}，根与嫩叶留在石边。`,e);}}}
- if(s.scene==='workshop'&&s.life.scent){s.life.scent.remaining=Math.max(0,s.life.scent.remaining-dt);if(!s.life.scent.remaining){s.life.scent=null;object(s,'life_scent')!.state='hidden';p.emit(s,'change','药囊气味散了，山兽会重新留意附近动静。');}}
+ if(s.life.scent&&s.scene===s.life.scent.scene){s.life.scent.remaining=Math.max(0,s.life.scent.remaining-dt);if(!s.life.scent.remaining){s.life.scent=null;object(s,s.scene==='canal'?'canal_scent':'life_scent')!.state='hidden';p.emit(s,'change','药囊气味散了，山兽会重新留意附近动静。');}}
 }
 export function lifeUseSachet(s:GameState,p:LifePorts):ActionResult{
- if(s.scene!=='workshop')return no('这份药囊用于旧工棚林路的山兽，对人和落石无效');
- if(s.life.sachets===0||s.life.scent)return no(s.life.scent?'已有药囊起效，不必重复拆开':'两份药囊已用完');
+ if(s.scene!=='workshop'&&s.scene!=='canal')return no('这份药囊用于旧工棚与旧渠干坡的山兽，对人和落石无效');
+ if(s.life.sachets===0||s.life.scent)return no(s.life.scent?`已有药囊在${s.life.scent.scene==='workshop'?'旧工棚':'雾岭旧渠'}起效，气味留在原地，不必重复拆开`:'两份药囊已用完');
  if(!freeHand(s)||!p.free(s,s.player))return no('先腾手站到干地，再拆开药囊');
- if(!s.worlds.workshop.some(e=>e.type==='beast'&&!['retreated','peaceful','gone'].includes(e.state)))return no('这里山兽已经退走，留着药囊不必耗用');
- const e=object(s,'life_scent')!;e.x=s.player.x;e.y=s.player.y;e.state='idle';s.life.scent={remaining:8};s.life.sachets=(s.life.sachets-1) as 0|1;p.emit(s,'drop','药囊放在脚边，附近山兽会绕开这处气味八秒；仍要亲自行路。',e);return ok();
+ if(!s.worlds[s.scene].some(e=>e.type==='beast'&&!['retreated','peaceful','gone'].includes(e.state)))return no('这里山兽已经退走，留着药囊不必耗用');
+ const e=object(s,s.scene==='canal'?'canal_scent':'life_scent')!;e.x=s.player.x;e.y=s.player.y;e.state='idle';s.life.scent={remaining:8,scene:s.scene};s.life.sachets=(s.life.sachets-1) as 0|1;p.emit(s,'drop','药囊放在脚边，附近山兽会绕开这处气味八秒；仍要亲自行路。',e);return ok();
 }
-export function lifeScentSource(s:GameState,beast:Entity):Vec|undefined{const e=object(s,'life_scent');return s.scene==='workshop'&&s.life.scent&&e&&beast.type==='beast'&&distance(beast,e)<150?e:undefined;}
+export function lifeScentSource(s:GameState,beast:Entity):Vec|undefined{const e=object(s,s.scene==='canal'?'canal_scent':'life_scent');return s.life.scent&&s.scene===s.life.scent.scene&&e&&beast.type==='beast'&&distance(beast,e)<150?e:undefined;}
 export function lifeObjective(s:GameState):string|undefined{
  if(!lifeUnlocked(s))return undefined;const r=s.life.repair,h=s.life.harvest;
  if(r.stage==='complete'&&h.stage==='complete')return '手艺和行囊都已备好；可继续试术，或回桌边歇一歇';
