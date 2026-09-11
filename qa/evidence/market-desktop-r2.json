@@ -1,0 +1,781 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-09-11T15-13-29-584Z",
+  "status": "FAIL",
+  "startedAt": "2026-09-11T15:13:29.584Z",
+  "environment": {
+    "url": "http://127.0.0.1:4194/",
+    "platform": "linux",
+    "limitation": "Linux Chrome with desktop or touch/DPR emulation, not physical Mac/Safari/phone. Captures use ordinary pause for visual inspection, not uninterrupted combat evidence.",
+    "browser": "150.0.7871.114"
+  },
+  "routes": [
+    {
+      "id": "desktop",
+      "status": "FAIL",
+      "inputTrace": [
+        {
+          "action": "settings-import",
+          "detail": {
+            "name": "actual-kiln-zero-complete.json",
+            "contentVersion": 6
+          },
+          "wallMs": 13099
+        },
+        {
+          "action": "settings-export",
+          "detail": "qa/evidence/market-2026-09-11T15-13-29-584Z/market-west-entry.json",
+          "wallMs": 35524
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 420,
+            "y": 460
+          },
+          "wallMs": 39795
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "market_merchant",
+            "scene": "market",
+            "world": {
+              "x": 470,
+              "y": 380
+            }
+          },
+          "wallMs": 72743
+        },
+        {
+          "action": "choose",
+          "detail": "market:exchange",
+          "wallMs": 80418
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 665,
+            "y": 410
+          },
+          "wallMs": 115801
+        }
+      ],
+      "exports": [
+        {
+          "path": "qa/evidence/market-2026-09-11T15-13-29-584Z/market-west-entry.json",
+          "sha256": "4b17256c1392208760c01c9fb392d2db907e6f26ef1786874e49296132789a89"
+        }
+      ],
+      "observations": {
+        "west-entry": {
+          "visual": "qa/evidence/market-2026-09-11T15-13-29-584Z/desktop-west-entry.png",
+          "state": {
+            "scene": "market",
+            "time": 405.1833333332935,
+            "player": {
+              "x": 360,
+              "y": 760,
+              "hp": 4,
+              "mana": 6,
+              "facing": -0.694955406461942,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "market": {
+              "exchanged": false,
+              "visit": {
+                "entry": "crossing",
+                "transit": null,
+                "passed": {
+                  "public": {
+                    "westToEast": false,
+                    "eastToWest": false
+                  },
+                  "private": {
+                    "westToEast": false,
+                    "eastToWest": false
+                  }
+                }
+              },
+              "through": {
+                "public": {
+                  "westToEast": false,
+                  "eastToWest": false
+                },
+                "private": {
+                  "westToEast": false,
+                  "eastToWest": false
+                }
+              },
+              "reported": {
+                "public": {
+                  "westToEast": false,
+                  "eastToWest": false
+                },
+                "private": {
+                  "westToEast": false,
+                  "eastToWest": false
+                }
+              }
+            },
+            "kiln": {
+              "visited": true,
+              "entry": null,
+              "crossed": {
+                "west": true,
+                "east": true
+              },
+              "loan": "none",
+              "shelterOpened": false
+            },
+            "companion": "following",
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 82,
+                "time": 354.7833333333393,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 1228.1556194164984,
+                "y": 367.9775438347759,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 83,
+                "time": 355.8166666666717,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 1042.445530246964,
+                "y": 80,
+                "targetId": "9"
+              },
+              {
+                "seq": 84,
+                "time": 356.0666666666715,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1096.0694269665078,
+                "y": 286.47776387910443,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 85,
+                "time": 357.21666666667045,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 858.4733994030568,
+                "y": 80,
+                "targetId": "10"
+              },
+              {
+                "seq": 86,
+                "time": 357.86666666666986,
+                "type": "hurt",
+                "text": "飞石从护持未遮住的一侧击中，体力少了一格。",
+                "x": 801.1092692763391,
+                "y": 141.00441608297533
+              },
+              {
+                "seq": 87,
+                "time": 358.0833333333363,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1006.5264033467914,
+                "y": 239.59665374623833,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 88,
+                "time": 358.35000000000275,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 1009.8615338243055,
+                "y": 222.3168883347513,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 89,
+                "time": 365.1333333333299,
+                "type": "route",
+                "text": "你从旧渠一侧穿过旧窑，走回西院溪道。"
+              },
+              {
+                "seq": 90,
+                "time": 365.1333333333299,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 91,
+                "time": 374.7333333333212,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 92,
+                "time": 387.3333333333097,
+                "type": "scene",
+                "text": "石渡"
+              },
+              {
+                "seq": 93,
+                "time": 403.23333333329526,
+                "type": "scene",
+                "text": "集口问路"
+              }
+            ]
+          }
+        },
+        "merchant-dialogue": {
+          "visual": "qa/evidence/market-2026-09-11T15-13-29-584Z/desktop-merchant-dialogue.png",
+          "state": {
+            "scene": "market",
+            "time": 407.36666666662484,
+            "player": {
+              "x": 420.20833674327963,
+              "y": 459.4794954246961,
+              "hp": 4,
+              "mana": 6,
+              "facing": -1.0111393321660973,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "market": {
+              "exchanged": false,
+              "visit": {
+                "entry": "crossing",
+                "transit": null,
+                "passed": {
+                  "public": {
+                    "westToEast": false,
+                    "eastToWest": false
+                  },
+                  "private": {
+                    "westToEast": false,
+                    "eastToWest": false
+                  }
+                }
+              },
+              "through": {
+                "public": {
+                  "westToEast": false,
+                  "eastToWest": false
+                },
+                "private": {
+                  "westToEast": false,
+                  "eastToWest": false
+                }
+              },
+              "reported": {
+                "public": {
+                  "westToEast": false,
+                  "eastToWest": false
+                },
+                "private": {
+                  "westToEast": false,
+                  "eastToWest": false
+                }
+              }
+            },
+            "kiln": {
+              "visited": true,
+              "entry": null,
+              "crossed": {
+                "west": true,
+                "east": true
+              },
+              "loan": "none",
+              "shelterOpened": false
+            },
+            "companion": "following",
+            "paused": true,
+            "dialogue": {
+              "id": "market_talk",
+              "speaker": "沈砚",
+              "text": "旧窑那边，你走过没有？说清那边的通路，我替你开后巷门。",
+              "choices": [
+                {
+                  "id": "market:exchange",
+                  "label": "说清旧窑通路，请她开门"
+                },
+                {
+                  "id": "market:public",
+                  "label": "问清公共巷的走法"
+                },
+                {
+                  "id": "leave",
+                  "label": "先继续走走"
+                }
+              ]
+            },
+            "defeated": false,
+            "events": [
+              {
+                "seq": 82,
+                "time": 354.7833333333393,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 1228.1556194164984,
+                "y": 367.9775438347759,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 83,
+                "time": 355.8166666666717,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 1042.445530246964,
+                "y": 80,
+                "targetId": "9"
+              },
+              {
+                "seq": 84,
+                "time": 356.0666666666715,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1096.0694269665078,
+                "y": 286.47776387910443,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 85,
+                "time": 357.21666666667045,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 858.4733994030568,
+                "y": 80,
+                "targetId": "10"
+              },
+              {
+                "seq": 86,
+                "time": 357.86666666666986,
+                "type": "hurt",
+                "text": "飞石从护持未遮住的一侧击中，体力少了一格。",
+                "x": 801.1092692763391,
+                "y": 141.00441608297533
+              },
+              {
+                "seq": 87,
+                "time": 358.0833333333363,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1006.5264033467914,
+                "y": 239.59665374623833,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 88,
+                "time": 358.35000000000275,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 1009.8615338243055,
+                "y": 222.3168883347513,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 89,
+                "time": 365.1333333333299,
+                "type": "route",
+                "text": "你从旧渠一侧穿过旧窑，走回西院溪道。"
+              },
+              {
+                "seq": 90,
+                "time": 365.1333333333299,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 91,
+                "time": 374.7333333333212,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 92,
+                "time": 387.3333333333097,
+                "type": "scene",
+                "text": "石渡"
+              },
+              {
+                "seq": 93,
+                "time": 403.23333333329526,
+                "type": "scene",
+                "text": "集口问路"
+              }
+            ]
+          }
+        },
+        "physical-door-open": {
+          "visual": "qa/evidence/market-2026-09-11T15-13-29-584Z/desktop-physical-door-open.png",
+          "state": {
+            "scene": "market",
+            "time": 408.8666666666235,
+            "player": {
+              "x": 420.20833674327963,
+              "y": 459.4794954246961,
+              "hp": 4,
+              "mana": 6,
+              "facing": -1.0111393321660973,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "market": {
+              "exchanged": true,
+              "visit": {
+                "entry": "crossing",
+                "transit": null,
+                "passed": {
+                  "public": {
+                    "westToEast": false,
+                    "eastToWest": false
+                  },
+                  "private": {
+                    "westToEast": false,
+                    "eastToWest": false
+                  }
+                }
+              },
+              "through": {
+                "public": {
+                  "westToEast": false,
+                  "eastToWest": false
+                },
+                "private": {
+                  "westToEast": false,
+                  "eastToWest": false
+                }
+              },
+              "reported": {
+                "public": {
+                  "westToEast": false,
+                  "eastToWest": false
+                },
+                "private": {
+                  "westToEast": false,
+                  "eastToWest": false
+                }
+              }
+            },
+            "kiln": {
+              "visited": true,
+              "entry": null,
+              "crossed": {
+                "west": true,
+                "east": true
+              },
+              "loan": "none",
+              "shelterOpened": false
+            },
+            "companion": "following",
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 84,
+                "time": 356.0666666666715,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1096.0694269665078,
+                "y": 286.47776387910443,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 85,
+                "time": 357.21666666667045,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 858.4733994030568,
+                "y": 80,
+                "targetId": "10"
+              },
+              {
+                "seq": 86,
+                "time": 357.86666666666986,
+                "type": "hurt",
+                "text": "飞石从护持未遮住的一侧击中，体力少了一格。",
+                "x": 801.1092692763391,
+                "y": 141.00441608297533
+              },
+              {
+                "seq": 87,
+                "time": 358.0833333333363,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1006.5264033467914,
+                "y": 239.59665374623833,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 88,
+                "time": 358.35000000000275,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 1009.8615338243055,
+                "y": 222.3168883347513,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 89,
+                "time": 365.1333333333299,
+                "type": "route",
+                "text": "你从旧渠一侧穿过旧窑，走回西院溪道。"
+              },
+              {
+                "seq": 90,
+                "time": 365.1333333333299,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 91,
+                "time": 374.7333333333212,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 92,
+                "time": 387.3333333333097,
+                "type": "scene",
+                "text": "石渡"
+              },
+              {
+                "seq": 93,
+                "time": 403.23333333329526,
+                "type": "scene",
+                "text": "集口问路"
+              },
+              {
+                "seq": 94,
+                "time": 407.36666666662484,
+                "type": "change",
+                "text": "你说清旧窑两端亲自穿行的经过。沈砚答应亲自去开闩，门还要等她走到近处。",
+                "x": 470,
+                "y": 380,
+                "targetId": "market_merchant"
+              },
+              {
+                "seq": 95,
+                "time": 408.649999999957,
+                "type": "change",
+                "text": "沈砚到闩边解开木门，随即侧身让出巷道。",
+                "x": 665,
+                "y": 440,
+                "targetId": "market_door"
+              }
+            ]
+          }
+        }
+      },
+      "runtimeScripts": [
+        "http://127.0.0.1:4194/assets/index-BfRm4y9K.js"
+      ]
+    }
+  ],
+  "errors": [],
+  "fixture": {
+    "path": "qa/evidence/market-2026-09-11T15-05-49-284Z/market-west-entry.json",
+    "sha256": "640a2fb48124d2491c126d09d7a4530283072144ccf433352641565c5a6a6b87",
+    "source": "Actual earlier market UI entry export; this run resumes there through settings, without synthetic edits."
+  },
+  "failure": "TimeoutError: page.waitForFunction: Timeout 60000ms exceeded.",
+  "failureState": {
+    "scene": "market",
+    "time": 409.9499999999558,
+    "player": {
+      "x": 571.7293547917875,
+      "y": 447.42208734733936,
+      "hp": 4,
+      "mana": 6,
+      "facing": -0.07940848126717054,
+      "invulnerable": 0,
+      "cooldown": 0,
+      "ward": 0,
+      "wardFacing": 0,
+      "pullId": null,
+      "pullPoint": null,
+      "hold": 0,
+      "path": []
+    },
+    "market": {
+      "exchanged": true,
+      "visit": {
+        "entry": "crossing",
+        "transit": {
+          "route": "private",
+          "from": "west"
+        },
+        "passed": {
+          "public": {
+            "westToEast": false,
+            "eastToWest": false
+          },
+          "private": {
+            "westToEast": false,
+            "eastToWest": false
+          }
+        }
+      },
+      "through": {
+        "public": {
+          "westToEast": false,
+          "eastToWest": false
+        },
+        "private": {
+          "westToEast": false,
+          "eastToWest": false
+        }
+      },
+      "reported": {
+        "public": {
+          "westToEast": false,
+          "eastToWest": false
+        },
+        "private": {
+          "westToEast": false,
+          "eastToWest": false
+        }
+      }
+    },
+    "kiln": {
+      "visited": true,
+      "entry": null,
+      "crossed": {
+        "west": true,
+        "east": true
+      },
+      "loan": "none",
+      "shelterOpened": false
+    },
+    "companion": "following",
+    "paused": true,
+    "dialogue": {
+      "id": "inspect",
+      "speaker": "私巷木门",
+      "text": "沈砚解开的木门，巷道已可亲自穿过。",
+      "choices": [
+        {
+          "id": "leave",
+          "label": "先继续走走"
+        }
+      ]
+    },
+    "defeated": false,
+    "events": [
+      {
+        "seq": 84,
+        "time": 356.0666666666715,
+        "type": "warning",
+        "text": "外路散修抬手聚光；火球命中可以打断。",
+        "x": 1096.0694269665078,
+        "y": 286.47776387910443,
+        "targetId": "kiln_raider_b"
+      },
+      {
+        "seq": 85,
+        "time": 357.21666666667045,
+        "type": "impact",
+        "text": "术法撞在遮挡上，光屑散开。",
+        "x": 858.4733994030568,
+        "y": 80,
+        "targetId": "10"
+      },
+      {
+        "seq": 86,
+        "time": 357.86666666666986,
+        "type": "hurt",
+        "text": "飞石从护持未遮住的一侧击中，体力少了一格。",
+        "x": 801.1092692763391,
+        "y": 141.00441608297533
+      },
+      {
+        "seq": 87,
+        "time": 358.0833333333363,
+        "type": "warning",
+        "text": "外路散修抬手聚光；火球命中可以打断。",
+        "x": 1006.5264033467914,
+        "y": 239.59665374623833,
+        "targetId": "kiln_raider_b"
+      },
+      {
+        "seq": 88,
+        "time": 358.35000000000275,
+        "type": "warning",
+        "text": "近墙散修抬手聚光；火球命中可以打断。",
+        "x": 1009.8615338243055,
+        "y": 222.3168883347513,
+        "targetId": "kiln_raider_a"
+      },
+      {
+        "seq": 89,
+        "time": 365.1333333333299,
+        "type": "route",
+        "text": "你从旧渠一侧穿过旧窑，走回西院溪道。"
+      },
+      {
+        "seq": 90,
+        "time": 365.1333333333299,
+        "type": "scene",
+        "text": "雨后溪道"
+      },
+      {
+        "seq": 91,
+        "time": 374.7333333333212,
+        "type": "rest",
+        "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+      },
+      {
+        "seq": 92,
+        "time": 387.3333333333097,
+        "type": "scene",
+        "text": "石渡"
+      },
+      {
+        "seq": 93,
+        "time": 403.23333333329526,
+        "type": "scene",
+        "text": "集口问路"
+      },
+      {
+        "seq": 94,
+        "time": 407.36666666662484,
+        "type": "change",
+        "text": "你说清旧窑两端亲自穿行的经过。沈砚答应亲自去开闩，门还要等她走到近处。",
+        "x": 470,
+        "y": 380,
+        "targetId": "market_merchant"
+      },
+      {
+        "seq": 95,
+        "time": 408.649999999957,
+        "type": "change",
+        "text": "沈砚到闩边解开木门，随即侧身让出巷道。",
+        "x": 665,
+        "y": 440,
+        "targetId": "market_door"
+      }
+    ]
+  },
+  "completedAt": "2026-09-11T15:16:31.107Z"
+}

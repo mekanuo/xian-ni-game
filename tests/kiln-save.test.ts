@@ -24,7 +24,7 @@ describe('kiln v5 save migration',()=>{
   for(const [next,old] of [[s,prior],[JSON.parse(s.checkpoint!),JSON.parse(prior.checkpoint)]]){
    expect(next.contentVersion).toBe(6);
    expect(Object.keys(next.worlds).sort()).toEqual(['canal','creek','crossing','home','kiln','market','workshop']);
-   expect(next.kiln).toEqual(initialKiln);
+   expect(next.kiln).toEqual(old.kiln??initialKiln);
    for(const key of ['player','flags','profile','time','herbs','paused','pending','projectiles','dialogue','lastSafe'])expect(next[key]).toEqual(old[key]);
    for(const key of ['life','canal','journey'])if(old[key])expect(next[key]).toEqual(old[key]);
    for(const [scene,list] of Object.entries(old.worlds))for(const e of list as Entity[])expect(next.worlds[scene].find((n:Entity)=>n.id===e.id)).toEqual(e);

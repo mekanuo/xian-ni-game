@@ -1,3 +1,6 @@
+import {companionAvailable} from './companion';
+import {marketDescription,marketObjective} from './market';
+import {simulationPorts} from './model';
 import { kilnDescription } from './kiln';
 import { journeyObjective, journeyDescription } from './journey';
 import { canalDescription, canalObjective, canalWaterState } from './canal';
@@ -16,6 +19,7 @@ const view = (id: string,title: string,fact: string,...options: string[]): Encou
 
 function rainShelter(s: GameState): EncounterView {
   const f=s.flags;
+  if(!companionAvailable(s))return view('rain-shelter','棚下药筐',f.herbsWet?'许照仍在小集等候，留在这里的药草受了潮。':'许照仍在小集等候；棚下器物可以自己整理。',f.herbsWet?(f.boardReturned?'到棚下独自摊开药草':'先放回导水板，再到棚下整理'):'借板前先把药筐牵入干处','要继续同行，回小集当面会合');
   if(f.herbsWet) return f.boardReturned
     ? view('rain-shelter','棚下水线','导水板已归位，药草仍受潮；许照暂未继续同行。','到雨棚一起整理药草')
     : view('rain-shelter','棚下水线','导水板移开后，水落进药筐；受潮药草还可补救。','先把导水板放回原处','再到雨棚一起晾药');
@@ -56,6 +60,7 @@ function beasts(s: GameState): EncounterView {
 }
 
 function companionFact(s: GameState): string {
+  if(!companionAvailable(s))return '许照仍在小集等候。';
   if(s.flags.companion==='following'&&s.worlds[s.scene].some(e=>e.type==='xu'&&distance(e,s.player)<150))return '许照就在身旁，可一起辨路。';
   if(s.flags.companion==='refused'||s.flags.companion==='sheltered')return '同行暂时中断，可在安全处重新商量。';
   return '';
@@ -78,7 +83,11 @@ function crossing(s: GameState,ridge: boolean): EncounterView {
 
 /** Only local, observable circumstances; never changes progress or issues actions. */
 export function nearbyEncounter(s: GameState): EncounterView|undefined {
-  const near=(ids:string[],radius:number)=>s.worlds[s.scene].filter(e=>ids.includes(e.id)&&e.state!=='hidden').some(e=>distance(s.player,e)<=radius);
+  const near=(ids:string[],radius:number)=>s.worlds[s.scene].filter(e=>ids.includes(e.id)&&e.state!=='hidden'&&(e.type!=='xu'||companionAvailable(s))).some(e=>distance(s.player,e)<=radius);
+  if(s.scene==='market'){
+    const local=s.worlds.market.filter(e=>e.state!=='hidden'&&(e.type!=='xu'||companionAvailable(s))&&e.kind!=='enemy'&&distance(e,s.player)<220).sort((a,b)=>distance(a,s.player)-distance(b,s.player))[0];
+    return view('market-lanes',local?.name||'货屋之间',local?marketDescription(s,local,simulationPorts)||marketObjective(s)!:marketObjective(s)!,'南侧公共巷不需要交换消息','走到另一端路牌，再亲自离开');
+  }
   if(s.scene==='kiln'){
     const screen=object(s,'shield_board');
     if(screen&&distance(s.player,screen)<360){
@@ -88,12 +97,12 @@ export function nearbyEncounter(s: GameState): EncounterView|undefined {
     return view('kiln-road','旧窑外路','两道窑墙隔开视线；散修会沿看见你的来向追近。','看清起手，借墙角退开','走到另一端的方向牌，再亲自离开旧窑');
   }
   if(s.scene==='canal'){
-    const local=s.worlds.canal.filter(e=>e.state!=='hidden'&&e.kind!=='enemy'&&distance(e,s.player)<200).sort((a,b)=>distance(a,s.player)-distance(b,s.player))[0];
+    const local=s.worlds.canal.filter(e=>e.state!=='hidden'&&(e.type!=='xu'||companionAvailable(s))&&e.kind!=='enemy'&&distance(e,s.player)<200).sort((a,b)=>distance(a,s.player)-distance(b,s.player))[0];
     const water=canalWaterState(s);
     return view('canal-water',local?.name||'雾岭旧渠',local?canalDescription(s,local)||canalObjective(s)||'沿高岸看清水路':canalObjective(s)||'旧渠仍在山路旁',s.canal.cleared?canalObjective(s)||'沿高岸重访':water==='stopped'?'上游暂截，留意剩余支撑；沿台阶进退':water==='diverted'?'旁路通流，西岸始终可走':'近身察看检修台，再安排分水或截水',s.canal.cleared?'水板改位仍会改变眼前水路，离开前记得复水':'分水板可以徒手推入固定槽，不耗灵力');
   }
   if(s.canal.stage==='complete'){
-    const local=s.worlds[s.scene].filter(e=>e.state!=='hidden'&&(e.type==='xu'||['table','shelter','journey_north_mark','journey_south_mark','journey_rest_shelter'].includes(e.id))&&distance(e,s.player)<190).sort((a,b)=>distance(a,s.player)-distance(b,s.player))[0];
+    const local=s.worlds[s.scene].filter(e=>e.state!=='hidden'&&(e.type!=='xu'||companionAvailable(s))&&(e.type==='xu'||['table','shelter','journey_north_mark','journey_south_mark','journey_rest_shelter'].includes(e.id))&&distance(e,s.player)<190).sort((a,b)=>distance(a,s.player)-distance(b,s.player))[0];
     const text=local&&journeyDescription(s,local);
     if(text&&!(s.scene==='creek'&&s.flags.herbsWet))return view('journey-return',local!.id==='table'?(s.journey.stage==='unaccepted'?'桌边的旧渠小图':'桌边的回程记号'):local!.name,text,journeyObjective(s)||'沿已经认清的回程重访');
   }
@@ -130,6 +139,9 @@ export function nearbyEncounter(s: GameState): EncounterView|undefined {
 }
 
 export function inspectObject(s: GameState,e: Entity): string {
+  const market=marketDescription(s,e,simulationPorts);if(market)return market;
+  if(!companionAvailable(s)&&['shelter','basket'].includes(e.id))return s.flags.herbsWet?'许照还在小集等候；先归还导水板，再在棚下独自整理受潮药草':'许照还在小集等候；可独自整理这里的器物';
+
   const kiln=kilnDescription(s,e);if(kiln)return kiln;
   if(s.flags.herbsWet&&(e.type==='xu'||e.id==='shelter'))return s.flags.boardReturned?'药草仍受潮；导水板已归位，到雨棚一起整理后再商量同行':'药草受潮；先放回导水板，再到雨棚一起整理';
   if(e.type==='xu'&&s.flags.companion==='refused')return '许照不愿替你迎着术法冲；先在安全处重新商量同行';

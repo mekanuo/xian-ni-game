@@ -1,7 +1,7 @@
 import complete from '../qa/fixtures/return-journey-v0.5.0.json?raw';
 import {restore,snapshot} from '../src/game/save';
 import {describe,it,expect} from 'vitest';
-import {act,createGame,companionAvailable,tick} from '../src/game/model';
+import {act,createGame,companionAvailable,tick,canInteract,interactionPoint} from '../src/game/model';
 
 describe('production market chapter integration',()=>{
  it('new characters retain the old opening and cannot enter an unearned market chapter',()=>{
@@ -44,4 +44,50 @@ describe('market companion location integration',()=>{
   const xu=s.worlds.market.find(e=>e.id==='xu_market')!;const feet={x:xu.x,y:xu.y};s.flags.companion='refused';
   tick(s,.5,{x:0,y:0});expect({x:xu.x,y:xu.y}).toEqual(feet);expect(xu.state).toBe('refused');
  });
+});
+
+it('can repair a wet abandoned basket alone without summoning its owner from the market',()=>{
+ const s=party();expect(act(s,{type:'interact',targetId:'crossing_to_market'}).ok).toBe(true);
+ expect(act(s,{type:'interact',targetId:'xu_market'}).ok).toBe(true);expect(act(s,{type:'choose',choiceId:'wait'}).ok).toBe(true);
+ // Explicit old-scene wet/returned-board boundary; real repair choice below.
+ s.scene='creek';s.market.visit=null;s.flags.herbsWet=true;s.flags.herbsRepaired=false;s.flags.boardReturned=true;s.flags.companion='refused';Object.assign(s.player,{x:1200,y:550});
+ const xu=s.worlds.market.find(e=>e.id==='xu_market')!,feet={x:xu.x,y:xu.y};
+ expect(act(s,{type:'interact',targetId:'shelter'}).ok).toBe(true);
+ expect(s.dialogue!.choices.some(c=>c.id==='dry_solo'&&!c.disabled)).toBe(true);
+ expect(act(s,{type:'choose',choiceId:'dry_solo'}).ok).toBe(true);
+ expect(s.flags.herbsWet).toBe(false);expect(s.flags.companion).toBe('refused');expect({x:xu.x,y:xu.y}).toEqual(feet);expect(companionAvailable(s)).toBe(false);
+});
+
+it('uses a different companion candidate when a non-solid crate occupies the first arrival',()=>{
+ const s=party(),crate=s.worlds.market.find(e=>e.id==='decoy')!;crate.x=405;crate.y=800;
+ expect(act(s,{type:'interact',targetId:'crossing_to_market'}).ok).toBe(true);
+ const xu=s.worlds.market.find(e=>e.id==='xu_market')!;
+ expect(Math.hypot(xu.x-crate.x,xu.y-crate.y)).toBeGreaterThan(40);
+});
+it('withdraws a following companion to validated feet beside the actual safe point',()=>{
+ const s=party();s.lastSafe={scene:'crossing',point:{x:300,y:925}};Object.assign(s.worlds.crossing.find(e=>e.type==='xu')!,{x:1680,y:630});
+ expect(act(s,{type:'interact',targetId:'crossing_to_market'}).ok).toBe(true);
+ expect(act(s,{type:'retreat'}).ok).toBe(true);const xu=s.worlds.crossing.find(e=>e.type==='xu')!;
+ expect(s.scene).toBe('crossing');expect(Math.hypot(s.player.x-xu.x,s.player.y-xu.y)).toBeLessThan(90);
+ expect(s.market.visit).toBeNull();expect(s.worlds.market.find(e=>e.id==='xu_market')!.state).toBe('hidden');
+});
+
+it('keeps shelf placement available while its owner waits in the market',()=>{
+ const s=party();expect(act(s,{type:'interact',targetId:'crossing_to_market'}).ok).toBe(true);
+ expect(act(s,{type:'interact',targetId:'xu_market'}).ok).toBe(true);expect(act(s,{type:'choose',choiceId:'wait'}).ok).toBe(true);
+ s.scene='home';s.market.visit=null;Object.assign(s.player,{x:350,y:470});Object.assign(s.life.harvest,{stage:'active',sun:'bag',shade:'unpicked'});
+ expect(act(s,{type:'interact',targetId:'herb_rack'}).ok).toBe(true);
+ expect(s.dialogue!.choices.some(c=>c.id==='life:leaf:sun:upper')).toBe(true);expect(act(s,{type:'choose',choiceId:'life:leaf:sun:upper'}).ok).toBe(true);expect(s.life.harvest.sun).toBe('upper');expect(s.flags.companion).toBe('waiting');
+});
+it('rejects an obstructed retreat without erasing the current visit or following actor',()=>{
+ const s=party();s.lastSafe={scene:'crossing',point:{x:300,y:925}};expect(act(s,{type:'interact',targetId:'crossing_to_market'}).ok).toBe(true);
+ const screen=s.worlds.crossing.find(e=>e.id==='shield_board')!;Object.assign(screen,{x:300,y:925,w:240,h:220});
+ const before=snapshot(s);expect(act(s,{type:'retreat'}).ok).toBe(false);expect(snapshot(s)).toBe(before);
+});
+
+it('does not offer the empty opened doorway as an interaction target',()=>{
+ const s=party();expect(act(s,{type:'interact',targetId:'crossing_to_market'}).ok).toBe(true);
+ // Explicit open-door hit-target boundary; opening itself has real act/tick tests.
+ const door=s.worlds.market.find(e=>e.id==='market_door')!;door.state='open';door.solid=false;s.player.x=620;s.player.y=410;
+ expect(canInteract(s,door.id)).toBe(false);expect(interactionPoint(s,door.id)).toBeUndefined();
 });

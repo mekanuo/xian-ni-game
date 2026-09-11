@@ -1,3 +1,13 @@
+# 最新覆盖 · 0.7 美术接入，修复开门后的点击拦截
+
+2026-09-11。当前仍正式工作树market-070-production / feat/market-070，机制提交07bca74已经推送。四组实际美术已接入，BGM/门闩音、观察说明/山道小图/桌案纸签完成。许照缺席时独自整理药草与摆叶、撤回合法同行脚点、非实心物件到达包络均已修；相关RED→GREEN。最近全套35文件748测试PASS，之后新增开门点击回归10/10定点PASS；最新tsc/build PASS，包 **index-B3DLJ88D.js / index-B8Ldhq7K.css**。
+
+实际首轮桌面view已PASS（qa/evidence/market-first-view.json，运行Cq4bbM9q，真实0.6旧窑双向导出→溪道静息→石渡→小集→交谈，非完整通关）。root已view首入/对白图；第二轮地面与灰底修整图也目视，灰框已消失。完整桌面R2 **FAIL且保留** qa/evidence/market-desktop-r2.json：BfRm4y9K下实际交换/走闩/开门声已成立，但点665410弹出旧门的inspect，原点击矩形仍占门洞。已在model交互与scene点击中排除open门，并隐藏空门洞标签；不是改QA去绕开门洞。下一轮需要用B3DLJ88D重新真实点穿验证。
+
+preview4194 PID1178399运行，http://127.0.0.1:4194/；当前没有浏览器。firstview supervisor1178570已exit0，R2 supervisor1180216已exit1。scripts/market-check.mjs 可 MARKET_DEVICE=desktop/phone、MARKET_CASE=view、MARKET_OUTPUT定独立报告；MARKET_START可导入实际早先UI导出的market-west-entry.json继续迭代，明确不是新一轮从0.6全程。正式最终默认用新固定夹具qa/fixtures/return-kiln-through-v0.6.0.json（原实际0.6导出原样复制，sha1bceb15a3ad86f35fae5a6fc9cd5dd8f343356172c1a1566b6c778ccb461777f），不受后面旧窑QA重写evidence文件影响。
+
+代理全已停写；root负责后续。新市场整程/手机/短屏/暂停读档重试同行实测与正式verify/public均未完成，公网仍0.6，不可部署继承PASS。继续开发、每里程碑推送。
+
 # 当前正式制作入口 · 0.7 P1 接线已完成，P2 美术进行中
 
 2026-09-11。实际工作树 `/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/market-070-production`，分支 `feat/market-070`，从白盒生产决定 052e708 建立。公网仍 0.6，同 URL；本分支没有构建、浏览器、部署证据，禁止用继承的 PASS 发布。

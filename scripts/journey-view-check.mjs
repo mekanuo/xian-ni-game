@@ -16,7 +16,7 @@ await mkdir('qa/evidence',{recursive:true});await writeFile(output,JSON.stringif
 try{
  const fixtures={};
  for(const [id,path]of Object.entries(paths)){
-  const bytes=await readFile(path),s=JSON.parse(bytes.toString('utf8'));assert.equal(s.contentVersion,5);assert.equal(s.canal.stage,'complete');assert.equal(s.ended,true);
+  const bytes=await readFile(path),s=JSON.parse(bytes.toString('utf8'));assert.equal(s.contentVersion,6);assert.deepEqual(Object.keys(s.worlds).sort(),['canal','creek','crossing','home','kiln','market','workshop']);assert.equal(s.canal.stage,'complete');assert.equal(s.ended,true);
   if(id==='complete'){assert.equal(s.scene,'home');assert.equal(s.journey.stage,'complete');assert.equal(s.journey.restOpened,true);assert.equal(s.journey.recordedShared,true);}
   else{assert.equal(s.scene,'workshop');assert.equal(s.journey.stage,'active');if(id==='ready')assert.equal(s.journey.run,null);else{assert.ok(s.journey.run);assert.equal(s.paused,true);assert.equal(s.worlds.workshop.find(e=>e.id==='xu_work').state,'leading');}}
   fixtures[id]={bytes,state:s};report.fixtures.push({id,path,sha256:hash(bytes),origin:'Unmodified real settings export from scripts/journey-check.mjs'});

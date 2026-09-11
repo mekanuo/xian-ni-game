@@ -80,7 +80,7 @@ async function importFixture(bytes){
  await page.goto(url);await named('入 山');await named('去回石驿');await wait(()=>window.__XIAN_NI__?.inspect().scene==='home');
  await button('[data-ui="settings"]');await page.locator('#import-save').setInputFiles({name:'return-main-v0.3.0.json',mimeType:'application/json',buffer:bytes});
  await wait(()=>window.__XIAN_NI__.inspect().flags.endingWish==='travel');await dismissEnding();await resume();
- const s=await state();assert.equal(s.contentVersion,5);assert.equal(s.scene,'home');assert.equal(s.canal.stage,'unaccepted');assert.equal(s.life.clamp,'unowned');assert.equal(s.life.sachets,0);assert.equal(JSON.parse(s.checkpoint).contentVersion,5);route.observations.import=brief(s);
+ const s=await state();assert.equal(s.contentVersion,6);assert.deepEqual(Object.keys(s.worlds).sort(),['canal','creek','crossing','home','kiln','market','workshop']);assert.equal(s.scene,'home');assert.equal(s.canal.stage,'unaccepted');assert.equal(s.life.clamp,'unowned');assert.equal(s.life.sachets,0);assert.equal(JSON.parse(s.checkpoint).contentVersion,6);route.observations.import=brief(s);
 }
 async function enterCanal(){
  await interact('table');await choose('canal:accept');assert.equal((await state()).canal.stage,'active');

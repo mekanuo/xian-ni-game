@@ -23,11 +23,11 @@ export function lifeChoices(s:GameState,e:Entity):DialogueChoice[]{
   if(r.stage==='unaccepted')choices.push({id:'life:repair:accept',label:'帮陶七修一枚承重挂扣'});
   if(r.stage==='ready')choices.push({id:'life:repair:deliver',label:'交还已经试压的挂扣'});
  }
- if((e.type==='xu'||e.id==='herb_rack')&&companionAvailable(s)){
-  if(h.stage==='unaccepted')choices.push({id:'life:harvest:accept',label:'看叶图，接下这次采叶'});
+ if(e.type==='xu'||e.id==='herb_rack'){
+  if(h.stage==='unaccepted'&&companionAvailable(s))choices.push({id:'life:harvest:accept',label:'看叶图，接下这次采叶'});
   if(e.id==='herb_rack'&&h.stage!=='complete'&&h.stage!=='unaccepted'){
    for(const key of ['sun','shade'] as const){const name=key==='sun'?'向阳叶':'背阴叶';if(h[key]==='bag')for(const place of ['upper','lower'] as const){const occupied=h[key==='sun'?'shade':'sun']===place;choices.push({id:`life:leaf:${key}:${place}`,label:`把${name}放到${place==='upper'?'上':'下'}层`,...(occupied?{disabled:'这一层已有另一束叶，先取回再换'}:{})});}else if(h[key]==='upper'||h[key]==='lower')choices.push({id:`life:leaf:${key}:bag`,label:`取回${name}，重新分层`});}
-   if(h.sun==='upper'&&h.shade==='lower')choices.unshift({id:'life:harvest:deliver',label:'按叶图分好，收下两份避兽药囊'});
+   if(h.sun==='upper'&&h.shade==='lower'&&companionAvailable(s))choices.unshift({id:'life:harvest:deliver',label:'按叶图分好，收下两份避兽药囊'});
   }
  }
  return choices;

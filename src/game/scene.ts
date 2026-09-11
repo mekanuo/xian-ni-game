@@ -1,3 +1,4 @@
+import {registerMarketFrames,paintMarketLandscape,createMarketVisual,updateMarketVisual,drawMarketHomeRecord} from './market-art';
 import { registerKilnFrames, paintKilnLandscape, createKilnVisual, updateKilnVisual } from './kiln-art';
 import { registerCanalFrames, paintCanalLandscape, createCanalVisual, updateCanalVisual, drawCanalWater, drawCanalHomeRecord } from './canal-art';
 import Phaser from 'phaser';
@@ -65,12 +66,14 @@ export class WorldScene extends Phaser.Scene {
     this.load.image('home-ground',new URL('art/home-ground.png',document.baseURI).href);
     for(const key of ['creek-ground','workshop-ground','crossing-ground','canal-ground','water-surface'])this.load.image(key,new URL(`art/${key}.png`,document.baseURI).href);
     for(const key of ['region-architecture','journey-props','detail-props','life-props','canal-architecture','canal-props'])this.load.image(`${key}-source`,new URL(`art/${key}.png`,document.baseURI).href);
+    for(const key of ['market-environment','market-props','market-shenyan'])this.load.image(`${key}-source`,new URL(`assets/${key}.png`,document.baseURI).href);
+    this.load.image('market-ground',new URL('assets/market-ground.png',document.baseURI).href);
     for(const key of ['kiln-environment','kiln-props','kiln-duqin'])this.load.image(`${key}-source`,new URL(`assets/${key}.png`,document.baseURI).href);
     this.load.image('kiln-ground',new URL('assets/kiln-ground.png',document.baseURI).href);
     this.load.on('loaderror',(file:Phaser.Loader.File)=>{document.body.dataset.assetError=file.key;});
   }
   create(){
-    if(['kiln-environment-source','kiln-props-source','kiln-duqin-source','kiln-ground','title-source','characters-source','environment-source','enemies-source','home-inn-source','home-props-source','home-ground','creek-ground','workshop-ground','crossing-ground','water-surface','region-architecture-source','journey-props-source','detail-props-source','life-props-source','canal-ground','canal-architecture-source','canal-props-source'].some(key=>!this.textures.exists(key))){
+    if(['market-environment-source','market-props-source','market-shenyan-source','market-ground','kiln-environment-source','kiln-props-source','kiln-duqin-source','kiln-ground','title-source','characters-source','environment-source','enemies-source','home-inn-source','home-props-source','home-ground','creek-ground','workshop-ground','crossing-ground','water-surface','region-architecture-source','journey-props-source','detail-props-source','life-props-source','canal-ground','canal-architecture-source','canal-props-source'].some(key=>!this.textures.exists(key))){
       const root=document.querySelector('#interface')!;
       root.innerHTML='<div class="veil"><section class="paper modal-paper" role="alert"><h2>山道画卷尚未展开</h2><p>部分画面未能载入，重新连接后可以再试一次。</p><button class="primary" id="retry-assets">重新载入</button></section></div>';
       document.querySelector('#retry-assets')!.addEventListener('click',()=>window.location.reload());
@@ -96,6 +99,7 @@ export class WorldScene extends Phaser.Scene {
     const lifeAtlas=this.keyAtlas('life-props');if(lifeAtlas)registerLifeFrames(lifeAtlas);
     const canalArchitecture=this.keyAtlas('canal-architecture'),canalProps=this.keyAtlas('canal-props');if(canalArchitecture&&canalProps)registerCanalFrames(canalArchitecture,canalProps);
     const kilnEnvironment=this.keyAtlas('kiln-environment'),kilnProps=this.keyAtlas('kiln-props'),kilnDuqin=this.keyAtlas('kiln-duqin');if(kilnEnvironment&&kilnProps&&kilnDuqin)registerKilnFrames(kilnEnvironment,kilnProps,kilnDuqin);
+    const marketEnvironment=this.keyAtlas('market-environment'),marketProps=this.keyAtlas('market-props'),marketShenyan=this.keyAtlas('market-shenyan');if(marketEnvironment&&marketProps&&marketShenyan)registerMarketFrames(marketEnvironment,marketProps,marketShenyan);
     const enemies=this.keyAtlas('enemies');
     if(enemies){const boxes=[[120,19,428,688],[734,66,458,628],[68,774,489,396],[690,784,493,385]];boxes.forEach((b,i)=>enemies.add(String(i),0,b[0],b[1],b[2],b[3]));}
     this.state=createGame({name:'行舟',origin:'herbalist',wish:'travel',appearance:0});
@@ -135,7 +139,7 @@ export class WorldScene extends Phaser.Scene {
       inspect:()=>JSON.parse(snapshot(this.state)),
       screenPoint:(x:number,y:number)=>{const c=this.cameras.main,o=c.getWorldPoint(0,0);return{x:(x-o.x)*c.zoom/display.density,y:(y-o.y)*c.zoom/display.density};},
       scene:()=>SCENES[this.state.scene],
-      presentation:()=>({actors:[...this.renders.entries()].filter(([,r])=>r.container.visible&&r.image).map(([id,r])=>({id,x:r.container.x,y:r.container.y,angle:r.image!.angle,flipX:r.image!.flipX})),player:{x:this.playerImage?.x,y:this.playerImage?.y,angle:this.playerImage?.angle,scaleY:this.playerImage?.scaleY,flipX:this.playerImage?.flipX},labels:[...this.renders.entries()].filter(([,r])=>r.container.visible&&r.label.visible).map(([id,r])=>({id,text:r.label.text,bounds:{x:r.label.getBounds().x,y:r.label.getBounds().y,w:r.label.width,h:r.label.height}}))}),
+      presentation:()=>({actors:[...this.renders.entries()].filter(([,r])=>r.container.visible&&(r.image||r.lifeVisual?.getData('image'))).map(([id,r])=>{const image=r.image||r.lifeVisual!.getData('image') as Phaser.GameObjects.Image;return{id,x:r.container.x,y:r.container.y,angle:image.angle,flipX:image.flipX,frame:image.frame.name};}),player:{x:this.playerImage?.x,y:this.playerImage?.y,angle:this.playerImage?.angle,scaleY:this.playerImage?.scaleY,flipX:this.playerImage?.flipX},labels:[...this.renders.entries()].filter(([,r])=>r.container.visible&&r.label.visible).map(([id,r])=>({id,text:r.label.text,bounds:{x:r.label.getBounds().x,y:r.label.getBounds().y,w:r.label.width,h:r.label.height}}))}),
       audio:()=>this.soundscape.inspect(),
       feedback:()=>({active:this.feedback.active.map(e=>({...e})),recent:this.feedback.recent.map(e=>({...e}))}),
     }});
@@ -236,7 +240,7 @@ export class WorldScene extends Phaser.Scene {
     return anchor&&previewPullMove(this.state,anchor).valid?{x:anchor.x,y:anchor.y}:point;
   }
   private entityAt(p:Vec){
-    return this.state.worlds[this.state.scene].filter(e=>(e.type!=='xu'||companionAvailable(this.state))&&!['taken','gone','hidden'].includes(e.state)&&e.kind!=='scenery'&&!(e.id==='lamp'&&this.state.flags.lampFixed))
+    return this.state.worlds[this.state.scene].filter(e=>(e.type!=='xu'||companionAvailable(this.state))&&!['taken','gone','hidden'].includes(e.state)&&e.kind!=='scenery'&&!(e.id==='lamp'&&this.state.flags.lampFixed)&&!(e.id==='market_door'&&e.state==='open'))
       .filter(e=>!this.casting||this.state.selected!=='pull'||Boolean(this.state.player.pullId)||e.movable)
       .map(e=>({e,d:Math.hypot(e.x-p.x,(e.y-p.y)*.9)}))
       .filter(({e,d})=>d<Math.max(34,Math.max(e.w,e.h)*.65)||Math.abs(e.x-p.x)<e.w*.6&&p.y<e.y&&p.y>e.y-e.h)
@@ -275,7 +279,7 @@ export class WorldScene extends Phaser.Scene {
     if(!this.state.paused&&!this.state.dialogue&&!this.state.defeated)this.feedback.advance(delta);
     for(const event of this.feedback.ingest(this.state.events,this.state.player)){
       if(this.ui.isTitle)continue;
-      this.soundscape.play(event.type);
+      this.soundscape.play(event.targetId==='market_door'&&event.type==='change'?'market-gate':event.type);
       if(['hit','hurt','block'].includes(event.type)&&!this.settings.reduced)this.cameras.main.shake(event.type==='hurt'?100:65,event.type==='hurt'?.0022:.0012,false);
     }
     this.drawEntities(delta);this.drawEffects();
@@ -321,7 +325,7 @@ export class WorldScene extends Phaser.Scene {
     this.homeFacade?.destroy();this.homeFacade=undefined;
     this.landscape.removeAll(true);
     const m=SCENES[this.state.scene],g=this.add.graphics();this.landscape.add(g);
-    const rand=seeded(['home','creek','workshop','crossing','canal','kiln'].indexOf(m.id)*43+83);
+    const rand=seeded(['home','creek','workshop','crossing','canal','kiln','market'].indexOf(m.id)*43+83);
     const terrainKey='terrain-detail';
     if(this.textures.exists(terrainKey))this.textures.remove(terrainKey);
     const terrain=this.textures.createCanvas(terrainKey,m.width*2,m.height*2)!;
@@ -333,15 +337,16 @@ export class WorldScene extends Phaser.Scene {
     terrain.refresh();
     this.landscape.addAt(this.add.image(0,0,terrainKey).setOrigin(0).setScale(.5),0);
     // Vegetation belongs to edges and landmarks, with open lanes between groups.
-    if(m.id!=='kiln')for(const [x,y] of [[70,90],[150,67],[490,48],[1210,75],[1660,65],[1740,135],[95,1025],[170,1010],[560,1050],[1430,1040],[1630,1010]])this.bush(g,x,y,26+rand()*24,rand);
+    if(m.id!=='kiln'&&m.id!=='market')for(const [x,y] of [[70,90],[150,67],[490,48],[1210,75],[1660,65],[1740,135],[95,1025],[170,1010],[560,1050],[1430,1040],[1630,1010]])this.bush(g,x,y,26+rand()*24,rand);
     if(m.id==='home')this.paintHome(g,rand);
     if(m.id==='creek')this.paintCreek(g,rand);
     if(m.id==='workshop')this.paintWorkshop(g,rand);
     if(m.id==='crossing')this.paintCrossing(g,rand);
     if(m.id==='canal')paintCanalLandscape(this,this.landscape,g);
+    if(m.id==='market')paintMarketLandscape(this,this.landscape,g);
     if(m.id==='kiln')paintKilnLandscape(this,this.landscape,g);
     for(const ob of m.obstacles){
-      if(m.id==='kiln')continue; // Kiln art draws exact wall rectangles including top and end faces.
+      if(m.id==='kiln'||m.id==='market')continue; // Kiln art draws exact wall rectangles including top and end faces.
       if(ob.flag&&this.state.flags[ob.flag])continue;
       // All collision rectangles have visible geometry, never invisible walls.
       if(m.id==='crossing'&&ob.x===1180)continue;
@@ -494,7 +499,9 @@ export class WorldScene extends Phaser.Scene {
     let container:Phaser.GameObjects.Container;let image:Phaser.GameObjects.Image|undefined;let propImage:Phaser.GameObjects.Image|undefined;
     const canalVisual=this.state.scene==='canal'?createCanalVisual(this,e):undefined;
     const kilnVisual=this.state.scene==='kiln'?createKilnVisual(this,e):undefined;
-    if(kilnVisual){container=this.add.container(e.x,e.y,[kilnVisual,art,label]);if(e.id==='duqin')image=kilnVisual.getData('image') as Phaser.GameObjects.Image|undefined;}
+    const marketVisual=this.state.scene==='market'?createMarketVisual(this,e):undefined;
+    if(marketVisual){container=this.add.container(e.x,e.y,[marketVisual,art,label]);}
+    else if(kilnVisual){container=this.add.container(e.x,e.y,[kilnVisual,art,label]);if(e.id==='duqin')image=kilnVisual.getData('image') as Phaser.GameObjects.Image|undefined;}
     else if(canalVisual){container=this.add.container(e.x,e.y,[canalVisual,art,label]);}
     else if(e.kind==='npc'){
       container=this.makeCharacter(e.type,e.x,e.y,e.type==='tao'?2:3);
@@ -530,6 +537,7 @@ export class WorldScene extends Phaser.Scene {
   }
   private drawObject(e:Entity,g:Phaser.GameObjects.Graphics){
     g.clear();const w=e.w,h=e.h;
+    if(this.state.scene==='market'&&['market_merchant','market_door','decoy'].includes(e.id))return;
     if(this.state.scene==='kiln'&&['shield_board','duqin','kiln_rest'].includes(e.id))return;
     if(e.type==='gate_slot'&&(e.state==='wedged'||e.state==='fixed')){
       this.polygon(g,[-14,-38,15,-45,18,-38,-12,-31],0x987344);
@@ -600,7 +608,7 @@ export class WorldScene extends Phaser.Scene {
       g.strokePoints(route.reduce<Phaser.Geom.Point[]>((points,n,i)=>{if(i%2===0)points.push(new Phaser.Geom.Point(n,route[i+1]));return points;},[]),false);
       if(this.state.flags.travelInvited){g.lineStyle(2,0x889c5c);g.lineBetween(-25,-38,23,-38);}
     }
-    if(e.id==='table'){drawCanalHomeRecord(g,this.state);drawJourneyHomeRecord(g,this.state);}
+    if(e.id==='table'){drawCanalHomeRecord(g,this.state);drawJourneyHomeRecord(g,this.state);drawMarketHomeRecord(g,this.state);}
     if(e.type==='workbench'&&(this.state.flags.roomTalk||this.state.flags.endingWish==='stay')){
       g.fillStyle(0x718977);g.fillRect(-22,-52,23,13);g.lineStyle(1,0xd5c794);g.lineBetween(-18,-48,-5,-48);
       if(this.state.flags.endingWish==='stay'){g.lineStyle(3,0x8a7954);g.lineBetween(43,-38,43,-93);g.lineBetween(43,-93,28,-93);g.lineStyle(2,0xcab57a);g.lineBetween(28,-93,28,-83);g.strokeCircle(28,-76,7);}
@@ -624,9 +632,9 @@ export class WorldScene extends Phaser.Scene {
       const r=this.renders.get(e.id)||this.makeEntity(e);
       const isGone=(e.type==='xu'&&!companionAvailable(this.state))||['taken','gone','hidden'].includes(e.state)||(e.id==='lamp'&&Boolean(this.state.flags.lampFixed));
       r.container.setVisible(!isGone);if(isGone)continue;
-      const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.life?.repair?.stage}:${this.state.life?.repair?.softened}:${this.state.life?.repair?.latched}:${this.state.life?.repair?.tested}:${this.state.life?.harvest?.sun}:${this.state.life?.harvest?.shade}:${this.state.life?.clamp}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}:${this.state.canal.stage}:${this.state.canal.cleared}:${this.state.journey.stage}:${this.state.journey.soloRoute}:${this.state.journey.sharedRoute}:${this.state.journey.recordedShared}:${this.state.journey.restOpened}`;
+      const key=`${e.state}:${e.hp}:${this.state.flags.lampFixed}:${this.state.life?.repair?.stage}:${this.state.life?.repair?.softened}:${this.state.life?.repair?.latched}:${this.state.life?.repair?.tested}:${this.state.life?.harvest?.sun}:${this.state.life?.harvest?.shade}:${this.state.life?.clamp}:${this.state.flags.gateOpen}:${this.state.flags.ridgeOpen}:${this.state.flags.endingWish}:${this.state.flags.travelInvited}:${this.state.flags.roomTalk}:${this.state.flags.herbsWet}:${this.state.flags.herbsRepaired}:${this.state.canal.stage}:${this.state.canal.cleared}:${this.state.journey.stage}:${this.state.journey.soloRoute}:${this.state.journey.sharedRoute}:${this.state.journey.recordedShared}:${this.state.journey.restOpened}:${JSON.stringify(this.state.market.reported)}`;
       if(r.stateKey!==key){r.stateKey=key;this.drawObject(e,r.art);}
-      if(r.lifeVisual){if(this.state.scene==='kiln'&&['shield_board','duqin','kiln_rest'].includes(e.id))updateKilnVisual(r.lifeVisual,e,this.state,this.settings.reduced);else if(e.id.startsWith('canal_'))updateCanalVisual(r.lifeVisual,e,this.state,this.settings.reduced);else updateLifeVisual(r.lifeVisual,e,this.state,this.settings.reduced);}
+      if(r.lifeVisual){if(this.state.scene==='market')updateMarketVisual(r.lifeVisual,e,this.state,this.settings.reduced);else if(this.state.scene==='kiln'&&['shield_board','duqin','kiln_rest'].includes(e.id))updateKilnVisual(r.lifeVisual,e,this.state,this.settings.reduced);else if(e.id.startsWith('canal_'))updateCanalVisual(r.lifeVisual,e,this.state,this.settings.reduced);else updateLifeVisual(r.lifeVisual,e,this.state,this.settings.reduced);}
       r.container.setPosition(e.x,e.y).setDepth(e.y+(e.kind==='npc'?100:0));
       if(r.propImage){
         const flat=['board','shield_board','platform_beam','boat'].includes(e.type);
@@ -643,7 +651,7 @@ export class WorldScene extends Phaser.Scene {
         else r.propImage.clearTint().setAlpha(1);
       }
       const near=Math.hypot(this.state.player.x-e.x,this.state.player.y-e.y)<180;
-      r.label.setVisible(near||e.kind==='exit'||e.id==='ring');
+      r.label.setVisible((near||e.kind==='exit'||e.id==='ring')&&!(e.id==='market_door'&&e.state==='open'));
       if(e.kind!=='exit')r.label.setText(e.id==='lamp_stand'&&this.state.flags.lampFixed?'挂好的灯盏':e.name);r.label.setAlpha(e.kind==='enemy'?.8:1);
       if(r.image){
         const hit=this.feedback.active.filter(f=>f.kind==='hit'&&f.targetId===e.id&&f.age<260).at(-1);

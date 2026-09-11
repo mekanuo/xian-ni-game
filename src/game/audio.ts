@@ -143,9 +143,9 @@ export class Soundscape {
     if (!this.context || this.context.state !== 'running' || !this.requested) return;
     const now = this.context.currentTime;
     if (this.nextNote < now) this.nextNote = now + .025; // Never burst missed notes after backgrounding.
-    const beat = 60 / (this.scene === 'crossing' ? 80 : this.scene === 'workshop' ? 76 : this.scene === 'canal' ? 68 : this.scene === 'kiln' ? 74 : 70);
+    const beat = 60 / (this.scene === 'crossing' ? 80 : this.scene === 'workshop' ? 76 : this.scene === 'canal' ? 68 : this.scene === 'kiln' ? 74 : this.scene === 'market' ? 78 : 70);
     // Eight original bars: call, answer, ascending journey, quiet return. -1 is a deliberate breath.
-    const melody = this.scene==='kiln' ? [0,-1,2,-1,4,2,-1,-1,1,-1,0,-1,2,-1,-1,-1,2,4,-1,5,-1,4,2,-1,1,-1,0,-1,0,-1,-1,-1] : [0, 2, 4, -1, 2, 1, 0, -1, 1, 2, 4, 5, 4, 2, 1, -1,
+    const melody = this.scene==='market' ? [0,2,-1,4,2,-1,1,-1,2,4,5,-1,4,2,-1,-1,1,2,-1,0,2,4,-1,-1,2,1,0,-1,1,0,-1,-1] : this.scene==='kiln' ? [0,-1,2,-1,4,2,-1,-1,1,-1,0,-1,2,-1,-1,-1,2,4,-1,5,-1,4,2,-1,1,-1,0,-1,0,-1,-1,-1] : [0, 2, 4, -1, 2, 1, 0, -1, 1, 2, 4, 5, 4, 2, 1, -1,
       2, 4, 5, -1, 7, 5, 4, 2, 1, 2, 0, -1, 1, 0, -1, -1,
       4, 5, 7, -1, 5, 4, 2, -1, 2, 4, 5, 4, 2, 1, 0, -1,
       1, 2, 4, 2, 1, 0, 1, -1, 2, 1, 0, -1, 0, -1, -1, -1];
@@ -177,11 +177,16 @@ export class Soundscape {
     }
   }
   play(kind: string) {
-    if (!['hit', 'impact', 'cast', 'flame', 'fire', 'block', 'ward', 'hurt', 'damage', 'defeat', 'pull', 'hold', 'drop', 'release', 'steam', 'growth', 'item', 'ending', 'gate', 'success', 'route', 'return', 'alert', 'warning', 'step', 'change', 'rest'].includes(kind)) return;
+    if (!['hit', 'impact', 'cast', 'flame', 'fire', 'block', 'ward', 'hurt', 'damage', 'defeat', 'pull', 'hold', 'drop', 'release', 'steam', 'growth', 'item', 'ending', 'gate', 'success', 'route', 'return', 'alert', 'warning', 'step', 'change', 'rest', 'market-gate'].includes(kind)) return;
     if (!this.context || this.context.state !== 'running' || !this.requested) return;
     const at = this.context.currentTime + .004;
     this.lastEffect = kind; this.effectCounts[kind] = (this.effectCounts[kind] || 0) + 1;
     const tone = (frequency: number, duration: number, strength: number, end?: number, delay = 0, type: OscillatorType = 'sine') => this.tone(frequency, duration, strength, 'effect', at + delay, type, end);
+    if(kind==='market-gate'){
+      this.noise(.12,.14,520,at);tone(165,.13,.2,95);
+      this.noise(.38,.055,1200,at+.08,'bandpass');tone(220,.32,.055,140,.09,'triangle');
+      tone(112,.16,.17,68,.4);return;
+    }
     if (kind === 'hit' || kind === 'impact') {
       tone(kind === 'hit' ? 175 : 250, .18, .65, 48, 0, 'triangle');
       this.noise(.16, .65, 2200, at); this.noise(.045, .45, 6000, at, 'highpass');

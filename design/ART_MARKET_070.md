@@ -1,3 +1,5 @@
+> 2026-09-11生产覆盖：白盒十二项代表场景已经齐备，root在既有自主授权内批准正式制作（qa/REVIEW_070_WHITEBOX.md）。以下候选规格保留作设计依据，实际四图来源/裁帧见MARKET_070_ASSET_DELIVERY.md；已经生成接入，不再适用历史“先不生成”的待批状态。合成正在正式浏览器检验，不能把母图交付当整版PASS。
+
 # 集口问路 · 正式美术候选
 
 2026-09-11。承接 [ART_DIRECTION](ART_DIRECTION.md)、[ART_KILN_060](ART_KILN_060.md)、[ADVENTURE_070](ADVENTURE_070.md) 与当前 `market-model.ts` 第三布局。`targetFinish` 沿用已认可石驿、旧渠和旧窑的清晰度、手绘材质与人物辨识度；此稿仅为生产候选，完整白盒尚未通过，**不生成生产图、不实施代码、不表示美术或生产获准**。

@@ -17,7 +17,7 @@ export const MARKET_SCENE:SceneDefinition={
   {id:'market_door',name:'私巷木门',kind:'object',type:'market-door',x:665,y:440,w:30,h:120,state:'closed',solid:true},
   {id:'market_entry',name:'← 石渡',kind:'exit',type:'sign',...MARKET_POINTS.entry,w:90,h:60,state:'idle',targetScene:'crossing',targetSpawn:{x:1640,y:610}},
   {id:'market_exit',name:'旧渠 →',kind:'exit',type:'sign',...MARKET_POINTS.exit,w:90,h:60,state:'idle',targetScene:'canal',targetSpawn:{x:990,y:350}},
-  {id:'decoy',name:'无主空筐',kind:'object',type:'decoy',...MARKET_POINTS.decoy,homeX:460,homeY:720,w:50,h:40,state:'idle',movable:true,flammable:true},
+  {id:'decoy',name:'无主空筐',kind:'object',type:'decoy',...MARKET_POINTS.decoy,homeX:460,homeY:720,w:50,h:40,state:'idle',movable:true,flammable:true,hint:'可牵走这只空筐；移到远处落下，声响可引来附近来人一次'},
   {id:'market_raider',name:'占道散修',kind:'enemy',type:'raider',...MARKET_POINTS.enemy,homeX:850,homeY:560,w:40,h:60,hp:3,state:'idle',data:{lastX:850,lastY:560,seen:0,attack:0}},
  ],
 };
