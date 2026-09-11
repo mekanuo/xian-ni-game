@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "status": "PASS",
   "runId": "life-hold-repair",
-  "startedAt": "2026-09-11T12:40:36.966Z",
+  "startedAt": "2026-09-11T18:19:02.475Z",
   "environment": {
     "url": "http://127.0.0.1:4187/",
     "platform": "linux",
@@ -22,12 +22,12 @@
         "x": 1060,
         "y": 430
       },
-      "wallMs": 7022
+      "wallMs": 7627
     },
     {
       "action": "choose",
       "detail": "life:repair:accept",
-      "wallMs": 11393
+      "wallMs": 11967
     },
     {
       "action": "interact",
@@ -37,7 +37,7 @@
         "x": 1640,
         "y": 690
       },
-      "wallMs": 13417
+      "wallMs": 13983
     },
     {
       "action": "camera-pan",
@@ -45,12 +45,12 @@
         "dx": -500,
         "dy": -250
       },
-      "wallMs": 15974
+      "wallMs": 16513
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wallMs": 20568
+      "wallMs": 21075
     },
     {
       "action": "interact",
@@ -60,7 +60,7 @@
         "x": 1640,
         "y": 370
       },
-      "wallMs": 21207
+      "wallMs": 21704
     },
     {
       "action": "camera-pan",
@@ -68,12 +68,12 @@
         "dx": -500,
         "dy": 270
       },
-      "wallMs": 23584
+      "wallMs": 24060
     },
     {
       "action": "scene",
       "detail": "workshop",
-      "wallMs": 33163
+      "wallMs": 33669
     },
     {
       "action": "walk",
@@ -81,7 +81,7 @@
         "x": 320,
         "y": 220
       },
-      "wallMs": 33558
+      "wallMs": 34065
     },
     {
       "action": "camera-pan",
@@ -89,7 +89,7 @@
         "dx": 400,
         "dy": 300
       },
-      "wallMs": 35975
+      "wallMs": 36469
     },
     {
       "action": "walk",
@@ -97,7 +97,7 @@
         "x": 1450,
         "y": 220
       },
-      "wallMs": 39920
+      "wallMs": 40484
     },
     {
       "action": "camera-pan",
@@ -105,7 +105,7 @@
         "dx": -500,
         "dy": 220
       },
-      "wallMs": 42350
+      "wallMs": 42887
     },
     {
       "action": "interact",
@@ -115,12 +115,12 @@
         "x": 1280,
         "y": 510
       },
-      "wallMs": 50194
+      "wallMs": 50656
     },
     {
       "action": "choose",
       "detail": "hold",
-      "wallMs": 52123
+      "wallMs": 52557
     },
     {
       "action": "walk",
@@ -128,12 +128,12 @@
         "x": 1390,
         "y": 610
       },
-      "wallMs": 53748
+      "wallMs": 54179
     },
     {
       "action": "physical-hold-training",
       "detail": {},
-      "wallMs": 58951
+      "wallMs": 59368
     },
     {
       "action": "interact",
@@ -143,7 +143,7 @@
         "x": 1450,
         "y": 700
       },
-      "wallMs": 59509
+      "wallMs": 59953
     },
     {
       "action": "interact",
@@ -153,7 +153,7 @@
         "x": 1320,
         "y": 430
       },
-      "wallMs": 60634
+      "wallMs": 61082
     },
     {
       "action": "walk",
@@ -161,7 +161,7 @@
         "x": 1410,
         "y": 460
       },
-      "wallMs": 62106
+      "wallMs": 62620
     },
     {
       "action": "walk",
@@ -169,7 +169,7 @@
         "x": 1510,
         "y": 640
       },
-      "wallMs": 64765
+      "wallMs": 65255
     },
     {
       "action": "export-save",
@@ -197,7 +197,7 @@
           "scent": null
         }
       },
-      "wallMs": 73215
+      "wallMs": 73672
     },
     {
       "action": "interact",
@@ -207,7 +207,7 @@
         "x": 1450,
         "y": 630
       },
-      "wallMs": 76868
+      "wallMs": 77439
     },
     {
       "action": "interact",
@@ -217,12 +217,12 @@
         "x": 1450,
         "y": 630
       },
-      "wallMs": 78064
+      "wallMs": 78633
     },
     {
       "action": "capture",
       "detail": "hold-repair",
-      "wallMs": 81239
+      "wallMs": 81779
     }
   ],
   "observations": {
@@ -238,7 +238,7 @@
     "hold-repair": {
       "state": {
         "scene": "workshop",
-        "time": 232.8000000000774,
+        "time": 232.76666666674404,
         "player": {
           "x": 1509.7952921389674,
           "y": 639.6368920283281,
@@ -321,7 +321,7 @@
         "events": [
           {
             "seq": 49,
-            "time": 223.56666666673672,
+            "time": 223.60000000007008,
             "type": "fire",
             "text": "炉芯燃起，挂扣上的旧胶松开了；现在可以校直活动钳口。",
             "x": 1320,
@@ -339,7 +339,7 @@
           },
           {
             "seq": 51,
-            "time": 227.70000000007335,
+            "time": 227.68333333340667,
             "type": "hold",
             "text": "活动钳口停住八秒，现在可以另施一术。",
             "x": 1420,
@@ -348,7 +348,7 @@
           },
           {
             "seq": 52,
-            "time": 229.80000000007502,
+            "time": 229.78333333340834,
             "type": "change",
             "text": "钳口压紧，挂扣已经校直。再拉一次压柄，实际检验承重。",
             "x": 1450,
@@ -357,7 +357,7 @@
           },
           {
             "seq": 53,
-            "time": 231.00000000007597,
+            "time": 230.9666666667426,
             "type": "note",
             "text": "压柄落下，静止一息，看挂扣能否承稳。",
             "x": 1450,
@@ -366,7 +366,7 @@
           },
           {
             "seq": 54,
-            "time": 232.00000000007677,
+            "time": 231.9666666667434,
             "type": "change",
             "text": "挂扣承住试重，没有回歪；可以回石驿交还陶七。",
             "x": 1450,

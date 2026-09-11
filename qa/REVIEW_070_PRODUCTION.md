@@ -1,6 +1,6 @@
 # 0.7「集口问路」正式验收记录
 
-2026-09-11，进行中。当前正式候选在 `feat/market-070`；用户已经授权持续制作、里程碑推送与既定公网部署。**本记录不是发布通过决定**；公网仍为已发布 0.6。白盒结论见 `REVIEW_070_WHITEBOX.md`，不得替代正式运行证据。
+2026-09-11，**正式候选整版PASS，可按既定授权发布；公网核验尚待完成**。分支 `feat/market-070`，冻结受测候选574c795，实际构建CRsUjnIh / D5r6oNWq。用户已经授权持续制作、里程碑推送与既定公网部署。白盒结论见 `REVIEW_070_WHITEBOX.md`，正式发行依据本轮完整运行及冻结指纹。
 
 ## 已核对
 
@@ -24,3 +24,22 @@
 4. 提交并推送，使用本工作树通过验收的 dist 部署到原 Pages URL，再核对实际公网资源字节、来源提交、旧档入口和新章交谈。
 
 运行环境是 Linux Chrome 150、桌面和手机视口/DPR/触控仿真。既不等于实体 Mac/Safari/手机验证，也不把截图与测试通过称为主观趣味已经成立。实际停步姿态已在桌面DPR1取得；不外推为手机威胁完整回放。
+
+## 当前冻结整轮中的已完成新章证据
+
+冻结候选574c795、CRsUjnIh / D5r6oNWq，整版尚在运行，以下是已经结束的子检查，不代表整版PASS或公开发布：
+
+- `evidence/market-desktop-verified.json` PASS，run16-59-46-335Z：从固定原样0.6导出完整到双路通行、归驿报告及完成档导出。
+- `evidence/market-phone-verified.json` PASS，run17-05-56-819Z：这次同样从固定原样0.6导出开始，真实触控完成全部往返及报告；与此前R7仅从入口续走的证据不同。镜头准备依旧用普通暂停，不称无暂停战斗。
+- `evidence/market-threat-verified.json`、`evidence/market-consequences-verified.json`、`evidence/market-view.json` 均已结束PASS，继续保留各自视口、真实分支与暂停范围限制。
+- 同一整轮的同行、旧窑、旧窑烧毁与零资源恢复、输入回归、三DPR拖镜头及石驿五窗口检查已经通过；剩余通用与旧章节检查必须继续结束，最终以 `qa/verification.json` 的实际完成结果和冻结指纹为准。
+
+root已直接目视本整轮 `market-view-2026-09-11T16-47-38-720Z/phone-390-dpr3-merchant-idle.png` 和 `market-2026-09-11T17-05-56-819Z/phone-reported-at-home.png`：顶部目标与菜单无相叠，石渡路牌字位成立；归驿桌面纸图部分在镜头左缘，可见新纸签，但不把此截图称为桌案全貌。报告事实另由真实交互与导出验证。
+
+## 整版关闭与发布决定
+
+`npm run verify` supervisor1194816已exit0，`qa/verification.json`为PASS：35文件749测试，29条命令均exit0，launch/render/input/coreLoop/outcome/restart全部PASS。本轮从测试、构建到新章五项专项、既有两条首章闭环、生活/同行/旧窑/旧渠及全部界面画面回归串行完成；没有跳过失败命令或沿用0.6整版结果。
+
+根代理在退出后再次执行assertVerificationFingerprint成功：139个冻结输入文件、29个dist文件与受测记录一致。代码/资产/测试/脚本/配置未在运行中改变；期间新增设计与说明文档不属于运行输入。实际手机集市idle、归驿以及工棚画面已目视；其他专项代表图此前也已审查。
+
+决定：在用户既定授权下提交推送本完整QA里程碑，再由同工作树的受测dist发布既有Pages地址。公网检查还未运行，不能宣称0.7已经上线或HTTP核验通过。此前各失败、实际设备范围、手机普通暂停取景、实际following撤离与缺席分支NOT_RUN等限制均保留，不把全套PASS扩大为全分支真机或趣味证明。

@@ -1,3 +1,25 @@
+# 最新入口 · 0.7整版PASS，准备推送与发布
+
+正式工作树 `/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/market-070-production`，分支 `feat/market-070`。受测候选574c795已推送；现在待提交完整QA/说明里程碑。npm run verify supervisor1194816已exit0，日志/tmp/xian-ni-070-verify.log和.exit；所有浏览器已结束，4187由脚本关闭，4194普通preview仍可保留。
+
+本整轮35文件749测试、29条命令全部PASS，qa/verification.json六判据均PASS；退出后assertVerificationFingerprint再次成功，139输入文件/29个dist。包CRsUjnIh / D5r6oNWq。不要改受测输入或重建后直接用旧指纹。源码及资产冻结期间仅文档有改动。详见qa/REVIEW_070_PRODUCTION.md。
+
+**下一动作：提交推送完整QA与说明 → 本工作树node scripts/deploy-pages.mjs → 等公网release.json来源匹配 → scripts/public-check.mjs → 同地址MARKET_CASE=view运行market-check新章入口。当前公网仍0.6，不提前宣称0.7上线。** 所有动作已有用户授权，无需询问。发布后补真实源码/发行提交/HTTP结果并推送，再继续下一段有界设计验证；不在里程碑停止，不新建推断Goal。
+
+下一候选design/BUILD_BRIEF_CLIFF_WHITEBOX_DRAFT.md与design/CLIFF_WHITEBOX_COUNTEREXAMPLES.md均已交回/root读过，所有代理停止写入。新增docs/superpowers/plans/2026-09-11-cliff-space-preflight.md仅发布后空间先验顺序，未启动白盒、生产或正式美术。旧坐标发现直达/连接/40网格/转角/手机与home镜头特例问题，先证明空间，再决定完整危险。
+
+以下是历史进度，活动状态已由本入口覆盖。
+
+# 活动整版验证 · 冻结574c795候选
+
+2026-09-11。正式 npm run verify 已启动，supervisor **1194816**；日志 /tmp/xian-ni-070-verify.log，退出码 /tmp/xian-ni-070-verify.exit。游戏/输入源码、资产、测试、scripts/config全部冻结；不得修改这些直到整轮结束。当前未有整版结果，不重复启动浏览器或额外构建。脚本拥有preview4187并串行启动所有浏览器；平常preview4194可保留。HEAD574c795 已成功推送；整版进程仍以日志/exit为准。
+
+canal_save_040已交回design/BUILD_BRIEF_CLIFF_WHITEBOX_DRAFT.md，root已阅读；独立反例审查也已交回，全部代理停写。该稿仅候选，未开始白盒或生产，不能改冻结输入。root可整理文档与发行说明，必须等新整版PASS后才能部署。用户要求继续自主开发。
+
+最近检查进度：本整轮市场五项、同行两项、旧窑三项、UI、三DPR拖镜头、石驿五窗口、通用交互/手机渲染、战斗与声音、实体首次遮挡已结束通过；目前 region-art-check 正在真实走图，之后仍有首章完整路线与生活/旧渠回归。未有整轮exit，切勿部署。root已目视本整轮手机集市idle及归驿截图，QA说明已补。
+
+canal_rules_040已交回design/CLIFF_WHITEBOX_COUNTEREXAMPLES.md，root已阅读。仅纸面计算：L→E可能避开岩鼻、H合法边角到U需绕路、斜路与40网格不匹配、手机源头余量不足、home相机特例不能套用通用参数。当前坐标不可直接当可执行布局；0.7发布后先明确完整障碍/非home目标镜头，再做空间反例。没有模型/浏览器通过结论，全部代理再次停写。
+
 # 最新覆盖 · 0.7 专项闭合，准备冻结整版验证
 
 2026-09-11。phone R7 supervisor1193420 已exit0，qa/evidence/market-phone-r7.json PASS，run16-36-11-062Z：从真实手机R5小集入口导出续走，私巷→旧渠静息→公共巷→石渡→石驿桌边差集记事/完成档导出，全流程真实单指触控；镜头准备使用普通暂停，不称无暂停战斗。root已目视归驿截图，顶部无相叠。桌面R5从固定原样0.6旧窑导出完整PASS，run16-17-08-249Z。所有之前FAIL保留。

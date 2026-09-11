@@ -14,6 +14,48 @@
         "exitCode": 0
       },
       {
+        "command": "node scripts/market-view-check.mjs",
+        "environment": {
+          "MARKET_VIEW_DEVICE": "all"
+        },
+        "exitCode": 0
+      },
+      {
+        "command": "node scripts/market-threat-view-check.mjs",
+        "environment": {
+          "MARKET_START": "",
+          "MARKET_THREAT_OUTPUT": "qa/evidence/market-threat-verified.json"
+        },
+        "exitCode": 0
+      },
+      {
+        "command": "node scripts/market-consequences-check.mjs",
+        "environment": {
+          "MARKET_CONSEQUENCES_OUTPUT": "qa/evidence/market-consequences-verified.json"
+        },
+        "exitCode": 0
+      },
+      {
+        "command": "node scripts/market-check.mjs",
+        "environment": {
+          "MARKET_DEVICE": "desktop",
+          "MARKET_CASE": "",
+          "MARKET_START": "",
+          "MARKET_OUTPUT": "qa/evidence/market-desktop-verified.json"
+        },
+        "exitCode": 0
+      },
+      {
+        "command": "node scripts/market-check.mjs",
+        "environment": {
+          "MARKET_DEVICE": "phone",
+          "MARKET_CASE": "",
+          "MARKET_START": "",
+          "MARKET_OUTPUT": "qa/evidence/market-phone-verified.json"
+        },
+        "exitCode": 0
+      },
+      {
         "command": "node scripts/journey-check.mjs",
         "exitCode": 0
       },
@@ -128,6 +170,860 @@
       "reason": "Natural play duration and subjective enjoyment require player feedback. Both ring styles, shared platform memory, protected-basket bridge, main crossing and ridge endings have real browser input evidence; guard/companion failure boundaries also have model regression evidence."
     }
   ],
+  "fingerprint": {
+    "schemaVersion": 1,
+    "policy": "xian-ni-production-v1",
+    "inputs": {
+      "files": [
+        {
+          "path": ".npmrc",
+          "bytes": 184,
+          "sha256": "61952dd45c8e1cfd28b534e5e056d87db9c6b2556cfc54e5daccab3fb9e48f7d"
+        },
+        {
+          "path": "index.html",
+          "bytes": 557,
+          "sha256": "8550074486430327f674d0cb60b371a4e895a6883fa4bd70bf00be9fb337d23f"
+        },
+        {
+          "path": "package-lock.json",
+          "bytes": 51672,
+          "sha256": "ab1ff3b19feea1236037b70503a3f9e20205597dc921d32f54c5282bac08ad40"
+        },
+        {
+          "path": "package.json",
+          "bytes": 475,
+          "sha256": "e2a199dc05e0092863c55c4d7101887ed4bc4d970b166cbfbc5fe5b48fbd5e06"
+        },
+        {
+          "path": "public/art/canal-architecture.png",
+          "bytes": 2228134,
+          "sha256": "88cd8982350b4af451c041c6c38d74bb6b3bff0b12547bf28702b5e2e085b575"
+        },
+        {
+          "path": "public/art/canal-ground.png",
+          "bytes": 3946075,
+          "sha256": "4d2a6ba10a712dbacf9eb2d5b535c62fed428ecd0fa70dafc0d6a10c5d811ccf"
+        },
+        {
+          "path": "public/art/canal-props.png",
+          "bytes": 1870320,
+          "sha256": "d3bdaa155b2f3df86c867ab7fe9a3d462d74e46135a56d1812f196b378f578f7"
+        },
+        {
+          "path": "public/art/characters.png",
+          "bytes": 1699126,
+          "sha256": "37b50db6122507a1d00fa1e7eb71468616208e77e1650f12ee06bbac728520f2"
+        },
+        {
+          "path": "public/art/creek-ground.png",
+          "bytes": 3613536,
+          "sha256": "73e657f6610659c908900e292d9c6f2aa276f711516f6f4995be441ee2403db4"
+        },
+        {
+          "path": "public/art/crossing-ground.png",
+          "bytes": 3697306,
+          "sha256": "63845ee3c761e1ec1c1d57273eb18a399decf53148c1635770e096b96ef18d7b"
+        },
+        {
+          "path": "public/art/detail-props.png",
+          "bytes": 1889361,
+          "sha256": "fc685245548231a1cea9836fd4ae1719c1d2834aadac9a514eae47adaba5c793"
+        },
+        {
+          "path": "public/art/enemies.png",
+          "bytes": 1812944,
+          "sha256": "230a256f03ca9acc0b7db2a94f18ab160b3f10d4bda7143c802b70a974f27eee"
+        },
+        {
+          "path": "public/art/environment.png",
+          "bytes": 2097047,
+          "sha256": "006719ddbd6b1a42673851aad8b4c06772bc6c68bcecbde8241d9a63369b04d9"
+        },
+        {
+          "path": "public/art/home-ground.png",
+          "bytes": 3845100,
+          "sha256": "f7a57e8c8892e1f96e09b1cb743c3510984ec5e94b2e081dee200e186cb9ee0f"
+        },
+        {
+          "path": "public/art/home-inn.png",
+          "bytes": 2660936,
+          "sha256": "0602547ab3fd1ff71fbb69d8e16e39ece7eb99e0d0c7552b4db75d5c61be4cff"
+        },
+        {
+          "path": "public/art/home-props.png",
+          "bytes": 2309935,
+          "sha256": "d25b7db544aed2e8c0a979d520d0e690bc49ffa64059b296e39ff892dd5c9246"
+        },
+        {
+          "path": "public/art/journey-props.png",
+          "bytes": 2093674,
+          "sha256": "ecc72550eaadeccf903455cd83d589cc1ce298c04a42f79e7cfe8a7ef0820b04"
+        },
+        {
+          "path": "public/art/life-props.png",
+          "bytes": 2057987,
+          "sha256": "c0f196315ff5e448d370a5b4c264cb51d33bd2e13fbf7c446d14998fbbaa4bf5"
+        },
+        {
+          "path": "public/art/region-architecture.png",
+          "bytes": 1728167,
+          "sha256": "4a726507e768ed9a01b0def0adaa797de695d004db4b0557884e0e2deef338b8"
+        },
+        {
+          "path": "public/art/title.png",
+          "bytes": 2788149,
+          "sha256": "58e23fb0b0d022eaf4afc7c934afa3df1f3fd8ce4cb01645b0c14d444471f75e"
+        },
+        {
+          "path": "public/art/water-surface.png",
+          "bytes": 2712587,
+          "sha256": "6fb7988ee59d46aa3ba9feac3ec1ccd2844f249b04c6b549e7e2e03c4a0434e9"
+        },
+        {
+          "path": "public/art/workshop-ground.png",
+          "bytes": 3637210,
+          "sha256": "bedbd7d681e1cf7c4481696e3983b6638f6c8088f892c4a54759953b58f108c9"
+        },
+        {
+          "path": "public/assets/kiln-duqin.png",
+          "bytes": 1440774,
+          "sha256": "0480b088be4bff693bd87e5833e03d28ee23f91b421772b326e90c03de9e0c87"
+        },
+        {
+          "path": "public/assets/kiln-environment.png",
+          "bytes": 2553763,
+          "sha256": "5d9b59014cab12b050d48e1f8bcbc60310260eb626b744c3904cd8df07735d93"
+        },
+        {
+          "path": "public/assets/kiln-ground.png",
+          "bytes": 3624755,
+          "sha256": "df1ab7ea81cec12235c70afa91946425aa23cf031f7dc73d2b522d0c0353167d"
+        },
+        {
+          "path": "public/assets/kiln-props.png",
+          "bytes": 1550153,
+          "sha256": "aba59236b3b602f09c9c3ffe3c7a5681b248472847253f6054dbe4fb5c7017ed"
+        },
+        {
+          "path": "public/assets/market-environment.png",
+          "bytes": 2520103,
+          "sha256": "6f349bf66a60f1c1b5eacbb8f8d434a9b9531e2ec8859985ae0327e7242e409b"
+        },
+        {
+          "path": "public/assets/market-ground.png",
+          "bytes": 2560140,
+          "sha256": "7ae06c6db742114b9b6a81fa368a4fb21030bde153d22b60328b4fc4b30a966d"
+        },
+        {
+          "path": "public/assets/market-props.png",
+          "bytes": 1691636,
+          "sha256": "6bf1962548d48f47cc46c465c52ca21606018de527f7f2b6e506d690424a783e"
+        },
+        {
+          "path": "public/assets/market-shenyan.png",
+          "bytes": 1906336,
+          "sha256": "837a8eceedd8c9070b326acdc7afeb34cbe9aa8a2a7782d469c8c2aa2f144f40"
+        },
+        {
+          "path": "scripts/camera-drag-check.mjs",
+          "bytes": 2877,
+          "sha256": "3d6eebeaf7ba2db28cc0af0d203054583e2d7f46fe2586421c9d48c2ebbe7f8b"
+        },
+        {
+          "path": "scripts/canal-check.mjs",
+          "bytes": 17109,
+          "sha256": "11c22abcd51206f7b22b4ba3a4651aab11e4999c4778f628b25c5f8b255f8dc2"
+        },
+        {
+          "path": "scripts/canal-revisit-check.mjs",
+          "bytes": 8987,
+          "sha256": "8685bffc723fb337fe3a6c8bb5f93a89170fde48b2937c5ca4f8eac4462948f5"
+        },
+        {
+          "path": "scripts/canal-view-check.mjs",
+          "bytes": 10855,
+          "sha256": "bdc228250e0295060e66fc6902a8a989179c756b055007c13f4a516a84cae7bc"
+        },
+        {
+          "path": "scripts/combat-check.mjs",
+          "bytes": 5914,
+          "sha256": "8ce5a0bf9f4d7bb6b6e198a550383bf333995e38316501e946d428a59abb57aa"
+        },
+        {
+          "path": "scripts/deploy-pages.mjs",
+          "bytes": 2739,
+          "sha256": "279ff21a2eb60cb0d47f5d8677796b825f3b0109e45f0bf2a208d831f340baf9"
+        },
+        {
+          "path": "scripts/home-layout-check.mjs",
+          "bytes": 7219,
+          "sha256": "51ff814f095bc8b1332e59beb81b4326a0d0380747f3a9aba729102fea9c613d"
+        },
+        {
+          "path": "scripts/interaction-check.mjs",
+          "bytes": 5331,
+          "sha256": "acf30ff648ae54329254b04c6b2ea05e395430bed83ec97251a91d1ea6de67b3"
+        },
+        {
+          "path": "scripts/journey-check.mjs",
+          "bytes": 20592,
+          "sha256": "1a323f9f9da6f454b494cb4f483127fec4d5fc4edcef6dbb3ebb770116ade06a"
+        },
+        {
+          "path": "scripts/journey-view-check.mjs",
+          "bytes": 14544,
+          "sha256": "78ed7b03aed13f8eabee3cc11347ff98319b359c23923967e84c3ab1acd25056"
+        },
+        {
+          "path": "scripts/kiln-check.mjs",
+          "bytes": 17774,
+          "sha256": "0401d82a513ee610137d039743cd1384f35973e4bddada0076e111f38a5feb6e"
+        },
+        {
+          "path": "scripts/kiln-consequences-check.mjs",
+          "bytes": 264,
+          "sha256": "00a2850175fa05536abc193a5f60f75839bb7556051a4a1e6f17c4877c9289be"
+        },
+        {
+          "path": "scripts/kiln-decisions-check.mjs",
+          "bytes": 6803,
+          "sha256": "70c0773544939b21b7a550ef7a9eb1036e70387c76f1dffd13adc04af67c5f33"
+        },
+        {
+          "path": "scripts/kiln-view-check.mjs",
+          "bytes": 15178,
+          "sha256": "485292734f4a77bdf322e661f5ccd39c28c3d2d1ef43551ec2be6bf0e3259bc3"
+        },
+        {
+          "path": "scripts/kiln-whitebox-check.mjs",
+          "bytes": 8128,
+          "sha256": "87931cb29c8667c8ca23b11d42c99eb92329be22d6abd4daeee56896cf81a368"
+        },
+        {
+          "path": "scripts/life-check.mjs",
+          "bytes": 16405,
+          "sha256": "0244de6c0c3c90bec23491ad907bac2c8648dbdd19e2dac6967c9cc667806a36"
+        },
+        {
+          "path": "scripts/life-hold-check.mjs",
+          "bytes": 10333,
+          "sha256": "cbfbe17479ce7dc6163350bcf1e7b5387db80c2ea70d52f2ad40e49156b705a5"
+        },
+        {
+          "path": "scripts/life-mobile-check.mjs",
+          "bytes": 6789,
+          "sha256": "794a400fd1d7d57a004a625d9b3da5943f707b18c894c95b6638b9e4382caa30"
+        },
+        {
+          "path": "scripts/main-route-check.mjs",
+          "bytes": 9458,
+          "sha256": "24b8db09400e8d304afde6a6b999b6649ad9463a2c9deef5bfce217d025a672c"
+        },
+        {
+          "path": "scripts/market-check.mjs",
+          "bytes": 14001,
+          "sha256": "827095ad061ec2745287b0229eeb8c787082cf3bd74ca656f15b7d9880b9a716"
+        },
+        {
+          "path": "scripts/market-consequences-check.mjs",
+          "bytes": 21448,
+          "sha256": "bde10766ebbd0401a26ed6e83e716e9d07f7a28f9ddbc658b6e26a51711c50b4"
+        },
+        {
+          "path": "scripts/market-threat-view-check.mjs",
+          "bytes": 15640,
+          "sha256": "6100dfc2b49eb3aa254853a6b7e194b3684c01132843e271ab0caf4248df79f6"
+        },
+        {
+          "path": "scripts/market-view-check.mjs",
+          "bytes": 19968,
+          "sha256": "d2ca4d56ce5b136621ebe44a96b27b14fb9fb9d167ca36d9b4c2b90acb44f1bd"
+        },
+        {
+          "path": "scripts/market-whitebox-check.mjs",
+          "bytes": 36241,
+          "sha256": "6b2bb45b242376fcd5a8781697af6eeab314fa3a8795af9aceba53d63e9e4343"
+        },
+        {
+          "path": "scripts/milestone-one.mjs",
+          "bytes": 2339,
+          "sha256": "309863a39583328a5f3af668bf2ab032be8996adc53cbbfaf7e34c144c3dd650"
+        },
+        {
+          "path": "scripts/mobile-render-check.mjs",
+          "bytes": 2940,
+          "sha256": "377a26899f4242e29b388690d62b98ec19129a71d3a1f17261d6c96f1ee20da0"
+        },
+        {
+          "path": "scripts/playthrough.mjs",
+          "bytes": 8971,
+          "sha256": "5a113e763d1519b737901fa1e5ab7b1d583420469168575a48d2cce80edd1c22"
+        },
+        {
+          "path": "scripts/presentation-check.mjs",
+          "bytes": 4693,
+          "sha256": "dc420d4dfec9bb0f898f740a02ce1ef181402ec746085b4bf0d728da2c02896d"
+        },
+        {
+          "path": "scripts/projectile-cover-check.mjs",
+          "bytes": 5632,
+          "sha256": "1ffc1be94a62b98f0d4acb70e4bb2f937bf7a39c59ff2c6f5789f8de6543154c"
+        },
+        {
+          "path": "scripts/public-check.mjs",
+          "bytes": 16888,
+          "sha256": "68745bf0328a22d8d947faef5170d2868870cc9ed76f8894b0cd059b23eb7616"
+        },
+        {
+          "path": "scripts/region-art-check.mjs",
+          "bytes": 8815,
+          "sha256": "57b280e52ef6ec14a71c7a145a15ba8c8cca218fadfaf2e80ca6591b4a8c9363"
+        },
+        {
+          "path": "scripts/ui-regression.mjs",
+          "bytes": 3953,
+          "sha256": "0f6ee528588508cb9edbcd74dfb44697c0434c69e2e1739a63b9f5f53416a5cc"
+        },
+        {
+          "path": "scripts/verification-fingerprint.mjs",
+          "bytes": 7735,
+          "sha256": "bcb3736f4b213285d6b6df83b23693853f6a9f4fbb943e2bff0b814bf68271d7"
+        },
+        {
+          "path": "scripts/verify.mjs",
+          "bytes": 10437,
+          "sha256": "1ed3e2f11cdb7fcbccea37bf8036b2a9d367d0cffb3e1211e2b19d85af5709f9"
+        },
+        {
+          "path": "src/game/audio.ts",
+          "bytes": 15183,
+          "sha256": "c01666a9a80b19240268e98179fac0d30d3454163dff46890e8d85fb599308a8"
+        },
+        {
+          "path": "src/game/canal-art.ts",
+          "bytes": 14661,
+          "sha256": "cb43a5167f43a5f21130070869849102224c67c210cd47d6ba97ae44d352998e"
+        },
+        {
+          "path": "src/game/canal-content.ts",
+          "bytes": 3677,
+          "sha256": "ddca489cb4b1187521f6aee592050f9004ee055622c52c6d9c5be0c94e8bf473"
+        },
+        {
+          "path": "src/game/canal.ts",
+          "bytes": 20469,
+          "sha256": "e81ae07e2bf167ff6fc5e7efa39cbe1a89717dd3f9a40a5a84ec77f8d1ccc138"
+        },
+        {
+          "path": "src/game/companion.ts",
+          "bytes": 324,
+          "sha256": "4f178ea8240ffface6cc48690da112b7fe64497d3047c6d7272e339df44fab30"
+        },
+        {
+          "path": "src/game/content.ts",
+          "bytes": 8437,
+          "sha256": "74dc76fc30191f24849aeb54e8fe86539c5ac0e819dcce0734f1bcd766fe3a6b"
+        },
+        {
+          "path": "src/game/contracts.ts",
+          "bytes": 5336,
+          "sha256": "a08e883c41e29f383e82c80aad127a78ab7eb775bb91e4a282d5c037e3c476e4"
+        },
+        {
+          "path": "src/game/display.ts",
+          "bytes": 522,
+          "sha256": "72012b2fe785cc50a44017249ad9edc2fb20e415bfad2a582b2253593e5de8e2"
+        },
+        {
+          "path": "src/game/encounters.ts",
+          "bytes": 20702,
+          "sha256": "e01aaa586e1c874396f449eef4fa8f749c207a4a60cd06ced9615217543aff02"
+        },
+        {
+          "path": "src/game/feedback.ts",
+          "bytes": 1151,
+          "sha256": "599cafec31f06e4693f8e832250c148eb484694aa9afe4f5ff4066bb0772f4d4"
+        },
+        {
+          "path": "src/game/journey-art.ts",
+          "bytes": 2612,
+          "sha256": "3a64782f5bf5755e365ac2370da6846f22c3ef42f593d8541c4e7ae06bf40f7a"
+        },
+        {
+          "path": "src/game/journey-content.ts",
+          "bytes": 1507,
+          "sha256": "d276dd8c98182d3169910ab18f89a39325cad4556ce31a92fc5d57c6db5c7057"
+        },
+        {
+          "path": "src/game/journey.ts",
+          "bytes": 19533,
+          "sha256": "ccd45d17ea6b3f450634fd1b2e49c9c6ce4d17f2918c5687e46895970796af84"
+        },
+        {
+          "path": "src/game/kiln-art.ts",
+          "bytes": 10945,
+          "sha256": "f2a7224c753aae1d559031b487d75f626fc7172dc2b7801d3f9475e3e9f81804"
+        },
+        {
+          "path": "src/game/kiln-content.ts",
+          "bytes": 2673,
+          "sha256": "fcf41401d4dde89319b3ae3a7ce833340e9e98d512d160d624cca6403ebbb3ef"
+        },
+        {
+          "path": "src/game/kiln.ts",
+          "bytes": 8797,
+          "sha256": "c4e6b8a87240544a778fb8f555de198422fd86a105d8e69789acc5a38a8c77be"
+        },
+        {
+          "path": "src/game/life-art.ts",
+          "bytes": 3709,
+          "sha256": "aa3f4ecac81a87249a57234f37695a50e55544254b0e1b40ecdccfd013adab1f"
+        },
+        {
+          "path": "src/game/life-content.ts",
+          "bytes": 1473,
+          "sha256": "1dc2b08c3604fc9a1bbacee346224bcdd60f402a198142cb6295c03e7bec52ac"
+        },
+        {
+          "path": "src/game/life.ts",
+          "bytes": 18236,
+          "sha256": "88e7010a84686d24b2cbc63e04d444311a52b9dab9b96fb42863ebde8b5f50f4"
+        },
+        {
+          "path": "src/game/market-art.ts",
+          "bytes": 15411,
+          "sha256": "3c7e0e649ec97a8d1db877b3373110131d1ac707576d9ad69714497db670867e"
+        },
+        {
+          "path": "src/game/market-content.ts",
+          "bytes": 2810,
+          "sha256": "6c6f86e745342016f47925b0f5eb6874e86ffc3ec65d7e5aeaebf175bda6fead"
+        },
+        {
+          "path": "src/game/market.ts",
+          "bytes": 10747,
+          "sha256": "e4926d20c1a7de5741dcd9788eccea636c6a200e97fa74d40f419799a59062cb"
+        },
+        {
+          "path": "src/game/model.ts",
+          "bytes": 74656,
+          "sha256": "a53457c0e3dc98a6d90edfe43ba9e6abd280d390e7bcc859019f0ed90451a5ff"
+        },
+        {
+          "path": "src/game/presentation.ts",
+          "bytes": 2552,
+          "sha256": "c4e66422c41b4936d674682fbc11bf2101becf8b2c549402b4eafd31f11a07e6"
+        },
+        {
+          "path": "src/game/save.ts",
+          "bytes": 31576,
+          "sha256": "393d1958c6d811cf117bd3f957b6399e75cb7bfad8cd4721cc455da613fcfa75"
+        },
+        {
+          "path": "src/game/scene.ts",
+          "bytes": 68466,
+          "sha256": "31cefb5b6e17b5fce5aa61521a99c36958b01db0a7391fe5cb7e28ee8afbd10d"
+        },
+        {
+          "path": "src/game/terrain.ts",
+          "bytes": 16625,
+          "sha256": "6ebc27e1962c3aca153f131a7d90aed4cb1e1713308372b60496607c86558e23"
+        },
+        {
+          "path": "src/game/ui.ts",
+          "bytes": 29790,
+          "sha256": "03de6137904660427c3d1330870c4b8137fe2b3fb022dce60a09f67c1ec35837"
+        },
+        {
+          "path": "src/game/wayfinding.ts",
+          "bytes": 4412,
+          "sha256": "a75253c291861704bc77f018e161876cf099af41148131b73d9fc162b207e845"
+        },
+        {
+          "path": "src/main.ts",
+          "bytes": 765,
+          "sha256": "d65a64ff2c042ec3708abe741baf49b63b6d7234d521c2a53f5e9cf003ced6e5"
+        },
+        {
+          "path": "src/style.css",
+          "bytes": 32071,
+          "sha256": "9d795896d433a76a9f0ab22cab9a15471396959e51fcbaed45f0a3cf40363376"
+        },
+        {
+          "path": "src/whitebox/kiln-main.ts",
+          "bytes": 10657,
+          "sha256": "e0710ddfdd14126d3748d74f4a46c5ac40ba4d60d92ee4c42fffeab5d77ff267"
+        },
+        {
+          "path": "src/whitebox/kiln-model.ts",
+          "bytes": 3579,
+          "sha256": "5fece4395f1305fb480ccc1765fe825598793bb7e8e6fe4c45314060a603f182"
+        },
+        {
+          "path": "src/whitebox/kiln.css",
+          "bytes": 1699,
+          "sha256": "87ef29451f0ff6d2c3d5ecf22573ca48eef4166cd071009080e36d5cf6cb4880"
+        },
+        {
+          "path": "src/whitebox/market-main.ts",
+          "bytes": 20019,
+          "sha256": "7d3ee36011cd03ce1e6c36d52e0c00d6a646d8ce7933fe0c8197d602fa31fb24"
+        },
+        {
+          "path": "src/whitebox/market-model.ts",
+          "bytes": 11219,
+          "sha256": "d9d41639d23d3dbbcebe5a1a97614302d3dd51f258f85680d16facd55ee496eb"
+        },
+        {
+          "path": "src/whitebox/market.css",
+          "bytes": 2805,
+          "sha256": "de9f38f63eae408f0678aeec4fd8d9430c8f34030cf44e57de49132a9f1404b3"
+        },
+        {
+          "path": "tests/audio.test.ts",
+          "bytes": 3924,
+          "sha256": "08f4222887c64ab06ef898777f95f7d3f43dfcee351d40333360a719174cd864"
+        },
+        {
+          "path": "tests/canal-casting.test.ts",
+          "bytes": 3394,
+          "sha256": "831a9a29491d200da5da920d0bf3ef3f0cb6845083ed8f1417a2db5907db5641"
+        },
+        {
+          "path": "tests/canal-integration.test.ts",
+          "bytes": 3552,
+          "sha256": "1fdb06d358ad1cccacb033de8d1f59d9a2e768f08bdbcb50a86b14dbe9e34f01"
+        },
+        {
+          "path": "tests/canal-routes.test.ts",
+          "bytes": 2650,
+          "sha256": "a34ba4a9eb41c656a29b9706a0b3796de06faa2f4ac3f79d4dff1ad0f75fb385"
+        },
+        {
+          "path": "tests/canal-save.test.ts",
+          "bytes": 9766,
+          "sha256": "65e5d90c2c1c36a05907ce5884e000f2fc14608b5ebad491f05c263032281db8"
+        },
+        {
+          "path": "tests/canal-variants.test.ts",
+          "bytes": 6909,
+          "sha256": "2e19916b382001d4418bcececf6586549ffc840e698122c724e2f3b865a8cfbf"
+        },
+        {
+          "path": "tests/canal.test.ts",
+          "bytes": 13492,
+          "sha256": "bac26bf31209d3593a7f558e795734957c906933192fd0da9bc7ea5301511b4a"
+        },
+        {
+          "path": "tests/cast-target.test.ts",
+          "bytes": 1301,
+          "sha256": "028ea7f869cf16c3b04e9ebcf3bc1e9ca50bc70f92ee2d22a789df7444a9fd01"
+        },
+        {
+          "path": "tests/encounters.test.ts",
+          "bytes": 7158,
+          "sha256": "ec8f4fdffa698fedd49879e79f2e68b5571525f22b4cb18f093ddd88e2adbc6a"
+        },
+        {
+          "path": "tests/feedback.test.ts",
+          "bytes": 1273,
+          "sha256": "274cad5d4bea73de19f37bee8990141781d8ae54af80323397bed8540dfe0734"
+        },
+        {
+          "path": "tests/journey-model.test.ts",
+          "bytes": 8302,
+          "sha256": "bf34365564e682d033ca7eabe3d61bacffc3bc69a453aff4201e1b7e611dc076"
+        },
+        {
+          "path": "tests/journey-save.test.ts",
+          "bytes": 8640,
+          "sha256": "e8383dfcb90400c03c405748f6d8ee974f86d6e371d50eb63457cfb6bfdc4d02"
+        },
+        {
+          "path": "tests/journey.test.ts",
+          "bytes": 9483,
+          "sha256": "07982439477a13fc45ae18ee4e1920509c0a7ef001207e9a82db490e4d73df9e"
+        },
+        {
+          "path": "tests/kiln-integration.test.ts",
+          "bytes": 3186,
+          "sha256": "16311a5c09209195f5b3c93eb24079396b3f0514777ecf6299efc4ae0fb7ba27"
+        },
+        {
+          "path": "tests/kiln-observation.test.ts",
+          "bytes": 1446,
+          "sha256": "9a08fd00f9f3b5925aa66f7b6f2ef8ab5c5ee3e124d3eeca6ec2d4c304776629"
+        },
+        {
+          "path": "tests/kiln-save.test.ts",
+          "bytes": 14303,
+          "sha256": "7163794f46dd1f916cf0248375cc305faa8491edeaea18f664a1c90f7443f3f0"
+        },
+        {
+          "path": "tests/kiln-whitebox.test.ts",
+          "bytes": 7466,
+          "sha256": "7e3174f599a472ccb5b87e8e33b2e30044949f8bd7375b09c642ab7770a7d10d"
+        },
+        {
+          "path": "tests/kiln.test.ts",
+          "bytes": 14198,
+          "sha256": "c24fb90eed8dc92b655345773310110748cec6eaa2472ea2d373cbb1ef4b8fb2"
+        },
+        {
+          "path": "tests/life-presentation.test.ts",
+          "bytes": 2018,
+          "sha256": "1bb319d7a6cf35e741324ac5f31f6152f4b391b249bc7e129cc8a7f16fb6b797"
+        },
+        {
+          "path": "tests/life.test.ts",
+          "bytes": 11108,
+          "sha256": "eaca793c6cde8ddebf21fb85d692ea9eb1ee6c5df129eb69072bc96d21bdd10a"
+        },
+        {
+          "path": "tests/market-integration.test.ts",
+          "bytes": 7529,
+          "sha256": "9c0669bff9e893f37948f3cf34f3bb979f65cea875d7e8542d34e123c21ff2e3"
+        },
+        {
+          "path": "tests/market-save.test.ts",
+          "bytes": 17351,
+          "sha256": "b1bf5ea29ff64c2618e17abdd01c6d91acc528d7dc151a6c87986a95c6bd18b0"
+        },
+        {
+          "path": "tests/market-whitebox.test.ts",
+          "bytes": 26895,
+          "sha256": "03746be1d923bc6546ccb10e9d8c1ccae27cd7b897ad207360313f8652ae3d7d"
+        },
+        {
+          "path": "tests/market.test.ts",
+          "bytes": 14565,
+          "sha256": "8c028eda88386759c5839f7a3c2f8ec4073b4d8107a1ff402b64807383d9c924"
+        },
+        {
+          "path": "tests/model.test.ts",
+          "bytes": 19341,
+          "sha256": "6b472339e1bd78c4d7311e1e00ae03e85867d7fc3f644487560a74f96df9f86b"
+        },
+        {
+          "path": "tests/movable-burning.test.ts",
+          "bytes": 3999,
+          "sha256": "8c5aaf4ddfda816433512ac689d57011bb2895bbd61d69a61c6f00d9893aed25"
+        },
+        {
+          "path": "tests/navigation.test.ts",
+          "bytes": 8744,
+          "sha256": "8ef7cd72b320430168a8291a9723aada9453e0bd92a0b87d00890fea983e6e08"
+        },
+        {
+          "path": "tests/player-screen-recovery.test.ts",
+          "bytes": 5806,
+          "sha256": "ad340c1c24965252006116c788651d90d4211ec870b00b0f1663ccbfc324ae84"
+        },
+        {
+          "path": "tests/presentation.test.ts",
+          "bytes": 1795,
+          "sha256": "e6303d4d3a98e23b2c96da69602a3cc24ab2145774adbbdbc18b6c91c42b31ba"
+        },
+        {
+          "path": "tests/projectile-obstacles.test.ts",
+          "bytes": 7092,
+          "sha256": "8665976cbe6f327ffd24346d17a415142e367d53f1e36dc9dda00757eb2b07f0"
+        },
+        {
+          "path": "tests/save-migration.test.ts",
+          "bytes": 9510,
+          "sha256": "be411e957718b6e8e5575c23ac54d2ed33ca4a6dd46df1e310fcb19e16c800e2"
+        },
+        {
+          "path": "tests/simulation-ports.test.ts",
+          "bytes": 2517,
+          "sha256": "e8b6e56f3fd2e31bc73b70dbb02ee0ae74369ec8910a12dee35f6f9c828747be"
+        },
+        {
+          "path": "tests/solid-pull-footprint.test.ts",
+          "bytes": 11516,
+          "sha256": "2dec1e740360b63022d5cd749f46845df38c5f0b279e0c47b7326aa0eeb192b8"
+        },
+        {
+          "path": "tests/ui-load-pause.test.ts",
+          "bytes": 3739,
+          "sha256": "0c1bb517a2a230954169e3c750cfba1eb9a91937a242849a4236cf30f1775389"
+        },
+        {
+          "path": "tests/verification-fingerprint.test.ts",
+          "bytes": 9521,
+          "sha256": "864bb4e972e36825cfee385c0cad30e1e677520c27d85bba90a991ea769c4581"
+        },
+        {
+          "path": "tsconfig.json",
+          "bytes": 257,
+          "sha256": "95f87b0d4ba63946703fe4f167ab4ecaa0a6f810afb0b1e7680ec62e1684c266"
+        },
+        {
+          "path": "vite.config.ts",
+          "bytes": 169,
+          "sha256": "4d12ecf6a49050438e76f6a6904dc40e5a1fde163d73f0ca43d408406c76de96"
+        },
+        {
+          "path": "vitest.config.ts",
+          "bytes": 198,
+          "sha256": "17ec821e75e6683c08b0c34e926034df400dd8e2b45c824c26535e004d75d432"
+        }
+      ],
+      "sha256": "ce857dcf649bec658826384813bd8bdc724de43fb06805480cbb7e6cbdb5de14"
+    },
+    "dist": {
+      "files": [
+        {
+          "path": "art/canal-architecture.png",
+          "bytes": 2228134,
+          "sha256": "88cd8982350b4af451c041c6c38d74bb6b3bff0b12547bf28702b5e2e085b575"
+        },
+        {
+          "path": "art/canal-ground.png",
+          "bytes": 3946075,
+          "sha256": "4d2a6ba10a712dbacf9eb2d5b535c62fed428ecd0fa70dafc0d6a10c5d811ccf"
+        },
+        {
+          "path": "art/canal-props.png",
+          "bytes": 1870320,
+          "sha256": "d3bdaa155b2f3df86c867ab7fe9a3d462d74e46135a56d1812f196b378f578f7"
+        },
+        {
+          "path": "art/characters.png",
+          "bytes": 1699126,
+          "sha256": "37b50db6122507a1d00fa1e7eb71468616208e77e1650f12ee06bbac728520f2"
+        },
+        {
+          "path": "art/creek-ground.png",
+          "bytes": 3613536,
+          "sha256": "73e657f6610659c908900e292d9c6f2aa276f711516f6f4995be441ee2403db4"
+        },
+        {
+          "path": "art/crossing-ground.png",
+          "bytes": 3697306,
+          "sha256": "63845ee3c761e1ec1c1d57273eb18a399decf53148c1635770e096b96ef18d7b"
+        },
+        {
+          "path": "art/detail-props.png",
+          "bytes": 1889361,
+          "sha256": "fc685245548231a1cea9836fd4ae1719c1d2834aadac9a514eae47adaba5c793"
+        },
+        {
+          "path": "art/enemies.png",
+          "bytes": 1812944,
+          "sha256": "230a256f03ca9acc0b7db2a94f18ab160b3f10d4bda7143c802b70a974f27eee"
+        },
+        {
+          "path": "art/environment.png",
+          "bytes": 2097047,
+          "sha256": "006719ddbd6b1a42673851aad8b4c06772bc6c68bcecbde8241d9a63369b04d9"
+        },
+        {
+          "path": "art/home-ground.png",
+          "bytes": 3845100,
+          "sha256": "f7a57e8c8892e1f96e09b1cb743c3510984ec5e94b2e081dee200e186cb9ee0f"
+        },
+        {
+          "path": "art/home-inn.png",
+          "bytes": 2660936,
+          "sha256": "0602547ab3fd1ff71fbb69d8e16e39ece7eb99e0d0c7552b4db75d5c61be4cff"
+        },
+        {
+          "path": "art/home-props.png",
+          "bytes": 2309935,
+          "sha256": "d25b7db544aed2e8c0a979d520d0e690bc49ffa64059b296e39ff892dd5c9246"
+        },
+        {
+          "path": "art/journey-props.png",
+          "bytes": 2093674,
+          "sha256": "ecc72550eaadeccf903455cd83d589cc1ce298c04a42f79e7cfe8a7ef0820b04"
+        },
+        {
+          "path": "art/life-props.png",
+          "bytes": 2057987,
+          "sha256": "c0f196315ff5e448d370a5b4c264cb51d33bd2e13fbf7c446d14998fbbaa4bf5"
+        },
+        {
+          "path": "art/region-architecture.png",
+          "bytes": 1728167,
+          "sha256": "4a726507e768ed9a01b0def0adaa797de695d004db4b0557884e0e2deef338b8"
+        },
+        {
+          "path": "art/title.png",
+          "bytes": 2788149,
+          "sha256": "58e23fb0b0d022eaf4afc7c934afa3df1f3fd8ce4cb01645b0c14d444471f75e"
+        },
+        {
+          "path": "art/water-surface.png",
+          "bytes": 2712587,
+          "sha256": "6fb7988ee59d46aa3ba9feac3ec1ccd2844f249b04c6b549e7e2e03c4a0434e9"
+        },
+        {
+          "path": "art/workshop-ground.png",
+          "bytes": 3637210,
+          "sha256": "bedbd7d681e1cf7c4481696e3983b6638f6c8088f892c4a54759953b58f108c9"
+        },
+        {
+          "path": "assets/index-CRsUjnIh.js",
+          "bytes": 1506723,
+          "sha256": "50f8bb8b45bdc465bbae5669318aa34b31a102120f0970f33b0b0bc63b99a9e0"
+        },
+        {
+          "path": "assets/index-D5r6oNWq.css",
+          "bytes": 31222,
+          "sha256": "604270efb9035bd593cdb7e9f168cebd5e91c61e693fe6539a5c8d9a8e75d4f4"
+        },
+        {
+          "path": "assets/kiln-duqin.png",
+          "bytes": 1440774,
+          "sha256": "0480b088be4bff693bd87e5833e03d28ee23f91b421772b326e90c03de9e0c87"
+        },
+        {
+          "path": "assets/kiln-environment.png",
+          "bytes": 2553763,
+          "sha256": "5d9b59014cab12b050d48e1f8bcbc60310260eb626b744c3904cd8df07735d93"
+        },
+        {
+          "path": "assets/kiln-ground.png",
+          "bytes": 3624755,
+          "sha256": "df1ab7ea81cec12235c70afa91946425aa23cf031f7dc73d2b522d0c0353167d"
+        },
+        {
+          "path": "assets/kiln-props.png",
+          "bytes": 1550153,
+          "sha256": "aba59236b3b602f09c9c3ffe3c7a5681b248472847253f6054dbe4fb5c7017ed"
+        },
+        {
+          "path": "assets/market-environment.png",
+          "bytes": 2520103,
+          "sha256": "6f349bf66a60f1c1b5eacbb8f8d434a9b9531e2ec8859985ae0327e7242e409b"
+        },
+        {
+          "path": "assets/market-ground.png",
+          "bytes": 2560140,
+          "sha256": "7ae06c6db742114b9b6a81fa368a4fb21030bde153d22b60328b4fc4b30a966d"
+        },
+        {
+          "path": "assets/market-props.png",
+          "bytes": 1691636,
+          "sha256": "6bf1962548d48f47cc46c465c52ca21606018de527f7f2b6e506d690424a783e"
+        },
+        {
+          "path": "assets/market-shenyan.png",
+          "bytes": 1906336,
+          "sha256": "837a8eceedd8c9070b326acdc7afeb34cbe9aa8a2a7782d469c8c2aa2f144f40"
+        },
+        {
+          "path": "index.html",
+          "bytes": 656,
+          "sha256": "b5d0e423e20914cfa50d047e80d115f9d5506a024cd5c6b251fdc4919d14f30d"
+        }
+      ],
+      "sha256": "db02eba330f51ac00d2b5d940a18de9d48afaee5f19371f28b5db14368515833"
+    }
+  },
   "additionalCompleteRuns": [
     {
       "id": "main-return",
@@ -167,5 +1063,15 @@
     "source": "Unmodified actual 0.5 completion imported through settings; all new progression uses actual world/UI input.",
     "scope": "Zero-mana two-ended travel, witnessed borrow/intact return, permission/rest, independent save restore, burned persistence, player recovery after dropping a screen at zero mana, restart and three viewports.",
     "limitations": "Real-browser coverage is Linux Chrome and DPR/touch emulation; held-expiry recovery and other boundary combinations also have model coverage."
+  },
+  "market": {
+    "threat": "qa/evidence/market-threat-verified.json",
+    "consequences": "qa/evidence/market-consequences-verified.json",
+    "viewports": "qa/evidence/market-view.json",
+    "desktop": "qa/evidence/market-desktop-verified.json",
+    "phone": "qa/evidence/market-phone-verified.json",
+    "source": "Fixed actual 0.6 two-ended kiln settings export, unchanged; formal travel and reporting use normal UI.",
+    "scope": "Actual private west-to-east crossing and canal connection, public east-to-west return to crossing, home report, three viewports and genuine single-finger camera control.",
+    "limitations": "Linux Chrome and touch/DPR emulation, not physical Mac/Safari/phone. Production waiting pose has a separate actual lure/withdrawal check at desktop DPR1; DPR2/DPR3 art views and model/whitebox boundaries are separate evidence. Visual framing uses ordinary pause; the phone full route frames each target while paused, then resumes actual walking. It does not establish uninterrupted phone combat."
   }
 }

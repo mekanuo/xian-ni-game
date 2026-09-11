@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "PASS",
-  "startedAt": "2026-09-11T11:52:51.039Z",
+  "startedAt": "2026-09-11T17:31:50.328Z",
   "url": "http://127.0.0.1:4187/",
   "devices": [
     {
@@ -16,7 +16,7 @@
           "path": "qa/evidence/kiln-view-desktop-1440-dpr2-creek-entry-sign.png",
           "scene": "creek",
           "paused": true,
-          "time": 320.30000000003736,
+          "time": 319.933333333371,
           "player": {
             "x": 699.0425187863829,
             "y": 316.0694959684977,
@@ -110,8 +110,9 @@
                 "id": "xu_creek",
                 "x": 614.7815184189503,
                 "y": 321.90881028223083,
-                "angle": -1.9172066402338714,
-                "flipX": false
+                "angle": 1.9830373449614171,
+                "flipX": false,
+                "frame": "3"
               }
             ],
             "player": {
@@ -239,7 +240,7 @@
           "path": "qa/evidence/kiln-view-desktop-1440-dpr2-west-exit-sign.png",
           "scene": "kiln",
           "paused": true,
-          "time": 322.1000000000357,
+          "time": 321.9333333333692,
           "player": {
             "x": 270,
             "y": 480,
@@ -310,25 +311,36 @@
           "presentation": {
             "actors": [
               {
+                "id": "shield_board",
+                "x": 500,
+                "y": 640,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screen"
+              },
+              {
                 "id": "duqin",
                 "x": 260,
                 "y": 560,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "duqin"
               },
               {
                 "id": "kiln_raider_a",
                 "x": 710,
                 "y": 640,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "0"
               },
               {
                 "id": "kiln_raider_b",
                 "x": 1090,
                 "y": 300,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "1"
               }
             ],
             "player": {
@@ -436,7 +448,7 @@
           "path": "qa/evidence/kiln-view-desktop-1440-dpr2-west-court-duqin.png",
           "scene": "kiln",
           "paused": true,
-          "time": 323.1000000000348,
+          "time": 322.9333333333683,
           "player": {
             "x": 270,
             "y": 480,
@@ -507,25 +519,36 @@
           "presentation": {
             "actors": [
               {
+                "id": "shield_board",
+                "x": 500,
+                "y": 640,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screen"
+              },
+              {
                 "id": "duqin",
                 "x": 260,
                 "y": 560,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "duqin"
               },
               {
                 "id": "kiln_raider_a",
                 "x": 710,
                 "y": 640,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "0"
               },
               {
                 "id": "kiln_raider_b",
                 "x": 1090,
                 "y": 300,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "1"
               }
             ],
             "player": {
@@ -633,7 +656,7 @@
           "path": "qa/evidence/kiln-view-desktop-1440-dpr2-intact-screen.png",
           "scene": "kiln",
           "paused": true,
-          "time": 325.70000000003245,
+          "time": 325.433333333366,
           "player": {
             "x": 349.5020225348595,
             "y": 640.0037693013645,
@@ -714,25 +737,36 @@
           "presentation": {
             "actors": [
               {
+                "id": "shield_board",
+                "x": 500,
+                "y": 640,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screen"
+              },
+              {
                 "id": "duqin",
                 "x": 260,
                 "y": 560,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "duqin"
               },
               {
                 "id": "kiln_raider_a",
                 "x": 710,
                 "y": 640,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "0"
               },
               {
                 "id": "kiln_raider_b",
                 "x": 1090,
                 "y": 300,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "1"
               }
             ],
             "player": {
@@ -850,7 +884,7 @@
           "path": "qa/evidence/kiln-view-desktop-1440-dpr2-east-exit-sign.png",
           "scene": "kiln",
           "paused": true,
-          "time": 341.8000000000178,
+          "time": 341.5333333333514,
           "player": {
             "x": 1219.2120342338949,
             "y": 652.8896670484049,
@@ -911,25 +945,36 @@
           "presentation": {
             "actors": [
               {
+                "id": "shield_board",
+                "x": 500,
+                "y": 640,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screen"
+              },
+              {
                 "id": "duqin",
                 "x": 260,
                 "y": 560,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "duqin"
               },
               {
                 "id": "kiln_raider_a",
-                "x": 952.0216432564214,
-                "y": 787.4817070674605,
+                "x": 952.0173044434409,
+                "y": 787.4473031149803,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "0"
               },
               {
                 "id": "kiln_raider_b",
                 "x": 1090,
                 "y": 300,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "1"
               }
             ],
             "player": {
@@ -985,8 +1030,8 @@
               "name": "近墙散修",
               "kind": "enemy",
               "type": "raider",
-              "x": 952.0216432564214,
-              "y": 787.4817070674605,
+              "x": 952.0173044434409,
+              "y": 787.4473031149803,
               "w": 40,
               "h": 60,
               "hp": 3,
@@ -999,7 +1044,7 @@
                 "seen": 3,
                 "attack": 0
               },
-              "timer": 0.3666666666666652
+              "timer": 0.43333333333333185
             },
             {
               "id": "kiln_raider_b",
@@ -1028,7 +1073,7 @@
           "path": "qa/evidence/kiln-view-desktop-1440-dpr2-canal-connection.png",
           "scene": "canal",
           "paused": true,
-          "time": 343.7000000000161,
+          "time": 343.43333333334965,
           "player": {
             "x": 500,
             "y": 570,
@@ -1094,37 +1139,91 @@
                 "w": 51,
                 "h": 28
               }
+            },
+            {
+              "id": "canal_to_market",
+              "text": "小集",
+              "bounds": {
+                "x": 1068.5,
+                "y": 242,
+                "w": 51,
+                "h": 28
+              }
             }
           ],
           "presentation": {
             "actors": [
               {
+                "id": "canal_diverter",
+                "x": 600,
+                "y": 350,
+                "angle": 0,
+                "flipX": false,
+                "frame": "diverter"
+              },
+              {
+                "id": "canal_stop",
+                "x": 1280,
+                "y": 350,
+                "angle": 0,
+                "flipX": false,
+                "frame": "stop"
+              },
+              {
+                "id": "canal_screen",
+                "x": 1100,
+                "y": 540,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screenClean"
+              },
+              {
+                "id": "canal_inspect",
+                "x": 880,
+                "y": 610,
+                "angle": 0,
+                "flipX": false,
+                "frame": "gauge"
+              },
+              {
+                "id": "canal_tub",
+                "x": 350,
+                "y": 930,
+                "angle": 0,
+                "flipX": false,
+                "frame": "tub"
+              },
+              {
                 "id": "canal_keeper",
                 "x": 260,
                 "y": 960,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "keeper"
               },
               {
                 "id": "xu_canal",
                 "x": 515.3543891282932,
                 "y": 626.304361394663,
-                "angle": 1.8405351665002172,
-                "flipX": true
+                "angle": -0.8285955878502591,
+                "flipX": true,
+                "frame": "3"
               },
               {
                 "id": "canal_beast_a",
                 "x": 1460,
                 "y": 660,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "2"
               },
               {
                 "id": "canal_beast_b",
                 "x": 1380,
                 "y": 820,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "3"
               }
             ],
             "player": {
@@ -1164,6 +1263,16 @@
                   "w": 51,
                   "h": 28
                 }
+              },
+              {
+                "id": "canal_to_market",
+                "text": "小集",
+                "bounds": {
+                  "x": 1068.5,
+                  "y": 242,
+                  "w": 51,
+                  "h": 28
+                }
               }
             ]
           },
@@ -1190,12 +1299,12 @@
               "name": "近墙散修",
               "kind": "enemy",
               "type": "raider",
-              "x": 953.9566725172758,
-              "y": 786.5069731529579,
+              "x": 952.0173044434409,
+              "y": 787.4473031149803,
               "w": 40,
               "h": 60,
               "hp": 3,
-              "state": "searching",
+              "state": "alert",
               "homeX": 710,
               "homeY": 640,
               "data": {
@@ -1204,7 +1313,7 @@
                 "seen": 2.8000000000000007,
                 "attack": 0
               },
-              "timer": 0
+              "timer": 0.03333333333333194
             },
             {
               "id": "kiln_raider_b",
@@ -1304,7 +1413,7 @@
             "x": 699.0425187863829,
             "y": 316.0694959684977
           },
-          "elapsedModelSeconds": 3.899999999996453
+          "elapsedModelSeconds": 3.799999999996544
         },
         {
           "action": "real center"
@@ -1354,7 +1463,7 @@
             "x": 349.5020225348595,
             "y": 640.0037693013645
           },
-          "elapsedModelSeconds": 2.5999999999976353
+          "elapsedModelSeconds": 2.4999999999977263
         },
         {
           "action": "real center"
@@ -1374,7 +1483,7 @@
             "x": 359.92403144951817,
             "y": 700.4451417871098
           },
-          "elapsedModelSeconds": 1.799999999998363
+          "elapsedModelSeconds": 1.999999999998181
         },
         {
           "action": "actual mouse walk",
@@ -1408,7 +1517,7 @@
             "x": 797.3331455270181,
             "y": 820.8860915469423
           },
-          "elapsedModelSeconds": 4.099999999996271
+          "elapsedModelSeconds": 4.19999999999618
         },
         {
           "action": "actual mouse walk",
@@ -1442,7 +1551,7 @@
             "x": 1218.6664788449255,
             "y": 820.8887812404689
           },
-          "elapsedModelSeconds": 2.6999999999975444
+          "elapsedModelSeconds": 2.4999999999977263
         },
         {
           "action": "actual mouse walk",
@@ -1459,7 +1568,7 @@
             "x": 1219.2120342338949,
             "y": 652.8896670484049
           },
-          "elapsedModelSeconds": 2.4999999999977263
+          "elapsedModelSeconds": 2.399999999997817
         },
         {
           "action": "real center"
@@ -1533,7 +1642,7 @@
       },
       "migration": {
         "sourceVersion": 4,
-        "resultVersion": 5,
+        "resultVersion": 6,
         "time": 303.80000000005236,
         "journeyPreserved": true,
         "kiln": {
@@ -1607,7 +1716,7 @@
           "path": "qa/evidence/kiln-view-short-1280-dpr1-creek-entry-sign.png",
           "scene": "creek",
           "paused": true,
-          "time": 317.3000000000401,
+          "time": 317.3666666667067,
           "player": {
             "x": 698.0389687231481,
             "y": 314.52638197312103,
@@ -1701,8 +1810,9 @@
                 "id": "xu_creek",
                 "x": 613.3989607587064,
                 "y": 319.8412343100002,
-                "angle": 0.015444072030277312,
-                "flipX": false
+                "angle": -1.1165047340609817,
+                "flipX": false,
+                "frame": "3"
               }
             ],
             "player": {
@@ -1830,7 +1940,7 @@
           "path": "qa/evidence/kiln-view-short-1280-dpr1-west-exit-sign.png",
           "scene": "kiln",
           "paused": true,
-          "time": 318.3000000000392,
+          "time": 318.500000000039,
           "player": {
             "x": 270,
             "y": 480,
@@ -1901,25 +2011,36 @@
           "presentation": {
             "actors": [
               {
+                "id": "shield_board",
+                "x": 500,
+                "y": 640,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screen"
+              },
+              {
                 "id": "duqin",
                 "x": 260,
                 "y": 560,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "duqin"
               },
               {
                 "id": "kiln_raider_a",
                 "x": 710,
                 "y": 640,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "0"
               },
               {
                 "id": "kiln_raider_b",
                 "x": 1090,
                 "y": 300,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "1"
               }
             ],
             "player": {
@@ -2027,7 +2148,7 @@
           "path": "qa/evidence/kiln-view-short-1280-dpr1-west-court-duqin.png",
           "scene": "kiln",
           "paused": true,
-          "time": 319.48333333337143,
+          "time": 319.68333333337125,
           "player": {
             "x": 270,
             "y": 480,
@@ -2098,25 +2219,36 @@
           "presentation": {
             "actors": [
               {
+                "id": "shield_board",
+                "x": 500,
+                "y": 640,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screen"
+              },
+              {
                 "id": "duqin",
                 "x": 260,
                 "y": 560,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "duqin"
               },
               {
                 "id": "kiln_raider_a",
                 "x": 710,
                 "y": 640,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "0"
               },
               {
                 "id": "kiln_raider_b",
                 "x": 1090,
                 "y": 300,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "1"
               }
             ],
             "player": {
@@ -2224,7 +2356,7 @@
           "path": "qa/evidence/kiln-view-short-1280-dpr1-intact-screen.png",
           "scene": "kiln",
           "paused": true,
-          "time": 321.5166666667029,
+          "time": 321.71666666670274,
           "player": {
             "x": 348.16514700569604,
             "y": 637.6902336658086,
@@ -2305,25 +2437,36 @@
           "presentation": {
             "actors": [
               {
+                "id": "shield_board",
+                "x": 500,
+                "y": 640,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screen"
+              },
+              {
                 "id": "duqin",
                 "x": 260,
                 "y": 560,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "duqin"
               },
               {
                 "id": "kiln_raider_a",
                 "x": 710,
                 "y": 640,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "0"
               },
               {
                 "id": "kiln_raider_b",
                 "x": 1090,
                 "y": 300,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "1"
               }
             ],
             "player": {
@@ -2441,7 +2584,7 @@
           "path": "qa/evidence/kiln-view-short-1280-dpr1-east-exit-sign.png",
           "scene": "kiln",
           "paused": true,
-          "time": 334.53333333335775,
+          "time": 334.6833333333576,
           "player": {
             "x": 1219.3123340512136,
             "y": 651.7867177706781,
@@ -2502,25 +2645,36 @@
           "presentation": {
             "actors": [
               {
+                "id": "shield_board",
+                "x": 500,
+                "y": 640,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screen"
+              },
+              {
                 "id": "duqin",
                 "x": 260,
                 "y": 560,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "duqin"
               },
               {
                 "id": "kiln_raider_a",
                 "x": 933.3211870833715,
                 "y": 794.1638506899424,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "0"
               },
               {
                 "id": "kiln_raider_b",
                 "x": 1090,
                 "y": 300,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "1"
               }
             ],
             "player": {
@@ -2587,10 +2741,10 @@
               "data": {
                 "lastX": 1218.9037401450448,
                 "lastY": 702.4517368877266,
-                "seen": 2.0833333333333366,
+                "seen": 2.11666666666667,
                 "attack": 0
               },
-              "timer": 0.06666666666666526
+              "timer": 0.09999999999999859
             },
             {
               "id": "kiln_raider_b",
@@ -2619,7 +2773,7 @@
           "path": "qa/evidence/kiln-view-short-1280-dpr1-canal-connection.png",
           "scene": "canal",
           "paused": true,
-          "time": 335.86666666668987,
+          "time": 336.0333333333564,
           "player": {
             "x": 500,
             "y": 570,
@@ -2685,37 +2839,91 @@
                 "w": 51,
                 "h": 28
               }
+            },
+            {
+              "id": "canal_to_market",
+              "text": "小集",
+              "bounds": {
+                "x": 1068.5,
+                "y": 242,
+                "w": 51,
+                "h": 28
+              }
             }
           ],
           "presentation": {
             "actors": [
               {
+                "id": "canal_diverter",
+                "x": 600,
+                "y": 350,
+                "angle": 0,
+                "flipX": false,
+                "frame": "diverter"
+              },
+              {
+                "id": "canal_stop",
+                "x": 1280,
+                "y": 350,
+                "angle": 0,
+                "flipX": false,
+                "frame": "stop"
+              },
+              {
+                "id": "canal_screen",
+                "x": 1100,
+                "y": 540,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screenClean"
+              },
+              {
+                "id": "canal_inspect",
+                "x": 880,
+                "y": 610,
+                "angle": 0,
+                "flipX": false,
+                "frame": "gauge"
+              },
+              {
+                "id": "canal_tub",
+                "x": 350,
+                "y": 930,
+                "angle": 0,
+                "flipX": false,
+                "frame": "tub"
+              },
+              {
                 "id": "canal_keeper",
                 "x": 260,
                 "y": 960,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "keeper"
               },
               {
                 "id": "xu_canal",
                 "x": 515.3626527219847,
                 "y": 626.3193777689834,
-                "angle": 1.1091751350911636,
-                "flipX": true
+                "angle": 1.7385417130525411,
+                "flipX": true,
+                "frame": "3"
               },
               {
                 "id": "canal_beast_a",
                 "x": 1460,
                 "y": 660,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "2"
               },
               {
                 "id": "canal_beast_b",
                 "x": 1380,
                 "y": 820,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "3"
               }
             ],
             "player": {
@@ -2755,6 +2963,16 @@
                   "w": 51,
                   "h": 28
                 }
+              },
+              {
+                "id": "canal_to_market",
+                "text": "小集",
+                "bounds": {
+                  "x": 1068.5,
+                  "y": 242,
+                  "w": 51,
+                  "h": 28
+                }
               }
             ]
           },
@@ -2781,8 +2999,8 @@
               "name": "近墙散修",
               "kind": "enemy",
               "type": "raider",
-              "x": 954.9816541633044,
-              "y": 787.2077982261401,
+              "x": 952.9187525366441,
+              "y": 787.8702794131689,
               "w": 40,
               "h": 60,
               "hp": 3,
@@ -2792,7 +3010,7 @@
               "data": {
                 "lastX": 1218.9037401450448,
                 "lastY": 702.4517368877266,
-                "seen": 1.6666666666666714,
+                "seen": 1.7000000000000046,
                 "attack": 0
               },
               "timer": 0
@@ -2872,7 +3090,7 @@
             "x": 296.3507312512893,
             "y": 739.5184787609764
           },
-          "elapsedModelSeconds": 1.4666666666653327
+          "elapsedModelSeconds": 1.4833333333319842
         },
         {
           "action": "real Shift camera drag",
@@ -2928,7 +3146,7 @@
             "x": 698.0389687231481,
             "y": 314.52638197312103
           },
-          "elapsedModelSeconds": 3.1666666666637866
+          "elapsedModelSeconds": 3.183333333330438
         },
         {
           "action": "real center"
@@ -3054,7 +3272,7 @@
             "x": 796.6241896362255,
             "y": 819.7695586979378
           },
-          "elapsedModelSeconds": 3.666666666663332
+          "elapsedModelSeconds": 3.6499999999966803
         },
         {
           "action": "actual mouse walk",
@@ -3105,7 +3323,7 @@
             "x": 1219.3123340512136,
             "y": 651.7867177706781
           },
-          "elapsedModelSeconds": 1.9499999999982265
+          "elapsedModelSeconds": 1.9166666666649235
         },
         {
           "action": "real center"
@@ -3179,7 +3397,7 @@
       },
       "migration": {
         "sourceVersion": 4,
-        "resultVersion": 5,
+        "resultVersion": 6,
         "time": 303.80000000005236,
         "journeyPreserved": true,
         "kiln": {
@@ -3349,7 +3567,8 @@
                 "x": 614.4708334830588,
                 "y": 320.9582550513311,
                 "angle": -1.8745974846640365,
-                "flipX": false
+                "flipX": false,
+                "frame": "3"
               }
             ],
             "player": {
@@ -3548,25 +3767,36 @@
           "presentation": {
             "actors": [
               {
+                "id": "shield_board",
+                "x": 500,
+                "y": 640,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screen"
+              },
+              {
                 "id": "duqin",
                 "x": 260,
                 "y": 560,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "duqin"
               },
               {
                 "id": "kiln_raider_a",
                 "x": 710,
                 "y": 640,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "0"
               },
               {
                 "id": "kiln_raider_b",
                 "x": 1090,
                 "y": 300,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "1"
               }
             ],
             "player": {
@@ -3745,25 +3975,36 @@
           "presentation": {
             "actors": [
               {
+                "id": "shield_board",
+                "x": 500,
+                "y": 640,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screen"
+              },
+              {
                 "id": "duqin",
                 "x": 260,
                 "y": 560,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "duqin"
               },
               {
                 "id": "kiln_raider_a",
                 "x": 710,
                 "y": 640,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "0"
               },
               {
                 "id": "kiln_raider_b",
                 "x": 1090,
                 "y": 300,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "1"
               }
             ],
             "player": {
@@ -3952,25 +4193,36 @@
           "presentation": {
             "actors": [
               {
+                "id": "shield_board",
+                "x": 500,
+                "y": 640,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screen"
+              },
+              {
                 "id": "duqin",
                 "x": 260,
                 "y": 560,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "duqin"
               },
               {
                 "id": "kiln_raider_a",
                 "x": 710,
                 "y": 640,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "0"
               },
               {
                 "id": "kiln_raider_b",
                 "x": 1090,
                 "y": 300,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "1"
               }
             ],
             "player": {
@@ -4149,25 +4401,36 @@
           "presentation": {
             "actors": [
               {
+                "id": "shield_board",
+                "x": 500,
+                "y": 640,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screen"
+              },
+              {
                 "id": "duqin",
                 "x": 260,
                 "y": 560,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "duqin"
               },
               {
                 "id": "kiln_raider_a",
                 "x": 951.2392703521971,
                 "y": 784.0159574196489,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "0"
               },
               {
                 "id": "kiln_raider_b",
                 "x": 1090,
                 "y": 300,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "1"
               }
             ],
             "player": {
@@ -4332,37 +4595,91 @@
                 "w": 51,
                 "h": 28
               }
+            },
+            {
+              "id": "canal_to_market",
+              "text": "小集",
+              "bounds": {
+                "x": 1068.5,
+                "y": 242,
+                "w": 51,
+                "h": 28
+              }
             }
           ],
           "presentation": {
             "actors": [
               {
+                "id": "canal_diverter",
+                "x": 600,
+                "y": 350,
+                "angle": 0,
+                "flipX": false,
+                "frame": "diverter"
+              },
+              {
+                "id": "canal_stop",
+                "x": 1280,
+                "y": 350,
+                "angle": 0,
+                "flipX": false,
+                "frame": "stop"
+              },
+              {
+                "id": "canal_screen",
+                "x": 1100,
+                "y": 540,
+                "angle": 0,
+                "flipX": false,
+                "frame": "screenClean"
+              },
+              {
+                "id": "canal_inspect",
+                "x": 880,
+                "y": 610,
+                "angle": 0,
+                "flipX": false,
+                "frame": "gauge"
+              },
+              {
+                "id": "canal_tub",
+                "x": 350,
+                "y": 930,
+                "angle": 0,
+                "flipX": false,
+                "frame": "tub"
+              },
+              {
                 "id": "canal_keeper",
                 "x": 260,
                 "y": 960,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "keeper"
               },
               {
                 "id": "xu_canal",
                 "x": 515.4229192282296,
                 "y": 626.42835163565,
                 "angle": 1.9478184695851724,
-                "flipX": true
+                "flipX": true,
+                "frame": "3"
               },
               {
                 "id": "canal_beast_a",
                 "x": 1460,
                 "y": 660,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "2"
               },
               {
                 "id": "canal_beast_b",
                 "x": 1380,
                 "y": 820,
                 "angle": 0,
-                "flipX": false
+                "flipX": false,
+                "frame": "3"
               }
             ],
             "player": {
@@ -4399,6 +4716,16 @@
                 "bounds": {
                   "x": 440.5,
                   "y": 392,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "canal_to_market",
+                "text": "小集",
+                "bounds": {
+                  "x": 1068.5,
+                  "y": 242,
                   "w": 51,
                   "h": 28
                 }
@@ -4870,7 +5197,7 @@
       },
       "migration": {
         "sourceVersion": 4,
-        "resultVersion": 5,
+        "resultVersion": 6,
         "time": 303.80000000005236,
         "journeyPreserved": true,
         "kiln": {
@@ -4942,5 +5269,5 @@
     "origin": "Fixed actual v0.5 settings completion export; migrated by the production UI on every viewport. No generated v0.6 save is represented as this historical fixture."
   },
   "browser": "150.0.7871.114",
-  "completedAt": "2026-09-11T12:01:47.510Z"
+  "completedAt": "2026-09-11T17:40:43.415Z"
 }

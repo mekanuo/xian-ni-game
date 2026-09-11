@@ -52,7 +52,7 @@
           }
         ]
       },
-      "wall": 5865
+      "wall": 5895
     },
     {
       "action": "pull",
@@ -61,42 +61,42 @@
         "x": 560,
         "y": 665
       },
-      "wall": 6111
+      "wall": 6135
     },
     {
       "action": "interact",
       "detail": "xu",
-      "wall": 10668
+      "wall": 10710
     },
     {
       "action": "choice",
       "detail": "invite",
-      "wall": 16078
+      "wall": 16080
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 17476
+      "wall": 17466
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 21436
+      "wall": 21397
     },
     {
       "action": "interact",
       "detail": "rope",
-      "wall": 21781
+      "wall": 21726
     },
     {
       "action": "choice",
       "detail": "fix",
-      "wall": 24103
+      "wall": 24017
     },
     {
       "action": "interact",
       "detail": "bag",
-      "wall": 25401
+      "wall": 25303
     },
     {
       "action": "walk",
@@ -104,7 +104,7 @@
         "x": 885,
         "y": 555
       },
-      "wall": 26537
+      "wall": 26425
     },
     {
       "action": "pull",
@@ -113,7 +113,7 @@
         "x": 1180,
         "y": 520
       },
-      "wall": 29256
+      "wall": 29191
     },
     {
       "action": "pull",
@@ -122,7 +122,7 @@
         "x": 1120,
         "y": 648
       },
-      "wall": 32349
+      "wall": 32263
     },
     {
       "action": "walk",
@@ -130,7 +130,7 @@
         "x": 1120,
         "y": 735
       },
-      "wall": 36369
+      "wall": 36241
     },
     {
       "action": "walk",
@@ -138,19 +138,19 @@
         "x": 1120,
         "y": 555
       },
-      "wall": 38619
+      "wall": 38479
     },
     {
       "action": "cross-shelter-bridge",
       "detail": {
         "scene": "creek",
-        "time": 27.199999999999736,
+        "time": 27.083333333333076,
         "player": {
-          "x": 1121.9424266098822,
-          "y": 564.3673026289863,
+          "x": 1124.0868307057194,
+          "y": 564.4956018233515,
           "hp": 4,
           "mana": 3,
-          "facing": -1.5502432248598914,
+          "facing": -1.5382119091465891,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -185,13 +185,13 @@
         "events": [
           {
             "seq": 10,
-            "time": 18.300000000000242,
+            "time": 18.283333333333577,
             "type": "change",
             "text": "药筐已经在棚内，借导水板也不会淋湿它。"
           },
           {
             "seq": 11,
-            "time": 20.700000000000106,
+            "time": 20.633333333333443,
             "type": "pull",
             "text": "灵线牵住雨棚导水板。点空地改变落点，按「放下」结束。",
             "x": 945,
@@ -200,13 +200,13 @@
           },
           {
             "seq": 12,
-            "time": 21.433333333333398,
+            "time": 21.366666666666735,
             "type": "change",
             "text": "你先安置好药筐再借板，许照伸手接住板端，近路留下了一段干燥落脚处。"
           },
           {
             "seq": 13,
-            "time": 22.583333333333332,
+            "time": 22.51666666666667,
             "type": "drop",
             "text": "雨棚导水板落稳，声响留在实际落点。",
             "x": 1120,
@@ -215,17 +215,17 @@
           }
         ]
       },
-      "wall": 39823
+      "wall": 39673
     },
     {
       "action": "interact",
       "detail": "to_workshop",
-      "wall": 40145
+      "wall": 39994
     },
     {
       "action": "scene",
       "detail": "workshop",
-      "wall": 43678
+      "wall": 43494
     },
     {
       "action": "walk",
@@ -233,7 +233,7 @@
         "x": 320,
         "y": 220
       },
-      "wall": 43850
+      "wall": 43663
     },
     {
       "action": "walk",
@@ -241,22 +241,22 @@
         "x": 1450,
         "y": 220
       },
-      "wall": 49810
+      "wall": 49653
     },
     {
       "action": "interact",
       "detail": "ring",
-      "wall": 59622
+      "wall": 59494
     },
     {
       "action": "interact",
       "detail": "tao_work",
-      "wall": 61343
+      "wall": 61144
     },
     {
       "action": "choice",
       "detail": "long",
-      "wall": 62699
+      "wall": 62579
     },
     {
       "action": "walk",
@@ -264,7 +264,7 @@
         "x": 1210,
         "y": 600
       },
-      "wall": 63846
+      "wall": 63737
     },
     {
       "action": "pull",
@@ -273,12 +273,12 @@
         "x": 1310,
         "y": 600
       },
-      "wall": 65368
+      "wall": 65183
     },
     {
       "action": "interact",
       "detail": "rest_workshop",
-      "wall": 68939
+      "wall": 68737
     },
     {
       "action": "walk",
@@ -286,7 +286,7 @@
         "x": 1450,
         "y": 220
       },
-      "wall": 70781
+      "wall": 70509
     },
     {
       "action": "walk",
@@ -294,27 +294,27 @@
         "x": 320,
         "y": 220
       },
-      "wall": 73742
+      "wall": 73546
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 83537
+      "wall": 83343
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 89829
+      "wall": 89627
     },
     {
       "action": "interact",
       "detail": "to_crossing",
-      "wall": 90164
+      "wall": 89989
     },
     {
       "action": "scene",
       "detail": "crossing",
-      "wall": 95113
+      "wall": 94974
     },
     {
       "action": "walk",
@@ -322,7 +322,7 @@
         "x": 700,
         "y": 900
       },
-      "wall": 95283
+      "wall": 95142
     },
     {
       "action": "pull",
@@ -331,22 +331,22 @@
         "x": 1030,
         "y": 750
       },
-      "wall": 98824
+      "wall": 98694
     },
     {
       "action": "interact",
       "detail": "negotiator",
-      "wall": 102117
+      "wall": 102053
     },
     {
       "action": "choice",
       "detail": "offer",
-      "wall": 103304
+      "wall": 103230
     },
     {
       "action": "interact",
       "detail": "gate_slot",
-      "wall": 104670
+      "wall": 104628
     },
     {
       "action": "walk",
@@ -354,7 +354,7 @@
         "x": 950,
         "y": 760
       },
-      "wall": 107564
+      "wall": 107503
     },
     {
       "action": "pull",
@@ -363,12 +363,12 @@
         "x": 1030,
         "y": 750
       },
-      "wall": 108089
+      "wall": 108039
     },
     {
       "action": "interact",
       "detail": "gate",
-      "wall": 111127
+      "wall": 111150
     },
     {
       "action": "walk",
@@ -376,12 +376,12 @@
         "x": 1420,
         "y": 760
       },
-      "wall": 113007
+      "wall": 113451
     },
     {
       "action": "interact",
       "detail": "far_bank",
-      "wall": 116185
+      "wall": 116637
     },
     {
       "action": "walk",
@@ -389,7 +389,7 @@
         "x": 1100,
         "y": 800
       },
-      "wall": 117775
+      "wall": 118290
     },
     {
       "action": "walk",
@@ -397,37 +397,37 @@
         "x": 400,
         "y": 900
       },
-      "wall": 119898
+      "wall": 120429
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 126992
+      "wall": 127515
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 128942
+      "wall": 129463
     },
     {
       "action": "interact",
       "detail": "to_home",
-      "wall": 129269
+      "wall": 129804
     },
     {
       "action": "scene",
       "detail": "home",
-      "wall": 140621
+      "wall": 141139
     },
     {
       "action": "interact",
       "detail": "table",
-      "wall": 140970
+      "wall": 141497
     },
     {
       "action": "choice",
       "detail": "travel",
-      "wall": 145857
+      "wall": 146351
     }
   ],
   "observations": {
@@ -441,13 +441,13 @@
       ],
       "state": {
         "scene": "creek",
-        "time": 22.816666666666652,
+        "time": 22.733333333333324,
         "player": {
-          "x": 883.0599359999434,
-          "y": 556.2031813874667,
+          "x": 883.2299242057844,
+          "y": 556.4349749951768,
           "hp": 4,
           "mana": 3,
-          "facing": -0.6408935960772745,
+          "facing": -0.6446131399726106,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -482,13 +482,13 @@
         "events": [
           {
             "seq": 10,
-            "time": 18.300000000000242,
+            "time": 18.283333333333577,
             "type": "change",
             "text": "药筐已经在棚内，借导水板也不会淋湿它。"
           },
           {
             "seq": 11,
-            "time": 20.700000000000106,
+            "time": 20.633333333333443,
             "type": "pull",
             "text": "灵线牵住雨棚导水板。点空地改变落点，按「放下」结束。",
             "x": 945,
@@ -497,13 +497,13 @@
           },
           {
             "seq": 12,
-            "time": 21.433333333333398,
+            "time": 21.366666666666735,
             "type": "change",
             "text": "你先安置好药筐再借板，许照伸手接住板端，近路留下了一段干燥落脚处。"
           },
           {
             "seq": 13,
-            "time": 22.583333333333332,
+            "time": 22.51666666666667,
             "type": "drop",
             "text": "雨棚导水板落稳，声响留在实际落点。",
             "x": 1120,
@@ -522,7 +522,7 @@
       ],
       "state": {
         "scene": "crossing",
-        "time": 87.59999999999631,
+        "time": 87.49999999999632,
         "player": {
           "x": 698.7416053706929,
           "y": 899.8337969357519,
@@ -574,7 +574,7 @@
         "events": [
           {
             "seq": 22,
-            "time": 85.94999999999641,
+            "time": 85.86666666666308,
             "type": "pull",
             "text": "灵线牵住闸口牵扣。点空地改变落点，按「放下」结束。",
             "x": 1090,
@@ -583,19 +583,19 @@
           },
           {
             "seq": 23,
-            "time": 86.59999999999637,
+            "time": 86.51666666666304,
             "type": "change",
             "text": "闸扣拉开，水短暂流向泄槽。没有木楔，松手就会回弹。"
           },
           {
             "seq": 24,
-            "time": 86.59999999999637,
+            "time": 86.51666666666304,
             "type": "change",
             "text": "在场散修亲眼看见了排水，可以近处商量让出施术位置。"
           },
           {
             "seq": 25,
-            "time": 87.366666666663,
+            "time": 87.28333333332967,
             "type": "change",
             "text": "无楔的闸扣回弹，短暂排出的水重新漫上低滩。"
           }
@@ -613,13 +613,13 @@
       ],
       "state": {
         "scene": "crossing",
-        "time": 100.31666666666226,
+        "time": 100.6833333333289,
         "player": {
-          "x": 1418.3454481717417,
-          "y": 760.0022263922583,
+          "x": 1418.1076252672449,
+          "y": 760.0059973068617,
           "hp": 4,
           "mana": 4,
-          "facing": -0.0022634253614948947,
+          "facing": -0.00606882500759134,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -675,13 +675,13 @@
         "events": [
           {
             "seq": 27,
-            "time": 91.84999999999607,
+            "time": 91.8833333333294,
             "type": "change",
             "text": "你用自己的扳钳把木楔安进闸槽。牵开闸扣时，它会卡住回弹。"
           },
           {
             "seq": 28,
-            "time": 93.89999999999596,
+            "time": 93.88333333332929,
             "type": "pull",
             "text": "灵线牵住闸口牵扣。点空地改变落点，按「放下」结束。",
             "x": 1090,
@@ -696,7 +696,7 @@
           },
           {
             "seq": 30,
-            "time": 99.78333333332895,
+            "time": 100.0499999999956,
             "type": "route",
             "text": "你站到低滩彼岸，辨明了通向外界的路。现在可以沿原路亲自返驿。"
           }
@@ -714,10 +714,10 @@
       "state": {
         "terminal": "designed-outcome",
         "scene": "home",
-        "time": 128.68333333332788,
+        "time": 129.06666666666152,
         "player": {
-          "x": 846.8952042031716,
-          "y": 442.01402260116845,
+          "x": 849.3974525146839,
+          "y": 442.9359035580414,
           "hp": 4,
           "mana": 4,
           "facing": -2.788602265762887,
@@ -779,25 +779,25 @@
         "events": [
           {
             "seq": 31,
-            "time": 111.94999999999493,
+            "time": 112.33333333332824,
             "type": "scene",
             "text": "雨后溪道"
           },
           {
             "seq": 32,
-            "time": 123.43333333332761,
+            "time": 123.81666666666092,
             "type": "return",
             "text": "木车已进了院，路上的人正沿你修开的低滩来。"
           },
           {
             "seq": 33,
-            "time": 123.43333333332761,
+            "time": 123.81666666666092,
             "type": "scene",
             "text": "回石驿"
           },
           {
             "seq": 34,
-            "time": 128.68333333332788,
+            "time": 129.06666666666152,
             "type": "ending",
             "text": "你在桌上展开亲自走过的低滩渡路。山路的风从窗外经过。许照在旁添了一笔，约好下次短途。"
           }
@@ -806,8 +806,8 @@
       "visual": "qa/evidence/main-return.png"
     },
     "exportedSave": {
-      "fixture": "qa/fixtures/return-main-v0.6.0.json",
-      "version": "0.6.0",
+      "fixture": "qa/fixtures/return-main-v0.7.0.json",
+      "version": "0.7.0",
       "method": "settings export after actual complete route",
       "route": "main"
     },
