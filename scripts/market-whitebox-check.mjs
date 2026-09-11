@@ -207,7 +207,15 @@ async function withdraw() {
 // active input gaps. Browser execution is still required to validate their UI timing.
 const scenarios = {};
 const returnViaSouthernWaypoints = async () => {
-  await walk(1220, 240, 5); // Real active time to read/pan behind physical cover.
+  await walk(1220, 240, 0);
+  const readingStart = (await inspect()).state.time;
+  log('active-north-route-reading', { minimumSeconds: 5, includesActualCameraPan: true, time: readingStart });
+  await frame(point(1220, 880));
+  // Camera motion is the actual look-around action. Count it inside the minimum
+  // observation window, rather than adding a second artificial wait before it.
+  const looked = await waitFor('five seconds of active reading including the camera pan', r => r.state.time >= readingStart + 5);
+  assert.equal(looked.state.paused, false); assert.equal(looked.state.dialogue, null);
+  await observe('north route observed with actual camera input', looked);
   for (const [x, y] of [[1220, 880], [880, 880], [420, 880]]) await walk(x, y);
 };
 scenarios.quiet = async () => {

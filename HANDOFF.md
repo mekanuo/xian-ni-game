@@ -16,7 +16,7 @@
 
 独立白盒使用真实model端口：free/clearLine/emit/dialogue/closeDialogue/moveNpc，不给浏览器写状态接口。公开普通6/零0灵力、有/无信息预置与固定hold练法均为合成前提。37小集模型测试通过；端口/model/projectile先前57/3、相关组合88/4，不能相加充整版总数。tsc和独立构建通过，正式build仍BTwh6Je1（白盒未进入正式入口）。
 
-白盒包market-whitebox-CvvPbFxE.js / market-whitebox-DRyAUuGA.css，4193独立预览PID1156261，URL http://127.0.0.1:4193/market-whitebox.html。下一步运行scripts/market-whitebox-check.mjs第二轮，五案×桌面/手机串行唯一浏览器，第一轮desktop quiet在北口看返路时败退，证据已推303ebb7；现第二几何候选尚待实机。脚本使用真实UI/触控/镜头拖动，记录只读位置、承诺与实际开门、去程完整穿带/北口近身确认/原口返回、引敌停续、零资源撤回与暂停重开；无注入或清敌。
+白盒包market-whitebox-CvvPbFxE.js / market-whitebox-DRyAUuGA.css，4193独立预览PID1156261，URL http://127.0.0.1:4193/market-whitebox.html。下一步运行scripts/market-whitebox-check.mjs第三轮，五案×桌面/手机串行唯一浏览器，第一轮desktop quiet在北口看返路时败退，证据已推303ebb7；第二轮亦FAIL但发现QA先等5秒再拖镜头，重复叠成9.4秒站立；已保留13-23-13归档。下一轮同一CvvPbFxE包，只修为实际镜头动作包含在至少5秒观察内；六次临时不同节奏模型回放均成立。脚本使用真实UI/触控/镜头拖动，记录只读位置、承诺与实际开门、去程完整穿带/北口近身确认/原口返回、引敌停续、零资源撤回与暂停重开；无注入或清敌。
 
 第二候选新增L实墙(1030,300,150,40)+(1150,300,30,180)，revision2。2.8秒每点+北返点5秒看路模型回放私路HP3MP6，外侧公共y880路线HP4MP0；实际敌弹碰墙，未清敌/加血/削弱攻击，37项通过。QA采用外侧公共路、北返5秒真实观察；不强制避敌路线先触发alert，另zero引敌案保留。新墙使生产到达1140365失效，连接/状态文档代理正在核对新候选。
 
