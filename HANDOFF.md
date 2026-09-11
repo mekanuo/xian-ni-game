@@ -1,6 +1,6 @@
 # 当前工作入口 · 0.6 正式整版验证运行中
 
-工作目录 `.worktrees/kiln-060` / `feat/kiln-060`。最新已推 47b6bd2（新窑完整专项证据与下章草案）；dfa0264为烧屏对话与真实零灵力恢复，之前 b19174c 美术/音乐、f04555c 脱困、a381f73 正式规则。主源码分支和公网仍为已核验0.5（7fea179，gh-pages f7972c2）。用户“继续，别停”，自主设计/实施/测试/推送和既定公网部署授权，无待确认事项。不要重读聊天/原书或碰封版项目；不另建推断Goal。
+工作目录 `.worktrees/kiln-060` / `feat/kiln-060`。最新已推 59e746b（public-check核对预期sourceCommit）、b624481（同行驱动）；47b6bd2（新窑完整专项证据与下章草案）；dfa0264为烧屏对话与真实零灵力恢复，之前 b19174c 美术/音乐、f04555c 脱困、a381f73 正式规则。主源码分支和公网仍为已核验0.5（7fea179，gh-pages f7972c2）。用户“继续，别停”，自主设计/实施/测试/推送和既定公网部署授权，无待确认事项。不要重读聊天/原书或碰封版项目；不另建推断Goal。
 
 **唯一浏览器由完整verify持有。** 当前r2 supervisor PID1134667，日志 `/tmp/xian-ni-060-verify-r2.log`，最终退出码 `/tmp/xian-ni-060-verify-r2.exit`，拥有4187预览。先检查进程/日志/报告再接手，不同时开浏览器。r2模型507测试/29文件已全PASS（首轮首章实际导出的两个v0.6夹具被既有glob纳入；未改测试或历史夹具）；当前新包index-BTwh6Je1.js。新窑三视口18图、两路和all物件后果都已PASS；旧界面/镜头/石驿五视口/触控已PASS，首轮后续战斗、首章两路、生活、旧渠与重访也通过，但最后手机同行在会合位置的驱动断言超时（真实游戏gate均已true）。详见qa/evidence/journey-camera-meeting-rejected，原完整FAIL已归档。现将驱动改为实际75范围/路径结束/双gate/不暂停无对话，游戏代码未改；r2完整24条检查重新运行，先同行再其余，全部完结前不能称0.6发行通过。独立4191预览还在，4192只服务历史白盒。
 
@@ -50,4 +50,4 @@ contentVersion4，schema/revision不变；旧1/2/3外层和checkpoint先按原�
 
 用户已认可空间冒险与角色扮演方向，原交接bf4d922，设计确认3e02f78；研究资料docs/research。不要读旧聊天、重做全书研究或上传原文，不续作smbb与starvein-companion-cards。首版Goal早已完成，本轮不另建推断Goal。历史进度在docs/PROGRESS.md，设计入口design/REVIEW.md与CONTENT_ROADMAP.md。
 
-0.7备选草案仅在 design/NEXT_CONTENT_070_CANDIDATES.md，尚未选定生产，不改变本发行；A已修为现场安全可直接交换，不强制绕路暴露。qa/REVIEW_060.md记录当前视听目视与非阻断限制。
+0.7已选A进入隔离白盒准备：design/ADVENTURE_070.md、MARKET_070_GEOMETRY_REVIEW.md、BUILD_BRIEF_070_WHITEBOX.md和docs/superpowers/plans/2026-09-11-market-whitebox.md。可在另一个market工作树并行源码/模型，0.6发行优先，0.7浏览器等0.6本地及公网验证结束；尚无生产批准/实现，不改变本发行。qa/REVIEW_060.md记录当前视听目视与非阻断限制。
