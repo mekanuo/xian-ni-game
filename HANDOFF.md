@@ -42,3 +42,11 @@
 正式保留树 `.worktrees/market-070-production` feat/market-070 HEAD2575722 dist有效；主树feat/return-stone-v1 HEAD2575722但ignored dist仍旧0.5，绝不部署。默认master仍legacy。
 
 最新覆盖：right于22:25:07UTC完整PASS，supervisor1248015结束，无活动浏览器。左右音乐/格挡音效增量、实际资源/归驿/存档均通过；root目视ready。包0.8/旧fixture保持，独立审查已完成停写。接着提交推送并冻结完整verify。
+
+## 最新覆盖（22:35 UTC）
+
+1b6d0ac阶段已成功推送。完整verify R1 supervisor1249669已结束FAIL：956模型/build通过，首个桌面front走圈心无path超时；原报告/log归档qa/verify-080-r1，实际现场qa/spar-production-2026-09-11T22-27-10-754Z。旧0.7fixture未变。不能部署。
+
+当前唯一浏览器为只读点击诊断supervisor1251280，固定4203，日志cache/xian-ni-qa/spar-front-input-debug-r1.log及.exit。假设约定后闻朔仍经过圈心，真实点击命中人物而非地面；已给production脚本加入DOM捕获只读坐标/peer状态，无改变模型。先核实证据再修QA路线，勿与之并发。0.9候选文档NEXT_CONTENT_090_CANDIDATES已由agent交付，未审核或实施，所有agent停写。
+
+最新覆盖（22:41 UTC）：诊断R1已如期FAIL，点击peer(900,971)而非地面因果已证。QA增加等实际peer走离圈心90后再点地面，desktop/front/hit GREEN `qa/spar-production-2026-09-11T22-37-14-430Z`完整PASS/exit0，日志spar-front-input-green-r1.log。无活动浏览器/agent。准备提交推送并重启完整verify；严禁把旧FAIL verification用于部署。

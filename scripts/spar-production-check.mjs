@@ -77,7 +77,7 @@ try{
    }
    throw Error(`Cannot frame actual world point ${JSON.stringify(world)}`);
   }
-  async function prepared(world){await pause();await frame(world);await resume();await tap(await screen(world),{world,simulationTime:(await state()).time});const received=await state();log('input-received',{scene:received.scene,player:received.player,paused:received.paused,dialogue:received.dialogue?.id,lastEvent:received.events.at(-1)});console.log('world input',JSON.stringify(world),JSON.stringify({scene:received.scene,x:received.player.x,y:received.player.y,path:received.player.path,paused:received.paused}));await persist();}
+  async function prepared(world){await pause();await frame(world);await resume();await tap(await screen(world),{world,simulationTime:(await state()).time});const received=await state();log('pointer-observation',{observation:await page.evaluate(()=>window.__sparPointerEvidence??null)});log('input-received',{scene:received.scene,player:received.player,paused:received.paused,dialogue:received.dialogue?.id,lastEvent:received.events.at(-1)});console.log('world input',JSON.stringify(world),JSON.stringify({scene:received.scene,x:received.player.x,y:received.player.y,path:received.player.path,paused:received.paused}));await persist();}
   async function walk(x,y){
    const originScene=(await state()).scene;
    await prepared({x,y});await wait(({x,y,originScene})=>{const s=window.__XIAN_NI__.inspect();if(s.scene!==originScene)throw Error(`Ground walk selected a scene transition: ${originScene} to ${s.scene}`);if(s.defeated)throw Error('Defeated while walking');if(s.dialogue)throw Error(`Unexpected dialogue during ground walk: ${s.dialogue.id}`);return s.player.path.length===0&&Math.hypot(s.player.x-x,s.player.y-y)<18;},{x,y,originScene},120000);
@@ -101,6 +101,13 @@ try{
    page.on('console',m=>{if(m.type()==='warning')console.log('browser warning',m.text());if(m.type()==='error'){const error={type:'console',message:m.text(),location:m.location()};item.consoleErrors.push(error);report.errors.push({...error,device:item.device,scenario:item.scenario});}});
    page.on('response',r=>{responses.set(r.url(),r);if(r.status()>=400)report.errors.push({type:'http',device:item.device,scenario:item.scenario,url:r.url(),status:r.status()});});
    await page.goto(url,{waitUntil:'load'});await press(page.getByRole('button',{name:'入 山',exact:true}),'title enter');await press(page.getByRole('button',{name:'去回石驿',exact:true}),'create ordinary game');await wait(()=>window.__XIAN_NI__?.inspect().scene==='home');
+   // Capture only read-only state at the actual DOM input boundary. This is
+   // diagnostic evidence, never a model/camera mutation or a synthetic click.
+   await page.evaluate(()=>window.addEventListener('pointerdown',event=>{
+    const api=window.__XIAN_NI__,s=api?.inspect();if(!s||s.scene!=='spar'||event.target?.tagName!=='CANVAS')return;
+    const a=api.screenPoint(0,0),b=api.screenPoint(1,1);
+    window.__sparPointerEvidence={time:s.time,paused:s.paused,run:s.spar.run,peer:s.worlds.spar.find(e=>e.id==='spar_peer'),point:{x:(event.clientX-a.x)/(b.x-a.x),y:(event.clientY-a.y)/(b.y-a.y)},screen:{x:event.clientX,y:event.clientY}};
+   },true));
    const scripts=await page.locator('script[src]').evaluateAll(nodes=>nodes.map(n=>n.src)),hashes=[];for(const src of scripts){const response=responses.get(src);assert.ok(response,`Missing actual loaded script response ${src}`);assert.equal(response.status(),200);hashes.push({url:src,sha256:sha(await response.body())});}
    assert.ok(hashes.length,'Actual runtime scripts must be recorded');(item.runtimeLoads??=[]).push({at:new Date().toISOString(),scripts:hashes});log('fresh-context-created');
   }
@@ -130,6 +137,11 @@ try{
   assert.equal(s.flags.companion,'waiting');assert.equal(s.worlds.spar.some(e=>e.type==='xu'),false);assert.equal(s.worlds.home.find(e=>e.id==='xu').x,waitingXu.x);assert.equal(s.worlds.home.find(e=>e.id==='xu').y,waitingXu.y);
   assert.equal(s.player.hp,original.player.hp);assert.equal(s.player.mana,original.player.mana);await capture('entry');
   await walk(900,1060);await interact('spar_peer');assert.equal((await state()).dialogue.id,'spar_peer');await capture('agreement');await choice(`spar:agree:${stance}`);
+  // At agreement the peer stands only 40 units from the circle. Clicking the
+  // circle while his real body crosses it correctly selects him, not ground.
+  // Let his actual walking clear that target before issuing a ground click.
+  await wait(()=>{const s=window.__XIAN_NI__.inspect(),e=s.worlds.spar.find(e=>e.id==='spar_peer');if(s.paused||s.dialogue||s.defeated)throw Error('Interrupted before peer cleared circle');return s.spar.run?.phase==='positioning'&&Math.hypot(e.x-900,e.y-940)>90;},undefined,60000);
+  log('peer-cleared-ground-target',{state:await state()});
   await walk(900,940);s=await state();assert.equal(s.spar.run.phase,'positioning');assert.equal(s.spar.run.stance,stance);await capture('positioning');
   const staged=await exportUI('positioning-paused');await freshPage();await importUI(staged.buffer,'actual-positioning-v7.json',staged.saved);
   await resume();await wait(target=>{const s=window.__XIAN_NI__.inspect(),e=s.worlds.spar.find(e=>e.id==='spar_peer');if(s.defeated||s.dialogue)throw Error('Interrupted before readiness');return s.spar.run?.phase==='positioning'&&s.spar.run.positionPath.length===0&&Math.hypot(e.x-target.x,e.y-target.y)<=3&&s.player.path.length===0&&Math.hypot(s.player.x-900,s.player.y-940)<=53;},station,120000);

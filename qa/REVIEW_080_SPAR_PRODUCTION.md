@@ -50,3 +50,13 @@ R6实际启动后，零时长C按键被帧循环漏过；改真实keydown直到�
 修后r6固定包上，左 `spar-production-2026-09-11T22-20-58-171Z`、右 `spar-production-2026-09-11T22-23-06-865Z` 均PASS/errors空，各从原样v6完成真实定位存档恢复、单弹格挡、HP4/MP3归驿报告及再导入。练场实际post-fader音乐RMS>0、同页面block计数增加、声音error为空；这不是扬声器录音或主观听感验收。root目视左右ready图，同场全身可见。
 
 package与lock已升0.8.0，固定0.7来源SHA未变。独立冻结前QA复核无新确定阻断，详见design/SPAR_080_FINAL_QA_REVIEW.md。本阶段源码/画面专项准备提交，随后冻结完整34命令，不把局部PASS当发行PASS。
+
+## 整版R1及圈心点选复现
+
+冻结1b6d0ac的整版R1：45文件956测试/build通过，首个desktop/front/hit在走圈心时无path，120秒超时FAIL；qa/verify-080-r1保留完整报告/log。此轮没有进入其余浏览器矩阵，不部署。
+
+只读DOM输入边界复现 `spar-production-2026-09-11T22-33-28-895Z`：点击实际世界(900.000014,939.999999)，当时peer(900,971)、40×40、phase=positioning。点在人像范围(931,971)内，entityAt命中闻朔，sparCanTalk在有run时为false，正确不发地面移动；同位置旧脚本要求path的假设错误。这次不是标题环境故障，也不是按键失灵。
+
+脚本现在等待实际闻朔走离圈心90单位后再点地面，不改人物轨迹/模型/资源/存档，也不注入坐标；保留定位阶段跨context导出恢复。只读pointer日志记录实际输入落点和peer，为后续取证。对应desktop/hit复验正在进行，结果未预填。
+
+修正后 `spar-production-2026-09-11T22-37-14-430Z` desktop/front/hit完整PASS，真实圈内行走path已产生，定位导出恢复、一源hit/实际HP3MP4/音乐hurt计数、归驿报告与再次导入全部通过；errors空、exit0。游戏运行包仍CLyXa97I/D5XfOxnh。接着冻结修订QA重新完整verify。

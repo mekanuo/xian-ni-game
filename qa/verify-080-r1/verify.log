@@ -1,0 +1,46 @@
+
+> xian-ni-shanmen-zhiwai@0.8.0 verify
+> node scripts/verify.mjs
+
+
+> xian-ni-shanmen-zhiwai@0.8.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+
+ Test Files  45 passed (45)
+      Tests  956 passed (956)
+   Start at  23:26:48
+   Duration  12.05s (transform 1.68s, setup 0ms, import 5.83s, tests 19.90s, environment 6ms)
+
+
+> xian-ni-shanmen-zhiwai@0.8.0 build
+> tsc --noEmit && vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 42 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.72 kB │ gzip:   0.52 kB
+dist/assets/index-D5XfOxnh.css     31.62 kB │ gzip:   7.84 kB
+dist/assets/index-CLyXa97I.js   1,535.40 kB │ gzip: 446.21 kB
+✓ built in 4.36s
+world input {"x":1500,"y":480} {"scene":"home","x":849.3974525146839,"y":442.9359035580414,"path":[{"x":1499.1099668192874,"y":481.0049522863919}],"paused":false}
+world input {"x":1540,"y":420} {"scene":"home","x":1496.2879454280696,"y":480.83959966120864,"path":[],"paused":true}
+world input {"x":900,"y":1060} {"scene":"spar","x":900,"y":1220,"path":[{"x":899.1093736785939,"y":1060.9464706513552}],"paused":false}
+world input {"x":900,"y":980} {"scene":"spar","x":899.1190197933628,"y":1062.6691331885138,"path":[],"paused":true}
+world input {"x":900,"y":940} {"scene":"spar","x":899.1190197933628,"y":1062.6691331885138,"path":[],"paused":false}
+page.waitForFunction: Timeout 120000ms exceeded.
+    at wait (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:46:43)
+    at walk (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:83:32)
+    at async file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-production-check.mjs:133:3 {
+  name: 'TimeoutError'
+}
+BROWSER DISCONNECTED 2026-09-11T22:30:10.475Z
+qa/spar-production-2026-09-11T22-27-10-754Z/report.json FAIL
+Error: Spar production input/save/report matrix failed
+    at file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/verify.mjs:27:200
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
