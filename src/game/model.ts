@@ -163,7 +163,7 @@ function choose(s:GameState,id:string):ActionResult {
   const beforeLife=JSON.stringify([s.life.repair.stage,s.life.harvest.stage]);
   const handled=lifeChoose(s,id,lifePorts);if(handled){if(handled.ok){closeDialogue(s);if(beforeLife!==JSON.stringify([s.life.repair.stage,s.life.harvest.stage]))checkpoint(s);}return handled;}
   if(id==='invite'){follow(s);s.flags.invited=true;}
-  else if(id==='wait'){s.flags.companion='waiting';emit(s,'relationship','你们约在溪道会合。许照会按自己的路程走。');}
+  else if(id==='wait'){s.flags.companion='waiting';emit(s,'relationship',s.scene==='canal'?'你们约好在这段高岸会合。许照收好药篓，留在干路旁等你。':'你们约在溪道会合。许照会按自己的路程走。');}
   else if(id==='fix'){s.flags.boatSecured=true;entity(s,'boat')!.state='secured';emit(s,'change','你认出旧绳扣的受力处，徒手固定了小舟。');}
   else if(id==='cooperate'){s.flags.boatCooperating=true;follow(s);emit(s,'hint','你稳住绳扣，许照正沿你指的干燥踏点走向船舷。留在绳扣附近，等她压稳舟身。');}
   else if(id==='bandage'){
@@ -181,7 +181,7 @@ function choose(s:GameState,id:string):ActionResult {
     else emit(s,'hint',id==='long'?'陶七演示将灵线放长，又以短停展示留势。轮到你：站在试环站位，把远处木块牵近。':'陶七演示延长灵线和短暂停物。轮到你：走近木块，牵住后按「留势」，让物件自己停住。');
   }
   else if(id==='room'){s.flags.roomTalk=true;emit(s,'relationship','陶七说驿后空屋可整理。你约好归来自己定下练功角的位置。');}
-  else if(id==='route_talk'){s.flags.routeTalk=true;emit(s,'relationship','许照把山外两段短路画给你看，约好先试走石渡这一段。');}
+  else if(id==='route_talk'){s.flags.routeTalk=true;emit(s,'relationship',s.scene==='canal'?'许照指向高岸：“先把这段路来回走稳。渠底一通水，采药还是要沿岸走。”':'许照把山外两段短路画给你看，约好先试走石渡这一段。');}
   else if(id==='refuse'){s.flags.refusedDemand=true;emit(s,'note','你没有交出自己的法器。干地仍被看守，低滩与山脊都可另找办法。');}
   else if(id==='offer'){s.flags.deal=true;for(const e of entities(s).filter(e=>e.kind==='enemy'&&e.state!=='retreated'))e.state='peaceful';emit(s,'note','你让散修回想刚才亲眼看见的排水。他们答应让出施术位置，通路仍要等你实际修成。');}
   else if(id==='demonstrate'){s.flags.deal=true;for(const e of entities(s).filter(e=>e.kind==='enemy'&&e.state!=='retreated'))e.state='peaceful';emit(s,'note','你让他们看已露出的低滩。卡住入口已经失去意义，散修让开路。');}
@@ -228,7 +228,7 @@ function interact(s:GameState,id:string):ActionResult {
     let text=s.flags.herbsWet?'许照抱着受潮药筐：“板一拿走，水全落到这里。先把导水板放回，再把药理好吧。”':s.flags.returned?`“你真走过那条${s.flags.route==='main'?'低滩':'山脊'}了。”${s.flags.platformShared?'她指着你们共同添过的眺台记号。':s.flags.platformVisited?'你提起独自看见的眺台，她点头说那里风大。':'她把自己的采药图摊在桌旁。'}`:'“我也要看看雨后的采药路。你要去取环，咱们可以顺路。”';
     const options:DialogueChoice[]=[...canalChoices(s,e),...lifeChoices(s,e)];
     if(!s.flags.herbsWet)options.push({id:'invite',label:'一起走，我会留意你的候点'});
-    options.push({id:'wait',label:'各自走，到溪道再会合'},{id:'route_talk',label:'问问山外的路'});
+    options.push({id:'wait',label:s.scene==='canal'?'先在这段高岸歇脚，我去看看水路':'各自走，到溪道再会合'},{id:'route_talk',label:s.scene==='canal'?'说说眼前这段渠路':'问问山外的路'});
     if(s.scene==='crossing'&&s.flags.companion==='following'&&entities(s).some(n=>n.kind==='enemy'&&n.state!=='peaceful'&&n.state!=='retreated'))options.push({id:'danger',label:'请她到前方引开散修'});
     dialogue(s,'xu','许照',canalDescription(s,e)??(s.scene==='canal'?'“我在高岸候着。你安排好来水，我再沿干路过去；下渠前看好退路。”':text),options);return result(true);
   }

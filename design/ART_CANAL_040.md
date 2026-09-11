@@ -82,3 +82,9 @@
 3. **Props** — “Nine isolated cells, 3×3: light single-ring diversion board; wider two-ring stop board; twig-jammed wood sieve; identical clean sieve; empty stone water trough; circular paddle wheel with open spokes; reddish notched depth gauge without readable text; original adult female keeper in indigo-gray short rolled-sleeve work jacket, brown trousers, rust hair tie and bamboo dipper; empty rope-handled wooden bucket. Refined hand-painted ancient Chinese RPG, no scenery, labels or pixel art.” 最终背景修图：“Keep nine subjects and character identity; replace all background and anomalous exterior red/yellow fringe with solid #FF00FF, including sieve and wheel holes. Preserve genuine rust cloth and autumn leaves, no glow or shadows outside.”
 
 未声称任意角度立体模型、逐帧角色动画、实体手机体验或全部小说场景制作完成。
+
+## 首轮实机精修
+
+入口实机发现浅绿连续线与等距砖过于平整。现从建筑原画的真实石面取样，将暗渠盖板、渠床和岸唇一次烘焙为局部高清纹理；石块长短、接缝和苔痕有细微差异，湿面保留石床深浅，不改变通行矩形。每次景观刷新替换纹理，不逐帧取样。
+
+长条石坡改为自然比例的叠石组覆盖实际障碍范围，避免把单块原画纵向拉成高柱。所有旧地图仍沿用既有绘制。最终视口截图与根代理目视复核另记于 qa/evidence/canal-view.json。

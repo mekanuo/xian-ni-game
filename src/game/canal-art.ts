@@ -15,40 +15,64 @@ export function registerCanalFrames(architecture:Phaser.Textures.CanvasTexture,p
 function line(g:Phaser.GameObjects.Graphics,points:[number,number][],width:number,color:number,alpha=1):void{
  g.lineStyle(width,color,alpha);g.beginPath();g.moveTo(...points[0]);for(const p of points.slice(1))g.lineTo(...p);g.strokePath();
 }
-/** Covered culverts read as flat paving, so permanent paths never resemble blocked rivers. */
-function culvert(g:Phaser.GameObjects.Graphics,points:[number,number][]):void{
- line(g,points,23,0x52665c,.22);line(g,points,19,0xc4c4ad,.94);line(g,points,14,0xa1aa99,.82);
+type StoneSource=CanvasImageSource;
+function stoneRandom(seed:number):()=>number{return()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};}
+function stoneOutline(ctx:CanvasRenderingContext2D,w:number,h:number,random:()=>number):void{
+ ctx.beginPath();ctx.moveTo(-w/2+2,-h/2+random());ctx.lineTo(w/2-3,-h/2+random()*1.4);ctx.lineTo(w/2,-h/2+3);ctx.lineTo(w/2-1,h/2-2);ctx.lineTo(w/2-4,h/2);ctx.lineTo(-w/2+2,h/2-1);ctx.lineTo(-w/2,h/2-3);ctx.lineTo(-w/2+random(),-h/2+3);ctx.closePath();
+}
+/** Sample actual painted stone, not a new green flat-colour tile system. */
+function stone(ctx:CanvasRenderingContext2D,source:StoneSource,x:number,y:number,w:number,h:number,random:()=>number,angle=0):void{
+ ctx.save();ctx.translate(x,y);ctx.rotate(angle);
+ stoneOutline(ctx,w,h,random);ctx.fillStyle='#3e463743';ctx.shadowColor='#35443455';ctx.shadowBlur=2.4;ctx.shadowOffsetY=1.5;ctx.fill();ctx.shadowColor='transparent';
+ ctx.save();ctx.clip();
+ const sx=950+random()*210,sy=680+random()*10;
+ ctx.drawImage(source,sx,sy,70+random()*45,22,-w/2,-h/2,w,h);
+ ctx.globalAlpha=.08+random()*.08;ctx.fillStyle=random()>.5?'#e0d6b4':'#596452';ctx.fillRect(-w/2,-h/2,w,h);ctx.globalAlpha=1;
+ for(let n=0;n<5;n++){ctx.fillStyle=n%2?'#3f514729':'#eeecd34c';ctx.fillRect((random()-.5)*w,(random()-.5)*h,.6+random(),.45+random()*.55);}
+ if(random()<.4){ctx.strokeStyle='#4d594637';ctx.lineWidth=.55;ctx.beginPath();ctx.moveTo(-w*.15,-h/2);ctx.lineTo(-w*.09,-h*.08);ctx.lineTo(w*.05,h*.24);ctx.stroke();}
+ ctx.restore();ctx.strokeStyle='#dddcc170';ctx.lineWidth=.65;ctx.beginPath();ctx.moveTo(-w/2+3,-h/2+1.3);ctx.lineTo(w/2-4,-h/2+1);ctx.stroke();
+ // Tiny interrupted moss pockets, never a continuous bright outline.
+ if(random()<.36){ctx.fillStyle='#596b4657';ctx.beginPath();ctx.ellipse(w*.26,h*.4,1.5+random()*2.8,.6+random(),0,0,Math.PI*2);ctx.fill();}
+ ctx.restore();
+}
+/** Discrete, slightly worn lids sit in the dirt; no continuous pipe or perimeter rails. */
+function culvert(ctx:CanvasRenderingContext2D,source:StoneSource,points:[number,number][],random:()=>number):void{
  for(let i=1;i<points.length;i++){
   const [ax,ay]=points[i-1],[bx,by]=points[i],length=Math.hypot(bx-ax,by-ay),dx=(bx-ax)/length,dy=(by-ay)/length;
-  for(let d=8;d<length;d+=23){const x=ax+dx*d,y=ay+dy*d;line(g,[[x-dy*7,y+dx*7],[x+dy*7,y-dx*7]],1,0x65776c,.7);line(g,[[x-dy*6+dx*2,y+dx*6+dy*2],[x+dy*6+dx*2,y-dx*6+dy*2]],1,0xe4e3c8,.7);}
- }
-}
-function bed(g:Phaser.GameObjects.Graphics,r:CanalRect):void{
- g.fillStyle(0x4c655d,.2);g.fillRect(r.x-5,r.y-5,r.w+10,r.h+12);
- g.fillStyle(0x94a69a,.84);g.fillRect(r.x,r.y,r.w,r.h);
- for(let row=0,y=r.y+2;y<r.y+r.h-2;row++,y+=18){
-  for(let x=r.x+2-(row%2)*14;x<r.x+r.w-2;x+=30){
-   const left=Math.max(r.x+2,x),right=Math.min(r.x+r.w-2,x+27),h=Math.min(15,r.y+r.h-y-2);if(right<=left||h<=0)continue;
-   g.fillStyle((row+Math.floor(x/30))%3===0?0xb7c0ac:0xa4b5a4,.75);g.fillRoundedRect(left,y,right-left,h,2);
-   line(g,[[left+2,y+1],[right-2,y+1]],.7,0xe4e4ce,.55);
+  for(let d=0;d<length;){const size=Math.min(24+random()*12,length-d);if(size<4)break;
+   const center=d+size/2,jitter=(random()-.5)*1.5;stone(ctx,source,ax+dx*center-dy*jitter,ay+dy*center+dx*jitter,size-1,23+random()*4,random,Math.atan2(dy,dx));d+=size;
   }
  }
- // Low banks use exactly the water footprint, with openings at the actual stair approaches.
+}
+function bed(ctx:CanvasRenderingContext2D,source:StoneSource,r:CanalRect,random:()=>number):void{
+ ctx.save();ctx.beginPath();ctx.rect(r.x,r.y,r.w,r.h);ctx.clip();
+ // Warm mineral silt under irregular fieldstones preserves the painted ground's palette.
+ ctx.fillStyle='#566050b8';ctx.fillRect(r.x,r.y,r.w,r.h);
+ for(let row=0,y=r.y+2;y<r.y+r.h;y+=17,row++){
+  for(let x=r.x-18*(row%2);x<r.x+r.w;){const w=22+random()*24,h=15+random()*3;stone(ctx,source,x+w/2,y+h/2,w-1.2,h,random);x+=w;}
+ }
+ for(let n=0;n<90;n++){ctx.fillStyle=n%3?'#77846626':'#d9d4b523';ctx.beginPath();ctx.ellipse(r.x+random()*r.w,r.y+random()*r.h,1+random()*3,.6+random(),random(),0,Math.PI*2);ctx.fill();}
+ const shade=ctx.createLinearGradient(r.x,r.y,r.x,r.y+22);shade.addColorStop(0,'#253e425e');shade.addColorStop(1,'#253e4200');ctx.fillStyle=shade;ctx.fillRect(r.x,r.y,r.w,22);
+ const side=ctx.createLinearGradient(r.x,r.y,r.x+r.w,r.y);side.addColorStop(0,'#394c453d');side.addColorStop(.12,'#394c4500');side.addColorStop(.88,'#394c4500');side.addColorStop(1,'#394c4530');ctx.fillStyle=side;ctx.fillRect(r.x,r.y,r.w,r.h);ctx.restore();
  const segments:[number,number,number,number][]=[[r.x,r.y,r.x+r.w,r.y],[r.x+r.w,r.y,r.x+r.w,r.y+r.h],[r.x+r.w,r.y+r.h,r.x,r.y+r.h],[r.x,r.y+r.h,r.x,r.y]];
  for(const [ax,ay,bx,by]of segments){const length=Math.hypot(bx-ax,by-ay),dx=(bx-ax)/length,dy=(by-ay)/length;
-  for(let d=5;d<length;d+=19){const x=ax+dx*d,y=ay+dy*d;
+  for(let d=7;d<length-3;d+=18){const x=ax+dx*d,y=ay+dy*d;
    if(r===CANAL_CHANNEL&&((y===r.y&&Math.abs(x-1130)<43)||(x===r.x&&Math.abs(y-540)<35)||(x===r.x+r.w&&Math.abs(y-540)<35)))continue;
    if(r===CANAL_SIDE&&(x===r.x||x===r.x+r.w)&&Math.abs(y-540)<32)continue;
-   g.fillStyle(0x586f60,.6);g.fillRoundedRect(x-7,y-3,15,9,2);g.fillStyle(0xc0c4ac,.95);g.fillRoundedRect(x-7,y-5,15,7,2);line(g,[[x-5,y-4],[x+5,y-4]],.8,0xe4e3c8,.8);
+   stone(ctx,source,x,y,16+random()*3,9+random()*2,random,Math.atan2(dy,dx));
   }
  }
 }
 export function paintCanalLandscape(scene:Phaser.Scene,landscape:Phaser.GameObjects.Container,g:Phaser.GameObjects.Graphics):void{
- COVERS.forEach(points=>culvert(g,points));bed(g,CANAL_CHANNEL);bed(g,CANAL_SIDE);
- // Flat landing treads at side entrances retain the map's real east/west access.
- for(const [x,y]of [[1015,540],[1235,540],[685,540],[825,540]])for(let i=0;i<3;i++){
-  g.fillStyle(0xd0cfb5,.75);g.fillRoundedRect(x-12+i*8,y-27,7,54,1);line(g,[[x-12+i*8,y-26],[x-12+i*8,y+26]],1,0x617b6a,.6);
- }
+ // Bake raster-sampled masonry once per landscape refresh. Runtime water remains separate.
+ const source=scene.textures.get('canal-architecture-source').getSourceImage() as HTMLImageElement;
+ const key='canal-masonry';if(scene.textures.exists(key))scene.textures.remove(key);
+ const texture=scene.textures.createCanvas(key,2040,1320)!;
+ const ctx=texture.getContext();ctx.scale(2,2);ctx.translate(-310,-300);const random=stoneRandom(404);
+ COVERS.forEach(points=>culvert(ctx,source,points,random));bed(ctx,source,CANAL_CHANNEL,random);bed(ctx,source,CANAL_SIDE,random);
+ // Existing side stair openings keep their exact foot geometry, now with the same stone texture.
+ for(const [x,y]of [[1015,540],[1235,540],[685,540],[825,540]])for(let i=0;i<3;i++)stone(ctx,source,x-8+i*8,y,6.5,52,random);
+ texture.refresh();landscape.add(scene.add.image(310,300,key).setOrigin(0).setScale(.5));
  if(!scene.textures.exists('canal-architecture'))return;
  for(const [frame,x,y,w,h]of [['shelter',355,930,410,268],['stopFrame',1240,350,155,74],['diversion',640,365,186,92],['steps',1130,465,84,34]] as [string,number,number,number,number][]){
   landscape.add(scene.add.image(x,y,'canal-architecture',frame).setOrigin(.5,1).setDisplaySize(w,h));
@@ -105,14 +129,22 @@ export function updateCanalVisual(c:Phaser.GameObjects.Container,e:Entity,s:Game
 }
 function water(g:Phaser.GameObjects.Graphics,r:CanalRect,amount:number,time:number,reduced:boolean):void{
  if(amount<=0)return;
- g.fillStyle(0x668f94,.65*amount);g.fillRect(r.x,r.y,r.w,r.h);
- g.fillStyle(0x94b5a8,.23*amount);g.fillRect(r.x+5,r.y+2,r.w-10,Math.max(1,r.h*.28));
- const phase=reduced?0:time*15;
- for(let row=0;row<6;row++)for(let col=0;col<3;col++){
-  const x=r.x+12+col*(r.w-28)/3+Math.sin(row*4+col)*4,y=r.y+7+((row*25+phase+col*7)%(r.h-14));
-  line(g,[[x,y],[x+9,y-1],[Math.min(r.x+r.w-7,x+20),y]],.9,0xd3e5d4,.45*amount);
+ // Translucent depth leaves the detailed stone bed visible instead of painting over it.
+ g.fillStyle(0x507b83,.34*amount);g.fillRect(r.x,r.y,r.w,r.h);
+ for(let i=0;i<10;i++){
+  const inset=i*1.2;g.fillStyle(0x355e66,(.023-i*.0014)*amount);g.fillRect(r.x+inset,r.y+inset,r.w-inset*2,r.h-inset*2);
  }
- line(g,[[r.x+2,r.y+3],[r.x+r.w-3,r.y+3]],1.5,0xe2e5cc,.6*amount);
+ for(let i=0;i<8;i++){
+  g.fillStyle(0x233e43,(.045-i*.0045)*amount);g.fillRect(r.x,r.y+i*1.8,r.w,1.8);
+  g.fillStyle(0x97b7a5,(.032-i*.003)*amount);g.fillRect(r.x+3,r.y+r.h-3-i*2,r.w-6,2);
+ }
+ const phase=reduced?0:time*12;
+ for(let row=0;row<5;row++)for(let col=0;col<3;col++){
+  const x=r.x+11+col*(r.w-29)/3+Math.sin(row*4+col)*5,y=r.y+9+((row*29+phase+col*11)%(r.h-20)),length=9+(Math.sin(row+col*7)+1)*6;
+  line(g,[[x,y],[x+length*.36,y-1.1],[x+length*.72,y-.6],[Math.min(r.x+r.w-6,x+length),y]],.7,0xd7e6d6,.25*amount);
+ }
+ // Broken foam and mineral reflections stay inside the wet boundary.
+ for(let i=0;i<7;i++){const x=r.x+8+i*(r.w-18)/7,y=r.y+4+(i%3)*1.4;line(g,[[x,y],[x+3+(i%3)*2,y-.5]],.85,0xe3e5cd,.4*amount);}
 }
 /** Only renderer-owned graphics change here; all water and danger decisions remain in canal.ts. */
 export function drawCanalWater(g:Phaser.GameObjects.Graphics,s:GameState,reduced:boolean):void{

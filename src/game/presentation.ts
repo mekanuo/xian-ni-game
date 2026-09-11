@@ -1,4 +1,4 @@
-import type {GameState} from './contracts';
+import type {GameState,Spell,Vec,Entity} from './contracts';
 export interface PlayerPose {action:'idle'|'walk'|'cast'|'pull'|'gather'|'press'|'hurt';x:number;y:number;angle:number;scaleY:number;flipX:boolean;}
 /** Presentation only: model time and real action progress drive every pose. */
 export function playerPose(s:GameState,moving:boolean,step:number,reduced:boolean,hurtAge:number|null=null):PlayerPose{
@@ -25,3 +25,6 @@ export function visibleLabels(boxes:LabelBox[]):string[]{
  }
  return selected.map(b=>b.id);
 }
+
+/** Selecting a prop grasps its actual anchor; the next ground input chooses its landing. */
+export function castTargetPoint(spell:Spell,point:Vec,target?:Entity):Vec{return spell==='pull'&&target?.movable?{x:target.x,y:target.y}:{...point};}

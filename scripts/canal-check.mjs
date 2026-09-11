@@ -38,7 +38,9 @@ async function frame(x,y){
  const view=mobile?{w:390,h:844,left:28,right:362,top:190,bottom:635,cx:195,cy:410}:{w:1440,h:900,left:60,right:1380,top:160,bottom:735,cx:720,cy:440};
  for(let attempt=0;attempt<10;attempt++){
   const p=await page.evaluate(({x,y})=>window.__XIAN_NI__.screenPoint(x,y),{x,y});
-  if(p.x>=view.left&&p.x<=view.right&&p.y>=view.top&&p.y<=view.bottom)return p;
+  // The bounded camera cannot lift every map-edge exit above the centre dock.
+  // Side ground remains clickable lower down; verify actual DOM occlusion.
+  if(p.x>=view.left&&p.x<=view.right&&p.y>=view.top&&p.y<view.h-30&&await page.evaluate(p=>document.elementFromPoint(p.x,p.y)?.tagName==='CANVAS',p))return p;
   const dx=Math.max(-view.w*.42,Math.min(view.w*.42,view.cx-p.x));
   const dy=Math.max(-250,Math.min(250,view.cy-p.y));
   await page.keyboard.down('Shift');
@@ -83,6 +85,8 @@ async function importFixture(bytes){
 async function enterCanal(){
  await interact('table');await choose('canal:accept');assert.equal((await state()).canal.stage,'active');
  await interact('to_creek');await choose('canal:depart:canal');await wait(()=>window.__XIAN_NI__.inspect().scene==='canal');
+ await wait(()=>{const a=window.__XIAN_NI__.audio();return a.scene==='canal'&&a.musicRms>.002;});
+ route.observations.canalAudio=await page.evaluate(()=>window.__XIAN_NI__.audio());assert.equal(route.observations.canalAudio.error,'');
  await capture('entry');await walk(500,700);await interact('canal_inspect');assert.equal((await state()).canal.inspected,true);await capture('inspection');await resume();
 }
 async function verifyAndReturn(method){
@@ -162,7 +166,8 @@ try{
  const legacy=JSON.parse(bytes.toString('utf8'));assert.equal(legacy.scene,'home');assert.equal(legacy.ended,true);assert.equal(legacy.flags.route,'main');assert.equal(legacy.ringStyle,'long');assert.equal(legacy.contentVersion,2);
  evidence.fixture={path:fixturePath,source,sha256:createHash('sha256').update(bytes).digest('hex'),origin:'Unmodified real main-route 0.3.0 UI export'};
  browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});evidence.environment.browser=await browser.version();
- await diversionRoute(bytes);await holdRoute(bytes);assert.deepEqual(evidence.errors,[]);evidence.status='PASS';evidence.completedAt=new Date().toISOString();await persist();console.log('CANAL TWO REAL ROUTES PASS');
+ const selected=process.env.CANAL_ROUTE||'all';assert.ok(['all','desktop','phone'].includes(selected));evidence.routeSelection=selected;
+ if(selected!=='phone')await diversionRoute(bytes);if(selected!=='desktop')await holdRoute(bytes);assert.deepEqual(evidence.errors,[]);evidence.status='PASS';evidence.completedAt=new Date().toISOString();await persist();console.log(`CANAL REAL INPUT PASS (${selected})`);
 }catch(error){
  evidence.status='FAIL';evidence.failure=String(error);if(route)route.status='FAIL';console.error(error);
  if(page){evidence.failureState=brief(await state().catch(()=>({events:[]})));await page.screenshot({path:'qa/evidence/canal-failure.png'}).catch(()=>{});}

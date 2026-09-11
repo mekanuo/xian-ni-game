@@ -7,7 +7,7 @@ import { GameUI, type Settings } from './ui';
 import { Soundscape } from './audio';
 import { display } from './display';
 import { Feedback } from './feedback';
-import { playerPose, visibleLabels, type LabelBox } from './presentation';
+import { playerPose, visibleLabels, castTargetPoint, type LabelBox } from './presentation';
 import { paintTerrain } from './terrain';
 import { inspectObject, placementAnchors } from './encounters';
 import { drawWayfinding, configureWayfindingLabel } from './wayfinding';
@@ -205,7 +205,7 @@ export class WorldScene extends Phaser.Scene {
       return;
     }
     if(this.casting){
-      const cast=this.dispatch({type:'cast',spell:this.state.selected,targetId:entity?.id,point});
+      const cast=this.dispatch({type:'cast',spell:this.state.selected,targetId:entity?.id,point:castTargetPoint(this.state.selected,point,entity)});
       if(cast.ok&&!this.state.paused&&(this.state.selected!=='pull'||!this.state.player.pullId))this.casting=false;
       this.ui.update();
     }else if(entity&&entity.kind!=='scenery'){
@@ -333,6 +333,18 @@ export class WorldScene extends Phaser.Scene {
       if(m.id==='crossing'&&ob.x===1180)continue;
       if(m.id==='home'&&ob.y===240)continue;
       if(m.id==='home'&&ob.x===660){this.environmentProp('rocks',770,660,229,165);continue;}
+      if(m.id==='canal'){
+        // A bank consists of overlapping natural rock groups; stretching one sprite
+        // across a tall collision rectangle turns it into a featureless pillar.
+        g.fillStyle(0x687363,.7);g.fillRoundedRect(ob.x,ob.y,ob.w,ob.h,8);
+        const rows=Math.max(1,Math.ceil(ob.h/(ob.w*.65)));
+        for(let row=0;row<rows;row++){
+          const width=ob.w-(row%2)*5,height=Math.min(ob.h,width*.77);
+          const foot=ob.y+height+(ob.h-height)*row/Math.max(1,rows-1);
+          this.environmentProp('rocks',ob.x+ob.w/2,foot,width,height)?.setFlipX(row%2===1);
+        }
+        continue;
+      }
       if(m.id==='creek'){
         if(ob.y>=425)continue; // These obstacles are water, whose shoreline is already painted at its actual footprint.
         this.parapet(ob.x,ob.y,ob.w,ob.h);
@@ -639,7 +651,7 @@ export class WorldScene extends Phaser.Scene {
         offset=Math.min(100,Math.max(48,(preview.target?.h??30)+16));
         text=this.state.player.pullId==='lamp'&&this.state.flags.lampFixed?'已归架 · 按放下收术':preview.valid?'点击调整 · 到位后放下':preview.reason;
       }
-      else if(this.casting){const preview=previewCast(this.state,this.state.selected,this.hovered?.id,{x:p.worldX,y:p.worldY});text=`${this.hovered?.name||'施术落点'}\n${preview.valid?'点击施术 · 灵力 '+preview.cost:preview.reason}`;}
+      else if(this.casting){const preview=previewCast(this.state,this.state.selected,this.hovered?.id,castTargetPoint(this.state.selected,{x:p.worldX,y:p.worldY},this.hovered));text=`${this.hovered?.name||'施术落点'}\n${preview.valid?'点击施术 · 灵力 '+preview.cost:preview.reason}`;}
       else if(this.hovered){text+=`\n${inspectObject(this.state,this.hovered)||'走近后按 E 察看'}`;}
       this.hoverLabel.setText(text).setPosition(location.x,location.y-offset).setVisible(true);
     }else this.hoverLabel.setVisible(false);
@@ -660,7 +672,7 @@ export class WorldScene extends Phaser.Scene {
     }
     const mouse=this.input.activePointer;
     if(this.casting&&!(p.pullId&&this.state.selected==='pull')&&this.pointerOverWorld&&!this.ui.blocked&&!this.state.dialogue&&(!mouse.wasTouch||mouse.isDown)){
-      const preview=previewCast(this.state,this.state.selected,this.hovered?.id,{x:mouse.worldX,y:mouse.worldY});
+      const preview=previewCast(this.state,this.state.selected,this.hovered?.id,castTargetPoint(this.state.selected,{x:mouse.worldX,y:mouse.worldY},this.hovered));
       const color=preview.valid?this.state.selected==='flame'?0xd5a167:0x9dbfac:0xb1836c;
       g.lineStyle(this.settings.contrast?2:1.2,color,this.settings.contrast?.9:.65);
       if(this.state.selected==='ward'){
