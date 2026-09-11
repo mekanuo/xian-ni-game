@@ -1,6 +1,6 @@
 # 当前工作入口 · 0.6 隔离空间白盒
 
-本目录 `.worktrees/kiln-060` / `feat/kiln-060`。0.5已正式发行并公网核验：主源码4771041、最终证据7fea179、gh-pages f7972c2，21运行资源哈希一致，原链接 https://mekanuo.github.io/xian-ni-game/?v=0.5.0 。本分支待合入最终0.5证据文档。
+本目录 `.worktrees/kiln-060` / `feat/kiln-060`。0.5已正式发行并公网核验：主源码4771041、最终证据7fea179、gh-pages f7972c2，21运行资源哈希一致，原链接 https://mekanuo.github.io/xian-ni-game/?v=0.5.0 。本分支已合入最终0.5证据文档；qa/evidence及verification中的发行PASS属于0.5基线，不代表0.6。
 
 用户要求持续自主推进，无待批准事项，不重读旧聊天或原小说，不碰两个封版项目。0.6选定 design/ADVENTURE_060.md，当前只做独立whitebox.html，生产新图、杜芹借还、迁移、原画未实现，不发布白盒。
 
@@ -8,57 +8,40 @@
 
 模型燃烧保持、实体完整足迹及旧角重叠逐步脱困补丁已推4a52181/f54f9e6/a4e1b20。旧位兼容85项相关模型测试通过，证据为完整五图合成边界夹具，不是假称历史实机存档。
 
-4192预览PID1105194仍服务.whitebox-dist，当前无浏览器运行；浏览器必须串行。root拥有Git/构建/浏览器/部署，当前scene.ts有未提交的小型石驿旧绘制占位清理，尚未正式渲染验证，不随白盒里程碑发布。三个既有Agent只写独立设计文件：存档计划、连接选址、剩余局面重放。下一步补实际证据、推送，再合入0.5最终文档并生产；持续推进，不结束在计划。
+4192预览PID1105194仍服务.whitebox-dist，当前无浏览器运行；浏览器必须串行。root拥有Git/构建/浏览器/部署，当前scene.ts有未提交的小型石驿旧绘制占位清理，尚未正式渲染验证，不随白盒里程碑发布。三个既有Agent只写独立设计文件：存档计划、连接选址、剩余局面重放。下一步补实际证据、推送，再决定生产；持续推进，不结束在计划。
 
 ---
 
 # 《仙逆：山门之外》当前交接
 
-## 当前开发分支 · 0.5 同行回程候选
+## 0.5 同行回程 · 已发布并核验公网
 
-本目录为 `.worktrees/companion-050` / `feat/companion-050`，基于0.4.1源码里程碑d7e6a36。用户要求持续自主推进。已选 `design/COMPANION_050.md`，实施计划与美术稿分别为 `COMPANION_050_IMPLEMENTATION.md`、`ART_COMPANION_050.md`；直接继续实现与验证，无待用户批准事项。
+本目录 `.worktrees/companion-050` / `feat/companion-050`。用户最新要求“继续，别停”，此前已授权持续自主制作、测试、里程碑Git推送和既定公网部署，无待确认事项。0.5已提交推送、合入主源码分支、部署并通过public-check；继续0.6独立白盒。
 
-新增许照工棚领路、北路与南探折返、真实双方经过、单人先走、雨棚坐垫及归家补笔。contentVersion4，旧1/2/3外层与checkpoint迁移；新约定不补发历史成果。新规则/存档/表现已接入，316项测试/20文件与构建PASS，8项模型闭环/处境边界已证实；已实测桌面北路完整归来及手机独立PASS，双方迈步暂停档新页面恢复PASS；三视口12处截图已PASS，完整发行回归因射弹遮挡缺陷主动中止，正修复验证，未发布本候选。`qa/verification.json` NOT_RUN不得当成通过。另已修复DOM按钮上松开镜头拖动导致下一点击错位，camera-drag-check在DPR1/2/3通过；新包index-BEPc4gec.js。
+2026-09-11本候选 npm run verify exit0：342测试/21文件、21条命令、qa/verification.json六项全部PASS。最后完整运行PID1091270已结束，/tmp/xian-ni-050-verify.exit为0；日志同名.log。预览4187由验证器收尾关闭。运行包index-BJE6H6II.js / index-B8Ldhq7K.css，21运行资源。无需重复已通过的矩阵。
 
-0.4.1已完成17条发行检查与公网核验，源码ee17e8f、gh-pages dd82f80，21资源哈希一致，页面错误为空。公开入口 https://mekanuo.github.io/xian-ni-game/?v=0.4.1 。本分支已合入发行证据，射弹连续碰撞修复已推a67c479，相关71测试、实际施火首板面命中与构建index-BJE6H6II.js通过。当前重跑完整verify，PID1091270，日志/tmp/xian-ni-050-verify.log，退出码/tmp/xian-ni-050-verify.exit，独占4187；4191临时服务已关闭。旧中止报告不可发行；浏览器必须串行。
+**公网已核验0.5.0。** 原入口 https://mekanuo.github.io/xian-ni-game/ 保持不变，可加?v=0.5.0。发行源码4771041c3e392a0c62e248764e8ceee1d6a7ad8e、gh-pages f7972c26d2d55e5f057848296892189d475d5a5e；public-check exit0，21资源哈希与已验证dist一致，桌面/手机输入与声音、生活/旧渠旧档、新同行v3→v4接约和实际进入工棚通过，errors为空。publication.json现属于本次0.5发行；public-companion.png记录真实工棚入口。
 
-## 发行状态 · 2026-09-11
+## 已实现与实测
 
-0.4.0“雾岭旧渠”已上线并核对公网：源码 f5063db5234f500f9955935a636d69db5dc23c90，gh-pages 086d63c6177c5a1f27f8aa19b0ac2885bed3d6bb。public-check exit0，21个运行资源哈希一致；桌面/手机输入、声音、旧档迁移与接信进入旧渠通过，页面错误为空。试玩 https://mekanuo.github.io/xian-ni-game/?v=0.4.0 。0.3.1 精修也已包含在内。
+五图首章两路归家、生活修器/采药/药囊、完整旧渠冒险全部保留。新增许照在工棚主动领回程，玩家自行跟随；落后或实际兽情会令她等候。独行、北路/南探折返、提前离开、后来同行均依真实位置结算，约定和切图不伪造共同经历。雨棚坐垫只开启一次，归驿纸签落在实际桌面，后来共同走过只补笔不重复奖励。
 
-本轮用户授权外出约十小时期间自主有序推进、保持质量。无需重复确认日常设计、实现、测试、Git推送或既定公网部署。首版 Goal 此前已完成，本轮未创建新 Goal。已确认原创低阶修士、空间冒险与角色扮演方向，原恢复基点 bf4d922，完整设计 3e02f78。
+contentVersion4，schema/revision不变；旧1/2/3外层和checkpoint先按原清单验证再迁移，不补造见证或奖励。固定真实旧输入在qa/fixtures，不用新导出覆盖旧版本迁移夹具。
 
-## 工作入口
+发行修复还包括：镜头拖动在DOM上松开后确实结束，下一次点击不再继续拖镜头；射弹按整段首个实际接触撞墙/挡板，短帧不穿透。DPR1/2/3实际点击、施火首板面命中和旧战斗声音均已验证。0.6分支后续燃烧/完整挡屏足迹补丁未包含在本发行。
 
-- 主目录 /home/zhangjingzhou/workspace/xian-ni-game，源码分支 feat/return-stone-v1，仓库 mekanuo/xian-ni-game。master 未改，gh-pages 只发布运行资源。
-- 0.4 实施目录 .worktrees/canal-040，分支 feat/canal-040，已推里程碑 28b4826、13790ae/d6427af、205fe3c、f5063db。已快进合入主源码分支并推送。后续继续主目录，隔离目录仅保留该阶段记录，勿在两处同时改同一内容。
-- 原试玩链接 https://mekanuo.github.io/xian-ni-game/ 保持不变。
-- 先读本文件、AGENTS.md、docs/PROGRESS.md、Git状态；不读取旧聊天，不重做全书解析。已存资料 docs/research。/home/zhangjingzhou/smbb 与 /home/zhangjingzhou/starvein-companion-cards 永久封版。
+真实浏览器证据：
+- 首章山脊/主渡完整归家与重开；生活桌面机械法/留势、手机采叶和暂停档；旧渠桌面零资源/手机连续留势两法都完成归驿与重开。
+- journey-check.json statusPASS/selectionall/phasecomplete：桌面与390×844 DPR3手机仿真均不暂停地连续跟随实际带路，完成出口、雨棚、桌案、重开；独立迈步暂停档在全新页面恢复。
+- journey-view.json三视口各4张，共12处：1440×900 DPR2、1280×500、390×844 DPR3。脚标/避让/清晰度与实际往返输入通过，页面错误为空；根代理目视复核本轮桌面归家与手机雨棚等关键图。
+- South换路、提前退出、单人先走后来同行等组合另有模型证据，不冒充全组合已实机。
 
-## 当前已实现
+目标含Mac与触屏浏览器，实际运行环境是Linux Chrome150及窗口/DPR/触屏仿真，不等于实体Mac/Safari/手机验证。人物仍为原画加状态动作，未有完整逐帧动画；趣味与自然游玩时长仍需玩家反馈。当前只做有界章节，不声称已完成全书改编。
 
-五图、首章两路归家、三术法、长牵/留势、修器/采药/压扣/两份药囊，以及新章完整清渠事件。首章桌边安顿后接邵禾口信，从既有驿前出口选择雾岭旧渠；不要求完成生活委托。
+## 后续工作入口
 
-旧渠可徒手分水零资源通关，或留势截水后实际下渠清框；可选唯一压扣承托。复位器物、亲眼验水、向邵禾说明，再步行归驿添图。同行见证只记实际在场，渠底来水预告与安全退岸按真实水路裁决。
+主源码目录 /home/zhangjingzhou/workspace/xian-ni-game，分支feat/return-stone-v1；本次合入目标明确，不碰master或封版项目。Git推送使用既有gh credential helper，不输出凭证；稀疏检出新文件git add --sparse。deploy-pages要求PASS和clean，仅发布dist到gh-pages；发布后public-check核对HTTP资源与真实输入。
 
-三张新增原画、独立邵禾、石盖板/渠床、水位/水轮反馈和新地区配乐已接入。保留0.3.1姿态、贴地阴影、标签避让与手机暂停布局。首次牵物抓真实器物锚点，避免手机触点微差被窄轨拒绝；后续落点仍严格校验。
+0.6已在 `.worktrees/kiln-060` / `feat/kiln-060` 独立开发，已推计划b8211d5、白盒4a52181、足迹f54f9e6、旧重叠兼容a4e1b20。阅读该目录HANDOFF后继续。whitebox.html复用真实act/tick，有两墙角/两敌/一屏和普通/零灵力初态，无正式新地图/借还人物/存档迁移/生产美术。最近相关五文件85/85、TypeScript与whitebox-CzR68t1q.js通过，0.5公网核验已结束；4192白盒正在实际输入验证（PID1105420，/tmp/xian-ni-060-whitebox.log，退出码同名.exit），独立预览PID1105194。浏览器始终串行。该分支另有去除石驿旧平涂占位色块的可逆视觉改动，尚待实机复核。
 
-存档 schema/revision 不变，contentVersion=3；旧版外层与checkpoint严格迁移，不补发资源。UI先规范新档暂停及缓存再replace/act，不恢复旧菜单运行状态、不重复首章结局。施术起手与推板工序互斥，放下截水板立即打断清理。
-
-## 验证证据与限制
-
-- 最终 npm run verify exit0，236项测试、16条命令全部通过；qa/verification.json 六项PASS。最终包 index-D8kZN3eh.js / index-B8Ldhq7K.css。
-- 真实新建到结局/重开：山脊、主渡；生活机械法/留势法、采叶、手机药囊与暂停读档；旧渠桌面零资源和手机不暂停留势都实际归驿并重开。qa/evidence/canal-check.json 为两法完整结果，手机退岸剩约3.1秒。
-- 九张新图视口证据：1440×900 DPR2、1280×500、390×844 DPR3；qa/evidence/canal-view.json，名字锚点/避让、画布清晰度、载入冻结、实际走图均PASS，根代理已目视复核关键截图。
-- 手机是Linux Chrome触屏仿真，镜头检查含Shift鼠标拖动；没有实体手机、Mac或Safari验证。特定路线余量不代表新玩家自然操作时长。压扣/药囊归属/同行缺席/来水边界另有模型测试，不冒称所有组合已实机。
-- 人物仍为原画与程序动作，完整逐帧动画未完成；趣味和最终品质仍需用户试玩。0.4仅一张新增图和一个完整事件，不代表全书改编完成。
-
-## 下一步与运行
-
-本次源码集成、推送、deploy-pages与public-check均已完成。qa/evidence/publication.json和public-canal.png记录公开入口。后续按 design/CONTENT_ROADMAP.md 有序推进；已通过且无新问题的项目不重复开工。具体本章规格 design/ADVENTURE_040.md，美术 design/ART_CANAL_040.md，实施记录 docs/superpowers/plans/2026-09-11-canal-040.md。
-
-本轮临时本地预览服务已关闭，公网由GitHub Pages提供，无需保持本地进程。
-
-Node22/npm10；npm ci、npm run dev、npm run build、npm run verify。真实浏览器必须串行。长完整检查应以独立后台进程运行、保留退出码和日志，不能据中止记录宣称通过。Vitest限制tests/**/*.test.ts，防止扫描.worktrees。
-
-Git稀疏检出，新文件用git add --sparse；推送使用既有gh credential helper，不输出凭证。deploy-pages要求PASS和clean，仅发布dist；发布后运行public-check。原文不加入新提交/构建，旧历史novel.txt未重写。__XIAN_NI__仅只读证据接口，禁止注入进度伪造通关。
+用户已认可空间冒险与角色扮演方向，原交接bf4d922，设计确认3e02f78；研究资料docs/research。不要读旧聊天、重做全书研究或上传原文，不续作smbb与starvein-companion-cards。首版Goal早已完成，本轮不另建推断Goal。历史进度在docs/PROGRESS.md，设计入口design/REVIEW.md与CONTENT_ROADMAP.md。
