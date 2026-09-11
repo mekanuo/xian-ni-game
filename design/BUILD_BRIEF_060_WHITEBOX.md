@@ -13,6 +13,6 @@ buildPath: custom
 
 工具链：浏览器Phaser3.90.0、TypeScript5.9.3、Vite7.3.6、Node22.22.0、npm10.9.4。已有依赖从主目录node_modules解析，无需重复安装。构建 `npx tsc --noEmit && npx vite build --config vite.whitebox.config.ts`；运行 `npx vite preview --config vite.whitebox.config.ts --host 127.0.0.1 --port 4192 --strictPort` 后访问 whitebox.html；最窄模型检查 `npx vitest run tests/kiln-whitebox.test.ts`，浏览器脚本 `node scripts/kiln-whitebox-check.mjs`。本阶段不调用完整production verify来证明灰盒趣味或画面。
 
-目标为桌面键鼠与触屏浏览器；testedRuntime已运行Linux Chrome桌面白盒；第二修订低资源北返失败，第三修订五项真实输入PASS（留屏暂停、移屏、烧毁再牵拒绝、零灵力往返、重开）。尚待归位与烧后再接近补证。实际验证后记录Linux Chrome和仿真视口，实体Mac/Safari/手机仍未覆盖。中文可见控件，实时Phaser二维几何，清楚标注非正式美术；只读证据接口，首撞点/站位/实际输入记录在qa/whitebox。
+目标为桌面键鼠与触屏浏览器；testedRuntime已运行Linux Chrome桌面白盒；第二修订低资源北返失败，第三修订五项真实输入PASS（留屏暂停、移屏、烧毁再牵拒绝、零灵力往返、重开）。归位与烧后再接近补证亦两项PASS，根代理决定按正式生产计划推进；白盒仍不是新图发行。实际验证后记录Linux Chrome和仿真视口，实体Mac/Safari/手机仍未覆盖。中文可见控件，实时Phaser二维几何，清楚标注非正式美术；只读证据接口，首撞点/站位/实际输入记录在qa/whitebox。
 
 设计owner由根代理承担：验证前最大风险为地形过于宽松或低资源路被两敌永久堵死。先跑留屏换角度、移屏落地、施火烧毁和零灵力往返。若不成立，修墙角/敌人初始站位或缩减对手，禁止靠新系统、加伤害或偷偷改资源弥补。
