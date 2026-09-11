@@ -6,7 +6,7 @@
 
 新增许照工棚领路、北路与南探折返、真实双方经过、单人先走、雨棚坐垫及归家补笔。contentVersion4，旧1/2/3外层与checkpoint迁移；新约定不补发历史成果。新规则/存档/表现已接入，316项测试/20文件与构建PASS，8项模型闭环/处境边界已证实；已实测桌面北路完整归来及手机独立PASS，双方迈步暂停档新页面恢复PASS；三视口12处截图已PASS，完整发行回归因射弹遮挡缺陷主动中止，正修复验证，未发布本候选。`qa/verification.json` NOT_RUN不得当成通过。另已修复DOM按钮上松开镜头拖动导致下一点击错位，camera-drag-check在DPR1/2/3通过；新包index-BEPc4gec.js。
 
-0.4.1已完成17条发行检查与公网核验，源码ee17e8f、gh-pages dd82f80，21资源哈希一致，页面错误为空。公开入口 https://mekanuo.github.io/xian-ni-game/?v=0.4.1 。本分支已合入发行证据，当前0.5完整verify已主动中止（143），PID1086289及子进程已关闭。射弹连续碰撞修复相关71测试和构建index-BJE6H6II.js通过，实际施火撞板检查运行中（/tmp/xian-ni-050-projectile.log，退出码同名.exit）；临时4191预览PID1090638。完成该检查后重新运行完整verify，旧中止报告不可发行；浏览器必须串行。
+0.4.1已完成17条发行检查与公网核验，源码ee17e8f、gh-pages dd82f80，21资源哈希一致，页面错误为空。公开入口 https://mekanuo.github.io/xian-ni-game/?v=0.4.1 。本分支已合入发行证据，射弹连续碰撞修复已推a67c479，相关71测试、实际施火首板面命中与构建index-BJE6H6II.js通过。当前重跑完整verify，PID1091270，日志/tmp/xian-ni-050-verify.log，退出码/tmp/xian-ni-050-verify.exit，独占4187；4191临时服务已关闭。旧中止报告不可发行；浏览器必须串行。
 
 ## 发行状态 · 2026-09-11
 
