@@ -1,0 +1,13 @@
+
+> xian-ni-shanmen-zhiwai@0.7.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+
+ Test Files  36 passed (36)
+      Tests  764 passed (764)
+   Start at  20:42:47
+   Duration  13.54s (transform 2.38s, setup 0ms, import 6.81s, tests 21.66s, environment 8ms)
+

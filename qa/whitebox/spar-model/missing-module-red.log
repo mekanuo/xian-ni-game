@@ -1,0 +1,24 @@
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+ ❯ tests/spar-whitebox.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/spar-whitebox.test.ts [ tests/spar-whitebox.test.ts ]
+Error: Cannot find module '../src/whitebox/spar-model' imported from /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/tests/spar-whitebox.test.ts
+ ❯ tests/spar-whitebox.test.ts:2:1
+      1| import {afterEach,beforeEach,describe,expect,it} from 'vitest';
+      2| import {createSpar,installSparMap,sparAct,sparTick,type SparRound} fro…
+       | ^
+      3| let restore:()=>void;
+      4| beforeEach(()=>{restore=installSparMap();});afterEach(()=>restore());
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  20:36:00
+   Duration  218ms (transform 32ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+

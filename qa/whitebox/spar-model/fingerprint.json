@@ -1,0 +1,5 @@
+{
+  "src/game/model.ts": "3ecdf4cdc214c7563f99fb07be0d13e80614deb19762d70c70101b35909c50a1",
+  "src/whitebox/spar-model.ts": "d58b3e03c728a828ef9683ff55743d064c0a8c0a4ddec576308f9574ed1e1c30",
+  "tests/spar-whitebox.test.ts": "48105cac5022d5b6767850278b62695e6729904cade032fd5938b4f3026aa242"
+}

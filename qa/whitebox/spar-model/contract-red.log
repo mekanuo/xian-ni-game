@@ -1,0 +1,180 @@
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+ ❯ tests/spar-whitebox.test.ts (9 tests | 8 failed) 21ms
+     × cannot attack before agreement or teleport either body into position 9ms
+     × standing still takes exactly one hit and never earns success or heals 2ms
+     × a legal zero-mana ground click dodges a real emitted shot inside the line 1ms
+     × stopping preserves the live projectile and its later hit, without another shot 1ms
+     × crossing the real body line stops instead of awarding an unopposed success 2ms
+     × pause freezes a real in-flight round and queued movement resumes normally 1ms
+     × a correctly facing late ward blocks; a backward ward does not 1ms
+     × refuses offensive casts and resource recovery, including while paused 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/spar-whitebox.test.ts > voluntary one-shot guard round using real movement and projectiles > cannot attack before agreement or teleport either body into position
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/spar-whitebox.test.ts:14:40
+     12|   const r=createSpar();wait(r,10);expect(r.s.player.hp).toBe(4);expect…
+     13|   expect(sparAct(r,{type:'begin'}).ok).toBe(false);const y=r.peer.y;
+     14|   expect(sparAct(r,{type:'agree'}).ok).toBe(true);expect(r.peer.y).toB…
+       |                                        ^
+     15|   expect(sparAct(r,{type:'begin'}).ok).toBe(false);wait(r,.5);expect(r…
+     16|  });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  tests/spar-whitebox.test.ts > voluntary one-shot guard round using real movement and projectiles > standing still takes exactly one hit and never earns success or heals
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ready tests/spar-whitebox.test.ts:6:86
+      4| beforeEach(()=>{restore=installSparMap();});afterEach(()=>restore());
+      5| const wait=(r:SparRound,seconds:number)=>{for(let t=0;t<seconds-1e-8;t…
+      6| function ready(mana=0){const r=createSpar(mana);expect(sparAct(r,{type…
+       |                                                                                      ^
+      7|  expect(sparAct(r,{type:'move',point:{x:900,y:940}}).ok).toBe(true);wa…
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+ ❯ tests/spar-whitebox.test.ts:18:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  tests/spar-whitebox.test.ts > voluntary one-shot guard round using real movement and projectiles > a legal zero-mana ground click dodges a real emitted shot inside the line
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ready tests/spar-whitebox.test.ts:6:86
+      4| beforeEach(()=>{restore=installSparMap();});afterEach(()=>restore());
+      5| const wait=(r:SparRound,seconds:number)=>{for(let t=0;t<seconds-1e-8;t…
+      6| function ready(mana=0){const r=createSpar(mana);expect(sparAct(r,{type…
+       |                                                                                      ^
+      7|  expect(sparAct(r,{type:'move',point:{x:900,y:940}}).ok).toBe(true);wa…
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+ ❯ tests/spar-whitebox.test.ts:22:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  tests/spar-whitebox.test.ts > voluntary one-shot guard round using real movement and projectiles > stopping preserves the live projectile and its later hit, without another shot
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ready tests/spar-whitebox.test.ts:6:86
+      4| beforeEach(()=>{restore=installSparMap();});afterEach(()=>restore());
+      5| const wait=(r:SparRound,seconds:number)=>{for(let t=0;t<seconds-1e-8;t…
+      6| function ready(mana=0){const r=createSpar(mana);expect(sparAct(r,{type…
+       |                                                                                      ^
+      7|  expect(sparAct(r,{type:'move',point:{x:900,y:940}}).ok).toBe(true);wa…
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+ ❯ tests/spar-whitebox.test.ts:27:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  tests/spar-whitebox.test.ts > voluntary one-shot guard round using real movement and projectiles > crossing the real body line stops instead of awarding an unopposed success
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ready tests/spar-whitebox.test.ts:6:86
+      4| beforeEach(()=>{restore=installSparMap();});afterEach(()=>restore());
+      5| const wait=(r:SparRound,seconds:number)=>{for(let t=0;t<seconds-1e-8;t…
+      6| function ready(mana=0){const r=createSpar(mana);expect(sparAct(r,{type…
+       |                                                                                      ^
+      7|  expect(sparAct(r,{type:'move',point:{x:900,y:940}}).ok).toBe(true);wa…
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+ ❯ tests/spar-whitebox.test.ts:32:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  tests/spar-whitebox.test.ts > voluntary one-shot guard round using real movement and projectiles > pause freezes a real in-flight round and queued movement resumes normally
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ready tests/spar-whitebox.test.ts:6:86
+      4| beforeEach(()=>{restore=installSparMap();});afterEach(()=>restore());
+      5| const wait=(r:SparRound,seconds:number)=>{for(let t=0;t<seconds-1e-8;t…
+      6| function ready(mana=0){const r=createSpar(mana);expect(sparAct(r,{type…
+       |                                                                                      ^
+      7|  expect(sparAct(r,{type:'move',point:{x:900,y:940}}).ok).toBe(true);wa…
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+ ❯ tests/spar-whitebox.test.ts:36:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  tests/spar-whitebox.test.ts > voluntary one-shot guard round using real movement and projectiles > a correctly facing late ward blocks; a backward ward does not
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ready tests/spar-whitebox.test.ts:6:86
+      4| beforeEach(()=>{restore=installSparMap();});afterEach(()=>restore());
+      5| const wait=(r:SparRound,seconds:number)=>{for(let t=0;t<seconds-1e-8;t…
+      6| function ready(mana=0){const r=createSpar(mana);expect(sparAct(r,{type…
+       |                                                                                      ^
+      7|  expect(sparAct(r,{type:'move',point:{x:900,y:940}}).ok).toBe(true);wa…
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+ ❯ tests/spar-whitebox.test.ts:41:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  tests/spar-whitebox.test.ts > voluntary one-shot guard round using real movement and projectiles > refuses offensive casts and resource recovery, including while paused
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ready tests/spar-whitebox.test.ts:6:86
+      4| beforeEach(()=>{restore=installSparMap();});afterEach(()=>restore());
+      5| const wait=(r:SparRound,seconds:number)=>{for(let t=0;t<seconds-1e-8;t…
+      6| function ready(mana=0){const r=createSpar(mana);expect(sparAct(r,{type…
+       |                                                                                      ^
+      7|  expect(sparAct(r,{type:'move',point:{x:900,y:940}}).ok).toBe(true);wa…
+      8|  expect(sparAct(r,{type:'begin'}).ok).toBe(true);return r;}
+ ❯ tests/spar-whitebox.test.ts:47:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 1 passed (9)
+   Start at  20:36:31
+   Duration  441ms (transform 206ms, setup 0ms, import 244ms, tests 21ms, environment 0ms)
+

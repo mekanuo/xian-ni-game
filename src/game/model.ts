@@ -671,12 +671,13 @@ function companionTick(s:GameState,dt:number){
     xu.state='refused';const wait=s.scene==='market'?{x:xu.x,y:xu.y}:s.scene==='creek'?{x:1200,y:590}:s.lastSafe.point;moveBody(s,xu,wait,120,dt,xu.id);
   }else xu.state='waiting';
 }
-export function tick(s:GameState,dt:number,input:Vec):void {
+export interface SimulationHooks { beforeEnemies?:(state:GameState)=>void; }
+export function tick(s:GameState,dt:number,input:Vec,hooks?:SimulationHooks):void {
   if(s.paused||s.dialogue||s.defeated||!Number.isFinite(dt)||dt<=0)return;
   // Small fixed upper steps prevent tunnelling for slow rendering frames.
-  let remaining=Math.min(dt,1);while(remaining>1e-8){const step=Math.min(.025,remaining);stepTick(s,step,input);remaining-=step;if(s.paused)break;}
+  let remaining=Math.min(dt,1);while(remaining>1e-8){const step=Math.min(.025,remaining);stepTick(s,step,input,hooks);remaining-=step;if(s.paused)break;}
 }
-function stepTick(s:GameState,dt:number,input:Vec){
+function stepTick(s:GameState,dt:number,input:Vec,hooks?:SimulationHooks){
   const fromPlayer={x:s.player.x,y:s.player.y};
   s.time+=dt;const p=s.player;p.invulnerable=Math.max(0,p.invulnerable-dt);p.cooldown=Math.max(0,p.cooldown-dt);p.ward=Math.max(0,p.ward-dt);s.flags.wardCooldown=Math.max(0,Number(s.flags.wardCooldown??0)-dt);
   if(s.flags.casting){s.flags.castTime=Number(s.flags.castTime)-dt;if(Number(s.flags.castTime)<=0){s.flags.casting=false;spawnProjectile(s,p,{x:Number(s.flags.castX),y:Number(s.flags.castY)},'player',420);}}
@@ -689,6 +690,9 @@ function stepTick(s:GameState,dt:number,input:Vec){
     else if(dist(e,p)>(s.ringStyle==='long'||s.flags.trialStyle==='long'?520:320)||!clearLine(s,p,e,e.id)){release(s);emit(s,'hint','灵线因距离或遮挡断开，物件落在当前位置。');}
     else if(p.pullPoint){const destination=p.pullPoint;const d=dist(e,destination);if(d>.5){const amount=Math.min(d,220*dt),next={x:e.x+(destination.x-e.x)/d*amount,y:e.y+(destination.y-e.y)/d*amount};if(clearLine(s,e,next,e.id)&&solidPullPathClear(s,e,next)){e.x=next.x;e.y=next.y;objectChanged(s,e);}else{release(s);emit(s,'hint','物件碰到实物，已停止牵动。');}}}
   }
+  // Local voluntary encounters can withdraw attack permission after actual movement.
+  // Existing callers omit this hook; already emitted projectiles still advance below.
+  hooks?.beforeEnemies?.(s);
   for(const e of entities(s)){
     if(e.state==='burning'){e.timer=Math.max(0,(e.timer??0)-dt);if(e.timer===0)e.state='burned';}
     if(e.kind==='enemy')enemyTick(s,e,dt);
