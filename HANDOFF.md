@@ -1,12 +1,16 @@
-# 0.4 当前隔离开发入口（覆盖下方历史）
+# 当前开发入口 · 0.4 雾岭旧渠候选
 
-用户外出约十小时并授权自主有序推进。当前工作目录 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/canal-040，分支 feat/canal-040。新区域规则、存档升级、场景原画与交互已集成，223 项测试和构建通过；包括真实模型动作两法归家、B回岸余两秒、同伴高岸与零资源退路。尚待真实浏览器新章节两法、手机/矮窗画面和发行回归，不得写成已上线。
+本工作目录为 .worktrees/canal-040，分支 feat/canal-040。用户授权外出约十小时期间自主有序推进，不需重复确认。首里程碑 28b4826 与边界修订 13790ae；234 项测试通过。真实桌面首次成功零资源清堵，但返回点击撞上同伴并打开正常交谈；脚本已改用北侧空岸，两路重跑、三视口及完整发行验证仍待完成。渠体材质正按首张实机精修。不得据旧 0.3.1 的 PASS 发布此候选。
 
-主目录 /home/zhangjingzhou/workspace/xian-ni-game 仍在完成0.3.1精修验证/发布（feat/return-stone-v1）。本分支加入的ui.ts暂停载入和避免重弹旧结局修复将backport主目录，之后继续同步主目录发行记录。当前公网仍0.3.0，链接不变。
+旧渠含新地图、看渠人邵禾、徒手分水/留势截水、可选压扣、实际验水和归驿小图。设计 design/ADVENTURE_040.md，计划 docs/superpowers/plans/2026-09-11-canal-040.md。主目录 0.3.1 仍是已验证公网版本；保持原链接，待 0.4 完整验证再升级。
 
-实施规格 design/ADVENTURE_040.md，美术 design/ART_CANAL_040.md，计划 docs/superpowers/plans/2026-09-11-canal-040.md。浏览器脚本 scripts/canal-check.mjs 已写，尚未跑；禁止以模型测试冒充实机。每个里程碑推送，生产发布仍需干净源码、实际验证和公网核验。不要重读旧聊天/全文，不动两个封版项目。
+# 0.3.1 发行入口更新（覆盖下方历史）
 
----
+当前主分支 feat/return-stone-v1。0.3.1 已上线并核对公网，源码 7ef2df3、gh-pages 537c85d。原链接 https://mekanuo.github.io/xian-ni-game/?v=0.3.1 。public-check exit0：18 个运行资源哈希一致，桌面/手机输入与声音通过，页面错误为空。
+
+基础完整矩阵 147 项及 14 条验证命令全部 PASS，最终 UI 读档补丁 157 项测试/构建及桌面存档隔离、手机采叶/药囊、双端暂停表现补查 PASS。权威 qa/verification.json 区分原包完整流程与最终 UI 补查，原报告 qa/verification-baseline-031.json；最终包 index-BUkY1Ynu.js。
+
+新章节在隔离目录 .worktrees/canal-040，分支feat/canal-040，首里程碑28b4826已推送。第五图规则、存档、美术已集成，228项测试/构建通过；scripts/canal-check.mjs与canal-view-check.mjs待真实浏览器运行。不要以模型测试声称新章已上线或手机8秒已通过。继续自主推进，无需用户重复确认；原公网链接保持不变。
 
 # 《仙逆：山门之外》交接
 

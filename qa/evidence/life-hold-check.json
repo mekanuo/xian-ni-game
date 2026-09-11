@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "status": "PASS",
   "runId": "life-hold-repair",
-  "startedAt": "2026-09-10T01:37:16.396Z",
+  "startedAt": "2026-09-11T03:39:39.219Z",
   "environment": {
     "url": "http://127.0.0.1:4187/",
     "platform": "linux",
@@ -17,7 +17,7 @@
     {
       "action": "close-first-chapter-ending",
       "detail": {},
-      "wallMs": 5827
+      "wallMs": 5395
     },
     {
       "action": "interact",
@@ -27,12 +27,12 @@
         "x": 1060,
         "y": 430
       },
-      "wallMs": 8083
+      "wallMs": 9675
     },
     {
       "action": "choose",
       "detail": "life:repair:accept",
-      "wallMs": 12164
+      "wallMs": 16311
     },
     {
       "action": "interact",
@@ -42,7 +42,7 @@
         "x": 1640,
         "y": 690
       },
-      "wallMs": 14148
+      "wallMs": 19106
     },
     {
       "action": "camera-pan",
@@ -50,12 +50,12 @@
         "dx": -500,
         "dy": -250
       },
-      "wallMs": 16679
+      "wallMs": 22557
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wallMs": 21219
+      "wallMs": 26981
     },
     {
       "action": "interact",
@@ -65,7 +65,7 @@
         "x": 1640,
         "y": 370
       },
-      "wallMs": 21830
+      "wallMs": 27599
     },
     {
       "action": "camera-pan",
@@ -73,12 +73,12 @@
         "dx": -500,
         "dy": 270
       },
-      "wallMs": 24181
+      "wallMs": 29960
     },
     {
       "action": "scene",
       "detail": "workshop",
-      "wallMs": 33725
+      "wallMs": 39584
     },
     {
       "action": "walk",
@@ -86,7 +86,7 @@
         "x": 320,
         "y": 220
       },
-      "wallMs": 34118
+      "wallMs": 39993
     },
     {
       "action": "camera-pan",
@@ -94,7 +94,7 @@
         "dx": 400,
         "dy": 300
       },
-      "wallMs": 36525
+      "wallMs": 42392
     },
     {
       "action": "walk",
@@ -102,7 +102,7 @@
         "x": 1450,
         "y": 220
       },
-      "wallMs": 40490
+      "wallMs": 46290
     },
     {
       "action": "camera-pan",
@@ -110,7 +110,7 @@
         "dx": -500,
         "dy": 220
       },
-      "wallMs": 42885
+      "wallMs": 48692
     },
     {
       "action": "interact",
@@ -120,12 +120,12 @@
         "x": 1280,
         "y": 510
       },
-      "wallMs": 50680
+      "wallMs": 56470
     },
     {
       "action": "choose",
       "detail": "hold",
-      "wallMs": 52601
+      "wallMs": 58394
     },
     {
       "action": "walk",
@@ -133,12 +133,12 @@
         "x": 1390,
         "y": 610
       },
-      "wallMs": 54213
+      "wallMs": 60014
     },
     {
       "action": "physical-hold-training",
       "detail": {},
-      "wallMs": 59321
+      "wallMs": 65233
     },
     {
       "action": "interact",
@@ -148,7 +148,7 @@
         "x": 1450,
         "y": 700
       },
-      "wallMs": 59876
+      "wallMs": 65790
     },
     {
       "action": "interact",
@@ -158,7 +158,7 @@
         "x": 1320,
         "y": 430
       },
-      "wallMs": 60980
+      "wallMs": 66917
     },
     {
       "action": "walk",
@@ -166,7 +166,7 @@
         "x": 1410,
         "y": 460
       },
-      "wallMs": 62523
+      "wallMs": 68382
     },
     {
       "action": "walk",
@@ -174,7 +174,7 @@
         "x": 1510,
         "y": 640
       },
-      "wallMs": 65163
+      "wallMs": 71017
     },
     {
       "action": "export-save",
@@ -202,7 +202,7 @@
           "scent": null
         }
       },
-      "wallMs": 73652
+      "wallMs": 79541
     },
     {
       "action": "interact",
@@ -212,7 +212,7 @@
         "x": 1450,
         "y": 630
       },
-      "wallMs": 77556
+      "wallMs": 83556
     },
     {
       "action": "interact",
@@ -222,34 +222,34 @@
         "x": 1450,
         "y": 630
       },
-      "wallMs": 78748
+      "wallMs": 84742
     },
     {
       "action": "capture",
       "detail": "hold-repair",
-      "wallMs": 81848
+      "wallMs": 87844
     }
   ],
   "observations": {
     "pause": {
-      "held": 6.933333333333337,
-      "after": 6.933333333333337,
+      "held": 6.9166666666666705,
+      "after": 6.9166666666666705,
       "wallMs": 1100
     },
     "heldRoundtrip": {
       "export": "qa/evidence/life-hold-paused-input.json",
-      "hold": 6.933333333333337
+      "hold": 6.9166666666666705
     },
     "hold-repair": {
       "state": {
         "scene": "workshop",
-        "time": 232.58333333341056,
+        "time": 233.550000000078,
         "player": {
-          "x": 1509.8076082228913,
-          "y": 639.658969426177,
+          "x": 1509.7952921389674,
+          "y": 639.6368920283281,
           "hp": 4,
           "mana": 3,
-          "facing": -2.7063435888865714,
+          "facing": -2.706433340407319,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -326,7 +326,7 @@
         "events": [
           {
             "seq": 49,
-            "time": 223.43333333340328,
+            "time": 224.35000000007068,
             "type": "fire",
             "text": "炉芯燃起，挂扣上的旧胶松开了；现在可以校直活动钳口。",
             "x": 1320,
@@ -335,7 +335,7 @@
           },
           {
             "seq": 50,
-            "time": 226.30000000007223,
+            "time": 227.20000000007295,
             "type": "pull",
             "text": "灵线牵住活动钳口。点空地改变落点，按「放下」结束。",
             "x": 1360,
@@ -344,7 +344,7 @@
           },
           {
             "seq": 51,
-            "time": 227.53333333340655,
+            "time": 228.45000000007394,
             "type": "hold",
             "text": "活动钳口停住八秒，现在可以另施一术。",
             "x": 1420,
@@ -353,7 +353,7 @@
           },
           {
             "seq": 52,
-            "time": 229.61666666674154,
+            "time": 230.5500000000756,
             "type": "change",
             "text": "钳口压紧，挂扣已经校直。再拉一次压柄，实际检验承重。",
             "x": 1450,
@@ -362,7 +362,7 @@
           },
           {
             "seq": 53,
-            "time": 230.8000000000758,
+            "time": 231.75000000007657,
             "type": "note",
             "text": "压柄落下，静止一息，看挂扣能否承稳。",
             "x": 1450,
@@ -371,7 +371,7 @@
           },
           {
             "seq": 54,
-            "time": 231.8000000000766,
+            "time": 232.75000000007736,
             "type": "change",
             "text": "挂扣承住试重，没有回歪；可以回石驿交还陶七。",
             "x": 1450,

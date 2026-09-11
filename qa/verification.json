@@ -3,9 +3,9 @@
   "status": "NOT_RUN",
   "candidate": "0.4.0",
   "verify": {
-    "command": "npm test && npm run build",
+    "command": "npm test",
     "exitCode": 0,
-    "tests": 223
+    "tests": 234
   },
   "checks": {
     "launch": "NOT_RUN",
@@ -18,7 +18,7 @@
   "limitations": [
     {
       "scope": "candidate",
-      "reason": "Rules and production assets integrated; new chapter browser routes and release matrix are pending. Previous evidence belongs to earlier versions."
+      "reason": "234 tests passed. First desktop real-input run cleared the canal but stopped after a return-ground tap selected the waiting companion. Script now uses the north bank; complete routes, updated stone surfaces, viewport checks and final release matrix remain pending. Older evidence belongs to 0.3.1."
     }
   ]
 }
