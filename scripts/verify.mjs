@@ -38,7 +38,7 @@ try{
  report.continuation={desktop:'qa/evidence/life-check.json',hold:'qa/evidence/life-hold-check.json',mobile:'qa/evidence/life-mobile.json',source:'Real 0.2.2 chapter-ending UI exports; continuation uses browser inputs only.'};
  report.limitations[1].reason='Natural play duration and subjective enjoyment require player feedback. Both ring styles, shared platform memory, protected-basket bridge, main crossing and ridge endings have real browser input evidence; guard/companion failure boundaries also have model regression evidence.';
  report.presentation='qa/evidence/presentation.json';
- report.adventure={canal:'qa/evidence/canal-check.json',viewports:'qa/evidence/canal-view.json',methods:['zero-resource diversion','uninterrupted phone hold'],source:'Real 0.3.0 chapter-ending UI export; all adventure progression uses browser inputs.'};
+ report.adventure={canal:'qa/evidence/canal-check.json',viewports:'qa/evidence/canal-view.json',methods:['zero-resource diversion','uninterrupted phone hold'],limitations:'Optional clamp, scent ownership, companion absence and surge boundary variants have model tests; the two principal methods and restart have real browser input coverage. Phone evidence is touch/DPR emulation, not physical device testing.',source:'Real 0.3.0 chapter-ending UI export; all adventure progression uses browser inputs.'};
  report.status='PASS';report.verify.exitCode=0;for(const k of keys)report.checks[k]='PASS';
 }catch(e){report.status='FAIL';report.verify.exitCode=1;report.limitations.push({scope:'build',reason:String(e)});report.checks.coreLoop='FAIL';console.error(e);process.exitCode=1;}
 finally{if(server?.pid)try{process.kill(-server.pid,'SIGTERM');}catch{}await publish();}

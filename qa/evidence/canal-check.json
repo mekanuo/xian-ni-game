@@ -1,0 +1,4174 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "startedAt": "2026-09-11T04:55:35.614Z",
+  "runId": "canal-two-methods-real-input",
+  "environment": {
+    "url": "http://127.0.0.1:4187/",
+    "platform": "linux",
+    "limitation": "Linux Chrome desktop and 390×844 DPR3 touch emulation. Camera uses real Shift-mouse drag. No physical phone, Mac or Safari claim.",
+    "browser": "150.0.7871.114"
+  },
+  "routes": [
+    {
+      "id": "desktop-diversion",
+      "status": "PASS",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      },
+      "inputTrace": [
+        {
+          "action": "walk",
+          "detail": {
+            "x": 980,
+            "y": 720
+          },
+          "wallMs": 7876
+        },
+        {
+          "action": "spend-mana-with-real-fireball",
+          "detail": {
+            "before": 4,
+            "target": {
+              "x": 1110,
+              "y": 900
+            }
+          },
+          "wallMs": 13408
+        },
+        {
+          "action": "spend-mana-with-real-fireball",
+          "detail": {
+            "before": 3,
+            "target": {
+              "x": 1110,
+              "y": 900
+            }
+          },
+          "wallMs": 16084
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": -130.6006309388547,
+            "dy": -250
+          },
+          "wallMs": 19056
+        },
+        {
+          "action": "spend-mana-with-real-fireball",
+          "detail": {
+            "before": 2,
+            "target": {
+              "x": 1110,
+              "y": 900
+            }
+          },
+          "wallMs": 20844
+        },
+        {
+          "action": "spend-mana-with-real-fireball",
+          "detail": {
+            "before": 1,
+            "target": {
+              "x": 1110,
+              "y": 900
+            }
+          },
+          "wallMs": 23498
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "home",
+            "id": "table",
+            "x": 760,
+            "y": 410
+          },
+          "wallMs": 25734
+        },
+        {
+          "action": "choose",
+          "detail": "canal:accept",
+          "wallMs": 28037
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "home",
+            "id": "to_creek",
+            "x": 1640,
+            "y": 690
+          },
+          "wallMs": 30019
+        },
+        {
+          "action": "choose",
+          "detail": "canal:depart:canal",
+          "wallMs": 35095
+        },
+        {
+          "action": "capture",
+          "detail": "entry",
+          "wallMs": 39296
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 500,
+            "y": 700
+          },
+          "wallMs": 40756
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "canal",
+            "id": "canal_inspect",
+            "x": 880,
+            "y": 610
+          },
+          "wallMs": 44022
+        },
+        {
+          "action": "capture",
+          "detail": "inspection",
+          "wallMs": 47816
+        },
+        {
+          "action": "export-through-settings",
+          "detail": "qa/evidence/canal-ready-input.json",
+          "wallMs": 53106
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 560,
+            "y": 430
+          },
+          "wallMs": 54399
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "canal",
+            "id": "canal_diverter",
+            "x": 600,
+            "y": 350
+          },
+          "wallMs": 57298
+        },
+        {
+          "action": "capture",
+          "detail": "diverter-work",
+          "wallMs": 60021
+        },
+        {
+          "action": "capture",
+          "detail": "diverter-set",
+          "wallMs": 64671
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 880,
+            "y": 430
+          },
+          "wallMs": 66152
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 990,
+            "y": 540
+          },
+          "wallMs": 68792
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "canal",
+            "id": "canal_screen",
+            "x": 1100,
+            "y": 540
+          },
+          "wallMs": 70860
+        },
+        {
+          "action": "capture",
+          "detail": "screen-work",
+          "wallMs": 73471
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1130,
+            "y": 420
+          },
+          "wallMs": 76234
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 880,
+            "y": 430
+          },
+          "wallMs": 77461
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "canal",
+            "id": "canal_diverter",
+            "x": 680,
+            "y": 350
+          },
+          "wallMs": 80005
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 900,
+            "y": 780
+          },
+          "wallMs": 86631
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "canal",
+            "id": "canal_tub",
+            "x": 350,
+            "y": 930
+          },
+          "wallMs": 90365
+        },
+        {
+          "action": "capture",
+          "detail": "water-restored",
+          "wallMs": 97033
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "canal",
+            "id": "canal_keeper",
+            "x": 260,
+            "y": 960
+          },
+          "wallMs": 98583
+        },
+        {
+          "action": "choose",
+          "detail": "canal:report",
+          "wallMs": 99252
+        },
+        {
+          "action": "export-through-settings",
+          "detail": "qa/evidence/canal-desktop-diversion-verified-input.json",
+          "wallMs": 103718
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "canal",
+            "id": "canal_to_home",
+            "x": 230,
+            "y": 1070
+          },
+          "wallMs": 105203
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "home",
+            "id": "table",
+            "x": 760,
+            "y": 410
+          },
+          "wallMs": 106770
+        },
+        {
+          "action": "choose",
+          "detail": "canal:record",
+          "wallMs": 111605
+        },
+        {
+          "action": "capture",
+          "detail": "home-map",
+          "wallMs": 115229
+        },
+        {
+          "action": "export-through-settings",
+          "detail": "qa/evidence/canal-desktop-diversion-complete-export.json",
+          "wallMs": 117245
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "home",
+            "id": "table",
+            "x": 760,
+            "y": 410
+          },
+          "wallMs": 118310
+        }
+      ],
+      "observations": {
+        "import": {
+          "scene": "home",
+          "time": 130.51666666666267,
+          "player": {
+            "x": 846.8952042031716,
+            "y": 442.01402260116845,
+            "hp": 4,
+            "mana": 4,
+            "facing": -2.788602265762887,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "canal": {
+            "stage": "unaccepted",
+            "inspected": false,
+            "cleared": false,
+            "method": null,
+            "sharedInspect": false,
+            "sharedVerify": false,
+            "usedClamp": false,
+            "work": null,
+            "drain": 0,
+            "flow": 0,
+            "surge": null
+          },
+          "life": {
+            "repair": {
+              "stage": "unaccepted",
+              "softened": false,
+              "stopSet": false,
+              "latched": false,
+              "tested": false,
+              "method": null,
+              "testing": null
+            },
+            "harvest": {
+              "stage": "unaccepted",
+              "sun": "unpicked",
+              "shade": "unpicked",
+              "picking": null,
+              "shared": false
+            },
+            "clamp": "unowned",
+            "sachets": 0,
+            "scent": null
+          },
+          "flags": {
+            "eventSeq": 34,
+            "companion": "following",
+            "visited_home": true,
+            "wardCooldown": 0,
+            "lampFixed": true,
+            "platformOpen": false,
+            "dialogueRemainder": "",
+            "invited": true,
+            "casting": false,
+            "visited_creek": true,
+            "rockClock": 0,
+            "boatSecured": true,
+            "tools": true,
+            "basketSafe": true,
+            "basketProtected": true,
+            "boardReturned": false,
+            "shelterBridge": true,
+            "shelterShared": true,
+            "visited_workshop": true,
+            "ringOwned": true,
+            "xuRingKnown": true,
+            "trialStyle": "",
+            "ringTrained": true,
+            "visited_crossing": true,
+            "ridgeRockClock": 0,
+            "gatePulled": true,
+            "gateDemonstrated": true,
+            "gateHint": true,
+            "gateWitnessed": true,
+            "deal": true,
+            "gateWedge": true,
+            "gateOpen": true,
+            "gateFixed": true,
+            "mainRepaired": true,
+            "gateFixedNote": true,
+            "gateObserved": true,
+            "route": "main",
+            "mainTraversed": true,
+            "sharedJourney": true,
+            "returned": true,
+            "endingWish": "travel",
+            "travelInvited": true
+          },
+          "paused": false,
+          "dialogue": null,
+          "ended": true,
+          "defeated": false,
+          "events": [
+            {
+              "seq": 27,
+              "time": 91.63333333332942,
+              "type": "change",
+              "text": "你用自己的扳钳把木楔安进闸槽。牵开闸扣时，它会卡住回弹。"
+            },
+            {
+              "seq": 28,
+              "time": 93.66666666666264,
+              "type": "pull",
+              "text": "灵线牵住闸口牵扣。点空地改变落点，按「放下」结束。",
+              "x": 1090,
+              "y": 650,
+              "targetId": "gate"
+            },
+            {
+              "seq": 29,
+              "time": 94.3166666666626,
+              "type": "change",
+              "text": "木楔卡稳闸扣，水沿泄槽转向，主渡低滩露出连续白石。"
+            },
+            {
+              "seq": 30,
+              "time": 100.01666666666227,
+              "type": "route",
+              "text": "你站到低滩彼岸，辨明了通向外界的路。现在可以沿原路亲自返驿。"
+            },
+            {
+              "seq": 31,
+              "time": 112.29999999999491,
+              "type": "scene",
+              "text": "雨后溪道"
+            },
+            {
+              "seq": 32,
+              "time": 123.74999999999426,
+              "type": "return",
+              "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+            },
+            {
+              "seq": 33,
+              "time": 123.74999999999426,
+              "type": "scene",
+              "text": "回石驿"
+            },
+            {
+              "seq": 34,
+              "time": 129.01666666666148,
+              "type": "ending",
+              "text": "你在桌上展开亲自走过的低滩渡路。山路的风从窗外经过。许照在旁添了一笔，约好下次短途。"
+            }
+          ]
+        },
+        "canalAudio": {
+          "state": "running",
+          "requested": true,
+          "scene": "canal",
+          "muted": false,
+          "musicVolume": 0.55,
+          "effectsVolume": 0.45,
+          "musicScheduled": 81,
+          "musicRms": 0.07794229279692512,
+          "effectsRms": 0.001546158543338161,
+          "activeVoices": 12,
+          "lastEffect": "step",
+          "effectCounts": {
+            "step": 23,
+            "cast": 4
+          },
+          "error": "",
+          "disposed": false
+        },
+        "entry": {
+          "visual": "qa/evidence/canal-desktop-diversion-entry.png",
+          "state": {
+            "scene": "canal",
+            "time": 155.9166666666829,
+            "player": {
+              "x": 350,
+              "y": 1030,
+              "hp": 4,
+              "mana": 0,
+              "facing": 0.5833188804267443,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "active",
+              "inspected": false,
+              "cleared": false,
+              "method": null,
+              "sharedInspect": false,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 0,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 40,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "castTime": -0.016666666666666562,
+              "castX": 1110,
+              "castY": 900,
+              "projectileSeq": 4,
+              "visited_canal": true
+            },
+            "paused": true,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 33,
+                "time": 123.74999999999426,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 34,
+                "time": 129.01666666666148,
+                "type": "ending",
+                "text": "你在桌上展开亲自走过的低滩渡路。山路的风从窗外经过。许照在旁添了一笔，约好下次短途。"
+              },
+              {
+                "seq": 35,
+                "time": 134.16666666666558,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 36,
+                "time": 138.91666666666936,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 37,
+                "time": 141.56666666667147,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 38,
+                "time": 144.21666666667358,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 39,
+                "time": 147.58333333334292,
+                "type": "note",
+                "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
+              },
+              {
+                "seq": 40,
+                "time": 153.8333333333479,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              }
+            ]
+          }
+        },
+        "inspection": {
+          "visual": "qa/evidence/canal-desktop-diversion-inspection.png",
+          "state": {
+            "scene": "canal",
+            "time": 161.41666666668726,
+            "player": {
+              "x": 794.4297820363189,
+              "y": 630.7211485200876,
+              "hp": 4,
+              "mana": 0,
+              "facing": -0.23758042638387658,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "active",
+              "inspected": true,
+              "cleared": false,
+              "method": null,
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 0,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 40,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "castTime": -0.016666666666666562,
+              "castX": 1110,
+              "castY": 900,
+              "projectileSeq": 4,
+              "visited_canal": true,
+              "dialogueWasPaused": false
+            },
+            "paused": true,
+            "dialogue": {
+              "id": "canal_inspect",
+              "speaker": "检修水尺",
+              "text": "木尺上游水痕很高，下游却干着：筛框卡斜，枝叶聚在框上。西侧分水板可徒手推入旁槽，东侧截水板可牵住留势；都要等渠底退水，再沿台阶下去。",
+              "choices": [
+                {
+                  "id": "leave",
+                  "label": "先继续走走"
+                }
+              ]
+            },
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 33,
+                "time": 123.74999999999426,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 34,
+                "time": 129.01666666666148,
+                "type": "ending",
+                "text": "你在桌上展开亲自走过的低滩渡路。山路的风从窗外经过。许照在旁添了一笔，约好下次短途。"
+              },
+              {
+                "seq": 35,
+                "time": 134.16666666666558,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 36,
+                "time": 138.91666666666936,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 37,
+                "time": 141.56666666667147,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 38,
+                "time": 144.21666666667358,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 39,
+                "time": 147.58333333334292,
+                "type": "note",
+                "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
+              },
+              {
+                "seq": 40,
+                "time": 153.8333333333479,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              }
+            ]
+          }
+        },
+        "diverter-work": {
+          "visual": "qa/evidence/canal-desktop-diversion-diverter-work.png",
+          "state": {
+            "scene": "canal",
+            "time": 168.41666666669283,
+            "player": {
+              "x": 561.3812133306067,
+              "y": 431.39024507392514,
+              "hp": 4,
+              "mana": 0,
+              "facing": -2.4340186434378355,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "active",
+              "inspected": true,
+              "cleared": false,
+              "method": null,
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": {
+                "kind": "divert",
+                "elapsed": 1.4,
+                "start": {
+                  "x": 561.3812133306067,
+                  "y": 431.39024507392514
+                }
+              },
+              "drain": 0,
+              "flow": 0,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 41,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "castTime": -0.016666666666666562,
+              "castX": 1110,
+              "castY": 900,
+              "projectileSeq": 4,
+              "visited_canal": true
+            },
+            "paused": true,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 34,
+                "time": 129.01666666666148,
+                "type": "ending",
+                "text": "你在桌上展开亲自走过的低滩渡路。山路的风从窗外经过。许照在旁添了一笔，约好下次短途。"
+              },
+              {
+                "seq": 35,
+                "time": 134.16666666666558,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 36,
+                "time": 138.91666666666936,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 37,
+                "time": 141.56666666667147,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 38,
+                "time": 144.21666666667358,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 39,
+                "time": 147.58333333334292,
+                "type": "note",
+                "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
+              },
+              {
+                "seq": 40,
+                "time": 153.8333333333479,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              },
+              {
+                "seq": 41,
+                "time": 167.01666666669172,
+                "type": "note",
+                "text": "把轻板推入右侧旁槽，停稳两息；旁路会淹过低踏道，西岸仍可走。",
+                "x": 600,
+                "y": 350,
+                "targetId": "canal_diverter"
+              }
+            ]
+          }
+        },
+        "diverter-set": {
+          "visual": "qa/evidence/canal-desktop-diversion-diverter-set.png",
+          "state": {
+            "scene": "canal",
+            "time": 170.61666666669458,
+            "player": {
+              "x": 561.3812133306067,
+              "y": 431.39024507392514,
+              "hp": 4,
+              "mana": 0,
+              "facing": -2.4340186434378355,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "active",
+              "inspected": true,
+              "cleared": false,
+              "method": null,
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 1,
+              "flow": 0,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 42,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "castTime": -0.016666666666666562,
+              "castX": 1110,
+              "castY": 900,
+              "projectileSeq": 4,
+              "visited_canal": true
+            },
+            "paused": true,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 35,
+                "time": 134.16666666666558,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 36,
+                "time": 138.91666666666936,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 37,
+                "time": 141.56666666667147,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 38,
+                "time": 144.21666666667358,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 39,
+                "time": 147.58333333334292,
+                "type": "note",
+                "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
+              },
+              {
+                "seq": 40,
+                "time": 153.8333333333479,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              },
+              {
+                "seq": 41,
+                "time": 167.01666666669172,
+                "type": "note",
+                "text": "把轻板推入右侧旁槽，停稳两息；旁路会淹过低踏道，西岸仍可走。",
+                "x": 600,
+                "y": 350,
+                "targetId": "canal_diverter"
+              },
+              {
+                "seq": 42,
+                "time": 169.03333333336,
+                "type": "change",
+                "text": "分水板落入旁槽。原渠开始退水，低踏道过水；沿西岸和台阶下去。",
+                "x": 680,
+                "y": 350,
+                "targetId": "canal_diverter"
+              }
+            ]
+          }
+        },
+        "screen-work": {
+          "visual": "qa/evidence/canal-desktop-diversion-screen-work.png",
+          "state": {
+            "scene": "canal",
+            "time": 177.31666666669992,
+            "player": {
+              "x": 1037.7712456635843,
+              "y": 492.7656538418546,
+              "hp": 4,
+              "mana": 0,
+              "facing": -0.8343913927391243,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "active",
+              "inspected": true,
+              "cleared": false,
+              "method": null,
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": {
+                "kind": "clear",
+                "elapsed": 1.0666666666666678,
+                "start": {
+                  "x": 1037.7712456635843,
+                  "y": 492.7656538418546
+                }
+              },
+              "drain": 1,
+              "flow": 0,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 43,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "castTime": -0.016666666666666562,
+              "castX": 1110,
+              "castY": 900,
+              "projectileSeq": 4,
+              "visited_canal": true
+            },
+            "paused": true,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 36,
+                "time": 138.91666666666936,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 37,
+                "time": 141.56666666667147,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 38,
+                "time": 144.21666666667358,
+                "type": "cast",
+                "text": "火焰在指前聚拢，半秒后飞出。",
+                "x": 979.5575473264227,
+                "y": 718.8760002701531
+              },
+              {
+                "seq": 39,
+                "time": 147.58333333334292,
+                "type": "note",
+                "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
+              },
+              {
+                "seq": 40,
+                "time": 153.8333333333479,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              },
+              {
+                "seq": 41,
+                "time": 167.01666666669172,
+                "type": "note",
+                "text": "把轻板推入右侧旁槽，停稳两息；旁路会淹过低踏道，西岸仍可走。",
+                "x": 600,
+                "y": 350,
+                "targetId": "canal_diverter"
+              },
+              {
+                "seq": 42,
+                "time": 169.03333333336,
+                "type": "change",
+                "text": "分水板落入旁槽。原渠开始退水，低踏道过水；沿西岸和台阶下去。",
+                "x": 680,
+                "y": 350,
+                "targetId": "canal_diverter"
+              },
+              {
+                "seq": 43,
+                "time": 176.2500000000324,
+                "type": "note",
+                "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
+                "x": 1100,
+                "y": 540,
+                "targetId": "canal_screen"
+              }
+            ]
+          }
+        },
+        "water-restored": {
+          "visual": "qa/evidence/canal-desktop-diversion-water-restored.png",
+          "state": {
+            "scene": "canal",
+            "time": 198.0833333333831,
+            "player": {
+              "x": 428.0675447572921,
+              "y": 909.1191557386771,
+              "hp": 4,
+              "mana": 0,
+              "facing": 3.0383269770273325,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "verified",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 47,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "castTime": -0.016666666666666562,
+              "castX": 1110,
+              "castY": 900,
+              "projectileSeq": 4,
+              "visited_canal": true
+            },
+            "paused": true,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 40,
+                "time": 153.8333333333479,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              },
+              {
+                "seq": 41,
+                "time": 167.01666666669172,
+                "type": "note",
+                "text": "把轻板推入右侧旁槽，停稳两息；旁路会淹过低踏道，西岸仍可走。",
+                "x": 600,
+                "y": 350,
+                "targetId": "canal_diverter"
+              },
+              {
+                "seq": 42,
+                "time": 169.03333333336,
+                "type": "change",
+                "text": "分水板落入旁槽。原渠开始退水，低踏道过水；沿西岸和台阶下去。",
+                "x": 680,
+                "y": 350,
+                "targetId": "canal_diverter"
+              },
+              {
+                "seq": 43,
+                "time": 176.2500000000324,
+                "type": "note",
+                "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
+                "x": 1100,
+                "y": 540,
+                "targetId": "canal_screen"
+              },
+              {
+                "seq": 44,
+                "time": 178.26666666670067,
+                "type": "change",
+                "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
+                "x": 1100,
+                "y": 540,
+                "targetId": "canal_screen"
+              },
+              {
+                "seq": 45,
+                "time": 183.58333333337157,
+                "type": "note",
+                "text": "双手把板推回原槽，停稳两息。",
+                "x": 680,
+                "y": 350,
+                "targetId": "canal_diverter"
+              },
+              {
+                "seq": 46,
+                "time": 185.60000000003984,
+                "type": "change",
+                "text": "分水板退回原槽。来水回到原渠，低踏道重新露出。",
+                "x": 600,
+                "y": 350,
+                "targetId": "canal_diverter"
+              },
+              {
+                "seq": 47,
+                "time": 196.08333333338152,
+                "type": "change",
+                "text": "你亲手试过槽内水位，小水轮稳定转起来。去告诉檐下邵禾；检修台坐垫已经可以静息。",
+                "x": 350,
+                "y": 930,
+                "targetId": "canal_tub"
+              }
+            ]
+          }
+        },
+        "home-map": {
+          "visual": "qa/evidence/canal-desktop-diversion-home-map.png",
+          "state": {
+            "scene": "home",
+            "time": 208.78333333339162,
+            "player": {
+              "x": 844.3929558916593,
+              "y": 441.0921416442955,
+              "hp": 4,
+              "mana": 0,
+              "facing": -2.7886022657628873,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 51,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "castTime": -0.016666666666666562,
+              "castX": 1110,
+              "castY": 900,
+              "projectileSeq": 4,
+              "visited_canal": true
+            },
+            "paused": true,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 44,
+                "time": 178.26666666670067,
+                "type": "change",
+                "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
+                "x": 1100,
+                "y": 540,
+                "targetId": "canal_screen"
+              },
+              {
+                "seq": 45,
+                "time": 183.58333333337157,
+                "type": "note",
+                "text": "双手把板推回原槽，停稳两息。",
+                "x": 680,
+                "y": 350,
+                "targetId": "canal_diverter"
+              },
+              {
+                "seq": 46,
+                "time": 185.60000000003984,
+                "type": "change",
+                "text": "分水板退回原槽。来水回到原渠，低踏道重新露出。",
+                "x": 600,
+                "y": 350,
+                "targetId": "canal_diverter"
+              },
+              {
+                "seq": 47,
+                "time": 196.08333333338152,
+                "type": "change",
+                "text": "你亲手试过槽内水位，小水轮稳定转起来。去告诉檐下邵禾；检修台坐垫已经可以静息。",
+                "x": 350,
+                "y": 930,
+                "targetId": "canal_tub"
+              },
+              {
+                "seq": 48,
+                "time": 198.88333333338375,
+                "type": "relationship",
+                "text": "你向邵禾说明把水分入旁路、沿干渠清理的经过。她看过石槽的水位，挪开取水处空桶：这回水和干路都通了，回驿把路线记下来吧。"
+              },
+              {
+                "seq": 49,
+                "time": 201.68333333338597,
+                "type": "return",
+                "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+              },
+              {
+                "seq": 50,
+                "time": 201.68333333338597,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 51,
+                "time": 207.20000000005703,
+                "type": "growth",
+                "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
+              }
+            ]
+          }
+        }
+      },
+      "exports": [
+        {
+          "path": "qa/evidence/canal-ready-input.json",
+          "sha256": "df2bde816dfb121837dc9e4de64d271d35e7b2756e0ac28ec8b8d90ca5766e73"
+        },
+        {
+          "path": "qa/evidence/canal-desktop-diversion-verified-input.json",
+          "sha256": "54428d4027b500f0da060fd62dd52b48251445ee6b754a189f2e0c6d9cfe86ec"
+        },
+        {
+          "path": "qa/evidence/canal-desktop-diversion-complete-export.json",
+          "sha256": "8c6004c56965b0f4b076ea26922a6bf1224f75426404afbb95e574f8419530b1"
+        }
+      ],
+      "initialHp": 4,
+      "final": {
+        "scene": "home",
+        "time": 210.06666666672598,
+        "player": {
+          "x": 844.3929558916593,
+          "y": 441.0921416442955,
+          "hp": 4,
+          "mana": 0,
+          "facing": -2.7886022657628873,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "canal": {
+          "stage": "complete",
+          "inspected": true,
+          "cleared": true,
+          "method": "diversion",
+          "sharedInspect": true,
+          "sharedVerify": false,
+          "usedClamp": false,
+          "work": null,
+          "drain": 0,
+          "flow": 3,
+          "surge": null
+        },
+        "life": {
+          "repair": {
+            "stage": "unaccepted",
+            "softened": false,
+            "stopSet": false,
+            "latched": false,
+            "tested": false,
+            "method": null,
+            "testing": null
+          },
+          "harvest": {
+            "stage": "unaccepted",
+            "sun": "unpicked",
+            "shade": "unpicked",
+            "picking": null,
+            "shared": false
+          },
+          "clamp": "unowned",
+          "sachets": 0,
+          "scent": null
+        },
+        "flags": {
+          "eventSeq": 51,
+          "companion": "following",
+          "visited_home": true,
+          "wardCooldown": 0,
+          "lampFixed": true,
+          "platformOpen": false,
+          "dialogueRemainder": "",
+          "invited": true,
+          "casting": false,
+          "visited_creek": true,
+          "rockClock": 0,
+          "boatSecured": true,
+          "tools": true,
+          "basketSafe": true,
+          "basketProtected": true,
+          "boardReturned": false,
+          "shelterBridge": true,
+          "shelterShared": true,
+          "visited_workshop": true,
+          "ringOwned": true,
+          "xuRingKnown": true,
+          "trialStyle": "",
+          "ringTrained": true,
+          "visited_crossing": true,
+          "ridgeRockClock": 0,
+          "gatePulled": true,
+          "gateDemonstrated": true,
+          "gateHint": true,
+          "gateWitnessed": true,
+          "deal": true,
+          "gateWedge": true,
+          "gateOpen": true,
+          "gateFixed": true,
+          "mainRepaired": true,
+          "gateFixedNote": true,
+          "gateObserved": true,
+          "route": "main",
+          "mainTraversed": true,
+          "sharedJourney": true,
+          "returned": true,
+          "endingWish": "travel",
+          "travelInvited": true,
+          "castTime": -0.016666666666666562,
+          "castX": 1110,
+          "castY": 900,
+          "projectileSeq": 4,
+          "visited_canal": true
+        },
+        "paused": false,
+        "dialogue": null,
+        "ended": true,
+        "defeated": false,
+        "events": [
+          {
+            "seq": 44,
+            "time": 178.26666666670067,
+            "type": "change",
+            "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
+            "x": 1100,
+            "y": 540,
+            "targetId": "canal_screen"
+          },
+          {
+            "seq": 45,
+            "time": 183.58333333337157,
+            "type": "note",
+            "text": "双手把板推回原槽，停稳两息。",
+            "x": 680,
+            "y": 350,
+            "targetId": "canal_diverter"
+          },
+          {
+            "seq": 46,
+            "time": 185.60000000003984,
+            "type": "change",
+            "text": "分水板退回原槽。来水回到原渠，低踏道重新露出。",
+            "x": 600,
+            "y": 350,
+            "targetId": "canal_diverter"
+          },
+          {
+            "seq": 47,
+            "time": 196.08333333338152,
+            "type": "change",
+            "text": "你亲手试过槽内水位，小水轮稳定转起来。去告诉檐下邵禾；检修台坐垫已经可以静息。",
+            "x": 350,
+            "y": 930,
+            "targetId": "canal_tub"
+          },
+          {
+            "seq": 48,
+            "time": 198.88333333338375,
+            "type": "relationship",
+            "text": "你向邵禾说明把水分入旁路、沿干渠清理的经过。她看过石槽的水位，挪开取水处空桶：这回水和干路都通了，回驿把路线记下来吧。"
+          },
+          {
+            "seq": 49,
+            "time": 201.68333333338597,
+            "type": "return",
+            "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+          },
+          {
+            "seq": 50,
+            "time": 201.68333333338597,
+            "type": "scene",
+            "text": "回石驿"
+          },
+          {
+            "seq": 51,
+            "time": 207.20000000005703,
+            "type": "growth",
+            "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
+          }
+        ]
+      },
+      "zeroResourceCompletion": true,
+      "restart": {
+        "input": "settings → restart confirmation → new profile",
+        "state": {
+          "scene": "home",
+          "time": 0.4666666666666666,
+          "player": {
+            "x": 360,
+            "y": 710,
+            "hp": 4,
+            "mana": 6,
+            "facing": 0,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "canal": {
+            "stage": "unaccepted",
+            "inspected": false,
+            "cleared": false,
+            "method": null,
+            "sharedInspect": false,
+            "sharedVerify": false,
+            "usedClamp": false,
+            "work": null,
+            "drain": 0,
+            "flow": 0,
+            "surge": null
+          },
+          "life": {
+            "repair": {
+              "stage": "unaccepted",
+              "softened": false,
+              "stopSet": false,
+              "latched": false,
+              "tested": false,
+              "method": null,
+              "testing": null
+            },
+            "harvest": {
+              "stage": "unaccepted",
+              "sun": "unpicked",
+              "shade": "unpicked",
+              "picking": null,
+              "shared": false
+            },
+            "clamp": "unowned",
+            "sachets": 0,
+            "scent": null
+          },
+          "flags": {
+            "eventSeq": 2,
+            "companion": "waiting",
+            "visited_home": true,
+            "wardCooldown": 0
+          },
+          "paused": false,
+          "dialogue": null,
+          "ended": false,
+          "defeated": false,
+          "events": [
+            {
+              "seq": 1,
+              "time": 0,
+              "type": "note",
+              "text": "行舟，凝气三层。先前攒钱修的控物环，今日该去取了。"
+            },
+            {
+              "seq": 2,
+              "time": 0,
+              "type": "hint",
+              "text": "陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "phone-hold",
+      "status": "PASS",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 3,
+        "isMobile": true,
+        "hasTouch": true
+      },
+      "inputTrace": [
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "home",
+            "id": "workbench",
+            "x": 1060,
+            "y": 430
+          },
+          "wallMs": 137060
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": -163.79999999999998,
+            "dy": 44.499975585937136
+          },
+          "wallMs": 140217
+        },
+        {
+          "action": "choose",
+          "detail": "hold",
+          "wallMs": 144389
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "home",
+            "id": "rest_home",
+            "x": 340,
+            "y": 850
+          },
+          "wallMs": 147689
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": 163.79999999999998,
+            "dy": -250
+          },
+          "wallMs": 150876
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": 163.79999999999998,
+            "dy": -221.95002272082343
+          },
+          "wallMs": 153931
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": 163.79999999999998,
+            "dy": -221.95002272082343
+          },
+          "wallMs": 156969
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "home",
+            "id": "table",
+            "x": 760,
+            "y": 410
+          },
+          "wallMs": 164315
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": -163.79999999999998,
+            "dy": 152.04997727917652
+          },
+          "wallMs": 167526
+        },
+        {
+          "action": "choose",
+          "detail": "canal:accept",
+          "wallMs": 172132
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "home",
+            "id": "to_creek",
+            "x": 1640,
+            "y": 690
+          },
+          "wallMs": 175786
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": -163.79999999999998,
+            "dy": -176.50002441406286
+          },
+          "wallMs": 179006
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": -163.79999999999998,
+            "dy": -85.95002272082348
+          },
+          "wallMs": 181952
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": -163.79999999999998,
+            "dy": -85.95002272082348
+          },
+          "wallMs": 184804
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": -163.79999999999998,
+            "dy": -85.95002272082348
+          },
+          "wallMs": 187662
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": -163.79999999999998,
+            "dy": -85.95002272082348
+          },
+          "wallMs": 190451
+        },
+        {
+          "action": "choose",
+          "detail": "canal:depart:canal",
+          "wallMs": 197657
+        },
+        {
+          "action": "capture",
+          "detail": "entry",
+          "wallMs": 205608
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 500,
+            "y": 700
+          },
+          "wallMs": 208522
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "canal",
+            "id": "canal_inspect",
+            "x": 880,
+            "y": 610
+          },
+          "wallMs": 214170
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": -163.79999999999998,
+            "dy": 32.19997821695637
+          },
+          "wallMs": 217975
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": -163.79999999999998,
+            "dy": -5.200022482404847
+          },
+          "wallMs": 221523
+        },
+        {
+          "action": "capture",
+          "detail": "inspection",
+          "wallMs": 227479
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1000,
+            "y": 380
+          },
+          "wallMs": 231061
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1270,
+            "y": 420
+          },
+          "wallMs": 235886
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": -163.79999999999998,
+            "dy": 162.24997762885707
+          },
+          "wallMs": 239996
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": -163.79999999999998,
+            "dy": 52.999975585937136
+          },
+          "wallMs": 244132
+        },
+        {
+          "action": "capture",
+          "detail": "stop-bank",
+          "wallMs": 252480
+        },
+        {
+          "action": "export-through-settings",
+          "detail": "qa/evidence/canal-hold-ready-input.json",
+          "wallMs": 259537
+        },
+        {
+          "action": "timed-hold-start",
+          "detail": {
+            "time": 204.80000000005512,
+            "hold": 7.600000000000001,
+            "player": {
+              "x": 1268.2680504432503,
+              "y": 419.75205333793116
+            }
+          },
+          "wallMs": 274329
+        },
+        {
+          "action": "timed-hold-safe-bank",
+          "detail": {
+            "remaining": 3.1000000000000174,
+            "activeSeconds": 4.500000000003581
+          },
+          "wallMs": 280766
+        },
+        {
+          "action": "capture",
+          "detail": "screen-cleared",
+          "wallMs": 288073
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 900,
+            "y": 780
+          },
+          "wallMs": 293892
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": 163.79999999999998,
+            "dy": -250
+          },
+          "wallMs": 298175
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "canal",
+            "id": "canal_tub",
+            "x": 350,
+            "y": 930
+          },
+          "wallMs": 305269
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": 163.79999999999998,
+            "dy": -204.95002113136616
+          },
+          "wallMs": 309103
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": 163.79999999999998,
+            "dy": -204.95002113136616
+          },
+          "wallMs": 312674
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": 163.79999999999998,
+            "dy": -204.95002113136616
+          },
+          "wallMs": 316445
+        },
+        {
+          "action": "capture",
+          "detail": "water-restored",
+          "wallMs": 328878
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "canal",
+            "id": "canal_keeper",
+            "x": 260,
+            "y": 960
+          },
+          "wallMs": 332113
+        },
+        {
+          "action": "choose",
+          "detail": "canal:report",
+          "wallMs": 333907
+        },
+        {
+          "action": "export-through-settings",
+          "detail": "qa/evidence/canal-phone-hold-verified-input.json",
+          "wallMs": 345032
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "canal",
+            "id": "canal_to_home",
+            "x": 230,
+            "y": 1070
+          },
+          "wallMs": 348270
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "home",
+            "id": "table",
+            "x": 760,
+            "y": 410
+          },
+          "wallMs": 351189
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": 163.79999999999998,
+            "dy": 152.49997728759126
+          },
+          "wallMs": 354108
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": 163.79999999999998,
+            "dy": 61.499975585937136
+          },
+          "wallMs": 356959
+        },
+        {
+          "action": "camera-pan",
+          "detail": {
+            "dx": 163.79999999999998,
+            "dy": 61.499975585937136
+          },
+          "wallMs": 359922
+        },
+        {
+          "action": "choose",
+          "detail": "canal:record",
+          "wallMs": 366344
+        },
+        {
+          "action": "capture",
+          "detail": "home-map",
+          "wallMs": 372671
+        },
+        {
+          "action": "export-through-settings",
+          "detail": "qa/evidence/canal-phone-hold-complete-export.json",
+          "wallMs": 378133
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "scene": "home",
+            "id": "table",
+            "x": 760,
+            "y": 410
+          },
+          "wallMs": 380763
+        }
+      ],
+      "observations": {
+        "import": {
+          "scene": "home",
+          "time": 130.499999999996,
+          "player": {
+            "x": 846.8952042031716,
+            "y": 442.01402260116845,
+            "hp": 4,
+            "mana": 4,
+            "facing": -2.788602265762887,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "canal": {
+            "stage": "unaccepted",
+            "inspected": false,
+            "cleared": false,
+            "method": null,
+            "sharedInspect": false,
+            "sharedVerify": false,
+            "usedClamp": false,
+            "work": null,
+            "drain": 0,
+            "flow": 0,
+            "surge": null
+          },
+          "life": {
+            "repair": {
+              "stage": "unaccepted",
+              "softened": false,
+              "stopSet": false,
+              "latched": false,
+              "tested": false,
+              "method": null,
+              "testing": null
+            },
+            "harvest": {
+              "stage": "unaccepted",
+              "sun": "unpicked",
+              "shade": "unpicked",
+              "picking": null,
+              "shared": false
+            },
+            "clamp": "unowned",
+            "sachets": 0,
+            "scent": null
+          },
+          "flags": {
+            "eventSeq": 34,
+            "companion": "following",
+            "visited_home": true,
+            "wardCooldown": 0,
+            "lampFixed": true,
+            "platformOpen": false,
+            "dialogueRemainder": "",
+            "invited": true,
+            "casting": false,
+            "visited_creek": true,
+            "rockClock": 0,
+            "boatSecured": true,
+            "tools": true,
+            "basketSafe": true,
+            "basketProtected": true,
+            "boardReturned": false,
+            "shelterBridge": true,
+            "shelterShared": true,
+            "visited_workshop": true,
+            "ringOwned": true,
+            "xuRingKnown": true,
+            "trialStyle": "",
+            "ringTrained": true,
+            "visited_crossing": true,
+            "ridgeRockClock": 0,
+            "gatePulled": true,
+            "gateDemonstrated": true,
+            "gateHint": true,
+            "gateWitnessed": true,
+            "deal": true,
+            "gateWedge": true,
+            "gateOpen": true,
+            "gateFixed": true,
+            "mainRepaired": true,
+            "gateFixedNote": true,
+            "gateObserved": true,
+            "route": "main",
+            "mainTraversed": true,
+            "sharedJourney": true,
+            "returned": true,
+            "endingWish": "travel",
+            "travelInvited": true
+          },
+          "paused": false,
+          "dialogue": null,
+          "ended": true,
+          "defeated": false,
+          "events": [
+            {
+              "seq": 27,
+              "time": 91.63333333332942,
+              "type": "change",
+              "text": "你用自己的扳钳把木楔安进闸槽。牵开闸扣时，它会卡住回弹。"
+            },
+            {
+              "seq": 28,
+              "time": 93.66666666666264,
+              "type": "pull",
+              "text": "灵线牵住闸口牵扣。点空地改变落点，按「放下」结束。",
+              "x": 1090,
+              "y": 650,
+              "targetId": "gate"
+            },
+            {
+              "seq": 29,
+              "time": 94.3166666666626,
+              "type": "change",
+              "text": "木楔卡稳闸扣，水沿泄槽转向，主渡低滩露出连续白石。"
+            },
+            {
+              "seq": 30,
+              "time": 100.01666666666227,
+              "type": "route",
+              "text": "你站到低滩彼岸，辨明了通向外界的路。现在可以沿原路亲自返驿。"
+            },
+            {
+              "seq": 31,
+              "time": 112.29999999999491,
+              "type": "scene",
+              "text": "雨后溪道"
+            },
+            {
+              "seq": 32,
+              "time": 123.74999999999426,
+              "type": "return",
+              "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+            },
+            {
+              "seq": 33,
+              "time": 123.74999999999426,
+              "type": "scene",
+              "text": "回石驿"
+            },
+            {
+              "seq": 34,
+              "time": 129.01666666666148,
+              "type": "ending",
+              "text": "你在桌上展开亲自走过的低滩渡路。山路的风从窗外经过。许照在旁添了一笔，约好下次短途。"
+            }
+          ]
+        },
+        "canalAudio": {
+          "state": "running",
+          "requested": true,
+          "scene": "canal",
+          "muted": false,
+          "musicVolume": 0.55,
+          "effectsVolume": 0.45,
+          "musicScheduled": 162,
+          "musicRms": 0.05024317558006423,
+          "effectsRms": 0.0008507593467977537,
+          "activeVoices": 8,
+          "lastEffect": "step",
+          "effectCounts": {
+            "step": 47,
+            "growth": 1,
+            "rest": 1
+          },
+          "error": "",
+          "disposed": false
+        },
+        "entry": {
+          "visual": "qa/evidence/canal-phone-hold-entry.png",
+          "state": {
+            "scene": "canal",
+            "time": 174.1000000000307,
+            "player": {
+              "x": 350,
+              "y": 1030,
+              "hp": 4,
+              "mana": 6,
+              "facing": 0.7444676440594878,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "active",
+              "inspected": false,
+              "cleared": false,
+              "method": null,
+              "sharedInspect": false,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 0,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 38,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "visited_canal": true
+            },
+            "paused": true,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 31,
+                "time": 112.29999999999491,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 32,
+                "time": 123.74999999999426,
+                "type": "return",
+                "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+              },
+              {
+                "seq": 33,
+                "time": 123.74999999999426,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 34,
+                "time": 129.01666666666148,
+                "type": "ending",
+                "text": "你在桌上展开亲自走过的低滩渡路。山路的风从窗外经过。许照在旁添了一笔，约好下次短途。"
+              },
+              {
+                "seq": 35,
+                "time": 131.8999999999971,
+                "type": "growth",
+                "text": "你在熟悉的工位把控物环改练为留势。"
+              },
+              {
+                "seq": 36,
+                "time": 145.50000000000793,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 37,
+                "time": 152.10000000001318,
+                "type": "note",
+                "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
+              },
+              {
+                "seq": 38,
+                "time": 171.70000000002878,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              }
+            ]
+          }
+        },
+        "inspection": {
+          "visual": "qa/evidence/canal-phone-hold-inspection.png",
+          "state": {
+            "scene": "canal",
+            "time": 185.10000000003944,
+            "player": {
+              "x": 794.4297954272951,
+              "y": 630.7211476679996,
+              "hp": 4,
+              "mana": 6,
+              "facing": -0.2375804527735419,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "active",
+              "inspected": true,
+              "cleared": false,
+              "method": null,
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 0,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 38,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "visited_canal": true,
+              "dialogueWasPaused": false
+            },
+            "paused": true,
+            "dialogue": {
+              "id": "canal_inspect",
+              "speaker": "检修水尺",
+              "text": "木尺上游水痕很高，下游却干着：筛框卡斜，枝叶聚在框上。西侧分水板可徒手推入旁槽，东侧截水板可牵住留势；都要等渠底退水，再沿台阶下去。",
+              "choices": [
+                {
+                  "id": "leave",
+                  "label": "先继续走走"
+                }
+              ]
+            },
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 31,
+                "time": 112.29999999999491,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 32,
+                "time": 123.74999999999426,
+                "type": "return",
+                "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+              },
+              {
+                "seq": 33,
+                "time": 123.74999999999426,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 34,
+                "time": 129.01666666666148,
+                "type": "ending",
+                "text": "你在桌上展开亲自走过的低滩渡路。山路的风从窗外经过。许照在旁添了一笔，约好下次短途。"
+              },
+              {
+                "seq": 35,
+                "time": 131.8999999999971,
+                "type": "growth",
+                "text": "你在熟悉的工位把控物环改练为留势。"
+              },
+              {
+                "seq": 36,
+                "time": 145.50000000000793,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 37,
+                "time": 152.10000000001318,
+                "type": "note",
+                "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
+              },
+              {
+                "seq": 38,
+                "time": 171.70000000002878,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              }
+            ]
+          }
+        },
+        "stop-bank": {
+          "visual": "qa/evidence/canal-phone-hold-stop-bank.png",
+          "state": {
+            "scene": "canal",
+            "time": 197.40000000004923,
+            "player": {
+              "x": 1268.2680504432503,
+              "y": 419.75205333793116,
+              "hp": 4,
+              "mana": 6,
+              "facing": 0.14220289236802472,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "active",
+              "inspected": true,
+              "cleared": false,
+              "method": null,
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 0,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 38,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "visited_canal": true
+            },
+            "paused": true,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 31,
+                "time": 112.29999999999491,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 32,
+                "time": 123.74999999999426,
+                "type": "return",
+                "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+              },
+              {
+                "seq": 33,
+                "time": 123.74999999999426,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 34,
+                "time": 129.01666666666148,
+                "type": "ending",
+                "text": "你在桌上展开亲自走过的低滩渡路。山路的风从窗外经过。许照在旁添了一笔，约好下次短途。"
+              },
+              {
+                "seq": 35,
+                "time": 131.8999999999971,
+                "type": "growth",
+                "text": "你在熟悉的工位把控物环改练为留势。"
+              },
+              {
+                "seq": 36,
+                "time": 145.50000000000793,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 37,
+                "time": 152.10000000001318,
+                "type": "note",
+                "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
+              },
+              {
+                "seq": 38,
+                "time": 171.70000000002878,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              }
+            ]
+          }
+        },
+        "uninterruptedWork": {
+          "time": 206.30000000005631,
+          "hold": 6.100000000000007,
+          "work": {
+            "kind": "clear",
+            "elapsed": 0,
+            "start": {
+              "x": 1177.1443708504487,
+              "y": 484.87098313157037
+            }
+          },
+          "player": {
+            "x": 1177.1443708504487,
+            "y": 484.87098313157037
+          }
+        },
+        "holdWindow": {
+          "startModelTime": 204.80000000005512,
+          "safeModelTime": 209.3000000000587,
+          "activeModelSeconds": 4.500000000003581,
+          "wallMs": 6437,
+          "remainingSeconds": 3.1000000000000174,
+          "start": {
+            "scene": "canal",
+            "time": 204.80000000005512,
+            "player": {
+              "x": 1268.2680504432503,
+              "y": 419.75205333793116,
+              "hp": 4,
+              "mana": 4,
+              "facing": -1.4041609508312751,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": "canal_stop",
+              "pullPoint": null,
+              "hold": 7.600000000000001,
+              "path": []
+            },
+            "canal": {
+              "stage": "active",
+              "inspected": true,
+              "cleared": false,
+              "method": null,
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 1,
+              "flow": 0,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 40,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "visited_canal": true
+            },
+            "paused": false,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 33,
+                "time": 123.74999999999426,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 34,
+                "time": 129.01666666666148,
+                "type": "ending",
+                "text": "你在桌上展开亲自走过的低滩渡路。山路的风从窗外经过。许照在旁添了一笔，约好下次短途。"
+              },
+              {
+                "seq": 35,
+                "time": 131.8999999999971,
+                "type": "growth",
+                "text": "你在熟悉的工位把控物环改练为留势。"
+              },
+              {
+                "seq": 36,
+                "time": 145.50000000000793,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 37,
+                "time": 152.10000000001318,
+                "type": "note",
+                "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
+              },
+              {
+                "seq": 38,
+                "time": 171.70000000002878,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              },
+              {
+                "seq": 39,
+                "time": 200.80000000005194,
+                "type": "pull",
+                "text": "灵线牵住横滑截水板。点空地改变落点，按「放下」结束。",
+                "x": 1280,
+                "y": 350,
+                "targetId": "canal_stop"
+              },
+              {
+                "seq": 40,
+                "time": 204.4000000000548,
+                "type": "hold",
+                "text": "横滑截水板停住八秒，现在可以另施一术。",
+                "x": 1200,
+                "y": 350,
+                "targetId": "canal_stop"
+              }
+            ]
+          },
+          "safe": {
+            "scene": "canal",
+            "time": 209.3000000000587,
+            "player": {
+              "x": 1128.8359508404162,
+              "y": 421.1034635300193,
+              "hp": 4,
+              "mana": 4,
+              "facing": -2.219125257431218,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": "canal_stop",
+              "pullPoint": null,
+              "hold": 3.1000000000000174,
+              "path": []
+            },
+            "canal": {
+              "stage": "active",
+              "inspected": true,
+              "cleared": true,
+              "method": "hold",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 1,
+              "flow": 0,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 42,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "visited_canal": true
+            },
+            "paused": false,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 35,
+                "time": 131.8999999999971,
+                "type": "growth",
+                "text": "你在熟悉的工位把控物环改练为留势。"
+              },
+              {
+                "seq": 36,
+                "time": 145.50000000000793,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 37,
+                "time": 152.10000000001318,
+                "type": "note",
+                "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
+              },
+              {
+                "seq": 38,
+                "time": 171.70000000002878,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              },
+              {
+                "seq": 39,
+                "time": 200.80000000005194,
+                "type": "pull",
+                "text": "灵线牵住横滑截水板。点空地改变落点，按「放下」结束。",
+                "x": 1280,
+                "y": 350,
+                "targetId": "canal_stop"
+              },
+              {
+                "seq": 40,
+                "time": 204.4000000000548,
+                "type": "hold",
+                "text": "横滑截水板停住八秒，现在可以另施一术。",
+                "x": 1200,
+                "y": 350,
+                "targetId": "canal_stop"
+              },
+              {
+                "seq": 41,
+                "time": 206.30000000005631,
+                "type": "note",
+                "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
+                "x": 1100,
+                "y": 540,
+                "targetId": "canal_screen"
+              },
+              {
+                "seq": 42,
+                "time": 208.3166666667246,
+                "type": "change",
+                "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
+                "x": 1100,
+                "y": 540,
+                "targetId": "canal_screen"
+              }
+            ]
+          },
+          "pausedDuringTimedSegment": false,
+          "inputTrace": [
+            {
+              "action": "timed-hold-start",
+              "detail": {
+                "time": 204.80000000005512,
+                "hold": 7.600000000000001,
+                "player": {
+                  "x": 1268.2680504432503,
+                  "y": 419.75205333793116
+                }
+              },
+              "wallMs": 274329
+            }
+          ]
+        },
+        "screen-cleared": {
+          "visual": "qa/evidence/canal-phone-hold-screen-cleared.png",
+          "state": {
+            "scene": "canal",
+            "time": 212.200000000061,
+            "player": {
+              "x": 1128.8359508404162,
+              "y": 421.1034635300193,
+              "hp": 4,
+              "mana": 4,
+              "facing": -2.219125257431218,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "active",
+              "inspected": true,
+              "cleared": true,
+              "method": "hold",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 1.6999999999999988,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 42,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "visited_canal": true
+            },
+            "paused": true,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 35,
+                "time": 131.8999999999971,
+                "type": "growth",
+                "text": "你在熟悉的工位把控物环改练为留势。"
+              },
+              {
+                "seq": 36,
+                "time": 145.50000000000793,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 37,
+                "time": 152.10000000001318,
+                "type": "note",
+                "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
+              },
+              {
+                "seq": 38,
+                "time": 171.70000000002878,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              },
+              {
+                "seq": 39,
+                "time": 200.80000000005194,
+                "type": "pull",
+                "text": "灵线牵住横滑截水板。点空地改变落点，按「放下」结束。",
+                "x": 1280,
+                "y": 350,
+                "targetId": "canal_stop"
+              },
+              {
+                "seq": 40,
+                "time": 204.4000000000548,
+                "type": "hold",
+                "text": "横滑截水板停住八秒，现在可以另施一术。",
+                "x": 1200,
+                "y": 350,
+                "targetId": "canal_stop"
+              },
+              {
+                "seq": 41,
+                "time": 206.30000000005631,
+                "type": "note",
+                "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
+                "x": 1100,
+                "y": 540,
+                "targetId": "canal_screen"
+              },
+              {
+                "seq": 42,
+                "time": 208.3166666667246,
+                "type": "change",
+                "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
+                "x": 1100,
+                "y": 540,
+                "targetId": "canal_screen"
+              }
+            ]
+          }
+        },
+        "water-restored": {
+          "visual": "qa/evidence/canal-phone-hold-water-restored.png",
+          "state": {
+            "scene": "canal",
+            "time": 234.00000000007836,
+            "player": {
+              "x": 426.42666655912984,
+              "y": 909.2813171366042,
+              "hp": 4,
+              "mana": 4,
+              "facing": 3.040756751147958,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "verified",
+              "inspected": true,
+              "cleared": true,
+              "method": "hold",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 43,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "visited_canal": true
+            },
+            "paused": true,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 36,
+                "time": 145.50000000000793,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 37,
+                "time": 152.10000000001318,
+                "type": "note",
+                "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
+              },
+              {
+                "seq": 38,
+                "time": 171.70000000002878,
+                "type": "scene",
+                "text": "雾岭旧渠"
+              },
+              {
+                "seq": 39,
+                "time": 200.80000000005194,
+                "type": "pull",
+                "text": "灵线牵住横滑截水板。点空地改变落点，按「放下」结束。",
+                "x": 1280,
+                "y": 350,
+                "targetId": "canal_stop"
+              },
+              {
+                "seq": 40,
+                "time": 204.4000000000548,
+                "type": "hold",
+                "text": "横滑截水板停住八秒，现在可以另施一术。",
+                "x": 1200,
+                "y": 350,
+                "targetId": "canal_stop"
+              },
+              {
+                "seq": 41,
+                "time": 206.30000000005631,
+                "type": "note",
+                "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
+                "x": 1100,
+                "y": 540,
+                "targetId": "canal_screen"
+              },
+              {
+                "seq": 42,
+                "time": 208.3166666667246,
+                "type": "change",
+                "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
+                "x": 1100,
+                "y": 540,
+                "targetId": "canal_screen"
+              },
+              {
+                "seq": 43,
+                "time": 231.50000000007637,
+                "type": "change",
+                "text": "你亲手试过槽内水位，小水轮稳定转起来。去告诉檐下邵禾；检修台坐垫已经可以静息。",
+                "x": 350,
+                "y": 930,
+                "targetId": "canal_tub"
+              }
+            ]
+          }
+        },
+        "home-map": {
+          "visual": "qa/evidence/canal-phone-hold-home-map.png",
+          "state": {
+            "scene": "home",
+            "time": 254.10000000009435,
+            "player": {
+              "x": 844.3929558916593,
+              "y": 441.0921416442955,
+              "hp": 4,
+              "mana": 4,
+              "facing": -2.7886022657628873,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "hold",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "flags": {
+              "eventSeq": 47,
+              "companion": "following",
+              "visited_home": true,
+              "wardCooldown": 0,
+              "lampFixed": true,
+              "platformOpen": false,
+              "dialogueRemainder": "",
+              "invited": true,
+              "casting": false,
+              "visited_creek": true,
+              "rockClock": 0,
+              "boatSecured": true,
+              "tools": true,
+              "basketSafe": true,
+              "basketProtected": true,
+              "boardReturned": false,
+              "shelterBridge": true,
+              "shelterShared": true,
+              "visited_workshop": true,
+              "ringOwned": true,
+              "xuRingKnown": true,
+              "trialStyle": "",
+              "ringTrained": true,
+              "visited_crossing": true,
+              "ridgeRockClock": 0,
+              "gatePulled": true,
+              "gateDemonstrated": true,
+              "gateHint": true,
+              "gateWitnessed": true,
+              "deal": true,
+              "gateWedge": true,
+              "gateOpen": true,
+              "gateFixed": true,
+              "mainRepaired": true,
+              "gateFixedNote": true,
+              "gateObserved": true,
+              "route": "main",
+              "mainTraversed": true,
+              "sharedJourney": true,
+              "returned": true,
+              "endingWish": "travel",
+              "travelInvited": true,
+              "visited_canal": true
+            },
+            "paused": true,
+            "dialogue": null,
+            "ended": true,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 40,
+                "time": 204.4000000000548,
+                "type": "hold",
+                "text": "横滑截水板停住八秒，现在可以另施一术。",
+                "x": 1200,
+                "y": 350,
+                "targetId": "canal_stop"
+              },
+              {
+                "seq": 41,
+                "time": 206.30000000005631,
+                "type": "note",
+                "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
+                "x": 1100,
+                "y": 540,
+                "targetId": "canal_screen"
+              },
+              {
+                "seq": 42,
+                "time": 208.3166666667246,
+                "type": "change",
+                "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
+                "x": 1100,
+                "y": 540,
+                "targetId": "canal_screen"
+              },
+              {
+                "seq": 43,
+                "time": 231.50000000007637,
+                "type": "change",
+                "text": "你亲手试过槽内水位，小水轮稳定转起来。去告诉檐下邵禾；检修台坐垫已经可以静息。",
+                "x": 350,
+                "y": 930,
+                "targetId": "canal_tub"
+              },
+              {
+                "seq": 44,
+                "time": 235.50000000007955,
+                "type": "relationship",
+                "text": "你向邵禾说明留势截水、沿台阶进出清渠的经过。她看过石槽的水位，挪开取水处空桶：这回水和干路都通了，回驿把路线记下来吧。"
+              },
+              {
+                "seq": 45,
+                "time": 239.10000000008242,
+                "type": "return",
+                "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+              },
+              {
+                "seq": 46,
+                "time": 239.10000000008242,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 47,
+                "time": 252.10000000009276,
+                "type": "growth",
+                "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
+              }
+            ]
+          }
+        }
+      },
+      "exports": [
+        {
+          "path": "qa/evidence/canal-hold-ready-input.json",
+          "sha256": "d943d220eb75193c2d22502241333f87dc9e3d9956f1b317198c9d6f38104cea"
+        },
+        {
+          "path": "qa/evidence/canal-phone-hold-verified-input.json",
+          "sha256": "75f8b303d52499ade315cd5f8c1e7daf68a3af90492e6a5a26520d341235f00a"
+        },
+        {
+          "path": "qa/evidence/canal-phone-hold-complete-export.json",
+          "sha256": "723beb2929d6ee08ec5fa46696ef90236f0627ea49371221acfcdb3f6dfe010c"
+        }
+      ],
+      "initialHp": 4,
+      "final": {
+        "scene": "home",
+        "time": 255.60000000009555,
+        "player": {
+          "x": 844.3929558916593,
+          "y": 441.0921416442955,
+          "hp": 4,
+          "mana": 4,
+          "facing": -2.7886022657628873,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "canal": {
+          "stage": "complete",
+          "inspected": true,
+          "cleared": true,
+          "method": "hold",
+          "sharedInspect": true,
+          "sharedVerify": false,
+          "usedClamp": false,
+          "work": null,
+          "drain": 0,
+          "flow": 3,
+          "surge": null
+        },
+        "life": {
+          "repair": {
+            "stage": "unaccepted",
+            "softened": false,
+            "stopSet": false,
+            "latched": false,
+            "tested": false,
+            "method": null,
+            "testing": null
+          },
+          "harvest": {
+            "stage": "unaccepted",
+            "sun": "unpicked",
+            "shade": "unpicked",
+            "picking": null,
+            "shared": false
+          },
+          "clamp": "unowned",
+          "sachets": 0,
+          "scent": null
+        },
+        "flags": {
+          "eventSeq": 47,
+          "companion": "following",
+          "visited_home": true,
+          "wardCooldown": 0,
+          "lampFixed": true,
+          "platformOpen": false,
+          "dialogueRemainder": "",
+          "invited": true,
+          "casting": false,
+          "visited_creek": true,
+          "rockClock": 0,
+          "boatSecured": true,
+          "tools": true,
+          "basketSafe": true,
+          "basketProtected": true,
+          "boardReturned": false,
+          "shelterBridge": true,
+          "shelterShared": true,
+          "visited_workshop": true,
+          "ringOwned": true,
+          "xuRingKnown": true,
+          "trialStyle": "",
+          "ringTrained": true,
+          "visited_crossing": true,
+          "ridgeRockClock": 0,
+          "gatePulled": true,
+          "gateDemonstrated": true,
+          "gateHint": true,
+          "gateWitnessed": true,
+          "deal": true,
+          "gateWedge": true,
+          "gateOpen": true,
+          "gateFixed": true,
+          "mainRepaired": true,
+          "gateFixedNote": true,
+          "gateObserved": true,
+          "route": "main",
+          "mainTraversed": true,
+          "sharedJourney": true,
+          "returned": true,
+          "endingWish": "travel",
+          "travelInvited": true,
+          "visited_canal": true
+        },
+        "paused": false,
+        "dialogue": null,
+        "ended": true,
+        "defeated": false,
+        "events": [
+          {
+            "seq": 40,
+            "time": 204.4000000000548,
+            "type": "hold",
+            "text": "横滑截水板停住八秒，现在可以另施一术。",
+            "x": 1200,
+            "y": 350,
+            "targetId": "canal_stop"
+          },
+          {
+            "seq": 41,
+            "time": 206.30000000005631,
+            "type": "note",
+            "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
+            "x": 1100,
+            "y": 540,
+            "targetId": "canal_screen"
+          },
+          {
+            "seq": 42,
+            "time": 208.3166666667246,
+            "type": "change",
+            "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
+            "x": 1100,
+            "y": 540,
+            "targetId": "canal_screen"
+          },
+          {
+            "seq": 43,
+            "time": 231.50000000007637,
+            "type": "change",
+            "text": "你亲手试过槽内水位，小水轮稳定转起来。去告诉檐下邵禾；检修台坐垫已经可以静息。",
+            "x": 350,
+            "y": 930,
+            "targetId": "canal_tub"
+          },
+          {
+            "seq": 44,
+            "time": 235.50000000007955,
+            "type": "relationship",
+            "text": "你向邵禾说明留势截水、沿台阶进出清渠的经过。她看过石槽的水位，挪开取水处空桶：这回水和干路都通了，回驿把路线记下来吧。"
+          },
+          {
+            "seq": 45,
+            "time": 239.10000000008242,
+            "type": "return",
+            "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+          },
+          {
+            "seq": 46,
+            "time": 239.10000000008242,
+            "type": "scene",
+            "text": "回石驿"
+          },
+          {
+            "seq": 47,
+            "time": 252.10000000009276,
+            "type": "growth",
+            "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
+          }
+        ]
+      },
+      "restart": {
+        "input": "settings → restart confirmation → new profile",
+        "state": {
+          "scene": "home",
+          "time": 0.39999999999999997,
+          "player": {
+            "x": 360,
+            "y": 710,
+            "hp": 4,
+            "mana": 6,
+            "facing": 0,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "canal": {
+            "stage": "unaccepted",
+            "inspected": false,
+            "cleared": false,
+            "method": null,
+            "sharedInspect": false,
+            "sharedVerify": false,
+            "usedClamp": false,
+            "work": null,
+            "drain": 0,
+            "flow": 0,
+            "surge": null
+          },
+          "life": {
+            "repair": {
+              "stage": "unaccepted",
+              "softened": false,
+              "stopSet": false,
+              "latched": false,
+              "tested": false,
+              "method": null,
+              "testing": null
+            },
+            "harvest": {
+              "stage": "unaccepted",
+              "sun": "unpicked",
+              "shade": "unpicked",
+              "picking": null,
+              "shared": false
+            },
+            "clamp": "unowned",
+            "sachets": 0,
+            "scent": null
+          },
+          "flags": {
+            "eventSeq": 2,
+            "companion": "waiting",
+            "visited_home": true,
+            "wardCooldown": 0
+          },
+          "paused": false,
+          "dialogue": null,
+          "ended": false,
+          "defeated": false,
+          "events": [
+            {
+              "seq": 1,
+              "time": 0,
+              "type": "note",
+              "text": "行舟，凝气三层。先前攒钱修的控物环，今日该去取了。"
+            },
+            {
+              "seq": 2,
+              "time": 0,
+              "type": "hint",
+              "text": "陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "fixture": {
+    "path": "qa/fixtures/return-main-v0.3.0.json",
+    "source": "working tree",
+    "sha256": "0be44f1bdea520df6f417ae35441efa0f67a9c9d95964f64c86aa1ee31b37b5f",
+    "origin": "Unmodified real main-route 0.3.0 UI export"
+  },
+  "routeSelection": "all",
+  "completedAt": "2026-09-11T05:02:07.496Z"
+}

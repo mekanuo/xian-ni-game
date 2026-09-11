@@ -336,7 +336,6 @@ export class WorldScene extends Phaser.Scene {
       if(m.id==='canal'){
         // A bank consists of overlapping natural rock groups; stretching one sprite
         // across a tall collision rectangle turns it into a featureless pillar.
-        g.fillStyle(0x687363,.7);g.fillRoundedRect(ob.x,ob.y,ob.w,ob.h,8);
         const rows=Math.max(1,Math.ceil(ob.h/(ob.w*.65)));
         for(let row=0;row<rows;row++){
           const width=ob.w-(row%2)*5,height=Math.min(ob.h,width*.77);
