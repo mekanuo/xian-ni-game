@@ -1,0 +1,5363 @@
+{
+  "status": "FAIL",
+  "runId": "2026-09-11T13-43-16-816Z",
+  "url": "http://127.0.0.1:4193/market-whitebox.html",
+  "command": "node scripts/market-whitebox-check.mjs",
+  "scope": "Isolated market geometry and negotiation whitebox; no production scene transition or save claim.",
+  "selection": {
+    "cases": [
+      "pause"
+    ],
+    "devices": [
+      "desktop"
+    ]
+  },
+  "fullMatrix": false,
+  "fullMatrixStatus": "NOT_RUN",
+  "seed": "N/A — deterministic public presets; ordinary/zero mana, informed true/false, fixed hold practice.",
+  "environment": {
+    "node": "v22.22.0",
+    "platform": "linux",
+    "sourceCommit": "7211f6206ba9e4791b7fa02314cd72692687bcf3",
+    "sourceSha256": {
+      "src/whitebox/market-model.ts": "cb221efab99475457335ba1a8397cd9a439c45d790e9c9b5e86d1c032af45362",
+      "src/whitebox/market-main.ts": "e0175f8e02a743c63b3ccf83b71f5516c4db13032ab683627a00562df0c09e3d",
+      "src/whitebox/market.css": "de9f38f63eae408f0678aeec4fd8d9430c8f34030cf44e57de49132a9f1404b3",
+      "src/game/model.ts": "a5af3cd248a044e40e3374cbd2fa366c30dedd743dbbe4eb4914cce693faea96",
+      "scripts/market-whitebox-check.mjs": "a03c67684d75938b54c3ba43011eba75a88c7aac7b841cfab5ebdb23a5d46c7b"
+    },
+    "browser": "150.0.7871.114",
+    "rulesRevision": "market-whitebox-2"
+  },
+  "statusHistory": [
+    {
+      "status": "NOT_RUN",
+      "at": "2026-09-11T13:43:16.816Z"
+    },
+    {
+      "status": "RUNNING",
+      "at": "2026-09-11T13:43:16.822Z"
+    },
+    {
+      "status": "FAIL",
+      "at": "2026-09-11T13:43:50.411Z"
+    }
+  ],
+  "cases": [
+    {
+      "id": "pause",
+      "device": "desktop",
+      "status": "FAIL",
+      "environment": {
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "deviceScaleFactor": 2,
+        "hasTouch": false,
+        "canvas": {
+          "width": 2828,
+          "height": 1767,
+          "cssWidth": 1440,
+          "cssHeight": 900
+        },
+        "runtimeScripts": [
+          {
+            "url": "http://127.0.0.1:4193/assets/market-whitebox-CvvPbFxE.js",
+            "sha256": "25e678168abd4088717aad265ca92af13c729e2cf8b88e8b1730abe63fb1690c"
+          }
+        ],
+        "geometry": {
+          "id": "home",
+          "title": "集口问路 · 空间与交涉白盒",
+          "subtitle": "问路、亲自穿巷，到北口确认后步行折返。",
+          "width": 1400,
+          "height": 1000,
+          "spawn": {
+            "x": 240,
+            "y": 760
+          },
+          "palette": {
+            "ground": 11971217,
+            "path": 13352352,
+            "foliage": 7830884,
+            "water": 7904940
+          },
+          "ground": [
+            {
+              "type": "floor",
+              "points": [
+                120,
+                80,
+                1280,
+                80,
+                1280,
+                920,
+                120,
+                920
+              ]
+            }
+          ],
+          "obstacles": [
+            {
+              "x": 80,
+              "y": 40,
+              "w": 1240,
+              "h": 40
+            },
+            {
+              "x": 80,
+              "y": 920,
+              "w": 1240,
+              "h": 40
+            },
+            {
+              "x": 80,
+              "y": 80,
+              "w": 40,
+              "h": 840
+            },
+            {
+              "x": 1280,
+              "y": 80,
+              "w": 40,
+              "h": 840
+            },
+            {
+              "x": 540,
+              "y": 80,
+              "w": 240,
+              "h": 300
+            },
+            {
+              "x": 540,
+              "y": 500,
+              "w": 240,
+              "h": 280
+            },
+            {
+              "x": 1030,
+              "y": 300,
+              "w": 150,
+              "h": 40
+            },
+            {
+              "x": 1150,
+              "y": 300,
+              "w": 30,
+              "h": 180
+            }
+          ],
+          "entities": [
+            {
+              "id": "market_merchant",
+              "name": "沈砚",
+              "kind": "npc",
+              "type": "market-merchant",
+              "x": 470,
+              "y": 440,
+              "w": 40,
+              "h": 60,
+              "state": "idle"
+            },
+            {
+              "id": "market_door",
+              "name": "私巷木门",
+              "kind": "object",
+              "type": "market-door",
+              "x": 665,
+              "y": 440,
+              "w": 30,
+              "h": 120,
+              "state": "closed",
+              "solid": true
+            },
+            {
+              "id": "market_entry",
+              "name": "原口",
+              "kind": "exit",
+              "type": "market-endpoint",
+              "x": 240,
+              "y": 760,
+              "w": 60,
+              "h": 70,
+              "state": "idle"
+            },
+            {
+              "id": "market_exit",
+              "name": "北口",
+              "kind": "exit",
+              "type": "market-endpoint",
+              "x": 1140,
+              "y": 240,
+              "w": 60,
+              "h": 70,
+              "state": "idle"
+            },
+            {
+              "id": "decoy",
+              "name": "无主空筐",
+              "kind": "object",
+              "type": "decoy",
+              "x": 460,
+              "y": 720,
+              "homeX": 460,
+              "homeY": 720,
+              "w": 50,
+              "h": 40,
+              "state": "idle",
+              "movable": true,
+              "flammable": true
+            },
+            {
+              "id": "market_raider",
+              "name": "占道散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 850,
+              "y": 560,
+              "homeX": 850,
+              "homeY": 560,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "data": {
+                "lastX": 850,
+                "lastY": 560,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ],
+          "revision": "market-whitebox-2",
+          "points": {
+            "entry": {
+              "x": 240,
+              "y": 760
+            },
+            "exit": {
+              "x": 1140,
+              "y": 240
+            },
+            "merchant": {
+              "x": 470,
+              "y": 440
+            },
+            "latch": {
+              "x": 620,
+              "y": 440
+            },
+            "decoy": {
+              "x": 460,
+              "y": 720
+            },
+            "enemy": {
+              "x": 850,
+              "y": 560
+            }
+          },
+          "viewport": {
+            "width": 1440,
+            "height": 900,
+            "dpr": 1.9641855032959652,
+            "usable": {
+              "x": 0,
+              "y": 156,
+              "width": 1440,
+              "height": 605
+            }
+          },
+          "camera": {
+            "x": 0,
+            "y": 156,
+            "zoom": 1,
+            "scrollX": -694.2135623730949,
+            "scrollY": 103,
+            "overview": false,
+            "manual": false
+          }
+        }
+      },
+      "input": [
+        {
+          "action": "public-synthetic-preset",
+          "preset": {
+            "mana": "ordinary",
+            "informed": true
+          },
+          "nativeSelectControl": true,
+          "wall": "2026-09-11T13:43:20.019Z"
+        },
+        {
+          "action": "click-ui",
+          "selector": "[data-action=\"restart\"]",
+          "time": 0.35,
+          "wall": "2026-09-11T13:43:20.154Z"
+        },
+        {
+          "action": "click-ui",
+          "selector": "[data-action=\"pause\"]",
+          "time": 0.08333333333333331,
+          "wall": "2026-09-11T13:43:21.849Z"
+        },
+        {
+          "action": "click-ui",
+          "selector": "[data-action=\"walk\"]",
+          "time": 0.23333333333333328,
+          "wall": "2026-09-11T13:43:23.427Z"
+        },
+        {
+          "action": "click-world",
+          "target": {
+            "x": 330,
+            "y": 760
+          },
+          "delivered": {
+            "x": 329.89130631560465,
+            "y": 521.5481957189193
+          },
+          "time": 0.23333333333333328,
+          "wall": "2026-09-11T13:43:25.454Z"
+        },
+        {
+          "action": "click-ui",
+          "selector": "[data-action=\"cancel\"]",
+          "time": 0.23333333333333328,
+          "wall": "2026-09-11T13:43:26.670Z"
+        },
+        {
+          "action": "click-ui",
+          "selector": "[data-action=\"pause\"]",
+          "time": 0.23333333333333328,
+          "wall": "2026-09-11T13:43:28.880Z"
+        },
+        {
+          "action": "active-input-gap",
+          "seconds": 0.4,
+          "time": 0.29999999999999993,
+          "wall": "2026-09-11T13:43:30.438Z"
+        },
+        {
+          "action": "click-world",
+          "target": {
+            "x": 470,
+            "y": 760
+          },
+          "delivered": {
+            "x": 469.89130631560465,
+            "y": 521.5481957189193
+          },
+          "time": 1.5983433333333317,
+          "wall": "2026-09-11T13:43:34.118Z"
+        },
+        {
+          "action": "active-input-gap",
+          "seconds": 0.8,
+          "time": 3.298343333333326,
+          "wall": "2026-09-11T13:43:36.209Z"
+        },
+        {
+          "action": "click-world",
+          "target": {
+            "x": 470,
+            "y": 440
+          },
+          "delivered": {
+            "x": 469.89130631560465,
+            "y": 201.54819571891926
+          },
+          "time": 4.998343333333337,
+          "wall": "2026-09-11T13:43:38.269Z"
+        },
+        {
+          "action": "click-ui",
+          "selector": "[data-action=\"keep-paused\"]",
+          "time": 6.59834333333336,
+          "wall": "2026-09-11T13:43:41.297Z"
+        },
+        {
+          "action": "click-ui",
+          "selector": "#dialogue button[data-choice=\"market:exchange\"]",
+          "time": 6.59834333333336,
+          "wall": "2026-09-11T13:43:42.807Z"
+        },
+        {
+          "action": "click-ui",
+          "selector": "[data-action=\"pause\"]",
+          "time": 6.59834333333336,
+          "wall": "2026-09-11T13:43:45.451Z"
+        },
+        {
+          "action": "click-ui",
+          "selector": "[data-action=\"pause\"]",
+          "time": 7.198343333333368,
+          "wall": "2026-09-11T13:43:47.348Z"
+        }
+      ],
+      "observations": [
+        {
+          "label": "fresh restart",
+          "wall": "2026-09-11T13:43:21.609Z",
+          "time": 0.04999999999999999,
+          "player": {
+            "x": 240,
+            "y": 760,
+            "hp": 4,
+            "mana": 6,
+            "facing": 0,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "queued input remains pending while manually paused",
+          "wall": "2026-09-11T13:43:26.548Z",
+          "time": 0.23333333333333328,
+          "player": {
+            "x": 240,
+            "y": 760,
+            "hp": 4,
+            "mana": 6,
+            "facing": 0,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": true,
+          "dialogue": null,
+          "pending": {
+            "type": "move",
+            "point": {
+              "x": 329.1086982056855,
+              "y": 759.4518092971018
+            }
+          },
+          "defeated": false
+        },
+        {
+          "label": "cancelled pending move cannot execute on resume",
+          "wall": "2026-09-11T13:43:33.144Z",
+          "time": 0.8266766666666667,
+          "player": {
+            "x": 240,
+            "y": 760,
+            "hp": 4,
+            "mana": 6,
+            "facing": 0,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "arrived 470,760",
+          "wall": "2026-09-11T13:43:36.088Z",
+          "time": 3.198343333333326,
+          "player": {
+            "x": 467.9993473457724,
+            "y": 759.4544636567224,
+            "hp": 4,
+            "mana": 6,
+            "facing": -0.002392705543050654,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "reading first dialogue leaves time, actors and closed door unchanged",
+          "wall": "2026-09-11T13:43:41.167Z",
+          "time": 6.59834333333336,
+          "player": {
+            "x": 469.50236976573234,
+            "y": 519.4591701120243,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.564533692441106,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": true,
+          "dialogue": {
+            "id": "market_talk",
+            "speaker": "沈砚",
+            "text": "旧窑那边，你走过没有？说清那边的通路，我替你开后巷门。",
+            "choices": [
+              {
+                "id": "market:exchange",
+                "label": "说清旧窑通路，请她开门"
+              },
+              {
+                "id": "market:public",
+                "label": "问清公共巷的走法"
+              },
+              {
+                "id": "leave",
+                "label": "先继续走走"
+              }
+            ]
+          },
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "closing the dialogue preserves manual pause",
+          "wall": "2026-09-11T13:43:44.318Z",
+          "time": 6.59834333333336,
+          "player": {
+            "x": 469.50236976573234,
+            "y": 519.4591701120243,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.564533692441106,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": true,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": true,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "manual pause survives closing dialogue",
+          "wall": "2026-09-11T13:43:45.194Z",
+          "time": 6.59834333333336,
+          "player": {
+            "x": 469.50236976573234,
+            "y": 519.4591701120243,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.564533692441106,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": true,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": true,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "manual pause during NPC movement",
+          "wall": "2026-09-11T13:43:48.979Z",
+          "time": 8.09834333333338,
+          "player": {
+            "x": 469.50236976573234,
+            "y": 519.4591701120243,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.564533692441106,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 614,
+            "y": 405,
+            "w": 40,
+            "h": 60,
+            "state": "leading",
+            "facing": -1.5707963267948966
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "open",
+            "solid": false
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": true,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": true,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        }
+      ],
+      "motion": [
+        {
+          "label": "fresh selected initial state",
+          "time": 0.04999999999999999,
+          "player": {
+            "x": 240,
+            "y": 760,
+            "hp": 4,
+            "mana": 6,
+            "facing": 0,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "paused=true",
+          "time": 0.23333333333333328,
+          "player": {
+            "x": 240,
+            "y": 760,
+            "hp": 4,
+            "mana": 6,
+            "facing": 0,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": true,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "real ground tap queues a paused move",
+          "time": 0.23333333333333328,
+          "player": {
+            "x": 240,
+            "y": 760,
+            "hp": 4,
+            "mana": 6,
+            "facing": 0,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": true,
+          "dialogue": null,
+          "pending": {
+            "type": "move",
+            "point": {
+              "x": 329.1086982056855,
+              "y": 759.4518092971018
+            }
+          },
+          "defeated": false
+        },
+        {
+          "label": "public cancel removes the pending move",
+          "time": 0.23333333333333328,
+          "player": {
+            "x": 240,
+            "y": 760,
+            "hp": 4,
+            "mana": 6,
+            "facing": 0,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": true,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "paused=false",
+          "time": 0.28333333333333327,
+          "player": {
+            "x": 240,
+            "y": 760,
+            "hp": 4,
+            "mana": 6,
+            "facing": 0,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "normal world time between decisions",
+          "time": 0.3166666666666666,
+          "player": {
+            "x": 240,
+            "y": 760,
+            "hp": 4,
+            "mana": 6,
+            "facing": 0,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "normal world time between decisions",
+          "time": 0.583333333333333,
+          "player": {
+            "x": 240,
+            "y": 760,
+            "hp": 4,
+            "mana": 6,
+            "facing": 0,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "walk 470,760",
+          "time": 1.798343333333331,
+          "player": {
+            "x": 255.99995419970332,
+            "y": 759.96171674784,
+            "hp": 4,
+            "mana": 6,
+            "facing": -0.0023927055430439585,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": [
+              {
+                "x": 469.1087001296388,
+                "y": 759.4518092971018
+              }
+            ]
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "walk 470,760",
+          "time": 2.09834333333333,
+          "player": {
+            "x": 303.9998167988133,
+            "y": 759.8468669913601,
+            "hp": 4,
+            "mana": 6,
+            "facing": -0.0023927055430408082,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": [
+              {
+                "x": 469.1087001296388,
+                "y": 759.4518092971018
+              }
+            ]
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "walk 470,760",
+          "time": 2.398343333333329,
+          "player": {
+            "x": 351.9996793979233,
+            "y": 759.7320172348808,
+            "hp": 4,
+            "mana": 6,
+            "facing": -0.002392705543040792,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": [
+              {
+                "x": 469.1087001296388,
+                "y": 759.4518092971018
+              }
+            ]
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "walk 470,760",
+          "time": 2.698343333333328,
+          "player": {
+            "x": 399.99954199703325,
+            "y": 759.6171674784015,
+            "hp": 4,
+            "mana": 6,
+            "facing": -0.0023927055430407558,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": [
+              {
+                "x": 469.1087001296388,
+                "y": 759.4518092971018
+              }
+            ]
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "walk 470,760",
+          "time": 2.998343333333327,
+          "player": {
+            "x": 447.9994045961432,
+            "y": 759.5023177219222,
+            "hp": 4,
+            "mana": 6,
+            "facing": -0.0023927055430405797,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": [
+              {
+                "x": 469.1087001296388,
+                "y": 759.4518092971018
+              }
+            ]
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "normal world time between decisions",
+          "time": 3.3983433333333255,
+          "player": {
+            "x": 467.9993473457724,
+            "y": 759.4544636567224,
+            "hp": 4,
+            "mana": 6,
+            "facing": -0.002392705543050654,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "normal world time between decisions",
+          "time": 3.6983433333333244,
+          "player": {
+            "x": 467.9993473457724,
+            "y": 759.4544636567224,
+            "hp": 4,
+            "mana": 6,
+            "facing": -0.002392705543050654,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "normal world time between decisions",
+          "time": 3.9983433333333234,
+          "player": {
+            "x": 467.9993473457724,
+            "y": 759.4544636567224,
+            "hp": 4,
+            "mana": 6,
+            "facing": -0.002392705543050654,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "real near merchant dialogue",
+          "time": 5.19834333333334,
+          "player": {
+            "x": 468.0995488404363,
+            "y": 743.4547774204092,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.5645336924411088,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": [
+              {
+                "x": 469.511517713513,
+                "y": 517.9984704020264
+              }
+            ]
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "real near merchant dialogue",
+          "time": 5.498343333333344,
+          "player": {
+            "x": 468.4001533244281,
+            "y": 695.4557187114696,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.5645336924411075,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": [
+              {
+                "x": 469.511517713513,
+                "y": 517.9984704020264
+              }
+            ]
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "real near merchant dialogue",
+          "time": 5.7983433333333485,
+          "player": {
+            "x": 468.7007578084202,
+            "y": 647.4566600025299,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.5645336924411075,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": [
+              {
+                "x": 469.511517713513,
+                "y": 517.9984704020264
+              }
+            ]
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "real near merchant dialogue",
+          "time": 6.098343333333353,
+          "player": {
+            "x": 469.00136229241224,
+            "y": 599.4576012935903,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.5645336924411075,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": [
+              {
+                "x": 469.511517713513,
+                "y": 517.9984704020264
+              }
+            ]
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "real near merchant dialogue",
+          "time": 6.398343333333357,
+          "player": {
+            "x": 469.3019667764043,
+            "y": 551.4585425846507,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.5645336924411073,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": [
+              {
+                "x": 469.511517713513,
+                "y": 517.9984704020264
+              }
+            ]
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 470,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "idle"
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": false,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "paused=false",
+          "time": 6.898343333333364,
+          "player": {
+            "x": 469.50236976573234,
+            "y": 519.4591701120243,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.564533692441106,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 506,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "leading",
+            "facing": 0
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": true,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "NPC starts an actual in-flight walk",
+          "time": 6.998343333333366,
+          "player": {
+            "x": 469.50236976573234,
+            "y": 519.4591701120243,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.564533692441106,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 518,
+            "y": 440,
+            "w": 40,
+            "h": 60,
+            "state": "leading",
+            "facing": 0
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "closed",
+            "solid": true
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": true,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": false,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        },
+        {
+          "label": "paused=true",
+          "time": 8.09834333333338,
+          "player": {
+            "x": 469.50236976573234,
+            "y": 519.4591701120243,
+            "hp": 4,
+            "mana": 6,
+            "facing": -1.564533692441106,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "npc": {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 614,
+            "y": 405,
+            "w": 40,
+            "h": 60,
+            "state": "leading",
+            "facing": -1.5707963267948966
+          },
+          "enemy": {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          "door": {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "open",
+            "solid": false
+          },
+          "decoy": {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          "threat": false,
+          "exchanged": true,
+          "trip": {
+            "transit": null,
+            "traversed": {
+              "public": false,
+              "private": false
+            },
+            "exitRoutes": null
+          },
+          "completed": {
+            "public": false,
+            "private": false
+          },
+          "returned": {
+            "public": false,
+            "private": false
+          },
+          "paused": true,
+          "dialogue": null,
+          "pending": null,
+          "defeated": false
+        }
+      ],
+      "visuals": [],
+      "initialState": {
+        "time": 0.04999999999999999,
+        "player": {
+          "x": 240,
+          "y": 760,
+          "hp": 4,
+          "mana": 6,
+          "facing": 0,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "npc": {
+          "id": "market_merchant",
+          "name": "沈砚",
+          "kind": "npc",
+          "type": "market-merchant",
+          "x": 470,
+          "y": 440,
+          "w": 40,
+          "h": 60,
+          "state": "idle"
+        },
+        "enemy": {
+          "id": "market_raider",
+          "name": "占道散修",
+          "kind": "enemy",
+          "type": "raider",
+          "x": 850,
+          "y": 560,
+          "homeX": 850,
+          "homeY": 560,
+          "w": 40,
+          "h": 60,
+          "hp": 3,
+          "state": "idle",
+          "data": {
+            "lastX": 850,
+            "lastY": 560,
+            "seen": 0,
+            "attack": 0
+          }
+        },
+        "door": {
+          "id": "market_door",
+          "name": "私巷木门",
+          "kind": "object",
+          "type": "market-door",
+          "x": 665,
+          "y": 440,
+          "w": 30,
+          "h": 120,
+          "state": "closed",
+          "solid": true
+        },
+        "decoy": {
+          "id": "decoy",
+          "name": "无主空筐",
+          "kind": "object",
+          "type": "decoy",
+          "x": 460,
+          "y": 720,
+          "homeX": 460,
+          "homeY": 720,
+          "w": 50,
+          "h": 40,
+          "state": "idle",
+          "movable": true,
+          "flammable": true
+        },
+        "threat": false,
+        "exchanged": false,
+        "trip": {
+          "transit": null,
+          "traversed": {
+            "public": false,
+            "private": false
+          },
+          "exitRoutes": null
+        },
+        "completed": {
+          "public": false,
+          "private": false
+        },
+        "returned": {
+          "public": false,
+          "private": false
+        },
+        "paused": false,
+        "dialogue": null,
+        "pending": null,
+        "defeated": false
+      },
+      "restartState": {
+        "time": 0.04999999999999999,
+        "player": {
+          "x": 240,
+          "y": 760,
+          "hp": 4,
+          "mana": 6,
+          "facing": 0,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "npc": {
+          "id": "market_merchant",
+          "name": "沈砚",
+          "kind": "npc",
+          "type": "market-merchant",
+          "x": 470,
+          "y": 440,
+          "w": 40,
+          "h": 60,
+          "state": "idle"
+        },
+        "enemy": {
+          "id": "market_raider",
+          "name": "占道散修",
+          "kind": "enemy",
+          "type": "raider",
+          "x": 850,
+          "y": 560,
+          "homeX": 850,
+          "homeY": 560,
+          "w": 40,
+          "h": 60,
+          "hp": 3,
+          "state": "idle",
+          "data": {
+            "lastX": 850,
+            "lastY": 560,
+            "seen": 0,
+            "attack": 0
+          }
+        },
+        "door": {
+          "id": "market_door",
+          "name": "私巷木门",
+          "kind": "object",
+          "type": "market-door",
+          "x": 665,
+          "y": 440,
+          "w": 30,
+          "h": 120,
+          "state": "closed",
+          "solid": true
+        },
+        "decoy": {
+          "id": "decoy",
+          "name": "无主空筐",
+          "kind": "object",
+          "type": "decoy",
+          "x": 460,
+          "y": 720,
+          "homeX": 460,
+          "homeY": 720,
+          "w": 50,
+          "h": 40,
+          "state": "idle",
+          "movable": true,
+          "flammable": true
+        },
+        "threat": false,
+        "exchanged": false,
+        "trip": {
+          "transit": null,
+          "traversed": {
+            "public": false,
+            "private": false
+          },
+          "exitRoutes": null
+        },
+        "completed": {
+          "public": false,
+          "private": false
+        },
+        "returned": {
+          "public": false,
+          "private": false
+        },
+        "paused": false,
+        "dialogue": null,
+        "pending": null,
+        "defeated": false
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Desktop Chromium and Chromium mobile emulation only; no physical phone, macOS or Safari claim.",
+    "Phone gameplay uses real touchscreen taps. Camera framing alone uses simulated Shift+mouse dragging, recorded in the input trace.",
+    "Information and hold practice are visible synthetic starting premises, not earned old-save progress.",
+    "North and original endpoints only confirm actual near interaction and walking in the isolated home slot; production changeScene, destination usefulness and save migration are untested.",
+    "Return input selects southern waypoints and proves physical endpoint return; it does not independently classify which complete east-to-west corridor a dynamic avoidance path used.",
+    "Placeholder art, subjective fun, balance and production release readiness are not proven by this report."
+  ],
+  "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(npc(mid).x > 470 && npc(mid).x < 612)\n\n    at scenarios.pause (file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/market-070/scripts/market-whitebox-check.mjs:351:10)\n    at async file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/market-070/scripts/market-whitebox-check.mjs:422:7",
+  "failedAt": "2026-09-11T13:43:48.988Z",
+  "failureState": {
+    "state": {
+      "schema": 1,
+      "revision": "return-stone-v1",
+      "profile": {
+        "name": "行舟",
+        "origin": "tinker",
+        "wish": "travel",
+        "appearance": 0
+      },
+      "scene": "home",
+      "time": 8.09834333333338,
+      "player": {
+        "x": 469.50236976573234,
+        "y": 519.4591701120243,
+        "hp": 4,
+        "mana": 6,
+        "facing": -1.564533692441106,
+        "invulnerable": 0,
+        "cooldown": 0,
+        "ward": 0,
+        "wardFacing": 0,
+        "pullId": null,
+        "pullPoint": null,
+        "hold": 0,
+        "path": []
+      },
+      "worlds": {
+        "kiln": [
+          {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          {
+            "id": "duqin",
+            "type": "duqin",
+            "kind": "npc",
+            "name": "杜芹",
+            "x": 260,
+            "y": 560,
+            "w": 40,
+            "h": 60,
+            "state": "idle",
+            "homeX": 260,
+            "homeY": 560
+          },
+          {
+            "id": "kiln_rest",
+            "type": "kiln_rest",
+            "kind": "rest",
+            "name": "檐下棚角",
+            "x": 260,
+            "y": 400,
+            "w": 70,
+            "h": 50,
+            "state": "hidden",
+            "homeX": 260,
+            "homeY": 400
+          },
+          {
+            "id": "kiln_to_creek",
+            "type": "sign",
+            "kind": "exit",
+            "name": "← 溪道",
+            "x": 180,
+            "y": 480,
+            "w": 90,
+            "h": 60,
+            "state": "idle",
+            "targetScene": "creek",
+            "targetSpawn": {
+              "x": 760,
+              "y": 315
+            },
+            "homeX": 180,
+            "homeY": 480
+          },
+          {
+            "id": "kiln_to_canal",
+            "type": "sign",
+            "kind": "exit",
+            "name": "旧渠 →",
+            "x": 1220,
+            "y": 540,
+            "w": 90,
+            "h": 60,
+            "state": "idle",
+            "targetScene": "canal",
+            "targetSpawn": {
+              "x": 500,
+              "y": 570
+            },
+            "homeX": 1220,
+            "homeY": 540
+          },
+          {
+            "id": "kiln_raider_a",
+            "name": "近墙散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 710,
+            "y": 640,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "homeX": 710,
+            "homeY": 640,
+            "data": {
+              "lastX": 710,
+              "lastY": 640,
+              "seen": 0,
+              "attack": 0
+            }
+          },
+          {
+            "id": "kiln_raider_b",
+            "name": "外路散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 1090,
+            "y": 300,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "homeX": 1090,
+            "homeY": 300,
+            "data": {
+              "lastX": 1090,
+              "lastY": 300,
+              "seen": 0,
+              "attack": 0
+            }
+          }
+        ],
+        "canal": [
+          {
+            "id": "canal_diverter",
+            "kind": "object",
+            "type": "canal_diverter",
+            "name": "旁路分水板",
+            "x": 600,
+            "y": 350,
+            "w": 66,
+            "h": 28,
+            "state": "idle",
+            "movable": true,
+            "hint": "近身推两息，或沿导槽牵到右侧槽口；西岸始终可走",
+            "homeX": 600,
+            "homeY": 350
+          },
+          {
+            "id": "canal_stop",
+            "kind": "object",
+            "type": "canal_stop",
+            "name": "横滑截水板",
+            "x": 1280,
+            "y": 350,
+            "w": 64,
+            "h": 32,
+            "state": "idle",
+            "movable": true,
+            "hint": "向左牵入止水槽，再留势腾手；八秒内沿台阶进出",
+            "homeX": 1280,
+            "homeY": 350
+          },
+          {
+            "id": "canal_eye",
+            "kind": "object",
+            "type": "canal_eye",
+            "name": "截水架固定眼",
+            "x": 1230,
+            "y": 410,
+            "w": 34,
+            "h": 30,
+            "state": "idle",
+            "hint": "截水板留势到位后，可用唯一压扣固定",
+            "homeX": 1230,
+            "homeY": 410
+          },
+          {
+            "id": "canal_screen",
+            "kind": "object",
+            "type": "canal_screen",
+            "name": "歪卡筛框",
+            "x": 1100,
+            "y": 540,
+            "w": 70,
+            "h": 38,
+            "state": "idle",
+            "hint": "先看清堵塞；退水后亲自下渠，腾手清理两息",
+            "homeX": 1100,
+            "homeY": 540
+          },
+          {
+            "id": "canal_inspect",
+            "kind": "object",
+            "type": "canal_inspect",
+            "name": "检修水尺",
+            "x": 880,
+            "y": 610,
+            "w": 36,
+            "h": 58,
+            "state": "idle",
+            "hint": "上游水高，下游干涸；从高岸察看筛框",
+            "homeX": 880,
+            "homeY": 610
+          },
+          {
+            "id": "canal_tub",
+            "kind": "object",
+            "type": "canal_tub",
+            "name": "下游取水石槽",
+            "x": 350,
+            "y": 930,
+            "w": 98,
+            "h": 45,
+            "state": "idle",
+            "hint": "复水稳定三息后，近身确认水位",
+            "homeX": 350,
+            "homeY": 930
+          },
+          {
+            "id": "canal_keeper",
+            "kind": "npc",
+            "type": "keeper",
+            "name": "邵禾",
+            "x": 260,
+            "y": 960,
+            "w": 40,
+            "h": 62,
+            "state": "idle",
+            "hint": "看渠人留在下游照看取水处",
+            "homeX": 260,
+            "homeY": 960
+          },
+          {
+            "id": "canal_rest_entry",
+            "kind": "rest",
+            "type": "rest",
+            "name": "檐下静息",
+            "x": 480,
+            "y": 1030,
+            "w": 70,
+            "h": 45,
+            "state": "idle",
+            "homeX": 480,
+            "homeY": 1030
+          },
+          {
+            "id": "canal_rest_mid",
+            "kind": "rest",
+            "type": "rest",
+            "name": "检修台坐垫",
+            "x": 880,
+            "y": 720,
+            "w": 70,
+            "h": 45,
+            "state": "hidden",
+            "homeX": 880,
+            "homeY": 720
+          },
+          {
+            "id": "canal_to_home",
+            "kind": "exit",
+            "type": "exit",
+            "name": "← 回石驿",
+            "x": 230,
+            "y": 1070,
+            "w": 100,
+            "h": 55,
+            "state": "idle",
+            "targetScene": "home",
+            "targetSpawn": {
+              "x": 1520,
+              "y": 690
+            },
+            "homeX": 230,
+            "homeY": 1070
+          },
+          {
+            "id": "xu_canal",
+            "kind": "npc",
+            "type": "xu",
+            "name": "许照",
+            "x": 420,
+            "y": 1040,
+            "w": 40,
+            "h": 62,
+            "state": "idle",
+            "homeX": 420,
+            "homeY": 1040
+          },
+          {
+            "id": "canal_beast_a",
+            "kind": "enemy",
+            "type": "beast",
+            "name": "干坡山兽",
+            "x": 1460,
+            "y": 660,
+            "w": 66,
+            "h": 43,
+            "state": "idle",
+            "hp": 3,
+            "data": {
+              "lastX": 1460,
+              "lastY": 660,
+              "seen": 0,
+              "attack": 0
+            },
+            "homeX": 1460,
+            "homeY": 660
+          },
+          {
+            "id": "canal_beast_b",
+            "kind": "enemy",
+            "type": "beast",
+            "name": "守窝山兽",
+            "x": 1380,
+            "y": 820,
+            "w": 66,
+            "h": 43,
+            "state": "idle",
+            "hp": 3,
+            "data": {
+              "lastX": 1380,
+              "lastY": 820,
+              "seen": 0,
+              "attack": 0
+            },
+            "homeX": 1380,
+            "homeY": 820
+          },
+          {
+            "id": "canal_scent",
+            "kind": "object",
+            "type": "canal_scent",
+            "name": "避兽药囊",
+            "x": 1500,
+            "y": 900,
+            "w": 28,
+            "h": 28,
+            "state": "hidden",
+            "homeX": 1500,
+            "homeY": 900
+          },
+          {
+            "id": "canal_to_kiln",
+            "kind": "exit",
+            "type": "sign",
+            "name": "← 旧窑",
+            "x": 460,
+            "y": 450,
+            "w": 90,
+            "h": 60,
+            "state": "hidden",
+            "targetScene": "kiln",
+            "targetSpawn": {
+              "x": 1220,
+              "y": 620
+            },
+            "homeX": 460,
+            "homeY": 450
+          }
+        ],
+        "home": [
+          {
+            "id": "market_merchant",
+            "name": "沈砚",
+            "kind": "npc",
+            "type": "market-merchant",
+            "x": 614,
+            "y": 405,
+            "w": 40,
+            "h": 60,
+            "state": "leading",
+            "facing": -1.5707963267948966
+          },
+          {
+            "id": "market_door",
+            "name": "私巷木门",
+            "kind": "object",
+            "type": "market-door",
+            "x": 665,
+            "y": 440,
+            "w": 30,
+            "h": 120,
+            "state": "open",
+            "solid": false
+          },
+          {
+            "id": "market_entry",
+            "name": "原口",
+            "kind": "exit",
+            "type": "market-endpoint",
+            "x": 240,
+            "y": 760,
+            "w": 60,
+            "h": 70,
+            "state": "idle"
+          },
+          {
+            "id": "market_exit",
+            "name": "北口",
+            "kind": "exit",
+            "type": "market-endpoint",
+            "x": 1140,
+            "y": 240,
+            "w": 60,
+            "h": 70,
+            "state": "idle"
+          },
+          {
+            "id": "decoy",
+            "name": "无主空筐",
+            "kind": "object",
+            "type": "decoy",
+            "x": 460,
+            "y": 720,
+            "homeX": 460,
+            "homeY": 720,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "flammable": true
+          },
+          {
+            "id": "market_raider",
+            "name": "占道散修",
+            "kind": "enemy",
+            "type": "raider",
+            "x": 850,
+            "y": 560,
+            "homeX": 850,
+            "homeY": 560,
+            "w": 40,
+            "h": 60,
+            "hp": 3,
+            "state": "idle",
+            "data": {
+              "lastX": 850,
+              "lastY": 560,
+              "seen": 0,
+              "attack": 0
+            }
+          }
+        ],
+        "creek": [
+          {
+            "id": "to_home",
+            "kind": "exit",
+            "type": "exit",
+            "name": "← 回石驿",
+            "x": 100,
+            "y": 770,
+            "w": 90,
+            "h": 60,
+            "state": "idle",
+            "targetScene": "home",
+            "targetSpawn": {
+              "x": 1520,
+              "y": 690
+            },
+            "hint": "走近后按 E 前往",
+            "homeX": 100,
+            "homeY": 770
+          },
+          {
+            "id": "to_workshop",
+            "kind": "exit",
+            "type": "exit",
+            "name": "旧工棚 →",
+            "x": 1640,
+            "y": 370,
+            "w": 90,
+            "h": 60,
+            "state": "idle",
+            "targetScene": "workshop",
+            "targetSpawn": {
+              "x": 160,
+              "y": 740
+            },
+            "hint": "走近后按 E 前往",
+            "homeX": 1640,
+            "homeY": 370
+          },
+          {
+            "id": "to_crossing",
+            "kind": "exit",
+            "type": "exit",
+            "name": "石渡 →",
+            "x": 1630,
+            "y": 820,
+            "w": 90,
+            "h": 60,
+            "state": "idle",
+            "targetScene": "crossing",
+            "targetSpawn": {
+              "x": 170,
+              "y": 830
+            },
+            "hint": "走近后按 E 前往",
+            "homeX": 1630,
+            "homeY": 820
+          },
+          {
+            "id": "rest_creek",
+            "kind": "rest",
+            "type": "rest",
+            "name": "静息落点",
+            "x": 300,
+            "y": 860,
+            "w": 75,
+            "h": 50,
+            "state": "idle",
+            "hint": "安全时静息，恢复体力和灵力",
+            "homeX": 300,
+            "homeY": 860
+          },
+          {
+            "id": "xu_creek",
+            "kind": "npc",
+            "type": "xu",
+            "name": "许照",
+            "x": 500,
+            "y": 730,
+            "w": 40,
+            "h": 62,
+            "state": "idle",
+            "hint": "交谈",
+            "homeX": 500,
+            "homeY": 730
+          },
+          {
+            "id": "boat",
+            "kind": "object",
+            "type": "boat",
+            "name": "卡住的小舟",
+            "x": 685,
+            "y": 650,
+            "w": 110,
+            "h": 50,
+            "state": "idle",
+            "movable": true,
+            "hint": "牵到西岸；也可在绳扣处一起稳舟",
+            "homeX": 685,
+            "homeY": 650
+          },
+          {
+            "id": "rope",
+            "kind": "object",
+            "type": "rope",
+            "name": "小舟绳扣",
+            "x": 535,
+            "y": 640,
+            "w": 30,
+            "h": 35,
+            "state": "idle",
+            "hint": "走近固定或请许照共同稳舟",
+            "homeX": 535,
+            "homeY": 640
+          },
+          {
+            "id": "bag",
+            "kind": "object",
+            "type": "bag",
+            "name": "自己的器具袋",
+            "x": 600,
+            "y": 665,
+            "w": 35,
+            "h": 40,
+            "state": "idle",
+            "hint": "先稳住或牵回小舟，再取器具",
+            "homeX": 600,
+            "homeY": 665
+          },
+          {
+            "id": "board",
+            "kind": "object",
+            "type": "board",
+            "name": "雨棚导水板",
+            "x": 945,
+            "y": 510,
+            "w": 110,
+            "h": 35,
+            "state": "idle",
+            "movable": true,
+            "hint": "水线下就是药筐；先把筐牵进棚内",
+            "homeX": 945,
+            "homeY": 510
+          },
+          {
+            "id": "basket",
+            "kind": "object",
+            "type": "basket",
+            "name": "许照的干药筐",
+            "x": 1030,
+            "y": 595,
+            "w": 48,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "hint": "把药筐牵到右侧雨棚深处，避开檐下水线",
+            "homeX": 1030,
+            "homeY": 595
+          },
+          {
+            "id": "shelter",
+            "kind": "object",
+            "type": "shelter",
+            "name": "斜雨棚",
+            "x": 1200,
+            "y": 500,
+            "w": 100,
+            "h": 60,
+            "state": "idle",
+            "hint": "包扎、晾药或商量同行",
+            "homeX": 1200,
+            "homeY": 500
+          },
+          {
+            "id": "rock_source",
+            "kind": "object",
+            "type": "rock_source",
+            "name": "窄段上方的松动碎石",
+            "x": 1380,
+            "y": 555,
+            "w": 65,
+            "h": 55,
+            "state": "idle",
+            "hint": "碎石会落到下方窄段；朝上护持，或从下方长路绕开",
+            "homeX": 1380,
+            "homeY": 555
+          },
+          {
+            "id": "platform_ladder",
+            "kind": "object",
+            "type": "platform_ladder",
+            "name": "眺台远处绳梯",
+            "x": 1200,
+            "y": 290,
+            "w": 35,
+            "h": 65,
+            "state": "idle",
+            "movable": true,
+            "hint": "用长牵把远处绳梯牵到眺台入口外的石地",
+            "homeX": 1200,
+            "homeY": 290
+          },
+          {
+            "id": "platform_beam",
+            "kind": "object",
+            "type": "platform_beam",
+            "name": "入口倾斜木梁",
+            "x": 1080,
+            "y": 290,
+            "w": 35,
+            "h": 100,
+            "state": "idle",
+            "movable": true,
+            "hint": "牵出入口后留势，再从下方穿过",
+            "data": {
+              "overhead": true
+            },
+            "homeX": 1080,
+            "homeY": 290
+          },
+          {
+            "id": "return_ladder",
+            "kind": "object",
+            "type": "return_ladder",
+            "name": "眺台回程梯",
+            "x": 1150,
+            "y": 170,
+            "w": 40,
+            "h": 55,
+            "state": "idle",
+            "hint": "登台后徒手放下，零灵力也能返回",
+            "homeX": 1150,
+            "homeY": 170
+          },
+          {
+            "id": "chime",
+            "kind": "object",
+            "type": "chime",
+            "name": "旧檐风铃",
+            "x": 1390,
+            "y": 180,
+            "w": 28,
+            "h": 45,
+            "state": "idle",
+            "hint": "可带回自己的窗边",
+            "homeX": 1390,
+            "homeY": 180
+          },
+          {
+            "id": "marks",
+            "kind": "object",
+            "type": "marks",
+            "name": "许照的采药记号",
+            "x": 1330,
+            "y": 240,
+            "w": 60,
+            "h": 30,
+            "state": "idle",
+            "hint": "许照采药时留下的刻痕；她在身边时可一起辨路",
+            "homeX": 1330,
+            "homeY": 240
+          },
+          {
+            "id": "life_sun_leaf",
+            "kind": "object",
+            "type": "leaf",
+            "name": "向阳叶",
+            "x": 1420,
+            "y": 270,
+            "w": 32,
+            "h": 28,
+            "state": "hidden",
+            "homeX": 1420,
+            "homeY": 270
+          },
+          {
+            "id": "life_shade_leaf",
+            "kind": "object",
+            "type": "leaf",
+            "name": "背阴叶",
+            "x": 1380,
+            "y": 680,
+            "w": 32,
+            "h": 28,
+            "state": "hidden",
+            "homeX": 1380,
+            "homeY": 680
+          },
+          {
+            "id": "life_lookout_eye",
+            "kind": "object",
+            "type": "life-eye",
+            "name": "眺台侧托",
+            "x": 970,
+            "y": 290,
+            "w": 30,
+            "h": 36,
+            "state": "hidden",
+            "homeX": 970,
+            "homeY": 290
+          },
+          {
+            "id": "journey_rest_shelter",
+            "kind": "rest",
+            "type": "rest",
+            "name": "雨棚干地坐垫",
+            "x": 1250,
+            "y": 550,
+            "w": 65,
+            "h": 36,
+            "state": "hidden",
+            "homeX": 1250,
+            "homeY": 550
+          },
+          {
+            "id": "creek_to_kiln",
+            "kind": "exit",
+            "type": "sign",
+            "name": "← 旧窑",
+            "x": 620,
+            "y": 315,
+            "w": 90,
+            "h": 60,
+            "state": "hidden",
+            "targetScene": "kiln",
+            "targetSpawn": {
+              "x": 270,
+              "y": 480
+            },
+            "homeX": 620,
+            "homeY": 315
+          }
+        ],
+        "workshop": [
+          {
+            "id": "to_creek",
+            "kind": "exit",
+            "type": "exit",
+            "name": "← 溪道",
+            "x": 100,
+            "y": 780,
+            "w": 90,
+            "h": 60,
+            "state": "idle",
+            "targetScene": "creek",
+            "targetSpawn": {
+              "x": 1570,
+              "y": 420
+            },
+            "hint": "走近后按 E 前往",
+            "homeX": 100,
+            "homeY": 780
+          },
+          {
+            "id": "rest_workshop",
+            "kind": "rest",
+            "type": "rest",
+            "name": "静息落点",
+            "x": 1450,
+            "y": 700,
+            "w": 75,
+            "h": 50,
+            "state": "idle",
+            "hint": "安全时静息，恢复体力和灵力",
+            "homeX": 1450,
+            "homeY": 700
+          },
+          {
+            "id": "xu_work",
+            "kind": "npc",
+            "type": "xu",
+            "name": "许照",
+            "x": 1420,
+            "y": 740,
+            "w": 40,
+            "h": 62,
+            "state": "idle",
+            "hint": "交谈",
+            "homeX": 1420,
+            "homeY": 740
+          },
+          {
+            "id": "beast_a",
+            "kind": "enemy",
+            "type": "beast",
+            "name": "护食山兽",
+            "x": 720,
+            "y": 705,
+            "w": 66,
+            "h": 43,
+            "state": "idle",
+            "hp": 3,
+            "data": {
+              "lastX": 720,
+              "lastY": 705,
+              "seen": 0,
+              "attack": 0
+            },
+            "homeX": 720,
+            "homeY": 705
+          },
+          {
+            "id": "beast_b",
+            "kind": "enemy",
+            "type": "beast",
+            "name": "警惕山兽",
+            "x": 990,
+            "y": 730,
+            "w": 66,
+            "h": 43,
+            "state": "idle",
+            "hp": 3,
+            "data": {
+              "lastX": 990,
+              "lastY": 730,
+              "seen": 0,
+              "attack": 0
+            },
+            "homeX": 990,
+            "homeY": 730
+          },
+          {
+            "id": "straw",
+            "kind": "object",
+            "type": "straw",
+            "name": "干草堆",
+            "x": 820,
+            "y": 780,
+            "w": 90,
+            "h": 45,
+            "state": "idle",
+            "flammable": true,
+            "hint": "火焰会令山兽避开这一处",
+            "homeX": 820,
+            "homeY": 780
+          },
+          {
+            "id": "decoy",
+            "kind": "object",
+            "type": "decoy",
+            "name": "空木筐",
+            "x": 580,
+            "y": 700,
+            "w": 50,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "hint": "移到远处落下，声音可引开山兽一次",
+            "homeX": 580,
+            "homeY": 700
+          },
+          {
+            "id": "ring",
+            "kind": "object",
+            "type": "ring",
+            "name": "你修好的控物环",
+            "x": 1490,
+            "y": 450,
+            "w": 32,
+            "h": 32,
+            "state": "idle",
+            "hint": "凭旧系绳认领；是你付钱修整的普通法器",
+            "homeX": 1490,
+            "homeY": 450
+          },
+          {
+            "id": "tao_work",
+            "kind": "npc",
+            "type": "tao",
+            "name": "陶七",
+            "x": 1280,
+            "y": 510,
+            "w": 40,
+            "h": 62,
+            "state": "idle",
+            "hint": "交谈",
+            "homeX": 1280,
+            "homeY": 510
+          },
+          {
+            "id": "trial",
+            "kind": "object",
+            "type": "trial",
+            "name": "试环木块",
+            "x": 1530,
+            "y": 580,
+            "w": 40,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "hint": "长牵：在六步外的试环站位牵动；留势：走近牵住，再试留势",
+            "homeX": 1530,
+            "homeY": 580
+          },
+          {
+            "id": "trial_mark",
+            "kind": "scenery",
+            "type": "trial_mark",
+            "name": "试环站位",
+            "x": 1190,
+            "y": 600,
+            "w": 80,
+            "h": 50,
+            "state": "idle",
+            "hint": "长牵站在这里；留势走近木块后试",
+            "homeX": 1190,
+            "homeY": 600
+          },
+          {
+            "id": "life_hearth",
+            "kind": "object",
+            "type": "hearth",
+            "name": "挂扣炉芯",
+            "x": 1320,
+            "y": 430,
+            "w": 44,
+            "h": 46,
+            "state": "hidden",
+            "homeX": 1320,
+            "homeY": 430
+          },
+          {
+            "id": "life_jaw",
+            "kind": "object",
+            "type": "jaw",
+            "name": "活动钳口",
+            "x": 1360,
+            "y": 570,
+            "w": 48,
+            "h": 36,
+            "state": "hidden",
+            "movable": true,
+            "homeX": 1360,
+            "homeY": 570
+          },
+          {
+            "id": "life_press",
+            "kind": "object",
+            "type": "press",
+            "name": "试架压柄",
+            "x": 1450,
+            "y": 630,
+            "w": 52,
+            "h": 58,
+            "state": "hidden",
+            "homeX": 1450,
+            "homeY": 630
+          },
+          {
+            "id": "life_scent",
+            "kind": "object",
+            "type": "sachet",
+            "name": "避兽药囊",
+            "x": 300,
+            "y": 860,
+            "w": 24,
+            "h": 20,
+            "state": "hidden",
+            "homeX": 300,
+            "homeY": 860
+          },
+          {
+            "id": "journey_north_mark",
+            "kind": "object",
+            "type": "journey_north_mark",
+            "name": "北弯回程石刻",
+            "x": 320,
+            "y": 285,
+            "w": 36,
+            "h": 34,
+            "state": "hidden",
+            "homeX": 320,
+            "homeY": 285
+          },
+          {
+            "id": "journey_south_mark",
+            "kind": "object",
+            "type": "journey_south_mark",
+            "name": "南林旧绳结",
+            "x": 1250,
+            "y": 885,
+            "w": 36,
+            "h": 34,
+            "state": "hidden",
+            "homeX": 1250,
+            "homeY": 885
+          }
+        ],
+        "crossing": [
+          {
+            "id": "to_creek",
+            "kind": "exit",
+            "type": "exit",
+            "name": "← 溪道",
+            "x": 100,
+            "y": 860,
+            "w": 90,
+            "h": 60,
+            "state": "idle",
+            "targetScene": "creek",
+            "targetSpawn": {
+              "x": 1530,
+              "y": 820
+            },
+            "hint": "走近后按 E 前往",
+            "homeX": 100,
+            "homeY": 860
+          },
+          {
+            "id": "rest_crossing",
+            "kind": "rest",
+            "type": "rest",
+            "name": "静息落点",
+            "x": 300,
+            "y": 925,
+            "w": 75,
+            "h": 50,
+            "state": "idle",
+            "hint": "安全时静息，恢复体力和灵力",
+            "homeX": 300,
+            "homeY": 925
+          },
+          {
+            "id": "xu_crossing",
+            "kind": "npc",
+            "type": "xu",
+            "name": "许照",
+            "x": 340,
+            "y": 850,
+            "w": 40,
+            "h": 62,
+            "state": "idle",
+            "hint": "交谈",
+            "homeX": 340,
+            "homeY": 850
+          },
+          {
+            "id": "raider_a",
+            "kind": "enemy",
+            "type": "raider",
+            "name": "拦路散修·灰衣",
+            "x": 930,
+            "y": 630,
+            "w": 40,
+            "h": 60,
+            "state": "idle",
+            "hp": 3,
+            "data": {
+              "lastX": 930,
+              "lastY": 630,
+              "seen": 0,
+              "attack": 0
+            },
+            "homeX": 930,
+            "homeY": 630
+          },
+          {
+            "id": "raider_b",
+            "kind": "enemy",
+            "type": "raider",
+            "name": "拦路散修·短褂",
+            "x": 1040,
+            "y": 600,
+            "w": 40,
+            "h": 60,
+            "state": "idle",
+            "hp": 3,
+            "data": {
+              "lastX": 1040,
+              "lastY": 600,
+              "seen": 0,
+              "attack": 0
+            },
+            "homeX": 1040,
+            "homeY": 600
+          },
+          {
+            "id": "negotiator",
+            "kind": "object",
+            "type": "negotiator",
+            "name": "石上留话",
+            "x": 520,
+            "y": 780,
+            "w": 65,
+            "h": 50,
+            "state": "idle",
+            "hint": "近处向拦路者说明疏水办法；不必交出法器",
+            "homeX": 520,
+            "homeY": 780
+          },
+          {
+            "id": "gate",
+            "kind": "object",
+            "type": "gate",
+            "name": "闸口牵扣",
+            "x": 1090,
+            "y": 650,
+            "w": 45,
+            "h": 45,
+            "state": "idle",
+            "movable": true,
+            "hint": "先试牵示范排水；固定桩放楔后再牵，或留势腾手放楔",
+            "homeX": 1090,
+            "homeY": 650
+          },
+          {
+            "id": "gate_slot",
+            "kind": "object",
+            "type": "gate_slot",
+            "name": "闸口固定桩",
+            "x": 1040,
+            "y": 800,
+            "w": 65,
+            "h": 60,
+            "state": "idle",
+            "hint": "先在这里安楔再牵闸，或留势时安楔；松手无楔会回弹",
+            "homeX": 1040,
+            "homeY": 800
+          },
+          {
+            "id": "ridge_rope",
+            "kind": "object",
+            "type": "ridge_rope",
+            "name": "高处绳梯",
+            "x": 1100,
+            "y": 220,
+            "w": 40,
+            "h": 70,
+            "state": "idle",
+            "movable": true,
+            "hint": "把绳梯牵到西岸靠近山脊的干地，便可沿山脊走过",
+            "homeX": 1100,
+            "homeY": 220
+          },
+          {
+            "id": "shield_board",
+            "kind": "object",
+            "type": "shield_board",
+            "name": "松动挡板",
+            "x": 790,
+            "y": 700,
+            "w": 100,
+            "h": 40,
+            "state": "idle",
+            "movable": true,
+            "solid": true,
+            "hint": "牵动遮住施术来向；留势可腾手放火",
+            "homeX": 790,
+            "homeY": 700
+          },
+          {
+            "id": "far_bank",
+            "kind": "object",
+            "type": "far_bank",
+            "name": "低滩彼岸路碑",
+            "x": 1510,
+            "y": 770,
+            "w": 65,
+            "h": 70,
+            "state": "idle",
+            "hint": "亲自踏过修通的低滩，再在这里辨路",
+            "homeX": 1510,
+            "homeY": 770
+          },
+          {
+            "id": "ridge_rock_source",
+            "kind": "object",
+            "type": "ridge_rock_source",
+            "name": "山脊上方松石",
+            "x": 1390,
+            "y": 185,
+            "w": 65,
+            "h": 55,
+            "state": "idle",
+            "hint": "碎石只沿正下方落下；看到松动后等一息，或向上护持。两旁石地可避让",
+            "homeX": 1390,
+            "homeY": 185
+          },
+          {
+            "id": "ridge_marker",
+            "kind": "object",
+            "type": "ridge_marker",
+            "name": "山脊石标",
+            "x": 1510,
+            "y": 280,
+            "w": 65,
+            "h": 55,
+            "state": "idle",
+            "hint": "亲自沿山脊到这里，认定绕行路线",
+            "homeX": 1510,
+            "homeY": 280
+          }
+        ]
+      },
+      "flags": {
+        "eventSeq": 2,
+        "companion": "waiting",
+        "visited_home": true,
+        "wardCooldown": 0,
+        "dialogueRemainder": ""
+      },
+      "ringStyle": "hold",
+      "contentVersion": 5,
+      "kiln": {
+        "visited": false,
+        "entry": null,
+        "crossed": {
+          "west": false,
+          "east": false
+        },
+        "loan": "none",
+        "shelterOpened": false
+      },
+      "journey": {
+        "stage": "unaccepted",
+        "agreed": null,
+        "run": null,
+        "soloRoute": null,
+        "sharedRoute": null,
+        "restOpened": false,
+        "recordedShared": false
+      },
+      "canal": {
+        "stage": "unaccepted",
+        "inspected": false,
+        "cleared": false,
+        "method": null,
+        "sharedInspect": false,
+        "sharedVerify": false,
+        "usedClamp": false,
+        "work": null,
+        "drain": 0,
+        "flow": 0,
+        "surge": null
+      },
+      "life": {
+        "repair": {
+          "stage": "unaccepted",
+          "softened": false,
+          "stopSet": false,
+          "latched": false,
+          "tested": false,
+          "method": null,
+          "testing": null
+        },
+        "harvest": {
+          "stage": "unaccepted",
+          "sun": "unpicked",
+          "shade": "unpicked",
+          "picking": null,
+          "shared": false
+        },
+        "clamp": "unowned",
+        "sachets": 0,
+        "scent": null
+      },
+      "herbs": 2,
+      "selected": "pull",
+      "paused": true,
+      "dialogue": null,
+      "events": [
+        {
+          "seq": 1,
+          "time": 6.59834333333336,
+          "type": "change",
+          "text": "路况已经当面交代；沈砚答应亲自去开闩。",
+          "x": 470,
+          "y": 440,
+          "targetId": "market_merchant"
+        },
+        {
+          "seq": 2,
+          "time": 7.798343333333377,
+          "type": "change",
+          "text": "沈砚到闩边解开木门，随即侧身让出巷道。",
+          "x": 665,
+          "y": 440,
+          "targetId": "market_door"
+        }
+      ],
+      "projectiles": [],
+      "pending": null,
+      "ended": false,
+      "defeated": false,
+      "checkpoint": null,
+      "lastSafe": {
+        "scene": "home",
+        "point": {
+          "x": 240,
+          "y": 760
+        }
+      }
+    },
+    "preset": {
+      "mana": "ordinary",
+      "informed": true
+    },
+    "exchanged": true,
+    "trip": {
+      "transit": null,
+      "traversed": {
+        "public": false,
+        "private": false
+      },
+      "exitRoutes": null
+    },
+    "completed": {
+      "public": false,
+      "private": false
+    },
+    "returned": {
+      "public": false,
+      "private": false
+    },
+    "threat": false
+  },
+  "failureGeometry": {
+    "id": "home",
+    "title": "集口问路 · 空间与交涉白盒",
+    "subtitle": "问路、亲自穿巷，到北口确认后步行折返。",
+    "width": 1400,
+    "height": 1000,
+    "spawn": {
+      "x": 240,
+      "y": 760
+    },
+    "palette": {
+      "ground": 11971217,
+      "path": 13352352,
+      "foliage": 7830884,
+      "water": 7904940
+    },
+    "ground": [
+      {
+        "type": "floor",
+        "points": [
+          120,
+          80,
+          1280,
+          80,
+          1280,
+          920,
+          120,
+          920
+        ]
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 80,
+        "y": 40,
+        "w": 1240,
+        "h": 40
+      },
+      {
+        "x": 80,
+        "y": 920,
+        "w": 1240,
+        "h": 40
+      },
+      {
+        "x": 80,
+        "y": 80,
+        "w": 40,
+        "h": 840
+      },
+      {
+        "x": 1280,
+        "y": 80,
+        "w": 40,
+        "h": 840
+      },
+      {
+        "x": 540,
+        "y": 80,
+        "w": 240,
+        "h": 300
+      },
+      {
+        "x": 540,
+        "y": 500,
+        "w": 240,
+        "h": 280
+      },
+      {
+        "x": 1030,
+        "y": 300,
+        "w": 150,
+        "h": 40
+      },
+      {
+        "x": 1150,
+        "y": 300,
+        "w": 30,
+        "h": 180
+      }
+    ],
+    "entities": [
+      {
+        "id": "market_merchant",
+        "name": "沈砚",
+        "kind": "npc",
+        "type": "market-merchant",
+        "x": 470,
+        "y": 440,
+        "w": 40,
+        "h": 60,
+        "state": "idle"
+      },
+      {
+        "id": "market_door",
+        "name": "私巷木门",
+        "kind": "object",
+        "type": "market-door",
+        "x": 665,
+        "y": 440,
+        "w": 30,
+        "h": 120,
+        "state": "closed",
+        "solid": true
+      },
+      {
+        "id": "market_entry",
+        "name": "原口",
+        "kind": "exit",
+        "type": "market-endpoint",
+        "x": 240,
+        "y": 760,
+        "w": 60,
+        "h": 70,
+        "state": "idle"
+      },
+      {
+        "id": "market_exit",
+        "name": "北口",
+        "kind": "exit",
+        "type": "market-endpoint",
+        "x": 1140,
+        "y": 240,
+        "w": 60,
+        "h": 70,
+        "state": "idle"
+      },
+      {
+        "id": "decoy",
+        "name": "无主空筐",
+        "kind": "object",
+        "type": "decoy",
+        "x": 460,
+        "y": 720,
+        "homeX": 460,
+        "homeY": 720,
+        "w": 50,
+        "h": 40,
+        "state": "idle",
+        "movable": true,
+        "flammable": true
+      },
+      {
+        "id": "market_raider",
+        "name": "占道散修",
+        "kind": "enemy",
+        "type": "raider",
+        "x": 850,
+        "y": 560,
+        "homeX": 850,
+        "homeY": 560,
+        "w": 40,
+        "h": 60,
+        "hp": 3,
+        "state": "idle",
+        "data": {
+          "lastX": 850,
+          "lastY": 560,
+          "seen": 0,
+          "attack": 0
+        }
+      }
+    ],
+    "revision": "market-whitebox-2",
+    "points": {
+      "entry": {
+        "x": 240,
+        "y": 760
+      },
+      "exit": {
+        "x": 1140,
+        "y": 240
+      },
+      "merchant": {
+        "x": 470,
+        "y": 440
+      },
+      "latch": {
+        "x": 620,
+        "y": 440
+      },
+      "decoy": {
+        "x": 460,
+        "y": 720
+      },
+      "enemy": {
+        "x": 850,
+        "y": 560
+      }
+    },
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "dpr": 1.9641855032959652,
+      "usable": {
+        "x": 0,
+        "y": 156,
+        "width": 1440,
+        "height": 605
+      }
+    },
+    "camera": {
+      "x": 0,
+      "y": 156,
+      "zoom": 1,
+      "scrollX": -694.2135623730949,
+      "scrollY": -75,
+      "overview": false,
+      "manual": false
+    }
+  },
+  "failureVisual": "/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/market-070/qa/whitebox/market-2026-09-11T13-43-16-816Z/failure.png"
+}

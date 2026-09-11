@@ -75,7 +75,7 @@ class MarketScene extends Phaser.Scene {
         const c = this.cameras.main, o = c.getWorldPoint(c.x, c.y);
         return { x: (c.x + (x - o.x) * c.zoom) / dpr, y: (c.y + (y - o.y) * c.zoom) / dpr };
       },
-      geometry: () => structuredClone({ ...MARKET_MAP, revision: 'market-whitebox-2', points: MARKET_POINTS,
+      geometry: () => structuredClone({ ...MARKET_MAP, revision: 'market-whitebox-3', points: MARKET_POINTS,
         viewport: { width: innerWidth, height: innerHeight, dpr, usable: this.usable },
         camera: { x: this.cameras.main.x / dpr, y: this.cameras.main.y / dpr, zoom: this.cameras.main.zoom / dpr,
           scrollX: this.cameras.main.scrollX, scrollY: this.cameras.main.scrollY, overview: this.overview, manual: this.manual } }),

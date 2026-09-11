@@ -10,7 +10,7 @@ export interface MarketRun {
  completed:Record<MarketRoute,boolean>; returned:Record<MarketRoute,boolean>;
 }
 export const MARKET_POINTS:Record<'entry'|'exit'|'merchant'|'latch'|'decoy'|'enemy',Vec>={
- entry:{x:240,y:760},exit:{x:1140,y:240},merchant:{x:470,y:440},latch:{x:620,y:440},decoy:{x:460,y:720},enemy:{x:850,y:560},
+ entry:{x:240,y:760},exit:{x:1140,y:240},merchant:{x:470,y:380},latch:{x:620,y:440},decoy:{x:460,y:720},enemy:{x:850,y:560},
 };
 export const MARKET_MAP:SceneDefinition={
  id:'home',title:'集口问路 · 空间与交涉白盒',subtitle:'问路、亲自穿巷，到北口确认后步行折返。',width:1400,height:1000,spawn:{...MARKET_POINTS.entry},

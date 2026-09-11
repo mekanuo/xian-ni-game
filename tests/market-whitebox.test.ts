@@ -17,6 +17,7 @@ describe('market fixed whitebox and synthetic boundary fixtures',()=>{
  it('installs reversibly and publishes only explicit fresh premises',()=>{
   expect(SCENES.home).toBe(MARKET_MAP);
   const r=createMarketRun({mana:'zero',informed:false});expect(r.state.player.mana).toBe(0);expect(r.state.ringStyle).toBe('hold');
+  expect(obj(r,'market_merchant')).toMatchObject({x:470,y:380});
   expect(r.state.worlds.home.filter(e=>e.kind==='enemy')).toHaveLength(1);expect(obj(r,'market_raider').hp).toBe(3);
   expect(r.exchanged).toBe(false);expect(r.completed).toEqual({public:false,private:false});expect(r.state.checkpoint).toBeNull();
   expect(()=>createMarketRun({mana:'fake',informed:true} as never)).toThrow();
@@ -30,7 +31,7 @@ describe('market fixed whitebox and synthetic boundary fixtures',()=>{
   step(r,.5);expect(obj(r,'market_merchant').x).toBeGreaterThan(470);expect(obj(r,'market_door').state).toBe('closed');
   step(r,1);expect(obj(r,'market_door').state).toBe('open');expect(obj(r,'market_door').solid).toBe(false);
   const positions=[];for(let i=0;i<150;i++){step(r,1/60);positions.push({...obj(r,'market_merchant')});}
-  expect(positions.some(p=>p.y<=406&&p.x>500)).toBe(true);expect(obj(r,'market_merchant').x).toBeCloseTo(470);expect(obj(r,'market_merchant').y).toBeCloseTo(440);
+  expect(positions.some(p=>p.y<=406&&p.x>500)).toBe(true);expect(obj(r,'market_merchant').x).toBeCloseTo(470);expect(obj(r,'market_merchant').y).toBeCloseTo(380);
  });
  it('does not accept fabricated remote choices or a missing information premise',()=>{
   const r=fresh();expect(talk(r).ok).toBe(false);expect(marketAct(r,{type:'choose',choiceId:'market:exchange'}).ok).toBe(false);
@@ -40,7 +41,7 @@ describe('market fixed whitebox and synthetic boundary fixtures',()=>{
  it('uses present range and actual wall visibility, not historical enemy alert',()=>{
   const r=atStall(),e=obj(r,'market_raider');e.state='alert';e.data!.seen=3;
   expect(marketThreat(r)).toBe(false);Object.assign(e,point(710,560));expect(marketThreat(r)).toBe(false);
-  Object.assign(e,point(490,700));expect(marketThreat(r)).toBe(true);talk(r);expect(marketAct(r,{type:'choose',choiceId:'market:exchange'}).ok).toBe(false);
+  Object.assign(e,point(490,660));expect(marketThreat(r)).toBe(true);talk(r);expect(marketAct(r,{type:'choose',choiceId:'market:exchange'}).ok).toBe(false);
   e.state='retreated';expect(marketThreat(r)).toBe(false);
  });
  it('stops at visible threat and autonomously resumes; opened door remains open',()=>{
@@ -147,23 +148,47 @@ describe('fixed initial state actual act/tick replay without state injection',()
  });
 });
 
+it('actual decoy lure tolerates two-second dispatch and talk delays before a visible stop and autonomous return',()=>{
+ const r=fresh();walk(r,380,720,.8,'click');
+ expect(marketAct(r,{type:'cast',spell:'pull',targetId:'decoy',point:point(460,720)}).ok).toBe(true);
+ expect(marketAct(r,{type:'move',point:point(490,840)}).ok).toBe(true);step(r,.8);
+ expect(marketAct(r,{type:'release'}).ok).toBe(true);
+ for(let i=0;i<1800&&!(r.state.events.some(e=>e.type==='alert')&&obj(r,'market_raider').x<=610);i++)step(r,1/60);
+ expect(r.state.events.some(e=>e.type==='alert')).toBe(true);expect(obj(r,'market_raider').x).toBeLessThanOrEqual(610);
+ step(r,2);walk(r,480,460,.8,'click');step(r,2);
+ expect(marketThreat(r),'safe stall must support normal input delays before the promise').toBe(false);
+ expect(exchange(r).ok).toBe(true);step(r,2);
+ const npc=obj(r,'market_merchant');expect(npc.x).toBeGreaterThan(470);expect(npc.x).toBeLessThan(610);
+ expect(npc.state).toBe('waiting');expect(marketThreat(r)).toBe(true);expect(obj(r,'market_door').state).toBe('closed');
+ for(const [x,y] of [[180,500],[180,880],[180,780]])walk(r,x,y,.8,'click');step(r,1);
+ expect(r.state.player.hp).toBeGreaterThan(0);expect(r.state.player.mana).toBe(5);expect(obj(r,'market_raider').hp).toBe(3);
+ expect(obj(r,'market_raider').state).not.toMatch(/peaceful|retreated/);
+ expect(obj(r,'market_door').state).toBe('open');expect(marketThreat(r)).toBe(false);
+ expect(npc).toMatchObject({x:470,y:380,state:'idle'});expect(r.exchanged).toBe(true);
+ expect(marketAct(r,{type:'interact',targetId:'market_entry'}).ok).toBe(true);expect(r.completed).toEqual({public:false,private:false});
+ console.log('MARKET_DELAYED_LURE',JSON.stringify({time:r.state.time,hp:r.state.player.hp,mana:r.state.player.mana,npc,enemy:obj(r,'market_raider')}));
+});
+
 it.each(['keys','click'] as const)('actual decoy lure interrupts and resumes without another request using %s',(mode)=>{
  const r=fresh();walk(r,380,720,.8,mode);marketAct(r,{type:'cast',spell:'pull',targetId:'decoy',point:point(460,720)});marketAct(r,{type:'move',point:point(490,840)});step(r,.8);marketAct(r,{type:'release'});
  for(let i=0;i<1500&&obj(r,'market_raider').x>610;i++)step(r,1/60);
- walk(r,430,500,.8,mode);expect(exchange(r).ok).toBe(true);step(r,2);
+ step(r,1);walk(r,480,460,.8,mode);step(r,1);expect(exchange(r).ok).toBe(true);step(r,2);
  expect(obj(r,'market_merchant').state).toBe('waiting');expect(obj(r,'market_door').state).toBe('closed');
  const stopped={...obj(r,'market_merchant')};
- walk(r,180,500,.8,mode);walk(r,180,850,.8,mode);walk(r,mode==='click'?180:240,mode==='click'?780:760,.8,mode);step(r,2);
+ walk(r,180,500,.8,mode);walk(r,180,880,.8,mode);walk(r,mode==='click'?180:240,mode==='click'?780:760,.8,mode);step(r,1);
  expect(r.state.player.mana).toBe(5);expect(r.state.player.hp).toBeGreaterThan(0);expect(obj(r,'market_raider').hp).toBe(3);
  console.log('AUTO_RESUME',JSON.stringify({t:r.state.time,hp:r.state.player.hp,mana:r.state.player.mana,stopped,npc:obj(r,'market_merchant'),door:obj(r,'market_door'),e:obj(r,'market_raider')}));
  expect(obj(r,'market_door').state).toBe('open');expect(r.exchanged).toBe(true);
- expect(marketThreat(r)).toBe(true);expect(obj(r,'market_merchant').state).toBe('waiting');
+ expect(marketThreat(r)).toBe(false);expect(obj(r,'market_merchant')).toMatchObject({x:470,y:380,state:'idle'});
  expect(marketAct(r,{type:'interact',targetId:'market_entry'}).ok).toBe(true);expect(r.completed).toEqual({public:false,private:false});
 });
 
 it.each(['keys','click'] as const)('zero-resource eastern loop and withdrawal using %s',(mode)=>{
  const r=createMarketRun({mana:'zero',informed:true});
- for(const [x,y] of [[420,840],[880,840],[1220,900],[880,900],[680,900],[430,900],[430,500]])walk(r,x,y,.8,mode);
+ for(const [x,y] of [[420,840],[880,840],[1220,900],[880,900],[680,900],[430,900]])walk(r,x,y,.8,mode);
+ // An actual pause in the exposed western lane lets the pursuing body catch up.
+ // Going straight to the northern stall may break sight and permit a safe exchange.
+ walk(r,430,650,2,mode);walk(r,430,430,.8,mode);
  for(let i=0;i<600&&!marketThreat(r);i++)step(r,1/60);
  expect(marketThreat(r)).toBe(true);expect(talk(r).ok).toBe(true);
  expect(marketAct(r,{type:'choose',choiceId:'market:exchange'}).ok).toBe(false);marketAct(r,{type:'choose',choiceId:'leave'});
@@ -172,6 +197,29 @@ it.each(['keys','click'] as const)('zero-resource eastern loop and withdrawal us
  expect(r.state.player.mana).toBe(0);expect(r.state.player.hp).toBeGreaterThan(0);expect(obj(r,'market_raider').hp).toBe(3);
  expect(r.exchanged).toBe(false);expect(obj(r,'market_door').state).toBe('closed');expect(r.completed).toEqual({public:false,private:false});
  console.log('ZERO_THREAT_WITHDRAWAL',JSON.stringify({time:r.state.time,hp:r.state.player.hp,mana:r.state.player.mana,enemy:obj(r,'market_raider')}));
+});
+
+it('actual zero-resource click escape from an alerted enemy still permits exchange when the stall is safe',()=>{
+ const r=createMarketRun({mana:'zero',informed:true});
+ for(const [x,y] of [[420,840],[880,840],[1220,900],[880,900],[680,900],[430,900],[430,430]])walk(r,x,y,.8,'click');
+ step(r,3);expect(r.state.events.some(e=>e.type==='alert')).toBe(true);expect(marketThreat(r)).toBe(false);
+ expect(exchange(r).ok).toBe(true);step(r,4);expect(obj(r,'market_door').state).toBe('open');
+ expect(r.state.player.mana).toBe(0);expect(obj(r,'market_raider').hp).toBe(3);
+});
+
+it('actual post-opening eastern loop brings a visible threat back without retracting the fulfilled promise',()=>{
+ const r=fresh();walk(r,470,760,.8,'click');const near=interactionPoint(r.state,'market_merchant')!;
+ walk(r,near.x,near.y,.8,'click');expect(exchange(r).ok).toBe(true);step(r,4);
+ expect(obj(r,'market_door').state).toBe('open');expect(obj(r,'market_merchant')).toMatchObject({x:470,y:380,state:'idle'});
+ for(const [x,y] of [[420,840],[880,840],[1220,900],[880,900],[680,900],[430,900]])walk(r,x,y,.8,'click');
+ walk(r,430,650,2,'click');walk(r,430,430,.8,'click');
+ for(let i=0;i<600&&!marketThreat(r);i++)step(r,1/60);
+ expect(marketThreat(r)).toBe(true);expect(talk(r).ok).toBe(true);expect(r.state.dialogue?.text).toContain('门已开');
+ expect(r.state.dialogue?.choices.some(c=>c.id==='market:exchange')).toBe(false);
+ expect(obj(r,'market_door').state).toBe('open');marketAct(r,{type:'choose',choiceId:'leave'});
+ for(const [x,y] of [[180,500],[180,850],[180,780]])walk(r,x,y,.8,'click');
+ expect(obj(r,'market_door').state).toBe('open');expect(r.state.player.hp).toBeGreaterThan(0);
+ expect(r.state.player.mana).toBe(6);expect(obj(r,'market_raider').hp).toBe(3);
 });
 
 it('synthetic open fixture counts west entry via the actual free western margin, not a virtual wider gate',()=>{
@@ -225,7 +273,7 @@ it('the actual body cannot cross the closed door, then can cross once the NPC ph
  walk(r,470,440);exchange(r);step(r,3);walk(r,720,440);expect(r.state.player.x).toBeGreaterThan(700);
 });
 it('synthetic opened-door threat dialogue acknowledges the fulfilled promise instead of postponing the door again',()=>{
- const r=atStall();r.exchanged=true;obj(r,'market_door').state='open';Object.assign(obj(r,'market_raider'),point(490,700));
+ const r=atStall();r.exchanged=true;obj(r,'market_door').state='open';Object.assign(obj(r,'market_raider'),point(490,660));
  expect(marketThreat(r)).toBe(true);expect(talk(r).ok).toBe(true);
  expect(r.state.dialogue?.text).toContain('门已开');expect(r.state.dialogue?.text).not.toContain('等他离远');
  expect(r.state.dialogue?.choices.some(c=>c.id==='market:exchange')).toBe(false);expect(obj(r,'market_door').state).toBe('open');

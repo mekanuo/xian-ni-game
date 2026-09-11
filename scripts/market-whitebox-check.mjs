@@ -13,7 +13,7 @@ const url = process.env.GAME_URL || 'http://127.0.0.1:4193/market-whitebox.html'
 const output = resolve(process.env.MARKET_OUTPUT || process.env.OUTPUT || 'qa/whitebox/market.json');
 const runId = new Date().toISOString().replaceAll(/[:.]/g, '-');
 const evidence = join(dirname(output), `market-${runId}`);
-const caseNames = ['quiet', 'public-zero', 'lure', 'threat-zero', 'pause'];
+const caseNames = ['quiet', 'public-zero', 'lure', 'threat-zero', 'open-threat', 'pause'];
 const deviceSpecs = {
   desktop: { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2, hasTouch: false },
   phone: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true },
@@ -148,6 +148,19 @@ async function paused(value) {
   if ((await inspect()).state.paused !== value) await action('pause');
   await waitFor(`paused=${value}`, r => r.state.paused === value);
 }
+async function preparePauseTap() {
+  // Read the real, stable control before starting a short motion. Avoid doing a
+  // sequence of slow state reads after observing the motion we intend to pause.
+  const box = await page.locator('[data-action="pause"]').boundingBox();
+  assert.ok(box, 'The actual pause control must be visible');
+  const p = point(box.x + box.width / 2, box.y + box.height / 2);
+  assert.equal(await page.evaluate(p => document.elementFromPoint(p.x, p.y)?.getAttribute('data-action'), p), 'pause');
+  return async observed => {
+    log(device === 'phone' ? 'touch-prepared-pause' : 'click-prepared-pause', { delivered: p, observedTime: observed.state.time });
+    if (device === 'phone') await page.touchscreen.tap(p.x, p.y); else await page.mouse.click(p.x, p.y);
+    await waitFor('prepared real pause input is applied', r => r.state.paused);
+  };
+}
 async function frozen(label) {
   const before = await inspect(); await page.waitForTimeout(650);
   assert.deepEqual(await inspect(), before, `${label}: dialogue/manual pause must freeze actors, projectiles, time and pending input`);
@@ -172,7 +185,7 @@ async function reset(preset) {
   assert.equal(door(r).state, 'closed'); assert.equal(door(r).solid, true);
   assert.deepEqual(r.completed, { public: false, private: false }); assert.deepEqual(r.returned, { public: false, private: false });
   assert.deepEqual(r.trip, { transit: null, traversed: { public: false, private: false }, exitRoutes: null });
-  assert.equal(npc(r).x, 470); assert.equal(npc(r).y, 440); assert.equal(enemy(r).hp, 3); assert.equal(enemy(r).state, 'idle');
+  assert.equal(npc(r).x, 470); assert.equal(npc(r).y, 380); assert.equal(enemy(r).hp, 3); assert.equal(enemy(r).state, 'idle');
   assert.equal(r.state.checkpoint, null); assert.equal(r.state.ringStyle, 'hold');
   await observe('fresh restart', r);
   current.initialState ??= facts(r);
@@ -230,7 +243,7 @@ scenarios.quiet = async () => {
   const agreed = await observe('promise before physical opening');
   assert.equal(agreed.exchanged, true); assert.equal(door(agreed).state, 'closed');
   const start = current.motion.length;
-  await waitFor('NPC actually touches latch, opens, steps aside and returns', r => door(r).state === 'open' && Math.hypot(npc(r).x - 470, npc(r).y - 440) <= 5 && npc(r).state === 'idle');
+  await waitFor('NPC actually touches latch, opens, steps aside and returns', r => door(r).state === 'open' && Math.hypot(npc(r).x - 470, npc(r).y - 380) <= 5 && npc(r).state === 'idle');
   const motion = current.motion.slice(start);
   assert.ok(motion.some(r => r.door.state === 'closed' && r.npc.x > 480), 'Promise alone is insufficient: actual closed-door NPC walking must be observed');
   assert.ok(motion.some(r => r.door.state === 'open' && r.npc.y <= 413), 'NPC must actually step aside after opening');
@@ -280,8 +293,8 @@ scenarios.lure = async () => {
   assert.equal(drop.state.player.pullId, null); assert.equal(drop.state.player.mana, 5);
   assert.equal(entity(drop, 'decoy').data.noiseUsed, true);
   assert.ok(drop.state.events.some(e => e.type === 'drop'));
-  await waitFor('enemy follows the drop and actually sees the player before withdrawal', r => enemy(r).x <= 700 && r.state.events.some(e => e.type === 'alert' && e.targetId === 'market_raider'), 30000);
-  await walk(430, 500); await interact('market_merchant');
+  await waitFor('enemy physically follows the drop into the western approach', r => enemy(r).x <= 610, 30000);
+  await walk(480, 460); await interact('market_merchant');
   assert.equal((await inspect()).threat, false, 'Exchange must occur while the current encounter is actually safe');
   await choose('market:exchange'); await activeGap(2);
   const stopped = await waitFor('NPC sees the approaching enemy and stops before opening', r => r.threat && npc(r).state === 'waiting' && door(r).state === 'closed');
@@ -290,16 +303,11 @@ scenarios.lure = async () => {
   await observe('actual visible-threat interruption', stopped);
   // Keep the active retreat uninterrupted by screenshot readback on software GPU.
   // The sampled positions prove this transient stop; capture after withdrawal.
-  for (const [x, y] of [[180, 500], [180, 850], [180, 780]]) await walk(x, y);
+  for (const [x, y] of [[180, 500], [180, 880], [180, 780]]) await walk(x, y);
   const opened = await waitFor('lost threat permits autonomous movement and opening without another request', r => door(r).state === 'open');
   assert.equal(opened.exchanged, true); assert.equal(opened.state.player.mana, 5); assert.equal(enemy(opened).hp, 3);
   assert.ok(npc(opened).x > npc(stopped).x || current.motion.some(r => r.door.state === 'open' && r.npc.x >= 600), 'Actual resumed latch movement must be observed');
   await observe('automatic opening after real withdrawal', opened);
-  // The new threat after opening is a distinct condition from the earlier closed
-  // pause: NPC may stop on her return or already be idle at the stall; either
-  // legal position must keep the physical open leaf passable.
-  const rethreat = await waitFor('door stays open when the NPC sees danger again', r => r.threat && door(r).state === 'open', 15000);
-  await observe('open door under a subsequent actual threat', rethreat);
   await withdraw();
   const r = await observe('resource lure then actual original-endpoint withdrawal');
   current.outcome = facts(r);
@@ -310,14 +318,15 @@ scenarios.lure = async () => {
 };
 scenarios['threat-zero'] = async () => {
   await reset({ mana: 'zero', informed: true });
-  for (const [x, y] of [[420, 840], [880, 840], [1220, 900], [880, 900], [680, 900], [430, 900], [430, 500]]) await walk(x, y);
+  for (const [x, y] of [[420, 840], [880, 840], [1220, 900], [880, 900], [680, 900], [430, 900]]) await walk(x, y);
+  await walk(430, 650); await activeGap(2); await walk(430, 430);
   await waitFor('zero-resource eastern loop creates an actually visible threat at the stall', r => r.threat, 15000);
   await interact('market_merchant');
   const meeting = await observe('actual near-threat refusal at zero mana');
   assert.equal(meeting.threat, true); assert.equal(meeting.exchanged, false);
   assert.equal(await page.locator('#dialogue button[data-choice="market:exchange"]:enabled').count(), 0);
   await frozen('reading a real threat refusal freezes the world'); await choose('leave');
-  for (const [x, y] of [[180, 500], [180, 850], [180, 780]]) await walk(x, y);
+  for (const [x, y] of [[180, 500], [180, 880], [180, 780]]) await walk(x, y);
   await withdraw();
   const r = await observe('zero-resource withdrawal without pretending north was reached');
   current.outcome = facts(r);
@@ -325,6 +334,23 @@ scenarios['threat-zero'] = async () => {
   assert.equal(door(r).state, 'closed'); assert.deepEqual(r.completed, { public: false, private: false }); assert.deepEqual(r.returned, { public: false, private: false });
   assert.ok(Math.hypot(r.state.player.x - 240, r.state.player.y - 760) <= 65);
   await screenshot('withdrawal-close-view', true);
+};
+scenarios['open-threat'] = async () => {
+  await reset({ mana: 'ordinary', informed: true });
+  await walk(470, 760); await interact('market_merchant'); await choose('market:exchange');
+  await waitFor('actual opening and return before a separate encounter', r => door(r).state === 'open' && Math.hypot(npc(r).x - 470, npc(r).y - 380) <= 5);
+  for (const [x, y] of [[420, 840], [880, 840], [1220, 900], [880, 900], [680, 900], [430, 900]]) await walk(x, y);
+  await walk(430, 650); await activeGap(2); await walk(430, 430);
+  const threat = await waitFor('real renewed danger after physical opening', r => r.threat && door(r).state === 'open', 15000);
+  await observe('already-open door remains passable under renewed danger', threat);
+  await interact('market_merchant');
+  assert.equal((await inspect()).threat, true); assert.equal(door(await inspect()).solid, false);
+  await choose('leave');
+  for (const [x, y] of [[180, 500], [180, 880], [180, 780]]) await walk(x, y);
+  await withdraw();
+  const r = await observe('actual withdrawal after visiting an open door under threat');
+  assert.equal(r.state.player.mana, 6); assert.equal(enemy(r).hp, 3); assert.equal(door(r).state, 'open');
+  current.outcome = facts(r); await screenshot('open-threat-withdrawal', true);
 };
 scenarios.pause = async () => {
   await reset({ mana: 'ordinary', informed: true });
@@ -344,18 +370,22 @@ scenarios.pause = async () => {
   assert.equal(agreed.exchanged, true); assert.equal(agreed.state.dialogue, null); assert.equal(agreed.state.paused, true);
   assert.equal(door(agreed).state, 'closed'); assert.equal(npc(agreed).x, 470);
   await frozen('manual pause survives closing dialogue');
+  const pauseNpc = await preparePauseTap();
   await paused(false);
-  await waitFor('NPC starts an actual in-flight walk', r => npc(r).x > 480 && door(r).state === 'closed');
-  await paused(true);
+  const npcMoving = await waitFor('NPC starts an actual in-flight walk', r => npc(r).x > 480 && door(r).state === 'closed');
+  await pauseNpc(npcMoving);
   const mid = await observe('manual pause during NPC movement');
   assert.ok(npc(mid).x > 470 && npc(mid).x < 612); assert.equal(door(mid).state, 'closed');
   await frozen('mid-walk NPC pause');
   await paused(false);
   await waitFor('NPC resumes from the actual paused position and opens', r => door(r).state === 'open');
   await observe('resumed opening');
+  const pausePlayer = await preparePauseTap();
   await action('walk'); await world(point(300, 600));
-  await waitFor('player actually moving before manual pause', r => r.state.player.path.length > 0 && r.state.player.x < 450);
-  await paused(true); await frozen('mid-path player pause'); await paused(false);
+  const playerMoving = await waitFor('player actually moving before manual pause', r => r.state.player.path.length > 0 && r.state.player.x < 450);
+  await pausePlayer(playerMoving);
+  assert.ok((await inspect()).state.player.path.length > 0, 'Pause must arrive before the original player path finishes');
+  await frozen('mid-path player pause'); await paused(false);
   await waitFor('original player path finishes after resume', r => !r.state.player.path.length && Math.hypot(r.state.player.x - 300, r.state.player.y - 600) <= 24);
   await screenshot('resumed-player-close-view', true);
   // Restart while paused proves no old actor path, promise, held object or paused

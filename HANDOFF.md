@@ -10,6 +10,10 @@
 
 正式运行包index-BTwh6Je1.js / index-B8Ldhq7K.css。新窑连接溪道与旧渠、杜芹借还/现场归位确认/棚角许可、烧屏持久化与脚下落屏零灵力脱困、v5严格迁移均包含。首轮驱动FAIL及其他修复前证据保留对应rejected目录，不是当前失败。公网重新核验须EXPECTED_SOURCE_COMMIT指定上述源码全SHA，文档HEAD不同不能当发行源码。
 
+## 0.7当前覆盖更新
+
+第三候选revision3已构建market-whitebox-CUicfkSa.js；沈砚470380，其余地形规则不变。40模型测试/tsc通过，代理已停写。真实浏览器新包待跑；以下第二候选PASS只代表旧包。当前六案两设备：quiet/public-zero/lure/threat-zero/open-threat/pause。open-threat为独立实际已开门后引敌重访；诱物撤离自身不会再遇敌，不能空等。暂停驱动提前取真实按钮位置避免多次读取错失途中动作，尚待复测。
+
 ## 0.7当前范围
 
 设计入口design/ADVENTURE_070.md、MARKET_070_GEOMETRY_REVIEW.md、BUILD_BRIEF_070_WHITEBOX.md；计划docs/superpowers/plans/2026-09-11-market-whitebox.md。只做一张小集/沈砚/私门/一敌/一无主诱物的交涉与通行白盒，没有生产美术、正式跨图或新存档格式。未批准生产；先看实际输入结果。小集所有生产入口仍需journey完成（包括独行认路），不能把未接旧渠当正常进入前提。
