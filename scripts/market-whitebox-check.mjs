@@ -40,7 +40,7 @@ const report = {
     'Placeholder art, subjective fun, balance and production release readiness are not proven by this report.',
   ],
 };
-let browser, page, current, device, touchSession, doorOpened = false;
+let browser, page, current, device, touchSession, capturePause, doorOpened = false;
 const entity = (r, id) => r.state.worlds.home.find(e => e.id === id);
 const npc = r => entity(r, 'market_merchant');
 const door = r => entity(r, 'market_door');
@@ -215,6 +215,7 @@ async function reset(preset) {
   assert.deepEqual(r.trip, { transit: null, traversed: { public: false, private: false }, exitRoutes: null });
   assert.equal(npc(r).x, 470); assert.equal(npc(r).y, 380); assert.equal(enemy(r).hp, 3); assert.equal(enemy(r).state, 'idle');
   assert.equal(r.state.checkpoint, null); assert.equal(r.state.ringStyle, 'hold');
+  capturePause = await preparePauseTap();
   await observe('fresh restart', r);
   current.initialState ??= facts(r);
   current.restartState = facts(r);
@@ -239,6 +240,10 @@ async function withdraw() {
   const before = await inspect();
   await interact('market_entry');
   const r = await waitFor('new actual original-endpoint response', r => r.state.events.some(e => e.seq > Number(before.state.flags.eventSeq ?? 0) && e.targetId === 'market_entry' && e.text.includes('结束这趟')));
+  // This is the already-accepted endpoint outcome. Use the visible pause
+  // button immediately for evidence capture, before extra readback/PNG work;
+  // never pause the active retreat or manufacture an endpoint response.
+  await capturePause(r);
   assert.equal(r.trip.exitRoutes, null); assert.equal(r.state.player.path.length, 0);
   assert.ok(Math.hypot(r.state.player.x - 240, r.state.player.y - 760) <= 65);
   await observe('original endpoint explicitly accepted withdrawal', r);
