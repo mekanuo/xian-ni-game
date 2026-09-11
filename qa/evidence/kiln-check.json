@@ -1,0 +1,2157 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "startedAt": "2026-09-11T10:31:05.526Z",
+  "selection": "all",
+  "environment": {
+    "url": "http://127.0.0.1:4187/",
+    "platform": "linux",
+    "limitation": "Linux Chrome desktop and emulated phone, not physical Mac/Safari/phone.",
+    "browser": "150.0.7871.114"
+  },
+  "routes": [
+    {
+      "id": "desktop",
+      "status": "PASS",
+      "inputTrace": [
+        {
+          "action": "settings-import",
+          "detail": {
+            "name": "return-journey-v0.5.0.json",
+            "contentVersion": 5
+          },
+          "wallMs": 12273
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "to_creek",
+            "scene": "home",
+            "world": {
+              "x": 1640,
+              "y": 690
+            }
+          },
+          "wallMs": 18058
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 720,
+              "y": 440
+            },
+            "dx": -576,
+            "dy": -240
+          },
+          "wallMs": 23836
+        },
+        {
+          "action": "choose",
+          "detail": "canal:depart:creek",
+          "wallMs": 36191
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 300,
+            "y": 740
+          },
+          "wallMs": 42174
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 300,
+            "y": 340
+          },
+          "wallMs": 45926
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 700,
+            "y": 315
+          },
+          "wallMs": 52787
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "creek_to_kiln",
+            "scene": "creek",
+            "world": {
+              "x": 620,
+              "y": 315
+            }
+          },
+          "wallMs": 60108
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 360,
+            "y": 700
+          },
+          "wallMs": 76160
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 360,
+            "y": 820
+          },
+          "wallMs": 83439
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 800,
+            "y": 820
+          },
+          "wallMs": 88828
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1030,
+            "y": 820
+          },
+          "wallMs": 99620
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1220,
+            "y": 820
+          },
+          "wallMs": 106951
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1220,
+            "y": 650
+          },
+          "wallMs": 113399
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "kiln_to_canal",
+            "scene": "kiln",
+            "world": {
+              "x": 1220,
+              "y": 540
+            }
+          },
+          "wallMs": 120158
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 460,
+            "y": 520
+          },
+          "wallMs": 125256
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "canal_to_kiln",
+            "scene": "canal",
+            "world": {
+              "x": 460,
+              "y": 450
+            }
+          },
+          "wallMs": 130271
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1290,
+            "y": 540
+          },
+          "wallMs": 135235
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1290,
+            "y": 140
+          },
+          "wallMs": 140343
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 720,
+              "y": 440
+            },
+            "dx": -549.7825561802115,
+            "dy": 240
+          },
+          "wallMs": 147668
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 800,
+            "y": 140
+          },
+          "wallMs": 157006
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 360,
+            "y": 170
+          },
+          "wallMs": 168585
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 270,
+            "y": 420
+          },
+          "wallMs": 179570
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "kiln_to_creek",
+            "scene": "kiln",
+            "world": {
+              "x": 180,
+              "y": 480
+            }
+          },
+          "wallMs": 187999
+        },
+        {
+          "action": "settings-export",
+          "detail": "qa/evidence/kiln-zero-complete-export.json",
+          "wallMs": 203865
+        }
+      ],
+      "observations": {
+        "west-entry": {
+          "visual": "qa/evidence/kiln-desktop-west-entry.png",
+          "state": {
+            "scene": "kiln",
+            "time": 322.4166666667021,
+            "player": {
+              "x": 270,
+              "y": 480,
+              "hp": 4,
+              "mana": 0,
+              "facing": -0.06903255034826011,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "kiln": {
+              "visited": true,
+              "entry": "west",
+              "crossed": {
+                "west": false,
+                "east": false
+              },
+              "loan": "none",
+              "shelterOpened": false
+            },
+            "journey": {
+              "stage": "complete",
+              "agreed": "together",
+              "run": null,
+              "soloRoute": null,
+              "sharedRoute": "north",
+              "restOpened": true,
+              "recordedShared": true
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 52,
+                "time": 209.1333333333919,
+                "type": "note",
+                "text": "约定记下了，还不算一起走过。按原来的条件邀请许照，实际到旧工棚东侧歇脚处，再让她带回程。"
+              },
+              {
+                "seq": 53,
+                "time": 216.71666666673127,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 54,
+                "time": 229.51666666674146,
+                "type": "scene",
+                "text": "林路与旧工棚"
+              },
+              {
+                "seq": 55,
+                "time": 251.76666666675916,
+                "type": "route",
+                "text": "许照从工棚东侧动身，自己带北侧高路。你仍要亲自行走；前路不稳或你落后时，她会停下。"
+              },
+              {
+                "seq": 56,
+                "time": 279.91666666674075,
+                "type": "relationship",
+                "text": "许照与你在工棚西口会合。北侧高路是这次双方亲自走过的回程；继续去溪道雨棚，留好歇脚处。"
+              },
+              {
+                "seq": 57,
+                "time": 279.91666666674075,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 58,
+                "time": 283.63333333340404,
+                "type": "change",
+                "text": "你在棚内干地展开坐垫。这里以后可以静息；回驿把亲自走过的回程记下来。",
+                "x": 1250,
+                "y": 550,
+                "targetId": "journey_rest_shelter"
+              },
+              {
+                "seq": 59,
+                "time": 296.2000000000593,
+                "type": "return",
+                "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+              },
+              {
+                "seq": 60,
+                "time": 296.2000000000593,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 61,
+                "time": 301.85000000005414,
+                "type": "growth",
+                "text": "许照在桌边补了一笔：这回由她领着走过北侧高路。雨棚的坐垫已经留好，往来途中有地方歇脚。"
+              },
+              {
+                "seq": 62,
+                "time": 309.1166666667142,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 63,
+                "time": 320.4166666667039,
+                "type": "scene",
+                "text": "背墙旧窑"
+              }
+            ]
+          }
+        },
+        "zero-return-creek": {
+          "visual": "qa/evidence/kiln-desktop-zero-return-creek.png",
+          "state": {
+            "scene": "creek",
+            "time": 366.4166666666621,
+            "player": {
+              "x": 760,
+              "y": 315,
+              "hp": 1,
+              "mana": 0,
+              "facing": 2.546599251160549,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "kiln": {
+              "visited": true,
+              "entry": null,
+              "crossed": {
+                "west": true,
+                "east": true
+              },
+              "loan": "none",
+              "shelterOpened": false
+            },
+            "journey": {
+              "stage": "complete",
+              "agreed": "together",
+              "run": null,
+              "soloRoute": null,
+              "sharedRoute": "north",
+              "restOpened": true,
+              "recordedShared": true
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 79,
+                "time": 351.71666666667545,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1090,
+                "y": 300,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 80,
+                "time": 353.4166666666739,
+                "type": "hurt",
+                "text": "飞石从护持未遮住的一侧击中，体力少了一格。",
+                "x": 1273.1087483261392,
+                "y": 141.7056840252844
+              },
+              {
+                "seq": 81,
+                "time": 353.7333333333403,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1102.0221968862202,
+                "y": 291.0392580561168,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 82,
+                "time": 354.46666666667295,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 1228.1556194164984,
+                "y": 367.9775438347759,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 83,
+                "time": 355.50000000000534,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 1042.445530246964,
+                "y": 80,
+                "targetId": "9"
+              },
+              {
+                "seq": 84,
+                "time": 355.7500000000051,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1096.0694269665078,
+                "y": 286.47776387910443,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 85,
+                "time": 356.90000000000407,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 858.4733994030568,
+                "y": 80,
+                "targetId": "10"
+              },
+              {
+                "seq": 86,
+                "time": 357.5500000000035,
+                "type": "hurt",
+                "text": "飞石从护持未遮住的一侧击中，体力少了一格。",
+                "x": 801.1092692763391,
+                "y": 141.00441608297533
+              },
+              {
+                "seq": 87,
+                "time": 357.76666666666995,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1006.5264033467914,
+                "y": 239.59665374623833,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 88,
+                "time": 358.0333333333364,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 1009.8615338243055,
+                "y": 222.3168883347513,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 89,
+                "time": 364.81666666666354,
+                "type": "route",
+                "text": "你从旧渠一侧穿过旧窑，走回西院溪道。"
+              },
+              {
+                "seq": 90,
+                "time": 364.81666666666354,
+                "type": "scene",
+                "text": "雨后溪道"
+              }
+            ]
+          }
+        }
+      },
+      "exports": [
+        {
+          "path": "qa/evidence/kiln-zero-complete-export.json",
+          "sha256": "b508f58c2108c84ca553c91b1e27eb214c3b9cdcf38270b0b4e65868e29df5ff"
+        }
+      ],
+      "runtimeScripts": [
+        "http://127.0.0.1:4187/assets/index-BTwh6Je1.js"
+      ],
+      "initial": {
+        "scene": "kiln",
+        "time": 320.91666666670346,
+        "player": {
+          "x": 270,
+          "y": 480,
+          "hp": 4,
+          "mana": 0,
+          "facing": -0.06903255034826011,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "kiln": {
+          "visited": true,
+          "entry": "west",
+          "crossed": {
+            "west": false,
+            "east": false
+          },
+          "loan": "none",
+          "shelterOpened": false
+        },
+        "journey": {
+          "stage": "complete",
+          "agreed": "together",
+          "run": null,
+          "soloRoute": null,
+          "sharedRoute": "north",
+          "restOpened": true,
+          "recordedShared": true
+        },
+        "canal": {
+          "stage": "complete",
+          "inspected": true,
+          "cleared": true,
+          "method": "diversion",
+          "sharedInspect": true,
+          "sharedVerify": false,
+          "usedClamp": false,
+          "work": null,
+          "drain": 0,
+          "flow": 3,
+          "surge": null
+        },
+        "paused": false,
+        "dialogue": null,
+        "defeated": false,
+        "events": [
+          {
+            "seq": 52,
+            "time": 209.1333333333919,
+            "type": "note",
+            "text": "约定记下了，还不算一起走过。按原来的条件邀请许照，实际到旧工棚东侧歇脚处，再让她带回程。"
+          },
+          {
+            "seq": 53,
+            "time": 216.71666666673127,
+            "type": "scene",
+            "text": "雨后溪道"
+          },
+          {
+            "seq": 54,
+            "time": 229.51666666674146,
+            "type": "scene",
+            "text": "林路与旧工棚"
+          },
+          {
+            "seq": 55,
+            "time": 251.76666666675916,
+            "type": "route",
+            "text": "许照从工棚东侧动身，自己带北侧高路。你仍要亲自行走；前路不稳或你落后时，她会停下。"
+          },
+          {
+            "seq": 56,
+            "time": 279.91666666674075,
+            "type": "relationship",
+            "text": "许照与你在工棚西口会合。北侧高路是这次双方亲自走过的回程；继续去溪道雨棚，留好歇脚处。"
+          },
+          {
+            "seq": 57,
+            "time": 279.91666666674075,
+            "type": "scene",
+            "text": "雨后溪道"
+          },
+          {
+            "seq": 58,
+            "time": 283.63333333340404,
+            "type": "change",
+            "text": "你在棚内干地展开坐垫。这里以后可以静息；回驿把亲自走过的回程记下来。",
+            "x": 1250,
+            "y": 550,
+            "targetId": "journey_rest_shelter"
+          },
+          {
+            "seq": 59,
+            "time": 296.2000000000593,
+            "type": "return",
+            "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+          },
+          {
+            "seq": 60,
+            "time": 296.2000000000593,
+            "type": "scene",
+            "text": "回石驿"
+          },
+          {
+            "seq": 61,
+            "time": 301.85000000005414,
+            "type": "growth",
+            "text": "许照在桌边补了一笔：这回由她领着走过北侧高路。雨棚的坐垫已经留好，往来途中有地方歇脚。"
+          },
+          {
+            "seq": 62,
+            "time": 309.1166666667142,
+            "type": "scene",
+            "text": "雨后溪道"
+          },
+          {
+            "seq": 63,
+            "time": 320.4166666667039,
+            "type": "scene",
+            "text": "背墙旧窑"
+          }
+        ]
+      },
+      "audio": {
+        "state": "running",
+        "requested": true,
+        "scene": "kiln",
+        "muted": false,
+        "musicVolume": 0.55,
+        "effectsVolume": 0.45,
+        "musicScheduled": 128,
+        "musicRms": 0.0010862821174139193,
+        "effectsRms": 0,
+        "activeVoices": 2,
+        "lastEffect": "step",
+        "effectCounts": {
+          "step": 50
+        },
+        "error": "",
+        "disposed": false
+      },
+      "east": {
+        "scene": "canal",
+        "time": 340.51666666668564,
+        "player": {
+          "x": 500,
+          "y": 570,
+          "hp": 4,
+          "mana": 0,
+          "facing": -1.5638159347115739,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "kiln": {
+          "visited": true,
+          "entry": null,
+          "crossed": {
+            "west": false,
+            "east": true
+          },
+          "loan": "none",
+          "shelterOpened": false
+        },
+        "journey": {
+          "stage": "complete",
+          "agreed": "together",
+          "run": null,
+          "soloRoute": null,
+          "sharedRoute": "north",
+          "restOpened": true,
+          "recordedShared": true
+        },
+        "canal": {
+          "stage": "complete",
+          "inspected": true,
+          "cleared": true,
+          "method": "diversion",
+          "sharedInspect": true,
+          "sharedVerify": false,
+          "usedClamp": false,
+          "work": null,
+          "drain": 0,
+          "flow": 3,
+          "surge": null
+        },
+        "paused": false,
+        "dialogue": null,
+        "defeated": false,
+        "events": [
+          {
+            "seq": 60,
+            "time": 296.2000000000593,
+            "type": "scene",
+            "text": "回石驿"
+          },
+          {
+            "seq": 61,
+            "time": 301.85000000005414,
+            "type": "growth",
+            "text": "许照在桌边补了一笔：这回由她领着走过北侧高路。雨棚的坐垫已经留好，往来途中有地方歇脚。"
+          },
+          {
+            "seq": 62,
+            "time": 309.1166666667142,
+            "type": "scene",
+            "text": "雨后溪道"
+          },
+          {
+            "seq": 63,
+            "time": 320.4166666667039,
+            "type": "scene",
+            "text": "背墙旧窑"
+          },
+          {
+            "seq": 64,
+            "time": 329.116666666696,
+            "type": "alert",
+            "text": "近墙散修看见了你的动静。",
+            "x": 710,
+            "y": 640,
+            "targetId": "kiln_raider_a"
+          },
+          {
+            "seq": 65,
+            "time": 331.10000000002753,
+            "type": "warning",
+            "text": "近墙散修抬手聚光；火球命中可以打断。",
+            "x": 710,
+            "y": 640,
+            "targetId": "kiln_raider_a"
+          },
+          {
+            "seq": 66,
+            "time": 333.0333333333591,
+            "type": "impact",
+            "text": "术法撞在遮挡上，光屑散开。",
+            "x": 825.869374590085,
+            "y": 880,
+            "targetId": "5"
+          },
+          {
+            "seq": 67,
+            "time": 333.11666666669237,
+            "type": "warning",
+            "text": "近墙散修抬手聚光；火球命中可以打断。",
+            "x": 724.0776342874434,
+            "y": 654.1884612103231,
+            "targetId": "kiln_raider_a"
+          },
+          {
+            "seq": 68,
+            "time": 337.7500000000215,
+            "type": "alert",
+            "text": "近墙散修看见了你的动静。",
+            "x": 919.5817977607161,
+            "y": 789.5230767781799,
+            "targetId": "kiln_raider_a"
+          },
+          {
+            "seq": 69,
+            "time": 339.2500000000201,
+            "type": "alert",
+            "text": "近墙散修看见了你的动静。",
+            "x": 952.0144084235952,
+            "y": 787.4312437088007,
+            "targetId": "kiln_raider_a"
+          },
+          {
+            "seq": 70,
+            "time": 340.2166666666859,
+            "type": "route",
+            "text": "你实际穿过旧窑，从东口走上旧渠高岸。"
+          },
+          {
+            "seq": 71,
+            "time": 340.2166666666859,
+            "type": "scene",
+            "text": "雾岭旧渠"
+          }
+        ]
+      },
+      "returned": {
+        "scene": "creek",
+        "time": 365.2166666666632,
+        "player": {
+          "x": 760,
+          "y": 315,
+          "hp": 1,
+          "mana": 0,
+          "facing": 2.546599251160549,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "kiln": {
+          "visited": true,
+          "entry": null,
+          "crossed": {
+            "west": true,
+            "east": true
+          },
+          "loan": "none",
+          "shelterOpened": false
+        },
+        "journey": {
+          "stage": "complete",
+          "agreed": "together",
+          "run": null,
+          "soloRoute": null,
+          "sharedRoute": "north",
+          "restOpened": true,
+          "recordedShared": true
+        },
+        "canal": {
+          "stage": "complete",
+          "inspected": true,
+          "cleared": true,
+          "method": "diversion",
+          "sharedInspect": true,
+          "sharedVerify": false,
+          "usedClamp": false,
+          "work": null,
+          "drain": 0,
+          "flow": 3,
+          "surge": null
+        },
+        "paused": false,
+        "dialogue": null,
+        "defeated": false,
+        "events": [
+          {
+            "seq": 79,
+            "time": 351.71666666667545,
+            "type": "warning",
+            "text": "外路散修抬手聚光；火球命中可以打断。",
+            "x": 1090,
+            "y": 300,
+            "targetId": "kiln_raider_b"
+          },
+          {
+            "seq": 80,
+            "time": 353.4166666666739,
+            "type": "hurt",
+            "text": "飞石从护持未遮住的一侧击中，体力少了一格。",
+            "x": 1273.1087483261392,
+            "y": 141.7056840252844
+          },
+          {
+            "seq": 81,
+            "time": 353.7333333333403,
+            "type": "warning",
+            "text": "外路散修抬手聚光；火球命中可以打断。",
+            "x": 1102.0221968862202,
+            "y": 291.0392580561168,
+            "targetId": "kiln_raider_b"
+          },
+          {
+            "seq": 82,
+            "time": 354.46666666667295,
+            "type": "warning",
+            "text": "近墙散修抬手聚光；火球命中可以打断。",
+            "x": 1228.1556194164984,
+            "y": 367.9775438347759,
+            "targetId": "kiln_raider_a"
+          },
+          {
+            "seq": 83,
+            "time": 355.50000000000534,
+            "type": "impact",
+            "text": "术法撞在遮挡上，光屑散开。",
+            "x": 1042.445530246964,
+            "y": 80,
+            "targetId": "9"
+          },
+          {
+            "seq": 84,
+            "time": 355.7500000000051,
+            "type": "warning",
+            "text": "外路散修抬手聚光；火球命中可以打断。",
+            "x": 1096.0694269665078,
+            "y": 286.47776387910443,
+            "targetId": "kiln_raider_b"
+          },
+          {
+            "seq": 85,
+            "time": 356.90000000000407,
+            "type": "impact",
+            "text": "术法撞在遮挡上，光屑散开。",
+            "x": 858.4733994030568,
+            "y": 80,
+            "targetId": "10"
+          },
+          {
+            "seq": 86,
+            "time": 357.5500000000035,
+            "type": "hurt",
+            "text": "飞石从护持未遮住的一侧击中，体力少了一格。",
+            "x": 801.1092692763391,
+            "y": 141.00441608297533
+          },
+          {
+            "seq": 87,
+            "time": 357.76666666666995,
+            "type": "warning",
+            "text": "外路散修抬手聚光；火球命中可以打断。",
+            "x": 1006.5264033467914,
+            "y": 239.59665374623833,
+            "targetId": "kiln_raider_b"
+          },
+          {
+            "seq": 88,
+            "time": 358.0333333333364,
+            "type": "warning",
+            "text": "近墙散修抬手聚光；火球命中可以打断。",
+            "x": 1009.8615338243055,
+            "y": 222.3168883347513,
+            "targetId": "kiln_raider_a"
+          },
+          {
+            "seq": 89,
+            "time": 364.81666666666354,
+            "type": "route",
+            "text": "你从旧渠一侧穿过旧窑，走回西院溪道。"
+          },
+          {
+            "seq": 90,
+            "time": 364.81666666666354,
+            "type": "scene",
+            "text": "雨后溪道"
+          }
+        ]
+      },
+      "restart": {
+        "scene": "home",
+        "time": 0.49999999999999994,
+        "player": {
+          "x": 360,
+          "y": 710,
+          "hp": 4,
+          "mana": 6,
+          "facing": 0,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "kiln": {
+          "visited": false,
+          "entry": null,
+          "crossed": {
+            "west": false,
+            "east": false
+          },
+          "loan": "none",
+          "shelterOpened": false
+        },
+        "journey": {
+          "stage": "unaccepted",
+          "agreed": null,
+          "run": null,
+          "soloRoute": null,
+          "sharedRoute": null,
+          "restOpened": false,
+          "recordedShared": false
+        },
+        "canal": {
+          "stage": "unaccepted",
+          "inspected": false,
+          "cleared": false,
+          "method": null,
+          "sharedInspect": false,
+          "sharedVerify": false,
+          "usedClamp": false,
+          "work": null,
+          "drain": 0,
+          "flow": 0,
+          "surge": null
+        },
+        "paused": false,
+        "dialogue": null,
+        "defeated": false,
+        "events": [
+          {
+            "seq": 1,
+            "time": 0,
+            "type": "note",
+            "text": "行舟，凝气三层。先前攒钱修的控物环，今日该去取了。"
+          },
+          {
+            "seq": 2,
+            "time": 0,
+            "type": "hint",
+            "text": "陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。"
+          }
+        ]
+      }
+    },
+    {
+      "id": "phone",
+      "status": "PASS",
+      "inputTrace": [
+        {
+          "action": "settings-import",
+          "detail": {
+            "name": "return-journey-v0.5.0.json",
+            "contentVersion": 5
+          },
+          "wallMs": 225109
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "to_creek",
+            "scene": "home",
+            "world": {
+              "x": 1640,
+              "y": 690
+            }
+          },
+          "wallMs": 229453
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -156.50002441406286
+          },
+          "wallMs": 233094
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -65.95002272082348
+          },
+          "wallMs": 236124
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -65.95002272082348
+          },
+          "wallMs": 239235
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -65.95002272082348
+          },
+          "wallMs": 242198
+        },
+        {
+          "action": "choose",
+          "detail": "canal:depart:creek",
+          "wallMs": 248491
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "rest_creek",
+            "scene": "creek",
+            "world": {
+              "x": 300,
+              "y": 860
+            }
+          },
+          "wallMs": 252579
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 300,
+            "y": 740
+          },
+          "wallMs": 254657
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 300,
+            "y": 340
+          },
+          "wallMs": 256706
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 700,
+            "y": 315
+          },
+          "wallMs": 260932
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": 162.24997558593714
+          },
+          "wallMs": 263979
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": 162.24997558593714
+          },
+          "wallMs": 266891
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "creek_to_kiln",
+            "scene": "creek",
+            "world": {
+              "x": 620,
+              "y": 315
+            }
+          },
+          "wallMs": 271254
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "duqin",
+            "scene": "kiln",
+            "world": {
+              "x": 260,
+              "y": 560
+            }
+          },
+          "wallMs": 283875
+        },
+        {
+          "action": "choose",
+          "detail": "kiln:borrow",
+          "wallMs": 285812
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 350,
+            "y": 640
+          },
+          "wallMs": 291073
+        },
+        {
+          "action": "cast",
+          "detail": {
+            "spell": "pull",
+            "x": 500,
+            "y": 640
+          },
+          "wallMs": 295190
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -159.0000243018659
+          },
+          "wallMs": 303656
+        },
+        {
+          "action": "cast",
+          "detail": {
+            "spell": "pull",
+            "x": 620,
+            "y": 700
+          },
+          "wallMs": 308982
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "duqin",
+            "scene": "kiln",
+            "world": {
+              "x": 260,
+              "y": 560
+            }
+          },
+          "wallMs": 318464
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": 156,
+            "dy": -40.450024310280696
+          },
+          "wallMs": 322882
+        },
+        {
+          "action": "choose",
+          "detail": "kiln:return",
+          "wallMs": 324266
+        },
+        {
+          "action": "settings-export",
+          "detail": "qa/evidence/kiln-phone-returned-export.json",
+          "wallMs": 341097
+        },
+        {
+          "action": "settings-import",
+          "detail": {
+            "name": "kiln-returned.json",
+            "contentVersion": 5
+          },
+          "wallMs": 351185
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "kiln_rest",
+            "scene": "kiln",
+            "world": {
+              "x": 260,
+              "y": 400
+            }
+          },
+          "wallMs": 356466
+        }
+      ],
+      "observations": {
+        "west-entry": {
+          "visual": "qa/evidence/kiln-phone-west-entry.png",
+          "state": {
+            "scene": "kiln",
+            "time": 338.8166666666872,
+            "player": {
+              "x": 270,
+              "y": 480,
+              "hp": 4,
+              "mana": 6,
+              "facing": -0.06723675623823235,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "kiln": {
+              "visited": true,
+              "entry": "west",
+              "crossed": {
+                "west": false,
+                "east": false
+              },
+              "loan": "none",
+              "shelterOpened": false
+            },
+            "journey": {
+              "stage": "complete",
+              "agreed": "together",
+              "run": null,
+              "soloRoute": null,
+              "sharedRoute": "north",
+              "restOpened": true,
+              "recordedShared": true
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 53,
+                "time": 216.71666666673127,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 54,
+                "time": 229.51666666674146,
+                "type": "scene",
+                "text": "林路与旧工棚"
+              },
+              {
+                "seq": 55,
+                "time": 251.76666666675916,
+                "type": "route",
+                "text": "许照从工棚东侧动身，自己带北侧高路。你仍要亲自行走；前路不稳或你落后时，她会停下。"
+              },
+              {
+                "seq": 56,
+                "time": 279.91666666674075,
+                "type": "relationship",
+                "text": "许照与你在工棚西口会合。北侧高路是这次双方亲自走过的回程；继续去溪道雨棚，留好歇脚处。"
+              },
+              {
+                "seq": 57,
+                "time": 279.91666666674075,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 58,
+                "time": 283.63333333340404,
+                "type": "change",
+                "text": "你在棚内干地展开坐垫。这里以后可以静息；回驿把亲自走过的回程记下来。",
+                "x": 1250,
+                "y": 550,
+                "targetId": "journey_rest_shelter"
+              },
+              {
+                "seq": 59,
+                "time": 296.2000000000593,
+                "type": "return",
+                "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+              },
+              {
+                "seq": 60,
+                "time": 296.2000000000593,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 61,
+                "time": 301.85000000005414,
+                "type": "growth",
+                "text": "许照在桌边补了一笔：这回由她领着走过北侧高路。雨棚的坐垫已经留好，往来途中有地方歇脚。"
+              },
+              {
+                "seq": 62,
+                "time": 317.61666666670646,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 63,
+                "time": 320.61666666670374,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 64,
+                "time": 336.5166666666893,
+                "type": "scene",
+                "text": "背墙旧窑"
+              }
+            ]
+          }
+        },
+        "intact-return": {
+          "visual": "qa/evidence/kiln-phone-intact-return.png",
+          "state": {
+            "scene": "kiln",
+            "time": 365.6166666666628,
+            "player": {
+              "x": 324.60000049921405,
+              "y": 616.378101055251,
+              "hp": 4,
+              "mana": 4,
+              "facing": -2.4240520265519643,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "kiln": {
+              "visited": true,
+              "entry": "west",
+              "crossed": {
+                "west": false,
+                "east": false
+              },
+              "loan": "returned",
+              "shelterOpened": true
+            },
+            "journey": {
+              "stage": "complete",
+              "agreed": "together",
+              "run": null,
+              "soloRoute": null,
+              "sharedRoute": "north",
+              "restOpened": true,
+              "recordedShared": true
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 62,
+                "time": 317.61666666670646,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 63,
+                "time": 320.61666666670374,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 64,
+                "time": 336.5166666666893,
+                "type": "scene",
+                "text": "背墙旧窑"
+              },
+              {
+                "seq": 65,
+                "time": 340.9166666666853,
+                "type": "note",
+                "text": "杜芹点头：“屏是我挡灰护坯用的。借你挪一阵，别烧，完好落回原位再告诉我。”"
+              },
+              {
+                "seq": 66,
+                "time": 347.41666666667936,
+                "type": "pull",
+                "text": "灵线牵住轻木挡屏。点空地改变落点，按「放下」结束。",
+                "x": 500,
+                "y": 640,
+                "targetId": "shield_board"
+              },
+              {
+                "seq": 67,
+                "time": 351.23333333334256,
+                "type": "note",
+                "text": "杜芹看见挡屏离开了作业面：“用完，完好落回原来的位置。”",
+                "x": 260,
+                "y": 560,
+                "targetId": "duqin"
+              },
+              {
+                "seq": 68,
+                "time": 352.71666666667454,
+                "type": "drop",
+                "text": "轻木挡屏落稳，声响留在实际落点。",
+                "x": 619.9999972324745,
+                "y": 699.9999987284343,
+                "targetId": "shield_board"
+              },
+              {
+                "seq": 69,
+                "time": 353.9666666666734,
+                "type": "alert",
+                "text": "近墙散修看见了你的动静。",
+                "x": 647.25161778491,
+                "y": 662.8351572567726,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 70,
+                "time": 355.91666666667163,
+                "type": "pull",
+                "text": "灵线牵住轻木挡屏。点空地改变落点，按「放下」结束。",
+                "x": 619.9999972324745,
+                "y": 699.9999987284343,
+                "targetId": "shield_board"
+              },
+              {
+                "seq": 71,
+                "time": 355.95000000000493,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 587.4678752165889,
+                "y": 657.7455477899684,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 72,
+                "time": 357.1000000000039,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 529.0126602608959,
+                "y": 652.7690407557607,
+                "targetId": "5"
+              },
+              {
+                "seq": 73,
+                "time": 363.0166666666652,
+                "type": "growth",
+                "text": "杜芹看了看归位的挡屏：“没耽误我护坯。北边檐下那块干地，往来累了就歇一歇。”",
+                "x": 260,
+                "y": 560,
+                "targetId": "duqin"
+              }
+            ]
+          }
+        },
+        "permitted-shelter": {
+          "visual": "qa/evidence/kiln-phone-permitted-shelter.png",
+          "state": {
+            "scene": "kiln",
+            "time": 368.41666666666026,
+            "player": {
+              "x": 282.64244446531046,
+              "y": 475.8410077212376,
+              "hp": 4,
+              "mana": 6,
+              "facing": -1.86092366692485,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "kiln": {
+              "visited": true,
+              "entry": "west",
+              "crossed": {
+                "west": false,
+                "east": false
+              },
+              "loan": "returned",
+              "shelterOpened": true
+            },
+            "journey": {
+              "stage": "complete",
+              "agreed": "together",
+              "run": null,
+              "soloRoute": null,
+              "sharedRoute": "north",
+              "restOpened": true,
+              "recordedShared": true
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 63,
+                "time": 320.61666666670374,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 64,
+                "time": 336.5166666666893,
+                "type": "scene",
+                "text": "背墙旧窑"
+              },
+              {
+                "seq": 65,
+                "time": 340.9166666666853,
+                "type": "note",
+                "text": "杜芹点头：“屏是我挡灰护坯用的。借你挪一阵，别烧，完好落回原位再告诉我。”"
+              },
+              {
+                "seq": 66,
+                "time": 347.41666666667936,
+                "type": "pull",
+                "text": "灵线牵住轻木挡屏。点空地改变落点，按「放下」结束。",
+                "x": 500,
+                "y": 640,
+                "targetId": "shield_board"
+              },
+              {
+                "seq": 67,
+                "time": 351.23333333334256,
+                "type": "note",
+                "text": "杜芹看见挡屏离开了作业面：“用完，完好落回原来的位置。”",
+                "x": 260,
+                "y": 560,
+                "targetId": "duqin"
+              },
+              {
+                "seq": 68,
+                "time": 352.71666666667454,
+                "type": "drop",
+                "text": "轻木挡屏落稳，声响留在实际落点。",
+                "x": 619.9999972324745,
+                "y": 699.9999987284343,
+                "targetId": "shield_board"
+              },
+              {
+                "seq": 69,
+                "time": 353.9666666666734,
+                "type": "alert",
+                "text": "近墙散修看见了你的动静。",
+                "x": 647.25161778491,
+                "y": 662.8351572567726,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 70,
+                "time": 355.91666666667163,
+                "type": "pull",
+                "text": "灵线牵住轻木挡屏。点空地改变落点，按「放下」结束。",
+                "x": 619.9999972324745,
+                "y": 699.9999987284343,
+                "targetId": "shield_board"
+              },
+              {
+                "seq": 71,
+                "time": 355.95000000000493,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 587.4678752165889,
+                "y": 657.7455477899684,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 72,
+                "time": 357.1000000000039,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 529.0126602608959,
+                "y": 652.7690407557607,
+                "targetId": "5"
+              },
+              {
+                "seq": 73,
+                "time": 363.0166666666652,
+                "type": "growth",
+                "text": "杜芹看了看归位的挡屏：“没耽误我护坯。北边檐下那块干地，往来累了就歇一歇。”",
+                "x": 260,
+                "y": 560,
+                "targetId": "duqin"
+              },
+              {
+                "seq": 74,
+                "time": 366.8166666666617,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              }
+            ]
+          }
+        }
+      },
+      "exports": [
+        {
+          "path": "qa/evidence/kiln-phone-returned-export.json",
+          "sha256": "55dd1727dd80fcf6c632bde3194b8844f16095495dd8c463f590e882548e2a60"
+        }
+      ],
+      "runtimeScripts": [
+        "http://127.0.0.1:4187/assets/index-BTwh6Je1.js"
+      ],
+      "initial": {
+        "scene": "kiln",
+        "time": 337.0166666666888,
+        "player": {
+          "x": 270,
+          "y": 480,
+          "hp": 4,
+          "mana": 6,
+          "facing": -0.06723675623823235,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "kiln": {
+          "visited": true,
+          "entry": "west",
+          "crossed": {
+            "west": false,
+            "east": false
+          },
+          "loan": "none",
+          "shelterOpened": false
+        },
+        "journey": {
+          "stage": "complete",
+          "agreed": "together",
+          "run": null,
+          "soloRoute": null,
+          "sharedRoute": "north",
+          "restOpened": true,
+          "recordedShared": true
+        },
+        "canal": {
+          "stage": "complete",
+          "inspected": true,
+          "cleared": true,
+          "method": "diversion",
+          "sharedInspect": true,
+          "sharedVerify": false,
+          "usedClamp": false,
+          "work": null,
+          "drain": 0,
+          "flow": 3,
+          "surge": null
+        },
+        "paused": false,
+        "dialogue": null,
+        "defeated": false,
+        "events": [
+          {
+            "seq": 53,
+            "time": 216.71666666673127,
+            "type": "scene",
+            "text": "雨后溪道"
+          },
+          {
+            "seq": 54,
+            "time": 229.51666666674146,
+            "type": "scene",
+            "text": "林路与旧工棚"
+          },
+          {
+            "seq": 55,
+            "time": 251.76666666675916,
+            "type": "route",
+            "text": "许照从工棚东侧动身，自己带北侧高路。你仍要亲自行走；前路不稳或你落后时，她会停下。"
+          },
+          {
+            "seq": 56,
+            "time": 279.91666666674075,
+            "type": "relationship",
+            "text": "许照与你在工棚西口会合。北侧高路是这次双方亲自走过的回程；继续去溪道雨棚，留好歇脚处。"
+          },
+          {
+            "seq": 57,
+            "time": 279.91666666674075,
+            "type": "scene",
+            "text": "雨后溪道"
+          },
+          {
+            "seq": 58,
+            "time": 283.63333333340404,
+            "type": "change",
+            "text": "你在棚内干地展开坐垫。这里以后可以静息；回驿把亲自走过的回程记下来。",
+            "x": 1250,
+            "y": 550,
+            "targetId": "journey_rest_shelter"
+          },
+          {
+            "seq": 59,
+            "time": 296.2000000000593,
+            "type": "return",
+            "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+          },
+          {
+            "seq": 60,
+            "time": 296.2000000000593,
+            "type": "scene",
+            "text": "回石驿"
+          },
+          {
+            "seq": 61,
+            "time": 301.85000000005414,
+            "type": "growth",
+            "text": "许照在桌边补了一笔：这回由她领着走过北侧高路。雨棚的坐垫已经留好，往来途中有地方歇脚。"
+          },
+          {
+            "seq": 62,
+            "time": 317.61666666670646,
+            "type": "scene",
+            "text": "雨后溪道"
+          },
+          {
+            "seq": 63,
+            "time": 320.61666666670374,
+            "type": "rest",
+            "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+          },
+          {
+            "seq": 64,
+            "time": 336.5166666666893,
+            "type": "scene",
+            "text": "背墙旧窑"
+          }
+        ]
+      },
+      "audio": {
+        "state": "running",
+        "requested": true,
+        "scene": "kiln",
+        "muted": false,
+        "musicVolume": 0.55,
+        "effectsVolume": 0.45,
+        "musicScheduled": 126,
+        "musicRms": 0.03359703166191673,
+        "effectsRms": 0,
+        "activeVoices": 9,
+        "lastEffect": "step",
+        "effectCounts": {
+          "step": 35,
+          "rest": 1
+        },
+        "error": "",
+        "disposed": false
+      },
+      "restored": {
+        "scene": "kiln",
+        "time": 365.6166666666628,
+        "player": {
+          "x": 324.60000049921405,
+          "y": 616.378101055251,
+          "hp": 4,
+          "mana": 4,
+          "facing": -2.4240520265519643,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "kiln": {
+          "visited": true,
+          "entry": "west",
+          "crossed": {
+            "west": false,
+            "east": false
+          },
+          "loan": "returned",
+          "shelterOpened": true
+        },
+        "journey": {
+          "stage": "complete",
+          "agreed": "together",
+          "run": null,
+          "soloRoute": null,
+          "sharedRoute": "north",
+          "restOpened": true,
+          "recordedShared": true
+        },
+        "canal": {
+          "stage": "complete",
+          "inspected": true,
+          "cleared": true,
+          "method": "diversion",
+          "sharedInspect": true,
+          "sharedVerify": false,
+          "usedClamp": false,
+          "work": null,
+          "drain": 0,
+          "flow": 3,
+          "surge": null
+        },
+        "paused": true,
+        "dialogue": null,
+        "defeated": false,
+        "events": [
+          {
+            "seq": 62,
+            "time": 317.61666666670646,
+            "type": "scene",
+            "text": "雨后溪道"
+          },
+          {
+            "seq": 63,
+            "time": 320.61666666670374,
+            "type": "rest",
+            "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+          },
+          {
+            "seq": 64,
+            "time": 336.5166666666893,
+            "type": "scene",
+            "text": "背墙旧窑"
+          },
+          {
+            "seq": 65,
+            "time": 340.9166666666853,
+            "type": "note",
+            "text": "杜芹点头：“屏是我挡灰护坯用的。借你挪一阵，别烧，完好落回原位再告诉我。”"
+          },
+          {
+            "seq": 66,
+            "time": 347.41666666667936,
+            "type": "pull",
+            "text": "灵线牵住轻木挡屏。点空地改变落点，按「放下」结束。",
+            "x": 500,
+            "y": 640,
+            "targetId": "shield_board"
+          },
+          {
+            "seq": 67,
+            "time": 351.23333333334256,
+            "type": "note",
+            "text": "杜芹看见挡屏离开了作业面：“用完，完好落回原来的位置。”",
+            "x": 260,
+            "y": 560,
+            "targetId": "duqin"
+          },
+          {
+            "seq": 68,
+            "time": 352.71666666667454,
+            "type": "drop",
+            "text": "轻木挡屏落稳，声响留在实际落点。",
+            "x": 619.9999972324745,
+            "y": 699.9999987284343,
+            "targetId": "shield_board"
+          },
+          {
+            "seq": 69,
+            "time": 353.9666666666734,
+            "type": "alert",
+            "text": "近墙散修看见了你的动静。",
+            "x": 647.25161778491,
+            "y": 662.8351572567726,
+            "targetId": "kiln_raider_a"
+          },
+          {
+            "seq": 70,
+            "time": 355.91666666667163,
+            "type": "pull",
+            "text": "灵线牵住轻木挡屏。点空地改变落点，按「放下」结束。",
+            "x": 619.9999972324745,
+            "y": 699.9999987284343,
+            "targetId": "shield_board"
+          },
+          {
+            "seq": 71,
+            "time": 355.95000000000493,
+            "type": "warning",
+            "text": "近墙散修抬手聚光；火球命中可以打断。",
+            "x": 587.4678752165889,
+            "y": 657.7455477899684,
+            "targetId": "kiln_raider_a"
+          },
+          {
+            "seq": 72,
+            "time": 357.1000000000039,
+            "type": "impact",
+            "text": "术法撞在遮挡上，光屑散开。",
+            "x": 529.0126602608959,
+            "y": 652.7690407557607,
+            "targetId": "5"
+          },
+          {
+            "seq": 73,
+            "time": 363.0166666666652,
+            "type": "growth",
+            "text": "杜芹看了看归位的挡屏：“没耽误我护坯。北边檐下那块干地，往来累了就歇一歇。”",
+            "x": 260,
+            "y": 560,
+            "targetId": "duqin"
+          }
+        ]
+      },
+      "restart": {
+        "scene": "home",
+        "time": 0.39999999999999997,
+        "player": {
+          "x": 360,
+          "y": 710,
+          "hp": 4,
+          "mana": 6,
+          "facing": 0,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "kiln": {
+          "visited": false,
+          "entry": null,
+          "crossed": {
+            "west": false,
+            "east": false
+          },
+          "loan": "none",
+          "shelterOpened": false
+        },
+        "journey": {
+          "stage": "unaccepted",
+          "agreed": null,
+          "run": null,
+          "soloRoute": null,
+          "sharedRoute": null,
+          "restOpened": false,
+          "recordedShared": false
+        },
+        "canal": {
+          "stage": "unaccepted",
+          "inspected": false,
+          "cleared": false,
+          "method": null,
+          "sharedInspect": false,
+          "sharedVerify": false,
+          "usedClamp": false,
+          "work": null,
+          "drain": 0,
+          "flow": 0,
+          "surge": null
+        },
+        "paused": false,
+        "dialogue": null,
+        "defeated": false,
+        "events": [
+          {
+            "seq": 1,
+            "time": 0,
+            "type": "note",
+            "text": "行舟，凝气三层。先前攒钱修的控物环，今日该去取了。"
+          },
+          {
+            "seq": 2,
+            "time": 0,
+            "type": "hint",
+            "text": "陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "fixture": {
+    "path": "qa/fixtures/return-journey-v0.5.0.json",
+    "sha256": "82f9a297f4c340fffd16a86e9da46a3565ff61168e97e3de1c0b3a6382f48e41",
+    "source": "Unmodified actual 0.5 completion exported through settings, preserved from 7fea179"
+  },
+  "completedAt": "2026-09-11T10:37:22.366Z"
+}

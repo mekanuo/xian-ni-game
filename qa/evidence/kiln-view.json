@@ -1,0 +1,4946 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "startedAt": "2026-09-11T10:22:09.759Z",
+  "url": "http://127.0.0.1:4187/",
+  "devices": [
+    {
+      "id": "desktop-1440-dpr2",
+      "width": 1440,
+      "height": 900,
+      "dpr": 2,
+      "status": "PASS",
+      "captures": [
+        {
+          "id": "creek-entry-sign",
+          "path": "qa/evidence/kiln-view-desktop-1440-dpr2-creek-entry-sign.png",
+          "scene": "creek",
+          "paused": true,
+          "time": 320.00000000003763,
+          "player": {
+            "x": 699.0425187863829,
+            "y": 316.0694959684977,
+            "hp": 4,
+            "mana": 0,
+            "facing": -0.06903255034826011,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": false,
+            "entry": null,
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 620,
+              "y": 271
+            },
+            "screen": {
+              "x": 620.0000128772499,
+              "y": 271.000009720732
+            }
+          },
+          "labels": [
+            {
+              "id": "to_home",
+              "text": "回石驿",
+              "bounds": {
+                "x": 74.5,
+                "y": 713,
+                "w": 63,
+                "h": 26
+              }
+            },
+            {
+              "id": "to_workshop",
+              "text": "旧工棚",
+              "bounds": {
+                "x": 1602.5,
+                "y": 313,
+                "w": 63,
+                "h": 26
+              }
+            },
+            {
+              "id": "to_crossing",
+              "text": "石渡",
+              "bounds": {
+                "x": 1598.5,
+                "y": 762,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "xu_creek",
+              "text": "许照",
+              "bounds": {
+                "x": 596.281494140625,
+                "y": 336.9088134765625,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "creek_to_kiln",
+              "text": "旧窑",
+              "bounds": {
+                "x": 600.5,
+                "y": 257,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "xu_creek",
+                "x": 614.7815184189503,
+                "y": 321.90881028223083,
+                "angle": 1.4899046065115726,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "to_home",
+                "text": "回石驿",
+                "bounds": {
+                  "x": 74.5,
+                  "y": 713,
+                  "w": 63,
+                  "h": 26
+                }
+              },
+              {
+                "id": "to_workshop",
+                "text": "旧工棚",
+                "bounds": {
+                  "x": 1602.5,
+                  "y": 313,
+                  "w": 63,
+                  "h": 26
+                }
+              },
+              {
+                "id": "to_crossing",
+                "text": "石渡",
+                "bounds": {
+                  "x": 1598.5,
+                  "y": 762,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "xu_creek",
+                "text": "许照",
+                "bounds": {
+                  "x": 596.281494140625,
+                  "y": 336.9088134765625,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "creek_to_kiln",
+                "text": "旧窑",
+                "bounds": {
+                  "x": 600.5,
+                  "y": 257,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 710,
+              "y": 640,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 710,
+                "lastY": 640,
+                "seen": 0,
+                "attack": 0
+              }
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "west-exit-sign",
+          "path": "qa/evidence/kiln-view-desktop-1440-dpr2-west-exit-sign.png",
+          "scene": "kiln",
+          "paused": true,
+          "time": 322.0000000000358,
+          "player": {
+            "x": 270,
+            "y": 480,
+            "hp": 4,
+            "mana": 0,
+            "facing": -0.06903255034826011,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": "west",
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 180,
+              "y": 436
+            },
+            "screen": {
+              "x": 180.0000128772499,
+              "y": 436.000009720732
+            }
+          },
+          "labels": [
+            {
+              "id": "duqin",
+              "text": "杜芹",
+              "bounds": {
+                "x": 241.5,
+                "y": 575,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "kiln_to_creek",
+              "text": "溪道",
+              "bounds": {
+                "x": 160.5,
+                "y": 422,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "kiln_to_canal",
+              "text": "旧渠",
+              "bounds": {
+                "x": 1188.5,
+                "y": 482,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "duqin",
+                "x": 260,
+                "y": 560,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_a",
+                "x": 710,
+                "y": 640,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_b",
+                "x": 1090,
+                "y": 300,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "duqin",
+                "text": "杜芹",
+                "bounds": {
+                  "x": 241.5,
+                  "y": 575,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "kiln_to_creek",
+                "text": "溪道",
+                "bounds": {
+                  "x": 160.5,
+                  "y": 422,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "kiln_to_canal",
+                "text": "旧渠",
+                "bounds": {
+                  "x": 1188.5,
+                  "y": 482,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 710,
+              "y": 640,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 710,
+                "lastY": 640,
+                "seen": 0,
+                "attack": 0
+              }
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "west-court-duqin",
+          "path": "qa/evidence/kiln-view-desktop-1440-dpr2-west-court-duqin.png",
+          "scene": "kiln",
+          "paused": true,
+          "time": 323.0000000000349,
+          "player": {
+            "x": 270,
+            "y": 480,
+            "hp": 4,
+            "mana": 0,
+            "facing": -0.06903255034826011,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": "west",
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 260,
+              "y": 525
+            },
+            "screen": {
+              "x": 260.0000128772499,
+              "y": 525.000009720732
+            }
+          },
+          "labels": [
+            {
+              "id": "duqin",
+              "text": "杜芹",
+              "bounds": {
+                "x": 241.5,
+                "y": 575,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "kiln_to_creek",
+              "text": "溪道",
+              "bounds": {
+                "x": 160.5,
+                "y": 422,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "kiln_to_canal",
+              "text": "旧渠",
+              "bounds": {
+                "x": 1188.5,
+                "y": 482,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "duqin",
+                "x": 260,
+                "y": 560,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_a",
+                "x": 710,
+                "y": 640,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_b",
+                "x": 1090,
+                "y": 300,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "duqin",
+                "text": "杜芹",
+                "bounds": {
+                  "x": 241.5,
+                  "y": 575,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "kiln_to_creek",
+                "text": "溪道",
+                "bounds": {
+                  "x": 160.5,
+                  "y": 422,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "kiln_to_canal",
+                "text": "旧渠",
+                "bounds": {
+                  "x": 1188.5,
+                  "y": 482,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 710,
+              "y": 640,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 710,
+                "lastY": 640,
+                "seen": 0,
+                "attack": 0
+              }
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "intact-screen",
+          "path": "qa/evidence/kiln-view-desktop-1440-dpr2-intact-screen.png",
+          "scene": "kiln",
+          "paused": true,
+          "time": 325.5000000000326,
+          "player": {
+            "x": 349.5020225348595,
+            "y": 640.0037693013645,
+            "hp": 4,
+            "mana": 0,
+            "facing": 1.1096510913094626,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": "west",
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 500,
+              "y": 620
+            },
+            "screen": {
+              "x": 500.0000128772499,
+              "y": 520.1186565273379
+            }
+          },
+          "labels": [
+            {
+              "id": "shield_board",
+              "text": "轻木挡屏",
+              "bounds": {
+                "x": 469.5,
+                "y": 655,
+                "w": 61,
+                "h": 21
+              }
+            },
+            {
+              "id": "duqin",
+              "text": "杜芹",
+              "bounds": {
+                "x": 241.5,
+                "y": 575,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "kiln_to_creek",
+              "text": "溪道",
+              "bounds": {
+                "x": 160.5,
+                "y": 422,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "kiln_to_canal",
+              "text": "旧渠",
+              "bounds": {
+                "x": 1188.5,
+                "y": 482,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "duqin",
+                "x": 260,
+                "y": 560,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_a",
+                "x": 710,
+                "y": 640,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_b",
+                "x": 1090,
+                "y": 300,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "shield_board",
+                "text": "轻木挡屏",
+                "bounds": {
+                  "x": 469.5,
+                  "y": 655,
+                  "w": 61,
+                  "h": 21
+                }
+              },
+              {
+                "id": "duqin",
+                "text": "杜芹",
+                "bounds": {
+                  "x": 241.5,
+                  "y": 575,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "kiln_to_creek",
+                "text": "溪道",
+                "bounds": {
+                  "x": 160.5,
+                  "y": 422,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "kiln_to_canal",
+                "text": "旧渠",
+                "bounds": {
+                  "x": 1188.5,
+                  "y": 482,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 710,
+              "y": 640,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 710,
+                "lastY": 640,
+                "seen": 0,
+                "attack": 0
+              }
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "east-exit-sign",
+          "path": "qa/evidence/kiln-view-desktop-1440-dpr2-east-exit-sign.png",
+          "scene": "kiln",
+          "paused": true,
+          "time": 341.40000000001817,
+          "player": {
+            "x": 1219.2120342338949,
+            "y": 652.8896670484049,
+            "hp": 4,
+            "mana": 0,
+            "facing": -1.5675489675817407,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": "west",
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 1220,
+              "y": 496
+            },
+            "screen": {
+              "x": 1199.7825561802115,
+              "y": 396.11865652733786
+            }
+          },
+          "labels": [
+            {
+              "id": "kiln_to_creek",
+              "text": "溪道",
+              "bounds": {
+                "x": 160.5,
+                "y": 422,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "kiln_to_canal",
+              "text": "旧渠",
+              "bounds": {
+                "x": 1188.5,
+                "y": 482,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "duqin",
+                "x": 260,
+                "y": 560,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_a",
+                "x": 952.0173044434409,
+                "y": 787.4473031149803,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_b",
+                "x": 1090,
+                "y": 300,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "kiln_to_creek",
+                "text": "溪道",
+                "bounds": {
+                  "x": 160.5,
+                  "y": 422,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "kiln_to_canal",
+                "text": "旧渠",
+                "bounds": {
+                  "x": 1188.5,
+                  "y": 482,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 952.0173044434409,
+              "y": 787.4473031149803,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "alert",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 1219.2120342338949,
+                "lastY": 652.8896670484049,
+                "seen": 3,
+                "attack": 0
+              },
+              "timer": 0.43333333333333185
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "canal-connection",
+          "path": "qa/evidence/kiln-view-desktop-1440-dpr2-canal-connection.png",
+          "scene": "canal",
+          "paused": true,
+          "time": 343.30000000001644,
+          "player": {
+            "x": 500,
+            "y": 570,
+            "hp": 4,
+            "mana": 0,
+            "facing": -1.5638164765521858,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": null,
+            "crossed": {
+              "west": false,
+              "east": true
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 460,
+              "y": 406
+            },
+            "screen": {
+              "x": 460.0000128772499,
+              "y": 341.0593329178971
+            }
+          },
+          "labels": [
+            {
+              "id": "canal_to_home",
+              "text": "回石驿",
+              "bounds": {
+                "x": 204.5,
+                "y": 1013,
+                "w": 63,
+                "h": 26
+              }
+            },
+            {
+              "id": "xu_canal",
+              "text": "许照",
+              "bounds": {
+                "x": 496.8543701171875,
+                "y": 641.3043823242188,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "canal_to_kiln",
+              "text": "旧窑",
+              "bounds": {
+                "x": 440.5,
+                "y": 392,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "canal_keeper",
+                "x": 260,
+                "y": 960,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "xu_canal",
+                "x": 515.3543891282932,
+                "y": 626.304361394663,
+                "angle": -1.9968227229286413,
+                "flipX": true
+              },
+              {
+                "id": "canal_beast_a",
+                "x": 1460,
+                "y": 660,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "canal_beast_b",
+                "x": 1380,
+                "y": 820,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "canal_to_home",
+                "text": "回石驿",
+                "bounds": {
+                  "x": 204.5,
+                  "y": 1013,
+                  "w": 63,
+                  "h": 26
+                }
+              },
+              {
+                "id": "xu_canal",
+                "text": "许照",
+                "bounds": {
+                  "x": 496.8543701171875,
+                  "y": 641.3043823242188,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "canal_to_kiln",
+                "text": "旧窑",
+                "bounds": {
+                  "x": 440.5,
+                  "y": 392,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 952.0173044434409,
+              "y": 787.4473031149803,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "alert",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 1219.2120342338949,
+                "lastY": 652.8896670484049,
+                "seen": 2.8000000000000007,
+                "attack": 0
+              },
+              "timer": 0.03333333333333194
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 720,
+            "y": 450
+          },
+          "end": {
+            "x": 172.79999999999995,
+            "y": 250
+          }
+        },
+        {
+          "action": "actual entity tap",
+          "id": "to_creek",
+          "scene": "home",
+          "world": {
+            "x": 1640,
+            "y": 690
+          },
+          "resultScene": "home"
+        },
+        {
+          "action": "actual dialogue choice",
+          "id": "canal:depart:creek"
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "creek",
+          "from": {
+            "x": 170,
+            "y": 760
+          },
+          "target": {
+            "x": 300,
+            "y": 740
+          },
+          "to": {
+            "x": 299.27692034958136,
+            "y": 740.9932737509688
+          },
+          "elapsedModelSeconds": 2.199999999997999
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "creek",
+          "from": {
+            "x": 299.27692034958136,
+            "y": 740.9932737509688
+          },
+          "target": {
+            "x": 300,
+            "y": 340
+          },
+          "to": {
+            "x": 299.9952389492884,
+            "y": 343.66058972388885
+          },
+          "elapsedModelSeconds": 3.799999999996544
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "creek",
+          "from": {
+            "x": 299.9952389492884,
+            "y": 343.66058972388885
+          },
+          "target": {
+            "x": 700,
+            "y": 315
+          },
+          "to": {
+            "x": 699.0425187863829,
+            "y": 316.0694959684977
+          },
+          "elapsedModelSeconds": 3.799999999996544
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual entity tap",
+          "id": "creek_to_kiln",
+          "scene": "creek",
+          "world": {
+            "x": 620,
+            "y": 315
+          },
+          "resultScene": "kiln"
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual entity tap",
+          "id": "duqin",
+          "scene": "kiln",
+          "world": {
+            "x": 260,
+            "y": 560
+          },
+          "resultScene": "kiln"
+        },
+        {
+          "action": "actual dialogue choice",
+          "id": "kiln:route"
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 270,
+            "y": 480
+          },
+          "target": {
+            "x": 350,
+            "y": 640
+          },
+          "to": {
+            "x": 349.5020225348595,
+            "y": 640.0037693013645
+          },
+          "elapsedModelSeconds": 2.4999999999977263
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 349.5020225348595,
+            "y": 640.0037693013645
+          },
+          "target": {
+            "x": 360,
+            "y": 700
+          },
+          "to": {
+            "x": 359.92403144951817,
+            "y": 700.4451417871098
+          },
+          "elapsedModelSeconds": 1.6999999999984539
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 359.92403144951817,
+            "y": 700.4451417871098
+          },
+          "target": {
+            "x": 360,
+            "y": 820
+          },
+          "to": {
+            "x": 360.0000345160525,
+            "y": 820.4451177184967
+          },
+          "elapsedModelSeconds": 2.399999999997817
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 360.0000345160525,
+            "y": 820.4451177184967
+          },
+          "target": {
+            "x": 800,
+            "y": 820
+          },
+          "to": {
+            "x": 797.3331455270181,
+            "y": 820.8860915469423
+          },
+          "elapsedModelSeconds": 4.099999999996271
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 797.3331455270181,
+            "y": 820.8860915469423
+          },
+          "target": {
+            "x": 1030,
+            "y": 820
+          },
+          "to": {
+            "x": 1026.66647884492,
+            "y": 820.888751724458
+          },
+          "elapsedModelSeconds": 2.7999999999974534
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 1026.66647884492,
+            "y": 820.888751724458
+          },
+          "target": {
+            "x": 1220,
+            "y": 820
+          },
+          "to": {
+            "x": 1218.6664788449255,
+            "y": 820.8887812404689
+          },
+          "elapsedModelSeconds": 2.4999999999977263
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 1218.6664788449255,
+            "y": 820.8887812404689
+          },
+          "target": {
+            "x": 1220,
+            "y": 650
+          },
+          "to": {
+            "x": 1219.2120342338949,
+            "y": 652.8896670484049
+          },
+          "elapsedModelSeconds": 2.399999999997817
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual entity tap",
+          "id": "kiln_to_canal",
+          "scene": "kiln",
+          "world": {
+            "x": 1220,
+            "y": 540
+          },
+          "resultScene": "canal"
+        },
+        {
+          "action": "real center"
+        }
+      ],
+      "assets": [
+        {
+          "name": "kiln-ground.png",
+          "url": "http://127.0.0.1:4187/assets/kiln-ground.png",
+          "status": 200,
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "bytes": 3624755,
+          "sha256": "df1ab7ea81cec12235c70afa91946425aa23cf031f7dc73d2b522d0c0353167d"
+        },
+        {
+          "name": "kiln-environment.png",
+          "url": "http://127.0.0.1:4187/assets/kiln-environment.png",
+          "status": 200,
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "bytes": 2553763,
+          "sha256": "5d9b59014cab12b050d48e1f8bcbc60310260eb626b744c3904cd8df07735d93"
+        },
+        {
+          "name": "kiln-props.png",
+          "url": "http://127.0.0.1:4187/assets/kiln-props.png",
+          "status": 200,
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "bytes": 1550153,
+          "sha256": "aba59236b3b602f09c9c3ffe3c7a5681b248472847253f6054dbe4fb5c7017ed"
+        },
+        {
+          "name": "kiln-duqin.png",
+          "url": "http://127.0.0.1:4187/assets/kiln-duqin.png",
+          "status": 200,
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "bytes": 1440774,
+          "sha256": "0480b088be4bff693bd87e5833e03d28ee23f91b421772b326e90c03de9e0c87"
+        }
+      ],
+      "canvas": {
+        "width": 2828,
+        "height": 1768,
+        "cssWidth": 1439.78125,
+        "cssHeight": 900.109375,
+        "expectedDensity": 1.9641855032959652
+      },
+      "migration": {
+        "sourceVersion": 4,
+        "resultVersion": 5,
+        "time": 303.80000000005236,
+        "journeyPreserved": true,
+        "kiln": {
+          "visited": false,
+          "entry": null,
+          "crossed": {
+            "west": false,
+            "east": false
+          },
+          "loan": "none",
+          "shelterOpened": false
+        }
+      },
+      "duqinDialogue": {
+        "id": "kiln_duqin",
+        "speaker": "杜芹",
+        "text": "杜芹正照看晾坯：“西边通溪道，东边接旧渠。这面屏挡灰护坯；要挪用先说一声，用完原样放回。”",
+        "choices": [
+          {
+            "id": "kiln:borrow",
+            "label": "借屏，用完归位"
+          },
+          {
+            "id": "kiln:route",
+            "label": "问穿窑的路"
+          },
+          {
+            "id": "leave",
+            "label": "先继续走走"
+          }
+        ]
+      },
+      "final": {
+        "scene": "canal",
+        "player": {
+          "x": 500,
+          "y": 570,
+          "hp": 4,
+          "mana": 0,
+          "facing": -1.5638164765521858,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "kiln": {
+          "visited": true,
+          "entry": null,
+          "crossed": {
+            "west": false,
+            "east": true
+          },
+          "loan": "none",
+          "shelterOpened": false
+        }
+      }
+    },
+    {
+      "id": "short-1280-dpr1",
+      "width": 1280,
+      "height": 500,
+      "dpr": 1,
+      "status": "PASS",
+      "captures": [
+        {
+          "id": "creek-entry-sign",
+          "path": "qa/evidence/kiln-view-short-1280-dpr1-creek-entry-sign.png",
+          "scene": "creek",
+          "paused": true,
+          "time": 317.4333333333733,
+          "player": {
+            "x": 698.0380787997298,
+            "y": 314.51345858316256,
+            "hp": 4,
+            "mana": 0,
+            "facing": -0.0625724420831718,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": false,
+            "entry": null,
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 620,
+              "y": 271
+            },
+            "screen": {
+              "x": 526.9999847412114,
+              "y": 230.34999237060566
+            }
+          },
+          "labels": [
+            {
+              "id": "to_home",
+              "text": "回石驿",
+              "bounds": {
+                "x": 74.5,
+                "y": 713,
+                "w": 63,
+                "h": 26
+              }
+            },
+            {
+              "id": "to_workshop",
+              "text": "旧工棚",
+              "bounds": {
+                "x": 1602.5,
+                "y": 313,
+                "w": 63,
+                "h": 26
+              }
+            },
+            {
+              "id": "to_crossing",
+              "text": "石渡",
+              "bounds": {
+                "x": 1598.5,
+                "y": 762,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "xu_creek",
+              "text": "许照",
+              "bounds": {
+                "x": 594.8974609375,
+                "y": 334.83111572265625,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "creek_to_kiln",
+              "text": "旧窑",
+              "bounds": {
+                "x": 600.5,
+                "y": 257,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "xu_creek",
+                "x": 613.3974313396614,
+                "y": 319.83110373799536,
+                "angle": -1.858426314502367,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "to_home",
+                "text": "回石驿",
+                "bounds": {
+                  "x": 74.5,
+                  "y": 713,
+                  "w": 63,
+                  "h": 26
+                }
+              },
+              {
+                "id": "to_workshop",
+                "text": "旧工棚",
+                "bounds": {
+                  "x": 1602.5,
+                  "y": 313,
+                  "w": 63,
+                  "h": 26
+                }
+              },
+              {
+                "id": "to_crossing",
+                "text": "石渡",
+                "bounds": {
+                  "x": 1598.5,
+                  "y": 762,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "xu_creek",
+                "text": "许照",
+                "bounds": {
+                  "x": 594.8974609375,
+                  "y": 334.83111572265625,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "creek_to_kiln",
+                "text": "旧窑",
+                "bounds": {
+                  "x": 600.5,
+                  "y": 257,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 710,
+              "y": 640,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 710,
+                "lastY": 640,
+                "seen": 0,
+                "attack": 0
+              }
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "west-exit-sign",
+          "path": "qa/evidence/kiln-view-short-1280-dpr1-west-exit-sign.png",
+          "scene": "kiln",
+          "paused": true,
+          "time": 318.41666666670574,
+          "player": {
+            "x": 270,
+            "y": 480,
+            "hp": 4,
+            "mana": 0,
+            "facing": -0.0625724420831718,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": "west",
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 180,
+              "y": 436
+            },
+            "screen": {
+              "x": 157.80822335857238,
+              "y": 259.6438353823064
+            }
+          },
+          "labels": [
+            {
+              "id": "duqin",
+              "text": "杜芹",
+              "bounds": {
+                "x": 241.5,
+                "y": 575,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "kiln_to_creek",
+              "text": "溪道",
+              "bounds": {
+                "x": 160.5,
+                "y": 422,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "kiln_to_canal",
+              "text": "旧渠",
+              "bounds": {
+                "x": 1188.5,
+                "y": 482,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "duqin",
+                "x": 260,
+                "y": 560,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_a",
+                "x": 710,
+                "y": 640,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_b",
+                "x": 1090,
+                "y": 300,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "duqin",
+                "text": "杜芹",
+                "bounds": {
+                  "x": 241.5,
+                  "y": 575,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "kiln_to_creek",
+                "text": "溪道",
+                "bounds": {
+                  "x": 160.5,
+                  "y": 422,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "kiln_to_canal",
+                "text": "旧渠",
+                "bounds": {
+                  "x": 1188.5,
+                  "y": 482,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 710,
+              "y": 640,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 710,
+                "lastY": 640,
+                "seen": 0,
+                "attack": 0
+              }
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "west-court-duqin",
+          "path": "qa/evidence/kiln-view-short-1280-dpr1-west-court-duqin.png",
+          "scene": "kiln",
+          "paused": true,
+          "time": 319.600000000038,
+          "player": {
+            "x": 270,
+            "y": 480,
+            "hp": 4,
+            "mana": 0,
+            "facing": -0.0625724420831718,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": "west",
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 260,
+              "y": 525
+            },
+            "screen": {
+              "x": 227.94520965994224,
+              "y": 337.6712326425804
+            }
+          },
+          "labels": [
+            {
+              "id": "duqin",
+              "text": "杜芹",
+              "bounds": {
+                "x": 241.5,
+                "y": 575,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "kiln_to_creek",
+              "text": "溪道",
+              "bounds": {
+                "x": 160.5,
+                "y": 422,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "kiln_to_canal",
+              "text": "旧渠",
+              "bounds": {
+                "x": 1188.5,
+                "y": 482,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "duqin",
+                "x": 260,
+                "y": 560,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_a",
+                "x": 710,
+                "y": 640,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_b",
+                "x": 1090,
+                "y": 300,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "duqin",
+                "text": "杜芹",
+                "bounds": {
+                  "x": 241.5,
+                  "y": 575,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "kiln_to_creek",
+                "text": "溪道",
+                "bounds": {
+                  "x": 160.5,
+                  "y": 422,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "kiln_to_canal",
+                "text": "旧渠",
+                "bounds": {
+                  "x": 1188.5,
+                  "y": 482,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 710,
+              "y": 640,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 710,
+                "lastY": 640,
+                "seen": 0,
+                "attack": 0
+              }
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "intact-screen",
+          "path": "qa/evidence/kiln-view-short-1280-dpr1-intact-screen.png",
+          "scene": "kiln",
+          "paused": true,
+          "time": 321.6333333333695,
+          "player": {
+            "x": 348.16514700569604,
+            "y": 637.6902336658086,
+            "hp": 4,
+            "mana": 0,
+            "facing": 1.110604312753849,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": "west",
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 500,
+              "y": 620
+            },
+            "screen": {
+              "x": 438.3561685640518,
+              "y": 282.7099308644391
+            }
+          },
+          "labels": [
+            {
+              "id": "shield_board",
+              "text": "轻木挡屏",
+              "bounds": {
+                "x": 469.5,
+                "y": 655,
+                "w": 61,
+                "h": 21
+              }
+            },
+            {
+              "id": "duqin",
+              "text": "杜芹",
+              "bounds": {
+                "x": 241.5,
+                "y": 575,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "kiln_to_creek",
+              "text": "溪道",
+              "bounds": {
+                "x": 160.5,
+                "y": 422,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "kiln_to_canal",
+              "text": "旧渠",
+              "bounds": {
+                "x": 1188.5,
+                "y": 482,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "duqin",
+                "x": 260,
+                "y": 560,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_a",
+                "x": 710,
+                "y": 640,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_b",
+                "x": 1090,
+                "y": 300,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "shield_board",
+                "text": "轻木挡屏",
+                "bounds": {
+                  "x": 469.5,
+                  "y": 655,
+                  "w": 61,
+                  "h": 21
+                }
+              },
+              {
+                "id": "duqin",
+                "text": "杜芹",
+                "bounds": {
+                  "x": 241.5,
+                  "y": 575,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "kiln_to_creek",
+                "text": "溪道",
+                "bounds": {
+                  "x": 160.5,
+                  "y": 422,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "kiln_to_canal",
+                "text": "旧渠",
+                "bounds": {
+                  "x": 1188.5,
+                  "y": 482,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 710,
+              "y": 640,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 710,
+                "lastY": 640,
+                "seen": 0,
+                "attack": 0
+              }
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "east-exit-sign",
+          "path": "qa/evidence/kiln-view-short-1280-dpr1-east-exit-sign.png",
+          "scene": "kiln",
+          "paused": true,
+          "time": 334.76666666669087,
+          "player": {
+            "x": 1219.3123340512136,
+            "y": 651.7867177706781,
+            "hp": 4,
+            "mana": 0,
+            "facing": -1.562731885971866,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": "west",
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 1220,
+              "y": 496
+            },
+            "screen": {
+              "x": 1069.5890452763806,
+              "y": 161.6390405982285
+            }
+          },
+          "labels": [
+            {
+              "id": "kiln_to_creek",
+              "text": "溪道",
+              "bounds": {
+                "x": 160.5,
+                "y": 422,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "kiln_to_canal",
+              "text": "旧渠",
+              "bounds": {
+                "x": 1188.5,
+                "y": 482,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "duqin",
+                "x": 260,
+                "y": 560,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_a",
+                "x": 933.3211870833715,
+                "y": 794.1638506899424,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_b",
+                "x": 1090,
+                "y": 300,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "kiln_to_creek",
+                "text": "溪道",
+                "bounds": {
+                  "x": 160.5,
+                  "y": 422,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "kiln_to_canal",
+                "text": "旧渠",
+                "bounds": {
+                  "x": 1188.5,
+                  "y": 482,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 933.3211870833715,
+              "y": 794.1638506899424,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "alert",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 1218.9037401450448,
+                "lastY": 702.4517368877266,
+                "seen": 2.11666666666667,
+                "attack": 0
+              },
+              "timer": 0.09999999999999859
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "canal-connection",
+          "path": "qa/evidence/kiln-view-short-1280-dpr1-canal-connection.png",
+          "scene": "canal",
+          "paused": true,
+          "time": 336.100000000023,
+          "player": {
+            "x": 500,
+            "y": 570,
+            "hp": 4,
+            "mana": 0,
+            "facing": -1.5646448153410393,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": null,
+            "crossed": {
+              "west": false,
+              "east": true
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 460,
+              "y": 406
+            },
+            "screen": {
+              "x": 390.9999847412113,
+              "y": 157.3499976368512
+            }
+          },
+          "labels": [
+            {
+              "id": "canal_to_home",
+              "text": "回石驿",
+              "bounds": {
+                "x": 204.5,
+                "y": 1013,
+                "w": 63,
+                "h": 26
+              }
+            },
+            {
+              "id": "xu_canal",
+              "text": "许照",
+              "bounds": {
+                "x": 496.8626708984375,
+                "y": 641.3193969726562,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "canal_to_kiln",
+              "text": "旧窑",
+              "bounds": {
+                "x": 440.5,
+                "y": 392,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "canal_keeper",
+                "x": 260,
+                "y": 960,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "xu_canal",
+                "x": 515.3626527219847,
+                "y": 626.3193777689834,
+                "angle": 0.8766340794251164,
+                "flipX": true
+              },
+              {
+                "id": "canal_beast_a",
+                "x": 1460,
+                "y": 660,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "canal_beast_b",
+                "x": 1380,
+                "y": 820,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "canal_to_home",
+                "text": "回石驿",
+                "bounds": {
+                  "x": 204.5,
+                  "y": 1013,
+                  "w": 63,
+                  "h": 26
+                }
+              },
+              {
+                "id": "xu_canal",
+                "text": "许照",
+                "bounds": {
+                  "x": 496.8626708984375,
+                  "y": 641.3193969726562,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "canal_to_kiln",
+                "text": "旧窑",
+                "bounds": {
+                  "x": 440.5,
+                  "y": 392,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 952.9187525366441,
+              "y": 787.8702794131689,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "searching",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 1218.9037401450448,
+                "lastY": 702.4517368877266,
+                "seen": 1.7000000000000046,
+                "attack": 0
+              },
+              "timer": 0
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 640,
+            "y": 250
+          },
+          "end": {
+            "x": 153.60000000000002,
+            "y": 140
+          }
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 640,
+            "y": 250
+          },
+          "end": {
+            "x": 153.60000000000002,
+            "y": 140
+          }
+        },
+        {
+          "action": "actual entity tap",
+          "id": "to_creek",
+          "scene": "home",
+          "world": {
+            "x": 1640,
+            "y": 690
+          },
+          "resultScene": "home"
+        },
+        {
+          "action": "actual dialogue choice",
+          "id": "canal:depart:creek"
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "creek",
+          "from": {
+            "x": 170,
+            "y": 760
+          },
+          "target": {
+            "x": 300,
+            "y": 740
+          },
+          "to": {
+            "x": 296.3507312512893,
+            "y": 739.5184787609764
+          },
+          "elapsedModelSeconds": 1.4666666666653327
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 640,
+            "y": 250
+          },
+          "end": {
+            "x": 1025.0000152587886,
+            "y": 405
+          }
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 640,
+            "y": 250
+          },
+          "end": {
+            "x": 1025.0000152587886,
+            "y": 388.2319581407812
+          }
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "creek",
+          "from": {
+            "x": 296.3507312512893,
+            "y": 739.5184787609764
+          },
+          "target": {
+            "x": 300,
+            "y": 340
+          },
+          "to": {
+            "x": 298.82088544044575,
+            "y": 339.52610591084266
+          },
+          "elapsedModelSeconds": 3.4333333333302107
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "creek",
+          "from": {
+            "x": 298.82088544044575,
+            "y": 339.52610591084266
+          },
+          "target": {
+            "x": 700,
+            "y": 315
+          },
+          "to": {
+            "x": 698.0380787997298,
+            "y": 314.51345858316256
+          },
+          "elapsedModelSeconds": 3.1999999999970896
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual entity tap",
+          "id": "creek_to_kiln",
+          "scene": "creek",
+          "world": {
+            "x": 620,
+            "y": 315
+          },
+          "resultScene": "kiln"
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual entity tap",
+          "id": "duqin",
+          "scene": "kiln",
+          "world": {
+            "x": 260,
+            "y": 560
+          },
+          "resultScene": "kiln"
+        },
+        {
+          "action": "actual dialogue choice",
+          "id": "kiln:route"
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 640,
+            "y": 250
+          },
+          "end": {
+            "x": 973.1506807510166,
+            "y": 140
+          }
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 270,
+            "y": 480
+          },
+          "target": {
+            "x": 350,
+            "y": 640
+          },
+          "to": {
+            "x": 348.16514700569604,
+            "y": 637.6902336658086
+          },
+          "elapsedModelSeconds": 2.033333333331484
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 348.16514700569604,
+            "y": 637.6902336658086
+          },
+          "target": {
+            "x": 360,
+            "y": 700
+          },
+          "to": {
+            "x": 359.11613726381074,
+            "y": 698.0380057054175
+          },
+          "elapsedModelSeconds": 1.2666666666655146
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 640,
+            "y": 250
+          },
+          "end": {
+            "x": 964.3835574633454,
+            "y": 140
+          }
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 359.11613726381074,
+            "y": 698.0380057054175
+          },
+          "target": {
+            "x": 360,
+            "y": 820
+          },
+          "to": {
+            "x": 359.29428474665866,
+            "y": 818.0378734698224
+          },
+          "elapsedModelSeconds": 1.6499999999984993
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 359.29428474665866,
+            "y": 818.0378734698224
+          },
+          "target": {
+            "x": 800,
+            "y": 820
+          },
+          "to": {
+            "x": 796.6241896362255,
+            "y": 819.7695586979378
+          },
+          "elapsedModelSeconds": 3.833333333329847
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 796.6241896362255,
+            "y": 819.7695586979378
+          },
+          "target": {
+            "x": 1030,
+            "y": 820
+          },
+          "to": {
+            "x": 1028.624189344801,
+            "y": 819.7811871567073
+          },
+          "elapsedModelSeconds": 2.3499999999978627
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 1028.624189344801,
+            "y": 819.7811871567073
+          },
+          "target": {
+            "x": 1220,
+            "y": 820
+          },
+          "to": {
+            "x": 1217.9575226781235,
+            "y": 819.7812548429968
+          },
+          "elapsedModelSeconds": 2.09999999999809
+        },
+        {
+          "action": "actual mouse walk",
+          "scene": "kiln",
+          "from": {
+            "x": 1217.9575226781235,
+            "y": 819.7812548429968
+          },
+          "target": {
+            "x": 1220,
+            "y": 650
+          },
+          "to": {
+            "x": 1219.3123340512136,
+            "y": 651.7867177706781
+          },
+          "elapsedModelSeconds": 1.933333333331575
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual entity tap",
+          "id": "kiln_to_canal",
+          "scene": "kiln",
+          "world": {
+            "x": 1220,
+            "y": 540
+          },
+          "resultScene": "canal"
+        },
+        {
+          "action": "real center"
+        }
+      ],
+      "assets": [
+        {
+          "name": "kiln-ground.png",
+          "url": "http://127.0.0.1:4187/assets/kiln-ground.png",
+          "status": 200,
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "bytes": 3624755,
+          "sha256": "df1ab7ea81cec12235c70afa91946425aa23cf031f7dc73d2b522d0c0353167d"
+        },
+        {
+          "name": "kiln-environment.png",
+          "url": "http://127.0.0.1:4187/assets/kiln-environment.png",
+          "status": 200,
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "bytes": 2553763,
+          "sha256": "5d9b59014cab12b050d48e1f8bcbc60310260eb626b744c3904cd8df07735d93"
+        },
+        {
+          "name": "kiln-props.png",
+          "url": "http://127.0.0.1:4187/assets/kiln-props.png",
+          "status": 200,
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "bytes": 1550153,
+          "sha256": "aba59236b3b602f09c9c3ffe3c7a5681b248472847253f6054dbe4fb5c7017ed"
+        },
+        {
+          "name": "kiln-duqin.png",
+          "url": "http://127.0.0.1:4187/assets/kiln-duqin.png",
+          "status": 200,
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "bytes": 1440774,
+          "sha256": "0480b088be4bff693bd87e5833e03d28ee23f91b421772b326e90c03de9e0c87"
+        }
+      ],
+      "canvas": {
+        "width": 1280,
+        "height": 500,
+        "cssWidth": 1280,
+        "cssHeight": 500,
+        "expectedDensity": 1
+      },
+      "migration": {
+        "sourceVersion": 4,
+        "resultVersion": 5,
+        "time": 303.80000000005236,
+        "journeyPreserved": true,
+        "kiln": {
+          "visited": false,
+          "entry": null,
+          "crossed": {
+            "west": false,
+            "east": false
+          },
+          "loan": "none",
+          "shelterOpened": false
+        }
+      },
+      "duqinDialogue": {
+        "id": "kiln_duqin",
+        "speaker": "杜芹",
+        "text": "杜芹正照看晾坯：“西边通溪道，东边接旧渠。这面屏挡灰护坯；要挪用先说一声，用完原样放回。”",
+        "choices": [
+          {
+            "id": "kiln:borrow",
+            "label": "借屏，用完归位"
+          },
+          {
+            "id": "kiln:route",
+            "label": "问穿窑的路"
+          },
+          {
+            "id": "leave",
+            "label": "先继续走走"
+          }
+        ]
+      },
+      "final": {
+        "scene": "canal",
+        "player": {
+          "x": 500,
+          "y": 570,
+          "hp": 4,
+          "mana": 0,
+          "facing": -1.5646448153410393,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "kiln": {
+          "visited": true,
+          "entry": null,
+          "crossed": {
+            "west": false,
+            "east": true
+          },
+          "loan": "none",
+          "shelterOpened": false
+        }
+      }
+    },
+    {
+      "id": "phone-390-dpr3",
+      "width": 390,
+      "height": 844,
+      "dpr": 3,
+      "touch": true,
+      "status": "PASS",
+      "captures": [
+        {
+          "id": "creek-entry-sign",
+          "path": "qa/evidence/kiln-view-phone-390-dpr3-creek-entry-sign.png",
+          "scene": "creek",
+          "paused": true,
+          "time": 323.1000000000348,
+          "player": {
+            "x": 699.0315922677179,
+            "y": 315.06731425530927,
+            "hp": 4,
+            "mana": 0,
+            "facing": -0.06938424731872114,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": false,
+            "entry": null,
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 620,
+              "y": 271
+            },
+            "screen": {
+              "x": 127.84999253609588,
+              "y": 230.35002441406286
+            }
+          },
+          "labels": [
+            {
+              "id": "to_home",
+              "text": "回石驿",
+              "bounds": {
+                "x": 74.5,
+                "y": 713,
+                "w": 63,
+                "h": 26
+              }
+            },
+            {
+              "id": "to_workshop",
+              "text": "旧工棚",
+              "bounds": {
+                "x": 1602.5,
+                "y": 313,
+                "w": 63,
+                "h": 26
+              }
+            },
+            {
+              "id": "to_crossing",
+              "text": "石渡",
+              "bounds": {
+                "x": 1598.5,
+                "y": 762,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "xu_creek",
+              "text": "许照",
+              "bounds": {
+                "x": 595.9708251953125,
+                "y": 335.958251953125,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "creek_to_kiln",
+              "text": "旧窑",
+              "bounds": {
+                "x": 600.5,
+                "y": 257,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "xu_creek",
+                "x": 614.4708334830588,
+                "y": 320.9582550513311,
+                "angle": -1.8745974846640365,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "to_home",
+                "text": "回石驿",
+                "bounds": {
+                  "x": 74.5,
+                  "y": 713,
+                  "w": 63,
+                  "h": 26
+                }
+              },
+              {
+                "id": "to_workshop",
+                "text": "旧工棚",
+                "bounds": {
+                  "x": 1602.5,
+                  "y": 313,
+                  "w": 63,
+                  "h": 26
+                }
+              },
+              {
+                "id": "to_crossing",
+                "text": "石渡",
+                "bounds": {
+                  "x": 1598.5,
+                  "y": 762,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "xu_creek",
+                "text": "许照",
+                "bounds": {
+                  "x": 595.9708251953125,
+                  "y": 335.958251953125,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "creek_to_kiln",
+                "text": "旧窑",
+                "bounds": {
+                  "x": 600.5,
+                  "y": 257,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 710,
+              "y": 640,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 710,
+                "lastY": 640,
+                "seen": 0,
+                "attack": 0
+              }
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "west-exit-sign",
+          "path": "qa/evidence/kiln-view-phone-390-dpr3-west-exit-sign.png",
+          "scene": "kiln",
+          "paused": true,
+          "time": 325.90000000003226,
+          "player": {
+            "x": 270,
+            "y": 480,
+            "hp": 4,
+            "mana": 0,
+            "facing": -0.06938424731872114,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": "west",
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 180,
+              "y": 436
+            },
+            "screen": {
+              "x": 118.49999935486737,
+              "y": 370.60002441406283
+            }
+          },
+          "labels": [
+            {
+              "id": "duqin",
+              "text": "杜芹",
+              "bounds": {
+                "x": 241.5,
+                "y": 575,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "kiln_to_creek",
+              "text": "溪道",
+              "bounds": {
+                "x": 160.5,
+                "y": 422,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "kiln_to_canal",
+              "text": "旧渠",
+              "bounds": {
+                "x": 1188.5,
+                "y": 482,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "duqin",
+                "x": 260,
+                "y": 560,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_a",
+                "x": 710,
+                "y": 640,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_b",
+                "x": 1090,
+                "y": 300,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "duqin",
+                "text": "杜芹",
+                "bounds": {
+                  "x": 241.5,
+                  "y": 575,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "kiln_to_creek",
+                "text": "溪道",
+                "bounds": {
+                  "x": 160.5,
+                  "y": 422,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "kiln_to_canal",
+                "text": "旧渠",
+                "bounds": {
+                  "x": 1188.5,
+                  "y": 482,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 710,
+              "y": 640,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 710,
+                "lastY": 640,
+                "seen": 0,
+                "attack": 0
+              }
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "west-court-duqin",
+          "path": "qa/evidence/kiln-view-phone-390-dpr3-west-court-duqin.png",
+          "scene": "kiln",
+          "paused": true,
+          "time": 328.40000000003,
+          "player": {
+            "x": 270,
+            "y": 480,
+            "hp": 4,
+            "mana": 0,
+            "facing": -0.06938424731872114,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": "west",
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 260,
+              "y": 525
+            },
+            "screen": {
+              "x": 186.49999935486736,
+              "y": 446.25002441406286
+            }
+          },
+          "labels": [
+            {
+              "id": "duqin",
+              "text": "杜芹",
+              "bounds": {
+                "x": 241.5,
+                "y": 575,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "kiln_to_creek",
+              "text": "溪道",
+              "bounds": {
+                "x": 160.5,
+                "y": 422,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "kiln_to_canal",
+              "text": "旧渠",
+              "bounds": {
+                "x": 1188.5,
+                "y": 482,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "duqin",
+                "x": 260,
+                "y": 560,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_a",
+                "x": 710,
+                "y": 640,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_b",
+                "x": 1090,
+                "y": 300,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "duqin",
+                "text": "杜芹",
+                "bounds": {
+                  "x": 241.5,
+                  "y": 575,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "kiln_to_creek",
+                "text": "溪道",
+                "bounds": {
+                  "x": 160.5,
+                  "y": 422,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "kiln_to_canal",
+                "text": "旧渠",
+                "bounds": {
+                  "x": 1188.5,
+                  "y": 482,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 710,
+              "y": 640,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 710,
+                "lastY": 640,
+                "seen": 0,
+                "attack": 0
+              }
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "intact-screen",
+          "path": "qa/evidence/kiln-view-phone-390-dpr3-intact-screen.png",
+          "scene": "kiln",
+          "paused": true,
+          "time": 331.6000000000271,
+          "player": {
+            "x": 348.7096045531953,
+            "y": 637.4191797433849,
+            "hp": 4,
+            "mana": 0,
+            "facing": 1.107148643183082,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": "west",
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 500,
+              "y": 620
+            },
+            "screen": {
+              "x": 324.19999811509064,
+              "y": 521.0000243018659
+            }
+          },
+          "labels": [
+            {
+              "id": "shield_board",
+              "text": "轻木挡屏",
+              "bounds": {
+                "x": 469.5,
+                "y": 655,
+                "w": 61,
+                "h": 21
+              }
+            },
+            {
+              "id": "duqin",
+              "text": "杜芹",
+              "bounds": {
+                "x": 241.5,
+                "y": 575,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "kiln_to_creek",
+              "text": "溪道",
+              "bounds": {
+                "x": 160.5,
+                "y": 422,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "kiln_to_canal",
+              "text": "旧渠",
+              "bounds": {
+                "x": 1188.5,
+                "y": 482,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "duqin",
+                "x": 260,
+                "y": 560,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_a",
+                "x": 710,
+                "y": 640,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_b",
+                "x": 1090,
+                "y": 300,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "shield_board",
+                "text": "轻木挡屏",
+                "bounds": {
+                  "x": 469.5,
+                  "y": 655,
+                  "w": 61,
+                  "h": 21
+                }
+              },
+              {
+                "id": "duqin",
+                "text": "杜芹",
+                "bounds": {
+                  "x": 241.5,
+                  "y": 575,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "kiln_to_creek",
+                "text": "溪道",
+                "bounds": {
+                  "x": 160.5,
+                  "y": 422,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "kiln_to_canal",
+                "text": "旧渠",
+                "bounds": {
+                  "x": 1188.5,
+                  "y": 482,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 710,
+              "y": 640,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 710,
+                "lastY": 640,
+                "seen": 0,
+                "attack": 0
+              }
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "east-exit-sign",
+          "path": "qa/evidence/kiln-view-phone-390-dpr3-east-exit-sign.png",
+          "scene": "kiln",
+          "paused": true,
+          "time": 352.0000000000085,
+          "player": {
+            "x": 1219.9841432136186,
+            "y": 652.0052680428942,
+            "hp": 3,
+            "mana": 0,
+            "facing": -1.562877559810486,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": "west",
+            "crossed": {
+              "west": false,
+              "east": false
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 1220,
+              "y": 496
+            },
+            "screen": {
+              "x": 195.84998427091833,
+              "y": 415.6000243018659
+            }
+          },
+          "labels": [
+            {
+              "id": "kiln_to_creek",
+              "text": "溪道",
+              "bounds": {
+                "x": 160.5,
+                "y": 422,
+                "w": 51,
+                "h": 28
+              }
+            },
+            {
+              "id": "kiln_to_canal",
+              "text": "旧渠",
+              "bounds": {
+                "x": 1188.5,
+                "y": 482,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "duqin",
+                "x": 260,
+                "y": 560,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_a",
+                "x": 951.2392703521971,
+                "y": 784.0159574196489,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "kiln_raider_b",
+                "x": 1090,
+                "y": 300,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "kiln_to_creek",
+                "text": "溪道",
+                "bounds": {
+                  "x": 160.5,
+                  "y": 422,
+                  "w": 51,
+                  "h": 28
+                }
+              },
+              {
+                "id": "kiln_to_canal",
+                "text": "旧渠",
+                "bounds": {
+                  "x": 1188.5,
+                  "y": 482,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 951.2392703521971,
+              "y": 784.0159574196489,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "alert",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 1219.9841432136186,
+                "lastY": 652.0052680428942,
+                "seen": 3,
+                "attack": 0
+              },
+              "timer": 0.4499999999999985
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "canal-connection",
+          "path": "qa/evidence/kiln-view-phone-390-dpr3-canal-connection.png",
+          "scene": "canal",
+          "paused": true,
+          "time": 354.800000000006,
+          "player": {
+            "x": 500,
+            "y": 570,
+            "hp": 3,
+            "mana": 0,
+            "facing": -1.5706547550050018,
+            "invulnerable": 0,
+            "cooldown": 0,
+            "ward": 0,
+            "wardFacing": 0,
+            "pullId": null,
+            "pullPoint": null,
+            "hold": 0,
+            "path": []
+          },
+          "kiln": {
+            "visited": true,
+            "entry": null,
+            "crossed": {
+              "west": false,
+              "east": true
+            },
+            "loan": "none",
+            "shelterOpened": false
+          },
+          "focus": {
+            "world": {
+              "x": 460,
+              "y": 406
+            },
+            "screen": {
+              "x": 160.99999569911574,
+              "y": 329.3500241195458
+            }
+          },
+          "labels": [
+            {
+              "id": "canal_to_home",
+              "text": "回石驿",
+              "bounds": {
+                "x": 204.5,
+                "y": 1013,
+                "w": 63,
+                "h": 26
+              }
+            },
+            {
+              "id": "xu_canal",
+              "text": "许照",
+              "bounds": {
+                "x": 496.92291259765625,
+                "y": 641.4283447265625,
+                "w": 37,
+                "h": 21
+              }
+            },
+            {
+              "id": "canal_to_kiln",
+              "text": "旧窑",
+              "bounds": {
+                "x": 440.5,
+                "y": 392,
+                "w": 51,
+                "h": 28
+              }
+            }
+          ],
+          "presentation": {
+            "actors": [
+              {
+                "id": "canal_keeper",
+                "x": 260,
+                "y": 960,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "xu_canal",
+                "x": 515.4229192282296,
+                "y": 626.42835163565,
+                "angle": 1.9478184695851724,
+                "flipX": true
+              },
+              {
+                "id": "canal_beast_a",
+                "x": 1460,
+                "y": 660,
+                "angle": 0,
+                "flipX": false
+              },
+              {
+                "id": "canal_beast_b",
+                "x": 1380,
+                "y": 820,
+                "angle": 0,
+                "flipX": false
+              }
+            ],
+            "player": {
+              "x": 0,
+              "y": 5,
+              "angle": 0,
+              "scaleY": 0.13,
+              "flipX": false
+            },
+            "labels": [
+              {
+                "id": "canal_to_home",
+                "text": "回石驿",
+                "bounds": {
+                  "x": 204.5,
+                  "y": 1013,
+                  "w": 63,
+                  "h": 26
+                }
+              },
+              {
+                "id": "xu_canal",
+                "text": "许照",
+                "bounds": {
+                  "x": 496.92291259765625,
+                  "y": 641.4283447265625,
+                  "w": 37,
+                  "h": 21
+                }
+              },
+              {
+                "id": "canal_to_kiln",
+                "text": "旧窑",
+                "bounds": {
+                  "x": 440.5,
+                  "y": 392,
+                  "w": 51,
+                  "h": 28
+                }
+              }
+            ]
+          },
+          "screen": {
+            "id": "shield_board",
+            "type": "shield_board",
+            "kind": "object",
+            "name": "轻木挡屏",
+            "x": 500,
+            "y": 640,
+            "homeX": 500,
+            "homeY": 640,
+            "w": 100,
+            "h": 40,
+            "movable": true,
+            "solid": true,
+            "flammable": true,
+            "state": "idle",
+            "hint": "落地挡双方来袭；烧毁后不再遮蔽。"
+          },
+          "enemies": [
+            {
+              "id": "kiln_raider_a",
+              "name": "近墙散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 981.0400142076617,
+              "y": 774.7348946326,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "chasing",
+              "homeX": 710,
+              "homeY": 640,
+              "data": {
+                "lastX": 1219.9886735108803,
+                "lastY": 620.0052683635747,
+                "seen": 3,
+                "attack": 0.44999999999999996
+              },
+              "timer": 0
+            },
+            {
+              "id": "kiln_raider_b",
+              "name": "外路散修",
+              "kind": "enemy",
+              "type": "raider",
+              "x": 1090,
+              "y": 300,
+              "w": 40,
+              "h": 60,
+              "hp": 3,
+              "state": "idle",
+              "homeX": 1090,
+              "homeY": 300,
+              "data": {
+                "lastX": 1090,
+                "lastY": 300,
+                "seen": 0,
+                "attack": 0
+              }
+            }
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 195,
+            "y": 420
+          },
+          "end": {
+            "x": 46.80000000000001,
+            "y": 253.49997558593714
+          }
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 195,
+            "y": 420
+          },
+          "end": {
+            "x": 46.80000000000001,
+            "y": 344.0499772791765
+          }
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 195,
+            "y": 420
+          },
+          "end": {
+            "x": 46.80000000000001,
+            "y": 344.0499772791765
+          }
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 195,
+            "y": 420
+          },
+          "end": {
+            "x": 46.80000000000001,
+            "y": 344.0499772791765
+          }
+        },
+        {
+          "action": "actual entity tap",
+          "id": "to_creek",
+          "scene": "home",
+          "world": {
+            "x": 1640,
+            "y": 690
+          },
+          "resultScene": "home"
+        },
+        {
+          "action": "actual dialogue choice",
+          "id": "canal:depart:creek"
+        },
+        {
+          "action": "actual touch walk",
+          "scene": "creek",
+          "from": {
+            "x": 170,
+            "y": 760
+          },
+          "target": {
+            "x": 300,
+            "y": 740
+          },
+          "to": {
+            "x": 299.147233066189,
+            "y": 740.131180983128
+          },
+          "elapsedModelSeconds": 2.9999999999972715
+        },
+        {
+          "action": "actual touch walk",
+          "scene": "creek",
+          "from": {
+            "x": 299.147233066189,
+            "y": 740.131180983128
+          },
+          "target": {
+            "x": 300,
+            "y": 340
+          },
+          "to": {
+            "x": 299.9940408137401,
+            "y": 342.79875002081644
+          },
+          "elapsedModelSeconds": 4.599999999995816
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 195,
+            "y": 420
+          },
+          "end": {
+            "x": 46.80000000000001,
+            "y": 572.2499755859371
+          }
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 195,
+            "y": 420
+          },
+          "end": {
+            "x": 46.80000000000001,
+            "y": 572.2499755859371
+          }
+        },
+        {
+          "action": "actual touch walk",
+          "scene": "creek",
+          "from": {
+            "x": 299.9940408137401,
+            "y": 342.79875002081644
+          },
+          "target": {
+            "x": 700,
+            "y": 315
+          },
+          "to": {
+            "x": 699.0315922677179,
+            "y": 315.06731425530927
+          },
+          "elapsedModelSeconds": 4.599999999995816
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual entity tap",
+          "id": "creek_to_kiln",
+          "scene": "creek",
+          "world": {
+            "x": 620,
+            "y": 315
+          },
+          "resultScene": "kiln"
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual entity tap",
+          "id": "duqin",
+          "scene": "kiln",
+          "world": {
+            "x": 260,
+            "y": 560
+          },
+          "resultScene": "kiln"
+        },
+        {
+          "action": "actual dialogue choice",
+          "id": "kiln:route"
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual touch walk",
+          "scene": "kiln",
+          "from": {
+            "x": 270,
+            "y": 480
+          },
+          "target": {
+            "x": 350,
+            "y": 640
+          },
+          "to": {
+            "x": 348.7096045531953,
+            "y": 637.4191797433849
+          },
+          "elapsedModelSeconds": 3.1999999999970896
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual touch walk",
+          "scene": "kiln",
+          "from": {
+            "x": 348.7096045531953,
+            "y": 637.4191797433849
+          },
+          "target": {
+            "x": 360,
+            "y": 700
+          },
+          "to": {
+            "x": 359.599140840406,
+            "y": 697.7780711946649
+          },
+          "elapsedModelSeconds": 2.4999999999977263
+        },
+        {
+          "action": "actual touch walk",
+          "scene": "kiln",
+          "from": {
+            "x": 359.599140840406,
+            "y": 697.7780711946649
+          },
+          "target": {
+            "x": 360,
+            "y": 820
+          },
+          "to": {
+            "x": 359.99271713215006,
+            "y": 817.7774257666885
+          },
+          "elapsedModelSeconds": 2.8999999999973625
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 195,
+            "y": 420
+          },
+          "end": {
+            "x": 46.80000000000001,
+            "y": 220
+          }
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 195,
+            "y": 420
+          },
+          "end": {
+            "x": 46.80000000000001,
+            "y": 220
+          }
+        },
+        {
+          "action": "actual touch walk",
+          "scene": "kiln",
+          "from": {
+            "x": 359.99271713215006,
+            "y": 817.7774257666885
+          },
+          "target": {
+            "x": 800,
+            "y": 820
+          },
+          "to": {
+            "x": 797.3204713231015,
+            "y": 819.9864659985714
+          },
+          "elapsedModelSeconds": 4.8999999999955435
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 195,
+            "y": 420
+          },
+          "end": {
+            "x": 46.80000000000001,
+            "y": 220
+          }
+        },
+        {
+          "action": "actual touch walk",
+          "scene": "kiln",
+          "from": {
+            "x": 797.3204713231015,
+            "y": 819.9864659985714
+          },
+          "target": {
+            "x": 1030,
+            "y": 820
+          },
+          "to": {
+            "x": 1029.3204709305837,
+            "y": 819.9999614430344
+          },
+          "elapsedModelSeconds": 3.599999999996726
+        },
+        {
+          "action": "real Shift camera drag",
+          "origin": {
+            "x": 195,
+            "y": 420
+          },
+          "end": {
+            "x": 46.80000000000001,
+            "y": 220
+          }
+        },
+        {
+          "action": "actual touch walk",
+          "scene": "kiln",
+          "from": {
+            "x": 1029.3204709305837,
+            "y": 819.9999614430344
+          },
+          "target": {
+            "x": 1220,
+            "y": 820
+          },
+          "to": {
+            "x": 1218.6538042639063,
+            "y": 820.0000006932925
+          },
+          "elapsedModelSeconds": 3.2999999999969987
+        },
+        {
+          "action": "actual touch walk",
+          "scene": "kiln",
+          "from": {
+            "x": 1218.6538042639063,
+            "y": 820.0000006932925
+          },
+          "target": {
+            "x": 1220,
+            "y": 650
+          },
+          "to": {
+            "x": 1219.9841432136186,
+            "y": 652.0052680428942
+          },
+          "elapsedModelSeconds": 3.1999999999970896
+        },
+        {
+          "action": "real center"
+        },
+        {
+          "action": "actual entity tap",
+          "id": "kiln_to_canal",
+          "scene": "kiln",
+          "world": {
+            "x": 1220,
+            "y": 540
+          },
+          "resultScene": "canal"
+        },
+        {
+          "action": "real center"
+        }
+      ],
+      "assets": [
+        {
+          "name": "kiln-ground.png",
+          "url": "http://127.0.0.1:4187/assets/kiln-ground.png",
+          "status": 200,
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "bytes": 3624755,
+          "sha256": "df1ab7ea81cec12235c70afa91946425aa23cf031f7dc73d2b522d0c0353167d"
+        },
+        {
+          "name": "kiln-environment.png",
+          "url": "http://127.0.0.1:4187/assets/kiln-environment.png",
+          "status": 200,
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "bytes": 2553763,
+          "sha256": "5d9b59014cab12b050d48e1f8bcbc60310260eb626b744c3904cd8df07735d93"
+        },
+        {
+          "name": "kiln-props.png",
+          "url": "http://127.0.0.1:4187/assets/kiln-props.png",
+          "status": 200,
+          "dimensions": [
+            1536,
+            1024
+          ],
+          "bytes": 1550153,
+          "sha256": "aba59236b3b602f09c9c3ffe3c7a5681b248472847253f6054dbe4fb5c7017ed"
+        },
+        {
+          "name": "kiln-duqin.png",
+          "url": "http://127.0.0.1:4187/assets/kiln-duqin.png",
+          "status": 200,
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "bytes": 1440774,
+          "sha256": "0480b088be4bff693bd87e5833e03d28ee23f91b421772b326e90c03de9e0c87"
+        }
+      ],
+      "canvas": {
+        "width": 1170,
+        "height": 2532,
+        "cssWidth": 390,
+        "cssHeight": 844,
+        "expectedDensity": 3
+      },
+      "migration": {
+        "sourceVersion": 4,
+        "resultVersion": 5,
+        "time": 303.80000000005236,
+        "journeyPreserved": true,
+        "kiln": {
+          "visited": false,
+          "entry": null,
+          "crossed": {
+            "west": false,
+            "east": false
+          },
+          "loan": "none",
+          "shelterOpened": false
+        }
+      },
+      "duqinDialogue": {
+        "id": "kiln_duqin",
+        "speaker": "杜芹",
+        "text": "杜芹正照看晾坯：“西边通溪道，东边接旧渠。这面屏挡灰护坯；要挪用先说一声，用完原样放回。”",
+        "choices": [
+          {
+            "id": "kiln:borrow",
+            "label": "借屏，用完归位"
+          },
+          {
+            "id": "kiln:route",
+            "label": "问穿窑的路"
+          },
+          {
+            "id": "leave",
+            "label": "先继续走走"
+          }
+        ]
+      },
+      "final": {
+        "scene": "canal",
+        "player": {
+          "x": 500,
+          "y": 570,
+          "hp": 3,
+          "mana": 0,
+          "facing": -1.5706547550050018,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "kiln": {
+          "visited": true,
+          "entry": null,
+          "crossed": {
+            "west": false,
+            "east": true
+          },
+          "loan": "none",
+          "shelterOpened": false
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "limitation": "Linux Chrome with viewport/DPR/touch emulation, not physical Mac/Safari/phone. Movement uses real clicks/taps; camera uses real Shift-mouse drags, including emulated phone. Paused framing is intentional visual QA, not uninterrupted combat evidence. Label geometry, actual rendered Duqin presence and loaded assets are checked; screenshots still require visual review for overall quality and occlusion.",
+  "fixture": {
+    "path": "qa/fixtures/return-journey-v0.5.0.json",
+    "sha256": "82f9a297f4c340fffd16a86e9da46a3565ff61168e97e3de1c0b3a6382f48e41",
+    "contentVersion": 4,
+    "origin": "Fixed actual v0.5 settings completion export; migrated by the production UI on every viewport. No generated v0.6 save is represented as this historical fixture."
+  },
+  "browser": "150.0.7871.114",
+  "completedAt": "2026-09-11T10:31:04.574Z"
+}
