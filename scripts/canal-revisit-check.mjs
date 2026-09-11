@@ -96,7 +96,7 @@ try{
   await capture('water-diverted');assert.equal((await state()).canal.stage,'complete');
   assert.match(await page.locator('.location p').innerText(),/复位/);
   await interact('canal_diverter');await wait(()=>window.__XIAN_NI__.inspect().canal.flow===3);
-  assert.match(await page.locator('.location p').innerText(),/桌边/);await capture('water-restored');
+  await page.waitForFunction(()=>document.querySelector('.location p')?.textContent.includes('桌边'));assert.match(await page.locator('.location p').innerText(),/桌边/);await capture('water-restored');
   await walk(500,700);await interact('canal_tub');assert.equal((await state()).canal.stage,'complete');
   await interact('canal_to_home');await wait(()=>window.__XIAN_NI__.inspect().scene==='home');await interact('table');
   assert.ok(!(await state()).dialogue.choices.some(c=>c.id==='canal:record'));route.status='PASS';await persist();await page.close();page=null;

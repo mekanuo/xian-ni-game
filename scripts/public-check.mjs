@@ -86,6 +86,19 @@ await page.locator('.action-dock [data-ui="pause"]').click();assert.equal((await
 const adventureState=await fullState();assert.ok(adventureState.worlds.canal.some(e=>e.id==='canal_keeper'));assert.ok(adventureState.worlds.canal.some(e=>e.id==='canal_screen'));assert.equal(evidence.errors.length,0);
 evidence.adventure={fixture:adventureFixture,fixtureSha256:hash(adventureFixtureBytes),input:adventureInput,scene:adventureState.scene,contentVersion:adventureState.contentVersion,stage:adventureState.canal.stage,inspected:adventureState.canal.inspected,cleared:adventureState.canal.cleared,player:adventureState.player,resources:adventureResources,visual:'qa/evidence/public-canal.png',scope:'Published old-save import, accepted invitation and physical fifth-scene entry; full two-method playthrough is verified separately.'};
 await page.screenshot({path:evidence.adventure.visual});
+// Confirm the published next chapter accepts an authentic v3 canal completion,
+// then reach its existing workshop through real exits. Full leadership is local QA.
+const companionFixture='qa/fixtures/return-canal-v0.4.0.json',companionBytes=await readFile(companionFixture),traceStart=adventureInput.length;
+await page.locator('[data-ui="settings"]').click();await page.locator('#import-save').setInputFiles(companionFixture);
+await page.waitForFunction(()=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===4&&s.canal.stage==='complete'&&s.journey.stage==='unaccepted'&&s.scene==='home';});
+await adventureResume();await adventureInteract('table');await adventureChoose('journey:agree:together');assert.equal((await fullState()).journey.stage,'active');
+await adventureInteract('to_creek');await adventureChoose('canal:depart:creek');await page.waitForFunction(()=>window.__XIAN_NI__.inspect().scene==='creek');
+const workshopExit=(await fullState()).worlds.creek.find(e=>e.id==='to_workshop'),workshopPoint=await adventurePoint(workshopExit.x,workshopExit.y);await page.mouse.click(workshopPoint.x,workshopPoint.y);
+await page.waitForFunction(()=>window.__XIAN_NI__.inspect().scene==='workshop',undefined,{timeout:60000});
+const companionState=await fullState();assert.equal(companionState.journey.run,null);assert.equal(companionState.journey.sharedRoute,null);assert.equal(companionState.worlds.workshop.find(e=>e.id==='journey_north_mark').state,'idle');
+await page.keyboard.press('c');await page.locator('.action-dock [data-ui="pause"]').click();await page.waitForTimeout(200);
+evidence.companion={fixture:companionFixture,fixtureSha256:hash(companionBytes),input:adventureInput.slice(traceStart),scene:companionState.scene,journey:companionState.journey,contentVersion:companionState.contentVersion,visual:'qa/evidence/public-companion.png',scope:'Published v3 migration, agreement and real workshop entry; no shared journey awarded for agreement or scene change.'};
+await page.screenshot({path:evidence.companion.visual});
 await page.close();
 const phoneContext=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,isMobile:true,hasTouch:true});
 const phone=await phoneContext.newPage();phone.on('pageerror',e=>evidence.errors.push(e.message));
