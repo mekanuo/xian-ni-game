@@ -52,7 +52,7 @@ try{
   for(const p of lower)await walk(p);const east=await state();assert.equal(east.eastReached,true);assert.equal(east.returned,false);assert.equal(east.state.player.mana,0);
   // The moved enemy changes the southern return; use the actual northern wall
   // route instead of forcing click navigation through its threat exclusion.
-  for(const p of [{x:1220,y:140},{x:800,y:140},{x:360,y:170},{x:180,y:480}])await walk(p);
+  for(const p of [{x:1290,y:540},{x:1290,y:140},{x:800,y:140},{x:360,y:170},{x:180,y:480}])await walk(p);
   const returned=await state();assert.equal(returned.returned,true);assert.equal(returned.state.player.mana,0);assert.ok(returned.state.player.hp>0);assert.equal(screen(returned).state,'idle');
   report.cases.push({id:'zero-resource-keyboard-and-click-round-trip',east,returned,visual:await capture('zero-return')});
   await page.locator('[data-action="restart"]').click();const restarted=await state();assert.equal(restarted.state.player.mana,0);assert.equal(restarted.state.player.hp,4);assert.equal(restarted.returned,false);assert.equal(restarted.eastReached,false);assert.ok(restarted.state.worlds.home.filter(e=>e.kind==='enemy').every(e=>e.hp===3&&e.state==='idle'));

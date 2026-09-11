@@ -1,12 +1,14 @@
 # 当前工作入口 · 0.6 隔离空间白盒
 
-本目录 `.worktrees/kiln-060` / `feat/kiln-060`，基于759f8c8，用户要求持续自主推进。0.5候选仍在 `.worktrees/companion-050` 跑完整发行verify（PID1091270，/tmp/xian-ni-050-verify.log，退出码同名.exit，4187独占浏览器）。**0.5通过后优先提交推送、合入主源码分支、部署并public-check；本白盒不能替代它，也不能用其报告发布。** 公网当前已核验0.4.1，原链接不变。
+本目录 `.worktrees/kiln-060` / `feat/kiln-060`。0.5已正式发行并公网核验：主源码4771041、最终证据7fea179、gh-pages f7972c2，21运行资源哈希一致，原链接 https://mekanuo.github.io/xian-ni-game/?v=0.5.0 。本分支待合入最终0.5证据文档。
 
-本分支新增独立whitebox.html、src/whitebox/kiln-model.ts/主场景/CSS与vite.whitebox.config.ts，复用home槽位的实际act/tick，无正式存档或跨图，普通/零灵力可见初态与整局重开。计划 docs/superpowers/plans/2026-09-11-kiln-whitebox.md；ADVENTURE_060.md为选定白盒候选，生产美术/杜芹借还/新地图迁移尚未实施。规则组合补丁修复burning/burned可移动物被重新牵起复原，真实施术测试先红后绿，独立只读审查无缺陷。
+用户要求持续自主推进，无待批准事项，不重读旧聊天或原小说，不碰两个封版项目。0.6选定 design/ADVENTURE_060.md，当前只做独立whitebox.html，生产新图、杜芹借还、迁移、原画未实现，不发布白盒。
 
-353测试/23文件PASS，北侧围墙上移40后实际模型南去北返仍通过，保留两敌和零资源。鼠标南路原路返程会避敌拒绝，北路可实际点击绕回；模型通过不等于浏览器或趣味通过。旧窑真实输入脚本scripts/kiln-whitebox-check.mjs已写，未运行。随后实体边角补丁10新测试及相关五文件75/75通过，TypeScript/独立构建whitebox-zrCBa4Qk.js通过；预览用vite.whitebox.config.ts的4192。旧屏角脱困随后已补：相关五文件85/85、TypeScript/白盒whitebox-CzR68t1q.js通过，原位拾取与逐步向外脱出不允许穿墙对侧。保存兼容证据为完整五图清单上的合成旧位置snapshot/restore模型夹具，非历史实机导档；正式跨图/迁移/美术仍未实现，不能直接发布白盒分支。待0.5释放浏览器后，4192运行独立白盒，再验证并决定生产地图。不要提前调用whitebox浏览器。启动/版本/边界见design/BUILD_BRIEF_060_WHITEBOX.md。
+第三几何修订东侧扩60，真实Chrome150桌面DPR2五项PASS：留屏与暂停、牵屏合法落点及屏角拒绝、烧毁不可牵复原、零灵力实际东去西返、整局重开。返回HP3/MP0、38.015秒，两敌未退出，真实敌弹撞固定围墙；页面错误为空。qa/whitebox/kiln.json及截图，原第二修订北返失败保留在rejected-east-narrow。模型新增1秒活动决策间隔先RED后GREEN，白盒7/7；TypeScript与whitebox-Dd3FMveF.js通过。不得把脚本PASS说成完整设计全部验证：尚补挡屏完好归位和烧后重新接近，再由根代理确定生产。
 
-当前无子Agent继续写文件；root持有Git/构建/浏览器。0.5发行合入主分支后，再把其QA/文档合入此分支并解决仅文档冲突，不丢弃0.6源码。所有后续里程碑须及时推Git，不结束在计划或中间汇报。
+模型燃烧保持、实体完整足迹及旧角重叠逐步脱困补丁已推4a52181/f54f9e6/a4e1b20。旧位兼容85项相关模型测试通过，证据为完整五图合成边界夹具，不是假称历史实机存档。
+
+4192预览PID1105194仍服务.whitebox-dist，当前无浏览器运行；浏览器必须串行。root拥有Git/构建/浏览器/部署，当前scene.ts有未提交的小型石驿旧绘制占位清理，尚未正式渲染验证，不随白盒里程碑发布。三个既有Agent只写独立设计文件：存档计划、连接选址、剩余局面重放。下一步补实际证据、推送，再合入0.5最终文档并生产；持续推进，不结束在计划。
 
 ---
 

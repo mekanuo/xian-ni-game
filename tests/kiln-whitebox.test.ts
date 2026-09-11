@@ -79,4 +79,21 @@ describe('isolated kiln whitebox using the shared game model', () => {
     expect(fresh.eastReached).toBe(false); expect(fresh.returned).toBe(false);
     expect(fresh.state.worlds.home).not.toBe(changed.state.worlds.home);
   });
+  it('survives a zero-mana round trip with active decision gaps between actual movement commands', () => {
+    const run = createKilnRun('zero');
+    const walkWithDecisionGap = (point: Vec) => {
+      walk(run, point);
+      // Camera adjustment / reading / issuing the next click leaves the world active.
+      for (let elapsed = 0; elapsed < 1; elapsed += 1 / 60) kilnTick(run, Math.min(1 / 60, 1 - elapsed), { x: 0, y: 0 });
+      expect(run.state.paused).toBe(false); expect(run.state.defeated).toBe(false);
+    };
+    walkWithDecisionGap({ x: 200, y: 500 });
+    for (const point of lowerRoute) walkWithDecisionGap(point);
+    expect(run.eastReached).toBe(true); expect(run.returned).toBe(false);
+    for (const point of [{ x: 1290, y: 540 }, { x: 1290, y: 140 }, { x: 800, y: 140 }, { x: 360, y: 170 }, KILN_WEST]) walkWithDecisionGap(point);
+    expect(run.returned).toBe(true); expect(run.state.player.hp).toBeGreaterThan(0); expect(run.state.player.mana).toBe(0);
+    expect(run.state.events.some(e => e.type === 'alert')).toBe(true);
+    expect(run.state.worlds.home.filter(e => e.kind === 'enemy').every(e => e.hp === 3 && !['peaceful', 'retreated'].includes(e.state))).toBe(true);
+    expect(run.state.worlds.home.find(e => e.id === 'shield_board')).toMatchObject({ x: 500, y: 640, state: 'idle' });
+  });
 });

@@ -51,7 +51,8 @@ class KilnScene extends Phaser.Scene {
   center(){this.manual=false;this.overview=false;this.frame();}
   fullView(){this.overview=!this.overview;this.manual=this.overview;this.frame();}
   private frame(){
-    const c=this.cameras.main;c.setBounds(0,0,KILN_MAP.width,KILN_MAP.height);
+    const c=this.cameras.main;
+    if(this.overview)c.removeBounds();else c.setBounds(0,0,KILN_MAP.width,KILN_MAP.height);
     c.setZoom(this.overview?Math.min(innerWidth/KILN_MAP.width,(innerHeight-210)/KILN_MAP.height)*dpr:dpr*(innerWidth<600?.8:1));
     c.centerOn(this.overview?KILN_MAP.width/2:run.state.player.x,this.overview?KILN_MAP.height/2:run.state.player.y);
     for(const label of this.labels.values())label.setResolution(dpr);

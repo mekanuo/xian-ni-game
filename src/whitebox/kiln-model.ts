@@ -12,12 +12,12 @@ const raider = (id: string, name: string, x: number, y: number): Entity => ({
 });
 export const KILN_MAP: SceneDefinition = {
   id: 'home', title: '背墙旧窑 · 空间白盒', subtitle: '观察窑墙与来向，亲自走到东端，再回西院。',
-  width: 1400, height: 1000, spawn: { ...KILN_WEST },
+  width: 1460, height: 1000, spawn: { ...KILN_WEST },
   palette: { ground: 0xb6aa91, path: 0xcbbda0, foliage: 0x777d64, water: 0x789eac },
-  ground: [{ type: 'floor', points: [120, 80, 1280, 80, 1280, 880, 120, 880] }],
+  ground: [{ type: 'floor', points: [120, 80, 1340, 80, 1340, 880, 120, 880] }],
   obstacles: [
-    { x: 80, y: 40, w: 1240, h: 40 }, { x: 80, y: 880, w: 1240, h: 40 },
-    { x: 80, y: 80, w: 40, h: 800 }, { x: 1280, y: 80, w: 40, h: 800 },
+    { x: 80, y: 40, w: 1300, h: 40 }, { x: 80, y: 880, w: 1300, h: 40 },
+    { x: 80, y: 80, w: 40, h: 800 }, { x: 1340, y: 80, w: 40, h: 800 },
     { x: 500, y: 220, w: 60, h: 380 }, { x: 900, y: 420, w: 60, h: 340 },
   ],
   entities: [
