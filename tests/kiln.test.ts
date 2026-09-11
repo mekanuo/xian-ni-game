@@ -117,6 +117,18 @@ describe('kiln facts, permission and actual observation', () => {
     for (const dt of [0, -1, NaN, Infinity]) kilnTick(s, dt, ports()); expect(s.kiln.loan).toBe('agreed');
     s.scene = 'creek'; kilnTick(s, 1, ports()); expect(s.kiln.loan).toBe('agreed');
   });
+  for (const loan of ['none', 'agreed', 'borrowed'] as const) it(`does not offer an impossible loan/return after visibly burned screen (${loan})`, () => {
+    const s = fixture(); s.kiln.loan = loan;
+    for (const state of ['burning', 'burned']) {
+      screen(s).state = state;
+      expect(kilnInteract(s, duqin(s), ports())?.ok).toBe(true);
+      expect(s.dialogue?.text).toMatch(/烧/);
+      expect(s.dialogue?.choices.map(c => c.id)).toEqual(['kiln:route']);
+    }
+    // Unseen damage must not leak through a magically changed conversation menu.
+    expect(kilnInteract(s, duqin(s), { ...ports(), clearLine: (_s, from, to) => 'id' in to && to.id === 'duqin' })?.ok).toBe(true);
+    expect(s.dialogue?.choices.some(c => c.id === (loan === 'none' ? 'kiln:borrow' : 'kiln:return'))).toBe(true);
+  });
   it('blocks an unearned rest, keeps dialogue short and gives no cross-map mandatory loan objective', () => {
     const s = fixture(), p = ports(), rest = s.worlds.kiln.find(e => e.id === 'kiln_rest')!;
     expect(kilnInteract(s, rest, p)?.ok).toBe(false);

@@ -113,8 +113,9 @@ async function restart(){
  assert.equal(s.worlds.kiln.find(e=>e.id==='shield_board').state,'idle');assert.equal(s.worlds.creek.find(e=>e.id==='creek_to_kiln').state,'hidden');route.restart=brief(s);
 }
 async function consequences(bytes){
+ const mode=process.env.KILN_CONSEQUENCE_CASE||'all';assert.ok(['all','burn','recovery'].includes(mode));evidence.consequenceCase=mode;let s;
  mobile=false;route={id:'consequences',status:'RUNNING',inputTrace:[],observations:{},exports:[]};evidence.routes.push(route);page=await newPage();
- await prepare(bytes,{rest:true});await interact('duqin');await choose('kiln:borrow');await walk(350,640);
+ if(mode!=='recovery'){await prepare(bytes,{rest:true});await interact('duqin');await choose('kiln:borrow');await walk(350,640);
  await cast('pull',500,640);await wait(()=>window.__XIAN_NI__.inspect().player.pullId==='shield_board');await worldTap(620,700);
  await wait(()=>{const e=window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board');return Math.hypot(e.x-620,e.y-700)<3;});await button('[data-ui="release"]');await wait(()=>window.__XIAN_NI__.inspect().kiln.loan==='borrowed');
  await cast('pull',620,700);await wait(()=>window.__XIAN_NI__.inspect().player.pullId==='shield_board');await worldTap(500,640);
@@ -124,16 +125,16 @@ async function consequences(bytes){
  const burned=await exportSave('kiln-burned-export.json');await page.close();page=await newPage();await importSave(burned,'kiln-burned.json',{fresh:true,continuation:true});
  let s=await state();assert.equal(s.worlds.kiln.find(e=>e.id==='shield_board').state,'burned');assert.equal(s.kiln.loan,'borrowed');assert.equal(s.kiln.shelterOpened,false);assert.equal(s.player.mana,3);route.burnRestored=brief(s);
  await resume();await interact('duqin');s=await state();assert.ok(s.dialogue);assert.ok(!s.dialogue.choices.some(c=>c.id==='kiln:return'));route.burnDialogue=s.dialogue;await resume();
- await interact('kiln_to_creek');await wait(()=>window.__XIAN_NI__.inspect().scene==='creek');await interact('creek_to_kiln');await wait(()=>window.__XIAN_NI__.inspect().scene==='kiln');assert.equal((await entity('shield_board')).state,'burned');await capture('burned-reentry');
- await page.close();page=await newPage();await prepare(bytes,{rest:true});
+ await interact('kiln_to_creek');await wait(()=>window.__XIAN_NI__.inspect().scene==='creek');await interact('creek_to_kiln');await wait(()=>window.__XIAN_NI__.inspect().scene==='kiln');assert.equal((await entity('shield_board')).state,'burned');await capture('burned-reentry');}
+ if(mode!=='burn'){if(mode==='all'){await page.close();page=await newPage();}await prepare(bytes,{rest:true});
  await walk(420,640);
  for(let n=0;n<5;n++){await cast('ward',350,700);await wait(()=>Number(window.__XIAN_NI__.inspect().flags.wardCooldown??0)===0,null,15000);}
  assert.equal((await state()).player.mana,1);const origin=(await state()).player;
  await cast('pull',500,640);await wait(()=>window.__XIAN_NI__.inspect().player.pullId==='shield_board');await worldTap(origin.x,origin.y);
- await wait(({x,y})=>{const e=window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board');return Math.hypot(e.x-x,e.y-y)<.6;},origin);await button('[data-ui="release"]');assert.equal((await state()).player.mana,0);
- const dropped=await exportSave('kiln-player-overlap-export.json');await capture('screen-at-feet');await resume();await page.keyboard.down('a');await page.waitForTimeout(1200);await page.keyboard.up('a');
+ await wait(({x,y})=>{const e=window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board');return Math.hypot(e.x-x,e.y-y)<3;},origin);const atFeet=await entity('shield_board');assert.ok(Math.abs(atFeet.x-origin.x)<atFeet.w/2-17&&Math.abs(atFeet.y-origin.y)<atFeet.h/2-17,'Player is deeply inside the screen footprint before actual release');await button('[data-ui="release"]');assert.equal((await state()).player.mana,0);
+ const dropped=await exportSave('kiln-player-overlap-export.json');await capture('screen-at-feet');await resume();await page.keyboard.down('a');try{await wait(x=>window.__XIAN_NI__.inspect().player.x<x-85,origin.x,12000);}finally{await page.keyboard.up('a');}
  s=await state();assert.ok(s.player.x<origin.x-70);assert.equal(s.player.mana,0);assert.equal(s.defeated,false);route.keyboardRecovery=brief(s);
- await page.close();page=await newPage();await importSave(dropped,'kiln-overlap.json',{fresh:true,continuation:true});await resume();await walk(origin.x-150,origin.y);s=await state();assert.equal(s.player.mana,0);assert.equal(s.defeated,false);route.restoredClickRecovery=brief(s);await capture('restored-recovered');
+ await page.close();page=await newPage();await importSave(dropped,'kiln-overlap.json',{fresh:true,continuation:true});await resume();await walk(origin.x-150,origin.y);s=await state();assert.equal(s.player.mana,0);assert.equal(s.defeated,false);route.restoredClickRecovery=brief(s);await capture('restored-recovered');}
  await restart();route.status='PASS';await persist();await page.close();page=null;
 }
 async function run(bytes,isPhone){mobile=isPhone;route={id:mobile?'phone':'desktop',status:'RUNNING',inputTrace:[],observations:{},exports:[]};evidence.routes.push(route);page=await newPage();await prepare(bytes,{rest:mobile});if(mobile)await borrowReturn();else await zeroRoundTrip();await restart();route.status='PASS';await persist();await page.close();page=null;}

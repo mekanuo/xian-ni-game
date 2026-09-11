@@ -36,13 +36,17 @@ export function kilnTick(s: GameState, dt: number, p: LifePorts): void {
     p.emit(s, 'note', '杜芹看见挡屏离开了作业面：“用完，完好落回原来的位置。”', object(s, 'duqin'));
   }
 }
-export function kilnChoices(s: GameState, e: Entity): DialogueChoice[] {
+export function kilnChoices(s: GameState, e: Entity, p?: LifePorts): DialogueChoice[] {
   if (s.scene !== 'kiln' || e.id !== 'duqin') return [];
   const first = s.kiln.loan === 'none' ? { id: 'kiln:borrow', label: '借屏，用完归位' }
     : s.kiln.loan === 'returned' ? { id: 'kiln:rest', label: '问檐下歇脚处' }
       : { id: 'kiln:return', label: '请看挡屏归位' };
-  // The shared dialogue supplies the third, leave choice.
-  return [first, { id: 'kiln:route', label: '问穿窑的路' }];
+  // A witnessed permanent loss closes the impossible request, while an unseen
+  // screen must not make this menu reveal knowledge Du Qin does not have.
+  const screen = object(s, 'shield_board');
+  const lost = s.kiln.loan !== 'returned' && visible(s, screen, p) && !intact(screen);
+  // The shared dialogue supplies the leave choice.
+  return [...(lost ? [] : [first]), { id: 'kiln:route', label: '问穿窑的路' }];
 }
 export function kilnChoose(s: GameState, id: string, p: LifePorts): KilnActionResult | undefined {
   if (!id.startsWith('kiln:')) return undefined;
@@ -79,7 +83,7 @@ export function kilnInteract(s: GameState, e: Entity, p: LifePorts): ActionResul
   if (e.id === 'kiln_rest' && !s.kiln.shelterOpened) return no('这是杜芹留用的棚角，还没允你在此静息');
   if (e.id !== 'duqin') return undefined;
   if (!near(s, e, p)) return no('走到杜芹身旁再说');
-  p.dialogue(s, 'kiln_duqin', e.name, kilnDescription(s, e, p)!, kilnChoices(s, e));
+  p.dialogue(s, 'kiln_duqin', e.name, kilnDescription(s, e, p)!, kilnChoices(s, e, p));
   return { ok: true };
 }
 export function kilnBeforeTravel(s: GameState, to: SceneId, p: LifePorts): void {

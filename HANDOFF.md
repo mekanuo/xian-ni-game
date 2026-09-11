@@ -1,14 +1,18 @@
-# 当前工作入口 · 0.6 正式美术/输入验证中
+# 当前工作入口 · 0.6 正式整版验证运行中
 
-工作目录 `.worktrees/kiln-060` / `feat/kiln-060`，最新已推 f04555c（玩家落屏脱困），规则基线 a381f73；主源码分支/公网保持已核验0.5（7fea179，gh-pages f7972c2）。用户要求“继续，别停”，自主设计、实施、测试、里程碑推送和既定公网部署均授权，无待确认事项。不读旧聊天/原书、不碰封版项目；已有首版Goal完成，本轮不另建推断Goal。
+工作目录 `.worktrees/kiln-060` / `feat/kiln-060`。最新已推 b19174c 美术/音乐/QA，之前 f04555c 玩家落屏脱困、a381f73 正式规则。主源码分支和公网仍为已核验0.5（7fea179，gh-pages f7972c2）。用户“继续，别停”，自主设计/实施/测试/推送和既定公网部署授权，无待确认事项。不要重读聊天/原书或碰封版项目；不另建推断Goal。
 
-正式第六图、双向连接、杜芹目睹借离/完好归还、许可棚角及v5严格存档已接入；a381f73模型489/28 PASS。新屏落自己脚下会卡住的真实问题已补向外脱困，13新增回归与相关四文件64 PASS，只读审查未发现问题；当前连接落点与路牌分开后98/2 PASS。完整新版矩阵还未跑，qa/verification.json NOT_RUN，不能用旧0.5报告发布。
+**唯一浏览器由完整verify持有。** supervisor PID1123618，日志 `/tmp/xian-ni-060-verify.log`，最终退出码 `/tmp/xian-ni-060-verify.exit`，拥有4187预览。先检查进程/日志/报告再接手，不同时开浏览器。505模型测试/29文件已全PASS；当前新包index-BTwh6Je1.js。流程先新窑三视口、两路、物件后果，再完整旧章节回归，全部完结前不能称0.6发行通过。独立4191预览还在，4192只服务历史白盒。
 
-首轮生产构建 index-CanjsJtL.js，通过真实桌面零灵力四次换图、HP2仍存活、旧档导入、重开，qa/evidence/kiln-desktop-check.json PASS。首轮已归档；4191现服务第二轮 index-DlWvZPCK.js（TypeScript/构建通过）。新包新增西270480/东1220620到达落点，与出口牌脚分开，杜芹presentation接口补齐。美术helper第二轮地面采样收细/降对比、窄压顶加砖立面、棚脚到445使坐垫在棚内。root目视当前西院图，路牌不再被到达人物遮住，地面/墙面更清楚；三视口完整验收仍待运行，art代理已停写。
+正式第六图/双向连接/杜芹借还/许可棚角/v5严格迁移已接；新窑西到达270480、东1220620，出口牌脚仍180480/1220540，避免人物挡字。四张独立原画和稀疏陶音已接，第二轮地面纹理收细降对比、砖立面加强、棚脚445使坐垫在棚内。root已目视第二轮西院/烧毁/脱困图，无粉底重图，路牌可读；最终三视口仍在跑。
 
-手机借还/新页面恢复/静息/重开已 PASS，PID1118008已结束；当前唯一浏览器 PID1119959 正运行 kiln-consequences-check（/tmp/xian-ni-060-consequences.log，qa/evidence/kiln-consequences.json）。首轮报告/图/v5候选导出已归档qa/evidence/kiln-initial-art，因入口到达坐标修订，这些未发布v5导出不能用于当前候选恢复，必须新构建重导。日志 /tmp/xian-ni-060-production-phone.log 保留。root另已写 kiln-check 的 consequences 选择器与wrapper（正式烧毁存读/进出保留、零灵力脚下落屏键盘和新页面点击脱困），正在运行。规则代理已完成scripts/kiln-view-check.mjs三视口脚本，未运行；save代理只读审查无新阻塞，已结束。root拥有Git/构建/所有浏览器/部署。
+首轮桌面零资源双向往返与手机真实借还/新页面恢复/静息/重开PASS归档qa/evidence/kiln-initial-art。该目录未发布v5候选导出保留修订前targetSpawn，不能作为当前继续档，最终verify会重导。固定真实0.5输入qa/fixtures/return-journey[-paused]-v0.5.0不变。
 
-下一步完成手机流程，收拢art/helper后重构建，运行后果和三视口、目视修整；推送视听/交互里程碑后继续完整verify和公网发行。生产 BUILD_BRIEF_060 / ART_KILN_060 / ASSET_LOG 已记录范围和原画来源。verify和public-check正在加入第六图验收，尚未运行，不能提前记PASS。固定旧输入qa/fixtures/return-journey[-paused]-v0.5.0来自真实0.5 UI导出，不能覆盖。
+物件后果复测发现两点并保留原FAIL：kiln-burn-dialogue-rejected记录杜芹看见烧毁却仍邀请归还，已修为只按现场可见损毁去掉不可能借还项，3回归先RED后GREEN；未见损毁/已获许可不改。kiln-pointer-tolerance-rejected记录鼠标亚像素误差不足1单位，屏已覆盖人物但驱动要求<0.6超时；改3单位内且明确实体重叠断言，不放松碰撞规则。此轮烧毁、独立页面恢复、杜芹新回应、出入后残片保持已真实走过；完整all报告仍待verify重新生成，不把中途通过当整体PASS。
+
+独立恢复补证qa/evidence/kiln-recovery-check.json PASS（case recovery）：正常五次护符+一次牵屏用尽灵力，真落到脚下，键盘走到x323；实际导出→新页面→点击走到x269，均HP4/MP0、未移动屏/未退款，重开正常。root已目视。原13模型回归也覆盖留势到期落屏/存读及其他障碍。
+
+当前所有代理已完成停写；root拥有Git/构建/浏览器/部署。接下去检查三视口失败则按实际证据修正，整版verify全部通过并clean后合入feat/return-stone-v1、既定deploy-pages和public-check；保持同一公网入口，核对新版本与资源哈希。设计/执行入口design/BUILD_BRIEF_060.md、ART_KILN_060.md和docs/superpowers/plans/2026-09-11-kiln-production.md。不要在阶段推送后停下。
 
 ---
 
