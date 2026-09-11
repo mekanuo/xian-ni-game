@@ -1,6 +1,6 @@
 # 0.6 背墙旧窑 · 候选复核
 
-当前运行包 index-BTwh6Je1.js，2026-09-11。本文记录根代理目视与已结束的定点检查；整版发行状态以 verification.json 为准，当前完整 verify 仍在运行，尚未发布0.6。
+当前运行包 index-BTwh6Je1.js，2026-09-11。本文记录根代理目视与已结束的定点检查；整版发行状态以 verification.json 为准，完整r2已exit0，507测试/29文件、24条命令与六项验收全部PASS；82文件冻结审计一致，0.6已发布并通过公网核验。
 
 ## 当前候选已验证
 
@@ -22,4 +22,4 @@ Linux Chrome与触屏/DPR仿真不等于实体Mac/Safari/手机测试。音频�
 
 ## 发布门槛
 
-完整verify仍需结束并确认为PASS；之后提交候选、合入主源码、既定Pages部署并运行public-check核对当前版本、全部资源哈希和真实第六图入口。旧0.5的公网核验不能代替本次。
+完整verify已PASS，发行源码19dada6已推并合入主源码；gh-pages f215b0c已部署。public-check exit0：0.6.0/sourceCommit准确，25资源哈希与已测dist一致，真实0.5档迁移后进入旧窑、音乐RMS与手机触控输入通过，无页面错误。root目视public-kiln.png；完整两端/借还/烧毁与恢复覆盖见本地报告，公网烟测不冒充再次完整走通所有路线。

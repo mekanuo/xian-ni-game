@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "PASS",
-  "startedAt": "2026-09-11T08:10:37.548Z",
+  "startedAt": "2026-09-11T12:43:44.611Z",
   "runId": "canal-two-methods-real-input",
   "environment": {
     "url": "http://127.0.0.1:4187/",
@@ -25,7 +25,7 @@
             "x": 980,
             "y": 720
           },
-          "wallMs": 7424
+          "wallMs": 7766
         },
         {
           "action": "spend-mana-with-real-fireball",
@@ -36,7 +36,7 @@
               "y": 900
             }
           },
-          "wallMs": 13552
+          "wallMs": 13727
         },
         {
           "action": "spend-mana-with-real-fireball",
@@ -47,15 +47,15 @@
               "y": 900
             }
           },
-          "wallMs": 16287
+          "wallMs": 16450
         },
         {
           "action": "camera-pan",
           "detail": {
-            "dx": -130.60650431446868,
+            "dx": -130.6111135781107,
             "dy": -250
           },
-          "wallMs": 19244
+          "wallMs": 19444
         },
         {
           "action": "spend-mana-with-real-fireball",
@@ -66,7 +66,7 @@
               "y": 900
             }
           },
-          "wallMs": 21230
+          "wallMs": 21247
         },
         {
           "action": "spend-mana-with-real-fireball",
@@ -77,7 +77,7 @@
               "y": 900
             }
           },
-          "wallMs": 23961
+          "wallMs": 23900
         },
         {
           "action": "interact",
@@ -87,12 +87,12 @@
             "x": 760,
             "y": 410
           },
-          "wallMs": 26221
+          "wallMs": 26164
         },
         {
           "action": "choose",
           "detail": "canal:accept",
-          "wallMs": 28531
+          "wallMs": 28488
         },
         {
           "action": "interact",
@@ -102,17 +102,17 @@
             "x": 1640,
             "y": 690
           },
-          "wallMs": 30540
+          "wallMs": 30531
         },
         {
           "action": "choose",
           "detail": "canal:depart:canal",
-          "wallMs": 35519
+          "wallMs": 35570
         },
         {
           "action": "capture",
           "detail": "entry",
-          "wallMs": 39771
+          "wallMs": 39830
         },
         {
           "action": "walk",
@@ -120,7 +120,7 @@
             "x": 500,
             "y": 700
           },
-          "wallMs": 41248
+          "wallMs": 41296
         },
         {
           "action": "interact",
@@ -130,17 +130,17 @@
             "x": 880,
             "y": 610
           },
-          "wallMs": 44391
+          "wallMs": 44457
         },
         {
           "action": "capture",
           "detail": "inspection",
-          "wallMs": 48180
+          "wallMs": 48267
         },
         {
           "action": "export-through-settings",
           "detail": "qa/evidence/canal-ready-input.json",
-          "wallMs": 53711
+          "wallMs": 53495
         },
         {
           "action": "walk",
@@ -148,7 +148,7 @@
             "x": 560,
             "y": 430
           },
-          "wallMs": 54993
+          "wallMs": 54792
         },
         {
           "action": "interact",
@@ -158,17 +158,17 @@
             "x": 600,
             "y": 350
           },
-          "wallMs": 57896
+          "wallMs": 57706
         },
         {
           "action": "capture",
           "detail": "diverter-work",
-          "wallMs": 60822
+          "wallMs": 60341
         },
         {
           "action": "capture",
           "detail": "diverter-set",
-          "wallMs": 65586
+          "wallMs": 65018
         },
         {
           "action": "walk",
@@ -176,7 +176,7 @@
             "x": 880,
             "y": 430
           },
-          "wallMs": 66964
+          "wallMs": 66418
         },
         {
           "action": "walk",
@@ -184,7 +184,7 @@
             "x": 990,
             "y": 540
           },
-          "wallMs": 69526
+          "wallMs": 69107
         },
         {
           "action": "interact",
@@ -194,12 +194,12 @@
             "x": 1100,
             "y": 540
           },
-          "wallMs": 71616
+          "wallMs": 71080
         },
         {
           "action": "capture",
           "detail": "screen-work",
-          "wallMs": 74220
+          "wallMs": 73730
         },
         {
           "action": "walk",
@@ -207,7 +207,7 @@
             "x": 1130,
             "y": 420
           },
-          "wallMs": 76850
+          "wallMs": 76349
         },
         {
           "action": "walk",
@@ -215,7 +215,7 @@
             "x": 880,
             "y": 430
           },
-          "wallMs": 78171
+          "wallMs": 77699
         },
         {
           "action": "interact",
@@ -225,7 +225,7 @@
             "x": 680,
             "y": 350
           },
-          "wallMs": 80713
+          "wallMs": 80268
         },
         {
           "action": "walk",
@@ -233,7 +233,7 @@
             "x": 900,
             "y": 780
           },
-          "wallMs": 87415
+          "wallMs": 86928
         },
         {
           "action": "interact",
@@ -243,12 +243,12 @@
             "x": 350,
             "y": 930
           },
-          "wallMs": 94413
+          "wallMs": 90711
         },
         {
           "action": "capture",
           "detail": "water-restored",
-          "wallMs": 102683
+          "wallMs": 97860
         },
         {
           "action": "interact",
@@ -258,17 +258,17 @@
             "x": 260,
             "y": 960
           },
-          "wallMs": 105147
+          "wallMs": 99417
         },
         {
           "action": "choose",
           "detail": "canal:report",
-          "wallMs": 106393
+          "wallMs": 100199
         },
         {
           "action": "export-through-settings",
           "detail": "qa/evidence/canal-desktop-diversion-verified-input.json",
-          "wallMs": 114275
+          "wallMs": 104689
         },
         {
           "action": "interact",
@@ -278,7 +278,7 @@
             "x": 230,
             "y": 1070
           },
-          "wallMs": 116415
+          "wallMs": 106098
         },
         {
           "action": "interact",
@@ -288,22 +288,22 @@
             "x": 760,
             "y": 410
           },
-          "wallMs": 118526
+          "wallMs": 107691
         },
         {
           "action": "choose",
           "detail": "canal:record",
-          "wallMs": 123635
+          "wallMs": 112509
         },
         {
           "action": "capture",
           "detail": "home-map",
-          "wallMs": 127295
+          "wallMs": 116170
         },
         {
           "action": "export-through-settings",
           "detail": "qa/evidence/canal-desktop-diversion-complete-export.json",
-          "wallMs": 129811
+          "wallMs": 118710
         },
         {
           "action": "interact",
@@ -313,13 +313,13 @@
             "x": 760,
             "y": 410
           },
-          "wallMs": 131020
+          "wallMs": 120086
         }
       ],
       "observations": {
         "import": {
           "scene": "home",
-          "time": 130.46666666666263,
+          "time": 130.4833333333293,
           "player": {
             "x": 846.8952042031716,
             "y": 442.01402260116845,
@@ -478,10 +478,10 @@
           "muted": false,
           "musicVolume": 0.55,
           "effectsVolume": 0.45,
-          "musicScheduled": 82,
-          "musicRms": 0.06489485191124537,
-          "effectsRms": 0.000862185123894235,
-          "activeVoices": 10,
+          "musicScheduled": 81,
+          "musicRms": 0.07641582362664906,
+          "effectsRms": 0.0016153767952344872,
+          "activeVoices": 9,
           "lastEffect": "step",
           "effectCounts": {
             "step": 23,
@@ -494,13 +494,13 @@
           "visual": "qa/evidence/canal-desktop-diversion-entry.png",
           "state": {
             "scene": "canal",
-            "time": 156.10000000001637,
+            "time": 156.08333333334969,
             "player": {
               "x": 350,
               "y": 1030,
               "hp": 4,
               "mana": 0,
-              "facing": 0.5833188804267488,
+              "facing": 0.5841355868239319,
               "invulnerable": 0,
               "cooldown": 0,
               "ward": 0,
@@ -612,7 +612,7 @@
               },
               {
                 "seq": 35,
-                "time": 134.0666666666655,
+                "time": 134.1499999999989,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -620,7 +620,7 @@
               },
               {
                 "seq": 36,
-                "time": 138.85000000000264,
+                "time": 138.95000000000272,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -628,7 +628,7 @@
               },
               {
                 "seq": 37,
-                "time": 141.73333333333827,
+                "time": 141.6333333333382,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -636,7 +636,7 @@
               },
               {
                 "seq": 38,
-                "time": 144.4333333333404,
+                "time": 144.2833333333403,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -644,13 +644,13 @@
               },
               {
                 "seq": 39,
-                "time": 147.80000000000976,
+                "time": 147.683333333343,
                 "type": "note",
                 "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
               },
               {
                 "seq": 40,
-                "time": 154.0000000000147,
+                "time": 153.96666666668133,
                 "type": "scene",
                 "text": "雾岭旧渠"
               }
@@ -661,7 +661,7 @@
           "visual": "qa/evidence/canal-desktop-diversion-inspection.png",
           "state": {
             "scene": "canal",
-            "time": 161.50000000002066,
+            "time": 161.48333333335398,
             "player": {
               "x": 794.4297820363189,
               "y": 630.7211485200876,
@@ -790,7 +790,7 @@
               },
               {
                 "seq": 35,
-                "time": 134.0666666666655,
+                "time": 134.1499999999989,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -798,7 +798,7 @@
               },
               {
                 "seq": 36,
-                "time": 138.85000000000264,
+                "time": 138.95000000000272,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -806,7 +806,7 @@
               },
               {
                 "seq": 37,
-                "time": 141.73333333333827,
+                "time": 141.6333333333382,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -814,7 +814,7 @@
               },
               {
                 "seq": 38,
-                "time": 144.4333333333404,
+                "time": 144.2833333333403,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -822,13 +822,13 @@
               },
               {
                 "seq": 39,
-                "time": 147.80000000000976,
+                "time": 147.683333333343,
                 "type": "note",
                 "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
               },
               {
                 "seq": 40,
-                "time": 154.0000000000147,
+                "time": 153.96666666668133,
                 "type": "scene",
                 "text": "雾岭旧渠"
               }
@@ -839,7 +839,7 @@
           "visual": "qa/evidence/canal-desktop-diversion-diverter-work.png",
           "state": {
             "scene": "canal",
-            "time": 168.50000000002623,
+            "time": 168.48333333335955,
             "player": {
               "x": 561.3812133306067,
               "y": 431.39024507392514,
@@ -958,7 +958,7 @@
               },
               {
                 "seq": 35,
-                "time": 134.0666666666655,
+                "time": 134.1499999999989,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -966,7 +966,7 @@
               },
               {
                 "seq": 36,
-                "time": 138.85000000000264,
+                "time": 138.95000000000272,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -974,7 +974,7 @@
               },
               {
                 "seq": 37,
-                "time": 141.73333333333827,
+                "time": 141.6333333333382,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -982,7 +982,7 @@
               },
               {
                 "seq": 38,
-                "time": 144.4333333333404,
+                "time": 144.2833333333403,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -990,19 +990,19 @@
               },
               {
                 "seq": 39,
-                "time": 147.80000000000976,
+                "time": 147.683333333343,
                 "type": "note",
                 "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
               },
               {
                 "seq": 40,
-                "time": 154.0000000000147,
+                "time": 153.96666666668133,
                 "type": "scene",
                 "text": "雾岭旧渠"
               },
               {
                 "seq": 41,
-                "time": 167.10000000002512,
+                "time": 167.08333333335844,
                 "type": "note",
                 "text": "把轻板推入右侧旁槽，停稳两息；旁路会淹过低踏道，西岸仍可走。",
                 "x": 600,
@@ -1016,7 +1016,7 @@
           "visual": "qa/evidence/canal-desktop-diversion-diverter-set.png",
           "state": {
             "scene": "canal",
-            "time": 170.70000000002798,
+            "time": 170.6833333333613,
             "player": {
               "x": 561.3812133306067,
               "y": 431.39024507392514,
@@ -1122,7 +1122,7 @@
             "events": [
               {
                 "seq": 35,
-                "time": 134.0666666666655,
+                "time": 134.1499999999989,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -1130,7 +1130,7 @@
               },
               {
                 "seq": 36,
-                "time": 138.85000000000264,
+                "time": 138.95000000000272,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -1138,7 +1138,7 @@
               },
               {
                 "seq": 37,
-                "time": 141.73333333333827,
+                "time": 141.6333333333382,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -1146,7 +1146,7 @@
               },
               {
                 "seq": 38,
-                "time": 144.4333333333404,
+                "time": 144.2833333333403,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -1154,19 +1154,19 @@
               },
               {
                 "seq": 39,
-                "time": 147.80000000000976,
+                "time": 147.683333333343,
                 "type": "note",
                 "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
               },
               {
                 "seq": 40,
-                "time": 154.0000000000147,
+                "time": 153.96666666668133,
                 "type": "scene",
                 "text": "雾岭旧渠"
               },
               {
                 "seq": 41,
-                "time": 167.10000000002512,
+                "time": 167.08333333335844,
                 "type": "note",
                 "text": "把轻板推入右侧旁槽，停稳两息；旁路会淹过低踏道，西岸仍可走。",
                 "x": 600,
@@ -1175,7 +1175,7 @@
               },
               {
                 "seq": 42,
-                "time": 169.1166666666934,
+                "time": 169.1000000000267,
                 "type": "change",
                 "text": "分水板落入旁槽。原渠开始退水，低踏道过水；沿西岸和台阶下去。",
                 "x": 680,
@@ -1189,13 +1189,13 @@
           "visual": "qa/evidence/canal-desktop-diversion-screen-work.png",
           "state": {
             "scene": "canal",
-            "time": 177.2500000000332,
+            "time": 177.21666666669984,
             "player": {
-              "x": 1039.9878849323243,
-              "y": 490.6661276798217,
+              "x": 1037.8242487458378,
+              "y": 492.7108652743751,
               "hp": 4,
               "mana": 0,
-              "facing": -0.872472460052063,
+              "facing": -0.8343585792267559,
               "invulnerable": 0,
               "cooldown": 0,
               "ward": 0,
@@ -1217,8 +1217,8 @@
                 "kind": "clear",
                 "elapsed": 1.0833333333333344,
                 "start": {
-                  "x": 1039.9878849323243,
-                  "y": 490.6661276798217
+                  "x": 1037.8242487458378,
+                  "y": 492.7108652743751
                 }
               },
               "drain": 1,
@@ -1302,7 +1302,7 @@
             "events": [
               {
                 "seq": 36,
-                "time": 138.85000000000264,
+                "time": 138.95000000000272,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -1310,7 +1310,7 @@
               },
               {
                 "seq": 37,
-                "time": 141.73333333333827,
+                "time": 141.6333333333382,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -1318,7 +1318,7 @@
               },
               {
                 "seq": 38,
-                "time": 144.4333333333404,
+                "time": 144.2833333333403,
                 "type": "cast",
                 "text": "火焰在指前聚拢，半秒后飞出。",
                 "x": 979.5575473264227,
@@ -1326,19 +1326,19 @@
               },
               {
                 "seq": 39,
-                "time": 147.80000000000976,
+                "time": 147.683333333343,
                 "type": "note",
                 "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
               },
               {
                 "seq": 40,
-                "time": 154.0000000000147,
+                "time": 153.96666666668133,
                 "type": "scene",
                 "text": "雾岭旧渠"
               },
               {
                 "seq": 41,
-                "time": 167.10000000002512,
+                "time": 167.08333333335844,
                 "type": "note",
                 "text": "把轻板推入右侧旁槽，停稳两息；旁路会淹过低踏道，西岸仍可走。",
                 "x": 600,
@@ -1347,7 +1347,7 @@
               },
               {
                 "seq": 42,
-                "time": 169.1166666666934,
+                "time": 169.1000000000267,
                 "type": "change",
                 "text": "分水板落入旁槽。原渠开始退水，低踏道过水；沿西岸和台阶下去。",
                 "x": 680,
@@ -1356,7 +1356,7 @@
               },
               {
                 "seq": 43,
-                "time": 176.166666666699,
+                "time": 176.13333333336564,
                 "type": "note",
                 "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
                 "x": 1100,
@@ -1370,13 +1370,13 @@
           "visual": "qa/evidence/canal-desktop-diversion-water-restored.png",
           "state": {
             "scene": "canal",
-            "time": 198.1000000000498,
+            "time": 198.23333333338323,
             "player": {
-              "x": 425.7615230851358,
-              "y": 909.1521377398672,
+              "x": 427.9785836503762,
+              "y": 908.9053091473046,
               "hp": 4,
               "mana": 0,
-              "facing": 3.042355928879582,
+              "facing": 3.0390871950186096,
               "invulnerable": 0,
               "cooldown": 0,
               "ward": 0,
@@ -1476,13 +1476,13 @@
             "events": [
               {
                 "seq": 40,
-                "time": 154.0000000000147,
+                "time": 153.96666666668133,
                 "type": "scene",
                 "text": "雾岭旧渠"
               },
               {
                 "seq": 41,
-                "time": 167.10000000002512,
+                "time": 167.08333333335844,
                 "type": "note",
                 "text": "把轻板推入右侧旁槽，停稳两息；旁路会淹过低踏道，西岸仍可走。",
                 "x": 600,
@@ -1491,7 +1491,7 @@
               },
               {
                 "seq": 42,
-                "time": 169.1166666666934,
+                "time": 169.1000000000267,
                 "type": "change",
                 "text": "分水板落入旁槽。原渠开始退水，低踏道过水；沿西岸和台阶下去。",
                 "x": 680,
@@ -1500,7 +1500,7 @@
               },
               {
                 "seq": 43,
-                "time": 176.166666666699,
+                "time": 176.13333333336564,
                 "type": "note",
                 "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
                 "x": 1100,
@@ -1509,7 +1509,7 @@
               },
               {
                 "seq": 44,
-                "time": 178.18333333336727,
+                "time": 178.1500000000339,
                 "type": "change",
                 "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
                 "x": 1100,
@@ -1518,7 +1518,7 @@
               },
               {
                 "seq": 45,
-                "time": 183.51666666670485,
+                "time": 183.5500000000382,
                 "type": "note",
                 "text": "双手把板推回原槽，停稳两息。",
                 "x": 680,
@@ -1527,7 +1527,7 @@
               },
               {
                 "seq": 46,
-                "time": 185.53333333337312,
+                "time": 185.56666666670648,
                 "type": "change",
                 "text": "分水板退回原槽。来水回到原渠，低踏道重新露出。",
                 "x": 600,
@@ -1536,7 +1536,7 @@
               },
               {
                 "seq": 47,
-                "time": 196.00000000004812,
+                "time": 196.03333333338148,
                 "type": "change",
                 "text": "你亲手试过槽内水位，小水轮稳定转起来。去告诉檐下邵禾；检修台坐垫已经可以静息。",
                 "x": 350,
@@ -1550,10 +1550,10 @@
           "visual": "qa/evidence/canal-desktop-diversion-home-map.png",
           "state": {
             "scene": "home",
-            "time": 209.3000000000587,
+            "time": 209.03333333339182,
             "player": {
-              "x": 846.8952042031716,
-              "y": 442.01402260116845,
+              "x": 849.3974525146839,
+              "y": 442.9359035580414,
               "hp": 4,
               "mana": 0,
               "facing": -2.788602265762887,
@@ -1656,7 +1656,7 @@
             "events": [
               {
                 "seq": 44,
-                "time": 178.18333333336727,
+                "time": 178.1500000000339,
                 "type": "change",
                 "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
                 "x": 1100,
@@ -1665,7 +1665,7 @@
               },
               {
                 "seq": 45,
-                "time": 183.51666666670485,
+                "time": 183.5500000000382,
                 "type": "note",
                 "text": "双手把板推回原槽，停稳两息。",
                 "x": 680,
@@ -1674,7 +1674,7 @@
               },
               {
                 "seq": 46,
-                "time": 185.53333333337312,
+                "time": 185.56666666670648,
                 "type": "change",
                 "text": "分水板退回原槽。来水回到原渠，低踏道重新露出。",
                 "x": 600,
@@ -1683,7 +1683,7 @@
               },
               {
                 "seq": 47,
-                "time": 196.00000000004812,
+                "time": 196.03333333338148,
                 "type": "change",
                 "text": "你亲手试过槽内水位，小水轮稳定转起来。去告诉檐下邵禾；检修台坐垫已经可以静息。",
                 "x": 350,
@@ -1692,25 +1692,25 @@
               },
               {
                 "seq": 48,
-                "time": 199.20000000005066,
+                "time": 199.13333333338394,
                 "type": "relationship",
                 "text": "你向邵禾说明把水分入旁路、沿干渠清理的经过。她看过石槽的水位，挪开取水处空桶：这回水和干路都通了，回驿把路线记下来吧。"
               },
               {
                 "seq": 49,
-                "time": 202.10000000005297,
+                "time": 201.93333333338617,
                 "type": "return",
                 "text": "木车已进了院，路上的人正沿你修开的低滩来。"
               },
               {
                 "seq": 50,
-                "time": 202.10000000005297,
+                "time": 201.93333333338617,
                 "type": "scene",
                 "text": "回石驿"
               },
               {
                 "seq": 51,
-                "time": 207.68333333339075,
+                "time": 207.43333333339055,
                 "type": "growth",
                 "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
               }
@@ -1721,24 +1721,24 @@
       "exports": [
         {
           "path": "qa/evidence/canal-ready-input.json",
-          "sha256": "6d0bf2990be17714f37db904b7d4db3c9dd7e0d8dce07d14a828bba63ff55cab"
+          "sha256": "3609ba14684e0725aca5f864354840d4dc808842becb7a87be442712afb851ce"
         },
         {
           "path": "qa/evidence/canal-desktop-diversion-verified-input.json",
-          "sha256": "7ba72900ddd90599166e89cdbc1896631d1b077c097700addbd0850c994ecc47"
+          "sha256": "2c5cf6ba303f7ca56d1a0e57df94a088a0aab33e238a4ef375b3c4e3f961625e"
         },
         {
           "path": "qa/evidence/canal-desktop-diversion-complete-export.json",
-          "sha256": "a43c3bd1bc1de400d937e68dc514110466f2c2600114421853b4b79fff7be300"
+          "sha256": "f01b99081486d174e1c4d82a946b71a88bcbe9a3bceaba37345fc3b16ef391d1"
         }
       ],
       "initialHp": 4,
       "final": {
         "scene": "home",
-        "time": 210.2166666667261,
+        "time": 210.11666666672602,
         "player": {
-          "x": 846.8952042031716,
-          "y": 442.01402260116845,
+          "x": 849.3974525146839,
+          "y": 442.9359035580414,
           "hp": 4,
           "mana": 0,
           "facing": -2.788602265762887,
@@ -1841,7 +1841,7 @@
         "events": [
           {
             "seq": 44,
-            "time": 178.18333333336727,
+            "time": 178.1500000000339,
             "type": "change",
             "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
             "x": 1100,
@@ -1850,7 +1850,7 @@
           },
           {
             "seq": 45,
-            "time": 183.51666666670485,
+            "time": 183.5500000000382,
             "type": "note",
             "text": "双手把板推回原槽，停稳两息。",
             "x": 680,
@@ -1859,7 +1859,7 @@
           },
           {
             "seq": 46,
-            "time": 185.53333333337312,
+            "time": 185.56666666670648,
             "type": "change",
             "text": "分水板退回原槽。来水回到原渠，低踏道重新露出。",
             "x": 600,
@@ -1868,7 +1868,7 @@
           },
           {
             "seq": 47,
-            "time": 196.00000000004812,
+            "time": 196.03333333338148,
             "type": "change",
             "text": "你亲手试过槽内水位，小水轮稳定转起来。去告诉檐下邵禾；检修台坐垫已经可以静息。",
             "x": 350,
@@ -1877,25 +1877,25 @@
           },
           {
             "seq": 48,
-            "time": 199.20000000005066,
+            "time": 199.13333333338394,
             "type": "relationship",
             "text": "你向邵禾说明把水分入旁路、沿干渠清理的经过。她看过石槽的水位，挪开取水处空桶：这回水和干路都通了，回驿把路线记下来吧。"
           },
           {
             "seq": 49,
-            "time": 202.10000000005297,
+            "time": 201.93333333338617,
             "type": "return",
             "text": "木车已进了院，路上的人正沿你修开的低滩来。"
           },
           {
             "seq": 50,
-            "time": 202.10000000005297,
+            "time": 201.93333333338617,
             "type": "scene",
             "text": "回石驿"
           },
           {
             "seq": 51,
-            "time": 207.68333333339075,
+            "time": 207.43333333339055,
             "type": "growth",
             "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
           }
@@ -1906,7 +1906,7 @@
         "input": "settings → restart confirmation → new profile",
         "state": {
           "scene": "home",
-          "time": 0.4666666666666666,
+          "time": 0.4833333333333333,
           "player": {
             "x": 360,
             "y": 710,
@@ -2002,7 +2002,7 @@
             "x": 1060,
             "y": 430
           },
-          "wallMs": 149820
+          "wallMs": 138716
         },
         {
           "action": "camera-pan",
@@ -2010,12 +2010,12 @@
             "dx": -163.79999999999998,
             "dy": 44.499975585937136
           },
-          "wallMs": 153129
+          "wallMs": 141906
         },
         {
           "action": "choose",
           "detail": "hold",
-          "wallMs": 157539
+          "wallMs": 146301
         },
         {
           "action": "interact",
@@ -2025,7 +2025,7 @@
             "x": 340,
             "y": 850
           },
-          "wallMs": 160903
+          "wallMs": 149630
         },
         {
           "action": "camera-pan",
@@ -2033,7 +2033,7 @@
             "dx": 163.79999999999998,
             "dy": -250
           },
-          "wallMs": 164180
+          "wallMs": 152757
         },
         {
           "action": "camera-pan",
@@ -2041,7 +2041,7 @@
             "dx": 163.79999999999998,
             "dy": -221.95002272082343
           },
-          "wallMs": 167289
+          "wallMs": 155818
         },
         {
           "action": "camera-pan",
@@ -2049,7 +2049,7 @@
             "dx": 163.79999999999998,
             "dy": -221.95002272082343
           },
-          "wallMs": 170397
+          "wallMs": 158877
         },
         {
           "action": "interact",
@@ -2059,7 +2059,7 @@
             "x": 760,
             "y": 410
           },
-          "wallMs": 177966
+          "wallMs": 166173
         },
         {
           "action": "camera-pan",
@@ -2067,12 +2067,12 @@
             "dx": -163.79999999999998,
             "dy": 152.04997727917652
           },
-          "wallMs": 181239
+          "wallMs": 169488
         },
         {
           "action": "choose",
           "detail": "canal:accept",
-          "wallMs": 185943
+          "wallMs": 174109
         },
         {
           "action": "interact",
@@ -2082,7 +2082,7 @@
             "x": 1640,
             "y": 690
           },
-          "wallMs": 189616
+          "wallMs": 177719
         },
         {
           "action": "camera-pan",
@@ -2090,7 +2090,7 @@
             "dx": -163.79999999999998,
             "dy": -176.50002441406286
           },
-          "wallMs": 192921
+          "wallMs": 180957
         },
         {
           "action": "camera-pan",
@@ -2098,7 +2098,7 @@
             "dx": -163.79999999999998,
             "dy": -85.95002272082348
           },
-          "wallMs": 195943
+          "wallMs": 183924
         },
         {
           "action": "camera-pan",
@@ -2106,7 +2106,7 @@
             "dx": -163.79999999999998,
             "dy": -85.95002272082348
           },
-          "wallMs": 198901
+          "wallMs": 186813
         },
         {
           "action": "camera-pan",
@@ -2114,7 +2114,7 @@
             "dx": -163.79999999999998,
             "dy": -85.95002272082348
           },
-          "wallMs": 201852
+          "wallMs": 189678
         },
         {
           "action": "camera-pan",
@@ -2122,17 +2122,17 @@
             "dx": -163.79999999999998,
             "dy": -85.95002272082348
           },
-          "wallMs": 204745
+          "wallMs": 192487
         },
         {
           "action": "choose",
           "detail": "canal:depart:canal",
-          "wallMs": 212171
+          "wallMs": 200172
         },
         {
           "action": "capture",
           "detail": "entry",
-          "wallMs": 220348
+          "wallMs": 208200
         },
         {
           "action": "walk",
@@ -2140,7 +2140,7 @@
             "x": 500,
             "y": 700
           },
-          "wallMs": 223362
+          "wallMs": 211094
         },
         {
           "action": "interact",
@@ -2150,7 +2150,7 @@
             "x": 880,
             "y": 610
           },
-          "wallMs": 229136
+          "wallMs": 216787
         },
         {
           "action": "camera-pan",
@@ -2158,7 +2158,7 @@
             "dx": -163.79999999999998,
             "dy": 32.19997821695637
           },
-          "wallMs": 233011
+          "wallMs": 220626
         },
         {
           "action": "camera-pan",
@@ -2166,12 +2166,12 @@
             "dx": -163.79999999999998,
             "dy": -5.200022482404847
           },
-          "wallMs": 236641
+          "wallMs": 224232
         },
         {
           "action": "capture",
           "detail": "inspection",
-          "wallMs": 242724
+          "wallMs": 230340
         },
         {
           "action": "walk",
@@ -2179,7 +2179,7 @@
             "x": 1000,
             "y": 380
           },
-          "wallMs": 246394
+          "wallMs": 233934
         },
         {
           "action": "walk",
@@ -2187,7 +2187,7 @@
             "x": 1270,
             "y": 420
           },
-          "wallMs": 251338
+          "wallMs": 238820
         },
         {
           "action": "camera-pan",
@@ -2195,7 +2195,7 @@
             "dx": -163.79999999999998,
             "dy": 162.24997762885707
           },
-          "wallMs": 255533
+          "wallMs": 242947
         },
         {
           "action": "camera-pan",
@@ -2203,29 +2203,29 @@
             "dx": -163.79999999999998,
             "dy": 52.999975585937136
           },
-          "wallMs": 259594
+          "wallMs": 247159
         },
         {
           "action": "capture",
           "detail": "stop-bank",
-          "wallMs": 268127
+          "wallMs": 255897
         },
         {
           "action": "export-through-settings",
           "detail": "qa/evidence/canal-hold-ready-input.json",
-          "wallMs": 275301
+          "wallMs": 262954
         },
         {
           "action": "timed-hold-start",
           "detail": {
-            "time": 203.43333333338737,
+            "time": 204.66666666672168,
             "hold": 7.600000000000001,
             "player": {
               "x": 1268.2680504432503,
               "y": 419.75205333793116
             }
           },
-          "wallMs": 287895
+          "wallMs": 277043
         },
         {
           "action": "timed-hold-safe-bank",
@@ -2233,12 +2233,12 @@
             "remaining": 3.1000000000000174,
             "activeSeconds": 4.500000000003581
           },
-          "wallMs": 294426
+          "wallMs": 283423
         },
         {
           "action": "capture",
           "detail": "screen-cleared",
-          "wallMs": 301891
+          "wallMs": 290831
         },
         {
           "action": "walk",
@@ -2246,7 +2246,7 @@
             "x": 900,
             "y": 780
           },
-          "wallMs": 307848
+          "wallMs": 296689
         },
         {
           "action": "camera-pan",
@@ -2254,7 +2254,7 @@
             "dx": 163.79999999999998,
             "dy": -250
           },
-          "wallMs": 312238
+          "wallMs": 301003
         },
         {
           "action": "interact",
@@ -2264,7 +2264,7 @@
             "x": 350,
             "y": 930
           },
-          "wallMs": 319493
+          "wallMs": 308160
         },
         {
           "action": "camera-pan",
@@ -2272,7 +2272,7 @@
             "dx": 163.79999999999998,
             "dy": -204.95002113136616
           },
-          "wallMs": 323381
+          "wallMs": 312000
         },
         {
           "action": "camera-pan",
@@ -2280,7 +2280,7 @@
             "dx": 163.79999999999998,
             "dy": -204.95002113136616
           },
-          "wallMs": 327129
+          "wallMs": 315945
         },
         {
           "action": "camera-pan",
@@ -2288,12 +2288,12 @@
             "dx": 163.79999999999998,
             "dy": -204.95002113136616
           },
-          "wallMs": 330825
+          "wallMs": 319748
         },
         {
           "action": "capture",
           "detail": "water-restored",
-          "wallMs": 343435
+          "wallMs": 332153
         },
         {
           "action": "interact",
@@ -2303,17 +2303,17 @@
             "x": 260,
             "y": 960
           },
-          "wallMs": 346737
+          "wallMs": 335529
         },
         {
           "action": "choose",
           "detail": "canal:report",
-          "wallMs": 348577
+          "wallMs": 337336
         },
         {
           "action": "export-through-settings",
           "detail": "qa/evidence/canal-phone-hold-verified-input.json",
-          "wallMs": 359994
+          "wallMs": 348754
         },
         {
           "action": "interact",
@@ -2323,7 +2323,7 @@
             "x": 230,
             "y": 1070
           },
-          "wallMs": 363357
+          "wallMs": 352041
         },
         {
           "action": "interact",
@@ -2333,7 +2333,7 @@
             "x": 760,
             "y": 410
           },
-          "wallMs": 366266
+          "wallMs": 354896
         },
         {
           "action": "camera-pan",
@@ -2341,7 +2341,7 @@
             "dx": 163.79999999999998,
             "dy": 152.49997728759126
           },
-          "wallMs": 369303
+          "wallMs": 357822
         },
         {
           "action": "camera-pan",
@@ -2349,7 +2349,7 @@
             "dx": 163.79999999999998,
             "dy": 61.499975585937136
           },
-          "wallMs": 372233
+          "wallMs": 360690
         },
         {
           "action": "camera-pan",
@@ -2357,22 +2357,22 @@
             "dx": 163.79999999999998,
             "dy": 61.499975585937136
           },
-          "wallMs": 375250
+          "wallMs": 363656
         },
         {
           "action": "choose",
           "detail": "canal:record",
-          "wallMs": 381818
+          "wallMs": 370163
         },
         {
           "action": "capture",
           "detail": "home-map",
-          "wallMs": 388326
+          "wallMs": 376404
         },
         {
           "action": "export-through-settings",
           "detail": "qa/evidence/canal-phone-hold-complete-export.json",
-          "wallMs": 393581
+          "wallMs": 382006
         },
         {
           "action": "interact",
@@ -2382,7 +2382,7 @@
             "x": 760,
             "y": 410
           },
-          "wallMs": 396291
+          "wallMs": 384672
         }
       ],
       "observations": {
@@ -2547,10 +2547,10 @@
           "muted": false,
           "musicVolume": 0.55,
           "effectsVolume": 0.45,
-          "musicScheduled": 168,
-          "musicRms": 0.02727840947233452,
+          "musicScheduled": 166,
+          "musicRms": 0.0366499468918817,
           "effectsRms": 0,
-          "activeVoices": 9,
+          "activeVoices": 8,
           "lastEffect": "step",
           "effectCounts": {
             "step": 47,
@@ -2564,13 +2564,13 @@
           "visual": "qa/evidence/canal-phone-hold-entry.png",
           "state": {
             "scene": "canal",
-            "time": 174.23333333336413,
+            "time": 174.06666666669733,
             "player": {
               "x": 350,
               "y": 1030,
               "hp": 4,
               "mana": 6,
-              "facing": 0.7444721518822782,
+              "facing": 0.7444635454167069,
               "invulnerable": 0,
               "cooldown": 0,
               "ward": 0,
@@ -2690,25 +2690,25 @@
               },
               {
                 "seq": 35,
-                "time": 131.93333333333047,
+                "time": 131.86666666666375,
                 "type": "growth",
                 "text": "你在熟悉的工位把控物环改练为留势。"
               },
               {
                 "seq": 36,
-                "time": 145.63333333334137,
+                "time": 145.46666666667457,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
                 "seq": 37,
-                "time": 152.23333333334662,
+                "time": 152.06666666667982,
                 "type": "note",
                 "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
               },
               {
                 "seq": 38,
-                "time": 171.83333333336222,
+                "time": 171.66666666669542,
                 "type": "scene",
                 "text": "雾岭旧渠"
               }
@@ -2719,7 +2719,7 @@
           "visual": "qa/evidence/canal-phone-hold-inspection.png",
           "state": {
             "scene": "canal",
-            "time": 185.23333333337288,
+            "time": 185.06666666670608,
             "player": {
               "x": 794.4297954272951,
               "y": 630.7211476679996,
@@ -2856,25 +2856,25 @@
               },
               {
                 "seq": 35,
-                "time": 131.93333333333047,
+                "time": 131.86666666666375,
                 "type": "growth",
                 "text": "你在熟悉的工位把控物环改练为留势。"
               },
               {
                 "seq": 36,
-                "time": 145.63333333334137,
+                "time": 145.46666666667457,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
                 "seq": 37,
-                "time": 152.23333333334662,
+                "time": 152.06666666667982,
                 "type": "note",
                 "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
               },
               {
                 "seq": 38,
-                "time": 171.83333333336222,
+                "time": 171.66666666669542,
                 "type": "scene",
                 "text": "雾岭旧渠"
               }
@@ -2885,7 +2885,7 @@
           "visual": "qa/evidence/canal-phone-hold-stop-bank.png",
           "state": {
             "scene": "canal",
-            "time": 197.4333333333826,
+            "time": 197.36666666671587,
             "player": {
               "x": 1268.2680504432503,
               "y": 419.75205333793116,
@@ -3011,25 +3011,25 @@
               },
               {
                 "seq": 35,
-                "time": 131.93333333333047,
+                "time": 131.86666666666375,
                 "type": "growth",
                 "text": "你在熟悉的工位把控物环改练为留势。"
               },
               {
                 "seq": 36,
-                "time": 145.63333333334137,
+                "time": 145.46666666667457,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
                 "seq": 37,
-                "time": 152.23333333334662,
+                "time": 152.06666666667982,
                 "type": "note",
                 "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
               },
               {
                 "seq": 38,
-                "time": 171.83333333336222,
+                "time": 171.66666666669542,
                 "type": "scene",
                 "text": "雾岭旧渠"
               }
@@ -3037,7 +3037,7 @@
           }
         },
         "uninterruptedWork": {
-          "time": 204.93333333338856,
+          "time": 206.16666666672288,
           "hold": 6.100000000000007,
           "work": {
             "kind": "clear",
@@ -3053,14 +3053,14 @@
           }
         },
         "holdWindow": {
-          "startModelTime": 203.43333333338737,
-          "safeModelTime": 207.93333333339095,
+          "startModelTime": 204.66666666672168,
+          "safeModelTime": 209.16666666672526,
           "activeModelSeconds": 4.500000000003581,
-          "wallMs": 6531,
+          "wallMs": 6380,
           "remainingSeconds": 3.1000000000000174,
           "start": {
             "scene": "canal",
-            "time": 203.43333333338737,
+            "time": 204.66666666672168,
             "player": {
               "x": 1268.2680504432503,
               "y": 419.75205333793116,
@@ -3174,31 +3174,31 @@
               },
               {
                 "seq": 35,
-                "time": 131.93333333333047,
+                "time": 131.86666666666375,
                 "type": "growth",
                 "text": "你在熟悉的工位把控物环改练为留势。"
               },
               {
                 "seq": 36,
-                "time": 145.63333333334137,
+                "time": 145.46666666667457,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
                 "seq": 37,
-                "time": 152.23333333334662,
+                "time": 152.06666666667982,
                 "type": "note",
                 "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
               },
               {
                 "seq": 38,
-                "time": 171.83333333336222,
+                "time": 171.66666666669542,
                 "type": "scene",
                 "text": "雾岭旧渠"
               },
               {
                 "seq": 39,
-                "time": 200.93333333338538,
+                "time": 200.6666666667185,
                 "type": "pull",
                 "text": "灵线牵住横滑截水板。点空地改变落点，按「放下」结束。",
                 "x": 1280,
@@ -3207,7 +3207,7 @@
               },
               {
                 "seq": 40,
-                "time": 203.03333333338705,
+                "time": 204.26666666672136,
                 "type": "hold",
                 "text": "横滑截水板停住八秒，现在可以另施一术。",
                 "x": 1200,
@@ -3218,7 +3218,7 @@
           },
           "safe": {
             "scene": "canal",
-            "time": 207.93333333339095,
+            "time": 209.16666666672526,
             "player": {
               "x": 1128.8359508404162,
               "y": 421.1034635300193,
@@ -3320,31 +3320,31 @@
             "events": [
               {
                 "seq": 35,
-                "time": 131.93333333333047,
+                "time": 131.86666666666375,
                 "type": "growth",
                 "text": "你在熟悉的工位把控物环改练为留势。"
               },
               {
                 "seq": 36,
-                "time": 145.63333333334137,
+                "time": 145.46666666667457,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
                 "seq": 37,
-                "time": 152.23333333334662,
+                "time": 152.06666666667982,
                 "type": "note",
                 "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
               },
               {
                 "seq": 38,
-                "time": 171.83333333336222,
+                "time": 171.66666666669542,
                 "type": "scene",
                 "text": "雾岭旧渠"
               },
               {
                 "seq": 39,
-                "time": 200.93333333338538,
+                "time": 200.6666666667185,
                 "type": "pull",
                 "text": "灵线牵住横滑截水板。点空地改变落点，按「放下」结束。",
                 "x": 1280,
@@ -3353,7 +3353,7 @@
               },
               {
                 "seq": 40,
-                "time": 203.03333333338705,
+                "time": 204.26666666672136,
                 "type": "hold",
                 "text": "横滑截水板停住八秒，现在可以另施一术。",
                 "x": 1200,
@@ -3362,7 +3362,7 @@
               },
               {
                 "seq": 41,
-                "time": 204.93333333338856,
+                "time": 206.16666666672288,
                 "type": "note",
                 "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
                 "x": 1100,
@@ -3371,7 +3371,7 @@
               },
               {
                 "seq": 42,
-                "time": 206.95000000005683,
+                "time": 208.18333333339115,
                 "type": "change",
                 "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
                 "x": 1100,
@@ -3385,14 +3385,14 @@
             {
               "action": "timed-hold-start",
               "detail": {
-                "time": 203.43333333338737,
+                "time": 204.66666666672168,
                 "hold": 7.600000000000001,
                 "player": {
                   "x": 1268.2680504432503,
                   "y": 419.75205333793116
                 }
               },
-              "wallMs": 287895
+              "wallMs": 277043
             }
           ]
         },
@@ -3400,7 +3400,7 @@
           "visual": "qa/evidence/canal-phone-hold-screen-cleared.png",
           "state": {
             "scene": "canal",
-            "time": 210.83333333339326,
+            "time": 212.06666666672757,
             "player": {
               "x": 1128.8359508404162,
               "y": 421.1034635300193,
@@ -3502,31 +3502,31 @@
             "events": [
               {
                 "seq": 35,
-                "time": 131.93333333333047,
+                "time": 131.86666666666375,
                 "type": "growth",
                 "text": "你在熟悉的工位把控物环改练为留势。"
               },
               {
                 "seq": 36,
-                "time": 145.63333333334137,
+                "time": 145.46666666667457,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
                 "seq": 37,
-                "time": 152.23333333334662,
+                "time": 152.06666666667982,
                 "type": "note",
                 "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
               },
               {
                 "seq": 38,
-                "time": 171.83333333336222,
+                "time": 171.66666666669542,
                 "type": "scene",
                 "text": "雾岭旧渠"
               },
               {
                 "seq": 39,
-                "time": 200.93333333338538,
+                "time": 200.6666666667185,
                 "type": "pull",
                 "text": "灵线牵住横滑截水板。点空地改变落点，按「放下」结束。",
                 "x": 1280,
@@ -3535,7 +3535,7 @@
               },
               {
                 "seq": 40,
-                "time": 203.03333333338705,
+                "time": 204.26666666672136,
                 "type": "hold",
                 "text": "横滑截水板停住八秒，现在可以另施一术。",
                 "x": 1200,
@@ -3544,7 +3544,7 @@
               },
               {
                 "seq": 41,
-                "time": 204.93333333338856,
+                "time": 206.16666666672288,
                 "type": "note",
                 "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
                 "x": 1100,
@@ -3553,7 +3553,7 @@
               },
               {
                 "seq": 42,
-                "time": 206.95000000005683,
+                "time": 208.18333333339115,
                 "type": "change",
                 "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
                 "x": 1100,
@@ -3567,7 +3567,7 @@
           "visual": "qa/evidence/canal-phone-hold-water-restored.png",
           "state": {
             "scene": "canal",
-            "time": 232.53333333341052,
+            "time": 233.86666666674492,
             "player": {
               "x": 426.42666655912984,
               "y": 909.2813171366042,
@@ -3669,25 +3669,25 @@
             "events": [
               {
                 "seq": 36,
-                "time": 145.63333333334137,
+                "time": 145.46666666667457,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
                 "seq": 37,
-                "time": 152.23333333334662,
+                "time": 152.06666666667982,
                 "type": "note",
                 "text": "邵禾留在下游照看取水的人，请你沿水声察看停流的旧渠。出发路牌现在可选择雾岭旧渠；没有压扣、药囊也能徒手分水。"
               },
               {
                 "seq": 38,
-                "time": 171.83333333336222,
+                "time": 171.66666666669542,
                 "type": "scene",
                 "text": "雾岭旧渠"
               },
               {
                 "seq": 39,
-                "time": 200.93333333338538,
+                "time": 200.6666666667185,
                 "type": "pull",
                 "text": "灵线牵住横滑截水板。点空地改变落点，按「放下」结束。",
                 "x": 1280,
@@ -3696,7 +3696,7 @@
               },
               {
                 "seq": 40,
-                "time": 203.03333333338705,
+                "time": 204.26666666672136,
                 "type": "hold",
                 "text": "横滑截水板停住八秒，现在可以另施一术。",
                 "x": 1200,
@@ -3705,7 +3705,7 @@
               },
               {
                 "seq": 41,
-                "time": 204.93333333338856,
+                "time": 206.16666666672288,
                 "type": "note",
                 "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
                 "x": 1100,
@@ -3714,7 +3714,7 @@
               },
               {
                 "seq": 42,
-                "time": 206.95000000005683,
+                "time": 208.18333333339115,
                 "type": "change",
                 "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
                 "x": 1100,
@@ -3723,7 +3723,7 @@
               },
               {
                 "seq": 43,
-                "time": 230.03333333340854,
+                "time": 231.36666666674293,
                 "type": "change",
                 "text": "你亲手试过槽内水位，小水轮稳定转起来。去告诉檐下邵禾；检修台坐垫已经可以静息。",
                 "x": 350,
@@ -3737,7 +3737,7 @@
           "visual": "qa/evidence/canal-phone-hold-home-map.png",
           "state": {
             "scene": "home",
-            "time": 252.63333333342652,
+            "time": 253.96666666676091,
             "player": {
               "x": 844.3929558916593,
               "y": 441.0921416442955,
@@ -3839,7 +3839,7 @@
             "events": [
               {
                 "seq": 40,
-                "time": 203.03333333338705,
+                "time": 204.26666666672136,
                 "type": "hold",
                 "text": "横滑截水板停住八秒，现在可以另施一术。",
                 "x": 1200,
@@ -3848,7 +3848,7 @@
               },
               {
                 "seq": 41,
-                "time": 204.93333333338856,
+                "time": 206.16666666672288,
                 "type": "note",
                 "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
                 "x": 1100,
@@ -3857,7 +3857,7 @@
               },
               {
                 "seq": 42,
-                "time": 206.95000000005683,
+                "time": 208.18333333339115,
                 "type": "change",
                 "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
                 "x": 1100,
@@ -3866,7 +3866,7 @@
               },
               {
                 "seq": 43,
-                "time": 230.03333333340854,
+                "time": 231.36666666674293,
                 "type": "change",
                 "text": "你亲手试过槽内水位，小水轮稳定转起来。去告诉檐下邵禾；检修台坐垫已经可以静息。",
                 "x": 350,
@@ -3875,25 +3875,25 @@
               },
               {
                 "seq": 44,
-                "time": 234.03333333341172,
+                "time": 235.3666666667461,
                 "type": "relationship",
                 "text": "你向邵禾说明留势截水、沿台阶进出清渠的经过。她看过石槽的水位，挪开取水处空桶：这回水和干路都通了，回驿把路线记下来吧。"
               },
               {
                 "seq": 45,
-                "time": 237.63333333341458,
+                "time": 238.96666666674898,
                 "type": "return",
                 "text": "木车已进了院，路上的人正沿你修开的低滩来。"
               },
               {
                 "seq": 46,
-                "time": 237.63333333341458,
+                "time": 238.96666666674898,
                 "type": "scene",
                 "text": "回石驿"
               },
               {
                 "seq": 47,
-                "time": 250.63333333342493,
+                "time": 251.96666666675932,
                 "type": "growth",
                 "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
               }
@@ -3904,21 +3904,21 @@
       "exports": [
         {
           "path": "qa/evidence/canal-hold-ready-input.json",
-          "sha256": "a34e1d5f8107fd3646e51dd739c0479562de4653195d497914f259bff002d7d7"
+          "sha256": "18a016f9a95f0922facf3259c3b3774034213e0eaa49da490908557b423efbc7"
         },
         {
           "path": "qa/evidence/canal-phone-hold-verified-input.json",
-          "sha256": "50f9ec039c3f5e6c89f2bc8f0e3207b7806f59ca4b99fc53498b1b85c574ea77"
+          "sha256": "83c3cac17f96f74c7f50e7b50047b40b1033132c9fb9374f7aa9b8fb25038a23"
         },
         {
           "path": "qa/evidence/canal-phone-hold-complete-export.json",
-          "sha256": "7e9abe9a9b1ca85ddae2315756d64f4d926543393da4127a47436e6ad3fa48bb"
+          "sha256": "f25b83de618ffaaf486754818d8eabb66979730b147d01b271c5b15770bb42a7"
         }
       ],
       "initialHp": 4,
       "final": {
         "scene": "home",
-        "time": 254.13333333342771,
+        "time": 255.4666666667621,
         "player": {
           "x": 844.3929558916593,
           "y": 441.0921416442955,
@@ -4020,7 +4020,7 @@
         "events": [
           {
             "seq": 40,
-            "time": 203.03333333338705,
+            "time": 204.26666666672136,
             "type": "hold",
             "text": "横滑截水板停住八秒，现在可以另施一术。",
             "x": 1200,
@@ -4029,7 +4029,7 @@
           },
           {
             "seq": 41,
-            "time": 204.93333333338856,
+            "time": 206.16666666672288,
             "type": "note",
             "text": "俯身扶正筛框，清走枝叶；连续两息，走动、施术或受击会中断。",
             "x": 1100,
@@ -4038,7 +4038,7 @@
           },
           {
             "seq": 42,
-            "time": 206.95000000005683,
+            "time": 208.18333333339115,
             "type": "change",
             "text": "歪框扶正，枝叶已清。先回高岸把水板复位，再走到下游亲眼验水。",
             "x": 1100,
@@ -4047,7 +4047,7 @@
           },
           {
             "seq": 43,
-            "time": 230.03333333340854,
+            "time": 231.36666666674293,
             "type": "change",
             "text": "你亲手试过槽内水位，小水轮稳定转起来。去告诉檐下邵禾；检修台坐垫已经可以静息。",
             "x": 350,
@@ -4056,25 +4056,25 @@
           },
           {
             "seq": 44,
-            "time": 234.03333333341172,
+            "time": 235.3666666667461,
             "type": "relationship",
             "text": "你向邵禾说明留势截水、沿台阶进出清渠的经过。她看过石槽的水位，挪开取水处空桶：这回水和干路都通了，回驿把路线记下来吧。"
           },
           {
             "seq": 45,
-            "time": 237.63333333341458,
+            "time": 238.96666666674898,
             "type": "return",
             "text": "木车已进了院，路上的人正沿你修开的低滩来。"
           },
           {
             "seq": 46,
-            "time": 237.63333333341458,
+            "time": 238.96666666674898,
             "type": "scene",
             "text": "回石驿"
           },
           {
             "seq": 47,
-            "time": 250.63333333342493,
+            "time": 251.96666666675932,
             "type": "growth",
             "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
           }
@@ -4170,5 +4170,5 @@
     "origin": "Unmodified real main-route 0.3.0 UI export"
   },
   "routeSelection": "all",
-  "completedAt": "2026-09-11T08:17:25.197Z"
+  "completedAt": "2026-09-11T12:50:20.485Z"
 }

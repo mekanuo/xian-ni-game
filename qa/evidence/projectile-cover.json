@@ -7,22 +7,22 @@
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 6749
+      "wall": 7116
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 16286
+      "wall": 16515
     },
     {
       "action": "interact",
       "detail": "to_crossing",
-      "wall": 16620
+      "wall": 16847
     },
     {
       "action": "scene",
       "detail": "crossing",
-      "wall": 28157
+      "wall": 28943
     },
     {
       "action": "walk",
@@ -30,7 +30,7 @@
         "x": 600,
         "y": 740
       },
-      "wall": 28329
+      "wall": 29119
     }
   ],
   "board": {
@@ -51,7 +51,7 @@
   },
   "impact": {
     "seq": 42,
-    "time": 187.66666666670815,
+    "time": 188.2166666667086,
     "type": "impact",
     "text": "术法撞在遮挡上，光屑散开。",
     "x": 740,
@@ -60,11 +60,11 @@
   },
   "before": {
     "player": {
-      "x": 587.6173334412234,
-      "y": 742.5917209076509,
+      "x": 582.397116773208,
+      "y": 743.6843243963054,
       "hp": 4,
       "mana": 4,
-      "facing": -0.20632389402972304,
+      "facing": -0.20632389402972198,
       "invulnerable": 0,
       "cooldown": 0,
       "ward": 0,
@@ -88,7 +88,7 @@
       "mana": 3,
       "facing": -0.20748436668027767,
       "invulnerable": 0,
-      "cooldown": 0.633333333333334,
+      "cooldown": 0.6666666666666674,
       "ward": 0,
       "wardFacing": 0,
       "pullId": null,

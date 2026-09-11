@@ -53,7 +53,7 @@
           }
         ]
       },
-      "wall": 10780
+      "wall": 11677
     },
     {
       "action": "walk",
@@ -61,7 +61,7 @@
         "x": 1510,
         "y": 710
       },
-      "wall": 11182
+      "wall": 12093
     },
     {
       "action": "capture",
@@ -69,17 +69,17 @@
         "id": "home-road",
         "scene": "home"
       },
-      "wall": 63512
+      "wall": 66187
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 66155
+      "wall": 69109
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 67556
+      "wall": 70752
     },
     {
       "action": "capture",
@@ -87,22 +87,22 @@
         "id": "creek-return",
         "scene": "creek"
       },
-      "wall": 92146
+      "wall": 95248
     },
     {
       "action": "interact",
       "detail": "rope",
-      "wall": 94848
+      "wall": 97833
     },
     {
       "action": "choice",
       "detail": "fix",
-      "wall": 99140
+      "wall": 101950
     },
     {
       "action": "interact",
       "detail": "bag",
-      "wall": 102428
+      "wall": 105290
     },
     {
       "action": "walk",
@@ -110,7 +110,7 @@
         "x": 885,
         "y": 555
       },
-      "wall": 104190
+      "wall": 107052
     },
     {
       "action": "pull",
@@ -119,7 +119,7 @@
         "x": 1180,
         "y": 520
       },
-      "wall": 109813
+      "wall": 112666
     },
     {
       "action": "pull",
@@ -128,7 +128,7 @@
         "x": 1120,
         "y": 648
       },
-      "wall": 117285
+      "wall": 120556
     },
     {
       "action": "walk",
@@ -136,7 +136,7 @@
         "x": 1120,
         "y": 735
       },
-      "wall": 124832
+      "wall": 128336
     },
     {
       "action": "walk",
@@ -144,7 +144,7 @@
         "x": 1120,
         "y": 555
       },
-      "wall": 129483
+      "wall": 133352
     },
     {
       "action": "capture",
@@ -152,7 +152,7 @@
         "id": "creek-shelter",
         "scene": "creek"
       },
-      "wall": 154349
+      "wall": 158214
     },
     {
       "action": "walk",
@@ -160,7 +160,7 @@
         "x": 1500,
         "y": 430
       },
-      "wall": 156913
+      "wall": 160789
     },
     {
       "action": "capture",
@@ -168,17 +168,17 @@
         "id": "creek-workshop-road",
         "scene": "creek"
       },
-      "wall": 186274
+      "wall": 192841
     },
     {
       "action": "interact",
       "detail": "to_workshop",
-      "wall": 188909
+      "wall": 196079
     },
     {
       "action": "scene",
       "detail": "workshop",
-      "wall": 190483
+      "wall": 197827
     },
     {
       "action": "capture",
@@ -186,7 +186,7 @@
         "id": "workshop-entry",
         "scene": "workshop"
       },
-      "wall": 215180
+      "wall": 222973
     },
     {
       "action": "walk",
@@ -194,7 +194,7 @@
         "x": 320,
         "y": 220
       },
-      "wall": 217747
+      "wall": 225932
     },
     {
       "action": "walk",
@@ -202,7 +202,7 @@
         "x": 1450,
         "y": 220
       },
-      "wall": 229764
+      "wall": 241840
     },
     {
       "action": "walk",
@@ -210,7 +210,7 @@
         "x": 1410,
         "y": 560
       },
-      "wall": 250316
+      "wall": 262404
     },
     {
       "action": "capture",
@@ -218,22 +218,22 @@
         "id": "workshop-shed",
         "scene": "workshop"
       },
-      "wall": 277211
+      "wall": 289520
     },
     {
       "action": "interact",
       "detail": "ring",
-      "wall": 280020
+      "wall": 292351
     },
     {
       "action": "interact",
       "detail": "tao_work",
-      "wall": 282037
+      "wall": 294008
     },
     {
       "action": "choice",
       "detail": "long",
-      "wall": 283654
+      "wall": 295592
     },
     {
       "action": "walk",
@@ -241,7 +241,7 @@
         "x": 1210,
         "y": 600
       },
-      "wall": 286670
+      "wall": 298590
     },
     {
       "action": "pull",
@@ -250,7 +250,7 @@
         "x": 1310,
         "y": 600
       },
-      "wall": 289478
+      "wall": 301404
     },
     {
       "action": "walk",
@@ -258,7 +258,7 @@
         "x": 1450,
         "y": 220
       },
-      "wall": 298494
+      "wall": 310461
     },
     {
       "action": "walk",
@@ -266,17 +266,17 @@
         "x": 320,
         "y": 220
       },
-      "wall": 304478
+      "wall": 316440
     },
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 325189
+      "wall": 337104
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 338393
+      "wall": 350313
     },
     {
       "action": "walk",
@@ -284,7 +284,7 @@
         "x": 1510,
         "y": 745
       },
-      "wall": 338815
+      "wall": 350730
     },
     {
       "action": "capture",
@@ -292,17 +292,17 @@
         "id": "creek-crossing-road",
         "scene": "creek"
       },
-      "wall": 373256
+      "wall": 385431
     },
     {
       "action": "interact",
       "detail": "to_crossing",
-      "wall": 376045
+      "wall": 388188
     },
     {
       "action": "scene",
       "detail": "crossing",
-      "wall": 377209
+      "wall": 389742
     },
     {
       "action": "capture",
@@ -310,7 +310,7 @@
         "id": "crossing-entry",
         "scene": "crossing"
       },
-      "wall": 401221
+      "wall": 413694
     },
     {
       "action": "walk",
@@ -318,7 +318,7 @@
         "x": 650,
         "y": 900
       },
-      "wall": 403761
+      "wall": 416196
     },
     {
       "action": "capture",
@@ -326,7 +326,7 @@
         "id": "crossing-bank",
         "scene": "crossing"
       },
-      "wall": 431398
+      "wall": 443676
     },
     {
       "action": "mobile-sign",
@@ -337,7 +337,7 @@
           "y": 495.50002271240874
         }
       },
-      "wall": 458559
+      "wall": 471346
     }
   ],
   "observations": {

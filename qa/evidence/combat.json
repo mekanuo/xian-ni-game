@@ -7,37 +7,37 @@
     {
       "action": "interact",
       "detail": "to_creek",
-      "wall": 5522
+      "wall": 6077
     },
     {
       "action": "scene",
       "detail": "creek",
-      "wall": 18485
+      "wall": 18788
     },
     {
       "action": "interact",
       "detail": "rope",
-      "wall": 18824
+      "wall": 19118
     },
     {
       "action": "choice",
       "detail": "fix",
-      "wall": 21099
+      "wall": 21358
     },
     {
       "action": "interact",
       "detail": "bag",
-      "wall": 22379
+      "wall": 22659
     },
     {
       "action": "interact",
       "detail": "to_workshop",
-      "wall": 23519
+      "wall": 23791
     },
     {
       "action": "scene",
       "detail": "workshop",
-      "wall": 33302
+      "wall": 33481
     },
     {
       "action": "walk",
@@ -45,7 +45,7 @@
         "x": 430,
         "y": 730
       },
-      "wall": 33472
+      "wall": 33650
     }
   ],
   "music": {
@@ -55,10 +55,10 @@
     "muted": false,
     "musicVolume": 0.55,
     "effectsVolume": 0.45,
-    "musicScheduled": 7,
-    "musicRms": 0.10357407759198843,
+    "musicScheduled": 8,
+    "musicRms": 0.014781920116895934,
     "effectsRms": 0,
-    "activeVoices": 9,
+    "activeVoices": 8,
     "lastEffect": "",
     "effectCounts": {},
     "error": "",
@@ -72,13 +72,13 @@
       "muted": false,
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
-      "musicScheduled": 83,
-      "musicRms": 0.046079244344580675,
-      "effectsRms": 0.007693041758436532,
-      "activeVoices": 16,
+      "musicScheduled": 82,
+      "musicRms": 0.05222982852624583,
+      "effectsRms": 0.00769304175625414,
+      "activeVoices": 13,
       "lastEffect": "hit",
       "effectCounts": {
-        "step": 49,
+        "step": 48,
         "change": 1,
         "item": 1,
         "alert": 1,
@@ -93,12 +93,12 @@
         {
           "seq": 9,
           "kind": "hit",
-          "x": 639.2983208000255,
-          "y": 711.9454283024404,
+          "x": 640.7927963407658,
+          "y": 711.8168092598027,
           "targetId": "beast_a",
           "age": 0,
           "life": 650,
-          "angle": -0.08585145051284258
+          "angle": -0.08585145051284232
         }
       ],
       "recent": [
@@ -127,12 +127,12 @@
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
       "musicScheduled": 91,
-      "musicRms": 0.0761072455561614,
-      "effectsRms": 0.06758954998580127,
+      "musicRms": 0.03214944634117595,
+      "effectsRms": 0.06758954967369026,
       "activeVoices": 17,
       "lastEffect": "block",
       "effectCounts": {
-        "step": 49,
+        "step": 48,
         "change": 1,
         "item": 1,
         "alert": 1,
@@ -188,13 +188,13 @@
       "muted": false,
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
-      "musicScheduled": 93,
-      "musicRms": 0.05283789751442762,
-      "effectsRms": 0.02053371972079798,
-      "activeVoices": 13,
+      "musicScheduled": 94,
+      "musicRms": 0.05190531476265485,
+      "effectsRms": 0.02873944731422088,
+      "activeVoices": 15,
       "lastEffect": "hurt",
       "effectCounts": {
-        "step": 49,
+        "step": 48,
         "change": 1,
         "item": 1,
         "alert": 1,

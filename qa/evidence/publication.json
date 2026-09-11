@@ -1,12 +1,13 @@
 {
-  "checkedAt": "2026-09-11T08:48:48.073Z",
+  "checkedAt": "2026-09-11T13:06:15.354Z",
   "url": "https://mekanuo.github.io/xian-ni-game/",
   "release": {
     "game": "山门之外",
-    "version": "0.5.0",
-    "sourceCommit": "4771041c3e392a0c62e248764e8ceee1d6a7ad8e",
-    "builtAt": "2026-09-11T08:47:28.848Z"
+    "version": "0.6.0",
+    "sourceCommit": "19dada6a2e4406d2b2a37b9093e06dc316f358f9",
+    "builtAt": "2026-09-11T13:04:13.431Z"
   },
+  "expectedSourceCommit": "19dada6a2e4406d2b2a37b9093e06dc316f358f9",
   "resources": [
     {
       "path": "art/canal-architecture.png",
@@ -123,16 +124,40 @@
       "sha256": "5138fa03b844e102f030d3e4197575dcf6b16d34f9c34200e1e31862348c5f2c"
     },
     {
-      "path": "assets/index-BJE6H6II.js",
+      "path": "assets/index-BTwh6Je1.js",
       "status": 200,
-      "bytes": 1452051,
-      "sha256": "71798f54921819cca54dc145a0db9a438d480be0908c489748bb551a9c90fd1b"
+      "bytes": 1474145,
+      "sha256": "bea13e7849da5e26dbee592cedc1387b4e177e8783ff41e368faf8f9329c3be0"
+    },
+    {
+      "path": "assets/kiln-duqin.png",
+      "status": 200,
+      "bytes": 1440774,
+      "sha256": "0480b088be4bff693bd87e5833e03d28ee23f91b421772b326e90c03de9e0c87"
+    },
+    {
+      "path": "assets/kiln-environment.png",
+      "status": 200,
+      "bytes": 2553763,
+      "sha256": "5d9b59014cab12b050d48e1f8bcbc60310260eb626b744c3904cd8df07735d93"
+    },
+    {
+      "path": "assets/kiln-ground.png",
+      "status": 200,
+      "bytes": 3624755,
+      "sha256": "df1ab7ea81cec12235c70afa91946425aa23cf031f7dc73d2b522d0c0353167d"
+    },
+    {
+      "path": "assets/kiln-props.png",
+      "status": 200,
+      "bytes": 1550153,
+      "sha256": "aba59236b3b602f09c9c3ffe3c7a5681b248472847253f6054dbe4fb5c7017ed"
     },
     {
       "path": "index.html",
       "status": 200,
       "bytes": 656,
-      "sha256": "31fb19e71a546e6985d1d521cc082263dba96329e8e2f332f1baca24a80ec750"
+      "sha256": "4e567a073d826ade985188ac90e8fe106818e06a343fa33701fd3296eebce7ea"
     }
   ],
   "browser": "150.0.7871.114",
@@ -200,7 +225,7 @@
       "state": {
         "scene": "home",
         "player": {
-          "x": 493.3333333333343,
+          "x": 485.3333333333342,
           "y": 710,
           "hp": 4,
           "mana": 5,
@@ -239,7 +264,7 @@
     "musicVolume": 0.55,
     "effectsVolume": 0.45,
     "musicScheduled": 4,
-    "musicRms": 0.017973413758912368,
+    "musicRms": 0.016406074554828613,
     "effectsRms": 0,
     "activeVoices": 8,
     "lastEffect": "",
@@ -249,8 +274,8 @@
   },
   "visual": "qa/evidence/public-start.png",
   "continuation": {
-    "contentVersion": 4,
-    "checkpointVersion": 4,
+    "contentVersion": 5,
+    "checkpointVersion": 5,
     "life": {
       "repair": {
         "stage": "active",
@@ -360,10 +385,55 @@
         "action": "camera Shift-drag",
         "dx": -500,
         "dy": 270
+      },
+      {
+        "action": "camera Shift-drag",
+        "dx": -500,
+        "dy": -250
+      },
+      {
+        "action": "click world entity",
+        "id": "to_creek",
+        "world": {
+          "x": 1640,
+          "y": 690
+        },
+        "screen": {
+          "x": 1280,
+          "y": 490
+        }
+      },
+      {
+        "action": "click dialogue choice",
+        "id": "canal:depart:creek"
+      },
+      {
+        "action": "click walk",
+        "x": 300,
+        "y": 740
+      },
+      {
+        "action": "camera Shift-drag",
+        "dx": 420,
+        "dy": 280
+      },
+      {
+        "action": "click walk",
+        "x": 300,
+        "y": 340
+      },
+      {
+        "action": "click walk",
+        "x": 700,
+        "y": 315
+      },
+      {
+        "action": "click exit",
+        "id": "creek_to_kiln"
       }
     ],
     "scene": "canal",
-    "contentVersion": 4,
+    "contentVersion": 5,
     "stage": "active",
     "inspected": false,
     "cleared": false,
@@ -372,7 +442,7 @@
       "y": 1030,
       "hp": 4,
       "mana": 4,
-      "facing": 0.3030465139575705,
+      "facing": 0.30304651395756693,
       "invulnerable": 0,
       "cooldown": 0,
       "ward": 0,
@@ -462,9 +532,134 @@
       "restOpened": false,
       "recordedShared": false
     },
-    "contentVersion": 4,
+    "contentVersion": 5,
     "visual": "qa/evidence/public-companion.png",
     "scope": "Published v3 migration, agreement and real workshop entry; no shared journey awarded for agreement or scene change."
+  },
+  "kiln": {
+    "fixture": "qa/fixtures/return-journey-v0.5.0.json",
+    "fixtureSha256": "82f9a297f4c340fffd16a86e9da46a3565ff61168e97e3de1c0b3a6382f48e41",
+    "input": [
+      {
+        "action": "camera Shift-drag",
+        "dx": -500,
+        "dy": -250
+      },
+      {
+        "action": "click world entity",
+        "id": "to_creek",
+        "world": {
+          "x": 1640,
+          "y": 690
+        },
+        "screen": {
+          "x": 1280,
+          "y": 490
+        }
+      },
+      {
+        "action": "click dialogue choice",
+        "id": "canal:depart:creek"
+      },
+      {
+        "action": "click walk",
+        "x": 300,
+        "y": 740
+      },
+      {
+        "action": "camera Shift-drag",
+        "dx": 420,
+        "dy": 280
+      },
+      {
+        "action": "click walk",
+        "x": 300,
+        "y": 340
+      },
+      {
+        "action": "click walk",
+        "x": 700,
+        "y": 315
+      },
+      {
+        "action": "click exit",
+        "id": "creek_to_kiln"
+      }
+    ],
+    "contentVersion": 5,
+    "kiln": {
+      "visited": true,
+      "entry": "west",
+      "crossed": {
+        "west": false,
+        "east": false
+      },
+      "loan": "none",
+      "shelterOpened": false
+    },
+    "player": {
+      "x": 270,
+      "y": 480,
+      "hp": 4,
+      "mana": 0,
+      "facing": -0.06938431495232797,
+      "invulnerable": 0,
+      "cooldown": 0,
+      "ward": 0,
+      "wardFacing": 0,
+      "pullId": null,
+      "pullPoint": null,
+      "hold": 0,
+      "path": []
+    },
+    "resources": [
+      {
+        "path": "assets/kiln-environment.png",
+        "status": 200,
+        "bytes": 2553763,
+        "sha256": "5d9b59014cab12b050d48e1f8bcbc60310260eb626b744c3904cd8df07735d93"
+      },
+      {
+        "path": "assets/kiln-props.png",
+        "status": 200,
+        "bytes": 1550153,
+        "sha256": "aba59236b3b602f09c9c3ffe3c7a5681b248472847253f6054dbe4fb5c7017ed"
+      },
+      {
+        "path": "assets/kiln-duqin.png",
+        "status": 200,
+        "bytes": 1440774,
+        "sha256": "0480b088be4bff693bd87e5833e03d28ee23f91b421772b326e90c03de9e0c87"
+      },
+      {
+        "path": "assets/kiln-ground.png",
+        "status": 200,
+        "bytes": 3624755,
+        "sha256": "df1ab7ea81cec12235c70afa91946425aa23cf031f7dc73d2b522d0c0353167d"
+      }
+    ],
+    "audio": {
+      "state": "running",
+      "requested": true,
+      "scene": "kiln",
+      "muted": false,
+      "musicVolume": 0.55,
+      "effectsVolume": 0.45,
+      "musicScheduled": 183,
+      "musicRms": 0.020350545948328344,
+      "effectsRms": 0,
+      "activeVoices": 12,
+      "lastEffect": "step",
+      "effectCounts": {
+        "pull": 1,
+        "change": 1,
+        "step": 80
+      },
+      "error": "",
+      "disposed": false
+    },
+    "visual": "qa/evidence/public-kiln.png",
+    "scope": "Public authentic v4 migration and actual sixth-scene entry with real music and loaded independent art; full routes verified locally."
   },
   "mobile": {
     "device": "Chrome touch / DPR3 emulation, not a physical phone",
@@ -487,8 +682,8 @@
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
       "musicScheduled": 12,
-      "musicRms": 0.017054910289549873,
-      "effectsRms": 0.002822217618255884,
+      "musicRms": 0.017633821575800138,
+      "effectsRms": 0.0028222176165525513,
       "activeVoices": 15,
       "lastEffect": "ward",
       "effectCounts": {
