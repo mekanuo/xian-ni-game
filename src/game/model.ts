@@ -107,6 +107,17 @@ export function interactionPoint(s:GameState,targetId:string):Vec|undefined {
   return undefined;
 }
 const pullRange=(s:GameState)=>s.ringStyle==='long'||s.flags.trialStyle==='long'?500:300;
+function solidPullPathClear(s:GameState,target:Entity,point:Vec):boolean{
+  if(!target.solid||!target.movable)return true;
+  const map=SCENES[s.scene],halfW=target.w/2,halfH=target.h/2;
+  if(point.x-halfW<25||point.x+halfW>map.width-25||point.y-halfH<25||point.y+halfH>map.height-25)return false;
+  // Minkowski expansion sweeps the whole footprint, including physical water obstacles.
+  // Exact edge contact is allowed; the tiny tolerance only excludes touching boundaries.
+  const epsilon=1e-7;
+  return !rectangles(s,target.id).some(r=>segmentRectEntry(target,point,{
+    x:r.x-halfW+epsilon,y:r.y-halfH+epsilon,w:r.w+target.w-2*epsilon,h:r.h+target.h-2*epsilon
+  })!==null);
+}
 function pullPlacementReason(s:GameState,target:Entity,point:Vec,range:number):string|undefined {
   if(!finitePoint(point))return '落点无效';
   if(target.state==='burning')return '物件正在燃烧，先退开等火熄';
@@ -116,6 +127,7 @@ function pullPlacementReason(s:GameState,target:Entity,point:Vec,range:number):s
   if(dist(s.player,point)>range+1)return '落点超出牵引范围';
   if(!free(s,point,12,target.id)&&!(target.id==='board'&&dist(point,{x:1120,y:648})<45))return '落点被挡住，请选可站立的地面';
   if(!clearLine(s,target,point,target.id))return '搬动路径有实物阻挡';
+  if(!solidPullPathClear(s,target,point))return '整件物件放不下或搬动时会碰到实物，请给边角留出空间';
   return undefined;
 }
 export function previewPullMove(s:GameState,point:Vec):CastPreview {
@@ -552,7 +564,7 @@ function stepTick(s:GameState,dt:number,input:Vec){
     if(!e){p.pullId=null;p.pullPoint=null;p.hold=0;}
     else if(p.hold>0){p.hold=Math.max(0,p.hold-dt);if(p.hold===0){const beam=e.id==='platform_beam';release(s);if(beam&&!s.flags.platformReturn&&!s.flags.platformLong&&s.life.clamp!=='lookout'){if(p.x>1040&&p.x<1120&&p.y>210&&p.y<350){p.x=p.x<1080?1035:1125;hurt(s,e,'留势到期，倾梁落下擦伤了你；已退到安全一侧。');}e.x=e.homeX!;e.y=e.homeY!;}emit(s,'drop','留势到期，物件落稳。',e);}}
     else if(dist(e,p)>(s.ringStyle==='long'||s.flags.trialStyle==='long'?520:320)||!clearLine(s,p,e,e.id)){release(s);emit(s,'hint','灵线因距离或遮挡断开，物件落在当前位置。');}
-    else if(p.pullPoint){const destination=p.pullPoint;const d=dist(e,destination);if(d>.5){const amount=Math.min(d,220*dt),next={x:e.x+(destination.x-e.x)/d*amount,y:e.y+(destination.y-e.y)/d*amount};if(clearLine(s,e,next,e.id)){e.x=next.x;e.y=next.y;objectChanged(s,e);}else{release(s);emit(s,'hint','物件碰到实物，已停止牵动。');}}}
+    else if(p.pullPoint){const destination=p.pullPoint;const d=dist(e,destination);if(d>.5){const amount=Math.min(d,220*dt),next={x:e.x+(destination.x-e.x)/d*amount,y:e.y+(destination.y-e.y)/d*amount};if(clearLine(s,e,next,e.id)&&solidPullPathClear(s,e,next)){e.x=next.x;e.y=next.y;objectChanged(s,e);}else{release(s);emit(s,'hint','物件碰到实物，已停止牵动。');}}}
   }
   for(const e of entities(s)){
     if(e.state==='burning'){e.timer=Math.max(0,(e.timer??0)-dt);if(e.timer===0)e.state='burned';}

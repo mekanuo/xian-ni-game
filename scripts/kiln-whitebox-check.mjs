@@ -25,7 +25,7 @@ const screen=r=>r.state.worlds.home.find(e=>e.id==='shield_board');
 try{
   browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
   page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:2});page.on('pageerror',error=>report.errors.push(error.message));report.browser=await browser.version();
-  await page.goto(url);await page.waitForFunction(()=>window.__KILN__);
+  await page.goto(url);await page.waitForFunction(()=>window.__KILN__);report.geometry=await page.evaluate(()=>window.__KILN__.geometry());
   await reset('ordinary');await walk({x:420,y:640});await page.waitForTimeout(1300);
   const covered=await state();assert.equal(covered.state.player.hp,4);assert.equal(covered.state.worlds.home.find(e=>e.id==='kiln_raider_a').state,'idle');
   const overview=await capture('retained-screen');
@@ -35,9 +35,11 @@ try{
   report.cases.push({id:'retained-cover-and-pause',covered,visual:overview});
 
   await reset('ordinary');await walk({x:350,y:640});await cast('pull',{x:500,y:640});await page.waitForFunction(()=>window.__KILN__.inspect().state.player.pullId==='shield_board');
+  log('reject-screen-corner-overlap',{x:580,y:610});await clickWorld({x:580,y:610});await page.waitForTimeout(120);
+  const cornerRejected=await state();assert.ok(Math.hypot(screen(cornerRejected).x-500,screen(cornerRejected).y-640)<1);assert.equal(cornerRejected.state.player.pullId,'shield_board');
   log('move-screen',{x:620,y:700});await clickWorld({x:620,y:700});await page.waitForFunction(()=>{const e=window.__KILN__.inspect().state.worlds.home.find(e=>e.id==='shield_board');return Math.hypot(e.x-620,e.y-700)<3;});
   await page.locator('[data-action="release"]').click();const moved=await state();assert.equal(screen(moved).state,'idle');assert.equal(screen(moved).data.noiseUsed,true);assert.ok(moved.state.events.some(e=>e.type==='drop'));assert.equal(moved.state.player.mana,5);
-  const movedVisual=await capture('moved-screen');report.cases.push({id:'real-pull-drop',state:moved,visual:movedVisual});
+  const movedVisual=await capture('moved-screen');report.cases.push({id:'real-pull-drop',cornerRejected,state:moved,visual:movedVisual});
 
   await reset('ordinary');await walk({x:350,y:640});await cast('flame',{x:500,y:640});await page.waitForFunction(()=>window.__KILN__.inspect().state.worlds.home.find(e=>e.id==='shield_board').state==='burning');
   const burning=await state();assert.equal(burning.state.player.mana,5);assert.ok(burning.state.events.some(e=>e.type==='fire'&&e.targetId==='shield_board'));
