@@ -53,6 +53,7 @@ export class WorldScene extends Phaser.Scene {
   private anchorLabels:Phaser.GameObjects.Text[]=[];
   private queuedInteract:string|null=null;
   private cameraManual=false;
+  private panMode=false;
   private dragStart: {x:number;y:number;cx:number;cy:number}|null=null;
   private settings:Settings={reduced:false,contrast:false,large:false,volume:.45,music:.25};
   constructor(){super('world');}
@@ -110,7 +111,7 @@ export class WorldScene extends Phaser.Scene {
     this.hoverLabel=this.add.text(0,0,'',{fontFamily:FONT,fontSize:'13px',color:'#f5f3df',backgroundColor:'#2d4944',padding:{x:12,y:8},align:'center'}).setResolution(display.density).setOrigin(.5,1).setDepth(25000).setVisible(false);
     this.player=this.makeCharacter('player',0,0,0);this.playerHand=this.add.graphics();this.player.add(this.playerHand);
     this.keys=this.input.keyboard!.addKeys('W,A,S,D,UP,LEFT,DOWN,RIGHT,SPACE,ONE,TWO,THREE,E,R,C,Q,J,I,M,ESC',false) as Record<string,Phaser.Input.Keyboard.Key>;
-    this.ui=new GameUI({get:()=>this.state,act:a=>this.dispatch(a),replace:s=>this.replace(s),select:s=>this.select(s),center:()=>this.center(),settings:s=>{this.settings=s;},aiming:()=>this.casting,cancel:()=>this.cancelAim()},this.soundscape);
+    this.ui=new GameUI({get:()=>this.state,act:a=>this.dispatch(a),replace:s=>this.replace(s),select:s=>this.select(s),center:()=>this.center(),pan:()=>{this.panMode=!this.panMode;this.dragStart=null;},panning:()=>this.panMode,settings:s=>{this.settings=s;},aiming:()=>this.casting,cancel:()=>this.cancelAim()},this.soundscape);
     window.addEventListener('pointermove',e=>{this.pointerOverWorld=e.target===this.game.canvas;});
     window.addEventListener('pointerdown',e=>{this.pointerOverWorld=e.target===this.game.canvas;});
     window.addEventListener('keydown',e=>{
@@ -186,12 +187,12 @@ export class WorldScene extends Phaser.Scene {
     if(queuedCast&&result.ok&&(queuedCast.spell!=='pull'||!this.state.player.pullId))this.casting=false;
     if(!result.ok&&result.message)this.ui?.notify(result.message);
     if(a.type==='retry'||a.type==='retreat'){this.feedback.reset(this.state.events.at(-1)?.seq??0);this.renderedScene='';this.queuedInteract=null;this.refreshScene();this.center();}
-    if(a.type==='interact'||a.type==='choose'||a.type==='release'||a.type==='hold')this.casting=false;
+    if(a.type==='interact'||a.type==='choose'||a.type==='release'||a.type==='hold'){this.casting=false;this.panMode=false;this.dragStart=null;}
     this.ui?.update();
     return result;
   }
   private cancelAim(){this.casting=false;this.queuedInteract=null;this.dispatch({type:'cancel'});}
-  private select(spell:Spell){this.casting=true;this.queuedInteract=null;this.dispatch({type:'select',spell});this.ui?.notify({pull:'引力术：点轻物牵起，再点地面放下。',flame:'火焰球：对准干物或威胁，点击施术。',ward:'护符·障：朝需要保护的方向点击。'}[spell]);}
+  private select(spell:Spell){this.panMode=false;this.dragStart=null;this.casting=true;this.queuedInteract=null;this.dispatch({type:'select',spell});this.ui?.notify({pull:'引力术：点轻物牵起，再点地面放下。',flame:'火焰球：对准干物或威胁，点击施术。',ward:'护符·障：朝需要保护的方向点击。'}[spell]);}
   private updateCameraScale(){
     const width=this.scale.width/display.density,height=this.scale.height/display.density;
     const homeDesktop=this.state.scene==='home'&&width>=1000;
@@ -206,13 +207,14 @@ export class WorldScene extends Phaser.Scene {
     const height=this.scale.height/display.density,zoom=this.cameras.main.zoom/display.density;
     return Math.min(190,Math.max(0,(height/2-135)/zoom));
   }
-  private center(){this.cameraManual=false;if(this.state)this.cameras.main.centerOn(this.state.player.x,this.state.player.y-this.cameraLead());}
+  private center(){this.panMode=false;this.dragStart=null;this.cameraManual=false;if(this.state)this.cameras.main.centerOn(this.state.player.x,this.state.player.y-this.cameraLead());}
   private pointerDown(p:Phaser.Input.Pointer){
-    if(this.ui?.blocked||this.state.dialogue||this.state.defeated)return;
+    if(this.ui?.blocked||this.state.defeated)return;
     this.soundscape.start();
-    if(p.middleButtonDown()||(p.leftButtonDown()&&p.event.shiftKey)){
+    if(this.panMode||p.middleButtonDown()||(p.leftButtonDown()&&p.event.shiftKey)){
       this.dragStart={x:p.x,y:p.y,cx:this.cameras.main.scrollX,cy:this.cameras.main.scrollY};return;
     }
+    if(this.state.dialogue)return;
     if(p.rightButtonDown()){this.casting=false;this.queuedInteract=null;this.dispatch({type:'release'});return;}
     const point={x:p.worldX,y:p.worldY};
     const entity=this.entityAt(point);
@@ -263,7 +265,7 @@ export class WorldScene extends Phaser.Scene {
         if(just('R'))this.dispatch({type:'hold'});
         if(just('E')){const e=nearbyEntity(this.state);if(e)this.dispatch({type:'interact',targetId:e.id});}
         input={x:Number(this.keys.D.isDown||this.keys.RIGHT.isDown)-Number(this.keys.A.isDown||this.keys.LEFT.isDown),y:Number(this.keys.S.isDown||this.keys.DOWN.isDown)-Number(this.keys.W.isDown||this.keys.UP.isDown)};
-        if(input.x||input.y){this.queuedInteract=null;this.cameraManual=false;}
+        if(input.x||input.y){this.panMode=false;this.dragStart=null;this.queuedInteract=null;this.cameraManual=false;}
       }
     }
     this.accumulator+=Math.min(delta,100)/1000;

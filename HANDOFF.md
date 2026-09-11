@@ -1,3 +1,13 @@
+# 最新覆盖 · 0.7 手机看路与顶部间距验收中
+
+2026-09-11。正式 worktree market-070-production / feat/market-070，HEAD 12ef0e4 已推送。公网仍 0.6。新增正式“看路”按钮与单指拖镜头、对白中纯镜头操作、帮助说明；新增界面和后果浏览器检查脚本。最新全套 **35 文件 749 测试 PASS**，tsc/build PASS；当前包 **index-CRsUjnIh.js / index-D5r6oNWq.css**。
+
+桌面 R3（qa/evidence/market-desktop-r3.json）实际点穿已开门洞并通过私巷到旧渠；回程 1220,880 在软件 GPU 下 60 秒截止时仍正常向目标走，整案 FAIL 保留，未称通关。QA 改实际到达等待 120 秒并在败退/意外对白时及时失败，未调整游戏速度/威胁。
+
+三视口第一轮 qa/evidence/market-view-2026-09-11T15-30-30-506Z/report.json PASS，真实 DPR 和手机单指看路/暂停成立；root 目视额外抓到手机目标提示与菜单相叠。加入实际 DOM 矩形相交断言后两次 RED 均保留（15-37-48 与 15-45-07 目录）：仅缩短目标仍不够，现同时为手机菜单/观察/暂停行增加间距。phone GREEN2 已 exit0，qa/evidence/market-view-2026-09-11T15-47-03-177Z/report.json 为 PASS；五幅图、路牌定位、目标不遮菜单、真触控拖图、idle/walking 与开门冻结成立，waiting 未强造。root 已目视手机 idle，菜单间距清晰。当前唯一浏览器为 desktop R4 supervisor1186308，日志 /tmp/xian-ni-070-desktop-r4.log，结束写同名前缀 .exit；从先前真实小集入口导出续走，不称从旧窑重开全程。preview4194 PID1178399。
+
+root 独占构建/浏览器/Git/部署；canal_rules_040 独占后果脚本，修实际途中败退误报；canal_save_040 独占 design/CLIFF_NEXT_RISK_REVIEW.md 做下轮白盒风险草稿，不代表批准生产。下一步手机实际截图通过后完整桌面/手机往返记事、market-consequences-check（真实等候重聚/两次败退与重试撤离）、正式冻结 verify、Git 推送与原 URL 部署验证。当前新版本无整版 PASS，继承 0.6 验证不可用于发布。继续开发，不停在里程碑。
+
 # 最新覆盖 · 0.7 美术接入，修复开门后的点击拦截
 
 2026-09-11。当前仍正式工作树market-070-production / feat/market-070，机制提交07bca74已经推送。四组实际美术已接入，BGM/门闩音、观察说明/山道小图/桌案纸签完成。许照缺席时独自整理药草与摆叶、撤回合法同行脚点、非实心物件到达包络均已修；相关RED→GREEN。最近全套35文件748测试PASS，之后新增开门点击回归10/10定点PASS；最新tsc/build PASS，包 **index-B3DLJ88D.js / index-B8Ldhq7K.css**。

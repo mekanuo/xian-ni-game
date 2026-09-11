@@ -118,9 +118,9 @@ export function marketAbandonVisit(s:GameState):void{s.market.visit=null;}
 export function marketObjective(s:GameState):string|undefined {
  if(s.scene==='home'&&pendingReports(s).length)return '到自己的桌边，说清亲自穿过小集的路线';
  if(s.scene!=='market')return undefined;
- const destination=s.market.visit?.entry==='canal'?'西侧原口回石渡':'北口去旧渠';
+ const destination=s.market.visit?.entry==='canal'?'西口回石渡':'北口去旧渠';
  const door=object(s,'market_door');
- return `${door?.state==='open'?'私门已开，公共巷也仍可走':s.market.exchanged?'沈砚会看清来向后去开闩；公共巷仍可走':'可近身问沈砚；公共巷不必等私门'}。亲自穿过巷道，再从${destination}离开；也可从来处折返。`;
+ return `${door?.state==='open'?'私门已开，公共巷也可走':s.market.exchanged?'等沈砚到闩边，公共巷仍可走':'公共巷可走，也可问沈砚'}；${destination}。`;
 }
 export function marketDescription(s:GameState,e:Entity,p:MarketPorts):string|undefined {
  if(s.scene==='home'&&e.id==='table'){

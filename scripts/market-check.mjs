@@ -56,10 +56,10 @@ async function frame(x,y){
 }
 async function worldTap(x,y){const p=await frame(x,y);if(mobile)await page.touchscreen.tap(p.x,p.y);else await page.mouse.click(p.x,p.y);}
 async function entity(id){const s=await state(),e=s.worlds[s.scene].find(e=>e.id===id);assert.ok(e,`Missing ${s.scene}/${id}`);return e;}
-async function walk(x,y){await resume();log('walk',{x,y});await worldTap(x,y);await wait(({x,y})=>{const s=window.__XIAN_NI__.inspect();return Math.hypot(s.player.x-x,s.player.y-y)<18&&s.player.path.length===0;},{x,y},60000);assert.equal((await state()).defeated,false);}
+async function walk(x,y){await resume();log('walk',{x,y});await worldTap(x,y);await wait(({x,y})=>{const s=window.__XIAN_NI__.inspect();if(s.defeated)throw Error('Player defeated before arrival');if(s.dialogue)throw Error('Ground click unexpectedly opened dialogue: '+s.dialogue.id);return Math.hypot(s.player.x-x,s.player.y-y)<18&&s.player.path.length===0;},{x,y},120000);const arrived=await state();assert.equal(arrived.defeated,false);log('arrived',{scene:arrived.scene,x:arrived.player.x,y:arrived.player.y,time:arrived.time,hp:arrived.player.hp});}
 async function interact(id){
  await resume();const e=await entity(id),scene=(await state()).scene;log('interact',{id,scene,world:{x:e.x,y:e.y}});await worldTap(e.x,e.y);
- await wait(({id,scene})=>{const s=window.__XIAN_NI__.inspect();if(s.scene!==scene||s.dialogue)return true;const e=s.worlds[s.scene].find(e=>e.id===id);return e&&Math.hypot(s.player.x-e.x,s.player.y-e.y)<100&&s.player.path.length===0;},{id,scene},60000);
+ await wait(({id,scene})=>{const s=window.__XIAN_NI__.inspect();if(s.scene!==scene||s.dialogue)return true;const e=s.worlds[s.scene].find(e=>e.id===id);return e&&Math.hypot(s.player.x-e.x,s.player.y-e.y)<100&&s.player.path.length===0;},{id,scene},120000);
 }
 async function choose(id){
  for(let n=0;n<12&&!(await state()).dialogue?.choices.some(c=>c.id===id);n++){assert.ok((await state()).dialogue?.choices.some(c=>c.id==='more'),`Missing choice ${id}`);await button('[data-ui="choice:more"]');}
@@ -71,7 +71,7 @@ async function exportSave(name){
  const bytes=await readFile(path);route.exports.push({path,sha256:hash(bytes)});log('settings-export',path);return bytes;
 }
 async function importSave(bytes,name,{fresh=false,continuation=false}={}){
- if(fresh){await page.goto(url);await named('入 山');await named('去回石驿');await wait(()=>window.__XIAN_NI__?.inspect().scene==='home');route.runtimeScripts=await page.locator('script[src]').evaluateAll(nodes=>nodes.map(n=>n.src));}
+ if(fresh){await page.goto(url);await named('入 山');await named('去回石驿');await wait(()=>window.__XIAN_NI__?.inspect().scene==='home');route.runtimeScripts=await page.locator('script[src]').evaluateAll(nodes=>nodes.map(n=>n.src));route.runtimeHashes=[];for(const url of route.runtimeScripts){const response=await page.request.get(url);assert.equal(response.status(),200);route.runtimeHashes.push({url,sha256:hash(await response.body())});}}
  await button('[data-ui="settings"]');await page.locator('#import-save').setInputFiles({name,mimeType:'application/json',buffer:bytes});
  await wait(continuation=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===6&&s.journey.stage==='complete'&&(!continuation||s.scene==='market');},continuation);
  assert.deepEqual(Object.keys((await state()).worlds).sort(),['canal','creek','crossing','home','kiln','market','workshop']);
@@ -80,6 +80,7 @@ async function importSave(bytes,name,{fresh=false,continuation=false}={}){
 async function capture(id){await pause();if(!mobile)await page.mouse.move(1430,890);const path=`${folder}/${route.id}-${id}.png`;await page.screenshot({path});route.observations[id]={visual:path,state:brief(await state())};await persist();}
 
 try{
+ evidence.sourceFiles=[];for(const path of ['src/game/model.ts','src/game/market.ts','src/game/market-art.ts','src/game/scene.ts','src/game/ui.ts','scripts/market-check.mjs'])evidence.sourceFiles.push({path,sha256:hash(await readFile(path))});
  const bytes=await readFile(fixturePath),old=JSON.parse(bytes);assert.equal(old.contentVersion,resumed?6:5);if(resumed){assert.equal(old.scene,'market');assert.equal(old.market.visit.entry,'crossing');}assert.equal(old.kiln.crossed.east,true);assert.equal(old.kiln.crossed.west,true);
  evidence.fixture={path:fixturePath,sha256:hash(bytes),source:resumed?'Actual earlier market UI entry export; this run resumes there through settings, without synthetic edits.':'Actual 0.6 two-ended kiln settings export, unchanged; every new scene transition and outcome below uses normal UI input.'};
  browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});evidence.environment.browser=await browser.version();
