@@ -1,13 +1,31 @@
 {
-  "checkedAt": "2026-09-11T03:59:13.256Z",
+  "checkedAt": "2026-09-11T05:16:58.013Z",
   "url": "https://mekanuo.github.io/xian-ni-game/",
   "release": {
     "game": "山门之外",
-    "version": "0.3.1",
-    "sourceCommit": "7ef2df3e9eab7b9598db7a46ce307814f4ec8caa",
-    "builtAt": "2026-09-11T03:54:46.482Z"
+    "version": "0.4.0",
+    "sourceCommit": "f5063db5234f500f9955935a636d69db5dc23c90",
+    "builtAt": "2026-09-11T05:15:04.447Z"
   },
   "resources": [
+    {
+      "path": "art/canal-architecture.png",
+      "status": 200,
+      "bytes": 2228134,
+      "sha256": "88cd8982350b4af451c041c6c38d74bb6b3bff0b12547bf28702b5e2e085b575"
+    },
+    {
+      "path": "art/canal-ground.png",
+      "status": 200,
+      "bytes": 3946075,
+      "sha256": "4d2a6ba10a712dbacf9eb2d5b535c62fed428ecd0fa70dafc0d6a10c5d811ccf"
+    },
+    {
+      "path": "art/canal-props.png",
+      "status": 200,
+      "bytes": 1870320,
+      "sha256": "d3bdaa155b2f3df86c867ab7fe9a3d462d74e46135a56d1812f196b378f578f7"
+    },
     {
       "path": "art/characters.png",
       "status": 200,
@@ -99,22 +117,22 @@
       "sha256": "bedbd7d681e1cf7c4481696e3983b6638f6c8088f892c4a54759953b58f108c9"
     },
     {
-      "path": "assets/index-BUkY1Ynu.js",
+      "path": "assets/index-B8Ldhq7K.css",
       "status": 200,
-      "bytes": 1388412,
-      "sha256": "978592b7e968d07471b869dca13de7cc6b54600c2f211fb8a8fd9f6594f3e09b"
+      "bytes": 30853,
+      "sha256": "5138fa03b844e102f030d3e4197575dcf6b16d34f9c34200e1e31862348c5f2c"
     },
     {
-      "path": "assets/index-BlpjwzW5.css",
+      "path": "assets/index-D8kZN3eh.js",
       "status": 200,
-      "bytes": 30800,
-      "sha256": "2ee313ba574392d54ecfb8f449c9cb928f2b3b608425109d1bfbc154a0b77942"
+      "bytes": 1425503,
+      "sha256": "f7fd6dd4f86bee71f8a9ede5b2149c7048b51a9e0cc5812b650ba631f7f5a470"
     },
     {
       "path": "index.html",
       "status": 200,
       "bytes": 656,
-      "sha256": "d6806f5fdab24be2082f3da7cbe41563b869c73ab76888c9af642c53648bfd62"
+      "sha256": "9f0aa10ea6a5ba65f843a15df2d412d1500a4fbc0aa1d7ab075911b5e8c647d6"
     }
   ],
   "browser": "150.0.7871.114",
@@ -182,7 +200,7 @@
       "state": {
         "scene": "home",
         "player": {
-          "x": 498.66666666666765,
+          "x": 496.00000000000097,
           "y": 710,
           "hp": 4,
           "mana": 5,
@@ -221,7 +239,7 @@
     "musicVolume": 0.55,
     "effectsVolume": 0.45,
     "musicScheduled": 4,
-    "musicRms": 0.013905083829401619,
+    "musicRms": 0.015692342450159345,
     "effectsRms": 0,
     "activeVoices": 8,
     "lastEffect": "",
@@ -231,8 +249,8 @@
   },
   "visual": "qa/evidence/public-start.png",
   "continuation": {
-    "contentVersion": 2,
-    "checkpointVersion": 2,
+    "contentVersion": 3,
+    "checkpointVersion": 3,
     "life": {
       "repair": {
         "stage": "active",
@@ -257,6 +275,94 @@
     "fixture": "Real 0.2.2 main ending imported via settings",
     "input": "Click workbench, accept repair"
   },
+  "adventure": {
+    "fixture": "qa/fixtures/return-main-v0.3.0.json",
+    "fixtureSha256": "0be44f1bdea520df6f417ae35441efa0f67a9c9d95964f64c86aa1ee31b37b5f",
+    "input": [
+      {
+        "action": "settings import unchanged real 0.3.0 main-route fixture"
+      },
+      {
+        "action": "click world entity",
+        "id": "table",
+        "world": {
+          "x": 760,
+          "y": 410
+        },
+        "screen": {
+          "x": 633.1047957968284,
+          "y": 410
+        }
+      },
+      {
+        "action": "click dialogue choice",
+        "id": "canal:accept"
+      },
+      {
+        "action": "camera Shift-drag",
+        "dx": -500,
+        "dy": -250
+      },
+      {
+        "action": "click world entity",
+        "id": "to_creek",
+        "world": {
+          "x": 1640,
+          "y": 690
+        },
+        "screen": {
+          "x": 1280,
+          "y": 490
+        }
+      },
+      {
+        "action": "click dialogue choice",
+        "id": "canal:depart:canal"
+      }
+    ],
+    "scene": "canal",
+    "contentVersion": 3,
+    "stage": "active",
+    "inspected": false,
+    "cleared": false,
+    "player": {
+      "x": 350,
+      "y": 1030,
+      "hp": 4,
+      "mana": 4,
+      "facing": 0.3030465139575705,
+      "invulnerable": 0,
+      "cooldown": 0,
+      "ward": 0,
+      "wardFacing": 0,
+      "pullId": null,
+      "pullPoint": null,
+      "hold": 0,
+      "path": []
+    },
+    "resources": [
+      {
+        "path": "art/canal-ground.png",
+        "status": 200,
+        "bytes": 3946075,
+        "sha256": "4d2a6ba10a712dbacf9eb2d5b535c62fed428ecd0fa70dafc0d6a10c5d811ccf"
+      },
+      {
+        "path": "art/canal-architecture.png",
+        "status": 200,
+        "bytes": 2228134,
+        "sha256": "88cd8982350b4af451c041c6c38d74bb6b3bff0b12547bf28702b5e2e085b575"
+      },
+      {
+        "path": "art/canal-props.png",
+        "status": 200,
+        "bytes": 1870320,
+        "sha256": "d3bdaa155b2f3df86c867ab7fe9a3d462d74e46135a56d1812f196b378f578f7"
+      }
+    ],
+    "visual": "qa/evidence/public-canal.png",
+    "scope": "Published old-save import, accepted invitation and physical fifth-scene entry; full two-method playthrough is verified separately."
+  },
   "mobile": {
     "device": "Chrome touch / DPR3 emulation, not a physical phone",
     "dimensions": {
@@ -278,8 +384,8 @@
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
       "musicScheduled": 12,
-      "musicRms": 0.017314861041012375,
-      "effectsRms": 0.0028222176161175247,
+      "musicRms": 0.016299177986825727,
+      "effectsRms": 0.0028222176165525513,
       "activeVoices": 15,
       "lastEffect": "ward",
       "effectCounts": {

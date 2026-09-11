@@ -1,3 +1,9 @@
+## 2026-09-11 · 0.4 公网交付完成
+
+源码 f5063db 已推送 feat/canal-040 和 feat/return-stone-v1，主分支快进合入同一提交。gh-pages 发行 086d63c，公网 release.json 为 0.4.0/sourceCommit f5063db5234f500f9955935a636d69db5dc23c90。public-check exit0：21资源哈希一致、匿名桌面新建/归灯/移动/配乐、DPR3手机触控/声音、旧档生活委托以及真实接信进入旧渠均通过，pageerror=[]。公开新章证据 qa/evidence/public-canal.png 与 publication.json.adventure。
+
+试玩 https://mekanuo.github.io/xian-ni-game/?v=0.4.0 。首章归来后从自己的桌案接信，再在既有出发路牌选择雾岭旧渠。已完成236测试、16流程和六项运行时验收；手机八秒操作是仿真证据，不能代替实体手机或Mac/Safari。后续继续主目录，按 CONTENT_ROADMAP 推进实际质量缺口及新的独立体验，不重复拆书或批量换皮地图。本次本地预览服务已关闭。
+
 ## 2026-09-11 · 0.4 完整发行候选通过
 
 最终独立后台 npm run verify exit0：236测试、16条验证命令和六项运行时检查全部PASS。新旧首章两路/重开、生活两法、手机暂停存档，以及旧渠桌面零资源与手机连续留势两法/归驿/重开均完成。手机退岸余3.1秒，三视口九处截图通过并目视复核。最终包 index-D8kZN3eh.js；正式报告 qa/verification.json。此前中断或辅助脚本失误不作为本次PASS依据。
