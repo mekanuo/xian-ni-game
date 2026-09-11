@@ -333,12 +333,21 @@ scenarios.lure = async () => {
   await waitFor('enemy physically follows the drop into the western approach', r => enemy(r).x <= 610, 30000);
   await walk(480, 460); await interact('market_merchant');
   assert.equal((await inspect()).threat, false, 'Exchange must occur while the current encounter is actually safe');
+  if (device === 'phone') {
+    // During the game's normal dialogue pause, look toward the retreat while
+    // keeping the merchant physically visible. After the promise we must see
+    // her actual interruption, rather than infer it from an offscreen flag.
+    const reading = await inspect(); await frame(point(180, 780));
+    assert.deepEqual(await inspect(), reading, 'Looking at the retreat during dialogue cannot advance actors');
+    await canvasAt(await screenPoint(point(npc(reading).x, npc(reading).y)));
+  }
   await choose('market:exchange');
   // React to the observed physical interruption; do not add a second fixed
   // wait before starting to watch an already-running short NPC action.
   const stopped = await waitFor('NPC sees the approaching enemy and stops before opening', r => r.threat && npc(r).state === 'waiting' && door(r).state === 'closed');
   assert.equal(stopped.exchanged, true);
   assert.ok(npc(stopped).x > 470 && npc(stopped).x < 620, 'Observe a real interrupted walk, not a fabricated waiting flag at the start');
+  await canvasAt(await screenPoint(point(npc(stopped).x, npc(stopped).y)));
   await observe('actual visible-threat interruption', stopped);
   // Keep the active retreat uninterrupted by screenshot readback on software GPU.
   // The sampled positions prove this transient stop; capture after withdrawal.
