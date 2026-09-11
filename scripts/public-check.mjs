@@ -28,7 +28,7 @@ await page.screenshot({path:'qa/evidence/public-start.png'});evidence.visual='qa
 await page.locator('[data-ui="settings"]').click();
 await page.locator('#import-save').setInputFiles('qa/fixtures/return-main-v0.2.2.json');
 await page.waitForFunction(()=>window.__XIAN_NI__.inspect().ended&&window.__XIAN_NI__.inspect().contentVersion===2);
-await page.getByRole('button',{name:'在驿中再坐一会儿',exact:true}).click();
+const oldEnding=page.getByRole('button',{name:'在驿中再坐一会儿',exact:true});if(await oldEnding.isVisible())await oldEnding.click();
 if(await page.evaluate(()=>window.__XIAN_NI__.inspect().paused))await page.locator('.action-dock [data-ui="pause"]').click();
 point=await page.evaluate(()=>window.__XIAN_NI__.screenPoint(1060,430));await page.mouse.click(point.x,point.y);
 await page.waitForFunction(()=>window.__XIAN_NI__.inspect().dialogue!==null,null,{timeout:30000});

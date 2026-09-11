@@ -2,7 +2,7 @@
   "schemaVersion": 3,
   "status": "PASS",
   "verify": {
-    "command": "npm run verify (baseline 0.3.1) + targeted validation of the UI load fix",
+    "command": "npm run verify",
     "exitCode": 0,
     "suites": [
       {
@@ -60,31 +60,6 @@
       {
         "command": "node scripts/presentation-check.mjs",
         "exitCode": 0
-      },
-      {
-        "command": "npm test (157 tests)",
-        "exitCode": 0,
-        "phase": "UI load fix"
-      },
-      {
-        "command": "npm run build",
-        "exitCode": 0,
-        "phase": "UI load fix"
-      },
-      {
-        "command": "node scripts/ui-regression.mjs",
-        "exitCode": 0,
-        "phase": "UI load fix"
-      },
-      {
-        "command": "node scripts/life-mobile-check.mjs",
-        "exitCode": 0,
-        "phase": "UI load fix"
-      },
-      {
-        "command": "node scripts/presentation-check.mjs",
-        "exitCode": 0,
-        "phase": "UI load fix"
       }
     ]
   },
@@ -128,20 +103,5 @@
     "mobile": "qa/evidence/life-mobile.json",
     "source": "Real 0.2.2 chapter-ending UI exports; continuation uses browser inputs only."
   },
-  "presentation": "qa/evidence/presentation.json",
-  "postPatch": {
-    "scope": "UI import/load retains pause and suppresses repeated historical ending",
-    "status": "PASS",
-    "baselineBundle": "index-CtUiOnXS.js",
-    "baselineReport": "qa/verification-baseline-031.json",
-    "finalBundle": "index-BUkY1Ynu.js",
-    "unitTests": 157,
-    "checks": [
-      "10 UI load method regressions, including dispatch re-entry cache ordering",
-      "UI browser: independent manual/automatic slots",
-      "Phone browser: pick, load, pause and sachet cancellation",
-      "Desktop and phone: held time and pending preserved on import; historical ending not repeated"
-    ],
-    "scopeNote": "Complete routes and visual/input matrix ran against the baseline bundle; only load/import UI ordering changed afterward and received the listed targeted verification."
-  }
+  "presentation": "qa/evidence/presentation.json"
 }

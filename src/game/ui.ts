@@ -151,7 +151,7 @@ export class GameUI {
   private change(e: Event) {
     const el = e.target as HTMLInputElement;
     if (el.id==='import-save' && el.files?.[0]) {
-      el.files[0].text().then(raw=>{ try { const s=restore(raw); this.hooks.replace(s); this.started=true; this.lastAuto=s.checkpoint||''; this.close(); this.notify('存档已载入，按空格继续。'); } catch { this.notify('无法读取这份存档，当前行程没有改变。'); } });
+      el.files[0].text().then(raw=>{ try { const s=restore(raw); s.paused=true; this.pauseBeforeMenu=true; this.started=true; this.lastAuto=s.checkpoint||''; this.endingShown=Boolean(s.flags.endingWish); this.lastEvent=-1; this.hooks.replace(s); this.hooks.act({type:'pause',value:true}); this.close(); this.notify('存档已载入，按空格继续。'); } catch { this.notify('无法读取这份存档，当前行程没有改变。'); } });
     }
     const key=el.dataset.setting as keyof Settings | undefined;
     if (key) {
@@ -183,8 +183,9 @@ export class GameUI {
       const latest=Number(localStorage.getItem(AUTO+'-time'))>Number(localStorage.getItem(SAVE+'-time'))?AUTO:SAVE;
       const raw=slot?localStorage.getItem(slot):(localStorage.getItem(latest)||localStorage.getItem(latest===SAVE?AUTO:SAVE));
       if (!raw) { this.notify('还没有存档，先走一段路吧。'); return; }
-      const restored=restore(raw); this.hooks.replace(restored); this.started=true; this.lastAuto=restored.checkpoint||''; this.endingShown=false; this.lastEvent=-1; this.close();
-      this.hooks.act({type:'pause',value:true}); this.notify('回到保存的此刻，按空格继续。');
+      // Closing the old menu must not resume the new world or execute its pending action.
+      const restored=restore(raw); restored.paused=true; this.pauseBeforeMenu=true; this.started=true; this.lastAuto=restored.checkpoint||''; this.endingShown=Boolean(restored.flags.endingWish); this.lastEvent=-1; this.hooks.replace(restored); this.hooks.act({type:'pause',value:true}); this.close();
+      this.notify('回到保存的此刻，按空格继续。');
     } catch { this.notify('存档不兼容或已损坏，当前行程未改变。可以导入备份。'); }
   }
   private export() {

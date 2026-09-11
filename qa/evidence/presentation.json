@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "url": "http://127.0.0.1:4189/",
+  "checks": [
+    {
+      "mobile": false,
+      "pose": {
+        "x": 0,
+        "y": 5,
+        "angle": -8.053769694688526,
+        "scaleY": 0.12415,
+        "flipX": true
+      },
+      "pauseFrozen": true,
+      "reducedMotion": true,
+      "labels": [
+        "rest_workshop",
+        "xu_work",
+        "life_press"
+      ]
+    },
+    {
+      "mobile": true,
+      "pose": {
+        "x": 0,
+        "y": 5,
+        "angle": -7.826963858801946,
+        "scaleY": 0.12415,
+        "flipX": true
+      },
+      "pauseFrozen": true,
+      "reducedMotion": true,
+      "labels": [
+        "rest_workshop",
+        "xu_work",
+        "life_press"
+      ]
+    }
+  ],
+  "errors": [],
+  "limitation": "Linux Chrome; mobile uses touch/DPR emulation."
+}

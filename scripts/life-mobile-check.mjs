@@ -76,7 +76,7 @@ try {
     assert.equal(s.life.harvest.stage, 'complete'); assert.ok(s.life.sachets > 0); assert.equal(s.scene, 'workshop');
     {
       const beforeSachets = s.life.sachets;
-      await page.locator('.action-dock [data-ui="pause"]').tap();
+      assert.equal(s.paused, true, 'Imported save stays paused before queuing a sachet');
       await waitState(() => window.__XIAN_NI__.inspect().paused === true);
       await page.locator('[data-ui="bag"]').tap();
       await page.locator('[data-ui="use-sachet"]').tap(); await page.waitForTimeout(200);
