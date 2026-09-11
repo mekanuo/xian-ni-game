@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {writeFile} from 'node:fs/promises';
 const url=process.env.GAME_URL||'http://127.0.0.1:4189/';
 const report={status:'NOT_RUN',url,checks:[],errors:[],limitation:'Linux Chrome; mobile uses touch/DPR emulation.'};
-const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
+const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
 try{
  for(const mobile of [false,true]){
   const width=mobile?390:1440,height=mobile?844:900;

@@ -16,6 +16,7 @@ const station={front:{x:900,y:720},left:{x:680,y:940},right:{x:1120,y:940}}[stan
 const fixturePath='qa/fixtures/return-main-v0.7.0.json';
 const runId=new Date().toISOString().replaceAll(/[:.]/g,'-');
 const folder=`qa/spar-production-${runId}`;
+const output=process.env.SPAR_OUTPUT||`${folder}/report.json`;
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const report={schemaVersion:1,runId,status:'NOT_RUN',startedAt:new Date().toISOString(),url,selection:{devices,scenarios,stance},scope:'Selected serial production cases: unchanged v6 UI import, real home doorway and companion wait agreement, spar positioning export/import in a fresh context, one actual hand, return home and table report, final v7 export/import.',cases:devices.flatMap(device=>scenarios.map(scenario=>({device,scenario,stance,status:'NOT_RUN',inputs:[],captures:[],checks:[],exports:[],consoleErrors:[]}))),errors:[],limitations:[
  'Linux Chromium with viewport/DPR/touch emulation, not physical Mac, Safari or phone.',
@@ -27,7 +28,7 @@ const report={schemaVersion:1,runId,status:'NOT_RUN',startedAt:new Date().toISOS
 ]};
 let browser,context,page,cdp,active;
 await mkdir(folder,{recursive:true});
-const persist=()=>writeFile(`${folder}/report.json`,JSON.stringify(report,null,2));
+const persist=async()=>{const bytes=JSON.stringify(report,null,2);await writeFile(`${folder}/report.json`,bytes);if(output!==`${folder}/report.json`)await writeFile(output,bytes);};
 await persist();
 try{
  const bytes=await readFile(fixturePath),original=JSON.parse(bytes);
@@ -36,7 +37,7 @@ try{
  report.sourceFiles=[];
  for(const path of ['src/game/spar.ts','src/game/spar-content.ts','src/game/spar-state.ts','src/game/spar-save.ts','src/game/model.ts','src/game/save.ts','src/game/scene.ts','src/game/ui.ts','scripts/spar-production-check.mjs'])report.sourceFiles.push({path,sha256:sha(await readFile(path))});
  report.status='RUNNING';await persist();
- browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});report.environment={platform:process.platform,browser:browser.version()};browser.on('disconnected',()=>console.log('BROWSER DISCONNECTED',new Date().toISOString()));
+ browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});report.environment={platform:process.platform,browser:browser.version(),executable:process.env.CHROME_PATH||'/usr/bin/google-chrome'};browser.on('disconnected',()=>console.log('BROWSER DISCONNECTED',new Date().toISOString()));
  for(const item of report.cases){
   active=item;item.status='RUNNING';await persist();
   const mobile=item.device==='phone',viewport=mobile?{width:390,height:844}:{width:1440,height:900};
@@ -133,6 +134,8 @@ try{
   const staged=await exportUI('positioning-paused');await freshPage();await importUI(staged.buffer,'actual-positioning-v7.json',staged.saved);
   await resume();await wait(target=>{const s=window.__XIAN_NI__.inspect(),e=s.worlds.spar.find(e=>e.id==='spar_peer');if(s.defeated||s.dialogue)throw Error('Interrupted before readiness');return s.spar.run?.phase==='positioning'&&s.spar.run.positionPath.length===0&&Math.hypot(e.x-target.x,e.y-target.y)<=3&&s.player.path.length===0&&Math.hypot(s.player.x-900,s.player.y-940)<=53;},station,120000);
   await capture('ready');const before=await state();assert.equal(before.projectiles.length,0);assert.equal(before.spar.last,null);assert.ok(before.player.hp>=2);assert.ok(before.player.mana>=1);
+  const musicHandle=await wait(()=>{const a=window.__XIAN_NI__.audio();return a.scene==='spar'&&a.state==='running'&&!a.muted&&a.musicRms>.0001?a:false;},undefined,10000);
+  item.practiceAudioBefore=await musicHandle.jsonValue();await musicHandle.dispose();
   if(item.scenario==='ward')await button('[data-ui="spell:ward"]');
   // No preparation, screenshot, camera gesture or pause after this begin.
   await resume();await button('[data-ui="spar-begin"]');
@@ -151,6 +154,10 @@ try{
   }
   await wait(()=>{const s=window.__XIAN_NI__.inspect();if(s.paused||s.dialogue||s.defeated)throw Error('Hand unexpectedly paused or defeated');return s.spar.run===null&&s.spar.last!==null;},undefined,90000);
   const result=await state(),wanted=item.scenario==='ward'?'blocked':'hit';assert.deepEqual(result.spar.last,{stance,outcome:wanted,hurt:wanted==='hit'});assert.equal(result.player.hp,before.player.hp-(wanted==='hit'?1:0));assert.equal(result.player.mana,before.player.mana-(wanted==='blocked'?1:0));assert.equal(result.flags.projectileSeq,Number(before.flags.projectileSeq??0)+1);assert.equal(result.projectiles.length,0);assert.equal(peer(result).state,'peaceful');assert.deepEqual(result.spar.facts,[`${stance}:${wanted}`]);assert.deepEqual(result.spar.reported,[]);
+  item.practiceAudioAfter=await page.evaluate(()=>window.__XIAN_NI__.audio());
+  const effect=wanted==='blocked'?'block':'hurt';
+  assert.ok((item.practiceAudioAfter.effectCounts[effect]??0)>(item.practiceAudioBefore.effectCounts[effect]??0),'The actual result must produce a new matching audio effect');
+  assert.equal(item.practiceAudioAfter.scene,'spar');assert.equal(item.practiceAudioAfter.error,'');
   item.result=result;await capture('settled');
   await walk(900,1160);await interact('spar_to_home');await wait(()=>window.__XIAN_NI__.inspect().scene==='home');await pause();s=await state();
   assert.equal(s.flags.companion,'waiting');assert.equal(s.worlds.home.find(e=>e.id==='xu').x,waitingXu.x);assert.equal(s.worlds.home.find(e=>e.id==='xu').y,waitingXu.y);assert.equal(s.player.hp,result.player.hp);assert.equal(s.player.mana,result.player.mana);await capture('returned-home');

@@ -1,6 +1,6 @@
 import {chromium} from '@playwright/test';
 import assert from 'node:assert/strict';
-const b=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
+const b=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
 const p=await b.newPage({viewport:{width:1280,height:720}});
 try{
 await p.goto(process.env.GAME_URL||'http://127.0.0.1:5173/');await p.getByRole('button',{name:'入 山',exact:true}).click();

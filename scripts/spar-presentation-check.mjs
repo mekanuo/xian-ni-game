@@ -16,16 +16,17 @@ const devices=[
  {name:'short',width:1280,height:500,dpr:2,mobile:false},
 ];
 const report={schemaVersion:1,runId,url,status:'NOT_RUN',startedAt:new Date().toISOString(),sourceRevision:process.env.SOURCE_SHA||null,
- scope:'Serial positioning import, real manual pan and C / 回到身边, ready pause freeze, immediate begin/stop, settled pause camera freeze. No full-hand repeat.',
+ scope:'Serial positioning import, real manual pan and C / 回到身边, ready pause freeze, real begin/stop with actual emission accounting, settled pause camera freeze. No full activity repeat.',
  cases:devices.map(device=>({device,status:'NOT_RUN',inputs:[],checks:[],captures:[],errors:[]})),errors:[],limitations:[
   'Emulated Chromium viewports and touch, not physical devices or Safari.',
   'Frame names and coordinates are recorded only as evidence; screenshots require human review for facing, composition, lettering and material quality.',
-  'This deliberately stops before emission; it does not verify a live residual projectile, damage, ward, report or full activity completion.',
+  'Stop uses real input. If a shot was already emitted before stop, it must settle and deduct actual HP; zero-shot stop must preserve resources. This is not a ward or full activity completion check.',
   'Source file hashes and loaded runtime JS hashes are separate observations; SOURCE_SHA is an optional caller-provided revision, not inferred release verification.',
  ]};
 let browser,context,page,cdp,active;
 await mkdir(folder,{recursive:true});
-const persist=()=>writeFile(`${folder}/report.json`,JSON.stringify(report,null,2));
+const output=process.env.SPAR_PRESENTATION_OUTPUT||`${folder}/report.json`;
+const persist=async()=>{const bytes=JSON.stringify(report,null,2);await writeFile(`${folder}/report.json`,bytes);if(output!==`${folder}/report.json`)await writeFile(output,bytes);};
 await persist();
 try{
  assert.ok(input,'SPAR_START must point to an actual positioning-paused v7 UI export');
@@ -41,12 +42,12 @@ try{
  for(const path of ['src/game/scene.ts','src/game/ui.ts','src/game/spar.ts','src/game/spar-art.ts','src/game/display.ts','scripts/spar-presentation-check.mjs'])report.sourceFiles.push({path,sha256:sha(await readFile(path))});
  report.status='RUNNING';await persist();
  browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
- report.environment={platform:process.platform,browser:browser.version()};
+ report.environment={platform:process.platform,browser:browser.version(),executable:process.env.CHROME_PATH||'/usr/bin/google-chrome'};
  for(const item of report.cases){
   active=item;item.status='RUNNING';const d=item.device;
   context=await browser.newContext({viewport:{width:d.width,height:d.height},deviceScaleFactor:d.dpr,isMobile:d.mobile,hasTouch:d.mobile,acceptDownloads:true});
   page=await context.newPage();cdp=d.mobile?await context.newCDPSession(page):null;const responses=new Map();
-  page.on('pageerror',e=>item.errors.push({type:'pageerror',message:e.message}));
+  page.on('pageerror',e=>item.errors.push({type:'pageerror',message:e.message,stack:e.stack}));
   page.on('console',m=>{if(m.type()==='error')item.errors.push({type:'console',message:m.text(),location:m.location()});});
   page.on('response',r=>{responses.set(r.url(),r);if(r.status()>=400)item.errors.push({type:'http',url:r.url(),status:r.status()});});
   page.on('crash',()=>item.errors.push({type:'crash'}));
@@ -119,15 +120,33 @@ try{
   assert.equal(item.canvas.view.density,density);
   const panBefore={state:await state(),camera:await camera()};await pan();const panned=await camera();
   assert.notDeepEqual(panned.view,panBefore.camera.view,'Actual drag must move the camera');assert.deepEqual(await state(),panBefore.state);
-  if(d.mobile)await button('[data-ui="center"]');else{log('keyboard-C');await page.keyboard.press('c');}
+  if(d.mobile)await button('[data-ui="center"]');else{
+   log('keyboard-C-down');await page.keyboard.down('c');
+   try{await wait(view=>{const v=window.__XIAN_NI__.camera().view;return v.x!==view.x||v.y!==view.y;},panned.view,5000);}
+   finally{await page.keyboard.up('c');log('keyboard-C-up');}
+  }
   await rendered();const centered=await camera();assert.notDeepEqual(centered.view,panned.view,'Real C / center must undo manual framing');
-  if(d.mobile)assert.equal(await page.locator('[data-ui="pan"]').getAttribute('aria-pressed'),'false','Center disables touch pan');
+  if(d.mobile){
+   // The scene updates immediately; the HUD publishes at its normal 110ms
+   // cadence. Observe that real update before checking the reflected state.
+   await wait(()=>document.querySelector('[data-ui="pan"]')?.getAttribute('aria-pressed')==='false',undefined,5000);
+   assert.equal(await page.locator('[data-ui="pan"]').getAttribute('aria-pressed'),'false','Center disables touch pan');
+  }
   assert.deepEqual(await state(),panBefore.state,'Manual pan and center cannot mutate the paused world');
   item.checks.push({id:'real-pan-and-center',before:panBefore.camera,panned,centered});
   await pause(false);
   await wait(target=>{const s=window.__XIAN_NI__.inspect(),e=s.worlds.spar.find(e=>e.id==='spar_peer');if(s.defeated||s.dialogue)throw Error('Unexpected interruption during positioning');return s.spar.run?.phase==='positioning'&&!s.spar.run.positionWaiting&&s.spar.run.positionPath.length===0&&Math.hypot(e.x-target.x,e.y-target.y)<=3&&s.player.path.length===0;},station,120000);
-  // Permit the live camera to establish its automatic activity framing after C.
-  await page.waitForTimeout(1000);
+  // Wait for actual frame-driven convergence, not a fixed wall-clock delay:
+  // software GPU frame rate is lower than real-time simulation on this host.
+  item.checks.push({id:'automatic-framing-start',camera:await camera()});await persist();
+  await wait(()=>{
+   const c=window.__XIAN_NI__.camera(),top=Math.max(110,...['.top-left','.location','.top-right'].map(s=>document.querySelector(s)?.getBoundingClientRect().bottom??0))+12;
+   const bottom=Math.max(top+120,document.querySelector('.action-dock').getBoundingClientRect().top-18);
+   const zoom=Math.min(1,(innerWidth-28)/600,(bottom-top)/600);
+   const x=c.view.x+c.view.width/2,y=c.view.y+c.view.height/2;
+   const targetY=880+(innerHeight/2-(top+bottom)/2)/c.zoom;
+   return Math.abs(c.zoom-zoom)<.001&&Math.hypot(x-900,y-targetY)<2;
+  },undefined,20000);
   const readyCamera=await camera();const hud=await page.evaluate(()=>({top:Math.max(110,...['.top-left','.location','.top-right'].map(s=>document.querySelector(s)?.getBoundingClientRect().bottom??0))+12,dock:document.querySelector('.action-dock').getBoundingClientRect().top}));
   const expectedZoom=Math.min(1,(d.width-28)/600,(Math.max(hud.top+120,hud.dock-18)-hud.top)/600);
   assert.ok(Math.abs(readyCamera.zoom-expectedZoom)<.003,'C restores automatic 600-world activity camera scaling');
@@ -138,23 +157,47 @@ try{
   await frozen('positioning-ready-paused');
   const beforeHand=await state();assert.equal(beforeHand.projectiles.length,0);
   await pause(false);await button('[data-ui="spar-begin"]');
-  const activeState=await state();assert.equal(activeState.spar.run?.phase,'active','Real begin must enter active before stop');
-  // No screenshot, deliberate delay or camera gesture between begin and stop.
-  await button('[data-ui="spar-stop"]');
+  const stopTarget=await page.evaluate(()=>{
+   const e=document.querySelector('[data-ui="spar-stop"]'),r=e?.getBoundingClientRect();
+   const point=r?{x:r.x+r.width/2,y:r.y+r.height/2}:null;
+   return {state:window.__XIAN_NI__.inspect(),point,exposed:point?document.elementFromPoint(point.x,point.y)?.getAttribute('data-ui')==='spar-stop':false};
+  });
+  const activeState=stopTarget.state;assert.equal(activeState.spar.run?.phase,'active','Real begin must enter active before stop');assert.equal(stopTarget.exposed,true);
+  // One actual stop input, avoiding multiple locator/geometry round trips while
+  // the enemy continues normally. Already emitted shots are still real.
+  log(d.mobile?'touch-stop':'mouse-stop',{point:stopTarget.point,time:activeState.time});
+  if(d.mobile)await page.touchscreen.tap(stopTarget.point.x,stopTarget.point.y);else await page.mouse.click(stopTarget.point.x,stopTarget.point.y);
   await wait(()=>{const s=window.__XIAN_NI__.inspect();if(s.paused||s.dialogue||s.defeated)throw Error('Unexpected interruption after stop');return s.spar.run===null&&s.spar.last?.outcome==='stopped';},undefined,10000);
   await pause(true);const settled=await state();
-  item.checks.push({id:'immediate-real-begin-stop',activeState,settled});await persist();
-  assert.equal(settled.projectiles.length,0);assert.equal(settled.flags.projectileSeq,beforeHand.flags.projectileSeq,'This bounded case must stop before emission');
-  assert.equal(settled.player.hp,beforeHand.player.hp);assert.equal(settled.player.mana,beforeHand.player.mana);
-  assert.deepEqual(settled.spar.facts,beforeHand.spar.facts);assert.deepEqual(settled.spar.reported,beforeHand.spar.reported);
-  await frozen('settled-paused');assert.equal(item.errors.length,0,'Do not hide runtime errors');
+  const shots=Number(settled.flags.projectileSeq??0)-Number(beforeHand.flags.projectileSeq??0);
+  item.checks.push({id:'actual-begin-stop',activeState,settled,shots});await persist();
+  assert.ok(shots===0||shots===1,'At most the one actual agreed shot');assert.equal(settled.projectiles.length,0);
+  assert.equal(beforeHand.player.invulnerable,0);assert.equal(beforeHand.player.ward,0);
+  assert.equal(settled.player.hp,beforeHand.player.hp-shots,'An emitted unobstructed shot still hits the stationary, unwarded player after stop');assert.equal(settled.player.mana,beforeHand.player.mana);
+  assert.deepEqual(settled.spar.last,{stance:original.spar.run.stance,outcome:'stopped',hurt:shots===1});
+  const facts=shots?[...new Set([...beforeHand.spar.facts,`${original.spar.run.stance}:hit`])]:beforeHand.spar.facts;
+  assert.deepEqual(settled.spar.facts,facts);assert.deepEqual(settled.spar.reported,beforeHand.spar.reported);
+  await frozen('settled-paused');
+  if(process.env.SPAR_REPORT_START){
+   const reportInput=process.env.SPAR_REPORT_START,reportBytes=await readFile(reportInput),reported=JSON.parse(reportBytes);
+   assert.equal(reported.contentVersion,7);assert.equal(reported.scene,'home');assert.equal(reported.paused,true);assert.equal(reported.dialogue,null);assert.ok(reported.spar.reported.length);
+   item.reportInput={path:reportInput,sha256:sha(reportBytes),origin:'Unchanged actual full activity report export; display check only.'};
+   await button('[data-ui="settings"]');await page.locator('#import-save').setInputFiles({name:'actual-reported-v7.json',mimeType:'application/json',buffer:reportBytes});
+   await wait(time=>{const s=window.__XIAN_NI__.inspect();return s.scene==='home'&&s.time===time&&!document.querySelector('#import-save');},reported.time);
+   assert.deepEqual(await state(),reported,'Table view imports the actual reported world unchanged');await rendered();await capture('actual-table-report');
+  }
+  assert.equal(item.errors.length,0,'Do not hide runtime errors');
   item.status='PASS';await persist();await context.close();context=null;page=null;
  }
  report.status='PASS';
 }catch(error){
  report.status='FAIL';if(active)active.status='FAIL';report.errors.push({type:'failure',message:String(error.stack||error)});process.exitCode=1;
  if(page&&active){
-  try{active.failureEvidence=await page.evaluate(()=>({state:window.__XIAN_NI__?.inspect(),camera:window.__XIAN_NI__?.camera(),presentation:window.__XIAN_NI__?.presentation()}));}catch(e){active.failureEvidenceError=String(e);}
+  try{active.failureEvidence=await page.evaluate(()=>{
+   const canvas=document.querySelector('canvas'),gl=canvas?.getContext('webgl2')||canvas?.getContext('webgl');
+   let graphics=null;if(gl){const ext=gl.getExtension('WEBGL_debug_renderer_info');graphics={version:gl.getParameter(gl.VERSION),vendor:gl.getParameter(gl.VENDOR),renderer:gl.getParameter(gl.RENDERER),unmaskedRenderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):null,maxTexture:gl.getParameter(gl.MAX_TEXTURE_SIZE),maxRenderbuffer:gl.getParameter(gl.MAX_RENDERBUFFER_SIZE),drawingBuffer:[gl.drawingBufferWidth,gl.drawingBufferHeight],contextLost:gl.isContextLost()};}
+   return {state:window.__XIAN_NI__?.inspect(),camera:window.__XIAN_NI__?.camera(),presentation:window.__XIAN_NI__?.presentation(),graphics,viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},canvas:canvas?{width:canvas.width,height:canvas.height}:null};
+  });}catch(e){active.failureEvidenceError=String(e);}
   try{const path=`${folder}/${active.device.name}-failure.png`;const png=await page.screenshot({path,timeout:10000});active.failureScreenshot={path,sha256:sha(png)};}catch(e){active.failureScreenshotError=String(e);}
  }
 }finally{

@@ -1,7 +1,7 @@
 import {chromium} from '@playwright/test';
 import assert from 'node:assert/strict';
 import {writeFile} from 'node:fs/promises';
-const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
+const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
 const evidence={checkedAt:new Date().toISOString(),input:[],errors:[],devices:[]};
 try{
  for(const touch of [false,true]){

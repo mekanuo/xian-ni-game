@@ -28,3 +28,25 @@ R5正在串行desktop/phone × hit/ward。其固定包为 index-DIvdulfV.js；�
 `spar-production-2026-09-11T21-03-32-592Z/report.json` 最终PASS、errors空，supervisor exit0。desktop/phone × hit/ward各从固定原样v6旧档经真实UI完成入场等候约定、定位/导出/新context恢复、正面单弹、实际受击或格挡、出门归驿、桌边报告和最终新context再载入。受击均HP3/MP4；格挡均HP4/MP3；同伴仍原脚点等候，旧账不改。根代理目视桌面归驿及手机入场/就位，人物全身与圈线可见。
 
 该轮运行包仍DIvdulfV，不能覆盖之后的暂停镜头、撑符朝向、新纸片位置和手机回镜头按钮遮挡修正。手机ready截图明确显示两行dock挡住center，已局部增加spar-stop存在时的底部间距，下一构建需实际tap验证。固定修后r5包index-0pA0mHRI.js/index-D5XfOxnh.css，tsc/build PASS、preview4202；尚未实际验收。
+
+## 朝向与镜头专项推进
+
+- Facing r1在标题前Framebuffer Unsupported失败，不作为行为RED。r2 `spar-facing-2026-09-11T21-27-19-473Z` 实际东符/西行/停步后错误flipX=true，指定断言RED；修后 `21-29-06-445Z` 同操作PASS，root已并排目视人物与护符方位。
+- Presentation r1桌面PASS、手机固定1秒未收敛FAIL；改实际收敛等待而非放宽误差。r2标题前Framebuffer Unsupported，原FAIL保留。
+- Presentation r3 `21-38-59-678Z` 手机缩放已0.603333但中心894持续20秒，不能只说等得不够；依Phaser中心/滚动位置语义改用scroll+viewport/2。独立因果范围见design/SPAR_080_CAMERA_DEBUG.md，不唯一归因旧矩阵。
+- Presentation r4 `21-47-51-121Z` 修后手机实际回镜头可点击、中心已899.5/870.5对目标900/870.898、就位暂停冻结通过。开始至收手间脚本几次locator调用耗时3.2秒，已发一弹；模型正确保留stopped/hurt:true、HP3/MP4、front:hit，但旧脚本强求无发弹导致FAIL。脚本减少无关往返，并按真实0/1源弹严格验证：无弹资源不变；有弹静立无障仍扣1HP并记实际hit，首停止原因保留，不删除余弹。该修订是收手合同的正确预期，不把原FAIL改PASS。
+- r6固定构建CLyXa97I/D5XfOxnh，tsc/build通过。Presentation r5正在同包重新跑三视口；整版verify接入新活动正面四案、手机左右、三视口与朝向，尚未运行。
+
+## 修后构图三视口通过（22:12 UTC）
+
+Presentation R5标题前Framebuffer Unsupported，堆栈在Phaser WebGLRenderer.boot/createFramebuffer，尚未进入WorldScene；GL诊断为SwiftShader且8192上限。独立TMPDIR未彻底消除此启动故障，不声称唯一原因。新增仅本机QA的chrome-qa.sh采用Chromium文档显式ANGLE SwiftShader GLES参数，发行物不携带它。
+
+R6实际启动后，零时长C按键被帧循环漏过；改真实keydown直到相机响应再keyup。R7手机相机已回身而HUD的110ms发布周期未到，改等待实际aria状态。所有原始FAIL保留。R8 `spar-presentation-2026-09-11T22-10-33-393Z/report.json` 桌面/手机/矮窗口全部PASS，errors为空：实际拖图与回身、自动构图、暂停冻结、收手实际0/1弹资源结算、原样归驿档桌面。root目视手机就位及桌面纸片、矮窗口构图：回身按钮脱离dock，新纸位于木桌上。仅Linux Chrome与触控/DPR模拟，并非真机或Safari。
+
+固定受测r6 CLyXa97I/D5XfOxnh；接着同包手机左右ward、真实音乐post-fader与block计数核对。整版冻结34命令仍未运行，线上仍0.7。
+
+## 手机左右完整链与声音通过
+
+修后r6固定包上，左 `spar-production-2026-09-11T22-20-58-171Z`、右 `spar-production-2026-09-11T22-23-06-865Z` 均PASS/errors空，各从原样v6完成真实定位存档恢复、单弹格挡、HP4/MP3归驿报告及再导入。练场实际post-fader音乐RMS>0、同页面block计数增加、声音error为空；这不是扬声器录音或主观听感验收。root目视左右ready图，同场全身可见。
+
+package与lock已升0.8.0，固定0.7来源SHA未变。独立冻结前QA复核无新确定阻断，详见design/SPAR_080_FINAL_QA_REVIEW.md。本阶段源码/画面专项准备提交，随后冻结完整34命令，不把局部PASS当发行PASS。

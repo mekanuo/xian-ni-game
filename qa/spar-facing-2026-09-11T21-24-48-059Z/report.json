@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-09-11T21-24-48-059Z",
+  "url": "http://127.0.0.1:4199/",
+  "status": "FAIL",
+  "startedAt": "2026-09-11T21:24:48.064Z",
+  "sourceRevision": null,
+  "scope": "One actual eastward ward, short westward keyboard movement, release and ordinary pause; checks the stationary front-frame facing regression only.",
+  "device": {
+    "width": 1440,
+    "height": 900,
+    "dpr": 2,
+    "mobile": false
+  },
+  "inputs": [],
+  "checks": [],
+  "captures": [],
+  "errors": [
+    {
+      "type": "pageerror",
+      "message": "Framebuffer status: Framebuffer Unsupported"
+    },
+    {
+      "type": "failure",
+      "message": "locator.waitFor: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '入 山', exact: true }) to be visible\u001b[22m\n\n    at press (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-facing-check.mjs:56:17)\n    at /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-facing-check.mjs:66:8"
+    }
+  ],
+  "limitations": [
+    "Desktop emulated Chromium, not physical Mac/Safari or phone verification.",
+    "Does not verify a complete hand, enemy attack, block, damage, report, or full activity loop.",
+    "Frame/flip assertions prove the selected display transform; the screenshot still needs human review of the actual hand and body.",
+    "Source and loaded runtime hashes are separate observations; optional SOURCE_SHA is caller-provided, not a verified release binding."
+  ],
+  "input": {
+    "path": "qa/spar-production-2026-09-11T21-03-32-592Z/desktop-hit-positioning-paused.json",
+    "sha256": "abfa100df1d7174c440f44d9b8163242b57352878a34e843c91cdf6916a7899c",
+    "origin": "Actual caller-provided v7 UI export, imported byte-for-byte; no editing or derived fixture."
+  },
+  "sourceFiles": [
+    {
+      "path": "src/game/scene.ts",
+      "sha256": "a30c78cec6b9b2e7141221a025fd54321ea0f975834b62defa628795cea25317"
+    },
+    {
+      "path": "src/game/ui.ts",
+      "sha256": "8d7b8557c7e187303665a44b4572da6a46c97d9cd65bbb08448f529de09f2a69"
+    },
+    {
+      "path": "src/game/model.ts",
+      "sha256": "9d31dc765be38763c6369aaa218777df212694572b822dd1d3332c836d75e7f1"
+    },
+    {
+      "path": "src/game/spar.ts",
+      "sha256": "3946cc8b2038e91bfc2a0deaeb5656c5533c3f164d771ee40d5eb3f984fde8e7"
+    },
+    {
+      "path": "src/game/spar-art.ts",
+      "sha256": "281c356219f98f84d859e4ca5890bdf5b1d297c011f461f0e789e7d5f9d5627c"
+    },
+    {
+      "path": "src/game/presentation.ts",
+      "sha256": "c4e66422c41b4936d674682fbc11bf2101becf8b2c549402b4eafd31f11a07e6"
+    },
+    {
+      "path": "src/game/display.ts",
+      "sha256": "72012b2fe785cc50a44017249ad9edc2fb20e415bfad2a582b2253593e5de8e2"
+    },
+    {
+      "path": "scripts/spar-facing-check.mjs",
+      "sha256": "d279d8793ea97119dffefa093122b23edb4bf6afc33f64b19f4a0c0a65f8b52b"
+    }
+  ],
+  "environment": {
+    "platform": "linux",
+    "browser": "150.0.7871.114"
+  },
+  "failureEvidence": {},
+  "failureScreenshot": {
+    "path": "qa/spar-facing-2026-09-11T21-24-48-059Z/failure.png",
+    "sha256": "6b363dc6366d2ed6dfbe3d5002823877e893e0bed6acc8e3d81113e6cf80234a",
+    "note": "Failure capture may be live; do not reinterpret it as the paused regression sample."
+  },
+  "finishedAt": "2026-09-11T21:25:48.900Z"
+}

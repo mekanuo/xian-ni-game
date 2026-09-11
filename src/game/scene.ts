@@ -216,6 +216,8 @@ export class WorldScene extends Phaser.Scene {
     // Manual framing remains available, but automatic tracking must freeze
     // together with the world in every phase, including residual projectiles.
     if(this.cameraManual||this.state.paused||this.state.dialogue||this.state.defeated)return;
+    // centerOn stores scroll = center - viewport/2. Use its exact inverse;
+    // getWorldPoint reads the prior render matrix during a live zoom update.
     const active=r?.phase==='positioning'||r?.phase==='active';
     camera.useBounds=!r;
     if(active){
@@ -225,14 +227,14 @@ export class WorldScene extends Phaser.Scene {
       const zoom=Math.min(1,(width-28)/600,usableHeight/600)*display.density;
       const blend=this.settings.reduced?1:.16;
       if(!this.state.paused&&!this.state.dialogue)camera.setZoom(Phaser.Math.Linear(camera.zoom,zoom,blend));
-      const center=camera.getWorldPoint(camera.width/2,camera.height/2);
+      const center={x:camera.scrollX+camera.width/2,y:camera.scrollY+camera.height/2};
       const target={x:900,y:880+(height/2-(top+bottom)/2)/(camera.zoom/display.density)};
       if(!this.state.paused&&!this.state.dialogue)camera.centerOn(Phaser.Math.Linear(center.x,target.x,blend),Phaser.Math.Linear(center.y,target.y,blend));
     }else{
       // Residual projectiles keep their size as the player walks away. A clean
       // result may return to the normal exploration scale without hiding danger.
       if(!r){const map=SCENES.spar,target=display.density*Math.max(display.worldScale,width/map.width,height/map.height);camera.setZoom(Phaser.Math.Linear(camera.zoom,target,this.settings.reduced?1:.12));}
-      const center=camera.getWorldPoint(camera.width/2,camera.height/2),blend=this.settings.reduced?1:.12;
+      const center={x:camera.scrollX+camera.width/2,y:camera.scrollY+camera.height/2},blend=this.settings.reduced?1:.12;
       camera.centerOn(Phaser.Math.Linear(center.x,this.state.player.x,blend),Phaser.Math.Linear(center.y,this.state.player.y-this.cameraLead(),blend));
     }
   }

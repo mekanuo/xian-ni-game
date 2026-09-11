@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-09-11T21-34-06-606Z",
+  "url": "http://127.0.0.1:4202/",
+  "status": "FAIL",
+  "startedAt": "2026-09-11T21:34:06.611Z",
+  "sourceRevision": null,
+  "scope": "Serial positioning import, real manual pan and C / 回到身边, ready pause freeze, immediate begin/stop, settled pause camera freeze. No full-hand repeat.",
+  "cases": [
+    {
+      "device": {
+        "name": "desktop",
+        "width": 1440,
+        "height": 900,
+        "dpr": 2,
+        "mobile": false
+      },
+      "status": "FAIL",
+      "inputs": [],
+      "checks": [],
+      "captures": [],
+      "errors": [
+        {
+          "type": "pageerror",
+          "message": "Framebuffer status: Framebuffer Unsupported"
+        }
+      ],
+      "failureEvidence": {},
+      "failureScreenshot": {
+        "path": "qa/spar-presentation-2026-09-11T21-34-06-606Z/desktop-failure.png",
+        "sha256": "6b363dc6366d2ed6dfbe3d5002823877e893e0bed6acc8e3d81113e6cf80234a"
+      }
+    },
+    {
+      "device": {
+        "name": "phone",
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "mobile": true
+      },
+      "status": "NOT_RUN",
+      "inputs": [],
+      "checks": [],
+      "captures": [],
+      "errors": []
+    },
+    {
+      "device": {
+        "name": "short",
+        "width": 1280,
+        "height": 500,
+        "dpr": 2,
+        "mobile": false
+      },
+      "status": "NOT_RUN",
+      "inputs": [],
+      "checks": [],
+      "captures": [],
+      "errors": []
+    }
+  ],
+  "errors": [
+    {
+      "type": "failure",
+      "message": "locator.waitFor: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '入 山', exact: true }) to be visible\u001b[22m\n\n    at press (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-presentation-check.mjs:61:18)\n    at /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/spar-presentation-check.mjs:108:9"
+    }
+  ],
+  "limitations": [
+    "Emulated Chromium viewports and touch, not physical devices or Safari.",
+    "Frame names and coordinates are recorded only as evidence; screenshots require human review for facing, composition, lettering and material quality.",
+    "This deliberately stops before emission; it does not verify a live residual projectile, damage, ward, report or full activity completion.",
+    "Source file hashes and loaded runtime JS hashes are separate observations; SOURCE_SHA is an optional caller-provided revision, not inferred release verification."
+  ],
+  "input": {
+    "path": "qa/spar-production-2026-09-11T21-03-32-592Z/desktop-hit-positioning-paused.json",
+    "sha256": "abfa100df1d7174c440f44d9b8163242b57352878a34e843c91cdf6916a7899c",
+    "contentVersion": 7,
+    "stance": "front",
+    "origin": "Caller-supplied actual production UI export, imported byte-for-byte without editing."
+  },
+  "sourceFiles": [
+    {
+      "path": "src/game/scene.ts",
+      "sha256": "a30c78cec6b9b2e7141221a025fd54321ea0f975834b62defa628795cea25317"
+    },
+    {
+      "path": "src/game/ui.ts",
+      "sha256": "8d7b8557c7e187303665a44b4572da6a46c97d9cd65bbb08448f529de09f2a69"
+    },
+    {
+      "path": "src/game/spar.ts",
+      "sha256": "3946cc8b2038e91bfc2a0deaeb5656c5533c3f164d771ee40d5eb3f984fde8e7"
+    },
+    {
+      "path": "src/game/spar-art.ts",
+      "sha256": "281c356219f98f84d859e4ca5890bdf5b1d297c011f461f0e789e7d5f9d5627c"
+    },
+    {
+      "path": "src/game/display.ts",
+      "sha256": "72012b2fe785cc50a44017249ad9edc2fb20e415bfad2a582b2253593e5de8e2"
+    },
+    {
+      "path": "scripts/spar-presentation-check.mjs",
+      "sha256": "917f2f8b25442b0944e50956a9f37f1fc23480804ba2a67cb65662be249aa116"
+    }
+  ],
+  "environment": {
+    "platform": "linux",
+    "browser": "150.0.7871.114"
+  },
+  "finishedAt": "2026-09-11T21:35:07.424Z"
+}

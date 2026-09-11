@@ -106,7 +106,7 @@ try{
  const fixtureBytes=await readFile(fixturePath),legacy=JSON.parse(fixtureBytes.toString('utf8'));
  assert.equal(legacy.ended,true);assert.equal(legacy.flags.route,'ridge');
  evidence.fixture={path:fixturePath,sha256:createHash('sha256').update(fixtureBytes).digest('hex'),origin:'Real 0.2.2 ridge-ending UI export'};
- browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
+ browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
  page=await browser.newPage({viewport:{width:1440,height:900},acceptDownloads:true});page.on('pageerror',e=>evidence.errors.push(e.message));
  await page.goto(gameUrl);await page.getByRole('button',{name:'入 山',exact:true}).click();await page.getByRole('button',{name:'去回石驿',exact:true}).click();
  await importFile(fixtureBytes,'return-ridge-v0.2.2.json');await resume();

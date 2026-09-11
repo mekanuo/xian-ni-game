@@ -141,12 +141,16 @@ export function paintSparLandscape(scene:Phaser.Scene,landscape:Phaser.GameObjec
  * unreported facts and the waiting companion never mark the tabletop. */
 export function drawSparHomeRecord(g:Phaser.GameObjects.Graphics,s:GameState):void{
  const reported=new Set(s.spar.reported);if(!reported.size)return;
- g.fillStyle(0x3a4b3d,.15).fillRoundedRect(-6,-33,25,14,1);g.fillStyle(0xe8e0c6,.98).fillRoundedRect(-7,-34,25,14,1);g.lineStyle(.55,0xb9ae91,.65).strokeRoundedRect(-7,-34,25,14,1);
- for(const [stance,y]of [['front',-31],['left',-27],['right',-23]] as const){
+ // The tabletop ends above the front apron. Keep this small note in its
+ // upper-right free patch, clear of the route sheet and other actual records.
+ const x=38,y=-62;
+ g.fillStyle(0x3a4b3d,.15).fillRoundedRect(x+1,y+1,25,14,1);g.fillStyle(0xe8e0c6,.98).fillRoundedRect(x,y,25,14,1);g.lineStyle(.55,0xb9ae91,.65).strokeRoundedRect(x,y,25,14,1);
+ for(const [stance,row]of [['front',3],['left',7],['right',11]] as const){
   if(!(['dodged','blocked','hit'] as const).some(outcome=>reported.has(`${stance}:${outcome}`)))continue;
-  g.lineStyle(.8,0x657c71,.87);g.beginPath();g.moveTo(-3,y);g.lineTo(stance==='front'?-3:stance==='left'?-5:-1,y-1.5);g.strokePath();
-  if(reported.has(`${stance}:dodged`)){g.lineBetween(1,y,3,y-1);g.lineBetween(3,y-1,5,y);}
-  if(reported.has(`${stance}:blocked`)){g.beginPath();g.arc(9,y,1.4,-Math.PI*.65,Math.PI*.65);g.strokePath();}
-  if(reported.has(`${stance}:hit`)){g.fillStyle(0x937b61,.88).fillCircle(14,y,.85);}
+  const lineY=y+row;
+  g.lineStyle(.8,0x657c71,.87);g.beginPath();g.moveTo(x+4,lineY);g.lineTo(x+(stance==='front'?4:stance==='left'?2:6),lineY-1.5);g.strokePath();
+  if(reported.has(`${stance}:dodged`)){g.lineBetween(x+8,lineY,x+10,lineY-1);g.lineBetween(x+10,lineY-1,x+12,lineY);}
+  if(reported.has(`${stance}:blocked`)){g.beginPath();g.arc(x+16,lineY,1.4,-Math.PI*.65,Math.PI*.65);g.strokePath();}
+  if(reported.has(`${stance}:hit`)){g.fillStyle(0x937b61,.88).fillCircle(x+21,lineY,.85);}
  }
 }

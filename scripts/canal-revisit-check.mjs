@@ -78,7 +78,7 @@ async function exportSave(name){
 }
 
 try{
- browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
+ browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
  for(mobile of [false,true]){
   route={id:mobile?'revisit-phone':'revisit-desktop',inputTrace:[],observations:{},exports:[]};evidence.routes.push(route);
   page=await browser.newPage({viewport:{width:mobile?390:1440,height:mobile?844:900},deviceScaleFactor:mobile?3:1,isMobile:mobile,hasTouch:mobile});
