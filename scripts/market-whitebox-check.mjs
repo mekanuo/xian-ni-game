@@ -36,6 +36,7 @@ const report = {
     'Phone gameplay uses real touchscreen taps. Camera framing alone uses simulated Shift+mouse dragging, recorded in the input trace.',
     'Information and hold practice are visible synthetic starting premises, not earned old-save progress.',
     'North and original endpoints only confirm actual near interaction and walking in the isolated home slot; production changeScene, destination usefulness and save migration are untested.',
+    'Return input selects southern waypoints and proves physical endpoint return; it does not independently classify which complete east-to-west corridor a dynamic avoidance path used.',
     'Placeholder art, subjective fun, balance and production release readiness are not proven by this report.',
   ],
 };
@@ -198,7 +199,7 @@ async function withdraw() {
 // Route bodies below follow actual act/tick replay candidates, including normal
 // active input gaps. Browser execution is still required to validate their UI timing.
 const scenarios = {};
-const publicReturn = async () => {
+const returnViaSouthernWaypoints = async () => {
   for (const [x, y] of [[1220, 240], [1220, 840], [880, 840], [420, 840]]) await walk(x, y);
 };
 scenarios.quiet = async () => {
@@ -224,8 +225,8 @@ scenarios.quiet = async () => {
   await walk(665, 410); await observe('real pointer delivered inside the open doorway');
   await walk(820, 405);
   await confirmNorth('private');
-  await publicReturn(); await confirmReturn('private');
-  const returned = await observe('private outbound / public physical return');
+  await returnViaSouthernWaypoints(); await confirmReturn('private');
+  const returned = await observe('private outbound / actual return via southern waypoints');
   current.outcome = facts(returned);
   assert.equal(returned.state.player.mana, 6);
   assert.equal(returned.completed.public, false, 'Public return must not invent a second outbound result');
@@ -237,7 +238,7 @@ scenarios['public-zero'] = async () => {
   await reset({ mana: 'zero', informed: false });
   for (const [x, y] of [[420, 840], [880, 840], [1140, 840]]) await walk(x, y);
   await confirmNorth('public');
-  await publicReturn(); await confirmReturn('public');
+  await returnViaSouthernWaypoints(); await confirmReturn('public');
   const r = await observe('zero mana and no information actual public round trip');
   current.outcome = facts(r);
   assert.equal(r.state.player.mana, 0); assert.equal(r.exchanged, false);
