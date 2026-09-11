@@ -16,6 +16,14 @@ const shared=(s:GameState)=>s.flags.companion==='following'&&s.worlds.canal.some
 const diverted=(s:GameState)=>{const e=object(s,'canal_diverter');return !!e&&distance(e,P.diverterSide)<=8;};
 const stopped=(s:GameState)=>{const e=object(s,'canal_stop');return !!e&&distance(e,P.stopSlot)<=8&&(s.life.clamp==='canal'||s.player.pullId===e.id);};
 export function canalWaterState(s:GameState):'blocked'|'diverted'|'stopped'|'flowing'{return stopped(s)?'stopped':diverted(s)?'diverted':s.canal.cleared?'flowing':'blocked';}
+const waterStable=(s:GameState)=>canalWaterState(s)==='flowing'&&s.canal.flow>=3;
+const alreadyVerified=(s:GameState)=>['verified','ready','complete'].includes(s.canal.stage);
+function waterRecovery(s:GameState):string{
+ return canalWaterState(s)==='flowing'?'水板已复位，等石槽来水稳定':s.life.clamp==='canal'?'先让自己和同行者上岸，在固定眼取回压扣，再复位水板':'先回高岸，复位分水板和截水架';
+}
+function clearedScreen(s:GameState):string{
+ return `筛框已扶正、枝叶已清；${alreadyVerified(s)?'先前的验水记录仍在。':'还要亲自回石槽验水。'}${waterStable(s)?'眼前水路通着。':waterRecovery(s)+'。'}`;
+}
 /** During a surge warning the channel remains traversable so the player can leave voluntarily. */
 export function canalObstacles(s:GameState):CanalRect[]{
  if(s.scene!=='canal')return [];
@@ -85,7 +93,7 @@ export function canalInteract(s:GameState,e:Entity,p:CanalPorts):ActionResult|un
   c.work={kind:diverted(s)?'restore':'divert',elapsed:0,start:{x:s.player.x,y:s.player.y}};s.player.path=[];p.emit(s,'note',diverted(s)?'双手把板推回原槽，停稳两息。':'把轻板推入右侧旁槽，停稳两息；旁路会淹过低踏道，西岸仍可走。',e);return ok();
  }
  if(e.id==='canal_screen'){
-  if(c.cleared)return ok('筛框已扶正、枝叶已清；复位水板后，还要走回下游亲眼验水');
+  if(c.cleared)return ok(clearedScreen(s));
   if(!c.inspected)return no('先在西侧检修水尺旁，辨清堵塞和水路');
   if(c.drain<1||!['stopped','diverted'].includes(canalWaterState(s)))return no('渠底仍有来水。先分水或截水，等水尺降到底');
   if(!canalInsideChannel(s.player))return no('要沿台阶亲自下到干渠底，才能伸手扶正筛框');
@@ -101,7 +109,7 @@ export function canalInteract(s:GameState,e:Entity,p:CanalPorts):ActionResult|un
   return ok('水位已经亲自确认，水轮仍按眼前水路转动');
  }
  if(e.id==='canal_keeper'){
-  const text=c.stage==='unaccepted'?'口信在回石驿桌边。':c.stage==='verified'?'石槽有水了。说说你怎样清的，我把检修牌的水痕补全。':c.stage==='ready'||c.stage==='complete'?`你说的${methodText(s)}已经记在检修牌上。${canalWaterState(s)==='flowing'?'这会儿取水槽也通着。':'水板又改过位置了；回头记得复位，别让取水的人空等。'}`:c.inspected?'原来是筛框卡斜、枝叶聚堵。西边分水板有承托槽，徒手也推得动；我守着下游取水处，等你亲眼把水路走通。':'上游还有水声，下游的石槽却停了。我先拦住来取水的人；你去高岸水尺旁看清，再来告诉我。';
+  const text=c.stage==='unaccepted'?'口信在回石驿桌边。':c.stage==='verified'?(waterStable(s)?'石槽有水了。说说你怎样清的，我把检修牌的水痕补全。':`你先前已验过水，但眼前还未恢复稳定取水；${waterRecovery(s)}。`):c.stage==='ready'||c.stage==='complete'?`你说的${methodText(s)}已经记在检修牌上。${waterStable(s)?'这会儿取水槽也通着。':waterRecovery(s)+'，别让取水的人空等。'}`:c.inspected?'原来是筛框卡斜、枝叶聚堵。西边分水板有承托槽，徒手也推得动；我守着下游取水处，等你亲眼把水路走通。':'上游还有水声，下游的石槽却停了。我先拦住来取水的人；你去高岸水尺旁看清，再来告诉我。';
   p.dialogue(s,e.id,'邵禾',text,c.stage==='verified'?[{id:'canal:report',label:'说明亲自清渠、验水的经过'}]:[]);return ok();
  }
  return ok(canalDescription(s,e));
@@ -180,7 +188,8 @@ export function canalObjective(s:GameState):string|undefined{
  if(s.scene!=='canal')return c.stage==='ready'?'回自己的桌边，把亲自走通的旧渠路线添在图上':c.stage==='active'||c.stage==='verified'?'回石驿出发路牌可选雾岭旧渠，继续这一程':undefined;
  if(c.work)return c.work.kind==='clear'?'正在清理筛框；两息内站稳，留意水位和留势余时':'正在推分水板；站稳两息让板落入槽口';
  if(c.surge!==null)return '来水将至，立即沿最近台阶退到高岸';
- if(c.stage==='complete'||c.stage==='ready')return c.stage==='ready'?'邵禾已确认通路；回驿桌边落笔':'旧渠小图已留在桌边；可重访试术，取扣后记得复水';
+ if(c.cleared&&!waterStable(s))return waterRecovery(s);
+ if(c.stage==='complete'||c.stage==='ready')return c.stage==='ready'?'邵禾已确认通路；回驿桌边落笔':'旧渠小图已留在桌边，眼前取水通畅；可沿高岸重访';
  if(c.stage==='verified')return '已亲眼验水；到邵禾身边说明清渠经过';
  if(!c.inspected)return '沿西侧高岸去检修水尺，辨清上游和筛框';
  if(!c.cleared)return c.drain>=1?'渠底已退水；沿台阶下去，腾手清理筛框两息':'徒手推旁路分水板，或牵截水板留势，让渠底退水';
@@ -188,14 +197,14 @@ export function canalObjective(s:GameState):string|undefined{
 }
 export function canalDescription(s:GameState,e:Entity):string|undefined{
  if(!unlocked(s))return undefined;
- if(e.type==='tao'&&s.canal.stage==='complete')return s.canal.usedClamp?'陶七听你说压扣在旧渠承住过截水板，提醒你用完到原处取回。':`陶七听你讲${methodText(s)}，说手艺也在于认清何时不必用扣。`;
- if(e.type==='xu'&&s.canal.stage==='complete')return s.canal.sharedInspect&&s.canal.sharedVerify?'许照提起你们一同看过的水尺和石槽，干坡记号已添在图上。':'许照看着你添的旧渠小图，听你讲这次亲自辨水的经过。';
+ if(e.type==='tao'&&s.canal.stage==='complete')return s.canal.usedClamp?`陶七记得你用压扣承住过旧渠截水板。${s.life.clamp==='bag'?'压扣已收回袋中，下次出门仍可带上。':s.life.clamp==='canal'?'压扣还在旧渠截水架，用完记得上岸取回。':s.life.clamp==='home'?'压扣现在装在驿中工位的挂扣试件上。':s.life.clamp==='lookout'?'压扣现在装在旧眺台的侧托上。':'下次用扣，也要留意收回。'}`:`陶七听你讲${methodText(s)}，说手艺也在于认清何时不必用扣。`;
+ if(e.type==='xu'&&s.canal.stage==='complete')return s.canal.sharedInspect&&s.canal.sharedVerify?'许照提起你们一同看过的水尺和石槽，干坡记号已添在图上。':(s.scene==='home'?'许照看着你添的旧渠小图，听你讲这次亲自辨水的经过。':'许照听你提起先前辨水的经过；旧渠小图留在驿中桌边。');
  if(e.id==='canal_diverter')return diverted(s)?'板在旁槽，低踏道过水；西岸永久通行。徒手推两息可复原。':'可徒手推两息，或牵到右槽分水；槽口自行承托，不耗灵力。';
  if(e.id==='canal_stop')return stopped(s)?s.life.clamp==='canal'?'压扣正承住板；取扣前自己和同行者都要先上岸。':'板正截水；留势只有八秒，沿眼前台阶进出。':'沿横轨向左牵入止水槽，再留势腾手；西边分水板也能零资源清渠。';
- if(e.id==='canal_screen')return s.canal.cleared?'筛框已扶正；水路复原并稳定后，仍需亲自回石槽验水。':'先在西侧水尺察看，再等退水，亲自下渠腾手清理两息。';
+ if(e.id==='canal_screen')return s.canal.cleared?clearedScreen(s):'先在西侧水尺察看，再等退水，亲自下渠腾手清理两息。';
  if(e.id==='canal_eye')return s.life.clamp==='canal'?'唯一压扣装在这里；先让渠底无人，再近身取回。':'留势板到左槽后可安装随身压扣；不是清渠的必需品。';
  if(e.id==='canal_inspect')return '看水痕、筛框和两条水路；高岸始终安全。';
- if(e.id==='canal_tub')return s.canal.flow>=3?'槽内有稳定来水；亲身确认后再告诉邵禾。':'水轮停着；清框、复位两块水板后还要沿渠回来验水。';
+ if(e.id==='canal_tub')return waterStable(s)?(alreadyVerified(s)?'槽内有稳定来水，先前亲自验水的记录仍在。':'槽内有稳定来水；亲身确认后再告诉邵禾。'):s.canal.cleared?`石槽还未稳定进水；${waterRecovery(s)}。`:'水轮停着；清框、复位两块水板后还要沿渠回来验水。';
  if(e.id==='canal_scent')return '药囊气味只驱开附近山兽，不改变水路；外缘干路不用药也能走。';
  return undefined;
 }

@@ -1,3 +1,9 @@
+## 2026-09-11 · 0.4.1 重访提示候选
+
+feat/revisit-041 基于已公开 0.4.0。修复历史验水与眼前水路冲突、压扣已收回仍提示去取、桌边重复接信，以及完成后仍强引导截水。243 项测试与构建通过；新增真实桌面/手机重访脚本正在核对，尚未发布。规则、资源、存档版本均不变。此前 qa/verification.json PASS 属于0.4.0基线，本候选全套发行回归待执行，不能沿用该报告宣称0.4.1完整通过。
+
+0.5已选许照主动带一段工棚回程的局部方向，design/COMPANION_050.md；正在核对几何和接口。用户已授权自主继续，无待确认阻塞。
+
 ## 2026-09-11 · 0.4 公网交付完成
 
 源码 f5063db 已推送 feat/canal-040 和 feat/return-stone-v1，主分支快进合入同一提交。gh-pages 发行 086d63c，公网 release.json 为 0.4.0/sourceCommit f5063db5234f500f9955935a636d69db5dc23c90。public-check exit0：21资源哈希一致、匿名桌面新建/归灯/移动/配乐、DPR3手机触控/声音、旧档生活委托以及真实接信进入旧渠均通过，pageerror=[]。公开新章证据 qa/evidence/public-canal.png 与 publication.json.adventure。

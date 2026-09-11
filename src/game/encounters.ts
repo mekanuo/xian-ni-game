@@ -80,9 +80,9 @@ export function nearbyEncounter(s: GameState): EncounterView|undefined {
   if(s.scene==='canal'){
     const local=s.worlds.canal.filter(e=>e.state!=='hidden'&&e.kind!=='enemy'&&distance(e,s.player)<200).sort((a,b)=>distance(a,s.player)-distance(b,s.player))[0];
     const water=canalWaterState(s);
-    return view('canal-water',local?.name||'雾岭旧渠',local?canalDescription(s,local)||canalObjective(s)||'沿高岸看清水路':canalObjective(s)||'旧渠仍在山路旁',water==='stopped'?'上游暂截，留意剩余支撑；沿台阶进退':water==='diverted'?'旁路通流，西岸始终可走':'近身察看检修台，再安排分水或截水','分水板可以徒手推入固定槽，不耗灵力');
+    return view('canal-water',local?.name||'雾岭旧渠',local?canalDescription(s,local)||canalObjective(s)||'沿高岸看清水路':canalObjective(s)||'旧渠仍在山路旁',s.canal.cleared?canalObjective(s)||'沿高岸重访':water==='stopped'?'上游暂截，留意剩余支撑；沿台阶进退':water==='diverted'?'旁路通流，西岸始终可走':'近身察看检修台，再安排分水或截水',s.canal.cleared?'水板改位仍会改变眼前水路，离开前记得复水':'分水板可以徒手推入固定槽，不耗灵力');
   }
-  if(s.scene==='home'&&['stay','travel'].includes(String(s.flags.endingWish))&&near(['table'],190))return view('canal-letter','桌边的新路',canalObjective(s)||'旧渠看渠人的口信留在碗旁','到桌边接信或亲手添图','从驿前路牌选好此行去处');
+  if(s.scene==='home'&&['stay','travel'].includes(String(s.flags.endingWish))&&near(['table'],190))return s.canal.stage==='complete'?view('canal-letter','桌边的旧渠小图','亲自走通的水路和台阶已经添在图上','可察看旧图，或从驿前路牌选择重访','先前的清渠成果已经记下'):view('canal-letter','桌边的新路',canalObjective(s)||'旧渠看渠人的口信留在碗旁',s.canal.stage==='unaccepted'?'到桌边读邵禾口信':s.canal.stage==='ready'?'到桌边亲手添图':'从驿前路牌继续旧渠这一程','从驿前路牌选好此行去处');
   if(s.scene==='home'&&['stay','travel'].includes(String(s.flags.endingWish))&&near(['workbench','herb_rack','tao','xu'],160))return view('life-home-talk','灯下的手艺',lifeObjective(s)||'回驿继续手上的活','与工位旁的陶七交谈','到晒架看许照的叶图');
   if(s.scene==='home'&&near(['lamp_stand'],280))return s.flags.lampFixed
     ? view('home-lamp','灯下归处','灯盏已经归架，暖光照着熟悉的院子。',s.flags.returned?'到自己的桌边放环或摊图':!s.flags.tools?'沿溪道取回自己的器具袋':!s.flags.ringOwned?'去旧工棚取回自己的控物环':!s.flags.ringTrained?'回旧工棚，与陶七亲手试环':'沿溪道去石渡，用控物环试路')
