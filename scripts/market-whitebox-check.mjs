@@ -303,7 +303,7 @@ scenarios.lure = async () => {
   await observe('actual visible-threat interruption', stopped);
   // Keep the active retreat uninterrupted by screenshot readback on software GPU.
   // The sampled positions prove this transient stop; capture after withdrawal.
-  for (const [x, y] of [[180, 500], [180, 880], [180, 780]]) await walk(x, y);
+  await walk(180, 780, 0);
   const opened = await waitFor('lost threat permits autonomous movement and opening without another request', r => door(r).state === 'open');
   assert.equal(opened.exchanged, true); assert.equal(opened.state.player.mana, 5); assert.equal(enemy(opened).hp, 3);
   assert.ok(npc(opened).x > npc(stopped).x || current.motion.some(r => r.door.state === 'open' && r.npc.x >= 600), 'Actual resumed latch movement must be observed');
