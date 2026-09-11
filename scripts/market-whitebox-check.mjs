@@ -91,6 +91,11 @@ async function ui(selector) {
   if (device === 'phone') await node.tap(); else await node.click();
 }
 const action = name => ui(`[data-action="${name}"]`);
+async function ensureWalking() {
+  // Normal ground walking does not require pressing the already selected mode
+  // before every step. Preserve real UI input whenever the player is aiming.
+  if (await page.locator('[data-action="walk"]').getAttribute('aria-pressed') !== 'true') await action('walk');
+}
 async function canvasAt(p) {
   const g = await geometry(), u = g.viewport.usable;
   assert.ok(p.x >= u.x + 2 && p.x <= u.x + u.width - 2 && p.y >= u.y + 2 && p.y <= u.y + u.height - 2,
@@ -105,7 +110,9 @@ async function frame(target) {
     if (p.x >= u.x + 28 && p.x <= u.x + u.width - 28 && p.y >= u.y + 28 && p.y <= u.y + u.height - 28) return;
     const from = point(u.x + u.width / 2, u.y + u.height / 2);
     const limit = (v, max) => Math.max(-max, Math.min(max, v));
-    const to = point(from.x - limit(p.x - from.x, u.width * .36), from.y - limit(p.y - from.y, u.height * .36));
+    const offX = p.x < u.x + 28 || p.x > u.x + u.width - 28;
+    const offY = p.y < u.y + 28 || p.y > u.y + u.height - 28;
+    const to = point(from.x - (offX ? limit(p.x - from.x, u.width * .36) : 0), from.y - (offY ? limit(p.y - from.y, u.height * .36) : 0));
     await canvasAt(from); await canvasAt(to);
     log('shift-mouse-camera-pan', { simulatedOnPhone: device === 'phone', target, from, to, camera: g.camera, time: (await inspect()).state.time });
     await page.keyboard.down('Shift');
@@ -123,7 +130,7 @@ async function world(target) {
 }
 async function walk(x, y, gap = .8) {
   const target = point(x, y), before = await inspect();
-  await action('walk'); await world(target);
+  await ensureWalking(); await world(target);
   // A real pointer may round a CSS pixel. Path exhaustion plus a generous body
   // tolerance is the arrival check; full continuous corridor flags are asserted
   // separately, so nearby stations cannot manufacture a completed route.
@@ -133,7 +140,7 @@ async function walk(x, y, gap = .8) {
   if (gap) await activeGap(gap);
 }
 async function interact(id) {
-  await action('walk'); const e = entity(await inspect(), id); await world(point(e.x, e.y));
+  await ensureWalking(); const e = entity(await inspect(), id); await world(point(e.x, e.y));
   if (id === 'market_merchant') await waitFor('real near merchant dialogue', r => r.state.dialogue?.id === 'market_talk');
 }
 async function choose(id) { await ui(`#dialogue button[data-choice="${id}"]`); }
