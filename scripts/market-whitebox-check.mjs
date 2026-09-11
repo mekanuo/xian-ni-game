@@ -277,8 +277,9 @@ scenarios.lure = async () => {
   assert.ok(npc(opened).x > npc(stopped).x || current.motion.some(r => r.door.state === 'open' && r.npc.x >= 600), 'Actual resumed latch movement must be observed');
   await observe('automatic opening after real withdrawal', opened);
   // The new threat after opening is a distinct condition from the earlier closed
-  // pause: NPC may stop again, but the physical open leaf must remain passable.
-  const rethreat = await waitFor('door stays open when the NPC sees danger again', r => r.threat && npc(r).state === 'waiting' && door(r).state === 'open', 15000);
+  // pause: NPC may stop on her return or already be idle at the stall; either
+  // legal position must keep the physical open leaf passable.
+  const rethreat = await waitFor('door stays open when the NPC sees danger again', r => r.threat && door(r).state === 'open', 15000);
   await observe('open door under a subsequent actual threat', rethreat);
   await withdraw();
   const r = await observe('resource lure then actual original-endpoint withdrawal');
