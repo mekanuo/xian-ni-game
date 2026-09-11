@@ -4,7 +4,7 @@
 
 本分支新增独立whitebox.html、src/whitebox/kiln-model.ts/主场景/CSS与vite.whitebox.config.ts，复用home槽位的实际act/tick，无正式存档或跨图，普通/零灵力可见初态与整局重开。计划 docs/superpowers/plans/2026-09-11-kiln-whitebox.md；ADVENTURE_060.md为选定白盒候选，生产美术/杜芹借还/新地图迁移尚未实施。规则组合补丁修复burning/burned可移动物被重新牵起复原，真实施术测试先红后绿，独立只读审查无缺陷。
 
-353测试/23文件PASS，北侧围墙上移40后实际模型南去北返仍通过，保留两敌和零资源。鼠标南路原路返程会避敌拒绝，北路可实际点击绕回；模型通过不等于浏览器或趣味通过。旧窑真实输入脚本scripts/kiln-whitebox-check.mjs已写，未运行。随后实体边角补丁10新测试及相关五文件75/75通过，TypeScript/独立构建whitebox-zrCBa4Qk.js通过；预览用vite.whitebox.config.ts的4192。旧存档中已穿墙的屏角脱困尚未处理，是正式0.6集成前兼容项，不能直接发布白盒分支。待0.5释放浏览器后，4192运行独立白盒，再验证并决定生产地图。不要提前调用whitebox浏览器。启动/版本/边界见design/BUILD_BRIEF_060_WHITEBOX.md。
+353测试/23文件PASS，北侧围墙上移40后实际模型南去北返仍通过，保留两敌和零资源。鼠标南路原路返程会避敌拒绝，北路可实际点击绕回；模型通过不等于浏览器或趣味通过。旧窑真实输入脚本scripts/kiln-whitebox-check.mjs已写，未运行。随后实体边角补丁10新测试及相关五文件75/75通过，TypeScript/独立构建whitebox-zrCBa4Qk.js通过；预览用vite.whitebox.config.ts的4192。旧屏角脱困随后已补：相关五文件85/85、TypeScript/白盒whitebox-CzR68t1q.js通过，原位拾取与逐步向外脱出不允许穿墙对侧。保存兼容证据为完整五图清单上的合成旧位置snapshot/restore模型夹具，非历史实机导档；正式跨图/迁移/美术仍未实现，不能直接发布白盒分支。待0.5释放浏览器后，4192运行独立白盒，再验证并决定生产地图。不要提前调用whitebox浏览器。启动/版本/边界见design/BUILD_BRIEF_060_WHITEBOX.md。
 
 当前无子Agent继续写文件；root持有Git/构建/浏览器。0.5发行合入主分支后，再把其QA/文档合入此分支并解决仅文档冲突，不丢弃0.6源码。所有后续里程碑须及时推Git，不结束在计划或中间汇报。
 

@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SCENES } from '../src/game/content';
-import { act, createGame, previewCast, previewPullMove, tick } from '../src/game/model';
+import { act, createGame, previewCast, previewPullMove, restore, snapshot, tick } from '../src/game/model';
 import type { Entity, GameState, SceneDefinition, Vec } from '../src/game/contracts';
 
 let previous: SceneDefinition;
@@ -96,5 +96,79 @@ describe('solid pull uses the whole rectangular footprint', () => {
       expect(pull(s, screen, { x: 590, y: 640 }).ok).toBe(true); run(s);
       expect(screen.x).toBe(590);
     }
+  });
+  it('picks up an old corner-overlap in place and physically slides it out without teleporting or refunding mana', () => {
+    const { s, screen } = fixture({ x: 580, y: 610 });
+    expect(pull(s, screen, screen).ok).toBe(true);
+    expect(screen.x).toBe(580); expect(screen.y).toBe(610); expect(s.player.mana).toBe(5);
+    expect(act(s, { type: 'move', point: { x: 650, y: 650 } }).ok).toBe(true);
+    tick(s, .02, { x: 0, y: 0 });
+    expect(screen.x).toBeGreaterThan(580); expect(screen.x).toBeLessThan(585);
+    expect(screen.y).toBeGreaterThan(610); expect(screen.y).toBeLessThan(615);
+    run(s); expect(screen.x).toBe(650); expect(screen.y).toBe(650);
+    expect(s.player.mana).toBe(5);
+  });
+  it('cannot escape an old overlap by crossing the wall to its opposite side', () => {
+    const { s, screen } = fixture({ x: 580, y: 610 });
+    expect(pull(s, screen, screen).ok).toBe(true);
+    const result = act(s, { type: 'move', point: { x: 430, y: 610 } });
+    expect(result.ok).toBe(false); expect(result.message).toMatch(/先.*(墙|脱离)/);
+    run(s); expect(screen.x).toBe(580); expect(screen.y).toBe(610);
+  });
+  it('does not deepen an old corner overlap on one axis while moving out on the other', () => {
+    const { s, screen } = fixture({ x: 580, y: 610 });
+    expect(pull(s, screen, { x: 650, y: 600 }).ok).toBe(false);
+    expect(screen.x).toBe(580); expect(screen.y).toBe(610);
+  });
+  it('still sweeps other obstacles during old-overlap recovery', () => {
+    const { s, screen } = fixture({ x: 580, y: 610 }); s.player.x = 650; s.player.y = 760;
+    s.worlds.home.push(obstacle({ x: 700, y: 630 }));
+    expect(pull(s, screen, screen).ok).toBe(true);
+    expect(act(s, { type: 'move', point: { x: 780, y: 650 } }).ok).toBe(false);
+    expect(screen.x).toBe(580); expect(screen.y).toBe(610);
+  });
+  for (const [name, start, player, finish] of [
+    ['left', { x: 60, y: 850 }, { x: 180, y: 850 }, { x: 100, y: 850 }],
+    ['right', { x: 1340, y: 850 }, { x: 1250, y: 850 }, { x: 1300, y: 850 }],
+    ['top', { x: 400, y: 30 }, { x: 400, y: 120 }, { x: 400, y: 60 }],
+    ['bottom', { x: 400, y: 970 }, { x: 400, y: 880 }, { x: 400, y: 940 }],
+  ] as const) it(`recovers an old ${name}-boundary overhang through normal motion`, () => {
+    const { s, screen } = fixture(start); s.player.x = player.x; s.player.y = player.y;
+    expect(pull(s, screen, screen).ok).toBe(true); expect(screen.x).toBe(start.x); expect(screen.y).toBe(start.y);
+    expect(act(s, { type: 'move', point: finish }).ok).toBe(true);
+    tick(s, .02, { x: 0, y: 0 });
+    expect(Math.hypot(screen.x - start.x, screen.y - start.y)).toBeCloseTo(4.4);
+    run(s); expect(screen.x).toBe(finish.x); expect(screen.y).toBe(finish.y);
+    expect(s.player.mana).toBe(5);
+  });
+  it('cannot worsen an old boundary overhang, slide it sideways forever, or cross out the opposite edge', () => {
+    SCENES.home.width = 300;
+    const { s, screen } = fixture({ x: 60, y: 850 }); s.player.x = 150; s.player.y = 850;
+    expect(pull(s, screen, screen).ok).toBe(true);
+    for (const point of [{ x: 55, y: 850 }, { x: 60, y: 820 }, { x: 260, y: 850 }]) expect(act(s, { type: 'move', point }).ok).toBe(false);
+    expect(act(s, { type: 'move', point: { x: 70, y: 850 } }).ok).toBe(true); run(s);
+    expect(screen.x).toBe(70); // A partial improvement need not snap to the legal boundary.
+    expect(act(s, { type: 'move', point: { x: 100, y: 850 } }).ok).toBe(true); run(s);
+    expect(screen.x).toBe(100); expect(s.player.mana).toBe(5);
+  });
+  it('preserves an old crossing screen position through full five-scene save/restore and allows actual recovery', () => {
+    SCENES.home = previous; // Use the real complete manifest, not the empty geometry fixture.
+    const original = createGame({ name: '行舟', origin: 'tinker', wish: 'travel', appearance: 0 });
+    original.scene = 'crossing'; original.player.x = 960; original.player.y = 740;
+    const oldScreen = original.worlds.crossing.find(e => e.id === 'shield_board')!;
+    oldScreen.x = 960; oldScreen.y = 600; // A saved center-valid position previously allowed by corner-only overlap.
+    const saved = snapshot(original), s = restore(saved);
+    const screen = s.worlds.crossing.find(e => e.id === 'shield_board')!;
+    expect(Object.keys(s.worlds)).toHaveLength(5);
+    for (const scene of Object.keys(original.worlds) as (keyof typeof original.worlds)[]) expect(s.worlds[scene]).toEqual(original.worlds[scene]);
+    expect(screen.x).toBe(960); expect(screen.y).toBe(600);
+    expect(s.player.mana).toBe(6); expect(s.player.hp).toBe(4);
+    expect(pull(s, screen, screen).ok).toBe(true);
+    expect(screen.x).toBe(960); expect(screen.y).toBe(600);
+    expect(act(s, { type: 'move', point: { x: 1010, y: 640 } }).ok).toBe(true);
+    run(s, .5); expect(act(s, { type: 'release' }).ok).toBe(true);
+    expect(screen.x).toBe(1010); expect(screen.y).toBe(640); expect(s.player.mana).toBe(5);
+    const recovered = restore(snapshot(s)).worlds.crossing.find(e => e.id === 'shield_board')!;
+    expect(recovered.x).toBe(1010); expect(recovered.y).toBe(640); expect(recovered.state).toBe('idle');
   });
 });

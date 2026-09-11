@@ -107,16 +107,38 @@ export function interactionPoint(s:GameState,targetId:string):Vec|undefined {
   return undefined;
 }
 const pullRange=(s:GameState)=>s.ringStyle==='long'||s.flags.trialStyle==='long'?500:300;
+function expandedPullRect(target:Entity,r:Rect):Rect{
+  // Exclude exact touching boundaries, without sampling or allowing visible penetration.
+  const epsilon=1e-7;
+  return {x:r.x-target.w/2+epsilon,y:r.y-target.h/2+epsilon,w:r.w+target.w-2*epsilon,h:r.h+target.h-2*epsilon};
+}
+function pullBounds(s:GameState,target:Entity){
+  const map=SCENES[s.scene];return {left:25+target.w/2,right:map.width-25-target.w/2,top:25+target.h/2,bottom:map.height-25-target.h/2};
+}
+function solidPullNeedsRecovery(s:GameState,target:Entity):boolean{
+  if(!target.solid||!target.movable)return false;
+  const b=pullBounds(s,target);
+  return target.x<b.left||target.x>b.right||target.y<b.top||target.y>b.bottom||rectangles(s,target.id).some(r=>contains(expandedPullRect(target,r),target));
+}
 function solidPullPathClear(s:GameState,target:Entity,point:Vec):boolean{
   if(!target.solid||!target.movable)return true;
-  const map=SCENES[s.scene],halfW=target.w/2,halfH=target.h/2;
-  if(point.x-halfW<25||point.x+halfW>map.width-25||point.y-halfH<25||point.y+halfH>map.height-25)return false;
+  const b=pullBounds(s,target);
+  // A legacy overhang may move inward incrementally, never farther out or past the opposite edge.
+  const axisFits=(from:number,to:number,min:number,max:number)=>from<min?to>=from&&to<=max:from>max?to<=from&&to>=min:to>=min&&to<=max;
+  if(!axisFits(target.x,point.x,b.left,b.right)||!axisFits(target.y,point.y,b.top,b.bottom))return false;
+  const overhang=(p:Vec)=>Math.max(0,b.left-p.x,p.x-b.right)+Math.max(0,b.top-p.y,p.y-b.bottom);
+  if(overhang(target)>0&&(point.x!==target.x||point.y!==target.y)&&overhang(point)>=overhang(target))return false;
   // Minkowski expansion sweeps the whole footprint, including physical water obstacles.
-  // Exact edge contact is allowed; the tiny tolerance only excludes touching boundaries.
-  const epsilon=1e-7;
-  return !rectangles(s,target.id).some(r=>segmentRectEntry(target,point,{
-    x:r.x-halfW+epsilon,y:r.y-halfH+epsilon,w:r.w+target.w-2*epsilon,h:r.h+target.h-2*epsilon
-  })!==null);
+  return !rectangles(s,target.id).some(r=>{
+    const expanded=expandedPullRect(target,r);
+    if(contains(expanded,target)){
+      // For an existing overlap, each coordinate can only stay put or move away from
+      // the obstacle's center. Distance cannot decrease, so crossing to its far side
+      // is impossible. Zero displacement allows picking up the old position as-is.
+      return (point.x-target.x)*(target.x-r.x-r.w/2)<0||(point.y-target.y)*(target.y-r.y-r.h/2)<0;
+    }
+    return segmentRectEntry(target,point,expanded)!==null;
+  });
 }
 function pullPlacementReason(s:GameState,target:Entity,point:Vec,range:number):string|undefined {
   if(!finitePoint(point))return '落点无效';
@@ -127,7 +149,7 @@ function pullPlacementReason(s:GameState,target:Entity,point:Vec,range:number):s
   if(dist(s.player,point)>range+1)return '落点超出牵引范围';
   if(!free(s,point,12,target.id)&&!(target.id==='board'&&dist(point,{x:1120,y:648})<45))return '落点被挡住，请选可站立的地面';
   if(!clearLine(s,target,point,target.id))return '搬动路径有实物阻挡';
-  if(!solidPullPathClear(s,target,point))return '整件物件放不下或搬动时会碰到实物，请给边角留出空间';
+  if(!solidPullPathClear(s,target,point))return solidPullNeedsRecovery(s,target)?'物件边角卡在墙边或界外；先向墙外脱开，或朝地图内移回，不能穿到另一侧':'整件物件放不下或搬动时会碰到实物，请给边角留出空间';
   return undefined;
 }
 export function previewPullMove(s:GameState,point:Vec):CastPreview {
