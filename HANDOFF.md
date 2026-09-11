@@ -1,3 +1,23 @@
+# 最新覆盖 · 0.7 专项闭合，准备冻结整版验证
+
+2026-09-11。phone R7 supervisor1193420 已exit0，qa/evidence/market-phone-r7.json PASS，run16-36-11-062Z：从真实手机R5小集入口导出续走，私巷→旧渠静息→公共巷→石渡→石驿桌边差集记事/完成档导出，全流程真实单指触控；镜头准备使用普通暂停，不称无暂停战斗。root已目视归驿截图，顶部无相叠。桌面R5从固定原样0.6旧窑导出完整PASS，run16-17-08-249Z。所有之前FAIL保留。
+
+当前所有专项浏览器已结束，代理全部停写。下一动作提交推送后启动一次 npm run verify；此后源码/资产/测试/脚本/配置冻结，仅可改docs/design/qa说明。整版启动后以 /tmp/xian-ni-070-verify.log 与同前缀.exit 为准；新PASS之前公网仍0.6，不部署。后续记录会补真实PID与结果。正式工作树/preview4194与游戏包未变（CRsUjnIh / D5r6oNWq）。用户要求继续、不停在里程碑。
+
+# 最新覆盖 · 0.7 桌面完整通关，手机回程迭代
+
+2026-09-11。正式工作树 market-070-production / feat/market-070，HEAD **00ad73c 已推送**（之前 d3216b3 手机看路/顶部修正，f54c357 同行败退后果）。正式包仍 **CRsUjnIh / D5r6oNWq**，游戏源码未继续改变；后续是 QA 驱动和证据。公网仍0.6。749模型测试已PASS，当前尚无0.7整版verify，不可用继承报告发布。
+
+**已完成，不重复专项：** 手机五幅高DPR美术/路牌/菜单/真单指看路 PASS；同行等候/重聚/保存导入与两次真实败退、重试/同行撤离 PASS；沈砚真实引敌停步、同框waiting帧、暂停冻结与撤离后继续 PASS。详情 qa/REVIEW_070_PRODUCTION.md。停步专项最终桌面DPR1，先前DPR2软件渲染超时FAIL保留；高密度图像另证，不改游戏速度。
+
+桌面完整R5 **PASS**：qa/evidence/market-desktop-complete-r5.json，run16-17-08-249Z，从固定原样0.6旧窑导出→溪道静息→石渡→小集私巷→旧渠→小集公共巷→石驿桌边记事→实际导出。root已目视桌边新增记录。R4末段QA误点修器工位的问题已改直接点table，未改游戏交互。
+
+手机R5从同旧档到小集后，连续活动状态拖图导致在射程内站定受击败退，整案FAIL保留；R6仅从该次真实小集入口导出续走，新增“暂停时选可见地面/镜头，恢复后真实走到再暂停”驱动，明确不是无暂停战斗证明。R6真实私巷进入旧渠HP2、歇脚恢复并返回小集；原1220,220取样点在手机HUD下且相机到边界无法再移开，FAIL保留。现手机公共回程改同一通道内可见点1220,340→1220,860→880,860→420,860，桌面原已通过路径不改。脚本还把手机拖图日志改为single-finger、运行JS哈希改取实际载入response。
+
+**当前唯一浏览器：** phone R7 supervisor1193420，日志 /tmp/xian-ni-070-phone-r7.log，结束写同前缀.exit；输出qa/evidence/market-phone-r7.json。从实际手机R5入口 qa/evidence/market-2026-09-11T16-23-15-177Z/market-west-entry.json 续走，不是再次从0.6开始。R5整链1190881、R6 1192659均已结束。preview4194 PID1178399。所有代理已停写。
+
+下一步R7完整记事通过→更新/推送本QA里程碑→冻结 `npm run verify`（现在已接三视口+实际停步+同行后果+桌面/手机从固定0.6开始，随后全部既有回归）→核对新PASS和fingerprint→推送→本工作树dist发布原URL→公网资源/输入/新章检查。正式verify开始后不要改src/public/tests/scripts等冻结输入。设计/资料可继续整理。下轮候选风险稿design/CLIFF_NEXT_RISK_REVIEW.md已交回，仅准生产后再决定有界白盒，不是批准新图制作。用户要求继续，不停在里程碑。
+
 # 最新覆盖 · 0.7 手机看路与顶部间距验收中
 
 2026-09-11。正式 worktree market-070-production / feat/market-070，HEAD 12ef0e4 已推送。公网仍 0.6。新增正式“看路”按钮与单指拖镜头、对白中纯镜头操作、帮助说明；新增界面和后果浏览器检查脚本。最新全套 **35 文件 749 测试 PASS**，tsc/build PASS；当前包 **index-CRsUjnIh.js / index-D5r6oNWq.css**。
