@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-09-11T13:06:15.354Z",
+  "checkedAt": "2026-09-11T18:51:22.588Z",
   "url": "https://mekanuo.github.io/xian-ni-game/",
   "release": {
     "game": "山门之外",
-    "version": "0.6.0",
-    "sourceCommit": "19dada6a2e4406d2b2a37b9093e06dc316f358f9",
-    "builtAt": "2026-09-11T13:04:13.431Z"
+    "version": "0.7.0",
+    "sourceCommit": "371957ee9a86983f818d06dd411d0493fa627bb3",
+    "builtAt": "2026-09-11T18:49:14.496Z"
   },
-  "expectedSourceCommit": "19dada6a2e4406d2b2a37b9093e06dc316f358f9",
+  "expectedSourceCommit": "371957ee9a86983f818d06dd411d0493fa627bb3",
   "resources": [
     {
       "path": "art/canal-architecture.png",
@@ -118,16 +118,16 @@
       "sha256": "bedbd7d681e1cf7c4481696e3983b6638f6c8088f892c4a54759953b58f108c9"
     },
     {
-      "path": "assets/index-B8Ldhq7K.css",
+      "path": "assets/index-CRsUjnIh.js",
       "status": 200,
-      "bytes": 30853,
-      "sha256": "5138fa03b844e102f030d3e4197575dcf6b16d34f9c34200e1e31862348c5f2c"
+      "bytes": 1506723,
+      "sha256": "50f8bb8b45bdc465bbae5669318aa34b31a102120f0970f33b0b0bc63b99a9e0"
     },
     {
-      "path": "assets/index-BTwh6Je1.js",
+      "path": "assets/index-D5r6oNWq.css",
       "status": 200,
-      "bytes": 1474145,
-      "sha256": "bea13e7849da5e26dbee592cedc1387b4e177e8783ff41e368faf8f9329c3be0"
+      "bytes": 31222,
+      "sha256": "604270efb9035bd593cdb7e9f168cebd5e91c61e693fe6539a5c8d9a8e75d4f4"
     },
     {
       "path": "assets/kiln-duqin.png",
@@ -154,10 +154,34 @@
       "sha256": "aba59236b3b602f09c9c3ffe3c7a5681b248472847253f6054dbe4fb5c7017ed"
     },
     {
+      "path": "assets/market-environment.png",
+      "status": 200,
+      "bytes": 2520103,
+      "sha256": "6f349bf66a60f1c1b5eacbb8f8d434a9b9531e2ec8859985ae0327e7242e409b"
+    },
+    {
+      "path": "assets/market-ground.png",
+      "status": 200,
+      "bytes": 2560140,
+      "sha256": "7ae06c6db742114b9b6a81fa368a4fb21030bde153d22b60328b4fc4b30a966d"
+    },
+    {
+      "path": "assets/market-props.png",
+      "status": 200,
+      "bytes": 1691636,
+      "sha256": "6bf1962548d48f47cc46c465c52ca21606018de527f7f2b6e506d690424a783e"
+    },
+    {
+      "path": "assets/market-shenyan.png",
+      "status": 200,
+      "bytes": 1906336,
+      "sha256": "837a8eceedd8c9070b326acdc7afeb34cbe9aa8a2a7782d469c8c2aa2f144f40"
+    },
+    {
       "path": "index.html",
       "status": 200,
       "bytes": 656,
-      "sha256": "4e567a073d826ade985188ac90e8fe106818e06a343fa33701fd3296eebce7ea"
+      "sha256": "b5d0e423e20914cfa50d047e80d115f9d5506a024cd5c6b251fdc4919d14f30d"
     }
   ],
   "browser": "150.0.7871.114",
@@ -225,7 +249,7 @@
       "state": {
         "scene": "home",
         "player": {
-          "x": 485.3333333333342,
+          "x": 496.00000000000097,
           "y": 710,
           "hp": 4,
           "mana": 5,
@@ -263,8 +287,8 @@
     "muted": false,
     "musicVolume": 0.55,
     "effectsVolume": 0.45,
-    "musicScheduled": 4,
-    "musicRms": 0.016406074554828613,
+    "musicScheduled": 5,
+    "musicRms": 0.08148208724526228,
     "effectsRms": 0,
     "activeVoices": 8,
     "lastEffect": "",
@@ -274,8 +298,8 @@
   },
   "visual": "qa/evidence/public-start.png",
   "continuation": {
-    "contentVersion": 5,
-    "checkpointVersion": 5,
+    "contentVersion": 6,
+    "checkpointVersion": 6,
     "life": {
       "repair": {
         "stage": "active",
@@ -433,7 +457,7 @@
       }
     ],
     "scene": "canal",
-    "contentVersion": 5,
+    "contentVersion": 6,
     "stage": "active",
     "inspected": false,
     "cleared": false,
@@ -442,7 +466,7 @@
       "y": 1030,
       "hp": 4,
       "mana": 4,
-      "facing": 0.30304651395756693,
+      "facing": 0.3030465139575677,
       "invulnerable": 0,
       "cooldown": 0,
       "ward": 0,
@@ -532,7 +556,7 @@
       "restOpened": false,
       "recordedShared": false
     },
-    "contentVersion": 5,
+    "contentVersion": 6,
     "visual": "qa/evidence/public-companion.png",
     "scope": "Published v3 migration, agreement and real workshop entry; no shared journey awarded for agreement or scene change."
   },
@@ -586,7 +610,7 @@
         "id": "creek_to_kiln"
       }
     ],
-    "contentVersion": 5,
+    "contentVersion": 6,
     "kiln": {
       "visited": true,
       "entry": "west",
@@ -645,10 +669,10 @@
       "muted": false,
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
-      "musicScheduled": 183,
-      "musicRms": 0.020350545948328344,
+      "musicScheduled": 184,
+      "musicRms": 0.007598366899623819,
       "effectsRms": 0,
-      "activeVoices": 12,
+      "activeVoices": 8,
       "lastEffect": "step",
       "effectCounts": {
         "pull": 1,
@@ -682,8 +706,8 @@
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
       "musicScheduled": 12,
-      "musicRms": 0.017633821575800138,
-      "effectsRms": 0.0028222176165525513,
+      "musicRms": 0.01877997027244259,
+      "effectsRms": 0.0031642077597838604,
       "activeVoices": 15,
       "lastEffect": "ward",
       "effectCounts": {

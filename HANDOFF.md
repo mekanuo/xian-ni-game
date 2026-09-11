@@ -1,3 +1,27 @@
+# 当前入口 · 0.7发行关闭，继续碎崖空间先验
+
+用户要求继续自主开发、保持质量、每个里程碑推送；不新建推断Goal，不重问已确认事项，不读旧聊天/原文/全书解析，不碰两个封版项目。研究沿docs/research。
+
+**0.7已发布并完成公网核验**：https://mekanuo.github.io/xian-ni-game/ （?v=0.7.0）。源码/完整QA **371957ee9a86983f818d06dd411d0493fa627bb3 已推送**，gh-pages **29a15fe186cb3f624308810f9de34cc38f9575ac**。正式工作树market-070-production / feat/market-070，包CRsUjnIh / D5r6oNWq；本说明提交另行记录，不改变发行来源。
+
+整版35文件749测试、29命令与六判据全PASS，139输入/29dist指纹复核。公网29资源字节相同，真实输入/声音/旧档续玩PASS；新章公网入口/对白检查PASS（qa/evidence/market-public-view.json，run18-53-12-072Z，root目视）。完整双路是在同构建本地两设备真实走完，手机准备镜头用普通暂停；Linux Chrome仿真，不外推真机或公网全程重跑。见docs/RELEASE_070.md及qa/REVIEW_070_PRODUCTION.md。
+
+verify1194816、公网链1210899均已exit0，无活动浏览器。正式preview4194可保留，不部署其他工作树旧dist。所有代理停止写入。当前待提交推送最终公网证据/发行说明；随后从此完整里程碑创建独立碎崖空间验证工作树，具体路径/分支另记。
+
+**继续的有界任务**：执行docs/superpowers/plans/2026-09-11-cliff-space-preflight.md的第一闸口，先完整矩形、真实move/tick导航反例、非home目标镜头/手机余量、真实首次碰撞。design/BUILD_BRIEF_CLIFF_WHITEBOX_DRAFT.md仅草案，design/CLIFF_WHITEBOX_COUNTEREXAMPLES.md已root读过：直达/连接/40网格/转角/视野/home特例未解决。允许独立空间白盒，不批准正式第八图、生产美术、存档版本或发布；不能以一键自动过关冒充掩蔽选择。若局部修订仍无价值，可搁置。用户已授权自主决定，无需等新确认。
+
+以下历史入口已被当前覆盖，不重复已完成的验证。
+
+# 当前入口 · 0.7已发布，公网验收进行中
+
+完整QA里程碑 **371957ee9a86983f818d06dd411d0493fa627bb3 已推送**；本正式工作树deploy-pages已exit0，发行gh-pages **29a15fe186cb3f624308810f9de34cc38f9575ac**。同URL https://mekanuo.github.io/xian-ni-game/ ，HTTP release.json已返回0.7.0/371957e，builtAt2026-09-11T18:49:14.496Z。
+
+**当前唯一浏览器链supervisor1210899**：先scripts/public-check.mjs，日志/tmp/xian-ni-070-public-check.log及.exit；成功后自动接GAME_URL公网、MARKET_DEVICE=desktop、MARKET_CASE=view、MARKET_START空的market-check，从固定原样0.6导出实际走到集市/交谈，日志/tmp/xian-ni-070-public-market-view.log及.exit，报告qa/evidence/market-public-view.json。整链结束写/tmp/xian-ni-070-public-chain.exit。不要另启浏览器；输入代码/资产仍不改变。
+
+完整本地验证29命令/749测试PASS、139输入/29发行文件指纹已复核。公网public/新章实际输入结果尚待结束，不能用继承0.6publication报告宣称新核验通过。当前README仅写发布和公网检查中；两项结束后补准确结果、发行说明与HANDOFF，提交推送，再继续下一段有界空间验证。用户要求继续，不停在里程碑。所有代理已停止。
+
+以下历史入口已被当前覆盖。
+
 # 最新入口 · 0.7整版PASS，准备推送与发布
 
 正式工作树 `/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/market-070-production`，分支 `feat/market-070`。受测候选574c795已推送；现在待提交完整QA/说明里程碑。npm run verify supervisor1194816已exit0，日志/tmp/xian-ni-070-verify.log和.exit；所有浏览器已结束，4187由脚本关闭，4194普通preview仍可保留。

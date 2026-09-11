@@ -1,0 +1,666 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-09-11T18-53-12-072Z",
+  "status": "PASS",
+  "startedAt": "2026-09-11T18:53:12.073Z",
+  "environment": {
+    "url": "https://mekanuo.github.io/xian-ni-game/",
+    "platform": "linux",
+    "limitation": "Linux Chrome with desktop or touch/DPR emulation, not physical Mac/Safari/phone. Captures use ordinary pause for visual inspection. On phone, each target is framed while paused and movement resumes only after a visible point is chosen; this is not uninterrupted combat evidence.",
+    "browser": "150.0.7871.114"
+  },
+  "routes": [
+    {
+      "id": "desktop",
+      "status": "PASS",
+      "inputTrace": [
+        {
+          "action": "settings-import",
+          "detail": {
+            "name": "actual-kiln-zero-complete.json",
+            "contentVersion": 6
+          },
+          "wallMs": 16598
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 300,
+            "y": 340
+          },
+          "wallMs": 20571
+        },
+        {
+          "action": "arrived",
+          "detail": {
+            "scene": "creek",
+            "x": 302.06161468109985,
+            "y": 340.8369185977465,
+            "time": 371.23333333332437,
+            "hp": 1
+          },
+          "wallMs": 28370
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 300,
+            "y": 740
+          },
+          "wallMs": 28370
+        },
+        {
+          "action": "arrived",
+          "detail": {
+            "scene": "creek",
+            "x": 300.01490382262295,
+            "y": 738.1649804716104,
+            "time": 374.7333333333212,
+            "hp": 1
+          },
+          "wallMs": 35268
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "rest_creek",
+            "scene": "creek",
+            "world": {
+              "x": 300,
+              "y": 860
+            }
+          },
+          "wallMs": 35699
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1500,
+            "y": 820
+          },
+          "wallMs": 38334
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 720,
+              "y": 440
+            },
+            "dx": -576,
+            "dy": -180.11865515308557
+          },
+          "wallMs": 44649
+        },
+        {
+          "action": "arrived",
+          "detail": {
+            "scene": "creek",
+            "x": 1496.6735450192264,
+            "y": 820.8655828650957,
+            "time": 387.2333333333098,
+            "hp": 4
+          },
+          "wallMs": 59825
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "to_crossing",
+            "scene": "creek",
+            "world": {
+              "x": 1630,
+              "y": 820
+            }
+          },
+          "wallMs": 60233
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 600,
+            "y": 830
+          },
+          "wallMs": 63170
+        },
+        {
+          "action": "arrived",
+          "detail": {
+            "scene": "crossing",
+            "x": 599.3324181489572,
+            "y": 830.8864747478372,
+            "time": 392.533333333305,
+            "hp": 4
+          },
+          "wallMs": 70320
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1000,
+            "y": 830
+          },
+          "wallMs": 70320
+        },
+        {
+          "action": "arrived",
+          "detail": {
+            "scene": "crossing",
+            "x": 999.3324181465812,
+            "y": 830.8878519559132,
+            "time": 396.23333333330163,
+            "hp": 4
+          },
+          "wallMs": 77421
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1370,
+            "y": 830
+          },
+          "wallMs": 77421
+        },
+        {
+          "action": "arrived",
+          "detail": {
+            "scene": "crossing",
+            "x": 1375.3324181465907,
+            "y": 830.887854246679,
+            "time": 399.83333333329836,
+            "hp": 4
+          },
+          "wallMs": 84362
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1640,
+            "y": 610
+          },
+          "wallMs": 84362
+        },
+        {
+          "action": "arrived",
+          "detail": {
+            "scene": "crossing",
+            "x": 1637.5044955715314,
+            "y": 612.3146485165616,
+            "time": 403.23333333329526,
+            "hp": 4
+          },
+          "wallMs": 90930
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "crossing_to_market",
+            "scene": "crossing",
+            "world": {
+              "x": 1660,
+              "y": 520
+            }
+          },
+          "wallMs": 91334
+        },
+        {
+          "action": "settings-export",
+          "detail": "qa/evidence/market-2026-09-11T18-53-12-072Z/market-west-entry.json",
+          "wallMs": 111975
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 420,
+            "y": 460
+          },
+          "wallMs": 111976
+        },
+        {
+          "action": "arrived",
+          "detail": {
+            "scene": "market",
+            "x": 418.7926152669463,
+            "y": 461.7393281203972,
+            "time": 408.63333333329035,
+            "hp": 4
+          },
+          "wallMs": 121911
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "market_merchant",
+            "scene": "market",
+            "world": {
+              "x": 470,
+              "y": 380
+            }
+          },
+          "wallMs": 122468
+        }
+      ],
+      "exports": [
+        {
+          "path": "qa/evidence/market-2026-09-11T18-53-12-072Z/market-west-entry.json",
+          "sha256": "d69b10a3287e6417c2d7f8dc7cd97929491d32f199cf60c249831427c55df9f7"
+        }
+      ],
+      "observations": {
+        "west-entry": {
+          "visual": "qa/evidence/market-2026-09-11T18-53-12-072Z/desktop-west-entry.png",
+          "state": {
+            "scene": "market",
+            "time": 406.33333333329244,
+            "player": {
+              "x": 360,
+              "y": 760,
+              "hp": 4,
+              "mana": 6,
+              "facing": -0.694955406461942,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "market": {
+              "exchanged": false,
+              "visit": {
+                "entry": "crossing",
+                "transit": null,
+                "passed": {
+                  "public": {
+                    "westToEast": false,
+                    "eastToWest": false
+                  },
+                  "private": {
+                    "westToEast": false,
+                    "eastToWest": false
+                  }
+                }
+              },
+              "through": {
+                "public": {
+                  "westToEast": false,
+                  "eastToWest": false
+                },
+                "private": {
+                  "westToEast": false,
+                  "eastToWest": false
+                }
+              },
+              "reported": {
+                "public": {
+                  "westToEast": false,
+                  "eastToWest": false
+                },
+                "private": {
+                  "westToEast": false,
+                  "eastToWest": false
+                }
+              }
+            },
+            "kiln": {
+              "visited": true,
+              "entry": null,
+              "crossed": {
+                "west": true,
+                "east": true
+              },
+              "loan": "none",
+              "shelterOpened": false
+            },
+            "companion": "following",
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 82,
+                "time": 354.7833333333393,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 1228.1556194164984,
+                "y": 367.9775438347759,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 83,
+                "time": 355.8166666666717,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 1042.445530246964,
+                "y": 80,
+                "targetId": "9"
+              },
+              {
+                "seq": 84,
+                "time": 356.0666666666715,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1096.0694269665078,
+                "y": 286.47776387910443,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 85,
+                "time": 357.21666666667045,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 858.4733994030568,
+                "y": 80,
+                "targetId": "10"
+              },
+              {
+                "seq": 86,
+                "time": 357.86666666666986,
+                "type": "hurt",
+                "text": "飞石从护持未遮住的一侧击中，体力少了一格。",
+                "x": 801.1092692763391,
+                "y": 141.00441608297533
+              },
+              {
+                "seq": 87,
+                "time": 358.0833333333363,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1006.5264033467914,
+                "y": 239.59665374623833,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 88,
+                "time": 358.35000000000275,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 1009.8615338243055,
+                "y": 222.3168883347513,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 89,
+                "time": 365.1333333333299,
+                "type": "route",
+                "text": "你从旧渠一侧穿过旧窑，走回西院溪道。"
+              },
+              {
+                "seq": 90,
+                "time": 365.1333333333299,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 91,
+                "time": 376.1333333333199,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 92,
+                "time": 388.73333333330845,
+                "type": "scene",
+                "text": "石渡"
+              },
+              {
+                "seq": 93,
+                "time": 404.633333333294,
+                "type": "scene",
+                "text": "集口问路"
+              }
+            ]
+          }
+        },
+        "merchant-dialogue": {
+          "visual": "qa/evidence/market-2026-09-11T18-53-12-072Z/desktop-merchant-dialogue.png",
+          "state": {
+            "scene": "market",
+            "time": 410.133333333289,
+            "player": {
+              "x": 427.28694412494605,
+              "y": 448.18033194619056,
+              "hp": 4,
+              "mana": 6,
+              "facing": -1.0111393321661015,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "market": {
+              "exchanged": false,
+              "visit": {
+                "entry": "crossing",
+                "transit": null,
+                "passed": {
+                  "public": {
+                    "westToEast": false,
+                    "eastToWest": false
+                  },
+                  "private": {
+                    "westToEast": false,
+                    "eastToWest": false
+                  }
+                }
+              },
+              "through": {
+                "public": {
+                  "westToEast": false,
+                  "eastToWest": false
+                },
+                "private": {
+                  "westToEast": false,
+                  "eastToWest": false
+                }
+              },
+              "reported": {
+                "public": {
+                  "westToEast": false,
+                  "eastToWest": false
+                },
+                "private": {
+                  "westToEast": false,
+                  "eastToWest": false
+                }
+              }
+            },
+            "kiln": {
+              "visited": true,
+              "entry": null,
+              "crossed": {
+                "west": true,
+                "east": true
+              },
+              "loan": "none",
+              "shelterOpened": false
+            },
+            "companion": "following",
+            "paused": true,
+            "dialogue": {
+              "id": "market_talk",
+              "speaker": "沈砚",
+              "text": "旧窑那边，你走过没有？说清那边的通路，我替你开后巷门。",
+              "choices": [
+                {
+                  "id": "market:exchange",
+                  "label": "说清旧窑通路，请她开门"
+                },
+                {
+                  "id": "market:public",
+                  "label": "问清公共巷的走法"
+                },
+                {
+                  "id": "leave",
+                  "label": "先继续走走"
+                }
+              ]
+            },
+            "defeated": false,
+            "events": [
+              {
+                "seq": 82,
+                "time": 354.7833333333393,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 1228.1556194164984,
+                "y": 367.9775438347759,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 83,
+                "time": 355.8166666666717,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 1042.445530246964,
+                "y": 80,
+                "targetId": "9"
+              },
+              {
+                "seq": 84,
+                "time": 356.0666666666715,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1096.0694269665078,
+                "y": 286.47776387910443,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 85,
+                "time": 357.21666666667045,
+                "type": "impact",
+                "text": "术法撞在遮挡上，光屑散开。",
+                "x": 858.4733994030568,
+                "y": 80,
+                "targetId": "10"
+              },
+              {
+                "seq": 86,
+                "time": 357.86666666666986,
+                "type": "hurt",
+                "text": "飞石从护持未遮住的一侧击中，体力少了一格。",
+                "x": 801.1092692763391,
+                "y": 141.00441608297533
+              },
+              {
+                "seq": 87,
+                "time": 358.0833333333363,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1006.5264033467914,
+                "y": 239.59665374623833,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 88,
+                "time": 358.35000000000275,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 1009.8615338243055,
+                "y": 222.3168883347513,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 89,
+                "time": 365.1333333333299,
+                "type": "route",
+                "text": "你从旧渠一侧穿过旧窑，走回西院溪道。"
+              },
+              {
+                "seq": 90,
+                "time": 365.1333333333299,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 91,
+                "time": 376.1333333333199,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 92,
+                "time": 388.73333333330845,
+                "type": "scene",
+                "text": "石渡"
+              },
+              {
+                "seq": 93,
+                "time": 404.633333333294,
+                "type": "scene",
+                "text": "集口问路"
+              }
+            ]
+          }
+        }
+      },
+      "runtimeScripts": [
+        "https://mekanuo.github.io/xian-ni-game/assets/index-CRsUjnIh.js"
+      ],
+      "runtimeHashes": [
+        {
+          "url": "https://mekanuo.github.io/xian-ni-game/assets/index-CRsUjnIh.js",
+          "sha256": "50f8bb8b45bdc465bbae5669318aa34b31a102120f0970f33b0b0bc63b99a9e0"
+        }
+      ],
+      "audio": {
+        "state": "running",
+        "requested": true,
+        "scene": "market",
+        "muted": false,
+        "musicVolume": 0.55,
+        "effectsVolume": 0.45,
+        "musicScheduled": 267,
+        "musicRms": 0.011139955513117963,
+        "effectsRms": 0,
+        "activeVoices": 11,
+        "lastEffect": "step",
+        "effectCounts": {
+          "step": 129,
+          "rest": 1
+        },
+        "error": "",
+        "disposed": false
+      }
+    }
+  ],
+  "errors": [],
+  "sourceFiles": [
+    {
+      "path": "src/game/model.ts",
+      "sha256": "a53457c0e3dc98a6d90edfe43ba9e6abd280d390e7bcc859019f0ed90451a5ff"
+    },
+    {
+      "path": "src/game/market.ts",
+      "sha256": "e4926d20c1a7de5741dcd9788eccea636c6a200e97fa74d40f419799a59062cb"
+    },
+    {
+      "path": "src/game/market-art.ts",
+      "sha256": "3c7e0e649ec97a8d1db877b3373110131d1ac707576d9ad69714497db670867e"
+    },
+    {
+      "path": "src/game/scene.ts",
+      "sha256": "31cefb5b6e17b5fce5aa61521a99c36958b01db0a7391fe5cb7e28ee8afbd10d"
+    },
+    {
+      "path": "src/game/ui.ts",
+      "sha256": "03de6137904660427c3d1330870c4b8137fe2b3fb022dce60a09f67c1ec35837"
+    },
+    {
+      "path": "scripts/market-check.mjs",
+      "sha256": "827095ad061ec2745287b0229eeb8c787082cf3bd74ca656f15b7d9880b9a716"
+    }
+  ],
+  "fixture": {
+    "path": "qa/fixtures/return-kiln-through-v0.6.0.json",
+    "sha256": "1bceb15a3ad86f35fae5a6fc9cd5dd8f343356172c1a1566b6c778ccb461777f",
+    "source": "Actual 0.6 two-ended kiln settings export, unchanged; every new scene transition and outcome below uses normal UI input."
+  },
+  "completedAt": "2026-09-11T18:55:23.896Z"
+}
