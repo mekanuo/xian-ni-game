@@ -108,10 +108,19 @@ try{
  const dropped=await until('actual drop event',s=>s.player.pullId===null&&get(s,'decoy').data?.noiseUsed===true&&s.events.some(e=>e.type==='drop'));
  assert.equal(dropped.s.player.mana,5);report.observations.drop={state:facts(dropped.s)};
  await until('enemy actually follows the drop toward the western approach',s=>get(s,'market_raider').x<=610,120000);
- await walk(480,460);await activeGap();const merchant=get((await read()).s,'market_merchant');await tap(merchant.x,merchant.y);
+ await walk(480,460);await activeGap();
+ // The old fixed decision delay could start the merchant before the enemy had
+ // rounded the south wall. Observe the real approach instead of assuming timing.
+ const approach=await until('enemy has actually rounded into the western approach',s=>get(s,'market_raider').x<540&&get(s,'market_raider').y<=725,60000);
+ assert.equal(get(approach.s,'market_door').state,'closed');assert.equal(approach.s.market.exchanged,false);
+ report.observations.approach={state:facts(approach.s)};log('actual-threat-approach-ready',{enemy:get(approach.s,'market_raider'),player:approach.s.player,time:approach.s.time});
+ const merchant=get((await read()).s,'market_merchant');await tap(merchant.x,merchant.y);
  const meeting=await until('actual nearby merchant dialogue',s=>s.dialogue?.id==='market_talk');assert.equal(meeting.s.market.exchanged,false);assert.equal(get(meeting.s,'market_door').state,'closed');assert.ok(Math.hypot(meeting.s.player.x-get(meeting.s,'market_merchant').x,meeting.s.player.y-get(meeting.s,'market_merchant').y)<96);
  report.observations.meeting={state:facts(meeting.s)};await dialogueChoice('market:exchange');await until('dialogue ends after accepted exchange',s=>!s.dialogue&&s.market.exchanged);await resume();
- const stopped=await until('real interruption has rendered the waiting pose', (s,v)=>get(s,'market_merchant').state==='waiting'&&get(s,'market_door').state==='closed'&&v.actors.some(a=>a.id==='market_merchant'&&a.frame==='waiting'));
+ const stopped=await until('real interruption has rendered the waiting pose', (s,v)=>{
+  if(get(s,'market_door').state==='open')throw Error('The merchant opened the door before interception; this run did not establish a closed-door interruption');
+  return get(s,'market_merchant').state==='waiting'&&v.actors.some(a=>a.id==='market_merchant'&&a.frame==='waiting');
+ });
  assert.ok(get(stopped.s,'market_merchant').x>470&&get(stopped.s,'market_merchant').x<620,'Observe interruption after real movement, not a starting idle actor');report.observations.interruption={state:facts(stopped.s),visual:stopped.visual};
  await pause();const visibility=await framePausedGroup(),frozen=await read();assert.equal(get(frozen.s,'market_merchant').state,'waiting');assert.equal(get(frozen.s,'market_door').state,'closed');assert.equal(frozen.visual.actors.find(a=>a.id==='market_merchant').frame,'waiting');
  await screenshot('waiting-closed-door',{visibility});await page.waitForTimeout(500);const after=await read();assert.deepEqual(after.s,frozen.s,'Ordinary pause freezes world state');assert.deepEqual(after.visual.actors,frozen.visual.actors,'Actual render frame/angle/flip/position freeze');report.observations.freeze={before:facts(frozen.s),after:facts(after.s),actors:after.visual.actors,wallMilliseconds:500};

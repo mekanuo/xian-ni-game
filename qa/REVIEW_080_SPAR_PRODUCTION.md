@@ -70,3 +70,11 @@ root审查R2短窗截图发现暂停牌遮住闻朔头身，先前脚本通过�
 market-view恢复输入后的23-03-31实例因20秒墙钟等门超时FAIL；错误采样中真实门已开，NPC实际速度/开门事件与checkpoint一致，详情design/MARKET_080_VIEW_DEBUG.md。不改游戏速度/条件，只将这段物理开门观察限定90秒并记录前后实际时间/位置，复验进行中。
 
 market-view修订复验 `qa/evidence/market-view-2026-09-11T23-11-34-796Z` 全三视口PASS，真实idle/walking/物理open与冻结通过，原资源/路线/报告不增；waiting仍不在此专项，不偷改NOT_RUN。新游戏构建DwjNP5Si/DzkGuDoj，接着冻结34命令R3。
+
+## 0.8 整轮 R3 的旧市场前提修正
+
+R3（qa/verify-080-r3）956模型/build、新练场六路线/三视口/朝向及市场三视口通过，market-threat未建立闭门停步条件，整轮FAIL。实际成交时敌人y775.203，比0.7原PASS的723.378远；NPC先开门再返摊停步，脚本一直等closed导致站到死亡。市场规则未改。独立因果审查见design/MARKET_080_THREAT_DEBUG.md，原失败保留。
+
+QA改为实际观察敌人绕到西侧x<540/y≤725后再交谈；门若提前开则立即前提FAIL。未改状态/资源/游戏时钟或删除closed条件。专项2026-09-11T23-45-29-811Z（qa/evidence/market-threat-080-r2.json）exit0/PASS，errors空：NPC514.567/397.827真实waiting且门closed；玩家实际退开后NPC536.850/406.740继续leading，HP4/MP5、敌HP3保留。root目视waiting-closed-door.png。普通暂停用于取景/冻结断言，不冒称连续战斗画面。
+
+verify调整执行顺序为旧市场威胁优先、新练场最后；仍全34命令同一冻结构建，不拼接前轮PASS。接下来新冻结整轮R4，当前qa/verification.json仍FAIL且公网未部署0.8。
