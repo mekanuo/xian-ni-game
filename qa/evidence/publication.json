@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-09-10T01:42:59.659Z",
+  "checkedAt": "2026-09-11T03:59:13.256Z",
   "url": "https://mekanuo.github.io/xian-ni-game/",
   "release": {
     "game": "山门之外",
-    "version": "0.3.0",
-    "sourceCommit": "77091bf5debd232fa8267c6331952da24ddaf94f",
-    "builtAt": "2026-09-10T01:42:00.379Z"
+    "version": "0.3.1",
+    "sourceCommit": "7ef2df3e9eab7b9598db7a46ce307814f4ec8caa",
+    "builtAt": "2026-09-11T03:54:46.482Z"
   },
   "resources": [
     {
@@ -99,22 +99,22 @@
       "sha256": "bedbd7d681e1cf7c4481696e3983b6638f6c8088f892c4a54759953b58f108c9"
     },
     {
-      "path": "assets/index-B_OocHnE.css",
+      "path": "assets/index-BUkY1Ynu.js",
       "status": 200,
-      "bytes": 30486,
-      "sha256": "aa67c4e2291b950b076cc37231ca104a8af52347bf7012724f6840867ae86dce"
+      "bytes": 1388412,
+      "sha256": "978592b7e968d07471b869dca13de7cc6b54600c2f211fb8a8fd9f6594f3e09b"
     },
     {
-      "path": "assets/index-D3hwYOzU.js",
+      "path": "assets/index-BlpjwzW5.css",
       "status": 200,
-      "bytes": 1385891,
-      "sha256": "116b10b91c6a36a4778eb8f4513ccbd7098cdd8d1c8b0cebf34bf246140f91f3"
+      "bytes": 30800,
+      "sha256": "2ee313ba574392d54ecfb8f449c9cb928f2b3b608425109d1bfbc154a0b77942"
     },
     {
       "path": "index.html",
       "status": 200,
       "bytes": 656,
-      "sha256": "8e1d5d0573539b2c4ab74647550c32aefe781ccfaea77abd838b08eaccb99c40"
+      "sha256": "d6806f5fdab24be2082f3da7cbe41563b869c73ab76888c9af642c53648bfd62"
     }
   ],
   "browser": "150.0.7871.114",
@@ -182,7 +182,7 @@
       "state": {
         "scene": "home",
         "player": {
-          "x": 501.33333333333434,
+          "x": 498.66666666666765,
           "y": 710,
           "hp": 4,
           "mana": 5,
@@ -220,8 +220,8 @@
     "muted": false,
     "musicVolume": 0.55,
     "effectsVolume": 0.45,
-    "musicScheduled": 5,
-    "musicRms": 0.0840191584660982,
+    "musicScheduled": 4,
+    "musicRms": 0.013905083829401619,
     "effectsRms": 0,
     "activeVoices": 8,
     "lastEffect": "",
@@ -278,8 +278,8 @@
       "musicVolume": 0.55,
       "effectsVolume": 0.45,
       "musicScheduled": 12,
-      "musicRms": 0.019598971395244604,
-      "effectsRms": 0.003164207764615601,
+      "musicRms": 0.017314861041012375,
+      "effectsRms": 0.0028222176161175247,
       "activeVoices": 15,
       "lastEffect": "ward",
       "effectCounts": {

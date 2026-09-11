@@ -1,3 +1,7 @@
+## 2026-09-11 · 0.3.1 公网发布完成
+
+源码 7ef2df3 与 gh-pages 537c85d 已推送；公网 release.json 为 0.3.1，sourceCommit 完整一致。public-check exit0，18 个资源哈希一致，桌面新建/归灯/移动、DPR3 手机触控/音乐/察看与旧档导入通过，pageerror=[]。证据 qa/evidence/publication.json。试玩入口保持 https://mekanuo.github.io/xian-ni-game/?v=0.3.1 。继续隔离分支 feat/canal-040 的新章节真实浏览器验证。
+
 ## 2026-09-11 · 0.3.1 最终发行候选验证完成
 
 基础完整verify：147项、14条命令、两路首章/重开/两种修器/采叶/手机及表现PASS。后发现UI换档意外恢复、重复首章结局，加入10项回归并修复；实际浏览器又发现dispatch重入先更新后设置存档标记，调整缓存顺序后存档隔离检查PASS。最终157项测试、构建index-BUkY1Ynu.js、UI浏览器/手机/暂停表现补查通过。手机药囊脚本此前错误假定载入已运行，现断言载入暂停，保持原取消动作判据。qa/verification.json明确完整矩阵与后续精准补查的覆盖范围。

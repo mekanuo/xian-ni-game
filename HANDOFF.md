@@ -1,6 +1,8 @@
 # 0.3.1 发行入口更新（覆盖下方历史）
 
-当前主分支 feat/return-stone-v1。0.3.1精修及读档修复已完成发行验证，正准备提交和部署，尚勿称已上线；当前公网0.3.0。基础完整矩阵147项及14条验证命令全部PASS，最终UI读档补丁157项测试/构建及桌面存档隔离、手机采叶/药囊、双端暂停表现补查PASS。权威qa/verification.json区分原包完整流程与最终UI补查，原报告qa/verification-baseline-031.json；最终包index-BUkY1Ynu.js。
+当前主分支 feat/return-stone-v1。0.3.1 已上线并核对公网，源码 7ef2df3、gh-pages 537c85d。原链接 https://mekanuo.github.io/xian-ni-game/?v=0.3.1 。public-check exit0：18 个运行资源哈希一致，桌面/手机输入与声音通过，页面错误为空。
+
+基础完整矩阵 147 项及 14 条验证命令全部 PASS，最终 UI 读档补丁 157 项测试/构建及桌面存档隔离、手机采叶/药囊、双端暂停表现补查 PASS。权威 qa/verification.json 区分原包完整流程与最终 UI 补查，原报告 qa/verification-baseline-031.json；最终包 index-BUkY1Ynu.js。
 
 新章节在隔离目录 .worktrees/canal-040，分支feat/canal-040，首里程碑28b4826已推送。第五图规则、存档、美术已集成，228项测试/构建通过；scripts/canal-check.mjs与canal-view-check.mjs待真实浏览器运行。不要以模型测试声称新章已上线或手机8秒已通过。继续自主推进，无需用户重复确认；原公网链接保持不变。
 
