@@ -1,3 +1,17 @@
+# 当前工作入口 · 0.6已发布并核验，继续0.7独立白盒
+
+2026-09-11，0.6「背墙旧窑」已完成整套本地与公网检查，主源码feat/return-stone-v1已合入并推送。发行源码19dada6a2e4406d2b2a37b9093e06dc316f358f9，gh-pages f215b0cf3ff0039b8ffa941f7e956209ed922373。原入口 https://mekanuo.github.io/xian-ni-game/ 保持不变，可加?v=0.6.0。
+
+本地完整r2：507测试/29文件、24条命令、六项全PASS，exit0；82受测文件冻结审计无变化。公网public-check也exit0，25资源SHA与已测dist一致、sourceCommit精确相符；旧0.2.2/0.3/0.4/0.5档经真实设置入口迁移，首屏操作、生活/旧渠/同行入口和第六图旧窑真实进入、音乐RMS、手机DPR3护符输入通过，无页面错误。root目视public-kiln.png。证据qa/verification.json、qa/evidence/publication.json、qa/REVIEW_060.md。实际平台Linux Chrome150与触控/DPR仿真，不等于实体Mac/Safari/手机。
+
+本发行第六图连接溪道与旧渠，杜芹借还/实际归位确认/许可静息、烧毁持久化、脚下落屏零灵力脱困、v5严格迁移与四张原画/旧窑音乐均包含；不声称全书改编完成。运行包index-BTwh6Je1.js / index-B8Ldhq7K.css。完整验证和public进程均已结束，不要重复已通过矩阵。
+
+下一步在`.worktrees/market-070` / `feat/market-070-whitebox`，已推8fb7d10。先合入本次0.6最终证据，再串行运行scripts/market-whitebox-check.mjs；独立4193预览PID1156261，包market-whitebox-Csov99fZ.js / DRyAUuGA.css。33小集模型测试、白盒构建已通过，尚无浏览器PASS，不批准生产或发布白盒。后续verify/deploy源码与dist指纹工具只在market分支，33工具测试/tsc/CLI拒绝测试通过；不把0.6旧PASS当新源码的许可。
+
+用户持续自主推进/推送/既定部署授权有效，不在里程碑后停下，不另建推断Goal，不读原书/旧聊天或碰封版项目。继续遵循石驿已认可画风与交互质量。
+
+---
+
 # 当前工作入口 · 0.6整版通过，准备发布
 
 工作树`.worktrees/kiln-060` / `feat/kiln-060`。2026-09-11完整r2已exit0：507测试/29文件、24条命令、verification六项全部PASS；原进程1134667已结束，4187由验证器关闭。日志/tmp/xian-ni-060-verify-r2.log，exit同名.exit。没有待补的本地矩阵，不重复已通过检查。
