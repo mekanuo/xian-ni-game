@@ -18,3 +18,13 @@
 - 根代理已目视R4 `desktop-hit-ready.png`，看到同场闻朔正侧与玩家背侧、圈线/墙体/完整身体。仅这一桌面静态构图，不冒称手机、全部朝向或全流程验收。
 
 R5正在串行desktop/phone × hit/ward。其固定包为 index-DIvdulfV.js；源码后续暂停镜头/撑符朝向修正不在此包，需要重建另验。无完整0.8发行验证，不发布。
+
+后续记录：cf2d2b1已成功推送。R5 desktop-hit 已完整PASS（定位保存/真实受击/归驿/报告/再次导入），其余组合仍运行；不得把单案PASS写为整轮通过。已目视R5桌边图并发现新纸位于桌沿前立面，局部移到(38,-62)桌面右上空位。修后r4 JS index-CD78guKs.js，tsc/build PASS，待实际三视口与纸片截图。
+
+旧章12脚本仅更新迁移后的content7/八图、保留原样历史输入；market-view保留所有旧世界实体深等，仅从检查用克隆排除精确新增图/门。整版verify新接练场四案与三视口，使用本轮真实导出串接，尚未运行，不代表发行PASS。
+
+## R5正式四组合完整通过
+
+`spar-production-2026-09-11T21-03-32-592Z/report.json` 最终PASS、errors空，supervisor exit0。desktop/phone × hit/ward各从固定原样v6旧档经真实UI完成入场等候约定、定位/导出/新context恢复、正面单弹、实际受击或格挡、出门归驿、桌边报告和最终新context再载入。受击均HP3/MP4；格挡均HP4/MP3；同伴仍原脚点等候，旧账不改。根代理目视桌面归驿及手机入场/就位，人物全身与圈线可见。
+
+该轮运行包仍DIvdulfV，不能覆盖之后的暂停镜头、撑符朝向、新纸片位置和手机回镜头按钮遮挡修正。手机ready截图明确显示两行dock挡住center，已局部增加spar-stop存在时的底部间距，下一构建需实际tap验证。固定修后r5包index-0pA0mHRI.js/index-D5XfOxnh.css，tsc/build PASS、preview4202；尚未实际验收。
