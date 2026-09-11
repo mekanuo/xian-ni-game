@@ -1,3 +1,15 @@
+# 当前工作入口 · 0.6整版通过，准备发布
+
+工作树`.worktrees/kiln-060` / `feat/kiln-060`。2026-09-11完整r2已exit0：507测试/29文件、24条命令、verification六项全部PASS；原进程1134667已结束，4187由验证器关闭。日志/tmp/xian-ni-060-verify-r2.log，exit同名.exit。没有待补的本地矩阵，不重复已通过检查。
+
+受测包index-BTwh6Je1.js / index-B8Ldhq7K.css。82个冻结文件逐一复核无变化，运行源码相对47b6bd2无差异，证据qa/evidence/kiln-runtime-freeze.json。保留首轮会合驱动FAIL归档，清除根目录与归档完全相同的过期失败截图。两个当前0.6首章真实导出随本轮提交，历史输入未替换。
+
+现在提交/push完整候选后，快进合入主源码feat/return-stone-v1，再从本工作树已测dist执行既定deploy-pages；部署后public-check核对0.6/sourceCommit/全部资源/真实旧档第六图入口。当前公网仍0.5，未把本地通过写成线上通过。不要从主目录旧dist发布。
+
+下一章独立market-070工作树/feat/market-070-whitebox已推8fb7d10，33小集模型测试与白盒构建通过，真实输入脚本尚未运行；浏览器等本次public-check完成。新增后续verify/deploy文件指纹绑定仅在market分支，辅助模块33测试与CLI拒绝测试通过，不回写本轮0.6。用户持续自主推进/推送/既定部署授权有效，不在发布后停下，不另建推断Goal，不读原书/旧聊天或碰封版项目。
+
+---
+
 # 当前工作入口 · 0.6 正式整版验证运行中
 
 工作目录 `.worktrees/kiln-060` / `feat/kiln-060`。最新已推 59e746b（public-check核对预期sourceCommit）、b624481（同行驱动）；47b6bd2（新窑完整专项证据与下章草案）；dfa0264为烧屏对话与真实零灵力恢复，之前 b19174c 美术/音乐、f04555c 脱困、a381f73 正式规则。主源码分支和公网仍为已核验0.5（7fea179，gh-pages f7972c2）。用户“继续，别停”，自主设计/实施/测试/推送和既定公网部署授权，无待确认事项。不要重读聊天/原书或碰封版项目；不另建推断Goal。
