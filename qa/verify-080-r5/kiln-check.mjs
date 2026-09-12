@@ -122,9 +122,7 @@ async function consequences(bytes){
  await cast('pull',620,700);await wait(()=>window.__XIAN_NI__.inspect().player.pullId==='shield_board');await worldTap(500,640);
  await wait(()=>{const e=window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board');return Math.hypot(e.x-500,e.y-640)<3;});await button('[data-ui="release"]');
  await cast('flame',500,640);await wait(()=>window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board').state==='burning');route.burnAudio=await page.evaluate(()=>window.__XIAN_NI__.audio());assert.ok(route.burnAudio.effectCounts.fire>0);await capture('burning');await resume();
- const burnStart=await state(),burnWall=Date.now();route.burnWait={before:{time:burnStart.time,paused:burnStart.paused,board:burnStart.worlds.kiln.find(e=>e.id==='shield_board')},wallLimitMs:300000};log('observe-natural-burning',route.burnWait.before);await persist();
- await wait(()=>window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board').state==='burned',null,300000);
- const burnEnd=await state();route.burnWait.after={time:burnEnd.time,paused:burnEnd.paused,board:burnEnd.worlds.kiln.find(e=>e.id==='shield_board'),elapsedWallMs:Date.now()-burnWall,elapsedSimulationSeconds:burnEnd.time-burnStart.time};log('natural-burning-settled',route.burnWait.after);await capture('burned');
+ await wait(()=>window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board').state==='burned',null,60000);await capture('burned');
  const burned=await exportSave('kiln-burned-export.json');await page.close();page=await newPage();await importSave(burned,'kiln-burned.json',{fresh:true,continuation:true});
  let s=await state();assert.equal(s.worlds.kiln.find(e=>e.id==='shield_board').state,'burned');assert.equal(s.kiln.loan,'borrowed');assert.equal(s.kiln.shelterOpened,false);assert.equal(s.player.mana,3);route.burnRestored=brief(s);
  await resume();await interact('duqin');s=await state();assert.ok(s.dialogue);assert.ok(!s.dialogue.choices.some(c=>c.id==='kiln:return'));route.burnDialogue=s.dialogue;await resume();

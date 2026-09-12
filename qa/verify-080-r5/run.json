@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "e4c4887207560411a50430181fe1712ccbd7f4ef",
+  "exit": 1,
+  "failure": "kiln burning-to-burned wait wall timeout, board still burning timer 8 after 60 wall seconds",
+  "gameBundle": [
+    "index-DwjNP5Si.js",
+    "index-DzkGuDoj.css"
+  ]
+}

@@ -88,3 +88,11 @@ R4归档qa/verify-080-r4：956模型/build与所有市场专项/两设备完整�
 脚本sceneReady按page/scene等实际音景与实体对应，再跨两个真实rAF使相机preRender更新，才取worldTap坐标。导入清该观察缓存，不改游戏状态、规则或暂停连续领路。修后entry与phone完整串行exit0/PASS（qa/journey-render-green-r2），完整完成时间2026-09-12T00:28:39.061Z，leadership/creek/rest/home/restart及separatePauseSave全部有真实证据。DOM反投影与事件后真实path/交互共同印证，不称独立Phaser世界点测量，也不保证所有活动镜头永远静止。
 
 审阅见design/JOURNEY_080_RENDER_FIX_REVIEW.md；随后仅将诊断失败截图按entry/pause/complete分名并明确projectedWorld命名，成功输入路径不变。完整verify明确complete/all/固定默认源，入口专项不能顶替整轮；执行顺序旧同行/旧章→市场→练场，仍34命令。下一冻结整轮尚未通过，不部署。
+
+## R5 整轮进行中的目视记录
+
+冻结e4c4887，游戏DwjNP5Si/DzkGuDoj。完整桌面/手机同行及各自独立暂停存档恢复已PASS；整轮尚未结束。root查看本轮journey-view-short-1280-dpr1-home-paper.png和journey-view-phone-390-dpr3-north-mark.png：矮窗桌面纸片在木桌范围，手机两个人物与路旁标记可辨，操作区与场景分开。只记录这两张图的实际所见，不扩大为所有视口均目视通过；存档载入提示为暂时覆盖层。后续全部检查与公网发布仍待实际结果。
+
+## R5 旧窑自然烧尽的墙钟等待
+
+R5前六命令PASS，第七kiln-consequences因60墙钟秒只推进约3.77模拟秒而超时；board仍burning/timer8，HP4MP3，不是火球失效。qa/verify-080-r5保留原整版FAIL。仅延长自然烧尽观察至300秒，记录实际时间，不改游戏。专项qa/kiln-burn-green-r1 exit0/PASS：185.382墙钟秒推进11.8667模拟秒后timer0/burned，原样保存新context恢复、不能完好归还、实际重入仍烧毁、重开均通过。root目视burned图。其余旧章时限静态风险记录design/VERIFY_080_TIMING_REVIEW.md，未复现的不改为FAIL。下一轮仍全34项冻结验收。
