@@ -14,3 +14,6 @@ qa/evidence/playthrough-failure.png
 
 .worktrees/
 .whitebox-dist/
+
+# Local shared dependency installation can be a symlink.
+/node_modules

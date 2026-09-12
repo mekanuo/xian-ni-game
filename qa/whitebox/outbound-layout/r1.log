@@ -1,0 +1,37 @@
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/outbound-090-layout
+
+ ❯ tests/outbound-layout.test.ts (5 tests | 2 failed) 118ms
+     × records real direct travel and return; MP=6, disturbed=true 32ms
+     × records real direct travel and return; MP=0, disturbed=true 13ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/outbound-layout.test.ts > outbound layout measurement, not a design acceptance > records real direct travel and return; MP=6, disturbed=true
+ FAIL  tests/outbound-layout.test.ts > outbound layout measurement, not a design acceptance > records real direct travel and return; MP=0, disturbed=true
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ walk tests/outbound-layout.test.ts:22:113
+     20|  function step(){tick(s,.025,{x:0,y:0});if(s.time-last>=.1){samples.pu…
+     21|  function walk(point:Vec){
+     22|   const result=act(s,{type:'move',point});inputs.push({time:s.time,typ…
+       |                                                                                                                 ^
+     23|   const limit=s.time+60;while(!s.defeated&&Math.hypot(s.player.x-point…
+     24|   return Math.hypot(s.player.x-point.x,s.player.y-point.y)<=4;
+ ❯ run tests/outbound-layout.test.ts:28:3
+ ❯ tests/outbound-layout.test.ts:47:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 3 passed (5)
+   Start at  01:07:42
+   Duration  1.01s (transform 538ms, setup 0ms, import 615ms, tests 118ms, environment 0ms)
+

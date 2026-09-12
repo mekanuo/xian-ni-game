@@ -1,0 +1,8 @@
+{
+  "src/whitebox/outbound-layout.ts": "6e2c991496004a311d3018af796bbe866630f615457ab592817ec9aa12c8fc41",
+  "tests/outbound-layout.test.ts": "adb64e17f8101cc7aff8354a9d88e4afdfa781cbc23b97b7f1a1e719b44e9e8a",
+  "src/game/model.ts": "9d31dc765be38763c6369aaa218777df212694572b822dd1d3332c836d75e7f1",
+  "src/game/content.ts": "682036cd137accc8c1d7f14b42c27055ae92c67cb0608d622819ec5d6ac50ed9",
+  "src/game/contracts.ts": "b1344b7490e30ba47bd386dff2e9cac7a05ed1e32a85fcc7acc3f68b82175182",
+  "package.json": "0f565a352cf7fc5be4aaa9393672472eae20b573016110ade5aa042f47036a06"
+}

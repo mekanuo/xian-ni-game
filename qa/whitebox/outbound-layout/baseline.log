@@ -1,0 +1,13 @@
+
+> xian-ni-shanmen-zhiwai@0.8.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/outbound-090-layout
+
+
+ Test Files  45 passed (45)
+      Tests  956 passed (956)
+   Start at  01:04:29
+   Duration  20.03s (transform 2.78s, setup 0ms, import 9.31s, tests 32.77s, environment 10ms)
+
