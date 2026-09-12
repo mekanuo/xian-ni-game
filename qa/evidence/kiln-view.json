@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "PASS",
-  "startedAt": "2026-09-12T01:13:12.754Z",
+  "startedAt": "2026-09-12T01:52:30.588Z",
   "url": "http://127.0.0.1:4187/",
   "devices": [
     {
@@ -16,7 +16,7 @@
           "path": "qa/evidence/kiln-view-desktop-1440-dpr2-creek-entry-sign.png",
           "scene": "creek",
           "paused": true,
-          "time": 315.6166666667083,
+          "time": 315.76666666670815,
           "player": {
             "x": 699.0425187863829,
             "y": 316.0694959684977,
@@ -110,7 +110,7 @@
                 "id": "xu_creek",
                 "x": 605.13833279552,
                 "y": 322.58217160909004,
-                "angle": 1.0457856089055895,
+                "angle": 1.8924441944229784,
                 "flipX": false,
                 "frame": "3"
               }
@@ -242,7 +242,7 @@
           "path": "qa/evidence/kiln-view-desktop-1440-dpr2-west-exit-sign.png",
           "scene": "kiln",
           "paused": true,
-          "time": 315.76666666670815,
+          "time": 315.96666666670797,
           "player": {
             "x": 270,
             "y": 480,
@@ -452,7 +452,7 @@
           "path": "qa/evidence/kiln-view-desktop-1440-dpr2-west-court-duqin.png",
           "scene": "kiln",
           "paused": true,
-          "time": 315.83333333337475,
+          "time": 316.28333333337434,
           "player": {
             "x": 270,
             "y": 480,
@@ -662,7 +662,7 @@
           "path": "qa/evidence/kiln-view-desktop-1440-dpr2-intact-screen.png",
           "scene": "kiln",
           "paused": true,
-          "time": 317.016666666707,
+          "time": 317.48333333337325,
           "player": {
             "x": 349.5020225348595,
             "y": 640.0037693013645,
@@ -695,7 +695,7 @@
             },
             "screen": {
               "x": 500.0000128772499,
-              "y": 520.1186565273379
+              "y": 522.0593324643937
             }
           },
           "labels": [
@@ -892,7 +892,7 @@
           "path": "qa/evidence/kiln-view-desktop-1440-dpr2-east-exit-sign.png",
           "scene": "kiln",
           "paused": true,
-          "time": 324.80000000003326,
+          "time": 325.483333333366,
           "player": {
             "x": 1219.2120342338949,
             "y": 652.8896670484049,
@@ -972,7 +972,7 @@
                 "id": "kiln_raider_a",
                 "x": 882.7077951664569,
                 "y": 769.4085486573179,
-                "angle": 1.9973003331243717,
+                "angle": 1.965817489518031,
                 "flipX": false,
                 "frame": "0"
               },
@@ -1083,7 +1083,7 @@
           "path": "qa/evidence/kiln-view-desktop-1440-dpr2-canal-connection.png",
           "scene": "canal",
           "paused": true,
-          "time": 324.98333333336643,
+          "time": 325.6833333333658,
           "player": {
             "x": 500,
             "y": 570,
@@ -1134,8 +1134,8 @@
               "id": "xu_canal",
               "text": "许照",
               "bounds": {
-                "x": 518.0298461914062,
-                "y": 629.6583862304688,
+                "x": 515.9122924804688,
+                "y": 630.822998046875,
                 "w": 37,
                 "h": 21
               }
@@ -1213,9 +1213,9 @@
               },
               {
                 "id": "xu_canal",
-                "x": 536.5298254652266,
-                "y": 614.6583889699039,
-                "angle": -0.05447227949559874,
+                "x": 534.4122818315333,
+                "y": 615.8229862123798,
+                "angle": -0.08807990506625174,
                 "flipX": true,
                 "frame": "3"
               },
@@ -1260,8 +1260,8 @@
                 "id": "xu_canal",
                 "text": "许照",
                 "bounds": {
-                  "x": 518.0298461914062,
-                  "y": 629.6583862304688,
+                  "x": 515.9122924804688,
+                  "y": 630.822998046875,
                   "w": 37,
                   "h": 21
                 }
@@ -1475,7 +1475,7 @@
             "x": 349.5020225348595,
             "y": 640.0037693013645
           },
-          "elapsedModelSeconds": 1.183333333332257
+          "elapsedModelSeconds": 1.1999999999989086
         },
         {
           "action": "real center"
@@ -1495,7 +1495,7 @@
             "x": 359.92403144951817,
             "y": 700.4451417871098
           },
-          "elapsedModelSeconds": 0.4166666666662877
+          "elapsedModelSeconds": 0.46666666666624224
         },
         {
           "action": "actual mouse walk",
@@ -1512,7 +1512,7 @@
             "x": 360.0000345160525,
             "y": 820.4451177184967
           },
-          "elapsedModelSeconds": 0.7833333333326209
+          "elapsedModelSeconds": 0.8666666666658784
         },
         {
           "action": "actual mouse walk",
@@ -1529,7 +1529,7 @@
             "x": 797.3331455270181,
             "y": 820.8860915469423
           },
-          "elapsedModelSeconds": 2.783333333330802
+          "elapsedModelSeconds": 2.8666666666640594
         },
         {
           "action": "actual mouse walk",
@@ -1546,7 +1546,7 @@
             "x": 1026.66647884492,
             "y": 820.888751724458
           },
-          "elapsedModelSeconds": 1.4666666666653327
+          "elapsedModelSeconds": 1.4833333333319842
         },
         {
           "action": "actual mouse walk",
@@ -1563,7 +1563,7 @@
             "x": 1218.6664788449255,
             "y": 820.8887812404689
           },
-          "elapsedModelSeconds": 1.2499999999988631
+          "elapsedModelSeconds": 1.2333333333322116
         },
         {
           "action": "actual mouse walk",
@@ -1728,13 +1728,13 @@
           "path": "qa/evidence/kiln-view-short-1280-dpr1-creek-entry-sign.png",
           "scene": "creek",
           "paused": true,
-          "time": 314.6833333333758,
+          "time": 314.90000000004227,
           "player": {
-            "x": 698.0273480658469,
-            "y": 314.3580997953218,
+            "x": 697.8119476082672,
+            "y": 313.9795847723476,
             "hp": 4,
             "mana": 0,
-            "facing": -0.0629615904427087,
+            "facing": -0.07059151385936177,
             "invulnerable": 0,
             "cooldown": 0,
             "ward": 0,
@@ -1761,7 +1761,7 @@
             },
             "screen": {
               "x": 526.9999847412114,
-              "y": 191.25131951812813
+              "y": 190.5988542303801
             }
           },
           "labels": [
@@ -1799,8 +1799,8 @@
               "id": "xu_creek",
               "text": "许照",
               "bounds": {
-                "x": 563.4441528320312,
-                "y": 336.7994689941406,
+                "x": 572.5401000976562,
+                "y": 336.6001892089844,
                 "w": 37,
                 "h": 21
               }
@@ -1820,9 +1820,9 @@
             "actors": [
               {
                 "id": "xu_creek",
-                "x": 581.9441356293918,
-                "y": 321.79946054097024,
-                "angle": -1.999982168078077,
+                "x": 591.0400733217134,
+                "y": 321.6001822830874,
+                "angle": 0.7482006404197818,
                 "flipX": false,
                 "frame": "3"
               }
@@ -1871,8 +1871,8 @@
                 "id": "xu_creek",
                 "text": "许照",
                 "bounds": {
-                  "x": 563.4441528320312,
-                  "y": 336.7994689941406,
+                  "x": 572.5401000976562,
+                  "y": 336.6001892089844,
                   "w": 37,
                   "h": 21
                 }
@@ -1954,13 +1954,13 @@
           "path": "qa/evidence/kiln-view-short-1280-dpr1-west-exit-sign.png",
           "scene": "kiln",
           "paused": true,
-          "time": 314.9166666667089,
+          "time": 315.200000000042,
           "player": {
             "x": 270,
             "y": 480,
             "hp": 4,
             "mana": 0,
-            "facing": -0.0629615904427087,
+            "facing": -0.07059151385936177,
             "invulnerable": 0,
             "cooldown": 0,
             "ward": 0,
@@ -2164,13 +2164,13 @@
           "path": "qa/evidence/kiln-view-short-1280-dpr1-west-court-duqin.png",
           "scene": "kiln",
           "paused": true,
-          "time": 315.0666666667088,
+          "time": 315.3333333333752,
           "player": {
             "x": 270,
             "y": 480,
             "hp": 4,
             "mana": 0,
-            "facing": -0.0629615904427087,
+            "facing": -0.07059151385936177,
             "invulnerable": 0,
             "cooldown": 0,
             "ward": 0,
@@ -2374,7 +2374,7 @@
           "path": "qa/evidence/kiln-view-short-1280-dpr1-intact-screen.png",
           "scene": "kiln",
           "paused": true,
-          "time": 316.28333333337434,
+          "time": 316.6000000000407,
           "player": {
             "x": 348.16514700569604,
             "y": 637.6902336658086,
@@ -2604,7 +2604,7 @@
           "path": "qa/evidence/kiln-view-short-1280-dpr1-east-exit-sign.png",
           "scene": "kiln",
           "paused": true,
-          "time": 324.6833333333667,
+          "time": 324.9000000000332,
           "player": {
             "x": 1219.3123210276685,
             "y": 651.6617267728701,
@@ -2683,8 +2683,8 @@
               {
                 "id": "kiln_raider_a",
                 "x": 881.9824682299889,
-                "y": 776.116615652398,
-                "angle": 0.9036895385413573,
+                "y": 774.8885643677352,
+                "angle": 1.322915021054996,
                 "flipX": false,
                 "frame": "0"
               },
@@ -2753,7 +2753,7 @@
               "kind": "enemy",
               "type": "raider",
               "x": 881.9824682299889,
-              "y": 776.116615652398,
+              "y": 774.8885643677352,
               "w": 40,
               "h": 60,
               "hp": 3,
@@ -2763,7 +2763,7 @@
               "data": {
                 "lastX": 1009.9563989074077,
                 "lastY": 819.655338099648,
-                "seen": 0.23333333333333894,
+                "seen": 0.28333333333333893,
                 "attack": 0
               },
               "timer": 0
@@ -2795,7 +2795,7 @@
           "path": "qa/evidence/kiln-view-short-1280-dpr1-canal-connection.png",
           "scene": "canal",
           "paused": true,
-          "time": 325.15000000003295,
+          "time": 325.31666666669946,
           "player": {
             "x": 500,
             "y": 570,
@@ -2927,7 +2927,7 @@
                 "id": "xu_canal",
                 "x": 515.3625828231225,
                 "y": 626.3192508261917,
-                "angle": -1.9981031034810712,
+                "angle": -0.22820816487751472,
                 "flipX": true,
                 "frame": "3"
               },
@@ -3023,8 +3023,8 @@
               "name": "近墙散修",
               "kind": "enemy",
               "type": "raider",
-              "x": 890.2819112764798,
-              "y": 779.6900843904336,
+              "x": 886.725007113698,
+              "y": 778.5022574767864,
               "w": 40,
               "h": 60,
               "hp": 3,
@@ -3034,7 +3034,7 @@
               "data": {
                 "lastX": 1009.9563989074077,
                 "lastY": 819.655338099648,
-                "seen": 0.08333333333333898,
+                "seen": 0.13333333333333897,
                 "attack": 0
               },
               "timer": 0
@@ -3135,7 +3135,7 @@
           },
           "end": {
             "x": 1025.0000152587886,
-            "y": 392.0986764988793
+            "y": 392.7511417866273
           }
         },
         {
@@ -3150,27 +3150,27 @@
             "y": 340
           },
           "to": {
-            "x": 298.81991856501605,
-            "y": 339.52609994106325
+            "x": 298.8081661777647,
+            "y": 342.1927448959817
           },
-          "elapsedModelSeconds": 2.5999999999976353
+          "elapsedModelSeconds": 2.5666666666643323
         },
         {
           "action": "actual mouse walk",
           "scene": "creek",
           "from": {
-            "x": 298.81991856501605,
-            "y": 339.52609994106325
+            "x": 298.8081661777647,
+            "y": 342.1927448959817
           },
           "target": {
             "x": 700,
             "y": 315
           },
           "to": {
-            "x": 698.0273480658469,
-            "y": 314.3580997953218
+            "x": 697.8119476082672,
+            "y": 313.9795847723476
           },
-          "elapsedModelSeconds": 2.5999999999976353
+          "elapsedModelSeconds": 2.6999999999975444
         },
         {
           "action": "real center"
@@ -3231,7 +3231,7 @@
             "x": 348.16514700569604,
             "y": 637.6902336658086
           },
-          "elapsedModelSeconds": 1.2166666666655601
+          "elapsedModelSeconds": 1.2666666666655146
         },
         {
           "action": "real center"
@@ -3251,7 +3251,7 @@
             "x": 358.97002945105186,
             "y": 698.0643365007152
           },
-          "elapsedModelSeconds": 0.5166666666661968
+          "elapsedModelSeconds": 0.5333333333328483
         },
         {
           "action": "real Shift camera drag",
@@ -3279,7 +3279,7 @@
             "x": 359.29259260809533,
             "y": 818.0639029708065
           },
-          "elapsedModelSeconds": 0.916666666665833
+          "elapsedModelSeconds": 0.8666666666658784
         },
         {
           "action": "actual mouse walk",
@@ -3296,7 +3296,7 @@
             "x": 796.6230657977949,
             "y": 819.6455679552671
           },
-          "elapsedModelSeconds": 2.8666666666640594
+          "elapsedModelSeconds": 2.849999999997408
         },
         {
           "action": "actual mouse walk",
@@ -3313,7 +3313,7 @@
             "x": 1028.6230655544987,
             "y": 819.6561929872815
           },
-          "elapsedModelSeconds": 1.5999999999985448
+          "elapsedModelSeconds": 1.5833333333318933
         },
         {
           "action": "actual mouse walk",
@@ -3330,7 +3330,7 @@
             "x": 1217.9563988878213,
             "y": 819.6562548836123
           },
-          "elapsedModelSeconds": 1.3166666666654692
+          "elapsedModelSeconds": 1.2999999999988177
         },
         {
           "action": "actual mouse walk",
@@ -3347,7 +3347,7 @@
             "x": 1219.3123210276685,
             "y": 651.6617267728701
           },
-          "elapsedModelSeconds": 1.183333333332257
+          "elapsedModelSeconds": 1.1666666666656056
         },
         {
           "action": "real center"
@@ -3507,13 +3507,13 @@
           "path": "qa/evidence/kiln-view-phone-390-dpr3-creek-entry-sign.png",
           "scene": "creek",
           "paused": true,
-          "time": 317.10000000004027,
+          "time": 316.9500000000404,
           "player": {
-            "x": 698.8256663257207,
-            "y": 315.0769972692135,
+            "x": 699.1367217684484,
+            "y": 315.0573048498516,
             "hp": 4,
             "mana": 0,
-            "facing": -0.06546144628859966,
+            "facing": -0.06626774162255462,
             "invulnerable": 0,
             "cooldown": 0,
             "ward": 0,
@@ -3539,7 +3539,7 @@
               "y": 271
             },
             "screen": {
-              "x": 128.69999255199045,
+              "x": 127.84999253609588,
               "y": 230.35002441406286
             }
           },
@@ -3578,8 +3578,8 @@
               "id": "xu_creek",
               "text": "许照",
               "bounds": {
-                "x": 596.550048828125,
-                "y": 335.5860900878906,
+                "x": 597.6702880859375,
+                "y": 335.5790710449219,
                 "w": 37,
                 "h": 21
               }
@@ -3599,9 +3599,9 @@
             "actors": [
               {
                 "id": "xu_creek",
-                "x": 615.0500650927424,
-                "y": 320.586093546706,
-                "angle": 1.944128264996948,
+                "x": 616.1702582601466,
+                "y": 320.57908063933473,
+                "angle": -0.03225751961190326,
                 "flipX": false,
                 "frame": "3"
               }
@@ -3650,8 +3650,8 @@
                 "id": "xu_creek",
                 "text": "许照",
                 "bounds": {
-                  "x": 596.550048828125,
-                  "y": 335.5860900878906,
+                  "x": 597.6702880859375,
+                  "y": 335.5790710449219,
                   "w": 37,
                   "h": 21
                 }
@@ -3733,13 +3733,13 @@
           "path": "qa/evidence/kiln-view-phone-390-dpr3-west-exit-sign.png",
           "scene": "kiln",
           "paused": true,
-          "time": 317.90000000003954,
+          "time": 317.733333333373,
           "player": {
             "x": 270,
             "y": 480,
             "hp": 4,
             "mana": 0,
-            "facing": -0.06546144628859966,
+            "facing": -0.06626774162255462,
             "invulnerable": 0,
             "cooldown": 0,
             "ward": 0,
@@ -3943,13 +3943,13 @@
           "path": "qa/evidence/kiln-view-phone-390-dpr3-west-court-duqin.png",
           "scene": "kiln",
           "paused": true,
-          "time": 318.4666666667057,
+          "time": 318.3000000000392,
           "player": {
             "x": 270,
             "y": 480,
             "hp": 4,
             "mana": 0,
-            "facing": -0.06546144628859966,
+            "facing": -0.06626774162255462,
             "invulnerable": 0,
             "cooldown": 0,
             "ward": 0,
@@ -4153,7 +4153,7 @@
           "path": "qa/evidence/kiln-view-phone-390-dpr3-intact-screen.png",
           "scene": "kiln",
           "paused": true,
-          "time": 320.1166666667042,
+          "time": 320.06666666670424,
           "player": {
             "x": 348.7096045531953,
             "y": 637.4191797433849,
@@ -4383,7 +4383,7 @@
           "path": "qa/evidence/kiln-view-phone-390-dpr3-east-exit-sign.png",
           "scene": "kiln",
           "paused": true,
-          "time": 331.5666666666938,
+          "time": 331.40000000002726,
           "player": {
             "x": 1219.9883194683516,
             "y": 651.4758565140006,
@@ -4461,8 +4461,8 @@
               },
               {
                 "id": "kiln_raider_a",
-                "x": 961.1245955737156,
-                "y": 802.94776573227,
+                "x": 960.0969265371823,
+                "y": 802.6049721173035,
                 "angle": 0,
                 "flipX": false,
                 "frame": "0"
@@ -4531,21 +4531,21 @@
               "name": "近墙散修",
               "kind": "enemy",
               "type": "raider",
-              "x": 961.1245955737156,
-              "y": 802.94776573227,
+              "x": 960.0969265371823,
+              "y": 802.6049721173035,
               "w": 40,
               "h": 60,
               "hp": 3,
-              "state": "alert",
+              "state": "searching",
               "homeX": 710,
               "homeY": 640,
               "data": {
-                "lastX": 1219.9883194683516,
-                "lastY": 651.4758565140006,
-                "seen": 3,
+                "lastX": 1010.6561458018249,
+                "lastY": 819.4697183784873,
+                "seen": 0,
                 "attack": 0
               },
-              "timer": 0.883333333333333
+              "timer": 0
             },
             {
               "id": "kiln_raider_b",
@@ -4574,13 +4574,13 @@
           "path": "qa/evidence/kiln-view-phone-390-dpr3-canal-connection.png",
           "scene": "canal",
           "paused": true,
-          "time": 332.4500000000263,
+          "time": 332.2166666666932,
           "player": {
             "x": 500,
             "y": 570,
             "hp": 4,
             "mana": 0,
-            "facing": -1.5706915459753379,
+            "facing": -1.5706915459753419,
             "invulnerable": 0,
             "cooldown": 0,
             "ward": 0,
@@ -4705,8 +4705,8 @@
               {
                 "id": "xu_canal",
                 "x": 515.423289848992,
-                "y": 626.4290188717302,
-                "angle": 1.9003481035348386,
+                "y": 626.4290188717304,
+                "angle": -1.4975423439311726,
                 "flipX": true,
                 "frame": "3"
               },
@@ -4813,10 +4813,10 @@
               "data": {
                 "lastX": 1219.9883194683516,
                 "lastY": 651.4758565140006,
-                "seen": 2.9000000000000004,
+                "seen": 2.833333333333334,
                 "attack": 0
               },
-              "timer": 0.5999999999999988
+              "timer": 0.6833333333333323
             },
             {
               "id": "kiln_raider_b",
@@ -4861,7 +4861,7 @@
           },
           "end": {
             "x": 46.80000000000001,
-            "y": 344.0499772791765
+            "y": 344.49997728759126
           }
         },
         {
@@ -4929,10 +4929,10 @@
             "y": 340
           },
           "to": {
-            "x": 312.9871760375352,
-            "y": 340.37068271128334
+            "x": 315.97956466871,
+            "y": 340.4854971420274
           },
-          "elapsedModelSeconds": 3.4833333333301653
+          "elapsedModelSeconds": 3.5833333333300743
         },
         {
           "action": "real Shift camera drag",
@@ -4960,16 +4960,16 @@
           "action": "actual touch walk",
           "scene": "creek",
           "from": {
-            "x": 312.9871760375352,
-            "y": 340.37068271128334
+            "x": 315.97956466871,
+            "y": 340.4854971420274
           },
           "target": {
             "x": 700,
             "y": 315
           },
           "to": {
-            "x": 698.8256663257207,
-            "y": 315.0769972692135
+            "x": 699.1367217684484,
+            "y": 315.0573048498516
           },
           "elapsedModelSeconds": 2.9999999999972715
         },
@@ -5021,7 +5021,7 @@
             "x": 348.7096045531953,
             "y": 637.4191797433849
           },
-          "elapsedModelSeconds": 1.6499999999984993
+          "elapsedModelSeconds": 1.76666666666506
         },
         {
           "action": "real center"
@@ -5041,7 +5041,7 @@
             "x": 359.599140840406,
             "y": 697.7780711946649
           },
-          "elapsedModelSeconds": 0.949999999999136
+          "elapsedModelSeconds": 0.983333333332439
         },
         {
           "action": "actual touch walk",
@@ -5058,7 +5058,7 @@
             "x": 359.99271713215006,
             "y": 817.7774257666885
           },
-          "elapsedModelSeconds": 1.3999999999987267
+          "elapsedModelSeconds": 1.2833333333321661
         },
         {
           "action": "real Shift camera drag",
@@ -5097,7 +5097,7 @@
             "x": 797.3228126775874,
             "y": 819.4602729561633
           },
-          "elapsedModelSeconds": 3.3999999999969077
+          "elapsedModelSeconds": 3.4999999999968168
         },
         {
           "action": "real Shift camera drag",
@@ -5125,7 +5125,7 @@
             "x": 1029.3228124501954,
             "y": 819.4705448529407
           },
-          "elapsedModelSeconds": 2.199999999997999
+          "elapsedModelSeconds": 2.09999999999809
         },
         {
           "action": "real Shift camera drag",
@@ -5170,7 +5170,7 @@
             "x": 1219.9883194683516,
             "y": 651.4758565140006
           },
-          "elapsedModelSeconds": 1.6999999999984539
+          "elapsedModelSeconds": 1.6666666666651508
         },
         {
           "action": "real center"
@@ -5284,7 +5284,7 @@
           "y": 570,
           "hp": 4,
           "mana": 0,
-          "facing": -1.5706915459753379,
+          "facing": -1.5706915459753419,
           "invulnerable": 0,
           "cooldown": 0,
           "ward": 0,
@@ -5316,5 +5316,5 @@
     "origin": "Fixed actual v0.5 settings completion export; migrated by the production UI on every viewport. No generated v0.6 save is represented as this historical fixture."
   },
   "browser": "150.0.7871.114",
-  "completedAt": "2026-09-12T01:19:13.297Z"
+  "completedAt": "2026-09-12T01:57:30.235Z"
 }

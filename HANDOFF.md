@@ -1,3 +1,23 @@
+# 当前：旋屏专项PASS，准备提交后全R8
+
+mobile-rotation-080-r1 supervisor1292302 exit0，实际捕获350ms resize未派发，随后事件正确更新，尺寸与真实触控通过；qa/mobile-rotation-green-r1归档、root目视。仅QA脚本与verify顺序改动（手机提前，34项不减）。游戏DwjNP5Si/DzkGuDoj不变，当前无浏览器。提交推送后用cache/xian-ni-qa/verify-080-r8.log/.exit启动完整验收，公网仍0.7。0.9小样等待浏览器，不以交接停工。
+
+---
+
+# 当前：完整0.8验收R7失败，手机旋屏诊断
+
+R7 supervisor1285893已exit1，无活动浏览器。冻结源bc67cb3；前序同行、旧窑（含烧尽与恢复）、布局和交互通过，mobile-render在350ms后仍读取竖屏尺寸[1170,2532,390]，期望[2532,1170,844]。原始失败已归档qa/verify-080-r7，尚无resize事件证据，不预判游戏或驱动根因。当前仅给手机脚本增加观察，固定preview4204；公网仍0.7，不部署FAIL。下文运行中状态均为历史。
+
+---
+
+# 当前唯一活动：完整0.8验收R7
+
+冻结源 **bc67cb35416ff9ea8835832758908d4d489349a8**，已成功推送（session65225 exit0）；supervisor **1285893** 独占浏览器，日志/home/zhangjingzhou/.cache/xian-ni-qa/verify-080-r7.log，结束同名.exit，自有preview4187。全34命令/六判据/源码dist指纹，源代码/脚本/包/资产全部冻结，只有非运行文档可改。
+
+R6原FAIL与冷却恢复专项GREEN均已提交；新版只改五个QA脚本的自然等待预算，游戏DwjNP5Si/DzkGuDoj不变。R7尚未完成，不部署、不启动另一个浏览器。0.9另树73c05fd小样已推送，模型/构建已完成、实际浏览器未开始。所有agents停止。原用户“继续，别停”，本轮结束按实际结果继续发行或修正，不以交接结束工作。
+
+---
+
 # 最新：恢复专项PASS，提交后启动全R7
 
 supervisor1284769已exit0，qa/evidence/kiln-recovery-080-r1.json PASS/errors空，原样归档qa/kiln-recovery-green-r1。五次真实ward扣MP/自然冷却后最后控屏0MP，键盘脱困、导出新context恢复点击脱困、重开通过，HP4。当前无浏览器。五QA脚本自然等待预算已静态复核/语法检查，游戏源/包/dist未改；后四life/canal脚本仍待实测，不预支PASS。下一步提交推送后冻结全34命令R7，日志新用cache/xian-ni-qa/verify-080-r7.log/.exit。0.9小样继续等0.8发行后，不抢浏览器。下文R6及专项活动状态为历史。

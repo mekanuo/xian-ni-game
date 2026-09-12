@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "bc67cb35416ff9ea8835832758908d4d489349a8",
+  "exit": 1,
+  "failure": "Rotation after fixed 350ms still reads portrait canvas dimensions; no resize event observation in original script",
+  "actual": [
+    1170,
+    2532,
+    390
+  ],
+  "expected": [
+    2532,
+    1170,
+    844
+  ]
+}
