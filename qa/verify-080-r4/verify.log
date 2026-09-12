@@ -1,0 +1,444 @@
+
+> xian-ni-shanmen-zhiwai@0.8.0 verify
+> node scripts/verify.mjs
+
+
+> xian-ni-shanmen-zhiwai@0.8.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space
+
+
+ Test Files  45 passed (45)
+      Tests  956 passed (956)
+   Start at  00:48:17
+   Duration  11.68s (transform 1.45s, setup 0ms, import 5.30s, tests 19.39s, environment 6ms)
+
+
+> xian-ni-shanmen-zhiwai@0.8.0 build
+> tsc --noEmit && vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 42 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.72 kB │ gzip:   0.51 kB
+dist/assets/index-DzkGuDoj.css     31.78 kB │ gzip:   7.87 kB
+dist/assets/index-DwjNP5Si.js   1,535.40 kB │ gzip: 446.21 kB
+✓ built in 4.43s
+ui-click {"selector":"[data-ui=\"settings\"]"}
+settings-import {"path":"qa/evidence/market-2026-09-11T15-48-58-773Z/market-west-entry.json","sha256":"1f0f5adc4d781ec048a086c8d73327cc0141a4063f3fbf6b03a352f5a0d983d4"}
+ui-click {"selector":".action-dock [data-ui=\"pause\"]"}
+world-click {"world":{"x":380,"y":720},"screen":{"x":390.8571011679535,"y":611.9999809435448}}
+arrived {"x":378.43713709770464,"y":721.5225206115974,"hp":4,"time":405.68333333329304}
+ui-click {"selector":"[data-ui=\"spell:pull\"]"}
+world-click {"world":{"x":460,"y":720},"screen":{"x":473.14281545366777,"y":611.9999809435448}}
+world-click {"world":{"x":490,"y":840},"screen":{"x":503.9999583108106,"y":735.4285523721162}}
+ui-click {"selector":"[data-ui=\"release\"]"}
+world-click {"world":{"x":480,"y":460},"screen":{"x":493.7142440250963,"y":344.5714095149733}}
+arrived {"x":479.01135882151993,"y":460.20886630962985,"hp":4,"time":423.7833333332766}
+actual-threat-approach-ready {"enemy":{"id":"market_raider","name":"占道散修","kind":"enemy","type":"raider","x":510.4333819705856,"y":724.6192061281315,"homeX":850,"homeY":560,"w":40,"h":60,"hp":3,"state":"chasing","data":{"lastX":479.01135882151993,"lastY":460.20886630962985,"seen":3,"attack":0.4333333333333333},"timer":0},"player":{"x":479.01135882151993,"y":460.20886630962985,"hp":4,"mana":5,"facing":-1.2033925897208924,"invulnerable":0,"cooldown":0,"ward":0,"wardFacing":0,"pullId":null,"pullPoint":null,"hold":0,"path":[]},"time":425.3499999999418}
+world-click {"world":{"x":470,"y":380},"screen":{"x":483.42852973938204,"y":390.85711656298093}}
+ui-click {"selector":"[data-ui=\"choice:market:exchange\"]"}
+ui-click {"selector":".action-dock [data-ui=\"pause\"]"}
+camera-shift-drag {"origin":{"x":1120,"y":470},"end":{"x":1415,"y":210}}
+paused-ground-retreat {"world":{"x":180,"y":780},"screen":{"x":185.1428154536678,"y":673.7142666578304}}
+ui-click {"selector":".action-dock [data-ui=\"pause\"]"}
+ui-click {"selector":".action-dock [data-ui=\"pause\"]"}
+Market visual capture desktop-1440-dpr2 west-sign
+Market visual capture desktop-1440-dpr2 merchant-idle
+Market visual capture desktop-1440-dpr2 merchant-dialogue
+Market visual capture desktop-1440-dpr2 merchant-walking
+Market visual capture desktop-1440-dpr2 physical-door-open
+Market visual capture short-1280-dpr1 west-sign
+Market visual capture short-1280-dpr1 merchant-idle
+Market visual capture short-1280-dpr1 merchant-dialogue
+Market visual capture short-1280-dpr1 merchant-walking
+Market visual capture short-1280-dpr1 physical-door-open
+Market visual capture phone-390-dpr3 west-sign
+Market visual capture phone-390-dpr3 merchant-idle
+Market visual capture phone-390-dpr3 merchant-dialogue
+Market visual capture phone-390-dpr3 merchant-walking
+Market visual capture phone-390-dpr3 physical-door-open
+{"status":"PASS","runId":"2026-09-11T23-49-31-953Z","output":"qa/evidence/market-view.json","folder":"qa/evidence/market-view-2026-09-11T23-49-31-953Z","devices":[{"id":"desktop-1440-dpr2","status":"PASS","poses":{"idle":"PASS","walking":"PASS","waiting":"NOT_RUN"}},{"id":"short-1280-dpr1","status":"PASS","poses":{"idle":"PASS","walking":"PASS","waiting":"NOT_RUN"}},{"id":"phone-390-dpr3","status":"PASS","poses":{"idle":"PASS","walking":"PASS","waiting":"NOT_RUN"}}]}
+new game title buttons {"buttons":["入 山","去回石驿"]} 0 4
+DOM click {"selector":"[data-ui=\"settings\"]"} 0 4
+settings file input {"name":"actual-market-west-entry.json","sha256":"4b17256c1392208760c01c9fb392d2db907e6f26ef1786874e49296132789a89"} 0.03333333333333333 4
+settings import complete {"name":"actual-market-west-entry.json"} 405.1833333332935 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 405.1833333332935 4
+world click {"world":{"x":405,"y":800},"screen":{"x":416.5085066203407,"y":694.4354301851424}} 405.1833333332935 4
+interaction completed {"id":"xu_market"} 405.1833333332935 4
+DOM click {"selector":"[data-ui=\"choice:wait\"]"} 405.1833333332935 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 405.1833333332935 4
+DOM click {"selector":"[data-ui=\"settings\"]"} 405.2166666666268 4
+DOM click {"selector":"[data-ui=\"save\"]"} 405.2166666666268 4
+DOM click {"selector":"[data-ui=\"export\"]"} 405.2166666666268 4
+DOM click {"selector":"[data-ui=\"close\"]"} 405.2166666666268 4
+export complete {"path":"qa/evidence/market-consequences-2026-09-11T23-52-02-531Z/market-waiting-export.json"} 405.2166666666268 4
+DOM click {"selector":"[data-ui=\"settings\"]"} 405.2166666666268 4
+settings file input {"name":"market-waiting-export.json","sha256":"c478523117e80788f2354c09bab700950b8912c918252ad640d51be646400675"} 405.2166666666268 4
+settings import complete {"name":"market-waiting-export.json"} 405.2166666666268 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 405.2166666666268 4
+world click {"world":{"x":240,"y":760},"screen":{"x":246.81984969831777,"y":653.2987860828338}} 405.2166666666268 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 405.39999999995996 4
+interaction completed {"id":"market_entry","targetScene":"crossing"} 405.43333333329326 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 405.43333333329326 4
+world click {"world":{"x":1660,"y":520},"screen":{"x":1299.7825515077536,"y":415.0593323681961}} 405.43333333329326 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 405.43333333329326 4
+interaction completed {"id":"crossing_to_market","targetScene":"market"} 405.4833333332932 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 405.4833333332932 4
+world click {"world":{"x":405,"y":800},"screen":{"x":416.5085066203407,"y":694.4354301851424}} 405.4833333332932 4
+interaction completed {"id":"xu_market"} 405.4833333332932 4
+DOM click {"selector":"[data-ui=\"choice:invite\"]"} 405.4833333332932 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 405.4833333332932 4
+DOM click {"selector":"[data-ui=\"settings\"]"} 405.5166666666265 4
+DOM click {"selector":"[data-ui=\"save\"]"} 405.5166666666265 4
+DOM click {"selector":"[data-ui=\"export\"]"} 405.5166666666265 4
+DOM click {"selector":"[data-ui=\"close\"]"} 405.5166666666265 4
+export complete {"path":"qa/evidence/market-consequences-2026-09-11T23-52-02-531Z/market-following-export.json"} 405.5166666666265 4
+DOM click {"selector":"[data-ui=\"settings\"]"} 405.5166666666265 4
+settings file input {"name":"market-following-export.json","sha256":"0656da79b1867cc525e4b39f09ac4ce1be91b2134fc8158a41671c637938e63e"} 405.5166666666265 4
+settings import complete {"name":"market-following-export.json"} 405.5166666666265 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 405.5166666666265 4
+world click {"world":{"x":420,"y":460},"screen":{"x":431.93474815870644,"y":344.7739553155194}} 405.5166666666265 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 407.4166666666248 4
+arrived {"target":{"x":420,"y":460},"actual":{"x":418.7926152669463,"y":461.7393281203972}} 407.53333333329135 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 407.53333333329135 4
+world click {"world":{"x":470,"y":380},"screen":{"x":483.3555532865922,"y":390.79812270081516}} 407.53333333329135 4
+interaction completed {"id":"market_merchant"} 407.56666666662466 4
+DOM click {"selector":"[data-ui=\"choice:market:exchange\"]"} 407.56666666662466 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 407.56666666662466 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 407.69999999995787 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 408.8833333332901 4
+DOM click {"selector":"[data-ui=\"settings\"]"} 408.9999999999567 4
+DOM click {"selector":"[data-ui=\"save\"]"} 408.9999999999567 4
+DOM click {"selector":"[data-ui=\"export\"]"} 408.9999999999567 4
+DOM click {"selector":"[data-ui=\"close\"]"} 408.9999999999567 4
+export complete {"path":"qa/evidence/market-consequences-2026-09-11T23-52-02-531Z/market-open-export.json"} 408.9999999999567 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 408.9999999999567 4
+world click {"world":{"x":665,"y":410},"screen":{"x":683.8966932853465,"y":421.6506057775466}} 408.9999999999567 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 410.5333333332886 4
+arrived {"target":{"x":665,"y":410},"actual":{"x":662.4986204442837,"y":410.6590600963349}} 410.5666666666219 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 410.5666666666219 4
+world click {"world":{"x":820,"y":405},"screen":{"x":843.3011891817924,"y":416.508525264758}} 410.5666666666219 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 411.5333333332877 4
+arrived {"target":{"x":820,"y":405},"actual":{"x":817.0814934587313,"y":405.5685642092701}} 411.58333333328767 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 411.58333333328767 4
+world click {"world":{"x":1000,"y":440},"screen":{"x":1028.416087642181,"y":452.5030888542781}} 411.58333333328767 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 412.7333333332866 4
+arrived {"target":{"x":1000,"y":440},"actual":{"x":997.8036227436199,"y":440.1447407870194}} 412.7666666666199 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 412.7666666666199 4
+deliberate active exposure begins {"label":"retry","point":{"x":997.8036227436199,"y":440.1447407870194},"maxWallSeconds":240} 412.7833333332866 4
+DOM click {"selector":".defeat [data-ui=\"retry\"]"} 420.1666666666132 0
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 408.8666666666235 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 408.8999999999568 4
+world click {"world":{"x":665,"y":410},"screen":{"x":683.8966932853465,"y":421.6506057775466}} 408.9166666666234 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 410.44999999995537 4
+arrived {"target":{"x":665,"y":410},"actual":{"x":662.4986204442837,"y":410.6590600963349}} 410.48333333328867 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 410.48333333328867 4
+world click {"world":{"x":820,"y":405},"screen":{"x":843.3011891817924,"y":416.508525264758}} 410.48333333328867 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 411.44999999995446 4
+arrived {"target":{"x":820,"y":405},"actual":{"x":817.0814934587313,"y":405.5685642092701}} 411.4999999999544 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 411.4999999999544 4
+world click {"world":{"x":1000,"y":440},"screen":{"x":1028.416087642181,"y":452.5030888542781}} 411.4999999999544 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 412.66666666662 4
+arrived {"target":{"x":1000,"y":440},"actual":{"x":997.8036227436199,"y":440.1447407870194}} 412.6999999999533 4
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 412.6999999999533 4
+deliberate active exposure begins {"label":"retreat","point":{"x":997.8036227436199,"y":440.1447407870194},"maxWallSeconds":240} 412.6999999999533 4
+DOM click {"selector":".defeat [data-ui=\"retreat\"]"} 420.08333333327994 0
+DOM click {"selector":".action-dock [data-ui=\"pause\"]"} 420.1333333332799 4
+DOM click {"selector":"[data-ui=\"settings\"]"} 420.18333333327985 4
+DOM click {"selector":"[data-ui=\"save\"]"} 420.18333333327985 4
+DOM click {"selector":"[data-ui=\"export\"]"} 420.18333333327985 4
+DOM click {"selector":"[data-ui=\"close\"]"} 420.18333333327985 4
+export complete {"path":"qa/evidence/market-consequences-2026-09-11T23-52-02-531Z/market-retreated-export.json"} 420.18333333327985 4
+desktop settings-import {"name":"actual-kiln-zero-complete.json","contentVersion":7}
+desktop walk {"x":300,"y":340}
+desktop arrived {"scene":"creek","x":302.06161468109985,"y":340.8369185977465,"time":369.6499999999925,"hp":1}
+desktop walk {"x":300,"y":740}
+desktop arrived {"scene":"creek","x":300.01490382262295,"y":738.1649804716104,"time":372.19999999999015,"hp":1}
+desktop interact {"id":"rest_creek","scene":"creek","world":{"x":300,"y":860}}
+desktop walk {"x":1500,"y":820}
+desktop camera-shift-drag {"origin":{"x":720,"y":440},"dx":-576,"dy":-220.05933161235737}
+desktop arrived {"scene":"creek","x":1496.6735450192264,"y":820.8655828650957,"time":380.79999999998233,"hp":4}
+desktop interact {"id":"to_crossing","scene":"creek","world":{"x":1630,"y":820}}
+desktop walk {"x":600,"y":830}
+desktop arrived {"scene":"crossing","x":599.3324181489572,"y":830.8864747478372,"time":384.09999999997933,"hp":4}
+desktop walk {"x":1000,"y":830}
+desktop arrived {"scene":"crossing","x":999.3324181465812,"y":830.8878519559132,"time":386.59999999997706,"hp":4}
+desktop walk {"x":1370,"y":830}
+desktop arrived {"scene":"crossing","x":1367.3324181465905,"y":830.8878542464442,"time":388.89999999997497,"hp":4}
+desktop walk {"x":1640,"y":610}
+desktop arrived {"scene":"crossing","x":1638.8968851583586,"y":611.1459191626147,"time":391.09999999997297,"hp":4}
+desktop interact {"id":"crossing_to_market","scene":"crossing","world":{"x":1660,"y":520}}
+desktop settings-export "qa/evidence/market-2026-09-11T23-59-41-048Z/market-west-entry.json"
+desktop walk {"x":420,"y":460}
+desktop arrived {"scene":"market","x":418.7926152669463,"y":461.7393281203972,"time":393.29999999997096,"hp":4}
+desktop interact {"id":"market_merchant","scene":"market","world":{"x":470,"y":380}}
+desktop choose "market:exchange"
+desktop walk {"x":665,"y":410}
+desktop arrived {"scene":"market","x":662.4986204442837,"y":410.6590600963349,"time":396.216666666635,"hp":4}
+desktop walk {"x":820,"y":405}
+desktop arrived {"scene":"market","x":817.0814934587313,"y":405.5685642092701,"time":397.18333333330077,"hp":4}
+desktop walk {"x":1000,"y":440}
+desktop arrived {"scene":"market","x":997.8036227436199,"y":440.1447407870194,"time":398.3333333332997,"hp":4}
+desktop interact {"id":"market_exit","scene":"market","world":{"x":1140,"y":240}}
+desktop walk {"x":990,"y":700}
+desktop arrived {"scene":"canal","x":989.1136249948978,"y":699.3322088172313,"time":401.9166666666298,"hp":4}
+desktop interact {"id":"canal_rest_mid","scene":"canal","world":{"x":880,"y":720}}
+desktop walk {"x":990,"y":350}
+desktop arrived {"scene":"canal","x":989.0148086498726,"y":352.00851619472155,"time":404.3499999999609,"hp":4}
+desktop interact {"id":"canal_to_market","scene":"canal","world":{"x":1100,"y":300}}
+desktop walk {"x":1220,"y":220}
+desktop arrived {"scene":"market","x":1216.6652792820287,"y":220.7196909121482,"time":405.71666666662634,"hp":4}
+desktop walk {"x":1220,"y":880}
+desktop camera-shift-drag {"origin":{"x":720,"y":440},"dx":-534.6676302048782,"dy":-240}
+desktop arrived {"scene":"market","x":1219.3482168386151,"y":879.3808933704715,"time":409.9999999999558,"hp":4}
+desktop walk {"x":880,"y":880}
+desktop arrived {"scene":"market","x":880.6848862677202,"y":880.8841025171895,"time":412.1166666666205,"hp":4}
+desktop walk {"x":420,"y":880}
+desktop arrived {"scene":"market","x":422.01821961115,"y":880.8871460891172,"time":414.9833333332846,"hp":4}
+desktop interact {"id":"market_entry","scene":"market","world":{"x":240,"y":760}}
+desktop walk {"x":1370,"y":830}
+desktop arrived {"scene":"crossing","x":1371.4031344611346,"y":829.1654662588769,"time":417.9999999999485,"hp":4}
+desktop walk {"x":1000,"y":830}
+desktop arrived {"scene":"crossing","x":1000.740436881017,"y":830.8808089111741,"time":420.3999999999463,"hp":4}
+desktop walk {"x":600,"y":830}
+desktop arrived {"scene":"crossing","x":600.740436942567,"y":830.8878256384959,"time":422.89999999994404,"hp":4}
+desktop interact {"id":"to_creek","scene":"crossing","world":{"x":100,"y":860}}
+desktop walk {"x":300,"y":740}
+desktop camera-shift-drag {"origin":{"x":720,"y":440},"dx":576,"dy":-100.11865515308557}
+desktop arrived {"scene":"creek","x":300.5405177467087,"y":740.9216749197785,"time":434.19999999993377,"hp":4}
+desktop interact {"id":"to_home","scene":"creek","world":{"x":100,"y":770}}
+desktop walk {"x":900,"y":700}
+desktop arrived {"scene":"home","x":901.429509556714,"y":700.908381969225,"time":439.0999999999293,"hp":4}
+desktop interact {"id":"table","scene":"home","world":{"x":760,"y":410}}
+desktop choose "market:report"
+desktop settings-export "qa/evidence/market-2026-09-11T23-59-41-048Z/market-complete.json"
+phone settings-import {"name":"actual-kiln-zero-complete.json","contentVersion":7}
+phone walk {"x":300,"y":340}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":140.99997558593714}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":140.99997558593714}
+phone paused-phone-framing {"x":300,"y":340}
+phone arrived {"scene":"creek","x":302.0092158772655,"y":339.89081697637505,"time":370.6999999999915,"hp":1}
+phone walk {"x":300,"y":740}
+phone paused-phone-framing {"x":300,"y":740}
+phone arrived {"scene":"creek","x":300.0139647040428,"y":737.219140596191,"time":374.3833333333215,"hp":1}
+phone interact {"id":"rest_creek","scene":"creek","world":{"x":300,"y":860}}
+phone paused-phone-framing {"x":300,"y":860}
+phone walk {"x":1500,"y":820}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-240}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-176.45002272082343}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-176.45002272082343}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-176.45002272082343}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-176.45002272082343}
+phone paused-phone-framing {"x":1500,"y":820}
+phone arrived {"scene":"creek","x":1499.3391846210138,"y":819.9779102837305,"time":383.36666666664667,"hp":4}
+phone interact {"id":"to_crossing","scene":"creek","world":{"x":1630,"y":820}}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-176.45002272082343}
+phone paused-phone-framing {"x":1630,"y":820}
+phone walk {"x":600,"y":830}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-184.50002271240874}
+phone paused-phone-framing {"x":600,"y":830}
+phone arrived {"scene":"crossing","x":599.3333333333336,"y":830.0000011575713,"time":388.04999999997574,"hp":4}
+phone walk {"x":1000,"y":830}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-184.95002272082343}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-184.95002272082343}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-184.95002272082343}
+phone paused-phone-framing {"x":1000,"y":830}
+phone arrived {"scene":"crossing","x":999.3333333333279,"y":830.0000011593659,"time":391.2166666666395,"hp":4}
+phone walk {"x":1370,"y":830}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-184.95002272082343}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-184.95002272082343}
+phone paused-phone-framing {"x":1370,"y":830}
+phone arrived {"scene":"crossing","x":1367.3333333333374,"y":830.0000011593687,"time":394.34999999997,"hp":4}
+phone walk {"x":1640,"y":610}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":2.0499772791765167}
+phone paused-phone-framing {"x":1640,"y":610}
+phone arrived {"scene":"crossing","x":1639.2065636088316,"y":610.6401952756569,"time":397.8499999999668,"hp":4}
+phone interact {"id":"crossing_to_market","scene":"crossing","world":{"x":1660,"y":520}}
+phone paused-phone-framing {"x":1660,"y":520}
+phone settings-export "qa/evidence/market-2026-09-12T00-07-52-557Z/market-west-entry.json"
+phone walk {"x":420,"y":460}
+phone paused-phone-framing {"x":420,"y":460}
+phone arrived {"scene":"market","x":419.61931560162805,"y":461.9034766938846,"time":401.34999999996364,"hp":4}
+phone interact {"id":"market_merchant","scene":"market","world":{"x":470,"y":380}}
+phone paused-phone-framing {"x":470,"y":380}
+phone choose "market:exchange"
+phone walk {"x":665,"y":410}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":81.49997558593714}
+phone paused-phone-framing {"x":665,"y":410}
+phone arrived {"scene":"market","x":662.2997513063409,"y":410.43610703470915,"time":405.6999999999597,"hp":4}
+phone walk {"x":820,"y":405}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":85.74997558593714}
+phone paused-phone-framing {"x":820,"y":405}
+phone arrived {"scene":"market","x":819.5396919637518,"y":405.015881962697,"time":407.33333333329153,"hp":4}
+phone walk {"x":1000,"y":440}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":55.999975585937136}
+phone paused-phone-framing {"x":1000,"y":440}
+phone arrived {"scene":"market","x":997.5587296215789,"y":439.52674994888343,"time":409.366666666623,"hp":4}
+phone interact {"id":"market_exit","scene":"market","world":{"x":1140,"y":240}}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":-146.19998826045588,"dy":225.99997558593714}
+phone paused-phone-framing {"x":1140,"y":240}
+phone walk {"x":990,"y":700}
+phone paused-phone-framing {"x":990,"y":700}
+phone arrived {"scene":"canal","x":990.0000005599163,"y":699.3333333333318,"time":414.9666666666179,"hp":3}
+phone interact {"id":"canal_rest_mid","scene":"canal","world":{"x":880,"y":720}}
+phone paused-phone-framing {"x":880,"y":720}
+phone walk {"x":990,"y":350}
+phone paused-phone-framing {"x":990,"y":350}
+phone arrived {"scene":"canal","x":980.807899054066,"y":361.96289181543426,"time":418.46666666661474,"hp":4}
+phone interact {"id":"canal_to_market","scene":"canal","world":{"x":1100,"y":300}}
+phone paused-phone-framing {"x":1100,"y":300}
+phone walk {"x":1220,"y":340}
+phone paused-phone-framing {"x":1220,"y":340}
+phone arrived {"scene":"market","x":1219.0240615400683,"y":337.2544997127206,"time":421.66666666661183,"hp":4}
+phone walk {"x":1220,"y":860}
+phone paused-phone-framing {"x":1220,"y":860}
+phone arrived {"scene":"market","x":1226.5477323177,"y":857.2000683812345,"time":426.1499999999411,"hp":4}
+phone walk {"x":880,"y":860}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-240}
+phone paused-phone-framing {"x":880,"y":860}
+phone arrived {"scene":"market","x":882.5589596467569,"y":859.9793266157736,"time":429.21666666660497,"hp":4}
+phone walk {"x":420,"y":860}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-240}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-240}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-240}
+phone paused-phone-framing {"x":420,"y":860}
+phone arrived {"scene":"market","x":421.22562677426487,"y":859.9999469384211,"time":433.1166666666014,"hp":4}
+phone interact {"id":"market_entry","scene":"market","world":{"x":240,"y":760}}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-210.45002431028058}
+phone paused-phone-framing {"x":240,"y":760}
+phone walk {"x":1370,"y":830}
+phone paused-phone-framing {"x":1370,"y":830}
+phone arrived {"scene":"crossing","x":1371.2518656237717,"y":828.9799489612585,"time":437.633333333264,"hp":4}
+phone walk {"x":1000,"y":830}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-184.50002271240874}
+phone paused-phone-framing {"x":1000,"y":830}
+phone arrived {"scene":"crossing","x":1000.5865980887687,"y":829.9983894223769,"time":440.63333333326125,"hp":4}
+phone walk {"x":600,"y":830}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-184.95002272082343}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-184.95002272082343}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-184.95002272082343}
+phone paused-phone-framing {"x":600,"y":830}
+phone arrived {"scene":"crossing","x":600.5865980920145,"y":829.9999987992271,"time":444.03333333325816,"hp":4}
+phone interact {"id":"to_creek","scene":"crossing","world":{"x":100,"y":860}}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-210.45002272082343}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-210.45002272082343}
+phone paused-phone-framing {"x":100,"y":860}
+phone walk {"x":300,"y":740}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-108.00002271240874}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-108.45002272082354}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-108.45002272082354}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-108.45002272082354}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-108.45002272082354}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-108.45002272082354}
+phone paused-phone-framing {"x":300,"y":740}
+phone arrived {"scene":"creek","x":300.59761772918046,"y":740.0388690245824,"time":455.6999999999142,"hp":4}
+phone interact {"id":"to_home","scene":"creek","world":{"x":100,"y":770}}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-133.95002272082354}
+phone paused-phone-framing {"x":100,"y":770}
+phone walk {"x":900,"y":700}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-74.00002271240874}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-74.45002272082348}
+phone camera-single-finger-drag {"origin":{"x":195,"y":430},"dx":156,"dy":-74.45002272082348}
+phone paused-phone-framing {"x":900,"y":700}
+phone arrived {"scene":"home","x":901.4137893451004,"y":699.9771956015495,"time":462.1999999999083,"hp":4}
+phone interact {"id":"table","scene":"home","world":{"x":760,"y":410}}
+phone paused-phone-framing {"x":760,"y":410}
+phone choose "market:report"
+phone settings-export "qa/evidence/market-2026-09-12T00-07-52-557Z/market-complete.json"
+desktop settings-import {"name":"return-canal-v0.4.0.json","contentVersion":7}
+desktop interact {"id":"table","scene":"home","world":{"x":760,"y":410}}
+desktop choose "journey:agree:together"
+desktop interact {"id":"to_creek","scene":"home","world":{"x":1640,"y":690}}
+desktop camera-shift-drag {"origin":{"x":720,"y":440},"dx":-576,"dy":-240}
+desktop choose "canal:depart:creek"
+desktop interact {"id":"to_workshop","scene":"creek","world":{"x":1640,"y":370}}
+desktop camera-shift-drag {"origin":{"x":720,"y":440},"dx":-576,"dy":240}
+desktop walk {"x":300,"y":340}
+desktop walk {"x":1600,"y":330}
+desktop camera-shift-drag {"origin":{"x":720,"y":440},"dx":-576,"dy":110}
+desktop walk {"x":1600,"y":720}
+desktop walk {"x":1440,"y":780}
+desktop settings-export "qa/evidence/journey-ready-input.json"
+desktop interact {"id":"xu_work","scene":"workshop","world":{"x":1517.1413766107814,"y":743.7935922920291}}
+desktop choose "journey:start:together:north"
+desktop continuous-leadership-start {"player":{"x":1440.4114179622825,"y":779.8440381218569,"hp":4,"mana":0,"facing":2.7792464948799935,"invulnerable":0,"cooldown":0,"ward":0,"wardFacing":0,"pullId":null,"pullPoint":null,"hold":0,"path":[]},"npc":{"id":"xu_work","kind":"npc","type":"xu","name":"许照","x":1517.1413766107814,"y":743.7935922920291,"w":40,"h":62,"state":"following","hint":"交谈","homeX":1420,"homeY":740,"facing":2.7023666466310647},"run":{"mode":"together","plan":"north","next":1,"playerGate":false,"companionGate":false,"viaSouth":false,"waiting":false}}
+desktop follow-with-ground-input {"target":{"x":1514.947276515216,"y":780.8381200374572},"npc":{"x":1582.1796204958516,"y":725.117280822048},"player":{"x":1440.4114179622825,"y":779.8440381218569}}
+desktop follow-with-ground-input {"target":{"x":1583.448970903726,"y":751.2629165924807},"npc":{"x":1586.58967356189,"y":671.3245904478022},"player":{"x":1501.7446135489342,"y":779.9740262275025}}
+desktop follow-with-ground-input {"target":{"x":1585.9157311164925,"y":688.478022933014},"npc":{"x":1589.0564337746566,"y":608.5396967883355},"player":{"x":1567.0503589755115,"y":756.6873191741092}}
+desktop follow-with-ground-input {"target":{"x":1588.0029897580641,"y":635.3523436826961},"npc":{"x":1591.1436924162283,"y":555.4140175380176},"player":{"x":1581.883256331906,"y":699.9267436503153}}
+desktop follow-with-ground-input {"target":{"x":1590.1851237924345,"y":579.8118608300911},"npc":{"x":1593.3258264505987,"y":499.87353468541244},"player":{"x":1587.5917778133808,"y":638.8596448140911}}
+desktop follow-with-ground-input {"target":{"x":1592.367257826805,"y":524.2713779774858},"npc":{"x":1595.507960484969,"y":444.3330518328073},"player":{"x":1589.966733390949,"y":580.241069568847}}
+desktop follow-with-ground-input {"target":{"x":1595.308395003565,"y":449.4124663065833},"npc":{"x":1598.4490976617292,"y":369.47414016190476},"player":{"x":1591.9655743153983,"y":524.2767538403514}}
+desktop follow-with-ground-input {"target":{"x":1637.9288795911107,"y":373.02728150454476},"npc":{"x":1570.9959062004493,"y":329.20973852133955},"player":{"x":1594.4472740842855,"y":462.993648957889}}
+desktop follow-with-ground-input {"target":{"x":1589.4024738828787,"y":341.25956284172156},"npc":{"x":1522.469500492218,"y":297.44201985851566},"player":{"x":1621.566689246441,"y":405.0235073221935}}
+desktop follow-with-ground-input {"target":{"x":1544.919935317,"y":312.13915406746634},"npc":{"x":1477.9869619263397,"y":268.32161108425953},"player":{"x":1594.9681945371167,"y":352.7329932974119}}
+desktop follow-with-ground-input {"target":{"x":1509.998646730127,"y":259.42152851580346},"npc":{"x":1430.0011539324041,"y":258.78816757740447},"player":{"x":1551.2221451602613,"y":317.771826784871}}
+desktop follow-with-ground-input {"target":{"x":1435.0843279539292,"y":258.8284123870324},"npc":{"x":1355.0868351562065,"y":258.19505144863336},"player":{"x":1509.3889899653489,"y":259.58152024923623}}
+desktop follow-with-ground-input {"target":{"x":1379.502736603847,"y":258.38835848504095},"npc":{"x":1299.5052438061243,"y":257.7549975466419},"player":{"x":1448.0695130689369,"y":258.2778596614339}}
+desktop follow-with-ground-input {"target":{"x":1319.087963397236,"y":257.91003902635464},"npc":{"x":1239.0904705995133,"y":257.27667808795553},"player":{"x":1381.4033858528844,"y":258.0096685780702}}
+desktop follow-with-ground-input {"target":{"x":1268.3395539036828,"y":257.50825068105814},"npc":{"x":1188.34206110596,"y":256.874889742659},"player":{"x":1325.4107143369301,"y":257.10372348776457}}
+desktop follow-with-ground-input {"target":{"x":1207.9247806970718,"y":257.0299312223718},"npc":{"x":1127.927287899349,"y":256.3965702839726},"player":{"x":1269.4114151297981,"y":257.00047273860326}}
+desktop follow-with-ground-input {"target":{"x":1152.3431893469897,"y":256.58987732038025},"npc":{"x":1072.345696549267,"y":255.95651638198106},"player":{"x":1208.0780817982254,"y":257.0000081659883}}
+desktop follow-with-ground-input {"target":{"x":1091.9284161403782,"y":256.11155786169314},"npc":{"x":1011.9309233426553,"y":255.47819692329398},"player":{"x":1154.7532263194757,"y":256.04909670077865}}
+desktop follow-with-ground-input {"target":{"x":1050.8463703598807,"y":255.78630062978593},"npc":{"x":970.8488775621579,"y":255.15293969138676},"player":{"x":1109.4199064288823,"y":256.0141852685191}}
+desktop follow-with-ground-input {"target":{"x":992.8481880815314,"y":255.3271139494463},"npc":{"x":912.8506952838086,"y":254.69375301104716},"player":{"x":1050.7617832894794,"y":255.01300219802465}}
+desktop follow-with-ground-input {"target":{"x":925.1836420901238,"y":254.79139615571674},"npc":{"x":845.1861492924011,"y":254.15803521731763},"player":{"x":994.7617846961668,"y":255.00045034618805}}
+desktop follow-with-ground-input {"target":{"x":864.76886888351,"y":254.31307669702963},"npc":{"x":784.7713760857872,"y":253.67971575863055},"player":{"x":928.1019660279077,"y":254.04492977632873}}
+desktop follow-with-ground-input {"target":{"x":792.2711410355734,"y":253.73909334660505},"npc":{"x":712.2736482378506,"y":253.10573240820605},"player":{"x":866.7686477686252,"y":254.00192880737055}}
+desktop follow-with-ground-input {"target":{"x":746.3559133985468,"y":253.3755705580031},"npc":{"x":666.358420600824,"y":252.7422096196041},"player":{"x":816.1065485319773,"y":253.32162589895336}}
+desktop follow-with-ground-input {"target":{"x":690.7743220484621,"y":252.9355166560113},"npc":{"x":610.7768292507393,"y":252.30215571761232},"player":{"x":754.7744024366036,"y":253.0271818088969}}
+desktop follow-with-ground-input {"target":{"x":637.6093216266419,"y":252.51459553236694},"npc":{"x":557.6118288289191,"y":251.88123459396797},"player":{"x":696.115092719105,"y":252.09811709411804}}
+desktop follow-with-ground-input {"target":{"x":574.7779574917635,"y":252.01714329533277},"npc":{"x":494.7804646940407,"y":251.38378235693378},"player":{"x":640.1157631769698,"y":252.0007484208767}}
+desktop follow-with-ground-input {"target":{"x":514.3631842851496,"y":251.53882383664603},"npc":{"x":434.36569148742683,"y":250.90546289824707},"player":{"x":576.115763181058,"y":252.00002511123864}}
+desktop follow-with-ground-input {"target":{"x":444.2820473654775,"y":250.98397326456944},"npc":{"x":364.28455456775475,"y":250.35061232617045},"player":{"x":514.7903767947691,"y":251.01272457427282}}
+desktop follow-with-ground-input {"target":{"x":397.3746969745702,"y":196.68701132323642},"npc":{"x":335.88558881076847,"y":271.81416738028605},"player":{"x":461.4625002399357,"y":250.24981789788322}}
+desktop follow-with-ground-input {"target":{"x":393.5399363772983,"y":242.44326651243836},"npc":{"x":332.0508282134965,"y":317.5704225694879},"player":{"x":422.696810896219,"y":217.6257096216782}}
+desktop follow-with-ground-input {"target":{"x":387.2832217185916,"y":317.0982091895573},"npc":{"x":325.79411355478965,"y":392.2253652466067},"player":{"x":393.66932487940727,"y":240.67029967550516}}
+desktop follow-with-ground-input {"target":{"x":383.4484611213198,"y":362.8544643787592},"npc":{"x":321.9593529575177,"y":437.98162043580857},"player":{"x":389.2591160938056,"y":291.1446611828932}}
+desktop follow-with-ground-input {"target":{"x":379.00821200868876,"y":415.83539143994034},"npc":{"x":317.5191038448866,"y":490.96254749698966},"player":{"x":384.09680773028737,"y":349.58376068089865}}
+desktop follow-with-ground-input {"target":{"x":374.7697924011771,"y":466.4080945437951},"npc":{"x":313.28068423737494,"y":541.5352506008444},"player":{"x":379.72762457507923,"y":405.4123945250878}}
+desktop follow-with-ground-input {"target":{"x":370.1277137834262,"y":521.7972455623026},"npc":{"x":308.63860561962406,"y":596.9244016193519},"player":{"x":374.20621213930207,"y":463.81865945010946}}
+desktop follow-with-ground-input {"target":{"x":364.8801466503165,"y":584.4110684527893},"npc":{"x":303.39103848651433,"y":659.5382245098386},"player":{"x":370.0979981139411,"y":519.6677648818153}}
+desktop follow-with-ground-input {"target":{"x":364.1346322781384,"y":663.5379736998703},"npc":{"x":285.7824864810852,"y":702.0858821904397},"player":{"x":365.05720531922566,"y":572.762348903589}}
+desktop follow-with-ground-input {"target":{"x":325.15898989255487,"y":709.7015189682133},"npc":{"x":246.8068440955014,"y":748.2494274587822},"player":{"x":364.0161507428859,"y":636.714588896138}}
+desktop meeting-ground-tap {"intended":{"x":270,"y":805},"actualPathEnd":{"x":270,"y":804.6965553827644},"player":{"x":335.7494966288797,"y":698.3871843328202}}
+desktop continuous-leadership-complete {"moved":2253.6080573705435,"seconds":16.766666666679413}
+desktop interact {"id":"shelter","scene":"creek","world":{"x":1200,"y":500}}
+desktop choose "journey:rest"
+desktop interact {"id":"to_home","scene":"creek","world":{"x":100,"y":770}}
+desktop camera-shift-drag {"origin":{"x":720,"y":440},"dx":576,"dy":-240}
+desktop interact {"id":"table","scene":"home","world":{"x":760,"y":410}}
+desktop choose "journey:record"
+desktop settings-export "qa/evidence/journey-complete-export.json"
+desktop interact {"id":"table","scene":"home","world":{"x":760,"y":410}}
+desktop settings-import {"name":"journey-ready-input.json","contentVersion":7}
+desktop interact {"id":"xu_work","scene":"workshop","world":{"x":1517.1413766107814,"y":743.7935922920291}}
+desktop choose "journey:start:together:north"
+desktop settings-export "qa/evidence/journey-desktop-paused-input.json"
+desktop settings-import {"name":"journey-paused-input.json","contentVersion":7}
+phone settings-import {"name":"return-canal-v0.4.0.json","contentVersion":7}
+phone interact {"id":"table","scene":"home","world":{"x":760,"y":410}}
+phone choose "journey:agree:together"
+phone interact {"id":"to_creek","scene":"home","world":{"x":1640,"y":690}}
+phone camera-shift-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-156.50002441406286}
+phone camera-shift-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-65.95002272082348}
+phone camera-shift-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-65.95002272082348}
+phone camera-shift-drag {"origin":{"x":195,"y":430},"dx":-156,"dy":-65.50002271240874}
+phone choose "canal:depart:creek"
+phone interact {"id":"to_workshop","scene":"creek","world":{"x":1640,"y":370}}
+page.waitForFunction: Timeout 60000ms exceeded.
+    at wait (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/journey-check.mjs:23:41)
+    at interact (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/journey-check.mjs:63:8)
+    at async prepare (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/journey-check.mjs:92:2)
+    at async run (/home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/journey-check.mjs:173:131)
+    at async file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/journey-check.mjs:178:73 {
+  name: 'TimeoutError'
+}
+Error: journey-check.mjs failed
+    at file:///home/zhangjingzhou/workspace/xian-ni-game/.worktrees/cliff-080-space/scripts/verify.mjs:41:149
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)

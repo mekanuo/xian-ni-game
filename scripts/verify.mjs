@@ -24,20 +24,10 @@ try{
  let ready=false;for(let i=0;i<100;i++){if(serverExited)throw Error('Owned preview process exited before verification');try{const r=await fetch('http://127.0.0.1:4187/');if(r.ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,100));}
  await new Promise(r=>setTimeout(r,400));if(serverExited)throw Error('Preview port is occupied or the owned server failed');
  if(!ready)throw Error('Preview server failed to start');
- // Every new-market browser runs serially on this exact frozen production build.
- for(const config of [
-  {script:'market-threat-view-check.mjs',extra:{MARKET_START:'',MARKET_THREAT_OUTPUT:'qa/evidence/market-threat-verified.json'}},
-  {script:'market-view-check.mjs',extra:{MARKET_VIEW_DEVICE:'all'}},
-  {script:'market-consequences-check.mjs',extra:{MARKET_CONSEQUENCES_OUTPUT:'qa/evidence/market-consequences-verified.json'}},
-  ...['desktop','phone'].map(device=>({script:'market-check.mjs',extra:{MARKET_DEVICE:device,MARKET_CASE:'',MARKET_START:'',MARKET_OUTPUT:`qa/evidence/market-${device}-verified.json`}}))
- ]){
-  const child=spawn(process.execPath,[`scripts/${config.script}`],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/',...config.extra}});
-  const code=await new Promise(r=>child.on('exit',r));report.verify.suites.push({command:`node scripts/${config.script}`,environment:config.extra,exitCode:code});if(code!==0)throw Error(`${config.script} failed on ${config.extra.MARKET_DEVICE||'viewports'}`);
- }
  // Check the corrected continuous-input driver and new chapter before the
  // remaining regression matrix. Every required suite still runs once.
  for(const script of ['journey-check.mjs','journey-view-check.mjs','kiln-view-check.mjs','kiln-check.mjs','kiln-consequences-check.mjs']){
-  const child=spawn(process.execPath,[`scripts/${script}`],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/',KILN_ROUTE:'all',KILN_CONSEQUENCE_CASE:'all',KILN_OUTPUT:'qa/evidence/kiln-check.json'}});
+  const child=spawn(process.execPath,[`scripts/${script}`],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/',JOURNEY_PHASE:'complete',JOURNEY_ROUTE:'all',JOURNEY_FIXTURE:'',KILN_ROUTE:'all',KILN_CONSEQUENCE_CASE:'all',KILN_OUTPUT:'qa/evidence/kiln-check.json'}});
   const code=await new Promise(r=>child.on('exit',r));report.verify.suites.push({command:`node scripts/${script}`,exitCode:code});if(code!==0)throw Error(`${script} failed`);
  }
  const regression=spawn(process.execPath,['scripts/ui-regression.mjs'],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/'}});
@@ -69,6 +59,16 @@ try{
  report.adventure={canal:'qa/evidence/canal-check.json',viewports:'qa/evidence/canal-view.json',methods:['zero-resource diversion','uninterrupted phone hold'],limitations:'Optional clamp, scent ownership, companion absence and surge boundary variants have model tests; the two principal methods and restart have real browser input coverage. Phone evidence is touch/DPR emulation, not physical device testing.',source:'Real 0.3.0 chapter-ending UI export; all adventure progression uses browser inputs.'};
  report.companion={route:'qa/evidence/journey-check.json',viewports:'qa/evidence/journey-view.json',source:'Fixed genuine content 3 canal completion; current content 7 migration and all main progression use real browser input.',limitations:'South-to-north changes, early departure and solo-then-shared completion have model coverage; browser proves the uninterrupted northern shared route and separate paused save.'};
  report.kiln={routes:'qa/evidence/kiln-check.json',consequences:'qa/evidence/kiln-consequences.json',viewports:'qa/evidence/kiln-view.json',source:'Unmodified actual 0.5 completion imported through settings; all new progression uses actual world/UI input.',scope:'Zero-mana two-ended travel, witnessed borrow/intact return, permission/rest, independent save restore, burned persistence, player recovery after dropping a screen at zero mana, restart and three viewports.',limitations:'Real-browser coverage is Linux Chrome and DPR/touch emulation; held-expiry recovery and other boundary combinations also have model coverage.'};
+ // Every new-market browser runs serially on this exact frozen production build.
+ for(const config of [
+  {script:'market-threat-view-check.mjs',extra:{MARKET_START:'',MARKET_THREAT_OUTPUT:'qa/evidence/market-threat-verified.json'}},
+  {script:'market-view-check.mjs',extra:{MARKET_VIEW_DEVICE:'all'}},
+  {script:'market-consequences-check.mjs',extra:{MARKET_CONSEQUENCES_OUTPUT:'qa/evidence/market-consequences-verified.json'}},
+  ...['desktop','phone'].map(device=>({script:'market-check.mjs',extra:{MARKET_DEVICE:device,MARKET_CASE:'',MARKET_START:'',MARKET_OUTPUT:`qa/evidence/market-${device}-verified.json`}}))
+ ]){
+  const child=spawn(process.execPath,[`scripts/${config.script}`],{stdio:'inherit',env:{...process.env,GAME_URL:'http://127.0.0.1:4187/',...config.extra}});
+  const code=await new Promise(r=>child.on('exit',r));report.verify.suites.push({command:`node scripts/${config.script}`,environment:config.extra,exitCode:code});if(code!==0)throw Error(`${config.script} failed on ${config.extra.MARKET_DEVICE||'viewports'}`);
+ }
  report.market={threat:'qa/evidence/market-threat-verified.json',consequences:'qa/evidence/market-consequences-verified.json',viewports:'qa/evidence/market-view.json',desktop:'qa/evidence/market-desktop-verified.json',phone:'qa/evidence/market-phone-verified.json',source:'Fixed actual 0.6 two-ended kiln settings export, unchanged; formal travel and reporting use normal UI.',scope:'Actual private west-to-east crossing and canal connection, public east-to-west return to crossing, home report, three viewports and genuine single-finger camera control.',limitations:'Linux Chrome and touch/DPR emulation, not physical Mac/Safari/phone. Production waiting pose has a separate actual lure/withdrawal check at desktop DPR1; DPR2/DPR3 art views and model/whitebox boundaries are separate evidence. Visual framing uses ordinary pause; the phone full route frames each target while paused, then resumes actual walking. It does not establish uninterrupted phone combat.'};
  // New activity and its camera/art checks use this same frozen build. The
  // presentation input is this run's actual UI export, never a rewritten fixture.

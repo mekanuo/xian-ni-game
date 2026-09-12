@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "runId": "2026-09-11T16-59-46-335Z",
+  "runId": "2026-09-11T23-59-41-048Z",
   "status": "PASS",
-  "startedAt": "2026-09-11T16:59:46.336Z",
+  "startedAt": "2026-09-11T23:59:41.048Z",
   "environment": {
     "url": "http://127.0.0.1:4187/",
     "platform": "linux",
@@ -18,9 +18,9 @@
           "action": "settings-import",
           "detail": {
             "name": "actual-kiln-zero-complete.json",
-            "contentVersion": 6
+            "contentVersion": 7
           },
-          "wallMs": 13075
+          "wallMs": 8335
         },
         {
           "action": "walk",
@@ -28,7 +28,7 @@
             "x": 300,
             "y": 340
           },
-          "wallMs": 16443
+          "wallMs": 8640
         },
         {
           "action": "arrived",
@@ -36,10 +36,10 @@
             "scene": "creek",
             "x": 302.06161468109985,
             "y": 340.8369185977465,
-            "time": 369.816666666659,
+            "time": 369.6499999999925,
             "hp": 1
           },
-          "wallMs": 31130
+          "wallMs": 31389
         },
         {
           "action": "walk",
@@ -47,7 +47,7 @@
             "x": 300,
             "y": 740
           },
-          "wallMs": 31130
+          "wallMs": 31389
         },
         {
           "action": "arrived",
@@ -55,10 +55,10 @@
             "scene": "creek",
             "x": 300.01490382262295,
             "y": 738.1649804716104,
-            "time": 373.3166666666558,
+            "time": 372.19999999999015,
             "hp": 1
           },
-          "wallMs": 38135
+          "wallMs": 36436
         },
         {
           "action": "interact",
@@ -70,7 +70,7 @@
               "y": 860
             }
           },
-          "wallMs": 38551
+          "wallMs": 36558
         },
         {
           "action": "walk",
@@ -78,7 +78,7 @@
             "x": 1500,
             "y": 820
           },
-          "wallMs": 41185
+          "wallMs": 37299
         },
         {
           "action": "camera-shift-drag",
@@ -88,9 +88,9 @@
               "y": 440
             },
             "dx": -576,
-            "dy": -180.11865515308557
+            "dy": -220.05933161235737
           },
-          "wallMs": 47521
+          "wallMs": 39081
         },
         {
           "action": "arrived",
@@ -98,10 +98,10 @@
             "scene": "creek",
             "x": 1496.6735450192264,
             "y": 820.8655828650957,
-            "time": 385.81666666664444,
+            "time": 380.79999999998233,
             "hp": 4
           },
-          "wallMs": 62664
+          "wallMs": 53698
         },
         {
           "action": "interact",
@@ -113,7 +113,7 @@
               "y": 820
             }
           },
-          "wallMs": 63145
+          "wallMs": 53798
         },
         {
           "action": "walk",
@@ -121,7 +121,7 @@
             "x": 600,
             "y": 830
           },
-          "wallMs": 66114
+          "wallMs": 55007
         },
         {
           "action": "arrived",
@@ -129,10 +129,10 @@
             "scene": "crossing",
             "x": 599.3324181489572,
             "y": 830.8864747478372,
-            "time": 391.1166666666396,
+            "time": 384.09999999997933,
             "hp": 4
           },
-          "wallMs": 73258
+          "wallMs": 60304
         },
         {
           "action": "walk",
@@ -140,7 +140,7 @@
             "x": 1000,
             "y": 830
           },
-          "wallMs": 73258
+          "wallMs": 60304
         },
         {
           "action": "arrived",
@@ -148,10 +148,10 @@
             "scene": "crossing",
             "x": 999.3324181465812,
             "y": 830.8878519559132,
-            "time": 394.81666666663625,
+            "time": 386.59999999997706,
             "hp": 4
           },
-          "wallMs": 80397
+          "wallMs": 65134
         },
         {
           "action": "walk",
@@ -159,18 +159,18 @@
             "x": 1370,
             "y": 830
           },
-          "wallMs": 80398
+          "wallMs": 65135
         },
         {
           "action": "arrived",
           "detail": {
             "scene": "crossing",
-            "x": 1375.3324181465907,
-            "y": 830.887854246679,
-            "time": 398.416666666633,
+            "x": 1367.3324181465905,
+            "y": 830.8878542464442,
+            "time": 388.89999999997497,
             "hp": 4
           },
-          "wallMs": 87419
+          "wallMs": 69544
         },
         {
           "action": "walk",
@@ -178,18 +178,18 @@
             "x": 1640,
             "y": 610
           },
-          "wallMs": 87419
+          "wallMs": 69544
         },
         {
           "action": "arrived",
           "detail": {
             "scene": "crossing",
-            "x": 1637.5044955715314,
-            "y": 612.3146485165616,
-            "time": 401.8166666666299,
+            "x": 1638.8968851583586,
+            "y": 611.1459191626147,
+            "time": 391.09999999997297,
             "hp": 4
           },
-          "wallMs": 94043
+          "wallMs": 74011
         },
         {
           "action": "interact",
@@ -201,12 +201,12 @@
               "y": 520
             }
           },
-          "wallMs": 94454
+          "wallMs": 74088
         },
         {
           "action": "settings-export",
-          "detail": "qa/evidence/market-2026-09-11T16-59-46-335Z/market-west-entry.json",
-          "wallMs": 115230
+          "detail": "qa/evidence/market-2026-09-11T23-59-41-048Z/market-west-entry.json",
+          "wallMs": 81961
         },
         {
           "action": "walk",
@@ -214,7 +214,7 @@
             "x": 420,
             "y": 460
           },
-          "wallMs": 115230
+          "wallMs": 81961
         },
         {
           "action": "arrived",
@@ -222,10 +222,10 @@
             "scene": "market",
             "x": 418.7926152669463,
             "y": 461.7393281203972,
-            "time": 407.11666666662506,
+            "time": 393.29999999997096,
             "hp": 4
           },
-          "wallMs": 124842
+          "wallMs": 94562
         },
         {
           "action": "interact",
@@ -237,12 +237,12 @@
               "y": 380
             }
           },
-          "wallMs": 125406
+          "wallMs": 94614
         },
         {
           "action": "choose",
           "detail": "market:exchange",
-          "wallMs": 135040
+          "wallMs": 98534
         },
         {
           "action": "walk",
@@ -250,18 +250,18 @@
             "x": 665,
             "y": 410
           },
-          "wallMs": 152243
+          "wallMs": 117500
         },
         {
           "action": "arrived",
           "detail": {
             "scene": "market",
-            "x": 661.6485167451282,
-            "y": 410.7401878478179,
-            "time": 414.3166666666185,
+            "x": 662.4986204442837,
+            "y": 410.6590600963349,
+            "time": 396.216666666635,
             "hp": 4
           },
-          "wallMs": 161864
+          "wallMs": 141506
         },
         {
           "action": "walk",
@@ -269,18 +269,18 @@
             "x": 820,
             "y": 405
           },
-          "wallMs": 161864
+          "wallMs": 141506
         },
         {
           "action": "arrived",
           "detail": {
             "scene": "market",
-            "x": 818.8948640177708,
-            "y": 405.5091222595455,
-            "time": 416.5166666666165,
+            "x": 817.0814934587313,
+            "y": 405.5685642092701,
+            "time": 397.18333333330077,
             "hp": 4
           },
-          "wallMs": 167712
+          "wallMs": 157198
         },
         {
           "action": "walk",
@@ -288,18 +288,18 @@
             "x": 1000,
             "y": 440
           },
-          "wallMs": 167712
+          "wallMs": 157198
         },
         {
           "action": "arrived",
           "detail": {
             "scene": "market",
-            "x": 996.9235184894573,
-            "y": 439.9703463349872,
-            "time": 418.91666666661433,
+            "x": 997.8036227436199,
+            "y": 440.1447407870194,
+            "time": 398.3333333332997,
             "hp": 4
           },
-          "wallMs": 174237
+          "wallMs": 173847
         },
         {
           "action": "interact",
@@ -311,7 +311,7 @@
               "y": 240
             }
           },
-          "wallMs": 174790
+          "wallMs": 174018
         },
         {
           "action": "walk",
@@ -319,7 +319,7 @@
             "x": 990,
             "y": 700
           },
-          "wallMs": 188574
+          "wallMs": 198166
         },
         {
           "action": "arrived",
@@ -327,10 +327,10 @@
             "scene": "canal",
             "x": 989.1136249948978,
             "y": 699.3322088172313,
-            "time": 425.51666666660833,
+            "time": 401.9166666666298,
             "hp": 4
           },
-          "wallMs": 198537
+          "wallMs": 232101
         },
         {
           "action": "interact",
@@ -342,7 +342,7 @@
               "y": 720
             }
           },
-          "wallMs": 199080
+          "wallMs": 232199
         },
         {
           "action": "walk",
@@ -350,18 +350,18 @@
             "x": 990,
             "y": 350
           },
-          "wallMs": 202781
+          "wallMs": 235511
         },
         {
           "action": "arrived",
           "detail": {
             "scene": "canal",
-            "x": 986.9784585072349,
-            "y": 354.5096545301483,
-            "time": 430.5166666666038,
+            "x": 989.0148086498726,
+            "y": 352.00851619472155,
+            "time": 404.3499999999609,
             "hp": 4
           },
-          "wallMs": 211846
+          "wallMs": 269532
         },
         {
           "action": "interact",
@@ -373,7 +373,7 @@
               "y": 300
             }
           },
-          "wallMs": 212382
+          "wallMs": 269638
         },
         {
           "action": "walk",
@@ -381,7 +381,7 @@
             "x": 1220,
             "y": 220
           },
-          "wallMs": 217070
+          "wallMs": 273118
         },
         {
           "action": "arrived",
@@ -389,10 +389,10 @@
             "scene": "market",
             "x": 1216.6652792820287,
             "y": 220.7196909121482,
-            "time": 434.8166666665999,
+            "time": 405.71666666662634,
             "hp": 4
           },
-          "wallMs": 223484
+          "wallMs": 292627
         },
         {
           "action": "walk",
@@ -400,7 +400,7 @@
             "x": 1220,
             "y": 880
           },
-          "wallMs": 223484
+          "wallMs": 292627
         },
         {
           "action": "camera-shift-drag",
@@ -412,18 +412,18 @@
             "dx": -534.6676302048782,
             "dy": -240
           },
-          "wallMs": 232626
+          "wallMs": 295963
         },
         {
           "action": "arrived",
           "detail": {
             "scene": "market",
-            "x": 1219.3457941445654,
-            "y": 879.3809032344176,
-            "time": 442.7166666665927,
+            "x": 1219.3482168386151,
+            "y": 879.3808933704715,
+            "time": 409.9999999999558,
             "hp": 4
           },
-          "wallMs": 244479
+          "wallMs": 346533
         },
         {
           "action": "walk",
@@ -431,18 +431,18 @@
             "x": 880,
             "y": 880
           },
-          "wallMs": 244479
+          "wallMs": 346533
         },
         {
           "action": "arrived",
           "detail": {
             "scene": "market",
-            "x": 880.6824635776038,
-            "y": 880.8841132688686,
-            "time": 446.1166666665896,
+            "x": 880.6848862677202,
+            "y": 880.8841025171895,
+            "time": 412.1166666666205,
             "hp": 4
           },
-          "wallMs": 253616
+          "wallMs": 374398
         },
         {
           "action": "walk",
@@ -450,18 +450,18 @@
             "x": 420,
             "y": 880
           },
-          "wallMs": 253616
+          "wallMs": 374400
         },
         {
           "action": "arrived",
           "detail": {
             "scene": "market",
-            "x": 422.0157969209573,
-            "y": 880.887146173207,
-            "time": 450.21666666658587,
+            "x": 422.01821961115,
+            "y": 880.8871460891172,
+            "time": 414.9833333332846,
             "hp": 4
           },
-          "wallMs": 264561
+          "wallMs": 415873
         },
         {
           "action": "interact",
@@ -473,7 +473,7 @@
               "y": 760
             }
           },
-          "wallMs": 265143
+          "wallMs": 415974
         },
         {
           "action": "walk",
@@ -481,7 +481,7 @@
             "x": 1370,
             "y": 830
           },
-          "wallMs": 275880
+          "wallMs": 431535
         },
         {
           "action": "arrived",
@@ -489,10 +489,10 @@
             "scene": "crossing",
             "x": 1371.4031344611346,
             "y": 829.1654662588769,
-            "time": 456.51666666658014,
+            "time": 417.9999999999485,
             "hp": 4
           },
-          "wallMs": 283833
+          "wallMs": 437232
         },
         {
           "action": "walk",
@@ -500,7 +500,7 @@
             "x": 1000,
             "y": 830
           },
-          "wallMs": 283833
+          "wallMs": 437232
         },
         {
           "action": "arrived",
@@ -508,10 +508,10 @@
             "scene": "crossing",
             "x": 1000.740436881017,
             "y": 830.8808089111741,
-            "time": 460.11666666657686,
+            "time": 420.3999999999463,
             "hp": 4
           },
-          "wallMs": 290837
+          "wallMs": 441832
         },
         {
           "action": "walk",
@@ -519,18 +519,18 @@
             "x": 600,
             "y": 830
           },
-          "wallMs": 290840
+          "wallMs": 441833
         },
         {
           "action": "arrived",
           "detail": {
             "scene": "crossing",
-            "x": 598.0737702750919,
-            "y": 830.8878027628375,
-            "time": 463.9166666665734,
+            "x": 600.740436942567,
+            "y": 830.8878256384959,
+            "time": 422.89999999994404,
             "hp": 4
           },
-          "wallMs": 298144
+          "wallMs": 446726
         },
         {
           "action": "interact",
@@ -542,7 +542,7 @@
               "y": 860
             }
           },
-          "wallMs": 298589
+          "wallMs": 446828
         },
         {
           "action": "walk",
@@ -550,7 +550,7 @@
             "x": 300,
             "y": 740
           },
-          "wallMs": 306233
+          "wallMs": 452632
         },
         {
           "action": "camera-shift-drag",
@@ -562,18 +562,18 @@
             "dx": 576,
             "dy": -100.11865515308557
           },
-          "wallMs": 312582
+          "wallMs": 454157
         },
         {
           "action": "arrived",
           "detail": {
             "scene": "creek",
-            "x": 300.53672018279167,
-            "y": 740.9807391762939,
-            "time": 479.2166666665595,
+            "x": 300.5405177467087,
+            "y": 740.9216749197785,
+            "time": 434.19999999993377,
             "hp": 4
           },
-          "wallMs": 327964
+          "wallMs": 468832
         },
         {
           "action": "interact",
@@ -585,7 +585,7 @@
               "y": 770
             }
           },
-          "wallMs": 328377
+          "wallMs": 468922
         },
         {
           "action": "walk",
@@ -593,7 +593,7 @@
             "x": 900,
             "y": 700
           },
-          "wallMs": 332037
+          "wallMs": 470902
         },
         {
           "action": "arrived",
@@ -601,10 +601,10 @@
             "scene": "home",
             "x": 901.429509556714,
             "y": 700.908381969225,
-            "time": 486.31666666655303,
+            "time": 439.0999999999293,
             "hp": 4
           },
-          "wallMs": 342884
+          "wallMs": 479192
         },
         {
           "action": "interact",
@@ -616,41 +616,41 @@
               "y": 410
             }
           },
-          "wallMs": 343326
+          "wallMs": 479285
         },
         {
           "action": "choose",
           "detail": "market:report",
-          "wallMs": 350222
+          "wallMs": 484456
         },
         {
           "action": "settings-export",
-          "detail": "qa/evidence/market-2026-09-11T16-59-46-335Z/market-complete.json",
-          "wallMs": 369568
+          "detail": "qa/evidence/market-2026-09-11T23-59-41-048Z/market-complete.json",
+          "wallMs": 490283
         }
       ],
       "exports": [
         {
-          "path": "qa/evidence/market-2026-09-11T16-59-46-335Z/market-west-entry.json",
-          "sha256": "63f3ec4ca4b5c2b3d0816fbf8f2055c82fc64a980e0206afb34cda2cfbfc57d4"
+          "path": "qa/evidence/market-2026-09-11T23-59-41-048Z/market-west-entry.json",
+          "sha256": "a4bd3c78b0c17257524b80417344e9450ecaf277146e9f815405b87a16f0b0aa"
         },
         {
-          "path": "qa/evidence/market-2026-09-11T16-59-46-335Z/market-complete.json",
-          "sha256": "eed9156449022f05c95e94810f2c2a95cb9b053f28587bdb3c97cf17e3db85d6"
+          "path": "qa/evidence/market-2026-09-11T23-59-41-048Z/market-complete.json",
+          "sha256": "a302027316d71e8257c9c54edd7265e3318ad9b6ff60113daf19661ebcb25bf5"
         }
       ],
       "observations": {
         "west-entry": {
-          "visual": "qa/evidence/market-2026-09-11T16-59-46-335Z/desktop-west-entry.png",
+          "visual": "qa/evidence/market-2026-09-11T23-59-41-048Z/desktop-west-entry.png",
           "state": {
             "scene": "market",
-            "time": 404.91666666662707,
+            "time": 391.3999999999727,
             "player": {
               "x": 360,
               "y": 760,
               "hp": 4,
               "mana": 6,
-              "facing": -0.694955406461942,
+              "facing": -0.6803077045613793,
               "invulnerable": 0,
               "cooldown": 0,
               "ward": 0,
@@ -788,19 +788,19 @@
               },
               {
                 "seq": 91,
-                "time": 374.71666666665453,
+                "time": 372.39999999999,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
                 "seq": 92,
-                "time": 387.3166666666431,
+                "time": 381.19999999998197,
                 "type": "scene",
                 "text": "石渡"
               },
               {
                 "seq": 93,
-                "time": 403.2166666666286,
+                "time": 391.1999999999729,
                 "type": "scene",
                 "text": "集口问路"
               }
@@ -808,16 +808,16 @@
           }
         },
         "merchant-dialogue": {
-          "visual": "qa/evidence/market-2026-09-11T16-59-46-335Z/desktop-merchant-dialogue.png",
+          "visual": "qa/evidence/market-2026-09-11T23-59-41-048Z/desktop-merchant-dialogue.png",
           "state": {
             "scene": "market",
-            "time": 408.6166666666237,
+            "time": 393.33333333330427,
             "player": {
-              "x": 427.28694412494605,
-              "y": 448.18033194619056,
+              "x": 421.62405821961295,
+              "y": 457.219662728995,
               "hp": 4,
               "mana": 6,
-              "facing": -1.0111393321661015,
+              "facing": -1.0111393321660989,
               "invulnerable": 0,
               "cooldown": 0,
               "ward": 0,
@@ -973,19 +973,19 @@
               },
               {
                 "seq": 91,
-                "time": 374.71666666665453,
+                "time": 372.39999999999,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
                 "seq": 92,
-                "time": 387.3166666666431,
+                "time": 381.19999999998197,
                 "type": "scene",
                 "text": "石渡"
               },
               {
                 "seq": 93,
-                "time": 403.2166666666286,
+                "time": 391.1999999999729,
                 "type": "scene",
                 "text": "集口问路"
               }
@@ -993,16 +993,16 @@
           }
         },
         "physical-door-open": {
-          "visual": "qa/evidence/market-2026-09-11T16-59-46-335Z/desktop-physical-door-open.png",
+          "visual": "qa/evidence/market-2026-09-11T23-59-41-048Z/desktop-physical-door-open.png",
           "state": {
             "scene": "market",
-            "time": 412.1166666666205,
+            "time": 394.68333333330304,
             "player": {
-              "x": 427.28694412494605,
-              "y": 448.18033194619056,
+              "x": 421.62405821961295,
+              "y": 457.219662728995,
               "hp": 4,
               "mana": 6,
-              "facing": -1.0111393321661015,
+              "facing": -1.0111393321660989,
               "invulnerable": 0,
               "cooldown": 0,
               "ward": 0,
@@ -1122,25 +1122,25 @@
               },
               {
                 "seq": 91,
-                "time": 374.71666666665453,
+                "time": 372.39999999999,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
                 "seq": 92,
-                "time": 387.3166666666431,
+                "time": 381.19999999998197,
                 "type": "scene",
                 "text": "石渡"
               },
               {
                 "seq": 93,
-                "time": 403.2166666666286,
+                "time": 391.1999999999729,
                 "type": "scene",
                 "text": "集口问路"
               },
               {
                 "seq": 94,
-                "time": 408.6166666666237,
+                "time": 393.33333333330427,
                 "type": "change",
                 "text": "你说清旧窑两端亲自穿行的经过。沈砚答应亲自去开闩，门还要等她走到近处。",
                 "x": 470,
@@ -1149,7 +1149,7 @@
               },
               {
                 "seq": 95,
-                "time": 409.89999999995587,
+                "time": 394.61666666663643,
                 "type": "change",
                 "text": "沈砚到闩边解开木门，随即侧身让出巷道。",
                 "x": 665,
@@ -1160,16 +1160,16 @@
           }
         },
         "north-connected": {
-          "visual": "qa/evidence/market-2026-09-11T16-59-46-335Z/desktop-north-connected.png",
+          "visual": "qa/evidence/market-2026-09-11T23-59-41-048Z/desktop-north-connected.png",
           "state": {
             "scene": "canal",
-            "time": 423.1166666666105,
+            "time": 399.73333333329845,
             "player": {
               "x": 990,
               "y": 350,
               "hp": 4,
               "mana": 6,
-              "facing": -0.019343800289761525,
+              "facing": -0.018499503684177715,
               "invulnerable": 0,
               "cooldown": 0,
               "ward": 0,
@@ -1219,26 +1219,56 @@
             "defeated": false,
             "events": [
               {
+                "seq": 87,
+                "time": 358.0833333333363,
+                "type": "warning",
+                "text": "外路散修抬手聚光；火球命中可以打断。",
+                "x": 1006.5264033467914,
+                "y": 239.59665374623833,
+                "targetId": "kiln_raider_b"
+              },
+              {
+                "seq": 88,
+                "time": 358.35000000000275,
+                "type": "warning",
+                "text": "近墙散修抬手聚光；火球命中可以打断。",
+                "x": 1009.8615338243055,
+                "y": 222.3168883347513,
+                "targetId": "kiln_raider_a"
+              },
+              {
+                "seq": 89,
+                "time": 365.1333333333299,
+                "type": "route",
+                "text": "你从旧渠一侧穿过旧窑，走回西院溪道。"
+              },
+              {
+                "seq": 90,
+                "time": 365.1333333333299,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
                 "seq": 91,
-                "time": 374.71666666665453,
+                "time": 372.39999999999,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
                 "seq": 92,
-                "time": 387.3166666666431,
+                "time": 381.19999999998197,
                 "type": "scene",
                 "text": "石渡"
               },
               {
                 "seq": 93,
-                "time": 403.2166666666286,
+                "time": 391.1999999999729,
                 "type": "scene",
                 "text": "集口问路"
               },
               {
                 "seq": 94,
-                "time": 408.6166666666237,
+                "time": 393.33333333330427,
                 "type": "change",
                 "text": "你说清旧窑两端亲自穿行的经过。沈砚答应亲自去开闩，门还要等她走到近处。",
                 "x": 470,
@@ -1247,7 +1277,7 @@
               },
               {
                 "seq": 95,
-                "time": 409.89999999995587,
+                "time": 394.61666666663643,
                 "type": "change",
                 "text": "沈砚到闩边解开木门，随即侧身让出巷道。",
                 "x": 665,
@@ -1256,7 +1286,7 @@
               },
               {
                 "seq": 96,
-                "time": 415.5333333332841,
+                "time": 396.23333333330163,
                 "type": "alert",
                 "text": "占道散修看见了你的动静。",
                 "x": 850,
@@ -1265,7 +1295,7 @@
               },
               {
                 "seq": 97,
-                "time": 417.5166666666156,
+                "time": 398.21666666663316,
                 "type": "warning",
                 "text": "占道散修抬手聚光；火球命中可以打断。",
                 "x": 850,
@@ -1274,43 +1304,7 @@
               },
               {
                 "seq": 98,
-                "time": 419.53333333328044,
-                "type": "warning",
-                "text": "占道散修抬手聚光；火球命中可以打断。",
-                "x": 850,
-                "y": 560,
-                "targetId": "market_raider"
-              },
-              {
-                "seq": 99,
-                "time": 419.5833333332804,
-                "type": "impact",
-                "text": "术法撞在遮挡上，光屑散开。",
-                "x": 1030,
-                "y": 319.842743679136,
-                "targetId": "12"
-              },
-              {
-                "seq": 100,
-                "time": 421.54999999994527,
-                "type": "warning",
-                "text": "占道散修抬手聚光；火球命中可以打断。",
-                "x": 882.643586546962,
-                "y": 508.261545023419,
-                "targetId": "market_raider"
-              },
-              {
-                "seq": 101,
-                "time": 421.6166666666119,
-                "type": "impact",
-                "text": "术法撞在遮挡上，光屑散开。",
-                "x": 1056.417821051466,
-                "y": 340,
-                "targetId": "13"
-              },
-              {
-                "seq": 102,
-                "time": 421.7166666666118,
+                "time": 399.66666666663184,
                 "type": "scene",
                 "text": "雾岭旧渠"
               }
@@ -1318,16 +1312,16 @@
           }
         },
         "west-connected": {
-          "visual": "qa/evidence/market-2026-09-11T16-59-46-335Z/desktop-west-connected.png",
+          "visual": "qa/evidence/market-2026-09-11T23-59-41-048Z/desktop-west-connected.png",
           "state": {
             "scene": "crossing",
-            "time": 453.8166666665826,
+            "time": 415.8333333332838,
             "player": {
               "x": 1640,
               "y": 610,
               "hp": 4,
               "mana": 6,
-              "facing": -2.555329217635907,
+              "facing": -2.555335352188168,
               "invulnerable": 0,
               "cooldown": 0,
               "ward": 0,
@@ -1377,8 +1371,50 @@
             "defeated": false,
             "events": [
               {
+                "seq": 90,
+                "time": 365.1333333333299,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 91,
+                "time": 372.39999999999,
+                "type": "rest",
+                "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
+              },
+              {
+                "seq": 92,
+                "time": 381.19999999998197,
+                "type": "scene",
+                "text": "石渡"
+              },
+              {
+                "seq": 93,
+                "time": 391.1999999999729,
+                "type": "scene",
+                "text": "集口问路"
+              },
+              {
+                "seq": 94,
+                "time": 393.33333333330427,
+                "type": "change",
+                "text": "你说清旧窑两端亲自穿行的经过。沈砚答应亲自去开闩，门还要等她走到近处。",
+                "x": 470,
+                "y": 380,
+                "targetId": "market_merchant"
+              },
+              {
+                "seq": 95,
+                "time": 394.61666666663643,
+                "type": "change",
+                "text": "沈砚到闩边解开木门，随即侧身让出巷道。",
+                "x": 665,
+                "y": 440,
+                "targetId": "market_door"
+              },
+              {
                 "seq": 96,
-                "time": 415.5333333332841,
+                "time": 396.23333333330163,
                 "type": "alert",
                 "text": "占道散修看见了你的动静。",
                 "x": 850,
@@ -1387,7 +1423,7 @@
               },
               {
                 "seq": 97,
-                "time": 417.5166666666156,
+                "time": 398.21666666663316,
                 "type": "warning",
                 "text": "占道散修抬手聚光；火球命中可以打断。",
                 "x": 850,
@@ -1396,79 +1432,25 @@
               },
               {
                 "seq": 98,
-                "time": 419.53333333328044,
-                "type": "warning",
-                "text": "占道散修抬手聚光；火球命中可以打断。",
-                "x": 850,
-                "y": 560,
-                "targetId": "market_raider"
-              },
-              {
-                "seq": 99,
-                "time": 419.5833333332804,
-                "type": "impact",
-                "text": "术法撞在遮挡上，光屑散开。",
-                "x": 1030,
-                "y": 319.842743679136,
-                "targetId": "12"
-              },
-              {
-                "seq": 100,
-                "time": 421.54999999994527,
-                "type": "warning",
-                "text": "占道散修抬手聚光；火球命中可以打断。",
-                "x": 882.643586546962,
-                "y": 508.261545023419,
-                "targetId": "market_raider"
-              },
-              {
-                "seq": 101,
-                "time": 421.6166666666119,
-                "type": "impact",
-                "text": "术法撞在遮挡上，光屑散开。",
-                "x": 1056.417821051466,
-                "y": 340,
-                "targetId": "13"
-              },
-              {
-                "seq": 102,
-                "time": 421.7166666666118,
+                "time": 399.66666666663184,
                 "type": "scene",
                 "text": "雾岭旧渠"
               },
               {
-                "seq": 103,
-                "time": 427.01666666660697,
+                "seq": 99,
+                "time": 402.0166666666297,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
-                "seq": 104,
-                "time": 432.1166666666023,
+                "seq": 100,
+                "time": 404.51666666662743,
                 "type": "scene",
                 "text": "集口问路"
               },
               {
-                "seq": 105,
-                "time": 437.583333333264,
-                "type": "alert",
-                "text": "占道散修看见了你的动静。",
-                "x": 1012.3439495178086,
-                "y": 307.52500304657923,
-                "targetId": "market_raider"
-              },
-              {
-                "seq": 106,
-                "time": 438.66666666659637,
-                "type": "alert",
-                "text": "占道散修看见了你的动静。",
-                "x": 1012.3439495178086,
-                "y": 305.42446740706197,
-                "targetId": "market_raider"
-              },
-              {
-                "seq": 107,
-                "time": 452.41666666658386,
+                "seq": 101,
+                "time": 415.74999999995055,
                 "type": "scene",
                 "text": "石渡"
               }
@@ -1476,16 +1458,16 @@
           }
         },
         "reported-at-home": {
-          "visual": "qa/evidence/market-2026-09-11T16-59-46-335Z/desktop-reported-at-home.png",
+          "visual": "qa/evidence/market-2026-09-11T23-59-41-048Z/desktop-reported-at-home.png",
           "state": {
             "scene": "home",
-            "time": 492.01666666654785,
+            "time": 441.14999999992745,
             "player": {
-              "x": 816.8518834478101,
-              "y": 480.2892931136094,
+              "x": 814.1852673478389,
+              "y": 480.2728709795859,
               "hp": 4,
               "mana": 6,
-              "facing": -3.1354343144050567,
+              "facing": -3.1354343144050576,
               "invulnerable": 0,
               "cooldown": 0,
               "ward": 0,
@@ -1535,86 +1517,86 @@
             "defeated": false,
             "events": [
               {
-                "seq": 100,
-                "time": 421.54999999994527,
-                "type": "warning",
-                "text": "占道散修抬手聚光；火球命中可以打断。",
-                "x": 882.643586546962,
-                "y": 508.261545023419,
+                "seq": 94,
+                "time": 393.33333333330427,
+                "type": "change",
+                "text": "你说清旧窑两端亲自穿行的经过。沈砚答应亲自去开闩，门还要等她走到近处。",
+                "x": 470,
+                "y": 380,
+                "targetId": "market_merchant"
+              },
+              {
+                "seq": 95,
+                "time": 394.61666666663643,
+                "type": "change",
+                "text": "沈砚到闩边解开木门，随即侧身让出巷道。",
+                "x": 665,
+                "y": 440,
+                "targetId": "market_door"
+              },
+              {
+                "seq": 96,
+                "time": 396.23333333330163,
+                "type": "alert",
+                "text": "占道散修看见了你的动静。",
+                "x": 850,
+                "y": 560,
                 "targetId": "market_raider"
               },
               {
-                "seq": 101,
-                "time": 421.6166666666119,
-                "type": "impact",
-                "text": "术法撞在遮挡上，光屑散开。",
-                "x": 1056.417821051466,
-                "y": 340,
-                "targetId": "13"
+                "seq": 97,
+                "time": 398.21666666663316,
+                "type": "warning",
+                "text": "占道散修抬手聚光；火球命中可以打断。",
+                "x": 850,
+                "y": 560,
+                "targetId": "market_raider"
               },
               {
-                "seq": 102,
-                "time": 421.7166666666118,
+                "seq": 98,
+                "time": 399.66666666663184,
                 "type": "scene",
                 "text": "雾岭旧渠"
               },
               {
-                "seq": 103,
-                "time": 427.01666666660697,
+                "seq": 99,
+                "time": 402.0166666666297,
                 "type": "rest",
                 "text": "坐稳一息，体力与灵力已恢复。伤药没有增加。"
               },
               {
-                "seq": 104,
-                "time": 432.1166666666023,
+                "seq": 100,
+                "time": 404.51666666662743,
                 "type": "scene",
                 "text": "集口问路"
               },
               {
-                "seq": 105,
-                "time": 437.583333333264,
-                "type": "alert",
-                "text": "占道散修看见了你的动静。",
-                "x": 1012.3439495178086,
-                "y": 307.52500304657923,
-                "targetId": "market_raider"
-              },
-              {
-                "seq": 106,
-                "time": 438.66666666659637,
-                "type": "alert",
-                "text": "占道散修看见了你的动静。",
-                "x": 1012.3439495178086,
-                "y": 305.42446740706197,
-                "targetId": "market_raider"
-              },
-              {
-                "seq": 107,
-                "time": 452.41666666658386,
+                "seq": 101,
+                "time": 415.74999999995055,
                 "type": "scene",
                 "text": "石渡"
               },
               {
-                "seq": 108,
-                "time": 467.91666666656977,
+                "seq": 102,
+                "time": 425.5999999999416,
                 "type": "scene",
                 "text": "雨后溪道"
               },
               {
-                "seq": 109,
-                "time": 481.11666666655776,
+                "seq": 103,
+                "time": 434.99999999993304,
                 "type": "return",
                 "text": "木车已进了院，路上的人正沿你修开的低滩来。"
               },
               {
-                "seq": 110,
-                "time": 481.11666666655776,
+                "seq": 104,
+                "time": 434.99999999993304,
                 "type": "scene",
                 "text": "回石驿"
               },
               {
-                "seq": 111,
-                "time": 489.61666666655003,
+                "seq": 105,
+                "time": 441.01666666659423,
                 "type": "note",
                 "text": "你在桌边说清从旧渠经公共巷走到石渡、从石渡经私巷走到旧渠的经过。对应巷道的笔迹留在纸图上，这一程的方向也记清了。",
                 "x": 760,
@@ -1626,12 +1608,12 @@
         }
       },
       "runtimeScripts": [
-        "http://127.0.0.1:4187/assets/index-CRsUjnIh.js"
+        "http://127.0.0.1:4187/assets/index-DwjNP5Si.js"
       ],
       "runtimeHashes": [
         {
-          "url": "http://127.0.0.1:4187/assets/index-CRsUjnIh.js",
-          "sha256": "50f8bb8b45bdc465bbae5669318aa34b31a102120f0970f33b0b0bc63b99a9e0"
+          "url": "http://127.0.0.1:4187/assets/index-DwjNP5Si.js",
+          "sha256": "b5f579e098722bc27888d1cb87e55007f32dc079de24f1da0517f89e896d4d34"
         }
       ],
       "audio": {
@@ -1641,19 +1623,18 @@
         "muted": false,
         "musicVolume": 0.55,
         "effectsVolume": 0.45,
-        "musicScheduled": 755,
-        "musicRms": 0.01602203970519958,
+        "musicScheduled": 1205,
+        "musicRms": 0.05790702720162314,
         "effectsRms": 0,
         "activeVoices": 10,
         "lastEffect": "step",
         "effectCounts": {
-          "step": 352,
+          "step": 248,
           "rest": 2,
           "change": 1,
           "market-gate": 1,
-          "alert": 3,
-          "warning": 3,
-          "impact": 2,
+          "alert": 1,
+          "warning": 1,
           "return": 1
         },
         "error": "",
@@ -1665,7 +1646,7 @@
   "sourceFiles": [
     {
       "path": "src/game/model.ts",
-      "sha256": "a53457c0e3dc98a6d90edfe43ba9e6abd280d390e7bcc859019f0ed90451a5ff"
+      "sha256": "9d31dc765be38763c6369aaa218777df212694572b822dd1d3332c836d75e7f1"
     },
     {
       "path": "src/game/market.ts",
@@ -1677,21 +1658,22 @@
     },
     {
       "path": "src/game/scene.ts",
-      "sha256": "31cefb5b6e17b5fce5aa61521a99c36958b01db0a7391fe5cb7e28ee8afbd10d"
+      "sha256": "83df35fd8ee320f12a03f3c47c814f4f277124b4b2209a9d295b57de362fb6ec"
     },
     {
       "path": "src/game/ui.ts",
-      "sha256": "03de6137904660427c3d1330870c4b8137fe2b3fb022dce60a09f67c1ec35837"
+      "sha256": "8d7b8557c7e187303665a44b4572da6a46c97d9cd65bbb08448f529de09f2a69"
     },
     {
       "path": "scripts/market-check.mjs",
-      "sha256": "827095ad061ec2745287b0229eeb8c787082cf3bd74ca656f15b7d9880b9a716"
+      "sha256": "0577db8e94148c43d3a608dda82183576d8b51e3ca1e4527129a3035ecf1f5d3"
     }
   ],
   "fixture": {
     "path": "qa/fixtures/return-kiln-through-v0.6.0.json",
     "sha256": "1bceb15a3ad86f35fae5a6fc9cd5dd8f343356172c1a1566b6c778ccb461777f",
+    "contentVersion": 5,
     "source": "Actual 0.6 two-ended kiln settings export, unchanged; every new scene transition and outcome below uses normal UI input."
   },
-  "completedAt": "2026-09-11T17:05:56.118Z"
+  "completedAt": "2026-09-12T00:07:51.333Z"
 }

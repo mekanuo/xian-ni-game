@@ -1,0 +1,3229 @@
+{
+  "schemaVersion": 1,
+  "status": "FAIL",
+  "startedAt": "2026-09-12T00:13:36.589Z",
+  "selection": "all",
+  "phase": "complete",
+  "environment": {
+    "url": "http://127.0.0.1:4187/",
+    "platform": "linux",
+    "limitation": "Linux Chrome desktop and 390×844 DPR3 touch emulation; real Shift-mouse camera dragging on both. No physical phone/Mac/Safari claim.",
+    "browser": "150.0.7871.114"
+  },
+  "routes": [
+    {
+      "id": "desktop",
+      "status": "PASS",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "dpr": 1,
+        "touch": false
+      },
+      "inputTrace": [
+        {
+          "action": "settings-import",
+          "detail": {
+            "name": "return-canal-v0.4.0.json",
+            "contentVersion": 7
+          },
+          "wallMs": 6081
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "table",
+            "scene": "home",
+            "world": {
+              "x": 760,
+              "y": 410
+            }
+          },
+          "wallMs": 6320
+        },
+        {
+          "action": "choose",
+          "detail": "journey:agree:together",
+          "wallMs": 6400
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "to_creek",
+            "scene": "home",
+            "world": {
+              "x": 1640,
+              "y": 690
+            }
+          },
+          "wallMs": 6990
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 720,
+              "y": 440
+            },
+            "dx": -576,
+            "dy": -240
+          },
+          "wallMs": 8514
+        },
+        {
+          "action": "choose",
+          "detail": "canal:depart:creek",
+          "wallMs": 18879
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "to_workshop",
+            "scene": "creek",
+            "world": {
+              "x": 1640,
+              "y": 370
+            }
+          },
+          "wallMs": 19769
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 720,
+              "y": 440
+            },
+            "dx": -576,
+            "dy": 240
+          },
+          "wallMs": 20424
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 300,
+            "y": 340
+          },
+          "wallMs": 29722
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1600,
+            "y": 330
+          },
+          "wallMs": 32472
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 720,
+              "y": 440
+            },
+            "dx": -576,
+            "dy": 110
+          },
+          "wallMs": 33100
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1600,
+            "y": 720
+          },
+          "wallMs": 41338
+        },
+        {
+          "action": "walk",
+          "detail": {
+            "x": 1440,
+            "y": 780
+          },
+          "wallMs": 43899
+        },
+        {
+          "action": "settings-export",
+          "detail": "qa/evidence/journey-ready-input.json",
+          "wallMs": 47129
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "xu_work",
+            "scene": "workshop",
+            "world": {
+              "x": 1517.1413766107814,
+              "y": 743.7935922920291
+            }
+          },
+          "wallMs": 48158
+        },
+        {
+          "action": "choose",
+          "detail": "journey:start:together:north",
+          "wallMs": 48248
+        },
+        {
+          "action": "continuous-leadership-start",
+          "detail": {
+            "player": {
+              "x": 1440.4114179622825,
+              "y": 779.8440381218569,
+              "hp": 4,
+              "mana": 0,
+              "facing": 2.7792464948799935,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "npc": {
+              "id": "xu_work",
+              "kind": "npc",
+              "type": "xu",
+              "name": "许照",
+              "x": 1517.1413766107814,
+              "y": 743.7935922920291,
+              "w": 40,
+              "h": 62,
+              "state": "following",
+              "hint": "交谈",
+              "homeX": 1420,
+              "homeY": 740,
+              "facing": 2.7023666466310647
+            },
+            "run": {
+              "mode": "together",
+              "plan": "north",
+              "next": 1,
+              "playerGate": false,
+              "companionGate": false,
+              "viaSouth": false,
+              "waiting": false
+            }
+          },
+          "wallMs": 48649
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1514.947276515216,
+              "y": 780.8381200374572
+            },
+            "npc": {
+              "x": 1582.1796204958516,
+              "y": 725.117280822048
+            },
+            "player": {
+              "x": 1440.4114179622825,
+              "y": 779.8440381218569
+            }
+          },
+          "wallMs": 49093
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1583.448970903726,
+              "y": 751.2629165924807
+            },
+            "npc": {
+              "x": 1586.58967356189,
+              "y": 671.3245904478022
+            },
+            "player": {
+              "x": 1501.7446135489342,
+              "y": 779.9740262275025
+            }
+          },
+          "wallMs": 49476
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1585.9157311164925,
+              "y": 688.478022933014
+            },
+            "npc": {
+              "x": 1589.0564337746566,
+              "y": 608.5396967883355
+            },
+            "player": {
+              "x": 1567.0503589755115,
+              "y": 756.6873191741092
+            }
+          },
+          "wallMs": 49896
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1588.0029897580641,
+              "y": 635.3523436826961
+            },
+            "npc": {
+              "x": 1591.1436924162283,
+              "y": 555.4140175380176
+            },
+            "player": {
+              "x": 1581.883256331906,
+              "y": 699.9267436503153
+            }
+          },
+          "wallMs": 50284
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1590.1851237924345,
+              "y": 579.8118608300911
+            },
+            "npc": {
+              "x": 1593.3258264505987,
+              "y": 499.87353468541244
+            },
+            "player": {
+              "x": 1587.5917778133808,
+              "y": 638.8596448140911
+            }
+          },
+          "wallMs": 50695
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1592.367257826805,
+              "y": 524.2713779774858
+            },
+            "npc": {
+              "x": 1595.507960484969,
+              "y": 444.3330518328073
+            },
+            "player": {
+              "x": 1589.966733390949,
+              "y": 580.241069568847
+            }
+          },
+          "wallMs": 51090
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1595.308395003565,
+              "y": 449.4124663065833
+            },
+            "npc": {
+              "x": 1598.4490976617292,
+              "y": 369.47414016190476
+            },
+            "player": {
+              "x": 1591.9655743153983,
+              "y": 524.2767538403514
+            }
+          },
+          "wallMs": 51486
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1637.9288795911107,
+              "y": 373.02728150454476
+            },
+            "npc": {
+              "x": 1570.9959062004493,
+              "y": 329.20973852133955
+            },
+            "player": {
+              "x": 1594.4472740842855,
+              "y": 462.993648957889
+            }
+          },
+          "wallMs": 51900
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1589.4024738828787,
+              "y": 341.25956284172156
+            },
+            "npc": {
+              "x": 1522.469500492218,
+              "y": 297.44201985851566
+            },
+            "player": {
+              "x": 1621.566689246441,
+              "y": 405.0235073221935
+            }
+          },
+          "wallMs": 52293
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1544.919935317,
+              "y": 312.13915406746634
+            },
+            "npc": {
+              "x": 1477.9869619263397,
+              "y": 268.32161108425953
+            },
+            "player": {
+              "x": 1594.9681945371167,
+              "y": 352.7329932974119
+            }
+          },
+          "wallMs": 52677
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1509.998646730127,
+              "y": 259.42152851580346
+            },
+            "npc": {
+              "x": 1430.0011539324041,
+              "y": 258.78816757740447
+            },
+            "player": {
+              "x": 1551.2221451602613,
+              "y": 317.771826784871
+            }
+          },
+          "wallMs": 53078
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1435.0843279539292,
+              "y": 258.8284123870324
+            },
+            "npc": {
+              "x": 1355.0868351562065,
+              "y": 258.19505144863336
+            },
+            "player": {
+              "x": 1509.3889899653489,
+              "y": 259.58152024923623
+            }
+          },
+          "wallMs": 53494
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1379.502736603847,
+              "y": 258.38835848504095
+            },
+            "npc": {
+              "x": 1299.5052438061243,
+              "y": 257.7549975466419
+            },
+            "player": {
+              "x": 1448.0695130689369,
+              "y": 258.2778596614339
+            }
+          },
+          "wallMs": 53894
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1319.087963397236,
+              "y": 257.91003902635464
+            },
+            "npc": {
+              "x": 1239.0904705995133,
+              "y": 257.27667808795553
+            },
+            "player": {
+              "x": 1381.4033858528844,
+              "y": 258.0096685780702
+            }
+          },
+          "wallMs": 54298
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1268.3395539036828,
+              "y": 257.50825068105814
+            },
+            "npc": {
+              "x": 1188.34206110596,
+              "y": 256.874889742659
+            },
+            "player": {
+              "x": 1325.4107143369301,
+              "y": 257.10372348776457
+            }
+          },
+          "wallMs": 54698
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1207.9247806970718,
+              "y": 257.0299312223718
+            },
+            "npc": {
+              "x": 1127.927287899349,
+              "y": 256.3965702839726
+            },
+            "player": {
+              "x": 1269.4114151297981,
+              "y": 257.00047273860326
+            }
+          },
+          "wallMs": 55086
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1152.3431893469897,
+              "y": 256.58987732038025
+            },
+            "npc": {
+              "x": 1072.345696549267,
+              "y": 255.95651638198106
+            },
+            "player": {
+              "x": 1208.0780817982254,
+              "y": 257.0000081659883
+            }
+          },
+          "wallMs": 55494
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1091.9284161403782,
+              "y": 256.11155786169314
+            },
+            "npc": {
+              "x": 1011.9309233426553,
+              "y": 255.47819692329398
+            },
+            "player": {
+              "x": 1154.7532263194757,
+              "y": 256.04909670077865
+            }
+          },
+          "wallMs": 55911
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 1050.8463703598807,
+              "y": 255.78630062978593
+            },
+            "npc": {
+              "x": 970.8488775621579,
+              "y": 255.15293969138676
+            },
+            "player": {
+              "x": 1109.4199064288823,
+              "y": 256.0141852685191
+            }
+          },
+          "wallMs": 56305
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 992.8481880815314,
+              "y": 255.3271139494463
+            },
+            "npc": {
+              "x": 912.8506952838086,
+              "y": 254.69375301104716
+            },
+            "player": {
+              "x": 1050.7617832894794,
+              "y": 255.01300219802465
+            }
+          },
+          "wallMs": 56690
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 925.1836420901238,
+              "y": 254.79139615571674
+            },
+            "npc": {
+              "x": 845.1861492924011,
+              "y": 254.15803521731763
+            },
+            "player": {
+              "x": 994.7617846961668,
+              "y": 255.00045034618805
+            }
+          },
+          "wallMs": 57091
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 864.76886888351,
+              "y": 254.31307669702963
+            },
+            "npc": {
+              "x": 784.7713760857872,
+              "y": 253.67971575863055
+            },
+            "player": {
+              "x": 928.1019660279077,
+              "y": 254.04492977632873
+            }
+          },
+          "wallMs": 57501
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 792.2711410355734,
+              "y": 253.73909334660505
+            },
+            "npc": {
+              "x": 712.2736482378506,
+              "y": 253.10573240820605
+            },
+            "player": {
+              "x": 866.7686477686252,
+              "y": 254.00192880737055
+            }
+          },
+          "wallMs": 57888
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 746.3559133985468,
+              "y": 253.3755705580031
+            },
+            "npc": {
+              "x": 666.358420600824,
+              "y": 252.7422096196041
+            },
+            "player": {
+              "x": 816.1065485319773,
+              "y": 253.32162589895336
+            }
+          },
+          "wallMs": 58293
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 690.7743220484621,
+              "y": 252.9355166560113
+            },
+            "npc": {
+              "x": 610.7768292507393,
+              "y": 252.30215571761232
+            },
+            "player": {
+              "x": 754.7744024366036,
+              "y": 253.0271818088969
+            }
+          },
+          "wallMs": 58695
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 637.6093216266419,
+              "y": 252.51459553236694
+            },
+            "npc": {
+              "x": 557.6118288289191,
+              "y": 251.88123459396797
+            },
+            "player": {
+              "x": 696.115092719105,
+              "y": 252.09811709411804
+            }
+          },
+          "wallMs": 59090
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 574.7779574917635,
+              "y": 252.01714329533277
+            },
+            "npc": {
+              "x": 494.7804646940407,
+              "y": 251.38378235693378
+            },
+            "player": {
+              "x": 640.1157631769698,
+              "y": 252.0007484208767
+            }
+          },
+          "wallMs": 59494
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 514.3631842851496,
+              "y": 251.53882383664603
+            },
+            "npc": {
+              "x": 434.36569148742683,
+              "y": 250.90546289824707
+            },
+            "player": {
+              "x": 576.115763181058,
+              "y": 252.00002511123864
+            }
+          },
+          "wallMs": 59900
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 444.2820473654775,
+              "y": 250.98397326456944
+            },
+            "npc": {
+              "x": 364.28455456775475,
+              "y": 250.35061232617045
+            },
+            "player": {
+              "x": 514.7903767947691,
+              "y": 251.01272457427282
+            }
+          },
+          "wallMs": 60314
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 397.3746969745702,
+              "y": 196.68701132323642
+            },
+            "npc": {
+              "x": 335.88558881076847,
+              "y": 271.81416738028605
+            },
+            "player": {
+              "x": 461.4625002399357,
+              "y": 250.24981789788322
+            }
+          },
+          "wallMs": 60712
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 393.5399363772983,
+              "y": 242.44326651243836
+            },
+            "npc": {
+              "x": 332.0508282134965,
+              "y": 317.5704225694879
+            },
+            "player": {
+              "x": 422.696810896219,
+              "y": 217.6257096216782
+            }
+          },
+          "wallMs": 61092
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 387.2832217185916,
+              "y": 317.0982091895573
+            },
+            "npc": {
+              "x": 325.79411355478965,
+              "y": 392.2253652466067
+            },
+            "player": {
+              "x": 393.66932487940727,
+              "y": 240.67029967550516
+            }
+          },
+          "wallMs": 61505
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 383.4484611213198,
+              "y": 362.8544643787592
+            },
+            "npc": {
+              "x": 321.9593529575177,
+              "y": 437.98162043580857
+            },
+            "player": {
+              "x": 389.2591160938056,
+              "y": 291.1446611828932
+            }
+          },
+          "wallMs": 61913
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 379.00821200868876,
+              "y": 415.83539143994034
+            },
+            "npc": {
+              "x": 317.5191038448866,
+              "y": 490.96254749698966
+            },
+            "player": {
+              "x": 384.09680773028737,
+              "y": 349.58376068089865
+            }
+          },
+          "wallMs": 62300
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 374.7697924011771,
+              "y": 466.4080945437951
+            },
+            "npc": {
+              "x": 313.28068423737494,
+              "y": 541.5352506008444
+            },
+            "player": {
+              "x": 379.72762457507923,
+              "y": 405.4123945250878
+            }
+          },
+          "wallMs": 62701
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 370.1277137834262,
+              "y": 521.7972455623026
+            },
+            "npc": {
+              "x": 308.63860561962406,
+              "y": 596.9244016193519
+            },
+            "player": {
+              "x": 374.20621213930207,
+              "y": 463.81865945010946
+            }
+          },
+          "wallMs": 63112
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 364.8801466503165,
+              "y": 584.4110684527893
+            },
+            "npc": {
+              "x": 303.39103848651433,
+              "y": 659.5382245098386
+            },
+            "player": {
+              "x": 370.0979981139411,
+              "y": 519.6677648818153
+            }
+          },
+          "wallMs": 63514
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 364.1346322781384,
+              "y": 663.5379736998703
+            },
+            "npc": {
+              "x": 285.7824864810852,
+              "y": 702.0858821904397
+            },
+            "player": {
+              "x": 365.05720531922566,
+              "y": 572.762348903589
+            }
+          },
+          "wallMs": 63914
+        },
+        {
+          "action": "follow-with-ground-input",
+          "detail": {
+            "target": {
+              "x": 325.15898989255487,
+              "y": 709.7015189682133
+            },
+            "npc": {
+              "x": 246.8068440955014,
+              "y": 748.2494274587822
+            },
+            "player": {
+              "x": 364.0161507428859,
+              "y": 636.714588896138
+            }
+          },
+          "wallMs": 64299
+        },
+        {
+          "action": "meeting-ground-tap",
+          "detail": {
+            "intended": {
+              "x": 270,
+              "y": 805
+            },
+            "actualPathEnd": {
+              "x": 270,
+              "y": 804.6965553827644
+            },
+            "player": {
+              "x": 335.7494966288797,
+              "y": 698.3871843328202
+            }
+          },
+          "wallMs": 64730
+        },
+        {
+          "action": "continuous-leadership-complete",
+          "detail": {
+            "moved": 2253.6080573705435,
+            "seconds": 16.766666666679413
+          },
+          "wallMs": 66359
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "shelter",
+            "scene": "creek",
+            "world": {
+              "x": 1200,
+              "y": 500
+            }
+          },
+          "wallMs": 67560
+        },
+        {
+          "action": "choose",
+          "detail": "journey:rest",
+          "wallMs": 69416
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "to_home",
+            "scene": "creek",
+            "world": {
+              "x": 100,
+              "y": 770
+            }
+          },
+          "wallMs": 70971
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 720,
+              "y": 440
+            },
+            "dx": 576,
+            "dy": -240
+          },
+          "wallMs": 71625
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "table",
+            "scene": "home",
+            "world": {
+              "x": 760,
+              "y": 410
+            }
+          },
+          "wallMs": 79824
+        },
+        {
+          "action": "choose",
+          "detail": "journey:record",
+          "wallMs": 84463
+        },
+        {
+          "action": "settings-export",
+          "detail": "qa/evidence/journey-complete-export.json",
+          "wallMs": 86789
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "table",
+            "scene": "home",
+            "world": {
+              "x": 760,
+              "y": 410
+            }
+          },
+          "wallMs": 87774
+        },
+        {
+          "action": "settings-import",
+          "detail": {
+            "name": "journey-ready-input.json",
+            "contentVersion": 7
+          },
+          "wallMs": 96464
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "xu_work",
+            "scene": "workshop",
+            "world": {
+              "x": 1517.1413766107814,
+              "y": 743.7935922920291
+            }
+          },
+          "wallMs": 96793
+        },
+        {
+          "action": "choose",
+          "detail": "journey:start:together:north",
+          "wallMs": 96903
+        },
+        {
+          "action": "settings-export",
+          "detail": "qa/evidence/journey-desktop-paused-input.json",
+          "wallMs": 98864
+        },
+        {
+          "action": "settings-import",
+          "detail": {
+            "name": "journey-paused-input.json",
+            "contentVersion": 7
+          },
+          "wallMs": 103648
+        }
+      ],
+      "observations": {
+        "departure": {
+          "visual": "qa/evidence/journey-desktop-departure.png",
+          "state": {
+            "scene": "workshop",
+            "time": 239.56666666674946,
+            "player": {
+              "x": 1440.4114179622825,
+              "y": 779.8440381218569,
+              "hp": 4,
+              "mana": 0,
+              "facing": 2.7792464948799935,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "journey": {
+              "stage": "active",
+              "agreed": "together",
+              "run": null,
+              "soloRoute": null,
+              "sharedRoute": null,
+              "restOpened": false,
+              "recordedShared": false
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "companion": "following",
+            "ended": true,
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 49,
+                "time": 201.68333333338597,
+                "type": "return",
+                "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+              },
+              {
+                "seq": 50,
+                "time": 201.68333333338597,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 51,
+                "time": 207.20000000005703,
+                "type": "growth",
+                "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
+              },
+              {
+                "seq": 52,
+                "time": 208.8000000000583,
+                "type": "note",
+                "text": "约定记下了，还不算一起走过。按原来的条件邀请许照，实际到旧工棚东侧歇脚处，再让她带回程。"
+              },
+              {
+                "seq": 53,
+                "time": 213.76666666672892,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 54,
+                "time": 223.71666666673684,
+                "type": "scene",
+                "text": "林路与旧工棚"
+              }
+            ]
+          }
+        },
+        "leadership": {
+          "paused": false,
+          "exportedDuring": false,
+          "screenshotsDuring": false,
+          "wallMs": 16858,
+          "modelSeconds": 16.766666666679413,
+          "npcObservedDistance": 2253.6080573705435,
+          "distanceWaitingSamples": 0,
+          "start": {
+            "scene": "workshop",
+            "time": 239.56666666674946,
+            "player": {
+              "x": 1440.4114179622825,
+              "y": 779.8440381218569,
+              "hp": 4,
+              "mana": 0,
+              "facing": 2.7792464948799935,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "journey": {
+              "stage": "active",
+              "agreed": "together",
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 1,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "soloRoute": null,
+              "sharedRoute": null,
+              "restOpened": false,
+              "recordedShared": false
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "companion": "following",
+            "ended": true,
+            "paused": false,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 50,
+                "time": 201.68333333338597,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 51,
+                "time": 207.20000000005703,
+                "type": "growth",
+                "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
+              },
+              {
+                "seq": 52,
+                "time": 208.8000000000583,
+                "type": "note",
+                "text": "约定记下了，还不算一起走过。按原来的条件邀请许照，实际到旧工棚东侧歇脚处，再让她带回程。"
+              },
+              {
+                "seq": 53,
+                "time": 213.76666666672892,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 54,
+                "time": 223.71666666673684,
+                "type": "scene",
+                "text": "林路与旧工棚"
+              },
+              {
+                "seq": 55,
+                "time": 239.56666666674946,
+                "type": "route",
+                "text": "许照从工棚东侧动身，自己带北侧高路。你仍要亲自行走；前路不稳或你落后时，她会停下。"
+              }
+            ]
+          },
+          "finalMeeting": {
+            "player": {
+              "x": 271.2266604943454,
+              "y": 802.7131865003873
+            },
+            "npc": {
+              "x": 231.21658714126772,
+              "y": 766.7148455661189
+            },
+            "run": {
+              "mode": "together",
+              "plan": "north",
+              "next": 7,
+              "playerGate": true,
+              "companionGate": true,
+              "viaSouth": false,
+              "waiting": false
+            }
+          },
+          "samples": [
+            {
+              "wallMs": 40,
+              "time": 239.56666666674946,
+              "player": {
+                "x": 1440.4114179622825,
+                "y": 779.8440381218569,
+                "path": 0
+              },
+              "npc": {
+                "x": 1517.1413766107814,
+                "y": 743.7935922920291,
+                "state": "following"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 1,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 84.7768907116185
+            },
+            {
+              "wallMs": 444,
+              "time": 240.0333333334165,
+              "player": {
+                "x": 1440.4114179622825,
+                "y": 779.8440381218569,
+                "path": 0
+              },
+              "npc": {
+                "x": 1582.1796204958516,
+                "y": 725.117280822048,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 1,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 151.96460513603577
+            },
+            {
+              "wallMs": 827,
+              "time": 240.41666666675013,
+              "player": {
+                "x": 1501.7446135489342,
+                "y": 779.9740262275025,
+                "path": 1
+              },
+              "npc": {
+                "x": 1586.58967356189,
+                "y": 671.3245904478022,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 2,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 137.8527624092071
+            },
+            {
+              "wallMs": 1245,
+              "time": 240.8500000000838,
+              "player": {
+                "x": 1567.0503589755115,
+                "y": 756.6873191741092,
+                "path": 1
+              },
+              "npc": {
+                "x": 1589.0564337746566,
+                "y": 608.5396967883355,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 2,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 149.77311289621838
+            },
+            {
+              "wallMs": 1635,
+              "time": 241.21666666675077,
+              "player": {
+                "x": 1581.883256331906,
+                "y": 699.9267436503153,
+                "path": 1
+              },
+              "npc": {
+                "x": 1591.1436924162283,
+                "y": 555.4140175380176,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 2,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 144.8091284583945
+            },
+            {
+              "wallMs": 2046,
+              "time": 241.6000000000844,
+              "player": {
+                "x": 1587.5917778133808,
+                "y": 638.8596448140911,
+                "path": 1
+              },
+              "npc": {
+                "x": 1593.3258264505987,
+                "y": 499.87353468541244,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 2,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 139.10434257231213
+            },
+            {
+              "wallMs": 2441,
+              "time": 241.98333333341805,
+              "player": {
+                "x": 1589.966733390949,
+                "y": 580.241069568847,
+                "path": 0
+              },
+              "npc": {
+                "x": 1595.507960484969,
+                "y": 444.3330518328073,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 2,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 136.02093398682126
+            },
+            {
+              "wallMs": 2837,
+              "time": 242.50000000008512,
+              "player": {
+                "x": 1591.9655743153983,
+                "y": 524.2767538403514,
+                "path": 0
+              },
+              "npc": {
+                "x": 1598.4490976617292,
+                "y": 369.47414016190476,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 2,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 154.93832733271907
+            },
+            {
+              "wallMs": 3251,
+              "time": 242.88333333341876,
+              "player": {
+                "x": 1594.4472740842855,
+                "y": 462.993648957889,
+                "path": 1
+              },
+              "npc": {
+                "x": 1570.9959062004493,
+                "y": 329.20973852133955,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 3,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 135.82378785513862
+            },
+            {
+              "wallMs": 3643,
+              "time": 243.28333333341908,
+              "player": {
+                "x": 1621.566689246441,
+                "y": 405.0235073221935,
+                "path": 1
+              },
+              "npc": {
+                "x": 1522.469500492218,
+                "y": 297.44201985851566,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 3,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 146.2669794037177
+            },
+            {
+              "wallMs": 4028,
+              "time": 243.65000000008604,
+              "player": {
+                "x": 1594.9681945371167,
+                "y": 352.7329932974119,
+                "path": 1
+              },
+              "npc": {
+                "x": 1477.9869619263397,
+                "y": 268.32161108425953,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 3,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 144.2563351477903
+            },
+            {
+              "wallMs": 4429,
+              "time": 244.00000000008632,
+              "player": {
+                "x": 1551.2221451602613,
+                "y": 317.771826784871,
+                "path": 1
+              },
+              "npc": {
+                "x": 1430.0011539324041,
+                "y": 258.78816757740447,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 134.80949806214244
+            },
+            {
+              "wallMs": 4845,
+              "time": 244.5166666667534,
+              "player": {
+                "x": 1509.3889899653489,
+                "y": 259.58152024923623,
+                "path": 0
+              },
+              "npc": {
+                "x": 1355.0868351562065,
+                "y": 258.19505144863336,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 154.3083836817676
+            },
+            {
+              "wallMs": 5245,
+              "time": 244.90000000008703,
+              "player": {
+                "x": 1448.0695130689369,
+                "y": 258.2778596614339,
+                "path": 1
+              },
+              "npc": {
+                "x": 1299.5052438061243,
+                "y": 257.7549975466419,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 148.56518934927036
+            },
+            {
+              "wallMs": 5649,
+              "time": 245.31666666675403,
+              "player": {
+                "x": 1381.4033858528844,
+                "y": 258.0096685780702,
+                "path": 0
+              },
+              "npc": {
+                "x": 1239.0904705995133,
+                "y": 257.27667808795553,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 142.31480289475084
+            },
+            {
+              "wallMs": 6049,
+              "time": 245.6666666667543,
+              "player": {
+                "x": 1325.4107143369301,
+                "y": 257.10372348776457,
+                "path": 1
+              },
+              "npc": {
+                "x": 1188.34206110596,
+                "y": 256.874889742659,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 137.06884424782615
+            },
+            {
+              "wallMs": 6437,
+              "time": 246.0833333334213,
+              "player": {
+                "x": 1269.4114151297981,
+                "y": 257.00047273860326,
+                "path": 0
+              },
+              "npc": {
+                "x": 1127.927287899349,
+                "y": 256.3965702839726,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 141.48541605528328
+            },
+            {
+              "wallMs": 6845,
+              "time": 246.46666666675495,
+              "player": {
+                "x": 1208.0780817982254,
+                "y": 257.0000081659883,
+                "path": 0
+              },
+              "npc": {
+                "x": 1072.345696549267,
+                "y": 255.95651638198106,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": false,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 135.73639629986857
+            },
+            {
+              "wallMs": 7262,
+              "time": 246.88333333342194,
+              "player": {
+                "x": 1154.7532263194757,
+                "y": 256.04909670077865,
+                "path": 0
+              },
+              "npc": {
+                "x": 1011.9309233426553,
+                "y": 255.47819692329398,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": false,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 142.82344399347966
+            },
+            {
+              "wallMs": 7656,
+              "time": 247.1666666667555,
+              "player": {
+                "x": 1109.4199064288823,
+                "y": 256.0141852685191,
+                "path": 1
+              },
+              "npc": {
+                "x": 970.8488775621579,
+                "y": 255.15293969138676,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": false,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 138.57370524427319
+            },
+            {
+              "wallMs": 8041,
+              "time": 247.56666666675582,
+              "player": {
+                "x": 1050.7617832894794,
+                "y": 255.01300219802465,
+                "path": 0
+              },
+              "npc": {
+                "x": 912.8506952838086,
+                "y": 254.69375301104716,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 137.91145751876908
+            },
+            {
+              "wallMs": 8442,
+              "time": 248.03333333342286,
+              "player": {
+                "x": 994.7617846961668,
+                "y": 255.00045034618805,
+                "path": 0
+              },
+              "npc": {
+                "x": 845.1861492924011,
+                "y": 254.15803521731763,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 149.57800764046036
+            },
+            {
+              "wallMs": 8852,
+              "time": 248.45000000008986,
+              "player": {
+                "x": 928.1019660279077,
+                "y": 254.04492977632873,
+                "path": 1
+              },
+              "npc": {
+                "x": 784.7713760857872,
+                "y": 253.67971575863055,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 143.33105523380132
+            },
+            {
+              "wallMs": 9239,
+              "time": 248.95000000009026,
+              "player": {
+                "x": 866.7686477686252,
+                "y": 254.00192880737055,
+                "path": 0
+              },
+              "npc": {
+                "x": 712.2736482378506,
+                "y": 253.10573240820605,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 154.4975988421824
+            },
+            {
+              "wallMs": 9644,
+              "time": 249.26666666675717,
+              "player": {
+                "x": 816.1065485319773,
+                "y": 253.32162589895336,
+                "path": 1
+              },
+              "npc": {
+                "x": 666.358420600824,
+                "y": 252.7422096196041,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 149.74924888662986
+            },
+            {
+              "wallMs": 10046,
+              "time": 249.6500000000908,
+              "player": {
+                "x": 754.7744024366036,
+                "y": 253.0271818088969,
+                "path": 1
+              },
+              "npc": {
+                "x": 610.7768292507393,
+                "y": 252.30215571761232,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 143.99939842322743
+            },
+            {
+              "wallMs": 10441,
+              "time": 250.01666666675777,
+              "player": {
+                "x": 696.115092719105,
+                "y": 252.09811709411804,
+                "path": 1
+              },
+              "npc": {
+                "x": 557.6118288289191,
+                "y": 251.88123459396797,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 138.50343369842255
+            },
+            {
+              "wallMs": 10845,
+              "time": 250.45000000009145,
+              "player": {
+                "x": 640.1157631769698,
+                "y": 252.0007484208767,
+                "path": 0
+              },
+              "npc": {
+                "x": 494.7804646940407,
+                "y": 251.38378235693378,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 145.33660802511582
+            },
+            {
+              "wallMs": 11251,
+              "time": 250.86666666675845,
+              "player": {
+                "x": 576.115763181058,
+                "y": 252.00002511123864,
+                "path": 0
+              },
+              "npc": {
+                "x": 434.36569148742683,
+                "y": 250.90546289824707,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 141.75429761240994
+            },
+            {
+              "wallMs": 11665,
+              "time": 251.35000000009217,
+              "player": {
+                "x": 514.7903767947691,
+                "y": 251.01272457427282,
+                "path": 0
+              },
+              "npc": {
+                "x": 364.28455456775475,
+                "y": 250.35061232617045,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 4,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 150.50727861754308
+            },
+            {
+              "wallMs": 12063,
+              "time": 251.68333333342576,
+              "player": {
+                "x": 461.4625002399357,
+                "y": 250.24981789788322,
+                "path": 1
+              },
+              "npc": {
+                "x": 335.88558881076847,
+                "y": 271.81416738028605,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 5,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 127.41499853897939
+            },
+            {
+              "wallMs": 12443,
+              "time": 252.00000000009268,
+              "player": {
+                "x": 422.696810896219,
+                "y": 217.6257096216782,
+                "path": 1
+              },
+              "npc": {
+                "x": 332.0508282134965,
+                "y": 317.5704225694879,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 5,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 134.92827658699457
+            },
+            {
+              "wallMs": 12856,
+              "time": 252.51666666675976,
+              "player": {
+                "x": 393.66932487940727,
+                "y": 240.67029967550516,
+                "path": 0
+              },
+              "npc": {
+                "x": 325.79411355478965,
+                "y": 392.2253652466067,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 5,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 166.06017648016152
+            },
+            {
+              "wallMs": 13264,
+              "time": 252.83333333342668,
+              "player": {
+                "x": 389.2591160938056,
+                "y": 291.1446611828932,
+                "path": 1
+              },
+              "npc": {
+                "x": 321.9593529575177,
+                "y": 437.98162043580857,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 5,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 161.52507768406363
+            },
+            {
+              "wallMs": 13651,
+              "time": 253.20000000009364,
+              "player": {
+                "x": 384.09680773028737,
+                "y": 349.58376068089865,
+                "path": 1
+              },
+              "npc": {
+                "x": 317.5191038448866,
+                "y": 490.96254749698966,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 5,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 156.2707650721715
+            },
+            {
+              "wallMs": 14052,
+              "time": 253.55000000009392,
+              "player": {
+                "x": 379.72762457507923,
+                "y": 405.4123945250878,
+                "path": 1
+              },
+              "npc": {
+                "x": 313.28068423737494,
+                "y": 541.5352506008444,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 5,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 151.47484222293673
+            },
+            {
+              "wallMs": 14463,
+              "time": 253.93333333342756,
+              "player": {
+                "x": 374.20621213930207,
+                "y": 463.81865945010946,
+                "path": 0
+              },
+              "npc": {
+                "x": 308.63860561962406,
+                "y": 596.9244016193519,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 5,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 148.37873709916852
+            },
+            {
+              "wallMs": 14865,
+              "time": 254.36666666676123,
+              "player": {
+                "x": 370.0979981139411,
+                "y": 519.6677648818153,
+                "path": 0
+              },
+              "npc": {
+                "x": 303.39103848651433,
+                "y": 659.5382245098386,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 5,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 154.963105090501
+            },
+            {
+              "wallMs": 15265,
+              "time": 254.70000000009483,
+              "player": {
+                "x": 365.05720531922566,
+                "y": 572.762348903589,
+                "path": 1
+              },
+              "npc": {
+                "x": 285.7824864810852,
+                "y": 702.0858821904397,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 6,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 151.68736700418208
+            },
+            {
+              "wallMs": 15650,
+              "time": 255.11666666676183,
+              "player": {
+                "x": 364.0161507428859,
+                "y": 636.714588896138,
+                "path": 1
+              },
+              "npc": {
+                "x": 246.8068440955014,
+                "y": 748.2494274587822,
+                "state": "leading"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 6,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 161.79629717010124
+            },
+            {
+              "wallMs": 16051,
+              "time": 255.45000000009543,
+              "player": {
+                "x": 344.16551873338403,
+                "y": 684.779444919659,
+                "path": 1
+              },
+              "npc": {
+                "x": 231.21658714126772,
+                "y": 766.7148455661189,
+                "state": "waiting"
+              },
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 7,
+                "playerGate": true,
+                "companionGate": true,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "gap": 139.53806300395772
+            }
+          ]
+        },
+        "creek-arrival": {
+          "visual": "qa/evidence/journey-desktop-creek-arrival.png",
+          "state": {
+            "scene": "creek",
+            "time": 257.16666666676144,
+            "player": {
+              "x": 1570,
+              "y": 420,
+              "hp": 4,
+              "mana": 0,
+              "facing": -3.0097127509389456,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "journey": {
+              "stage": "active",
+              "agreed": "together",
+              "run": null,
+              "soloRoute": null,
+              "sharedRoute": "north",
+              "restOpened": false,
+              "recordedShared": false
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "companion": "following",
+            "ended": true,
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 52,
+                "time": 208.8000000000583,
+                "type": "note",
+                "text": "约定记下了，还不算一起走过。按原来的条件邀请许照，实际到旧工棚东侧歇脚处，再让她带回程。"
+              },
+              {
+                "seq": 53,
+                "time": 213.76666666672892,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 54,
+                "time": 223.71666666673684,
+                "type": "scene",
+                "text": "林路与旧工棚"
+              },
+              {
+                "seq": 55,
+                "time": 239.56666666674946,
+                "type": "route",
+                "text": "许照从工棚东侧动身，自己带北侧高路。你仍要亲自行走；前路不稳或你落后时，她会停下。"
+              },
+              {
+                "seq": 56,
+                "time": 256.85000000009506,
+                "type": "relationship",
+                "text": "许照与你在工棚西口会合。北侧高路是这次双方亲自走过的回程；继续去溪道雨棚，留好歇脚处。"
+              },
+              {
+                "seq": 57,
+                "time": 256.85000000009506,
+                "type": "scene",
+                "text": "雨后溪道"
+              }
+            ]
+          }
+        },
+        "shelter-rest": {
+          "visual": "qa/evidence/journey-desktop-shelter-rest.png",
+          "state": {
+            "scene": "creek",
+            "time": 259.1333333334263,
+            "player": {
+              "x": 1291.1111581278285,
+              "y": 480.30029013452366,
+              "hp": 4,
+              "mana": 0,
+              "facing": 2.9286543040104047,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "journey": {
+              "stage": "ready",
+              "agreed": "together",
+              "run": null,
+              "soloRoute": null,
+              "sharedRoute": "north",
+              "restOpened": true,
+              "recordedShared": false
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "companion": "following",
+            "ended": true,
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 53,
+                "time": 213.76666666672892,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 54,
+                "time": 223.71666666673684,
+                "type": "scene",
+                "text": "林路与旧工棚"
+              },
+              {
+                "seq": 55,
+                "time": 239.56666666674946,
+                "type": "route",
+                "text": "许照从工棚东侧动身，自己带北侧高路。你仍要亲自行走；前路不稳或你落后时，她会停下。"
+              },
+              {
+                "seq": 56,
+                "time": 256.85000000009506,
+                "type": "relationship",
+                "text": "许照与你在工棚西口会合。北侧高路是这次双方亲自走过的回程；继续去溪道雨棚，留好歇脚处。"
+              },
+              {
+                "seq": 57,
+                "time": 256.85000000009506,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 58,
+                "time": 258.95000000009315,
+                "type": "change",
+                "text": "你在棚内干地展开坐垫。这里以后可以静息；回驿把亲自走过的回程记下来。",
+                "x": 1250,
+                "y": 550,
+                "targetId": "journey_rest_shelter"
+              }
+            ]
+          }
+        },
+        "home-map": {
+          "visual": "qa/evidence/journey-desktop-home-map.png",
+          "state": {
+            "scene": "home",
+            "time": 272.7166666667473,
+            "player": {
+              "x": 844.3929558916593,
+              "y": 441.0921416442955,
+              "hp": 4,
+              "mana": 0,
+              "facing": -2.7886022657628873,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "journey": {
+              "stage": "complete",
+              "agreed": "together",
+              "run": null,
+              "soloRoute": null,
+              "sharedRoute": "north",
+              "restOpened": true,
+              "recordedShared": true
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "companion": "following",
+            "ended": true,
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 56,
+                "time": 256.85000000009506,
+                "type": "relationship",
+                "text": "许照与你在工棚西口会合。北侧高路是这次双方亲自走过的回程；继续去溪道雨棚，留好歇脚处。"
+              },
+              {
+                "seq": 57,
+                "time": 256.85000000009506,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 58,
+                "time": 258.95000000009315,
+                "type": "change",
+                "text": "你在棚内干地展开坐垫。这里以后可以静息；回驿把亲自走过的回程记下来。",
+                "x": 1250,
+                "y": 550,
+                "targetId": "journey_rest_shelter"
+              },
+              {
+                "seq": 59,
+                "time": 267.78333333341845,
+                "type": "return",
+                "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+              },
+              {
+                "seq": 60,
+                "time": 267.78333333341845,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 61,
+                "time": 272.4166666667476,
+                "type": "growth",
+                "text": "许照在桌边补了一笔：这回由她领着走过北侧高路。雨棚的坐垫已经留好，往来途中有地方歇脚。"
+              }
+            ]
+          }
+        },
+        "separatePauseSave": {
+          "separatePage": true,
+          "restoredIntoCleanPage": true,
+          "source": "real pre-start settings export from this route",
+          "freezeWallMs": 800,
+          "modelTime": 239.66666666674953,
+          "journey": {
+            "stage": "active",
+            "agreed": "together",
+            "run": {
+              "mode": "together",
+              "plan": "north",
+              "next": 1,
+              "playerGate": false,
+              "companionGate": false,
+              "viaSouth": false,
+              "waiting": false
+            },
+            "soloRoute": null,
+            "sharedRoute": null,
+            "restOpened": false,
+            "recordedShared": false
+          },
+          "npc": {
+            "id": "xu_work",
+            "kind": "npc",
+            "type": "xu",
+            "name": "许照",
+            "x": 1528.7553487331154,
+            "y": 740.4585366723898,
+            "w": 40,
+            "h": 62,
+            "state": "leading",
+            "hint": "交谈",
+            "homeX": 1420,
+            "homeY": 740,
+            "facing": -0.2796347482994912
+          }
+        },
+        "paused-restored": {
+          "visual": "qa/evidence/journey-desktop-paused-restored.png",
+          "state": {
+            "scene": "workshop",
+            "time": 239.66666666674953,
+            "player": {
+              "x": 1447.5793032734787,
+              "y": 791.0867779099743,
+              "hp": 4,
+              "mana": 0,
+              "facing": 1.0032183095551086,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": [
+                {
+                  "x": 1459,
+                  "y": 809
+                }
+              ]
+            },
+            "journey": {
+              "stage": "active",
+              "agreed": "together",
+              "run": {
+                "mode": "together",
+                "plan": "north",
+                "next": 1,
+                "playerGate": false,
+                "companionGate": false,
+                "viaSouth": false,
+                "waiting": false
+              },
+              "soloRoute": null,
+              "sharedRoute": null,
+              "restOpened": false,
+              "recordedShared": false
+            },
+            "canal": {
+              "stage": "complete",
+              "inspected": true,
+              "cleared": true,
+              "method": "diversion",
+              "sharedInspect": true,
+              "sharedVerify": false,
+              "usedClamp": false,
+              "work": null,
+              "drain": 0,
+              "flow": 3,
+              "surge": null
+            },
+            "life": {
+              "repair": {
+                "stage": "unaccepted",
+                "softened": false,
+                "stopSet": false,
+                "latched": false,
+                "tested": false,
+                "method": null,
+                "testing": null
+              },
+              "harvest": {
+                "stage": "unaccepted",
+                "sun": "unpicked",
+                "shade": "unpicked",
+                "picking": null,
+                "shared": false
+              },
+              "clamp": "unowned",
+              "sachets": 0,
+              "scent": null
+            },
+            "companion": "following",
+            "ended": true,
+            "paused": true,
+            "dialogue": null,
+            "defeated": false,
+            "events": [
+              {
+                "seq": 50,
+                "time": 201.68333333338597,
+                "type": "scene",
+                "text": "回石驿"
+              },
+              {
+                "seq": 51,
+                "time": 207.20000000005703,
+                "type": "growth",
+                "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
+              },
+              {
+                "seq": 52,
+                "time": 208.8000000000583,
+                "type": "note",
+                "text": "约定记下了，还不算一起走过。按原来的条件邀请许照，实际到旧工棚东侧歇脚处，再让她带回程。"
+              },
+              {
+                "seq": 53,
+                "time": 213.76666666672892,
+                "type": "scene",
+                "text": "雨后溪道"
+              },
+              {
+                "seq": 54,
+                "time": 223.71666666673684,
+                "type": "scene",
+                "text": "林路与旧工棚"
+              },
+              {
+                "seq": 55,
+                "time": 239.58333333341614,
+                "type": "route",
+                "text": "许照从工棚东侧动身，自己带北侧高路。你仍要亲自行走；前路不稳或你落后时，她会停下。"
+              }
+            ]
+          }
+        }
+      },
+      "exports": [
+        {
+          "path": "qa/evidence/journey-ready-input.json",
+          "sha256": "946cc9b4e10ecb2c8f1f3f8d31ccf4d16e65f9630e41306d5aae03c0e0c1a3bb"
+        },
+        {
+          "path": "qa/evidence/journey-complete-export.json",
+          "sha256": "07b76bf2c1a4febd87acdeacc7b7e079ab6bf207fd346904ab6e3205905512b4"
+        },
+        {
+          "path": "qa/evidence/journey-desktop-paused-input.json",
+          "sha256": "28c99fc6b75096e29364ab390b19bd8d7515c3281ee7c0b27512eaea94d199ba"
+        }
+      ],
+      "initial": {
+        "hp": 4,
+        "mana": 0,
+        "clamp": "unowned",
+        "sachets": 0,
+        "companion": "following"
+      },
+      "completed": {
+        "scene": "home",
+        "time": 272.7166666667473,
+        "player": {
+          "x": 844.3929558916593,
+          "y": 441.0921416442955,
+          "hp": 4,
+          "mana": 0,
+          "facing": -2.7886022657628873,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "journey": {
+          "stage": "complete",
+          "agreed": "together",
+          "run": null,
+          "soloRoute": null,
+          "sharedRoute": "north",
+          "restOpened": true,
+          "recordedShared": true
+        },
+        "canal": {
+          "stage": "complete",
+          "inspected": true,
+          "cleared": true,
+          "method": "diversion",
+          "sharedInspect": true,
+          "sharedVerify": false,
+          "usedClamp": false,
+          "work": null,
+          "drain": 0,
+          "flow": 3,
+          "surge": null
+        },
+        "life": {
+          "repair": {
+            "stage": "unaccepted",
+            "softened": false,
+            "stopSet": false,
+            "latched": false,
+            "tested": false,
+            "method": null,
+            "testing": null
+          },
+          "harvest": {
+            "stage": "unaccepted",
+            "sun": "unpicked",
+            "shade": "unpicked",
+            "picking": null,
+            "shared": false
+          },
+          "clamp": "unowned",
+          "sachets": 0,
+          "scent": null
+        },
+        "companion": "following",
+        "ended": true,
+        "paused": false,
+        "dialogue": null,
+        "defeated": false,
+        "events": [
+          {
+            "seq": 56,
+            "time": 256.85000000009506,
+            "type": "relationship",
+            "text": "许照与你在工棚西口会合。北侧高路是这次双方亲自走过的回程；继续去溪道雨棚，留好歇脚处。"
+          },
+          {
+            "seq": 57,
+            "time": 256.85000000009506,
+            "type": "scene",
+            "text": "雨后溪道"
+          },
+          {
+            "seq": 58,
+            "time": 258.95000000009315,
+            "type": "change",
+            "text": "你在棚内干地展开坐垫。这里以后可以静息；回驿把亲自走过的回程记下来。",
+            "x": 1250,
+            "y": 550,
+            "targetId": "journey_rest_shelter"
+          },
+          {
+            "seq": 59,
+            "time": 267.78333333341845,
+            "type": "return",
+            "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+          },
+          {
+            "seq": 60,
+            "time": 267.78333333341845,
+            "type": "scene",
+            "text": "回石驿"
+          },
+          {
+            "seq": 61,
+            "time": 272.4166666667476,
+            "type": "growth",
+            "text": "许照在桌边补了一笔：这回由她领着走过北侧高路。雨棚的坐垫已经留好，往来途中有地方歇脚。"
+          }
+        ]
+      },
+      "restart": {
+        "scene": "home",
+        "time": 0.2833333333333333,
+        "player": {
+          "x": 360,
+          "y": 710,
+          "hp": 4,
+          "mana": 6,
+          "facing": 0,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "journey": {
+          "stage": "unaccepted",
+          "agreed": null,
+          "run": null,
+          "soloRoute": null,
+          "sharedRoute": null,
+          "restOpened": false,
+          "recordedShared": false
+        },
+        "canal": {
+          "stage": "unaccepted",
+          "inspected": false,
+          "cleared": false,
+          "method": null,
+          "sharedInspect": false,
+          "sharedVerify": false,
+          "usedClamp": false,
+          "work": null,
+          "drain": 0,
+          "flow": 0,
+          "surge": null
+        },
+        "life": {
+          "repair": {
+            "stage": "unaccepted",
+            "softened": false,
+            "stopSet": false,
+            "latched": false,
+            "tested": false,
+            "method": null,
+            "testing": null
+          },
+          "harvest": {
+            "stage": "unaccepted",
+            "sun": "unpicked",
+            "shade": "unpicked",
+            "picking": null,
+            "shared": false
+          },
+          "clamp": "unowned",
+          "sachets": 0,
+          "scent": null
+        },
+        "companion": "waiting",
+        "ended": false,
+        "paused": false,
+        "dialogue": null,
+        "defeated": false,
+        "events": [
+          {
+            "seq": 1,
+            "time": 0,
+            "type": "note",
+            "text": "行舟，凝气三层。先前攒钱修的控物环，今日该去取了。"
+          },
+          {
+            "seq": 2,
+            "time": 0,
+            "type": "hint",
+            "text": "陶七扶着歪灯架。选「牵引」，点灯盏，再点灯架旁的落点，最后放下。"
+          }
+        ]
+      }
+    },
+    {
+      "id": "phone",
+      "status": "FAIL",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "touch": true
+      },
+      "inputTrace": [
+        {
+          "action": "settings-import",
+          "detail": {
+            "name": "return-canal-v0.4.0.json",
+            "contentVersion": 7
+          },
+          "wallMs": 110869
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "table",
+            "scene": "home",
+            "world": {
+              "x": 760,
+              "y": 410
+            }
+          },
+          "wallMs": 111548
+        },
+        {
+          "action": "choose",
+          "detail": "journey:agree:together",
+          "wallMs": 111738
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "to_creek",
+            "scene": "home",
+            "world": {
+              "x": 1640,
+              "y": 690
+            }
+          },
+          "wallMs": 112520
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -156.50002441406286
+          },
+          "wallMs": 113585
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -65.95002272082348
+          },
+          "wallMs": 114641
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -65.95002272082348
+          },
+          "wallMs": 115444
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -65.50002271240874
+          },
+          "wallMs": 116364
+        },
+        {
+          "action": "choose",
+          "detail": "canal:depart:creek",
+          "wallMs": 126786
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "to_workshop",
+            "scene": "creek",
+            "world": {
+              "x": 1640,
+              "y": 370
+            }
+          },
+          "wallMs": 127411
+        }
+      ],
+      "observations": {},
+      "exports": [],
+      "initial": {
+        "hp": 4,
+        "mana": 0,
+        "clamp": "unowned",
+        "sachets": 0,
+        "companion": "following"
+      }
+    }
+  ],
+  "errors": [],
+  "fixture": {
+    "path": "qa/fixtures/return-canal-v0.4.0.json",
+    "sha256": "8c6004c56965b0f4b076ea26922a6bf1224f75426404afbb95e574f8419530b1",
+    "source": "Unmodified real 0.4 desktop diversion completion exported through settings"
+  },
+  "failure": "TimeoutError: page.waitForFunction: Timeout 60000ms exceeded.",
+  "failureState": {
+    "scene": "creek",
+    "time": 266.6333333334195,
+    "player": {
+      "x": 298.6524483090405,
+      "y": 372.8145824748909,
+      "hp": 4,
+      "mana": 0,
+      "facing": -1.2499976123806285,
+      "invulnerable": 0,
+      "cooldown": 0,
+      "ward": 0,
+      "wardFacing": 0,
+      "pullId": null,
+      "pullPoint": null,
+      "hold": 0,
+      "path": []
+    },
+    "journey": {
+      "stage": "active",
+      "agreed": "together",
+      "run": null,
+      "soloRoute": null,
+      "sharedRoute": null,
+      "restOpened": false,
+      "recordedShared": false
+    },
+    "canal": {
+      "stage": "complete",
+      "inspected": true,
+      "cleared": true,
+      "method": "diversion",
+      "sharedInspect": true,
+      "sharedVerify": false,
+      "usedClamp": false,
+      "work": null,
+      "drain": 0,
+      "flow": 3,
+      "surge": null
+    },
+    "life": {
+      "repair": {
+        "stage": "unaccepted",
+        "softened": false,
+        "stopSet": false,
+        "latched": false,
+        "tested": false,
+        "method": null,
+        "testing": null
+      },
+      "harvest": {
+        "stage": "unaccepted",
+        "sun": "unpicked",
+        "shade": "unpicked",
+        "picking": null,
+        "shared": false
+      },
+      "clamp": "unowned",
+      "sachets": 0,
+      "scent": null
+    },
+    "companion": "following",
+    "ended": true,
+    "paused": false,
+    "dialogue": null,
+    "defeated": false,
+    "events": [
+      {
+        "seq": 48,
+        "time": 198.88333333338375,
+        "type": "relationship",
+        "text": "你向邵禾说明把水分入旁路、沿干渠清理的经过。她看过石槽的水位，挪开取水处空桶：这回水和干路都通了，回驿把路线记下来吧。"
+      },
+      {
+        "seq": 49,
+        "time": 201.68333333338597,
+        "type": "return",
+        "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+      },
+      {
+        "seq": 50,
+        "time": 201.68333333338597,
+        "type": "scene",
+        "text": "回石驿"
+      },
+      {
+        "seq": 51,
+        "time": 207.20000000005703,
+        "type": "growth",
+        "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
+      },
+      {
+        "seq": 52,
+        "time": 208.81666666672498,
+        "type": "note",
+        "text": "约定记下了，还不算一起走过。按原来的条件邀请许照，实际到旧工棚东侧歇脚处，再让她带回程。"
+      },
+      {
+        "seq": 53,
+        "time": 214.0333333333958,
+        "type": "scene",
+        "text": "雨后溪道"
+      }
+    ]
+  }
+}

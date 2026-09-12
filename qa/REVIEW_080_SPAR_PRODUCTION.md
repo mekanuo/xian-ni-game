@@ -78,3 +78,13 @@ R3（qa/verify-080-r3）956模型/build、新练场六路线/三视口/朝向及
 QA改为实际观察敌人绕到西侧x<540/y≤725后再交谈；门若提前开则立即前提FAIL。未改状态/资源/游戏时钟或删除closed条件。专项2026-09-11T23-45-29-811Z（qa/evidence/market-threat-080-r2.json）exit0/PASS，errors空：NPC514.567/397.827真实waiting且门closed；玩家实际退开后NPC536.850/406.740继续leading，HP4/MP5、敌HP3保留。root目视waiting-closed-door.png。普通暂停用于取景/冻结断言，不冒称连续战斗画面。
 
 verify调整执行顺序为旧市场威胁优先、新练场最后；仍全34命令同一冻结构建，不拼接前轮PASS。接下来新冻结整轮R4，当前qa/verification.json仍FAIL且公网未部署0.8。
+
+## R4 旧同行准备输入：呈现就绪修正
+
+R4归档qa/verify-080-r4：956模型/build与所有市场专项/两设备完整往返PASS；journey桌面完整与独立暂停保存PASS，手机home→creek后点工棚出口超时，整轮FAIL。原玩家停在298.652/372.815，意图出口1640/370，未受伤/暂停/对白；原报告缺少该次事件坐标，不能把后续观测冒充同一次重现。
+
+加入DOM观测的手机诊断全流程PASS（qa/journey-input-diagnostic-r1），只算复现未发生，不当修复。独立entry-r1直接捕获按钮click后模型creek、音景home、呈现tao/xu、相机view.x1341，出口仍投影254.5/223.95；证明模型先切而画面尚未刷新这一时序实际存在。对应原失败偏移是强支持，未独立取得Phaser内部worldX。
+
+脚本sceneReady按page/scene等实际音景与实体对应，再跨两个真实rAF使相机preRender更新，才取worldTap坐标。导入清该观察缓存，不改游戏状态、规则或暂停连续领路。修后entry与phone完整串行exit0/PASS（qa/journey-render-green-r2），完整完成时间2026-09-12T00:28:39.061Z，leadership/creek/rest/home/restart及separatePauseSave全部有真实证据。DOM反投影与事件后真实path/交互共同印证，不称独立Phaser世界点测量，也不保证所有活动镜头永远静止。
+
+审阅见design/JOURNEY_080_RENDER_FIX_REVIEW.md；随后仅将诊断失败截图按entry/pause/complete分名并明确projectedWorld命名，成功输入路径不变。完整verify明确complete/all/固定默认源，入口专项不能顶替整轮；执行顺序旧同行/旧章→市场→练场，仍34命令。下一冻结整轮尚未通过，不部署。

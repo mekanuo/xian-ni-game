@@ -1,0 +1,2151 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "startedAt": "2026-09-12T00:25:09.049Z",
+  "selection": "phone",
+  "phase": "entry-only",
+  "environment": {
+    "url": "http://127.0.0.1:4204/",
+    "platform": "linux",
+    "limitation": "Linux Chrome desktop and 390×844 DPR3 touch emulation; real Shift-mouse camera dragging on both. No physical phone/Mac/Safari claim.",
+    "browser": "150.0.7871.114"
+  },
+  "routes": [
+    {
+      "id": "phone",
+      "status": "PASS",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "touch": true
+      },
+      "inputTrace": [
+        {
+          "action": "settings-import",
+          "detail": {
+            "name": "return-canal-v0.4.0.json",
+            "contentVersion": 7
+          },
+          "wallMs": 7294
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "table",
+            "scene": "home",
+            "world": {
+              "x": 760,
+              "y": 410
+            }
+          },
+          "wallMs": 8019
+        },
+        {
+          "action": "rendered-scene-ready",
+          "detail": {
+            "scene": "home",
+            "audioScene": "home",
+            "camera": {
+              "zoom": 0.85,
+              "density": 3,
+              "view": {
+                "x": 615,
+                "y": 0,
+                "width": 459,
+                "height": 993
+              }
+            },
+            "point": {
+              "x": 123.59999023138289,
+              "y": 348.50002441406286
+            }
+          },
+          "wallMs": 8209
+        },
+        {
+          "action": "world-input-projection",
+          "detail": {
+            "intended": {
+              "x": 760,
+              "y": 410
+            },
+            "screen": {
+              "x": 123.59999023138289,
+              "y": 348.50002441406286
+            },
+            "scene": "home",
+            "player": {
+              "x": 844.3929558916593,
+              "y": 441.0921416442955,
+              "hp": 4,
+              "mana": 0,
+              "facing": -2.7886022657628873,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "camera": {
+              "zoom": 0.85,
+              "density": 3,
+              "view": {
+                "x": 615,
+                "y": 0,
+                "width": 459,
+                "height": 993
+              }
+            },
+            "audioScene": "home",
+            "actors": [
+              "tao",
+              "xu"
+            ]
+          },
+          "wallMs": 8254
+        },
+        {
+          "action": "actual-pointer-events",
+          "detail": [
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 71.08999633789062,
+                "y": 383.260009765625
+              },
+              "world": {
+                "x": 214.2235275453364,
+                "y": 557.952925944964
+              },
+              "scene": "home",
+              "player": {
+                "x": 360,
+                "y": 710,
+                "hp": 4,
+                "mana": 6,
+                "facing": 0,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 0,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 131,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 71.08999633789062,
+                "y": 383.260009765625
+              },
+              "world": {
+                "x": 214.2235275453364,
+                "y": 557.952925944964
+              },
+              "scene": "home",
+              "player": {
+                "x": 360,
+                "y": 710,
+                "hp": 4,
+                "mana": 6,
+                "facing": 0,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 0,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 131,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 171,
+                "y": 684.780029296875
+              },
+              "world": {
+                "x": 331.76470832428936,
+                "y": 912.6823606876135
+              },
+              "scene": "home",
+              "player": {
+                "x": 360,
+                "y": 710,
+                "hp": 4,
+                "mana": 6,
+                "facing": 0,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 0,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 131,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 171,
+                "y": 684.780029296875
+              },
+              "world": {
+                "x": 331.76470832428936,
+                "y": 912.6823606876135
+              },
+              "scene": "home",
+              "player": {
+                "x": 360,
+                "y": 710,
+                "hp": 4,
+                "mana": 6,
+                "facing": 0,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 0,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 131,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 230.97000122070312,
+                "y": 130
+              },
+              "world": {
+                "x": 402.31765093688176,
+                "y": 259.9999732795209
+              },
+              "scene": "home",
+              "player": {
+                "x": 360,
+                "y": 710,
+                "hp": 4,
+                "mana": 6,
+                "facing": 0,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 0.09999999999999999,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 131,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 230.97000122070312,
+                "y": 130
+              },
+              "world": {
+                "x": 402.31765093688176,
+                "y": 259.9999732795209
+              },
+              "scene": "home",
+              "player": {
+                "x": 360,
+                "y": 710,
+                "hp": 4,
+                "mana": 6,
+                "facing": 0,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 0.09999999999999999,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 131,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 298.5,
+                "y": 796.5
+              },
+              "world": {
+                "x": 965.7647173749468,
+                "y": 937.0587948070852
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 208.78333333339162,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 615,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 298.5,
+                "y": 796.5
+              },
+              "world": {
+                "x": 965.7647173749468,
+                "y": 937.0587948070852
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 208.78333333339162,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 615,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 123.59999084472656,
+                "y": 348.5000305175781
+              },
+              "world": {
+                "x": 760.000000721662,
+                "y": 410.0000071806501
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 208.86666666672502,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 615,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 123.59999084472656,
+                "y": 348.5000305175781
+              },
+              "world": {
+                "x": 760.000000721662,
+                "y": 410.0000071806501
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 208.86666666672502,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 615,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            }
+          ],
+          "wallMs": 8496
+        },
+        {
+          "action": "choose",
+          "detail": "journey:agree:together",
+          "wallMs": 8586
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "to_creek",
+            "scene": "home",
+            "world": {
+              "x": 1640,
+              "y": 690
+            }
+          },
+          "wallMs": 9349
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -156.50002441406286
+          },
+          "wallMs": 10605
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -65.95002272082348
+          },
+          "wallMs": 11541
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -65.95002272082348
+          },
+          "wallMs": 12365
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": -65.95002272082348
+          },
+          "wallMs": 13398
+        },
+        {
+          "action": "world-input-projection",
+          "detail": {
+            "intended": {
+              "x": 1640,
+              "y": 690
+            },
+            "screen": {
+              "x": 254.49997869192347,
+              "y": 495.9500227208235
+            },
+            "scene": "home",
+            "player": {
+              "x": 844.3929558916593,
+              "y": 441.0921416442955,
+              "hp": 4,
+              "mana": 0,
+              "facing": -2.7886022657628873,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "camera": {
+              "zoom": 0.85,
+              "density": 3,
+              "view": {
+                "x": 1341,
+                "y": 107,
+                "width": 459,
+                "height": 993
+              }
+            },
+            "audioScene": "home",
+            "actors": [
+              "tao",
+              "xu"
+            ]
+          },
+          "wallMs": 13446
+        },
+        {
+          "action": "actual-pointer-events",
+          "detail": [
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 681
+              },
+              "world": {
+                "x": 844.0000114925809,
+                "y": 801.1764418658942
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 208.86666666672502,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 615,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 195,
+                "y": 681
+              },
+              "world": {
+                "x": 844.0000114925809,
+                "y": 801.1764418658942
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 208.86666666672502,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 615,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 430
+              },
+              "world": {
+                "x": 844.0000114925809,
+                "y": 505.8823242188037
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 208.91666666672506,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 615,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 39,
+                "y": 273.4999694824219
+              },
+              "world": {
+                "x": 843.4706031497701,
+                "y": 428.8234667882393
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 209.01666666672514,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 798,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 430
+              },
+              "world": {
+                "x": 1027.0000149144712,
+                "y": 612.4117379754854
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 209.0500000000585,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 798,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 39,
+                "y": 364.04998779296875
+              },
+              "world": {
+                "x": 1026.470606571636,
+                "y": 535.3529000946905
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 209.15000000005858,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 981,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 430
+              },
+              "world": {
+                "x": 1210.0000183363125,
+                "y": 612.4117379754034
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 209.18333333339194,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 981,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 39,
+                "y": 364.04998779296875
+              },
+              "world": {
+                "x": 1209.4706099939374,
+                "y": 535.3529000948338
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 209.28333333339202,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 1164,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 430
+              },
+              "world": {
+                "x": 1393.000021758663,
+                "y": 612.4117379755672
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 209.31666666672538,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 1164,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 39,
+                "y": 364.04998779296875
+              },
+              "world": {
+                "x": 1387.0588486088848,
+                "y": 535.3529000948338
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 209.41666666672546,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 1341,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 254.49998474121094,
+                "y": 495.95001220703125
+              },
+              "world": {
+                "x": 1640.000007116984,
+                "y": 689.9999876309064
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 209.4666666667255,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 1341,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 254.49998474121094,
+                "y": 495.95001220703125
+              },
+              "world": {
+                "x": 1640.000007116984,
+                "y": 689.9999876309064
+              },
+              "scene": "home",
+              "player": {
+                "x": 844.3929558916593,
+                "y": 441.0921416442955,
+                "hp": 4,
+                "mana": 0,
+                "facing": -2.7886022657628873,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": [
+                  {
+                    "x": 1565.5580417212334,
+                    "y": 666.7106280114216
+                  }
+                ]
+              },
+              "time": 209.4666666667255,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 1341,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            }
+          ],
+          "wallMs": 13534
+        },
+        {
+          "action": "choose",
+          "detail": "canal:depart:creek",
+          "wallMs": 22899
+        },
+        {
+          "action": "interact",
+          "detail": {
+            "id": "to_workshop",
+            "scene": "creek",
+            "world": {
+              "x": 1640,
+              "y": 370
+            }
+          },
+          "wallMs": 24240
+        },
+        {
+          "action": "rendered-scene-ready",
+          "detail": {
+            "scene": "creek",
+            "audioScene": "creek",
+            "camera": {
+              "zoom": 0.85,
+              "density": 3,
+              "view": {
+                "x": 0,
+                "y": 107,
+                "width": 459,
+                "height": 993
+              }
+            },
+            "point": {
+              "x": 1394,
+              "y": 223.50002271240874
+            }
+          },
+          "wallMs": 24458
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": 206.49997728759126
+          },
+          "wallMs": 25401
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": 115.49997558593714
+          },
+          "wallMs": 26235
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": 115.49997558593714
+          },
+          "wallMs": 27089
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": 115.49997558593714
+          },
+          "wallMs": 28045
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": 115.49997558593714
+          },
+          "wallMs": 28874
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": 115.49997558593714
+          },
+          "wallMs": 29831
+        },
+        {
+          "action": "camera-shift-drag",
+          "detail": {
+            "origin": {
+              "x": 195,
+              "y": 430
+            },
+            "dx": -156,
+            "dy": 115.49997558593714
+          },
+          "wallMs": 30823
+        },
+        {
+          "action": "world-input-projection",
+          "detail": {
+            "intended": {
+              "x": 1640,
+              "y": 370
+            },
+            "screen": {
+              "x": 305.49997964559776,
+              "y": 314.50002441406286
+            },
+            "scene": "creek",
+            "player": {
+              "x": 170,
+              "y": 760,
+              "hp": 4,
+              "mana": 0,
+              "facing": 0.30320621029693773,
+              "invulnerable": 0,
+              "cooldown": 0,
+              "ward": 0,
+              "wardFacing": 0,
+              "pullId": null,
+              "pullPoint": null,
+              "hold": 0,
+              "path": []
+            },
+            "camera": {
+              "zoom": 0.85,
+              "density": 3,
+              "view": {
+                "x": 1281,
+                "y": 0,
+                "width": 459,
+                "height": 993
+              }
+            },
+            "audioScene": "creek",
+            "actors": [
+              "xu_creek"
+            ]
+          },
+          "wallMs": 30872
+        },
+        {
+          "action": "actual-pointer-events",
+          "detail": [
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 737
+              },
+              "world": {
+                "x": 1570.0000250684932,
+                "y": 973.5882085638411
+              },
+              "scene": "home",
+              "player": {
+                "x": 1559.5447602107608,
+                "y": 664.8293563038047,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 214.15000000006256,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 1341,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 195,
+                "y": 737
+              },
+              "world": {
+                "x": 1570.0000250684932,
+                "y": 973.5882085638411
+              },
+              "scene": "home",
+              "player": {
+                "x": 1559.5447602107608,
+                "y": 664.8293563038047,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 214.15000000006256,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 1341,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "home"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 430
+              },
+              "world": {
+                "x": 229.41176470588235,
+                "y": 612.9411497501073
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 214.700000000063,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 0,
+                  "y": 107,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 39,
+                "y": 636.5
+              },
+              "world": {
+                "x": 228.4705916496037,
+                "y": 748.8235006893428
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 215.2000000000634,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 183,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 430
+              },
+              "world": {
+                "x": 412.0000034143108,
+                "y": 505.88232421875296
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 215.35000000006352,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 183,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 39,
+                "y": 545.5
+              },
+              "world": {
+                "x": 411.47059507159906,
+                "y": 641.7646771599088
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 215.81666666673055,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 366,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 430
+              },
+              "world": {
+                "x": 595.0000068363,
+                "y": 505.882324218736
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 215.91666666673063,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 366,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 39,
+                "y": 545.5
+              },
+              "world": {
+                "x": 594.4705984935623,
+                "y": 641.764677159866
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 216.6000000000645,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 549,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 430
+              },
+              "world": {
+                "x": 778.0000102582511,
+                "y": 505.8823242187022
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 216.80000000006467,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 549,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 39,
+                "y": 545.5
+              },
+              "world": {
+                "x": 777.4706019156051,
+                "y": 641.7646771599088
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 217.38333333339847,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 732,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 430
+              },
+              "world": {
+                "x": 961.0000136803061,
+                "y": 505.882324218736
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 217.55000000006527,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 732,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 39,
+                "y": 545.5
+              },
+              "world": {
+                "x": 960.470605337608,
+                "y": 641.7646771599088
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 218.06666666673235,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 915,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 430
+              },
+              "world": {
+                "x": 1144.0000171023091,
+                "y": 505.882324218736
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 218.15000000006575,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 915,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 39,
+                "y": 545.5
+              },
+              "world": {
+                "x": 1143.470608759764,
+                "y": 641.7646771599947
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 218.71666666673286,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 1098,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 195,
+                "y": 430
+              },
+              "world": {
+                "x": 1327.0000205244894,
+                "y": 505.8823242188037
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 218.90000000006634,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 1098,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 39,
+                "y": 545.5
+              },
+              "world": {
+                "x": 1326.4706121817915,
+                "y": 641.7646771599947
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 219.48333333340014,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 1281,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerdown",
+              "screen": {
+                "x": 305.4999694824219,
+                "y": 314.5000305175781
+              },
+              "world": {
+                "x": 1639.9999880434978,
+                "y": 370.00000718064575
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": []
+              },
+              "time": 219.6833333334003,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 1281,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            },
+            {
+              "type": "pointerup",
+              "screen": {
+                "x": 305.4999694824219,
+                "y": 314.5000305175781
+              },
+              "world": {
+                "x": 1639.9999880434978,
+                "y": 370.00000718064575
+              },
+              "scene": "creek",
+              "player": {
+                "x": 170,
+                "y": 760,
+                "hp": 4,
+                "mana": 0,
+                "facing": 0.30320621029693773,
+                "invulnerable": 0,
+                "cooldown": 0,
+                "ward": 0,
+                "wardFacing": 0,
+                "pullId": null,
+                "pullPoint": null,
+                "hold": 0,
+                "path": [
+                  {
+                    "x": 840,
+                    "y": 640
+                  },
+                  {
+                    "x": 880,
+                    "y": 600
+                  },
+                  {
+                    "x": 1564.6081984867812,
+                    "y": 390.0019065239151
+                  }
+                ]
+              },
+              "time": 219.6833333334003,
+              "camera": {
+                "zoom": 0.85,
+                "density": 3,
+                "view": {
+                  "x": 1281,
+                  "y": 0,
+                  "width": 459,
+                  "height": 993
+                }
+              },
+              "audioScene": "creek"
+            }
+          ],
+          "wallMs": 31110
+        }
+      ],
+      "observations": {},
+      "exports": [],
+      "initial": {
+        "hp": 4,
+        "mana": 0,
+        "clamp": "unowned",
+        "sachets": 0,
+        "companion": "following"
+      },
+      "renderGaps": [
+        {
+          "scene": "creek",
+          "audioScene": "home",
+          "camera": {
+            "zoom": 0.85,
+            "density": 3,
+            "view": {
+              "x": 1341,
+              "y": 107,
+              "width": 459,
+              "height": 993
+            }
+          },
+          "actors": [
+            "tao",
+            "xu"
+          ],
+          "point": {
+            "x": 254.49997869192347,
+            "y": 223.9500227208235
+          },
+          "time": 214.15000000006256
+        }
+      ],
+      "entry": {
+        "scene": "workshop",
+        "time": 228.88333333340762,
+        "player": {
+          "x": 160,
+          "y": 740,
+          "hp": 4,
+          "mana": 0,
+          "facing": -0.2983486778227437,
+          "invulnerable": 0,
+          "cooldown": 0,
+          "ward": 0,
+          "wardFacing": 0,
+          "pullId": null,
+          "pullPoint": null,
+          "hold": 0,
+          "path": []
+        },
+        "journey": {
+          "stage": "active",
+          "agreed": "together",
+          "run": null,
+          "soloRoute": null,
+          "sharedRoute": null,
+          "restOpened": false,
+          "recordedShared": false
+        },
+        "canal": {
+          "stage": "complete",
+          "inspected": true,
+          "cleared": true,
+          "method": "diversion",
+          "sharedInspect": true,
+          "sharedVerify": false,
+          "usedClamp": false,
+          "work": null,
+          "drain": 0,
+          "flow": 3,
+          "surge": null
+        },
+        "life": {
+          "repair": {
+            "stage": "unaccepted",
+            "softened": false,
+            "stopSet": false,
+            "latched": false,
+            "tested": false,
+            "method": null,
+            "testing": null
+          },
+          "harvest": {
+            "stage": "unaccepted",
+            "sun": "unpicked",
+            "shade": "unpicked",
+            "picking": null,
+            "shared": false
+          },
+          "clamp": "unowned",
+          "sachets": 0,
+          "scent": null
+        },
+        "companion": "following",
+        "ended": true,
+        "paused": false,
+        "dialogue": null,
+        "defeated": false,
+        "events": [
+          {
+            "seq": 49,
+            "time": 201.68333333338597,
+            "type": "return",
+            "text": "木车已进了院，路上的人正沿你修开的低滩来。"
+          },
+          {
+            "seq": 50,
+            "time": 201.68333333338597,
+            "type": "scene",
+            "text": "回石驿"
+          },
+          {
+            "seq": 51,
+            "time": 207.20000000005703,
+            "type": "growth",
+            "text": "旧渠小图添在已有地图旁。图上留下你亲自辨过的水路和台阶。"
+          },
+          {
+            "seq": 52,
+            "time": 208.86666666672502,
+            "type": "note",
+            "text": "约定记下了，还不算一起走过。按原来的条件邀请许照，实际到旧工棚东侧歇脚处，再让她带回程。"
+          },
+          {
+            "seq": 53,
+            "time": 214.15000000006256,
+            "type": "scene",
+            "text": "雨后溪道"
+          },
+          {
+            "seq": 54,
+            "time": 228.68333333340746,
+            "type": "scene",
+            "text": "林路与旧工棚"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "sourceFiles": [
+    {
+      "path": "src/game/model.ts",
+      "sha256": "9d31dc765be38763c6369aaa218777df212694572b822dd1d3332c836d75e7f1"
+    },
+    {
+      "path": "src/game/scene.ts",
+      "sha256": "83df35fd8ee320f12a03f3c47c814f4f277124b4b2209a9d295b57de362fb6ec"
+    },
+    {
+      "path": "src/game/journey.ts",
+      "sha256": "ccd45d17ea6b3f450634fd1b2e49c9c6ce4d17f2918c5687e46895970796af84"
+    },
+    {
+      "path": "scripts/journey-check.mjs",
+      "sha256": "c158efeb038c9b67c28ad94105bab6a4b3ee5159088b3cfd87914728bf647c78"
+    }
+  ],
+  "fixture": {
+    "path": "qa/fixtures/return-canal-v0.4.0.json",
+    "sha256": "8c6004c56965b0f4b076ea26922a6bf1224f75426404afbb95e574f8419530b1",
+    "source": "Unmodified real 0.4 desktop diversion completion exported through settings"
+  },
+  "completedAt": "2026-09-12T00:25:51.542Z"
+}

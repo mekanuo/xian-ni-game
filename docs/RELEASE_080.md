@@ -12,15 +12,16 @@
 
 - 45文件956模型测试通过，包含149严格存档专项与实际资源/余弹/报告/异常恢复边界。
 - R5固定包桌面和手机各受击/护符四条完整真实UI链通过：固定原样0.7旧档、入场约定、定位导出/新context恢复、一源来袭、实际资源、归驿报告、最终再次导入。
+- 修后左右来向手机完整路线、桌面/手机/矮窗三视口均通过；矮窗暂停牌遮住闻朔头身已用指定RED/GREEN修正。
 - 朝向专项旧包实际东符/西行/停步复现错误镜像，修后同操作通过；根代理已对照目视截图。
 - 桌面纸片/手机回镜头按钮/暂停及自动镜头定位修正已由R8三视口实际输入与截图验证，见qa/REVIEW_080_SPAR_PRODUCTION.md。
 
 ## 发行前剩余
 
-修后视口与左右来向、最终包完整旧章回归和指纹校验、提交/推送、原Pages部署、公网文件字节与实际入口/操作验证。每项须有实际结果后再从本节移除，不能将预备脚本视为通过。
+最终包完整新旧章节回归和指纹校验、QA提交/推送、原Pages部署、公网文件字节与实际入口/操作验证。每项须有实际结果后再从本节移除，不能将预备脚本视为通过。
 
 测试环境为Linux Chrome150及DPR/触控模拟，并非真实Mac、Safari或手机。模型、浏览器实际操作和主观游戏体验分别记录。
 
 ## 发布操作备忘（待本轮整版PASS后执行）
 
-完整verify R2当前进行中，不能执行下列发布。实际PASS后先核对指纹、完整命令退出与截图；提交QA并推送，使用专用TMPDIR运行deploy-pages.mjs。然后用该次发行的真实sourceCommit作为EXPECTED_SOURCE_COMMIT运行public-check.mjs，逐字节核对受测dist及实际新建/旧档/声音/触控。新练场另用spar-production-check.mjs、GAME_URL=原公网URL、SPAR_DEVICE=phone、SPAR_CASE=ward、SPAR_STANCE=front完成公开构建的真实入口到归驿链。浏览器全程串行。任何网络部署或公开操作失败均保留原结果，不把本地PASS当公网PASS。
+完整verify R4（冻结c671ca2）因旧手机同行换图输入超时FAIL；已捕获实际模型/渲染短暂脱节，当前正在修后专项复验，不能执行下列发布。实际PASS后先核对指纹、完整命令退出与截图；提交QA并推送，使用专用TMPDIR运行deploy-pages.mjs。然后用该次发行的真实sourceCommit作为EXPECTED_SOURCE_COMMIT运行public-check.mjs，逐字节核对受测dist及实际新建/旧档/声音/触控。新练场另用spar-production-check.mjs、GAME_URL=原公网URL、SPAR_DEVICE=phone、SPAR_CASE=ward、SPAR_STANCE=front完成公开构建的真实入口到归驿链。浏览器全程串行。任何网络部署或公开操作失败均保留原结果，不把本地PASS当公网PASS。

@@ -10,10 +10,11 @@ import {createHash} from 'node:crypto';
 const url=process.env.GAME_URL||'http://127.0.0.1:4191/';
 const selection=process.env.JOURNEY_ROUTE||'all';assert.ok(['desktop','phone','all'].includes(selection));
 const fixturePath=process.env.JOURNEY_FIXTURE||'qa/fixtures/return-canal-v0.4.0.json';
-const pauseOnly=process.env.JOURNEY_PHASE==='pause';
-const output=pauseOnly?'qa/evidence/journey-pause-check.json':'qa/evidence/journey-check.json';
-const evidence={schemaVersion:1,status:'NOT_RUN',startedAt:new Date().toISOString(),selection,phase:pauseOnly?'pause-only':'complete',environment:{url,platform:process.platform,limitation:'Linux Chrome desktop and 390×844 DPR3 touch emulation; real Shift-mouse camera dragging on both. No physical phone/Mac/Safari claim.'},routes:[],errors:[]};
+const pauseOnly=process.env.JOURNEY_PHASE==='pause',entryOnly=process.env.JOURNEY_PHASE==='entry';
+const output=entryOnly?'qa/evidence/journey-entry-check.json':pauseOnly?'qa/evidence/journey-pause-check.json':'qa/evidence/journey-check.json';
+const evidence={schemaVersion:1,status:'NOT_RUN',startedAt:new Date().toISOString(),selection,phase:entryOnly?'entry-only':pauseOnly?'pause-only':'complete',environment:{url,platform:process.platform,pointerEvidence:'DOM coordinates and the inverse of the same screenPoint API, not an independent Phaser worldX read; subsequent player paths and actual interactions corroborate consumption.',limitation:'Linux Chrome desktop and 390×844 DPR3 touch emulation; real Shift-mouse camera dragging on both. No physical phone/Mac/Safari claim.'},routes:[],errors:[]};
 let browser,page,route,mobile=false;
+const renderedPages=new WeakMap();
 const started=Date.now();
 await mkdir('qa/evidence',{recursive:true});
 const persist=()=>writeFile(output,JSON.stringify(evidence,null,2));
@@ -41,8 +42,20 @@ async function resume(){
  await wait(()=>!window.__XIAN_NI__.inspect().paused);await collapseObservation();
 }
 async function pause(){if(!(await state()).paused)await button('.action-dock [data-ui="pause"]');await wait(()=>window.__XIAN_NI__.inspect().paused);}
+async function sceneReady(x,y){
+ const expected=(await state()).scene;
+ if(renderedPages.get(page)===expected)return;
+ // A DOM choice can change the model before WorldScene.update refreshes its
+ // actors/camera. Wait for that real render, then cross two animation frames so
+ // the camera's preRender transform has also been refreshed. Never pause here.
+ await wait(scene=>{const api=window.__XIAN_NI__,s=api.inspect();return s.scene===scene&&api.audio().scene===scene&&api.presentation().actors.some(a=>s.worlds[scene].some(e=>e.id===a.id));},expected,30000);
+ await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve(true)))));
+ const ready=await page.evaluate(({x,y})=>({scene:window.__XIAN_NI__.inspect().scene,audioScene:window.__XIAN_NI__.audio().scene,camera:window.__XIAN_NI__.camera(),point:window.__XIAN_NI__.screenPoint(x,y)}),{x,y});
+ assert.equal(ready.scene,expected);assert.equal(ready.audioScene,expected);
+ renderedPages.set(page,expected);log('rendered-scene-ready',ready);
+}
 async function frame(x,y){
- await collapseObservation();const view=mobile?{w:390,h:844,cx:195,cy:430}:{w:1440,h:900,cx:720,cy:440};
+ await sceneReady(x,y);await collapseObservation();const view=mobile?{w:390,h:844,cx:195,cy:430}:{w:1440,h:900,cx:720,cy:440};
  for(let attempt=0;attempt<9;attempt++){
   const p=await page.evaluate(({x,y})=>window.__XIAN_NI__.screenPoint(x,y),{x,y});
   if(p.x>18&&p.x<view.w-18&&p.y>135&&p.y<view.h-25&&await page.evaluate(p=>document.elementFromPoint(p.x,p.y)?.tagName==='CANVAS',p))return p;
@@ -55,7 +68,13 @@ async function frame(x,y){
  }
  throw Error(`World target ${x},${y} cannot be framed on unobstructed canvas`);
 }
-async function worldTap(x,y){const p=await frame(x,y);if(mobile)await page.touchscreen.tap(p.x,p.y);else await page.mouse.click(p.x,p.y);}
+async function worldTap(x,y){
+ const p=await frame(x,y);
+ const before=await page.evaluate(()=>({state:window.__XIAN_NI__.inspect(),camera:window.__XIAN_NI__.camera(),audioScene:window.__XIAN_NI__.audio().scene,actors:window.__XIAN_NI__.presentation().actors.map(a=>a.id)}));
+ log('world-input-projection',{intended:{x,y},screen:p,scene:before.state.scene,player:before.state.player,camera:before.camera,audioScene:before.audioScene,actors:before.actors});
+ if(mobile)await page.touchscreen.tap(p.x,p.y);else await page.mouse.click(p.x,p.y);
+ const observed=await page.evaluate(()=>window.__journeyPointerTrace.splice(0));log('actual-pointer-events',observed);
+}
 async function entity(id){const s=await state(),e=s.worlds[s.scene].find(e=>e.id===id);assert.ok(e,`Missing ${s.scene}/${id}`);return e;}
 async function walk(x,y){await resume();log('walk',{x,y});await worldTap(x,y);await wait(({x,y})=>{const s=window.__XIAN_NI__.inspect();return Math.hypot(s.player.x-x,s.player.y-y)<18&&s.player.path.length===0;},{x,y},60000);assert.equal((await state()).defeated,false);}
 async function interact(id){
@@ -72,6 +91,7 @@ async function exportSave(name){
  const bytes=await readFile(path);route.exports.push({path,sha256:hash(bytes)});log('settings-export',path);return bytes;
 }
 async function importSave(bytes,name,{fresh=false,continuation=false}={}){
+ renderedPages.delete(page);
  if(fresh){await page.goto(url);await named('入 山');await named('去回石驿');await wait(()=>window.__XIAN_NI__?.inspect().scene==='home');}
  await button('[data-ui="settings"]');await page.locator('#import-save').setInputFiles({name,mimeType:'application/json',buffer:bytes});
  await wait(continuation=>{const s=window.__XIAN_NI__.inspect();return s.contentVersion===7&&s.canal.stage==='complete'&&(!continuation||s.scene==='workshop'&&s.journey.stage==='active');},continuation);
@@ -81,7 +101,19 @@ async function importSave(bytes,name,{fresh=false,continuation=false}={}){
 async function capture(id){await pause();if(!mobile)await page.mouse.move(1430,890);const path=`qa/evidence/journey-${route.id}-${id}.png`;await page.screenshot({path});route.observations[id]={visual:path,state:brief(await state())};await persist();}
 async function newPage(){
  const p=await browser.newPage({viewport:mobile?{width:390,height:844}:{width:1440,height:900},deviceScaleFactor:mobile?3:1,isMobile:mobile,hasTouch:mobile,acceptDownloads:true});
- const routeId=route.id;p.on('pageerror',e=>evidence.errors.push({route:routeId,message:e.message}));return p;
+ await p.addInitScript(()=>{
+  window.__journeyPointerTrace=[];window.__journeyRenderGaps=[];
+  window.addEventListener('click',()=>{
+   const api=window.__XIAN_NI__;if(!api)return;const s=api.inspect(),audioScene=api.audio().scene;
+   if(s.scene!==audioScene)window.__journeyRenderGaps.push({scene:s.scene,audioScene,camera:api.camera(),actors:api.presentation().actors.map(a=>a.id),point:api.screenPoint(1640,370),time:s.time});
+  });
+  for(const type of ['pointerdown','pointerup'])window.addEventListener(type,event=>{
+   if(!window.__XIAN_NI__)return;
+   const api=window.__XIAN_NI__,s=api.inspect(),o=api.screenPoint(0,0),unit=api.screenPoint(1,0),zoom=unit.x-o.x;
+   window.__journeyPointerTrace.push({type,screen:{x:event.clientX,y:event.clientY},projectedWorld:{x:(event.clientX-o.x)/zoom,y:(event.clientY-o.y)/zoom},scene:s.scene,player:s.player,time:s.time,camera:api.camera(),audioScene:api.audio().scene});
+  },true);
+ });
+ const routeId=route.id;p.on('pageerror' ,e=>evidence.errors.push({route:routeId,message:e.message}));return p;
 }
 async function prepare(bytes){
  await importSave(bytes,'return-canal-v0.4.0.json',{fresh:true});await resume();let s=await state();assert.equal(s.journey.stage,'unaccepted');assert.equal(JSON.parse(s.checkpoint).contentVersion,7);route.initial={hp:s.player.hp,mana:s.player.mana,clamp:s.life.clamp,sachets:s.life.sachets,companion:s.flags.companion};
@@ -90,6 +122,7 @@ async function prepare(bytes){
  if((await state()).flags.companion!=='following'){await interact('xu');await choose('invite');}
  await interact('to_creek');await choose('canal:depart:creek');await wait(()=>window.__XIAN_NI__.inspect().scene==='creek');
  await interact('to_workshop');await wait(()=>window.__XIAN_NI__.inspect().scene==='workshop');
+ if(entryOnly){route.renderGaps=await page.evaluate(()=>window.__journeyRenderGaps);route.entry=brief(await state());return null;}
  // Avoid the north-mark hitbox at (320,285) and the rest at (1450,700).
  await walk(300,340);await walk(1600,330);await walk(1600,720);await walk(1440,780);
  await wait(()=>{const s=window.__XIAN_NI__.inspect(),n=s.worlds.workshop.find(e=>e.id==='xu_work');return Math.hypot(n.x-1440,n.y-720)<=90;},undefined,60000);
@@ -170,15 +203,16 @@ async function separatePauseSave(ready){
 }
 async function run(bytes,isPhone){
  mobile=isPhone;route={id:mobile?'phone':'desktop',status:'RUNNING',viewport:{width:mobile?390:1440,height:mobile?844:900,dpr:mobile?3:1,touch:mobile},inputTrace:[],observations:{},exports:[]};evidence.routes.push(route);page=await newPage();
- const ready=pauseOnly?await readFile(mobile?'qa/evidence/journey-phone-ready-input.json':'qa/evidence/journey-ready-input.json'):await prepare(bytes);if(!pauseOnly){await followLeader();await finishReturn();}await separatePauseSave(ready);route.status='PASS';await persist();await page.close();page=null;
+ const ready=pauseOnly?await readFile(mobile?'qa/evidence/journey-phone-ready-input.json':'qa/evidence/journey-ready-input.json'):await prepare(bytes);if(entryOnly){route.status='PASS';await persist();await page.close();page=null;return;}if(!pauseOnly){await followLeader();await finishReturn();}await separatePauseSave(ready);route.status='PASS';await persist();await page.close();page=null;
 }
 try{
+ evidence.sourceFiles=await Promise.all(['src/game/model.ts','src/game/scene.ts','src/game/journey.ts','scripts/journey-check.mjs'].map(async path=>({path,sha256:hash(await readFile(path))})));
  const bytes=await readFile(fixturePath),fixture=JSON.parse(bytes.toString('utf8'));assert.equal(fixture.contentVersion,3);assert.equal(fixture.canal.stage,'complete');assert.equal(fixture.scene,'home');assert.equal(fixture.ended,true);evidence.fixture={path:fixturePath,sha256:hash(bytes),source:'Unmodified real 0.4 desktop diversion completion exported through settings'};
  browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});evidence.environment.browser=await browser.version();
  if(selection!=='phone')await run(bytes,false);if(selection!=='desktop')await run(bytes,true);
- assert.deepEqual(evidence.errors,[]);evidence.status='PASS';evidence.completedAt=new Date().toISOString();await persist();console.log(`JOURNEY REAL INPUT PASS (${selection})`);
+ assert.deepEqual(evidence.errors,[]);evidence.status='PASS';evidence.completedAt=new Date().toISOString();await persist();console.log(`JOURNEY REAL INPUT PASS (${selection}, ${evidence.phase})`);
 }catch(error){
  evidence.status='FAIL';evidence.failure=String(error);if(route)route.status='FAIL';console.error(error);
- if(page){const s=await state().catch(()=>null);evidence.failureState=s?brief(s):null;await page.screenshot({path:'qa/evidence/journey-failure.png'}).catch(()=>{});}
+ if(page){const s=await state().catch(()=>null);evidence.failureState=s?brief(s):null;evidence.failureVisual=entryOnly?'qa/evidence/journey-entry-failure.png':pauseOnly?'qa/evidence/journey-pause-failure.png':'qa/evidence/journey-failure.png';await page.screenshot({path:evidence.failureVisual}).catch(()=>{});}
  await persist();process.exitCode=1;
 }finally{await browser?.close();}
