@@ -92,10 +92,10 @@ try{
   assert.doesNotMatch(await page.locator('.observation').innerText(),/接信|亲手添图/);await capture('recorded-table');await button('[data-ui="observe"]');
   await interact('to_creek');await choose('canal:depart:canal');await wait(()=>window.__XIAN_NI__.inspect().scene==='canal');
   await walk(500,700);await walk(600,430);await interact('canal_diverter');
-  await wait(()=>window.__XIAN_NI__.inspect().worlds.canal.find(e=>e.id==='canal_diverter').x===680&&!window.__XIAN_NI__.inspect().canal.work);
+  await wait(()=>window.__XIAN_NI__.inspect().worlds.canal.find(e=>e.id==='canal_diverter').x===680&&!window.__XIAN_NI__.inspect().canal.work,null,90000);
   await capture('water-diverted');assert.equal((await state()).canal.stage,'complete');
   assert.match(await page.locator('.location p').innerText(),/复位/);
-  await interact('canal_diverter');await wait(()=>window.__XIAN_NI__.inspect().canal.flow===3);
+  await interact('canal_diverter');await wait(()=>window.__XIAN_NI__.inspect().canal.flow===3,null,150000);
   await page.waitForFunction(()=>document.querySelector('.location p')?.textContent.includes('桌边'));assert.match(await page.locator('.location p').innerText(),/桌边/);await capture('water-restored');
   await walk(500,700);await interact('canal_tub');assert.equal((await state()).canal.stage,'complete');
   await interact('canal_to_home');await wait(()=>window.__XIAN_NI__.inspect().scene==='home');await interact('table');

@@ -24,4 +24,4 @@
 
 ## 发布操作备忘（待本轮整版PASS后执行）
 
-完整verify R5（冻结e4c4887）旧同行及旧窑往返/三视口通过，旧窑烧尽等待因墙钟与模拟时间差异FAIL。仅放宽自然等待后的burn专项已完整PASS，尚须新冻结全34项R6。实际PASS后先核对指纹、完整命令退出与截图；提交QA并推送，使用专用TMPDIR运行deploy-pages.mjs。然后用该次发行的真实sourceCommit作为EXPECTED_SOURCE_COMMIT运行public-check.mjs，逐字节核对受测dist及实际新建/旧档/声音/触控。新练场另用spar-production-check.mjs、GAME_URL=原公网URL、SPAR_DEVICE=phone、SPAR_CASE=ward、SPAR_STANCE=front完成公开构建的真实入口到归驿链。浏览器全程串行。任何网络部署或公开操作失败均保留原结果，不把本地PASS当公网PASS。
+完整verify R6自然烧尽已通过，后续护符冷却因墙钟与模拟时间差异FAIL。冷却与0MP恢复专项已完整PASS；采叶/旧渠自然等待也按已核清规则给预算，仍需新冻结全34项R7，不能提前发布。实际PASS后先核对指纹、完整命令退出与截图；提交QA并推送，使用专用TMPDIR运行deploy-pages.mjs。然后用该次发行的真实sourceCommit作为EXPECTED_SOURCE_COMMIT运行public-check.mjs，逐字节核对受测dist及实际新建/旧档/声音/触控。新练场另用spar-production-check.mjs、GAME_URL=原公网URL、SPAR_DEVICE=phone、SPAR_CASE=ward、SPAR_STANCE=front完成公开构建的真实入口到归驿链。浏览器全程串行。任何网络部署或公开操作失败均保留原结果，不把本地PASS当公网PASS。

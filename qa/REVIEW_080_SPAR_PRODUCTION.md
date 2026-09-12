@@ -96,3 +96,9 @@ R4归档qa/verify-080-r4：956模型/build与所有市场专项/两设备完整�
 ## R5 旧窑自然烧尽的墙钟等待
 
 R5前六命令PASS，第七kiln-consequences因60墙钟秒只推进约3.77模拟秒而超时；board仍burning/timer8，HP4MP3，不是火球失效。qa/verify-080-r5保留原整版FAIL。仅延长自然烧尽观察至300秒，记录实际时间，不改游戏。专项qa/kiln-burn-green-r1 exit0/PASS：185.382墙钟秒推进11.8667模拟秒后timer0/burned，原样保存新context恢复、不能完好归还、实际重入仍烧毁、重开均通过。root目视burned图。其余旧章时限静态风险记录design/VERIFY_080_TIMING_REVIEW.md，未复现的不改为FAIL。下一轮仍全34项冻结验收。
+
+## R6 后果恢复冷却与同类等待预算
+
+R6前六命令与烧毁子链通过，第一发ward等3模拟秒冷却在15墙钟截止仍剩0.1667，HP4MP5，原FAIL qa/verify-080-r6。冷却改60秒并记录逐发mana/time，专项qa/kiln-recovery-green-r1 exit0/PASS：五发冷却实际归零，最后控屏到0MP、键盘脱困、原样存档新context点击脱困、重开通过。仅QA修改，游戏DwjNP5Si/DzkGuDoj不变。
+
+独立review核准life两采叶/手机采叶与canal清筛退水复位/重访流量的显式自然等待预算，去掉手机2.3墙钟空等但仍必须真入袋；这些路径此轮尚未实际失败/通过。原输入/暂停/留势≥1.5秒/HP与涌水断言不变，未自动重试或注入状态。全部五脚本node --check通过，下一冻结R7完成同一34命令后才能发布。

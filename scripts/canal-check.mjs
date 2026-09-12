@@ -120,14 +120,14 @@ async function diversionRoute(bytes){
  page=await browser.newPage({viewport:{width:1440,height:900},acceptDownloads:true});page.on('pageerror',e=>evidence.errors.push({route:route.id,message:e.message}));
  await importFixture(bytes);route.initialHp=(await state()).player.hp;await emptyMana();await enterCanal();await exportSave('canal-ready-input.json');
  await walk(560,430);await interact('canal_diverter');await wait(()=>window.__XIAN_NI__.inspect().canal.work?.kind==='divert');await capture('diverter-work');await resume();
- await wait(()=>{const s=window.__XIAN_NI__.inspect();return !s.canal.work&&s.worlds.canal.find(e=>e.id==='canal_diverter').x===680&&s.canal.drain===1;});
+ await wait(()=>{const s=window.__XIAN_NI__.inspect();return !s.canal.work&&s.worlds.canal.find(e=>e.id==='canal_diverter').x===680&&s.canal.drain===1;},null,120000);
  await capture('diverter-set');
  // The side stepping path is wet now; use the permanent west bank, then approach the dry screen.
  await walk(880,430);await walk(990,540);await interact('canal_screen');await wait(()=>window.__XIAN_NI__.inspect().canal.work?.kind==='clear');
- await capture('screen-work');await resume();await wait(()=>window.__XIAN_NI__.inspect().canal.cleared);assert.equal((await state()).canal.method,'diversion');
+ await capture('screen-work');await resume();await wait(()=>window.__XIAN_NI__.inspect().canal.cleared,null,90000);assert.equal((await state()).canal.method,'diversion');
  // Xu waits at the west bank (990,540); use clear north-bank ground on return.
  await walk(1130,420);await walk(880,430);await interact('canal_diverter');await wait(()=>window.__XIAN_NI__.inspect().canal.work?.kind==='restore');
- await wait(()=>!window.__XIAN_NI__.inspect().canal.work&&window.__XIAN_NI__.inspect().worlds.canal.find(e=>e.id==='canal_diverter').x===600);
+ await wait(()=>!window.__XIAN_NI__.inspect().canal.work&&window.__XIAN_NI__.inspect().worlds.canal.find(e=>e.id==='canal_diverter').x===600,null,90000);
  await verifyAndReturn('diversion');assert.equal((await state()).player.mana,0);route.zeroResourceCompletion=true;await persist();await restartProof();await page.close();page=null;
 }
 async function holdRoute(bytes){
@@ -145,10 +145,10 @@ async function holdRoute(bytes){
  await tapWorld(1200,350);await wait(()=>Math.abs(window.__XIAN_NI__.inspect().worlds.canal.find(e=>e.id==='canal_stop').x-1200)<3);
  await button('[data-ui="hold"]');await wait(()=>window.__XIAN_NI__.inspect().player.hold>0);
  const began=await state(),wallStart=Date.now(),traceStart=route.inputTrace.length;log('timed-hold-start',{time:began.time,hold:began.player.hold,player:{x:began.player.x,y:began.player.y}});
- await wait(()=>window.__XIAN_NI__.inspect().canal.drain===1);
+ await wait(()=>window.__XIAN_NI__.inspect().canal.drain===1,null,60000);
  const screen=await object('canal_screen');await tapWorld(screen.x,screen.y);await wait(()=>window.__XIAN_NI__.inspect().canal.work?.kind==='clear');
  const working=await state();route.observations.uninterruptedWork={time:working.time,hold:working.player.hold,work:working.canal.work,player:{x:working.player.x,y:working.player.y}};
- await wait(()=>window.__XIAN_NI__.inspect().canal.cleared);await tapWorld(1130,420);
+ await wait(()=>window.__XIAN_NI__.inspect().canal.cleared,null,90000);await tapWorld(1130,420);
  await wait(()=>{const s=window.__XIAN_NI__.inspect();return Math.hypot(s.player.x-1130,s.player.y-420)<18&&s.player.path.length===0;});
  const safe=await state();assert.equal(safe.canal.method,'hold');assert.equal(safe.canal.surge,null);assert.equal(safe.player.hp,route.initialHp);assert.ok(safe.player.hold>=1.5,`Phone safe-bank hold margin ${safe.player.hold.toFixed(3)}s is below 1.5s`);
  route.observations.holdWindow={startModelTime:began.time,safeModelTime:safe.time,activeModelSeconds:safe.time-began.time,wallMs:Date.now()-wallStart,remainingSeconds:safe.player.hold,start:brief(began),safe:brief(safe),pausedDuringTimedSegment:false,inputTrace:route.inputTrace.slice(traceStart)};

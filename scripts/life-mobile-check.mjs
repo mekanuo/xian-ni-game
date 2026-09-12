@@ -53,7 +53,7 @@ try {
   await waitState(() => !window.__XIAN_NI__.inspect().life.harvest.picking);
   assert.equal((await state()).life.harvest.shade, 'unpicked');
   await worldTap(shade.x, shade.y); await waitState(() => Boolean(window.__XIAN_NI__.inspect().life.harvest.picking));
-  await page.waitForTimeout(2300); await waitState(() => window.__XIAN_NI__.inspect().life.harvest.shade === 'bag');
+  await waitState(() => window.__XIAN_NI__.inspect().life.harvest.shade === 'bag', 90000);
   evidence.checks.push({ id: 'touch-pick-interrupt-and-retry', passed: true });
 
   await page.locator('[data-ui="bag"]').tap();

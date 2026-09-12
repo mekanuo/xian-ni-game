@@ -131,9 +131,7 @@ async function consequences(bytes){
  await interact('kiln_to_creek');await wait(()=>window.__XIAN_NI__.inspect().scene==='creek');await interact('creek_to_kiln');await wait(()=>window.__XIAN_NI__.inspect().scene==='kiln');assert.equal((await entity('shield_board')).state,'burned');await capture('burned-reentry');}
  if(mode!=='burn'){if(mode==='all'){await page.close();page=await newPage();}await prepare(bytes,{rest:true});
  await walk(420,640);
- route.wardWaits=[];
- for(let n=0;n<5;n++){await cast('ward',350,700);const before=await state(),wall=Date.now();assert.equal(before.player.mana,5-n,'Each actual ward must spend exactly one mana');const observation={index:n,before:{time:before.time,cooldown:before.flags.wardCooldown,mana:before.player.mana},wallLimitMs:60000};route.wardWaits.push(observation);log('observe-ward-cooldown',observation);
-  await wait(()=>Number(window.__XIAN_NI__.inspect().flags.wardCooldown??0)===0,null,60000);const after=await state();observation.after={time:after.time,cooldown:after.flags.wardCooldown,mana:after.player.mana,elapsedWallMs:Date.now()-wall};log('ward-cooldown-settled',observation.after);}
+ for(let n=0;n<5;n++){await cast('ward',350,700);await wait(()=>Number(window.__XIAN_NI__.inspect().flags.wardCooldown??0)===0,null,15000);}
  assert.equal((await state()).player.mana,1);const origin=(await state()).player;
  await cast('pull',500,640);await wait(()=>window.__XIAN_NI__.inspect().player.pullId==='shield_board');await worldTap(origin.x,origin.y);
  await wait(({x,y})=>{const e=window.__XIAN_NI__.inspect().worlds.kiln.find(e=>e.id==='shield_board');return Math.hypot(e.x-x,e.y-y)<3;},origin);const atFeet=await entity('shield_board');assert.ok(Math.abs(atFeet.x-origin.x)<atFeet.w/2-17&&Math.abs(atFeet.y-origin.y)<atFeet.h/2-17,'Player is deeply inside the screen footprint before actual release');await button('[data-ui="release"]');assert.equal((await state()).player.mana,0);

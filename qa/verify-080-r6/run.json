@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "a6e70da276ba614e8ebee54326b17b4be04626a7",
+  "exit": 1,
+  "failure": "First ward cooldown: 15 wall seconds advanced 2.8333 of 3 simulation seconds; mana 5, cooldown .1667",
+  "gameBundle": [
+    "index-DwjNP5Si.js",
+    "index-DzkGuDoj.css"
+  ]
+}
