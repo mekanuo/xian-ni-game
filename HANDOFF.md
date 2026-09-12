@@ -1,3 +1,9 @@
+# 当前：0.9小样浏览器预检收束，尚未实测
+
+只改scripts/outbound-discovery-check.mjs，固定r2资源hash比对、上下水面/岩腔/玩家构图、上下实际音频输出、正常视野近点输入、最终真实退开避免人物重叠。独立静态复核design/OUTBOUND_090_BROWSER_PREFLIGHT.md；node --check通过，不预填浏览器PASS。运行源/模型/资产/r2构建未变，不重跑已通过单测。主树0.8 R8 supervisor1292921独占浏览器，qa/verify-080-r8尚未完成；本树继续等待发行后实际浏览器，不能部署独立白盒。
+
+---
+
 # 当前活动：出山看水独立小样
 
 2026-09-12。feat/outbound-090-layout，root已按用户自主授权选NEXT_STEP A进入独立小样。两岩背战斗原型依旧搁置，以下旧入口保留为历史，不再重复其测量。
