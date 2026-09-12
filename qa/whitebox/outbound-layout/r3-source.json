@@ -1,0 +1,6 @@
+{
+  "src/whitebox/outbound-layout.ts": "6e2c991496004a311d3018af796bbe866630f615457ab592817ec9aa12c8fc41",
+  "tests/outbound-layout.test.ts": "27d431695f80d9b33bdc611e52a263a5dc1ff13ebd3534bb65ee58040245bed6",
+  "src/game/model.ts": "9d31dc765be38763c6369aaa218777df212694572b822dd1d3332c836d75e7f1",
+  "package.json": "0f565a352cf7fc5be4aaa9393672472eae20b573016110ade5aa042f47036a06"
+}
