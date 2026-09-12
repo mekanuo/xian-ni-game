@@ -1,0 +1,9 @@
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/outbound-090-layout
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  01:49:31
+   Duration  1.38s (transform 610ms, setup 0ms, import 693ms, tests 279ms, environment 0ms)
+

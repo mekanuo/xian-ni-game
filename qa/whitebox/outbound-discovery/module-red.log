@@ -1,0 +1,25 @@
+
+ RUN  v4.1.11 /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/outbound-090-layout
+
+ ❯ tests/outbound-discovery.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/outbound-discovery.test.ts [ tests/outbound-discovery.test.ts ]
+Error: Cannot find module '../src/whitebox/outbound-discovery-model' imported from /home/zhangjingzhou/workspace/xian-ni-game/.worktrees/outbound-090-layout/tests/outbound-discovery.test.ts
+ ❯ tests/outbound-discovery.test.ts:4:1
+      2| import { simulationPorts } from '../src/game/model';
+      3| import type { Vec } from '../src/game/contracts';
+      4| import { createDiscovery, discoveryAct, discoveryTick, installDiscover…
+       | ^
+      5| const {mkdirSync,writeFileSync}=await import('node:fs' as string);
+      6| let uninstall:()=>void;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  01:48:21
+   Duration  965ms (transform 567ms, setup 0ms, import 0ms, tests 0ms, environment 0ms)
+
